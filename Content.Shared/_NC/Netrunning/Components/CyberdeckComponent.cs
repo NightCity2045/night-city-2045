@@ -25,6 +25,12 @@ public sealed partial class CyberdeckComponent : Component
     public int CurrentRam = 10;
 
     /// <summary>
+    /// RAM capacity currently blocked by memory leaks until reboot/cleanup.
+    /// </summary>
+    [DataField("leakedRam"), ViewVariables(VVAccess.ReadWrite), AutoNetworkedField]
+    public int LeakedRam;
+
+    /// <summary>
     /// RAM recovery per second.
     /// </summary>
     [DataField("recoverySpeed"), ViewVariables(VVAccess.ReadWrite), AutoNetworkedField]
@@ -70,4 +76,17 @@ public sealed partial class CyberdeckComponent : Component
     /// </summary>
     [DataField, AutoNetworkedField]
     public HashSet<EntityUid> HackedNetworks = new();
+
+    /// <summary>
+    /// Maximum instruction cycles (Gas) allowed per script execution.
+    /// Street deck: 1000, Corporate: 5000, Military: 25000.
+    /// </summary>
+    [DataField("gasLimit"), ViewVariables(VVAccess.ReadWrite), AutoNetworkedField]
+    public int GasLimit = 1000;
+
+    /// <summary>
+    /// Storage capacity in abstract "file units" for DOWNLOAD/UPLOAD commands.
+    /// </summary>
+    [DataField("storageCapacity"), ViewVariables(VVAccess.ReadWrite), AutoNetworkedField]
+    public int StorageCapacity = 5;
 }

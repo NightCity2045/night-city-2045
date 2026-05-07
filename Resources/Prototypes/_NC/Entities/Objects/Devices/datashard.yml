@@ -1,0 +1,61 @@
+- type: entity
+  parent: BaseItem
+  id: NCDataShard
+  name: META data shard
+  description: Encrypted shard that stores META source and bytecode.
+  components:
+  - type: Sprite
+    sprite: Objects/Devices/cartridges.rsi
+    state: cart
+  - type: Item
+    size: Tiny
+  - type: DataShard
+    sourceCode: |
+      ALLOC RAM [4];
+      DEF INT i = 0;
+      WHILE (i < 3) {
+          SYS.LOG("meta tick");
+          i += 1;
+          YIELD [10];
+      }
+      FREE RAM [4];
+      EXIT [0];
+
+- type: entity
+  parent: BaseItem
+  id: NCDataShardDefensive
+  name: META defensive shard
+  description: Defensive daemon script shard for intrusion response.
+  components:
+  - type: Sprite
+    sprite: Objects/Devices/cartridges.rsi
+    state: cart
+  - type: Item
+    size: Tiny
+  - type: DataShard
+    programKind: DaemonDefensive
+    sourceCode: |
+      ON_EVENT("INTRUSION") {
+          DEF PTR intr = SYS.GET_INTRUDER();
+          IF (SYS.IS_VALID(intr) == 1) {
+              SYS.BURN_NEUROPORT(intr, 8);
+              SYS.DISCONNECT(intr);
+          }
+      }
+
+- type: entity
+  parent: NCDataShard
+  id: NCDataShardDoorCracker
+  name: "META shard: Open Sesame"
+  description: A basic script that forces a targeted door to open, bypassing local access requirements.
+  components:
+  - type: DataShard
+    sourceCode: |
+      ALLOC RAM [2];
+      DEF PTR target = SYS.GET_TARGET();
+      IF (SYS.IS_VALID(target) == 1) {
+          SYS.OVERRIDE(target, "DOOR_STATE", 1);
+          SYS.LOG("Door override successful.");
+      }
+      FREE RAM [2];
+      EXIT [0];

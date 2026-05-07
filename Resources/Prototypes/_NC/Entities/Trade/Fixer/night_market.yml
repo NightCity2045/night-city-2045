@@ -326,9 +326,6 @@
   id: NightMarket_TechGear
   name: "Техника и Сборка"
   entries:
-  - proto: NCNetVisor
-    price: 400
-    count: 2
   - proto: Multitool
     price: 250
     count: 1

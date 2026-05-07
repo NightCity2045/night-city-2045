@@ -459,8 +459,6 @@
   entries:
   - proto: ClothingEyesNetVisor
     price: 25
-  - proto: NCNetVisor
-    price: 25
   - proto: ClothingHeadHatMilitechCap
     price: 10
   - proto: ClothingHeadHatBiotechnicaCap

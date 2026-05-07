@@ -5270,7 +5270,7 @@ entities:
       noAirWhenFullyAirBlocked: True
     missingComponents:
     - TimedDespawn
-- proto: HolofanProjectorEmpty
+- proto: HolofanProjector
   entities:
   - uid: 1569
     components:
