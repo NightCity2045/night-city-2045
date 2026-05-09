@@ -23,6 +23,7 @@ public sealed class MetaProgramSystem : EntitySystem
     [Dependency] private readonly SharedContainerSystem _containers = default!;
     [Dependency] private readonly UserInterfaceSystem _ui = default!;
     [Dependency] private readonly Content.Shared.Inventory.InventorySystem _inventory = default!;
+    [Dependency] private readonly MetaDataSystem _metaData = default!;
 
     public override void Initialize()
     {
@@ -124,9 +125,12 @@ public sealed class MetaProgramSystem : EntitySystem
 
         if (!_compiler.TryCompile(args.Code, MetaProgramKind.Standard, out var bytecode, out var error) || bytecode == null)
         {
-            _popup.PopupEntity($"META compile error: {FormattedMessage.EscapeText(error ?? "Unknown")}", uid, user, PopupType.MediumCaution);
+            var errText = error ?? "Unknown";
+            _popup.PopupEntity($"META compile error: {errText}", uid, user, PopupType.MediumCaution);
             return;
         }
+
+        var programName = string.IsNullOrWhiteSpace(args.Name) ? "Unknown MetaShard" : args.Name;
 
         if (args.TargetShard != null)
         {
@@ -136,7 +140,10 @@ public sealed class MetaProgramSystem : EntitySystem
             shard.Bytecode = bytecode;
             shard.RequiredRam = bytecode.RequiredRam;
             Dirty(shardUid, shard);
-            _popup.PopupEntity("DataShard updated.", uid, user);
+            
+            _metaData.SetEntityName(shardUid, programName);
+
+            _popup.PopupEntity($"Shard updated: {programName}", uid, user);
         }
         else
         {
@@ -146,8 +153,11 @@ public sealed class MetaProgramSystem : EntitySystem
             shard.Bytecode = bytecode;
             shard.RequiredRam = bytecode.RequiredRam;
             Dirty(shardUid, shard);
+
+            _metaData.SetEntityName(shardUid, programName);
+
             _hands.TryPickupAnyHand(user, shardUid);
-            _popup.PopupEntity("New DataShard generated.", uid, user);
+            _popup.PopupEntity($"New shard generated: {programName}", uid, user);
         }
 
         UpdateUi(uid, component, user);
@@ -224,9 +234,14 @@ public sealed class MetaProgramSystem : EntitySystem
             Act = () =>
             {
                 if (!TryCompile(uid, component, args.User, out var error))
-                    _popup.PopupEntity($"META compile error: {FormattedMessage.EscapeText(error ?? "Unknown")}", uid, args.User, PopupType.MediumCaution);
+                {
+                    var errText = error ?? "Unknown";
+                    _popup.PopupEntity($"META compile error: {errText}", uid, args.User, PopupType.MediumCaution);
+                }
                 else
+                {
                     _popup.PopupEntity("META compile success.", uid, args.User);
+                }
             }
         });
     }

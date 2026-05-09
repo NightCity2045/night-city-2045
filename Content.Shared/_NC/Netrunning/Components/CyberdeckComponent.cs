@@ -13,11 +13,13 @@ public enum CyberdeckUiKey : byte
 public sealed class CyberdeckCompileMessage : BoundUserInterfaceMessage
 {
     public readonly string Code;
+    public readonly string Name;
     public readonly NetEntity? TargetShard;
 
-    public CyberdeckCompileMessage(string code, NetEntity? targetShard)
+    public CyberdeckCompileMessage(string code, string name, NetEntity? targetShard)
     {
         Code = code;
+        Name = name;
         TargetShard = targetShard;
     }
 }

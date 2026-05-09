@@ -46,8 +46,8 @@
 - type: entity
   parent: NCDataShard
   id: NCDataShardDoorCracker
-  name: "META shard: Open Sesame"
-  description: A basic script that forces a targeted door to open, bypassing local access requirements.
+  name: "META: 'Open Sesame'"
+  description: A basic script that forces a targeted door to open.
   components:
   - type: DataShard
     sourceCode: |
@@ -59,4 +59,3 @@
       }
       FREE RAM [2];
       EXIT [0];
-

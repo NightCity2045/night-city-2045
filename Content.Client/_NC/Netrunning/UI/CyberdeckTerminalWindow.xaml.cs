@@ -10,22 +10,22 @@ namespace Content.Client._NC.Netrunning.UI;
 [GenerateTypedNameReferences]
 public sealed partial class CyberdeckTerminalWindow : DefaultWindow
 {
-    public event Action<string, NetEntity?>? OnCompileRequested;
+    public event Action<string, string, NetEntity?>? OnCompileRequested;
     public event Action<NetEntity>? OnRunRequested;
     public event Action<NetEntity>? OnEjectRequested;
 
     private NetEntity? _selectedShard;
-    private Dictionary<NetEntity, string> _shardSources = new();
+    private Dictionary<NetEntity, (string Name, string Source)> _shardData = new();
 
     public CyberdeckTerminalWindow()
     {
         RobustXamlLoader.Load(this);
 
-        CompileNewButton.OnPressed += _ => OnCompileRequested?.Invoke(Rope.Collapse(CodeInput.TextRope), null);
+        CompileNewButton.OnPressed += _ => OnCompileRequested?.Invoke(Rope.Collapse(CodeInput.TextRope), NameInput.Text, null);
         SaveButton.OnPressed += _ =>
         {
             if (_selectedShard != null)
-                OnCompileRequested?.Invoke(Rope.Collapse(CodeInput.TextRope), _selectedShard);
+                OnCompileRequested?.Invoke(Rope.Collapse(CodeInput.TextRope), NameInput.Text, _selectedShard);
         };
 
         RunButton.OnPressed += _ =>
@@ -36,9 +36,10 @@ public sealed partial class CyberdeckTerminalWindow : DefaultWindow
 
         EditButton.OnPressed += _ =>
         {
-            if (_selectedShard != null && _shardSources.TryGetValue(_selectedShard.Value, out var source))
+            if (_selectedShard != null && _shardData.TryGetValue(_selectedShard.Value, out var data))
             {
-                CodeInput.TextRope = new Rope.Leaf(source);
+                CodeInput.TextRope = new Rope.Leaf(data.Source);
+                NameInput.Text = data.Name;
             }
         };
 
@@ -74,11 +75,11 @@ public sealed partial class CyberdeckTerminalWindow : DefaultWindow
         }
 
         ShardList.Clear();
-        _shardSources.Clear();
+        _shardData.Clear();
         foreach (var (shard, name, source) in state.InstalledShards)
         {
             ShardList.AddItem(name, metadata: shard);
-            _shardSources[shard] = source;
+            _shardData[shard] = (name, source);
         }
     }
 

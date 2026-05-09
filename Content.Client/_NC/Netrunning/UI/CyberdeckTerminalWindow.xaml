@@ -9,6 +9,10 @@
 
         <TabContainer VerticalExpand="True">
             <BoxContainer Name="EditorTab" Orientation="Vertical" Margin="4">
+                <BoxContainer Orientation="Horizontal" SeparationOverride="4">
+                    <Label Text="Program Name:" />
+                    <LineEdit Name="NameInput" HorizontalExpand="True" PlaceHolder="CoolVirus.meta" />
+                </BoxContainer>
                 <Label Text="META Source Code Editor:" />
                 <TextEdit Name="CodeInput" VerticalExpand="True" MinHeight="250" />
                 <BoxContainer Orientation="Horizontal" HorizontalAlignment="Right" Margin="4">
