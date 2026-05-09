@@ -8,7 +8,7 @@
     sprite: Objects/Devices/pda.rsi
     state: pda-bartender
   - type: Item
-    size: Medium
+    size: Large
   - type: UserInterface
     interfaces:
       enum.Content.Shared._NC.Netrunning.Components.CyberdeckUiKey.Key:

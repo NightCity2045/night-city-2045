@@ -28,7 +28,9 @@ public sealed class MetaVirtualMachineSystem : EntitySystem
         };
 
         state.CallStack.Push(new MetaCallFrame(bytecode.Instructions, MetaFrameKind.Block));
+        _api.SetUser(deckUid, userUid);
         RunLoop(state);
+        _api.SetUser(deckUid, null);
         return FinalizeRun(state);
     }
 
@@ -54,7 +56,10 @@ public sealed class MetaVirtualMachineSystem : EntitySystem
         }
 
         if (state.CallStack.Count > 0)
+        {
+            _api.SetUser(hostUid, null); // Defensive daemons don't have a physical player user
             RunLoop(state);
+        }
 
         _api.SetEventSource(hostUid, null);
         return FinalizeRun(state);
@@ -62,7 +67,11 @@ public sealed class MetaVirtualMachineSystem : EntitySystem
 
     public MetaVmRunResult Resume(MetaContinuationState state)
     {
+        var deckUid = GetEntity(state.DeckUid);
+        var userUid = GetEntity(state.UserUid);
+        _api.SetUser(deckUid, userUid);
         RunLoop(state);
+        _api.SetUser(deckUid, null);
         return FinalizeRun(state);
     }
 
@@ -81,6 +90,7 @@ public sealed class MetaVirtualMachineSystem : EntitySystem
                 deck.LeakedRam = Math.Min(deck.MaxRam, deck.LeakedRam + leak);
                 Dirty(deckUid, deck);
             }
+            state.VariablesUsed = 0; // Reset for potential next run of the same state object
         }
 
         var res = new MetaExecutionResult(
@@ -91,11 +101,15 @@ public sealed class MetaVirtualMachineSystem : EntitySystem
             leak,
             state.ShardUid);
 
+        if (state.Error != null)
+            Logger.ErrorS("meta", $"VM Error on {ToPrettyString(deckUid)}: {state.Error}");
+
         return new MetaVmRunResult(res, yielded ? state : null);
     }
 
     private void RunLoop(MetaContinuationState s)
     {
+        var deckUid = GetEntity(s.DeckUid);
         while (s.CallStack.Count > 0)
         {
             if (s.ShouldStop) return;
@@ -126,6 +140,10 @@ public sealed class MetaVirtualMachineSystem : EntitySystem
             }
 
             var inst = frame.Code[frame.InstructionPointer++];
+            
+            // Execution Debug Logging
+            // Logger.DebugS("meta", $"[{ToPrettyString(deckUid)}] EXEC: {inst.GetType().Name} (Gas: {s.GasRemaining}, RAM: {s.AllocatedRam - s.VariablesUsed})");
+
             ConsumeGas(s, 1);
             if (s.ShouldStop) return;
 

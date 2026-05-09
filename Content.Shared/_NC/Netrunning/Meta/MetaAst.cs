@@ -178,4 +178,6 @@ public interface IMetaRuntimeApi
     void MetaLog(EntityUid deckUid, string text);
     IReadOnlyList<int> GetVitals(EntityUid target);
     string InterceptPda(EntityUid target);
+    void SetUser(EntityUid deckUid, EntityUid? userUid);
+    void SetEventSource(EntityUid hostUid, EntityUid? source);
 }

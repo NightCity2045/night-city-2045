@@ -20,6 +20,8 @@ using Content.Shared.Popups;
 using Robust.Shared.Audio.Systems;
 using Robust.Shared.Prototypes;
 using Content.Shared.Access;
+using Content.Shared.Chat;
+using Robust.Shared.Player;
 
 namespace Content.Server._NC.Netrunning.Systems;
 
@@ -38,6 +40,7 @@ public sealed class MetaApiSystem : EntitySystem, IMetaRuntimeApi
     [Dependency] private readonly PopupSystem _popup = default!;
     [Dependency] private readonly SharedTransformSystem _transform = default!;
     [Dependency] private readonly UserInterfaceSystem _ui = default!;
+    [Dependency] private readonly IChatManager _chatManager = default!;
 
     private static readonly HashSet<string> AllowedOverrideKeys = new(StringComparer.OrdinalIgnoreCase)
     {
@@ -51,6 +54,7 @@ public sealed class MetaApiSystem : EntitySystem, IMetaRuntimeApi
 
     private readonly Dictionary<EntityUid, EntityUid?> _eventSources = new();
     private readonly Dictionary<EntityUid, EntityUid?> _intruders = new();
+    private readonly Dictionary<EntityUid, EntityUid?> _activeUsers = new();
     private readonly Dictionary<EntityUid, HashSet<string>> _deckFiles = new();
 
     public EntityUid? GetTarget(EntityUid deckUid)
@@ -217,6 +221,11 @@ public sealed class MetaApiSystem : EntitySystem, IMetaRuntimeApi
         _intruders[hostUid] = intruder;
     }
 
+    public void SetUser(EntityUid deckUid, EntityUid? userUid)
+    {
+        _activeUsers[deckUid] = userUid;
+    }
+
     public EntityUid? FindNearest(EntityUid deckUid, string className, int radius)
     {
         EntityUid? best = null;
@@ -294,6 +303,16 @@ public sealed class MetaApiSystem : EntitySystem, IMetaRuntimeApi
     public void MetaLog(EntityUid deckUid, string text)
     {
         Logger.InfoS("meta", $"[{ToPrettyString(deckUid)}] {text}");
+        
         _ui.ServerSendUiMessage(deckUid, CyberdeckUiKey.Key, new CyberdeckLogMessage(text));
+
+        if (_activeUsers.TryGetValue(deckUid, out var userUid) && userUid != null)
+        {
+            if (TryComp<ActorComponent>(userUid, out var actor))
+            {
+                var message = $"{text}";
+                _chatManager.DispatchServerMessage(actor.PlayerSession, message);
+            }
+        }
     }
 }
