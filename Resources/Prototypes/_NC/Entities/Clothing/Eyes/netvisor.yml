@@ -10,3 +10,4 @@
   - type: Clothing
     sprite: Clothing/Eyes/Glasses/sunglasses.rsi
   - type: Netvisor
+    bonusRange: 10

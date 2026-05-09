@@ -57,7 +57,21 @@ public sealed partial class CyberdeckTerminalWindow : DefaultWindow
     public void UpdateState(CyberdeckUiState state)
     {
         RamLabel.Text = $"RAM: {state.CurrentRam}/{state.MaxRam}";
-        TargetLabel.Text = state.ActiveTarget != null ? $"Link: Linked" : "Link: None";
+        
+        if (!state.HasNetvisor)
+        {
+            TargetLabel.Text = "Connection: OFFLINE (AR Overlay Required)";
+            TargetLabel.FontColorOverride = Color.Red;
+            RunButton.Disabled = true;
+            RunButton.ToolTip = "Requires AR Glasses to execute remote scripts.";
+        }
+        else
+        {
+            TargetLabel.Text = state.ActiveTarget != null ? $"Link: Linked" : "Link: Ready";
+            TargetLabel.FontColorOverride = state.ActiveTarget != null ? Color.Green : Color.LightGray;
+            RunButton.Disabled = false;
+            RunButton.ToolTip = null;
+        }
 
         ShardList.Clear();
         _shardSources.Clear();

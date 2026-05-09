@@ -50,13 +50,15 @@ public sealed class CyberdeckUiState : BoundUserInterfaceState
     public readonly int MaxRam;
     public readonly NetEntity? ActiveTarget;
     public readonly List<(NetEntity Shard, string Name, string Source)> InstalledShards;
+    public readonly bool HasNetvisor;
 
-    public CyberdeckUiState(int currentRam, int maxRam, NetEntity? activeTarget, List<(NetEntity, string, string)> installedShards)
+    public CyberdeckUiState(int currentRam, int maxRam, NetEntity? activeTarget, List<(NetEntity, string, string)> installedShards, bool hasNetvisor)
     {
         CurrentRam = currentRam;
         MaxRam = maxRam;
         ActiveTarget = activeTarget;
         InstalledShards = installedShards;
+        HasNetvisor = hasNetvisor;
     }
 }
 
