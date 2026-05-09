@@ -114,7 +114,14 @@ public sealed class MetaLexer
                     Add(MetaTokenType.Star, "*", startLine, startColumn);
                     break;
                 case '/':
-                    Add(MetaTokenType.Slash, "/", startLine, startColumn);
+                    if (Match('/'))
+                    {
+                        while (!IsAtEnd() && Peek() != '\n') Advance();
+                    }
+                    else
+                    {
+                        Add(MetaTokenType.Slash, "/", startLine, startColumn);
+                    }
                     break;
                 case '%':
                     Add(MetaTokenType.Percent, "%", startLine, startColumn);

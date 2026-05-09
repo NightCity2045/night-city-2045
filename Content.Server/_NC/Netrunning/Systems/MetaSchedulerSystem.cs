@@ -1,22 +1,21 @@
 using Content.Shared._NC.Netrunning.Components;
 using Content.Shared._NC.Netrunning.Meta;
+using Content.Shared.Interaction;
+using Content.Shared.DoAfter;
+using Content.Shared.Popups;
 using Robust.Shared.Timing;
+using Robust.Shared.GameObjects;
 
 namespace Content.Server._NC.Netrunning.Systems;
 
-/// <summary>
-/// Ticks every server frame. Checks all cyberdecks with ActiveMetaProcessComponent for
-/// suspended META processes whose YIELD delay has expired. Resumes them via the VM.
-///
-/// If a process finishes (no more YIELD), it is removed from the list.
-/// When all processes on a deck are done, the component is removed.
-///
-/// Also handles RAM refund for completed processes and memory leak application.
-/// </summary>
 public sealed class MetaSchedulerSystem : EntitySystem
 {
-    [Dependency] private readonly MetaVirtualMachineSystem _vm = default!;
     [Dependency] private readonly IGameTiming _timing = default!;
+    [Dependency] private readonly MetaVirtualMachineSystem _vm = default!;
+    [Dependency] private readonly SharedInteractionSystem _interaction = default!;
+    [Dependency] private readonly SharedDoAfterSystem _doAfter = default!;
+    [Dependency] private readonly MetaProgramSystem _program = default!;
+    [Dependency] private readonly SharedPopupSystem _popup = default!;
 
     public override void Update(float frameTime)
     {
@@ -25,65 +24,129 @@ public sealed class MetaSchedulerSystem : EntitySystem
         var curTime = _timing.CurTime.TotalSeconds;
         var query = EntityQueryEnumerator<ActiveMetaProcessComponent, CyberdeckComponent>();
 
-        while (query.MoveNext(out var deckUid, out var active, out var deck))
+        while (query.MoveNext(out var uid, out var active, out var deck))
         {
             for (var i = active.SuspendedProcesses.Count - 1; i >= 0; i--)
             {
                 var proc = active.SuspendedProcesses[i];
 
-                // Not ready yet — YIELD delay hasn't expired.
+                if (proc.DoAfterIndex != null)
+                {
+                    var user = GetEntity(proc.UserUid);
+                    var status = _doAfter.GetStatus(new DoAfterId(user, proc.DoAfterIndex.Value));
+                    
+                    if (status == DoAfterStatus.Running)
+                        continue;
+
+                    if (status == DoAfterStatus.Finished)
+                    {
+                        active.SuspendedProcesses.RemoveAt(i);
+                        proc.DoAfterIndex = null;
+                        var runResult = _vm.Resume(proc);
+                        HandleVmResult(uid, GetEntity(proc.ShardUid), runResult);
+                    }
+                    else // Cancelled or Invalid
+                    {
+                        active.SuspendedProcesses.RemoveAt(i);
+                        proc.DoAfterIndex = null;
+                        RefundRam(uid, GetEntity(proc.ShardUid), proc);
+                        _popup.PopupEntity("Link Terminated: Hardware Desync.", uid, user, Content.Shared.Popups.PopupType.LargeCaution);
+                    }
+                    continue;
+                }
+
                 if (curTime < proc.ResumeAtTime)
                     continue;
 
-                // Validate that the deck still has an active link (target is alive and in range).
-                // If not, kill the process with a connection-lost error.
-                if (deck.ActiveTarget == null || Deleted(deck.ActiveTarget.Value))
+                if (!HasActiveLink(uid, deck))
                 {
                     active.SuspendedProcesses.RemoveAt(i);
-                    RefundRam(deckUid, deck, proc);
+                    RefundRam(uid, GetEntity(proc.ShardUid), proc);
                     continue;
                 }
 
-                // Resume execution from saved continuation state.
-                var runResult = _vm.Resume(proc);
-
-                if (runResult.Continuation != null)
-                {
-                    // Still yielded — update resume time and keep in the list.
-                    // Continuation.ResumeAtTime currently holds the ms delay from YIELD instruction.
-                    var delayMs = runResult.Continuation.ResumeAtTime;
-                    runResult.Continuation.ResumeAtTime = curTime + (delayMs / 1000.0);
-                    active.SuspendedProcesses[i] = runResult.Continuation;
-                }
-                else
-                {
-                    // Process completed (or errored). Remove it and refund RAM.
-                    active.SuspendedProcesses.RemoveAt(i);
-                    RefundRam(deckUid, deck, proc);
-
-                    // Log fatal errors as popups (the user who holds the deck).
-                    if (runResult.Result.FatalError != null)
-                        Logger.InfoS("meta.scheduler", $"Process on {ToPrettyString(deckUid)} failed: {runResult.Result.FatalError}");
-                }
+                active.SuspendedProcesses.RemoveAt(i);
+                var resumeResult = _vm.Resume(proc);
+                HandleVmResult(uid, GetEntity(proc.ShardUid), resumeResult);
             }
-
-            // If no more suspended processes, clean up the component.
-            if (active.SuspendedProcesses.Count == 0)
-                RemComp<ActiveMetaProcessComponent>(deckUid);
         }
     }
 
-    /// <summary>
-    /// Refund the base RAM reservation for a completed/killed process.
-    /// Memory leaks have already been applied by the VM on completion.
-    /// </summary>
-    private void RefundRam(EntityUid deckUid, CyberdeckComponent deck, MetaContinuationState proc)
+    public void HandleVmResult(EntityUid deckUid, EntityUid shardUid, MetaVmRunResult runResult)
     {
-        if (!TryComp<DataShardComponent>(proc.ShardUid, out var shard))
+        if (runResult.Continuation != null)
+        {
+            var user = GetEntity(runResult.Continuation.UserUid);
+            
+            if (user.Valid && TryComp<CyberdeckComponent>(deckUid, out var deck))
+            {
+                var delay = (float)runResult.Continuation.ResumeAtTime; 
+                var doAfterArgs = new DoAfterArgs(EntityManager, user, delay / 1000f, new AwaitedDoAfterEvent(), deckUid, target: user)
+                {
+                    BreakOnMove = true,
+                    BreakOnDamage = true,
+                    NeedHand = true,
+                };
+
+                if (_doAfter.TryStartDoAfter(doAfterArgs, out var id))
+                {
+                    runResult.Continuation.DoAfterIndex = id.Value.Index;
+                    var active = EnsureComp<ActiveMetaProcessComponent>(deckUid);
+                    active.SuspendedProcesses.Add(runResult.Continuation);
+                    _popup.PopupEntity("META: Processing...", deckUid, user);
+                    return;
+                }
+            }
+
+            // Fallback to time-based yield if no user or DoAfter failed
+            {
+                var active = EnsureComp<ActiveMetaProcessComponent>(deckUid);
+                var curTime = _timing.CurTime.TotalSeconds;
+                runResult.Continuation.ResumeAtTime = curTime + (runResult.Continuation.ResumeAtTime / 1000.0);
+                active.SuspendedProcesses.Add(runResult.Continuation);
+            }
+        }
+        else
+        {
+            if (TryComp<CyberdeckComponent>(deckUid, out var deck))
+            {
+                _program.RefundBaseRam(deckUid, deck, shardUid);
+            }
+        }
+    }
+
+    private void RefundRam(EntityUid deckUid, EntityUid shardUid, MetaContinuationState proc)
+    {
+        if (!TryComp<CyberdeckComponent>(deckUid, out var deck))
             return;
 
-        var effectiveMax = Math.Max(0, deck.MaxRam - deck.LeakedRam);
-        deck.CurrentRam = Math.Min(effectiveMax, deck.CurrentRam + shard.RequiredRam);
-        Dirty(deckUid, deck);
+        var leak = Math.Max(0, proc.AllocatedRam - proc.FreedRam);
+        if (leak > 0)
+        {
+            deck.LeakedRam = Math.Min(deck.MaxRam, deck.LeakedRam + leak);
+        }
+
+        if (TryComp<DataShardComponent>(shardUid, out var shard))
+        {
+            var effectiveMax = Math.Max(0, deck.MaxRam - deck.LeakedRam);
+            deck.CurrentRam = Math.Min(effectiveMax, deck.CurrentRam + shard.RequiredRam);
+            Dirty(deckUid, deck);
+        }
+    }
+
+    private bool HasActiveLink(EntityUid deckUid, CyberdeckComponent deck)
+    {
+        if (deck.ActiveTarget == null)
+            return false;
+
+        var target = deck.ActiveTarget.Value;
+        if (Deleted(target))
+            return false;
+
+        if (!TryComp<TransformComponent>(deckUid, out var xform) || xform.ParentUid == EntityUid.Invalid)
+            return false;
+
+        var user = xform.ParentUid;
+        return _interaction.InRangeUnobstructed(user, target, deck.Range);
     }
 }

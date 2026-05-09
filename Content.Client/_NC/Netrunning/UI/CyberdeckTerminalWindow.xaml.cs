@@ -16,6 +16,7 @@ public sealed partial class CyberdeckTerminalWindow : DefaultWindow
 
     private NetEntity? _selectedShard;
     private Dictionary<NetEntity, (string Name, string Source)> _shardData = new();
+    private string _logBuffer = "";
 
     public CyberdeckTerminalWindow()
     {
@@ -85,7 +86,7 @@ public sealed partial class CyberdeckTerminalWindow : DefaultWindow
 
     public void AddLog(string text)
     {
-        var msg = LogOutput.Text + "\n" + text;
-        LogOutput.SetMessage(msg);
+        _logBuffer += text + "\n";
+        LogOutput.SetMessage(_logBuffer);
     }
 }

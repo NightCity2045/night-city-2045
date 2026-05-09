@@ -9,6 +9,7 @@ public sealed class MetaDaemonSystem : EntitySystem
     [Dependency] private readonly MetaVirtualMachineSystem _vm = default!;
     [Dependency] private readonly MetaApiSystem _api = default!;
     [Dependency] private readonly SharedContainerSystem _containers = default!;
+    [Dependency] private readonly MetaSchedulerSystem _scheduler = default!;
 
     public override void Initialize()
     {
@@ -47,7 +48,8 @@ public sealed class MetaDaemonSystem : EntitySystem
             return;
 
         _api.SetIntruder(protectedNode, intruder);
-        _vm.ExecuteEvent(protectedNode, shard.Bytecode, "INTRUSION", intruder);
+        var result = _vm.ExecuteEvent(protectedNode, shard.Bytecode, "INTRUSION", intruder);
+        _scheduler.HandleVmResult(protectedNode, daemon.Shard.Value, result);
         _api.SetIntruder(protectedNode, null);
     }
 }

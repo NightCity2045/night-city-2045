@@ -1,4 +1,6 @@
 using Robust.Shared.GameObjects;
+using Robust.Shared.Serialization;
+using Content.Shared.DoAfter;
 
 namespace Content.Shared._NC.Netrunning.Meta;
 
@@ -6,6 +8,7 @@ namespace Content.Shared._NC.Netrunning.Meta;
 /// Represents a single stack frame in the META VM's explicit call stack.
 /// Each frame tracks a block of instructions and the current position within it.
 /// </summary>
+[Serializable, NetSerializable]
 public sealed class MetaCallFrame
 {
     /// <summary>
@@ -44,6 +47,7 @@ public sealed class MetaCallFrame
 /// <summary>
 /// Identifies the type of call frame for correct YIELD-resume behavior.
 /// </summary>
+[Serializable, NetSerializable]
 public enum MetaFrameKind : byte
 {
     /// <summary>Top-level program body or IF/ELSE body.</summary>
@@ -61,34 +65,40 @@ public enum MetaFrameKind : byte
 /// When a YIELD is hit, the VM saves its state here. On the next tick (after the
 /// yield delay expires), the scheduler feeds this state back into the VM to continue.
 /// </summary>
+[Serializable, NetSerializable]
 public sealed class MetaContinuationState
 {
     /// <summary>
-    /// The EntityUid of the cyberdeck running this program.
+    /// The NetEntity of the cyberdeck running this program.
     /// </summary>
-    public EntityUid DeckUid;
+    public NetEntity DeckUid;
 
     /// <summary>
-    /// The EntityUid of the DataShard containing the bytecode (for RAM refund on completion).
+    /// The NetEntity of the DataShard containing the bytecode.
     /// </summary>
-    public EntityUid ShardUid;
+    public NetEntity ShardUid;
 
     /// <summary>
-    /// Explicit call stack. The bottom frame is the top-level program body.
-    /// Loop/if bodies push new frames on top. YIELD saves the entire stack.
+    /// The NetEntity of the user performing the netrunning.
+    /// </summary>
+    public NetEntity UserUid;
+
+    /// <summary>
+    /// Explicit call stack.
     /// </summary>
     public readonly Stack<MetaCallFrame> CallStack = new();
 
-    // --- Variable stores (mirroring VmState) ---
+    // --- Variable stores ---
     public readonly Dictionary<string, int> IntVars = new();
     public readonly Dictionary<string, string> StrVars = new();
-    public readonly Dictionary<string, EntityUid?> PtrVars = new();
+    public readonly Dictionary<string, NetEntity?> PtrVars = new();
     public readonly Dictionary<string, List<int>> ArrVars = new();
 
     // --- Execution counters ---
     public int GasRemaining;
     public int AllocatedRam;
     public int FreedRam;
+    public int VariablesUsed; // Number of declared variables consuming RAM
 
     // --- Flow control ---
     public bool Exited;
@@ -103,6 +113,11 @@ public sealed class MetaContinuationState
     /// Server game-time (in seconds) when the YIELD delay expires and execution should resume.
     /// </summary>
     public double ResumeAtTime;
+    
+    /// <summary>
+    /// Link to an active progress bar index.
+    /// </summary>
+    public ushort? DoAfterIndex;
 
     /// <summary>
     /// Total gas budget this process was started with (for result reporting).

@@ -1,7 +1,9 @@
 using Robust.Shared.GameObjects;
+using Robust.Shared.Serialization;
 
 namespace Content.Shared._NC.Netrunning.Meta;
 
+[Serializable, NetSerializable]
 public enum MetaValueType : byte
 {
     Int,
@@ -10,6 +12,7 @@ public enum MetaValueType : byte
     Arr,
 }
 
+[Serializable, NetSerializable]
 public enum MetaBinaryOp : byte
 {
     Add,
@@ -27,37 +30,94 @@ public enum MetaBinaryOp : byte
     GreaterOrEqual,
 }
 
+[Serializable, NetSerializable]
 public abstract record MetaExpression;
+
+[Serializable, NetSerializable]
 public sealed record MetaIntLiteral(int Value) : MetaExpression;
+
+[Serializable, NetSerializable]
 public sealed record MetaStringLiteral(string Value) : MetaExpression;
+
+[Serializable, NetSerializable]
 public sealed record MetaVariableExpression(string Name) : MetaExpression;
+
+[Serializable, NetSerializable]
 public sealed record MetaArrayIndexExpression(string ArrayName, MetaExpression Index) : MetaExpression;
+
+[Serializable, NetSerializable]
 public sealed record MetaUnaryExpression(MetaUnaryOp Op, MetaExpression Operand) : MetaExpression;
+
+[Serializable, NetSerializable]
 public sealed record MetaBinaryExpression(MetaExpression Left, MetaBinaryOp Op, MetaExpression Right) : MetaExpression;
+
+[Serializable, NetSerializable]
 public sealed record MetaSysCallExpression(string Name, List<MetaExpression> Arguments) : MetaExpression;
 
+[Serializable, NetSerializable]
 public abstract record MetaInstruction;
+
+[Serializable, NetSerializable]
 public sealed record MetaAllocRamInstruction(int Amount) : MetaInstruction;
+
+[Serializable, NetSerializable]
 public sealed record MetaFreeRamInstruction(int Amount) : MetaInstruction;
+
+[Serializable, NetSerializable]
 public sealed record MetaDefIntInstruction(string Name, MetaExpression Value) : MetaInstruction;
+
+[Serializable, NetSerializable]
 public sealed record MetaDefStrInstruction(string Name, MetaExpression Value) : MetaInstruction;
+
+[Serializable, NetSerializable]
 public sealed record MetaDefPtrInstruction(string Name, MetaExpression Value) : MetaInstruction;
+
+[Serializable, NetSerializable]
 public sealed record MetaDefArrInstruction(string Name, MetaExpression Value) : MetaInstruction;
+
+[Serializable, NetSerializable]
 public sealed record MetaAssignInstruction(string Name, MetaAssignOp Op, MetaExpression Value) : MetaInstruction;
+
+[Serializable, NetSerializable]
 public sealed record MetaAssignArrayInstruction(string ArrayName, MetaExpression Index, MetaAssignOp Op, MetaExpression Value) : MetaInstruction;
+
+[Serializable, NetSerializable]
 public sealed record MetaYieldInstruction(int Milliseconds) : MetaInstruction;
+
+[Serializable, NetSerializable]
 public sealed record MetaBreakInstruction() : MetaInstruction;
+
+[Serializable, NetSerializable]
 public sealed record MetaContinueInstruction() : MetaInstruction;
+
+[Serializable, NetSerializable]
 public sealed record MetaExitInstruction(MetaExpression Code) : MetaInstruction;
+
+[Serializable, NetSerializable]
 public sealed record MetaSysLogInstruction(MetaExpression Message) : MetaInstruction;
+
+[Serializable, NetSerializable]
 public sealed record MetaSysInjectInstruction(MetaExpression Target, MetaExpression Damage) : MetaInstruction;
+
+[Serializable, NetSerializable]
 public sealed record MetaSysOverrideInstruction(MetaExpression Target, MetaExpression Key, MetaExpression Value) : MetaInstruction;
+
+[Serializable, NetSerializable]
 public sealed record MetaSysSimpleInstruction(string Name, List<MetaExpression> Arguments) : MetaInstruction;
+
+[Serializable, NetSerializable]
 public sealed record MetaOnEventInstruction(string EventName, List<MetaInstruction> Body) : MetaInstruction;
+
+[Serializable, NetSerializable]
 public sealed record MetaIfInstruction(MetaExpression Condition, List<MetaInstruction> ThenBody, List<MetaInstruction>? ElseBody) : MetaInstruction;
+
+[Serializable, NetSerializable]
 public sealed record MetaWhileInstruction(MetaExpression Condition, List<MetaInstruction> Body) : MetaInstruction;
+
+[Serializable, NetSerializable]
 public sealed record MetaForInstruction(MetaInstruction? Init, MetaExpression? Condition, MetaInstruction? Step, List<MetaInstruction> Body) : MetaInstruction;
 
+[Serializable, NetSerializable]
 public enum MetaAssignOp : byte
 {
     Set,
@@ -65,29 +125,34 @@ public enum MetaAssignOp : byte
     SubAssign,
 }
 
+[Serializable, NetSerializable]
 public enum MetaUnaryOp : byte
 {
     Negate,
     Not,
 }
 
+[Serializable, NetSerializable]
 public enum MetaProgramKind : byte
 {
     Standard,
     DaemonDefensive
 }
 
+[Serializable, NetSerializable]
 public sealed record MetaBytecode(
     List<MetaInstruction> Instructions,
     int RequiredRam,
     MetaProgramKind Kind);
 
+[Serializable, NetSerializable]
 public sealed record MetaExecutionResult(
     bool Completed,
     bool Yielded,
     string? FatalError,
     int GasSpent,
-    int LeakedRam);
+    int LeakedRam,
+    NetEntity ShardUid_Internal = default);
 
 public interface IMetaRuntimeApi
 {

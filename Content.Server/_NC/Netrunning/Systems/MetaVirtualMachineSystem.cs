@@ -1,634 +1,321 @@
 using Content.Shared._NC.Netrunning.Components;
 using Content.Shared._NC.Netrunning.Meta;
+using Robust.Shared.GameObjects;
 using System.Linq;
 
 namespace Content.Server._NC.Netrunning.Systems;
 
-/// <summary>
-/// The META Virtual Machine. Executes compiled META bytecode on a cyberdeck.
-///
-/// Key design: uses an explicit call stack (Stack of MetaCallFrame) instead of recursive
-/// ExecuteBlock calls. This allows the VM to freeze execution mid-YIELD and resume it
-/// on a later tick by saving/restoring the MetaContinuationState.
-///
-/// Gas system: every instruction and expression evaluation costs gas. When gas hits 0,
-/// the VM halts with a fatal error (Dumpshock).
-/// </summary>
 public sealed class MetaVirtualMachineSystem : EntitySystem
 {
     [Dependency] private readonly MetaApiSystem _api = default!;
-    public const int DefaultGasPerRun = 1000;
 
-    // ──────────────────────────────────────────────
-    //  Public API: first-run execution
-    // ──────────────────────────────────────────────
+    // --- RAM Cost Constants ---
+    private const int VariableRamCost = 1;
+    private const int SysBaseCost = 1;
+    private const int SysHeavyCost = 2;
+    private const int SysCriticalCost = 5;
+    private const int SysNetworkCost = 8;
 
-    /// <summary>
-    /// Begin executing a META program from scratch. Returns immediately if YIELD is hit.
-    /// The caller (MetaProgramSystem) is responsible for saving the continuation state
-    /// into ActiveMetaProcessComponent when the result says Yielded=true.
-    /// </summary>
-    public MetaVmRunResult Execute(EntityUid deckUid, EntityUid shardUid, MetaBytecode bytecode, int gasLimit = DefaultGasPerRun)
+    public MetaVmRunResult Execute(EntityUid deckUid, EntityUid userUid, EntityUid shardUid, MetaBytecode bytecode, int gasLimit)
     {
         var state = new MetaContinuationState
         {
-            DeckUid = deckUid,
-            ShardUid = shardUid,
+            DeckUid = GetNetEntity(deckUid),
+            UserUid = GetNetEntity(userUid),
+            ShardUid = GetNetEntity(shardUid),
             GasRemaining = gasLimit,
             InitialGas = gasLimit,
         };
 
-        // Push top-level instructions (excluding ON_EVENT handlers) as the first frame.
-        var topLevel = bytecode.Instructions.Where(i => i is not MetaOnEventInstruction).ToList();
-        state.CallStack.Push(new MetaCallFrame(topLevel, MetaFrameKind.Block));
-
-        return RunUntilYieldOrDone(state);
-    }
-
-    /// <summary>
-    /// Resume a previously YIELD-suspended program from its saved continuation state.
-    /// Called by MetaSchedulerSystem each tick for processes whose delay has expired.
-    /// </summary>
-    public MetaVmRunResult Resume(MetaContinuationState state)
-    {
-        return RunUntilYieldOrDone(state);
-    }
-
-    /// <summary>
-    /// Execute event handlers (ON_EVENT) for defensive ICE daemons. These run synchronously
-    /// (no YIELD-resume support for event handlers to keep ICE deterministic).
-    /// </summary>
-    public MetaExecutionResult ExecuteEvent(EntityUid hostUid, MetaBytecode bytecode, string eventName, EntityUid? eventSource, int gasLimit = DefaultGasPerRun)
-    {
-        _api.SetEventSource(hostUid, eventSource);
-
-        var handlers = bytecode.Instructions
-            .OfType<MetaOnEventInstruction>()
-            .Where(h => h.EventName.Equals(eventName, StringComparison.OrdinalIgnoreCase))
-            .ToList();
-
-        var state = new MetaContinuationState
-        {
-            DeckUid = hostUid,
-            GasRemaining = gasLimit,
-            InitialGas = gasLimit,
-        };
-
-        foreach (var h in handlers)
-        {
-            state.CallStack.Clear();
-            state.CallStack.Push(new MetaCallFrame(h.Body, MetaFrameKind.Block));
-            RunLoop(state);
-            if (state.ShouldStop)
-                break;
-        }
-
-        _api.SetEventSource(hostUid, null);
-
-        if (state.Error == null && state.GasRemaining <= 0)
-            state.Error = "[FATAL] META: Превышен лимит инструкций. Дампшок.";
-
-        return new MetaExecutionResult(
-            state.Error == null && !state.Exited,
-            false,
-            state.Error,
-            gasLimit - state.GasRemaining,
-            Math.Max(0, state.AllocatedRam - state.FreedRam));
-    }
-
-    // ──────────────────────────────────────────────
-    //  Core VM loop (explicit stack, no recursion)
-    // ──────────────────────────────────────────────
-
-    /// <summary>
-    /// Runs the VM until it either completes, hits a YIELD, runs out of gas, or errors.
-    /// Returns a result that includes the continuation state if yielded.
-    /// </summary>
-    private MetaVmRunResult RunUntilYieldOrDone(MetaContinuationState state)
-    {
+        state.CallStack.Push(new MetaCallFrame(bytecode.Instructions, MetaFrameKind.Block));
         RunLoop(state);
+        return FinalizeRun(state);
+    }
 
-        // Calculate memory leak.
-        var leak = Math.Max(0, state.AllocatedRam - state.FreedRam);
-        var yielded = state.CallStack.Count > 0 && state.Error == null && !state.Exited && state.GasRemaining > 0;
-
-        if (!yielded)
+    public MetaVmRunResult ExecuteEvent(EntityUid hostUid, MetaBytecode bytecode, string eventName, EntityUid source)
+    {
+        var state = new MetaContinuationState
         {
-            // Program finished (or errored). Apply memory leak to cyberdeck.
-            if (TryComp<CyberdeckComponent>(state.DeckUid, out var deck) && leak > 0)
+            DeckUid = GetNetEntity(hostUid),
+            ShardUid = NetEntity.Invalid,
+            GasRemaining = 1000,
+            InitialGas = 1000,
+        };
+
+        _api.SetEventSource(hostUid, source);
+
+        foreach (var inst in bytecode.Instructions)
+        {
+            if (inst is MetaOnEventInstruction onEvent && onEvent.EventName == eventName)
             {
-                deck.LeakedRam += leak;
-                deck.CurrentRam = Math.Max(0, Math.Min(deck.CurrentRam, deck.MaxRam - deck.LeakedRam));
-                Dirty(state.DeckUid, deck);
+                state.CallStack.Push(new MetaCallFrame(onEvent.Body, MetaFrameKind.Block));
+                break;
             }
         }
 
-        if (state.Error == null && state.GasRemaining <= 0)
-            state.Error = "[FATAL] META: Превышен лимит инструкций. Дампшок.";
+        if (state.CallStack.Count > 0)
+            RunLoop(state);
 
-        var execResult = new MetaExecutionResult(
-            state.Error == null && !yielded && !state.Exited,
-            yielded,
-            state.Error,
-            state.InitialGas - state.GasRemaining,
-            yielded ? 0 : leak);
-
-        return new MetaVmRunResult(execResult, yielded ? state : null);
+        _api.SetEventSource(hostUid, null);
+        return FinalizeRun(state);
     }
 
-    /// <summary>
-    /// The main non-recursive interpreter loop. Processes frames from the call stack
-    /// until the stack is empty (program done), YIELD is hit, or an error/gas-out occurs.
-    /// </summary>
+    public MetaVmRunResult Resume(MetaContinuationState state)
+    {
+        RunLoop(state);
+        return FinalizeRun(state);
+    }
+
+    private MetaVmRunResult FinalizeRun(MetaContinuationState state)
+    {
+        bool yielded = state.CallStack.Count > 0 && state.Error == null && !state.Exited;
+        int leak = 0;
+
+        var deckUid = GetEntity(state.DeckUid);
+
+        if (!yielded)
+        {
+            leak = Math.Max(0, state.AllocatedRam - state.FreedRam);
+            if (leak > 0 && TryComp<CyberdeckComponent>(deckUid, out var deck))
+            {
+                deck.LeakedRam = Math.Min(deck.MaxRam, deck.LeakedRam + leak);
+                Dirty(deckUid, deck);
+            }
+        }
+
+        var res = new MetaExecutionResult(
+            !yielded && state.Error == null, 
+            yielded, 
+            state.Error, 
+            state.InitialGas - state.GasRemaining, 
+            leak,
+            state.ShardUid);
+
+        return new MetaVmRunResult(res, yielded ? state : null);
+    }
+
     private void RunLoop(MetaContinuationState s)
     {
         while (s.CallStack.Count > 0)
         {
-            if (s.ShouldStop)
-                return;
-
+            if (s.ShouldStop) return;
             var frame = s.CallStack.Peek();
 
-            // Frame exhausted — pop it and handle loop re-entry.
             if (frame.InstructionPointer >= frame.Code.Count)
             {
-                s.CallStack.Pop();
-
-                // For loop frames, re-evaluate condition and potentially re-enter.
-                if (frame.Kind == MetaFrameKind.WhileLoop)
+                if (frame.Kind == MetaFrameKind.WhileLoop && !s.BreakRequested)
                 {
-                    if (s.BreakRequested) { s.BreakRequested = false; continue; }
-                    s.ContinueRequested = false;
-                    ConsumeGas(s, 1);
-                    if (!s.ShouldStop && frame.LoopCondition != null && EvalInt(s, frame.LoopCondition) != 0)
+                    if (frame.LoopCondition != null && EvalInt(s, frame.LoopCondition) != 0)
                     {
-                        // Re-push the frame with IP reset to 0 for next iteration.
                         frame.InstructionPointer = 0;
-                        s.CallStack.Push(frame);
+                        continue;
                     }
-                    continue;
                 }
-
-                if (frame.Kind == MetaFrameKind.ForLoop)
+                else if (frame.Kind == MetaFrameKind.ForLoop && !s.BreakRequested)
                 {
-                    if (s.BreakRequested) { s.BreakRequested = false; continue; }
-                    // Execute step instruction (e.g. i += 1).
-                    if (frame.LoopStep != null && !s.ShouldStop)
-                        ExecuteSingleInstruction(s, frame.LoopStep);
-                    s.ContinueRequested = false;
-                    ConsumeGas(s, 1);
+                    if (frame.LoopStep != null) ExecuteSingleInstruction(s, frame.LoopStep);
                     if (!s.ShouldStop && (frame.LoopCondition == null || EvalInt(s, frame.LoopCondition) != 0))
                     {
                         frame.InstructionPointer = 0;
-                        s.CallStack.Push(frame);
+                        continue;
                     }
-                    continue;
                 }
-
-                // Regular block frame (top-level, if-body, etc.) — just pop, done.
+                s.CallStack.Pop();
+                s.BreakRequested = false;
                 continue;
             }
 
-            // Fetch the current instruction and advance IP.
-            var instruction = frame.Code[frame.InstructionPointer];
-            frame.InstructionPointer++;
-
+            var inst = frame.Code[frame.InstructionPointer++];
             ConsumeGas(s, 1);
-            if (s.ShouldStop)
+            if (s.ShouldStop) return;
+
+            if (inst is MetaYieldInstruction y)
+            {
+                s.ResumeAtTime = y.Milliseconds;
                 return;
-
-            // Handle YIELD: save resume time and return to caller without popping the stack.
-            if (instruction is MetaYieldInstruction yield)
-            {
-                // ResumeAtTime will be set by the caller (MetaProgramSystem / Scheduler).
-                // We store the requested delay in ms for the caller to convert.
-                s.ResumeAtTime = yield.Milliseconds; // Temporarily store ms; caller converts to game-time.
-                return; // <-- VM suspends here. Call stack is intact for resume.
             }
 
-            // Handle BREAK / CONTINUE: unwind the stack to the nearest loop frame.
-            if (instruction is MetaBreakInstruction)
-            {
-                UnwindToLoop(s, setBreak: true);
-                continue;
-            }
-
-            if (instruction is MetaContinueInstruction)
-            {
-                UnwindToLoop(s, setBreak: false);
-                continue;
-            }
-
-            // All other instructions.
-            ExecuteSingleInstruction(s, instruction);
-
-            // If the instruction pushed new frames (IF/WHILE/FOR), the loop naturally
-            // processes them on the next iteration since they're on top of the stack.
+            ExecuteSingleInstruction(s, inst);
         }
     }
 
-    /// <summary>
-    /// Unwinds the call stack to the nearest loop frame for BREAK/CONTINUE.
-    /// </summary>
-    private static void UnwindToLoop(MetaContinuationState s, bool setBreak)
+    private bool CheckRam(MetaContinuationState s, int cost)
     {
-        while (s.CallStack.Count > 0)
-        {
-            var top = s.CallStack.Peek();
-            if (top.Kind is MetaFrameKind.WhileLoop or MetaFrameKind.ForLoop)
-            {
-                if (setBreak)
-                {
-                    s.BreakRequested = true;
-                    // Force the frame to exhaust so it pops on next iteration.
-                    top.InstructionPointer = top.Code.Count;
-                }
-                else
-                {
-                    s.ContinueRequested = true;
-                    // Jump to end of body so the loop re-evaluates condition.
-                    top.InstructionPointer = top.Code.Count;
-                }
-                return;
-            }
-
-            s.CallStack.Pop(); // Pop non-loop frames (if-bodies, etc.)
-        }
+        if (s.AllocatedRam - s.VariablesUsed >= cost) return true;
+        s.Error = "[FATAL] META: RAM OVERFLOW. Insufficient allocated memory.";
+        return false;
     }
-
-    // ──────────────────────────────────────────────
-    //  Instruction execution (non-recursive, pushes frames onto stack)
-    // ──────────────────────────────────────────────
 
     private void ExecuteSingleInstruction(MetaContinuationState s, MetaInstruction i)
     {
+        var deckUid = GetEntity(s.DeckUid);
         switch (i)
         {
             case MetaAllocRamInstruction a:
+            {
                 var amount = Math.Max(0, a.Amount);
-                if (TryComp<CyberdeckComponent>(s.DeckUid, out var deck))
+                if (TryComp<CyberdeckComponent>(deckUid, out var d) && d.CurrentRam >= amount)
                 {
-                    if (deck.CurrentRam >= amount)
-                    {
-                        deck.CurrentRam -= amount;
-                        s.AllocatedRam += amount;
-                        Dirty(s.DeckUid, deck);
-                    }
-                    else
-                    {
-                        s.Error = $"[FATAL] META: OUT OF MEMORY. Required {amount} RAM, available {deck.CurrentRam}.";
-                    }
+                    d.CurrentRam -= amount;
+                    s.AllocatedRam += amount;
+                    Dirty(deckUid, d);
                 }
+                else s.Error = "OUT OF MEMORY";
                 break;
+            }
             case MetaFreeRamInstruction f:
-                var fAmount = Math.Max(0, f.Amount);
-                // Can only free what was allocated by this process.
-                var toFree = Math.Min(fAmount, s.AllocatedRam - s.FreedRam);
-                if (toFree > 0 && TryComp<CyberdeckComponent>(s.DeckUid, out var fDeck))
+            {
+                var toFree = Math.Clamp(f.Amount, 0, s.AllocatedRam - s.FreedRam);
+                if (TryComp<CyberdeckComponent>(deckUid, out var fd))
                 {
-                    fDeck.CurrentRam = Math.Min(fDeck.MaxRam - fDeck.LeakedRam, fDeck.CurrentRam + toFree);
+                    fd.CurrentRam = Math.Min(fd.MaxRam, fd.CurrentRam + toFree);
                     s.FreedRam += toFree;
-                    Dirty(s.DeckUid, fDeck);
+                    Dirty(deckUid, fd);
                 }
                 break;
-            case MetaDefIntInstruction d:
-                s.IntVars[d.Name] = EvalInt(s, d.Value);
+            }
+            case MetaDefIntInstruction di:
+            {
+                if (CheckRam(s, VariableRamCost)) { s.IntVars[di.Name] = EvalInt(s, di.Value); s.VariablesUsed += VariableRamCost; }
                 break;
-            case MetaDefStrInstruction d:
-                s.StrVars[d.Name] = EvalString(s, d.Value);
+            }
+            case MetaDefStrInstruction ds:
+            {
+                if (CheckRam(s, VariableRamCost)) { s.StrVars[ds.Name] = EvalString(s, ds.Value); s.VariablesUsed += VariableRamCost; }
                 break;
-            case MetaDefPtrInstruction d:
-                s.PtrVars[d.Name] = EvalPtr(s, d.Value);
+            }
+            case MetaDefPtrInstruction dp:
+            {
+                if (CheckRam(s, VariableRamCost)) { s.PtrVars[dp.Name] = GetNetEntity(EvalPtr(s, dp.Value)); s.VariablesUsed += VariableRamCost; }
                 break;
-            case MetaDefArrInstruction d:
-                s.ArrVars[d.Name] = EvalArray(s, d.Value);
+            }
+            case MetaDefArrInstruction darr:
+            {
+                if (CheckRam(s, VariableRamCost)) { s.ArrVars[darr.Name] = EvalArray(s, darr.Value); s.VariablesUsed += VariableRamCost; }
                 break;
-            case MetaAssignInstruction a:
-                AssignVar(s, a);
+            }
+            case MetaAssignInstruction asgn:
+                if (s.IntVars.ContainsKey(asgn.Name)) s.IntVars[asgn.Name] = ApplyAssign(asgn.Op, s.IntVars[asgn.Name], EvalInt(s, asgn.Value));
                 break;
-            case MetaAssignArrayInstruction aa:
-                AssignArray(s, aa);
-                break;
-            case MetaExitInstruction e:
-                s.ExitCode = EvalInt(s, e.Code);
-                s.Exited = true;
-                break;
-            case MetaSysLogInstruction log:
-                _api.MetaLog(s.DeckUid, EvalString(s, log.Message));
+            case MetaSysLogInstruction l:
+                _api.MetaLog(deckUid, EvalString(s, l.Message));
                 break;
             case MetaSysInjectInstruction inj:
-                var t = EvalPtr(s, inj.Target);
-                if (t != null) _api.Inject(s.DeckUid, t.Value, EvalInt(s, inj.Damage));
+                if (CheckRam(s, SysCriticalCost)) { var t = EvalPtr(s, inj.Target); if (t != null) _api.Inject(deckUid, t.Value, EvalInt(s, inj.Damage)); }
                 break;
             case MetaSysOverrideInstruction ov:
-                var ot = EvalPtr(s, ov.Target);
-                if (ot != null) _api.Override(ot.Value, EvalString(s, ov.Key), EvalInt(s, ov.Value));
+                if (CheckRam(s, SysHeavyCost)) { var t = EvalPtr(s, ov.Target); if (t != null) _api.Override(t.Value, EvalString(s, ov.Key), EvalInt(s, ov.Value)); }
                 break;
             case MetaSysSimpleInstruction ss:
-                ExecSysSimple(s, ss);
+                ExecSimple(s, ss);
                 break;
-
-            // --- Control flow: push new frames onto the call stack ---
-
             case MetaIfInstruction ifi:
-                if (EvalInt(s, ifi.Condition) != 0)
-                    s.CallStack.Push(new MetaCallFrame(ifi.ThenBody, MetaFrameKind.Block));
-                else if (ifi.ElseBody != null)
-                    s.CallStack.Push(new MetaCallFrame(ifi.ElseBody, MetaFrameKind.Block));
+                if (EvalInt(s, ifi.Condition) != 0) s.CallStack.Push(new MetaCallFrame(ifi.ThenBody, MetaFrameKind.Block));
+                else if (ifi.ElseBody != null) s.CallStack.Push(new MetaCallFrame(ifi.ElseBody, MetaFrameKind.Block));
                 break;
-
             case MetaWhileInstruction w:
-                // Evaluate condition before first entry.
-                if (EvalInt(s, w.Condition) != 0)
-                {
-                    var wFrame = new MetaCallFrame(w.Body, MetaFrameKind.WhileLoop)
-                    {
-                        LoopCondition = w.Condition,
-                    };
-                    s.CallStack.Push(wFrame);
-                }
+                if (EvalInt(s, w.Condition) != 0) s.CallStack.Push(new MetaCallFrame(w.Body, MetaFrameKind.WhileLoop) { LoopCondition = w.Condition });
                 break;
-
-            case MetaForInstruction f:
-                // Execute init statement (e.g., DEF INT i = 0).
-                if (f.Init != null)
-                    ExecuteSingleInstruction(s, f.Init);
-                // Evaluate condition before first entry.
-                if (!s.ShouldStop && (f.Condition == null || EvalInt(s, f.Condition) != 0))
-                {
-                    var fFrame = new MetaCallFrame(f.Body, MetaFrameKind.ForLoop)
-                    {
-                        LoopCondition = f.Condition,
-                        LoopStep = f.Step,
-                    };
-                    s.CallStack.Push(fFrame);
-                }
+            case MetaExitInstruction ex:
+                s.Exited = true;
                 break;
         }
     }
 
-    // ──────────────────────────────────────────────
-    //  Variable assignment helpers
-    // ──────────────────────────────────────────────
-
-    private void AssignVar(MetaContinuationState s, MetaAssignInstruction a)
+    private void ExecSimple(MetaContinuationState s, MetaSysSimpleInstruction ss)
     {
-        if (s.IntVars.ContainsKey(a.Name))
-        {
-            s.IntVars[a.Name] = ApplyAssignOp(a.Op, s.IntVars[a.Name], EvalInt(s, a.Value));
-            return;
-        }
-        if (s.StrVars.ContainsKey(a.Name))
-        {
-            s.StrVars[a.Name] = EvalString(s, a.Value);
-            return;
-        }
-        if (s.PtrVars.ContainsKey(a.Name))
-        {
-            s.PtrVars[a.Name] = EvalPtr(s, a.Value);
-            return;
-        }
-        if (s.ArrVars.ContainsKey(a.Name))
-        {
-            s.ArrVars[a.Name] = EvalArray(s, a.Value);
-            return;
-        }
-        s.Error = $"Undefined variable '{a.Name}'.";
+        var deckUid = GetEntity(s.DeckUid);
+        var func = ss.Name.ToUpperInvariant();
+        if (func == "PING" && CheckRam(s, SysBaseCost)) { var t = EvalPtr(s, ss.Arguments[0]); if (t != null) _api.Ping(t.Value); }
+        if (func == "BURN_NEUROPORT" && CheckRam(s, SysCriticalCost)) { var t = EvalPtr(s, ss.Arguments[0]); if (t != null) _api.BurnNeuroport(t.Value, EvalInt(s, ss.Arguments[1])); }
+        if (func == "DISCONNECT" && CheckRam(s, SysHeavyCost)) { var t = EvalPtr(s, ss.Arguments[0]); if (t != null) _api.Disconnect(t.Value); }
     }
-
-    private void AssignArray(MetaContinuationState s, MetaAssignArrayInstruction a)
-    {
-        if (!s.ArrVars.TryGetValue(a.ArrayName, out var arr))
-        {
-            s.Error = $"Array '{a.ArrayName}' is not defined.";
-            return;
-        }
-        var idx = EvalInt(s, a.Index);
-        if (idx < 0 || idx >= arr.Count)
-        {
-            s.Error = $"Array index out of bounds for '{a.ArrayName}'.";
-            return;
-        }
-        var current = arr[idx];
-        arr[idx] = ApplyAssignOp(a.Op, current, EvalInt(s, a.Value));
-    }
-
-    private static int ApplyAssignOp(MetaAssignOp op, int left, int right)
-    {
-        return op switch
-        {
-            MetaAssignOp.Set => right,
-            MetaAssignOp.AddAssign => left + right,
-            MetaAssignOp.SubAssign => left - right,
-            _ => right
-        };
-    }
-
-    // ──────────────────────────────────────────────
-    //  Expression evaluation
-    // ──────────────────────────────────────────────
 
     private int EvalInt(MetaContinuationState s, MetaExpression e)
     {
-        ConsumeGas(s, 1);
-        if (s.ShouldStop) return 0;
-        return e switch
-        {
-            MetaIntLiteral l => l.Value,
-            MetaVariableExpression v when s.IntVars.TryGetValue(v.Name, out var x) => x,
-            MetaArrayIndexExpression ai => EvalArrayIndex(s, ai),
-            MetaUnaryExpression u => EvalUnaryInt(s, u),
-            MetaBinaryExpression b => EvalBinary(s, b),
-            MetaSysCallExpression sys => EvalSysInt(s, sys),
-            _ => 0
-        };
+        if (e is MetaIntLiteral i) return i.Value;
+        if (e is MetaVariableExpression v && s.IntVars.TryGetValue(v.Name, out var val)) return val;
+        if (e is MetaBinaryExpression b) return ApplyBin(b.Op, EvalInt(s, b.Left), EvalInt(s, b.Right));
+        if (e is MetaSysCallExpression sys) return EvalSysInt(s, sys);
+        return 0;
     }
 
-    private string EvalString(MetaContinuationState s, MetaExpression e)
+    private int EvalSysInt(MetaContinuationState s, MetaSysCallExpression sys)
     {
-        ConsumeGas(s, 1);
-        if (s.ShouldStop) return string.Empty;
-        // String concatenation via binary Add.
-        if (e is MetaBinaryExpression b && b.Op == MetaBinaryOp.Add)
-            return EvalString(s, b.Left) + EvalString(s, b.Right);
-        return e switch
-        {
-            MetaStringLiteral l => l.Value,
-            MetaVariableExpression v when s.StrVars.TryGetValue(v.Name, out var st) => st,
-            MetaSysCallExpression sys => EvalSysString(s, sys),
-            _ => EvalInt(s, e).ToString()
-        };
+        var f = sys.Name.ToUpperInvariant();
+        if (f == "GET_ICE") { var t = EvalPtr(s, sys.Arguments[0]); return t != null ? _api.GetIce(t.Value) : 0; }
+        if (f == "GET_TRACE") return _api.GetTrace(GetEntity(s.DeckUid));
+        if (f == "IS_VALID" && CheckRam(s, SysBaseCost)) { var t = EvalPtr(s, sys.Arguments[0]); return t != null && _api.IsValid(t.Value) ? 1 : 0; }
+        if (f == "ARR_LENGTH") { if (sys.Arguments[0] is MetaVariableExpression av && s.ArrVars.TryGetValue(av.Name, out var arr)) return arr.Count; }
+        if (f == "GET_GAS") return s.GasRemaining;
+        if (f == "GET_RAM_AVAILABLE") return s.AllocatedRam - s.VariablesUsed;
+        return 0;
     }
 
     private EntityUid? EvalPtr(MetaContinuationState s, MetaExpression e)
     {
-        ConsumeGas(s, 1);
-        if (s.ShouldStop) return null;
-        if (e is MetaVariableExpression v && s.PtrVars.TryGetValue(v.Name, out var ptr)) return ptr;
+        if (e is MetaVariableExpression v && s.PtrVars.TryGetValue(v.Name, out var p)) return GetEntity(p);
         if (e is MetaSysCallExpression sys) return EvalSysPtr(s, sys);
-        if (e is MetaIntLiteral i && i.Value > 0) return new EntityUid(i.Value);
+        return null;
+    }
+
+    private EntityUid? EvalSysPtr(MetaContinuationState s, MetaSysCallExpression sys)
+    {
+        var deckUid = GetEntity(s.DeckUid);
+        var f = sys.Name.ToUpperInvariant();
+        if (f == "GET_TARGET" && CheckRam(s, SysBaseCost)) return _api.GetTarget(deckUid);
+        if (f == "GET_SELF") return _api.GetSelf(deckUid);
+        if (f == "GET_INTRUDER") return _api.GetIntruder(deckUid);
+        if (f == "GET_EVENT_SOURCE") return _api.GetEventSource(deckUid);
+        if (f == "FIND_NEAREST" && CheckRam(s, SysNetworkCost)) return _api.FindNearest(deckUid, EvalString(s, sys.Arguments[0]), EvalInt(s, sys.Arguments[1]));
         return null;
     }
 
     private List<int> EvalArray(MetaContinuationState s, MetaExpression e)
     {
-        if (e is MetaVariableExpression v && s.ArrVars.TryGetValue(v.Name, out var arr))
-            return new List<int>(arr);
-        if (e is MetaSysCallExpression sys)
+        if (e is MetaSysCallExpression sys && sys.Name.ToUpperInvariant() == "GET_CONNECTED")
         {
-            var name = sys.Name.ToUpperInvariant();
-            if (name == "GET_CONNECTED")
-            {
-                var ptr = EvalPtr(s, sys.Arguments[0]);
-                if (ptr == null) return new List<int>();
-                return _api.GetConnected(ptr.Value).Select(u => unchecked((int) u.Id)).ToList();
-            }
-            if (name == "GET_FILES")
-            {
-                var ptr = EvalPtr(s, sys.Arguments[0]);
-                if (ptr == null) return new List<int>();
-                return _api.GetFiles(ptr.Value).Select(HashToInt).ToList();
-            }
-            if (name == "GET_VITALS")
-            {
-                var ptr = EvalPtr(s, sys.Arguments[0]);
-                if (ptr == null) return new List<int>();
-                return _api.GetVitals(ptr.Value).ToList();
-            }
+            if (!CheckRam(s, SysNetworkCost)) return new List<int>();
+            var t = EvalPtr(s, sys.Arguments[0]);
+            if (t == null) return new List<int>();
+            var ents = _api.GetConnected(t.Value);
+            return ents.Select(uid => (int)uid).ToList();
         }
         return new List<int>();
     }
 
-    private int EvalArrayIndex(MetaContinuationState s, MetaArrayIndexExpression e)
+    private string EvalString(MetaContinuationState s, MetaExpression e)
     {
-        if (!s.ArrVars.TryGetValue(e.ArrayName, out var arr))
+        if (e is MetaStringLiteral sl) return sl.Value;
+        if (e is MetaIntLiteral il) return il.Value.ToString(System.Globalization.CultureInfo.InvariantCulture);
+        if (e is MetaVariableExpression v)
         {
-            s.Error = $"Array '{e.ArrayName}' not found.";
-            return 0;
+            if (s.StrVars.TryGetValue(v.Name, out var sv)) return sv;
+            if (s.IntVars.TryGetValue(v.Name, out var iv)) return iv.ToString(System.Globalization.CultureInfo.InvariantCulture);
+            if (s.PtrVars.TryGetValue(v.Name, out var pv)) return pv.ToString();
         }
-        var idx = EvalInt(s, e.Index);
-        if (idx < 0 || idx >= arr.Count)
+        if (e is MetaSysCallExpression sys)
         {
-            s.Error = $"Array index out of bounds for '{e.ArrayName}'.";
-            return 0;
+            var f = sys.Name.ToUpperInvariant();
+            if (f == "GET_CLASS" && CheckRam(s, SysHeavyCost)) { var t = EvalPtr(s, sys.Arguments[0]); return t != null ? _api.GetClass(t.Value) : ""; }
+            if (f == "INTERCEPT_PDA") { var t = EvalPtr(s, sys.Arguments[0]); return t != null ? _api.InterceptPda(t.Value) : ""; }
         }
-        return arr[idx];
+        if (e is MetaBinaryExpression b && b.Op == MetaBinaryOp.Add) return EvalString(s, b.Left) + EvalString(s, b.Right);
+        return "";
     }
 
-    private int EvalUnaryInt(MetaContinuationState s, MetaUnaryExpression u)
-    {
-        var v = EvalInt(s, u.Operand);
-        return u.Op switch
-        {
-            MetaUnaryOp.Negate => -v,
-            MetaUnaryOp.Not => v == 0 ? 1 : 0,
-            _ => v
-        };
-    }
+    private int ApplyBin(MetaBinaryOp op, int l, int r) => op switch {
+        MetaBinaryOp.Add => l + r, MetaBinaryOp.Subtract => l - r, MetaBinaryOp.Multiply => l * r,
+        MetaBinaryOp.Divide => r == 0 ? 0 : l / r, MetaBinaryOp.Equals => l == r ? 1 : 0,
+        MetaBinaryOp.NotEquals => l != r ? 1 : 0, MetaBinaryOp.Greater => l > r ? 1 : 0,
+        MetaBinaryOp.Less => l < r ? 1 : 0, _ => 0
+    };
 
-    // ──────────────────────────────────────────────
-    //  SYS call evaluation
-    // ──────────────────────────────────────────────
+    private int ApplyAssign(MetaAssignOp op, int old, int val) => op switch {
+        MetaAssignOp.Set => val, MetaAssignOp.AddAssign => old + val, MetaAssignOp.SubAssign => old - val, _ => val
+    };
 
-    private int EvalSysInt(MetaContinuationState s, MetaSysCallExpression c)
-    {
-        return c.Name.ToUpperInvariant() switch
-        {
-            "GET_ICE" => EvalPtr(s, c.Arguments[0]) is { } t ? _api.GetIce(t) : 0,
-            "GET_TRACE" => _api.GetTrace(s.DeckUid),
-            "ARR_LENGTH" => EvalArray(s, c.Arguments[0]).Count,
-            "IS_VALID" => EvalPtr(s, c.Arguments[0]) is { } valid && _api.IsValid(valid) ? 1 : 0,
-            _ => 0
-        };
-    }
-
-    private string EvalSysString(MetaContinuationState s, MetaSysCallExpression c)
-    {
-        return c.Name.ToUpperInvariant() switch
-        {
-            "GET_CLASS" => EvalPtr(s, c.Arguments[0]) is { } t ? _api.GetClass(t) : string.Empty,
-            "INTERCEPT_PDA" => EvalPtr(s, c.Arguments[0]) is { } p ? _api.InterceptPda(p) : string.Empty,
-            _ => string.Empty
-        };
-    }
-
-    private EntityUid? EvalSysPtr(MetaContinuationState s, MetaSysCallExpression c)
-    {
-        return c.Name.ToUpperInvariant() switch
-        {
-            "GET_TARGET" => _api.GetTarget(s.DeckUid),
-            "GET_SELF" => _api.GetSelf(s.DeckUid),
-            "GET_INTRUDER" => _api.GetIntruder(s.DeckUid),
-            "GET_EVENT_SOURCE" => _api.GetEventSource(s.DeckUid),
-            "FIND_NEAREST" => _api.FindNearest(s.DeckUid, EvalString(s, c.Arguments[0]), EvalInt(s, c.Arguments[1])),
-            _ => null
-        };
-    }
-
-    private void ExecSysSimple(MetaContinuationState s, MetaSysSimpleInstruction i)
-    {
-        switch (i.Name.ToUpperInvariant())
-        {
-            case "CLOAK":
-                _api.Cloak(s.DeckUid, EvalInt(s, i.Arguments[0]));
-                break;
-            case "PING":
-                if (EvalPtr(s, i.Arguments[0]) is { } p) _api.Ping(p);
-                break;
-            case "BURN_NEUROPORT":
-                if (EvalPtr(s, i.Arguments[0]) is { } b) _api.BurnNeuroport(b, EvalInt(s, i.Arguments[1]));
-                break;
-            case "DISCONNECT":
-                if (EvalPtr(s, i.Arguments[0]) is { } d) _api.Disconnect(d);
-                break;
-            case "LOG":
-                _api.MetaLog(s.DeckUid, EvalString(s, i.Arguments[0]));
-                break;
-            case "DOWNLOAD":
-                if (EvalPtr(s, i.Arguments[0]) is { } down)
-                    _api.Download(s.DeckUid, down, EvalString(s, i.Arguments[1]));
-                break;
-            case "UPLOAD":
-                if (EvalPtr(s, i.Arguments[0]) is { } up)
-                    _api.Upload(s.DeckUid, up, EvalString(s, i.Arguments[1]));
-                break;
-        }
-    }
-
-    // ──────────────────────────────────────────────
-    //  Binary expression evaluation
-    // ──────────────────────────────────────────────
-
-    private int EvalBinary(MetaContinuationState s, MetaBinaryExpression b)
-    {
-        var l = EvalInt(s, b.Left);
-        var r = EvalInt(s, b.Right);
-        return b.Op switch
-        {
-            MetaBinaryOp.Add => l + r,
-            MetaBinaryOp.Subtract => l - r,
-            MetaBinaryOp.Multiply => l * r,
-            MetaBinaryOp.Divide => r == 0 ? 0 : l / r,
-            MetaBinaryOp.Modulo => r == 0 ? 0 : l % r,
-            MetaBinaryOp.And => (l != 0 && r != 0) ? 1 : 0,
-            MetaBinaryOp.Or => (l != 0 || r != 0) ? 1 : 0,
-            MetaBinaryOp.Equals => l == r ? 1 : 0,
-            MetaBinaryOp.NotEquals => l != r ? 1 : 0,
-            MetaBinaryOp.Less => l < r ? 1 : 0,
-            MetaBinaryOp.LessOrEqual => l <= r ? 1 : 0,
-            MetaBinaryOp.Greater => l > r ? 1 : 0,
-            MetaBinaryOp.GreaterOrEqual => l >= r ? 1 : 0,
-            _ => 0
-        };
-    }
-
-    private static void ConsumeGas(MetaContinuationState s, int amount) => s.GasRemaining -= amount;
-    private static int HashToInt(string text) => text.GetHashCode(StringComparison.Ordinal);
+    private void ConsumeGas(MetaContinuationState s, int gas) { s.GasRemaining -= gas; if (s.GasRemaining <= 0) s.Error = "GAS LIMIT EXCEEDED"; }
 }
 
-/// <summary>
-/// Extended execution result that carries the continuation state for YIELD-resume.
-/// </summary>
-public sealed record MetaVmRunResult(
-    MetaExecutionResult Result,
-    MetaContinuationState? Continuation);
+public sealed record MetaVmRunResult(MetaExecutionResult Result, MetaContinuationState? Continuation);
