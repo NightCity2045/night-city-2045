@@ -1,0 +1,36 @@
+<DefaultWindow xmlns="https://spacestation14.io"
+               Title="Cyberdeck Terminal" 
+               MinWidth="600" MinHeight="450">
+    <BoxContainer Orientation="Vertical" Margin="4">
+        <BoxContainer Orientation="Horizontal" SeparationOverride="10">
+            <Label Name="TargetLabel" Text="Link: None" />
+            <Label Name="RamLabel" Text="RAM: 0/0" />
+        </BoxContainer>
+
+        <TabContainer VerticalExpand="True">
+            <BoxContainer Name="EditorTab" Orientation="Vertical" Margin="4">
+                <Label Text="META Source Code Editor:" />
+                <TextEdit Name="CodeInput" VerticalExpand="True" MinHeight="250" />
+                <BoxContainer Orientation="Horizontal" HorizontalAlignment="Right" Margin="4">
+                    <Button Name="CompileNewButton" Text="Compile to New Shard" />
+                    <Button Name="SaveButton" Text="Update Selected Shard" />
+                </BoxContainer>
+            </BoxContainer>
+
+            <BoxContainer Name="ShardsTab" Orientation="Vertical" Margin="4">
+                <Label Text="Installed DataShards:" />
+                <ItemList Name="ShardList" VerticalExpand="True" MinHeight="250" />
+                <BoxContainer Orientation="Horizontal" HorizontalAlignment="Right" Margin="4">
+                    <Button Name="RunButton" Text="Execute Selected" />
+                    <Button Name="EditButton" Text="Edit Code" />
+                    <Button Name="EjectButton" Text="Eject Selected" />
+                </BoxContainer>
+            </BoxContainer>
+
+            <BoxContainer Name="LogsTab" Orientation="Vertical" Margin="4">
+                <Label Text="System Logs:" />
+                <RichTextLabel Name="LogOutput" VerticalExpand="True" MinHeight="250" />
+            </BoxContainer>
+        </TabContainer>
+    </BoxContainer>
+</DefaultWindow>

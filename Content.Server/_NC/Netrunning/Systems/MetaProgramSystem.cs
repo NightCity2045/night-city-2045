@@ -8,6 +8,7 @@ using Robust.Shared.Containers;
 using Robust.Shared.GameObjects;
 using Robust.Shared.Timing;
 using Robust.Shared.Utility;
+using Robust.Server.GameObjects;
 
 namespace Content.Server._NC.Netrunning.Systems;
 
@@ -27,13 +28,167 @@ public sealed class MetaProgramSystem : EntitySystem
     [Dependency] private readonly Content.Shared.Hands.EntitySystems.SharedHandsSystem _hands = default!;
     [Dependency] private readonly SharedInteractionSystem _interaction = default!;
     [Dependency] private readonly IGameTiming _timing = default!;
+    [Dependency] private readonly SharedContainerSystem _containers = default!;
+    [Dependency] private readonly UserInterfaceSystem _ui = default!;
+    [Dependency] private readonly Content.Shared.Inventory.InventorySystem _inventory = default!;
 
     public override void Initialize()
     {
         base.Initialize();
         SubscribeLocalEvent<DataShardComponent, GetVerbsEvent<ActivationVerb>>(OnShardVerbs);
+        SubscribeLocalEvent<CyberdeckComponent, ComponentInit>(OnDeckInit);
+        SubscribeLocalEvent<CyberdeckComponent, UseInHandEvent>(OnDeckUse);
         SubscribeLocalEvent<CyberdeckComponent, InteractUsingEvent>(OnDeckInteractUsing);
         SubscribeLocalEvent<CyberdeckComponent, AfterInteractEvent>(OnDeckAfterInteract);
+        SubscribeLocalEvent<CyberdeckComponent, BoundUIOpenedEvent>(OnDeckUiOpened);
+        SubscribeLocalEvent<CyberdeckComponent, CyberdeckCompileMessage>(OnDeckCompile);
+        SubscribeLocalEvent<CyberdeckComponent, CyberdeckEjectMessage>(OnDeckEject);
+        SubscribeLocalEvent<CyberdeckComponent, CyberdeckExecuteMessage>(OnDeckExecute);
+    }
+
+    private void OnDeckUse(EntityUid uid, CyberdeckComponent component, UseInHandEvent args)
+    {
+        _ui.OpenUi(uid, CyberdeckUiKey.Key, args.User);
+        args.Handled = true;
+    }
+
+    private void OnDeckEject(EntityUid uid, CyberdeckComponent component, CyberdeckEjectMessage args)
+    {
+        var user = args.Actor;
+        if (!user.Valid)
+            return;
+
+        var shardUid = GetEntity(args.Shard);
+        if (!_containers.TryGetContainer(uid, CyberdeckComponent.ShardContainerId, out var container))
+            return;
+
+        if (_containers.Remove(shardUid, container))
+        {
+            _hands.TryPickupAnyHand(user, shardUid);
+            UpdateUi(uid, component);
+        }
+    }
+
+    private void OnDeckExecute(EntityUid uid, CyberdeckComponent component, CyberdeckExecuteMessage args)
+    {
+        var user = args.Actor;
+        if (!user.Valid)
+            return;
+
+        var shardUid = GetEntity(args.Shard);
+        if (!TryComp<DataShardComponent>(shardUid, out var shard))
+            return;
+
+        var result = Execute(uid, component, shardUid, shard);
+        if (result.FatalError != null)
+            _popup.PopupEntity(FormattedMessage.EscapeText(result.FatalError), uid, user, PopupType.MediumCaution);
+        else if (result.Yielded)
+            _popup.PopupEntity("META: script running...", uid, user);
+        else
+            _popup.PopupEntity("META script executed.", uid, user);
+    }
+
+    private void OnDeckInit(EntityUid uid, CyberdeckComponent component, ComponentInit args)
+    {
+        _containers.EnsureContainer<Container>(uid, CyberdeckComponent.ShardContainerId);
+    }
+
+    private void OnDeckUiOpened(EntityUid uid, CyberdeckComponent component, BoundUIOpenedEvent args)
+    {
+        var user = args.Actor;
+        if (!user.Valid)
+            return;
+
+        if (!HasNetvisor(user))
+        {
+            _ui.CloseUi(uid, CyberdeckUiKey.Key, user);
+            _popup.PopupEntity("Link error: Netvisor not detected.", uid, user, PopupType.MediumCaution);
+            return;
+        }
+
+        UpdateUi(uid, component);
+    }
+
+    private bool HasNetvisor(EntityUid user)
+    {
+        // Check hands and inventory for a NetvisorComponent
+        if (HasComp<NetvisorComponent>(user)) return true;
+
+        foreach (var item in _hands.EnumerateHeld(user))
+        {
+            if (HasComp<NetvisorComponent>(item)) return true;
+        }
+
+        if (_inventory.TryGetContainerSlotEnumerator(user, out var enumerator))
+        {
+            while (enumerator.MoveNext(out var slot))
+            {
+                if (slot.ContainedEntity is { } contained && HasComp<NetvisorComponent>(contained))
+                    return true;
+            }
+        }
+
+        return false;
+    }
+
+    private void OnDeckCompile(EntityUid uid, CyberdeckComponent component, CyberdeckCompileMessage args)
+    {
+        var user = args.Actor;
+        if (!user.Valid)
+            return;
+
+        if (string.IsNullOrWhiteSpace(args.Code))
+            return;
+
+        if (!_compiler.TryCompile(args.Code, MetaProgramKind.Standard, out var bytecode, out var error) || bytecode == null)
+        {
+            _popup.PopupEntity($"META compile error: {FormattedMessage.EscapeText(error ?? "Unknown")}", uid, user, PopupType.MediumCaution);
+            return;
+        }
+
+        if (args.TargetShard != null)
+        {
+            // Update existing shard
+            var shardUid = GetEntity(args.TargetShard.Value);
+            if (!TryComp<DataShardComponent>(shardUid, out var shard)) return;
+
+            shard.SourceCode = args.Code;
+            shard.Bytecode = bytecode;
+            shard.RequiredRam = bytecode.RequiredRam;
+            Dirty(shardUid, shard);
+            _popup.PopupEntity("DataShard updated.", uid, user);
+        }
+        else
+        {
+            // Spawn new shard in hand
+            var shardUid = Spawn("NCDataShard", Transform(user).Coordinates);
+            var shard = EnsureComp<DataShardComponent>(shardUid);
+            shard.SourceCode = args.Code;
+            shard.Bytecode = bytecode;
+            shard.RequiredRam = bytecode.RequiredRam;
+            Dirty(shardUid, shard);
+
+            _hands.TryPickupAnyHand(user, shardUid);
+            _popup.PopupEntity("New DataShard generated.", uid, user);
+        }
+
+        UpdateUi(uid, component);
+    }
+
+    private void UpdateUi(EntityUid uid, CyberdeckComponent component)
+    {
+        var shards = new List<(NetEntity, string, string)>();
+        if (_containers.TryGetContainer(uid, CyberdeckComponent.ShardContainerId, out var container))
+        {
+            foreach (var ent in container.ContainedEntities)
+            {
+                var source = TryComp<DataShardComponent>(ent, out var s) ? s.SourceCode ?? "" : "";
+                shards.Add((GetNetEntity(ent), Name(ent), source));
+            }
+        }
+
+        var state = new CyberdeckUiState(component.CurrentRam, component.MaxRam, GetNetEntity(component.ActiveTarget), shards);
+        _ui.SetUiState(uid, CyberdeckUiKey.Key, state);
     }
 
     private void OnDeckInteractUsing(EntityUid uid, CyberdeckComponent component, InteractUsingEvent args)
@@ -41,28 +196,21 @@ public sealed class MetaProgramSystem : EntitySystem
         if (!TryComp<DataShardComponent>(args.Used, out var shard))
             return;
 
-        if (args.User == EntityUid.Invalid)
+        if (!_containers.TryGetContainer(uid, CyberdeckComponent.ShardContainerId, out var container))
             return;
 
-        if (shard.Bytecode == null)
+        if (container.ContainedEntities.Count >= component.MaxShards)
         {
-            if (!TryCompile(args.Used, shard, args.User, out var compileError))
-            {
-                _popup.PopupEntity($"META compile error: {FormattedMessage.EscapeText(compileError ?? "Unknown")}", uid, args.User, PopupType.MediumCaution);
-                args.Handled = true;
-                return;
-            }
+            _popup.PopupEntity("Deck slots full.", uid, args.User, PopupType.MediumCaution);
+            return;
         }
 
-        var result = Execute(uid, component, args.Used, shard);
-        if (result.FatalError != null)
-            _popup.PopupEntity(FormattedMessage.EscapeText(result.FatalError), uid, args.User, PopupType.MediumCaution);
-        else if (result.Yielded)
-            _popup.PopupEntity("META: script running...", uid, args.User);
-        else
-            _popup.PopupEntity("META script executed.", uid, args.User);
-
-        args.Handled = true;
+        if (_containers.Insert(args.Used, container))
+        {
+            _popup.PopupEntity($"Inserted {Name(args.Used)}", uid, args.User);
+            UpdateUi(uid, component);
+            args.Handled = true;
+        }
     }
 
     private void OnDeckAfterInteract(EntityUid uid, CyberdeckComponent component, AfterInteractEvent args)

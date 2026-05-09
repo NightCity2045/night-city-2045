@@ -178,7 +178,12 @@ public sealed class MetaParser
         Consume(MetaTokenType.LParen, "Expected '(' after WHILE.");
         var cond = ParseExpression();
         Consume(MetaTokenType.RParen, "Expected ')' after WHILE condition.");
-        return new MetaWhileInstruction(cond, ParseBlock());
+        var body = ParseBlock();
+
+        if (!HasYield(body))
+            throw new Exception("Loop without YIELD detected. Hardware overheat risk. Every WHILE/FOR loop must contain at least one YIELD [ms] instruction.");
+
+        return new MetaWhileInstruction(cond, body);
     }
 
     private MetaInstruction ParseFor()
@@ -200,7 +205,37 @@ public sealed class MetaParser
             step = ParseAssignmentStatement();
         Consume(MetaTokenType.RParen, "Expected ')' after FOR clauses.");
 
-        return new MetaForInstruction(init, condition, step, ParseBlock());
+        var body = ParseBlock();
+
+        if (!HasYield(body))
+            throw new Exception("Loop without YIELD detected. Hardware overheat risk. Every WHILE/FOR loop must contain at least one YIELD [ms] instruction.");
+
+        return new MetaForInstruction(init, condition, step, body);
+    }
+
+    private bool HasYield(List<MetaInstruction> body)
+    {
+        foreach (var inst in body)
+        {
+            if (inst is MetaYieldInstruction)
+                return true;
+
+            // Recurse into blocks (e.g. IF blocks)
+            if (inst is MetaIfInstruction ifInst)
+            {
+                if (HasYield(ifInst.ThenBody)) return true;
+                if (ifInst.ElseBody != null && HasYield(ifInst.ElseBody)) return true;
+            }
+
+            // Note: We don't recurse into nested WHILE/FOR because they must have their own YIELD.
+            // But a YIELD inside a nested loop counts for that nested loop, not the outer one,
+            // unless the outer one also hits it. 
+            // Actually, if we have FOR { FOR { YIELD } }, the outer FOR's execution will eventually 
+            // hit the inner's YIELD and suspend. So it is technically safe.
+            if (inst is MetaWhileInstruction whileInst && HasYield(whileInst.Body)) return true;
+            if (inst is MetaForInstruction forInst && HasYield(forInst.Body)) return true;
+        }
+        return false;
     }
 
     private MetaInstruction ParseOnEvent()

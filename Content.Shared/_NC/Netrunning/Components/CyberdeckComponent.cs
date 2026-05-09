@@ -9,12 +9,70 @@ public enum CyberdeckUiKey : byte
     Key
 }
 
+[Serializable, NetSerializable]
+public sealed class CyberdeckCompileMessage : BoundUserInterfaceMessage
+{
+    public readonly string Code;
+    public readonly NetEntity? TargetShard;
+
+    public CyberdeckCompileMessage(string code, NetEntity? targetShard)
+    {
+        Code = code;
+        TargetShard = targetShard;
+    }
+}
+
+[Serializable, NetSerializable]
+public sealed class CyberdeckEjectMessage : BoundUserInterfaceMessage
+{
+    public readonly NetEntity Shard;
+    public CyberdeckEjectMessage(NetEntity shard) => Shard = shard;
+}
+
+[Serializable, NetSerializable]
+public sealed class CyberdeckExecuteMessage : BoundUserInterfaceMessage
+{
+    public readonly NetEntity Shard;
+    public CyberdeckExecuteMessage(NetEntity shard) => Shard = shard;
+}
+
+[Serializable, NetSerializable]
+public sealed class CyberdeckLogMessage : BoundUserInterfaceMessage
+{
+    public readonly string Text;
+    public CyberdeckLogMessage(string text) => Text = text;
+}
+
+[Serializable, NetSerializable]
+public sealed class CyberdeckUiState : BoundUserInterfaceState
+{
+    public readonly int CurrentRam;
+    public readonly int MaxRam;
+    public readonly NetEntity? ActiveTarget;
+    public readonly List<(NetEntity Shard, string Name, string Source)> InstalledShards;
+
+    public CyberdeckUiState(int currentRam, int maxRam, NetEntity? activeTarget, List<(NetEntity, string, string)> installedShards)
+    {
+        CurrentRam = currentRam;
+        MaxRam = maxRam;
+        ActiveTarget = activeTarget;
+        InstalledShards = installedShards;
+    }
+}
+
 [RegisterComponent, NetworkedComponent, AutoGenerateComponentState]
 public sealed partial class CyberdeckComponent : Component
 {
+    public const string ShardContainerId = "cyberdeck_shards";
+
+    [ViewVariables]
+    public List<EntityUid> InstalledShards = new();
+
     /// <summary>
-    /// Maximum RAM capacity of the deck.
+    /// Maximum number of shards this deck can hold.
     /// </summary>
+    [DataField("maxShards"), ViewVariables(VVAccess.ReadWrite), AutoNetworkedField]
+    public int MaxShards = 2;
     [DataField("maxRam"), ViewVariables(VVAccess.ReadWrite), AutoNetworkedField]
     public int MaxRam = 10;
 

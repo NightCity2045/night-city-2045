@@ -110,5 +110,7 @@ public interface IMetaRuntimeApi
     IReadOnlyList<string> GetFiles(EntityUid target);
     bool Download(EntityUid deckUid, EntityUid target, string fileId);
     bool Upload(EntityUid deckUid, EntityUid target, string fileId);
-    void Log(EntityUid deckUid, string text);
+    void MetaLog(EntityUid deckUid, string text);
+    IReadOnlyList<int> GetVitals(EntityUid target);
+    string InterceptPda(EntityUid target);
 }

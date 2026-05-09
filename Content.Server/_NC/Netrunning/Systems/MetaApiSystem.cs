@@ -7,7 +7,19 @@ using Content.Shared._NC.Netrunning.Components;
 using Content.Shared._NC.Netrunning.Meta;
 using Content.Shared.Stunnable;
 using Robust.Server.GameObjects;
-using Robust.Shared.Physics;
+using Content.Server.Turrets;
+using Content.Shared.Turrets;
+using Content.Server.PDA;
+using Content.Server._NC.Cyberware.Systems;
+using Content.Shared._NC.Cyberware.Components;
+using Content.Shared._NC.Cyberware;
+using Content.Server.Chat.Managers;
+using Content.Shared.Damage.Prototypes;
+using Content.Server.Popups;
+using Content.Shared.Popups;
+using Robust.Shared.Audio.Systems;
+using Robust.Shared.Prototypes;
+using Content.Shared.Access;
 
 namespace Content.Server._NC.Netrunning.Systems;
 
@@ -15,16 +27,26 @@ public sealed class MetaApiSystem : EntitySystem, IMetaRuntimeApi
 {
     [Dependency] private readonly DoorSystem _doorSystem = default!;
     [Dependency] private readonly PowerReceiverSystem _powerReceiver = default!;
+    [Dependency] private readonly ApcSystem _apc = default!;
     [Dependency] private readonly EntityLookupSystem _lookup = default!;
     [Dependency] private readonly MetaDaemonSystem _daemon = default!;
     [Dependency] private readonly DamageableSystem _damageable = default!;
     [Dependency] private readonly SharedStunSystem _stun = default!;
+    [Dependency] private readonly MetaVirtualMachineSystem _vm = default!;
+    [Dependency] private readonly TurretTargetSettingsSystem _turretAccess = default!;
+    [Dependency] private readonly SharedAudioSystem _audio = default!;
+    [Dependency] private readonly PopupSystem _popup = default!;
+    [Dependency] private readonly SharedTransformSystem _transform = default!;
+    [Dependency] private readonly UserInterfaceSystem _ui = default!;
 
     private static readonly HashSet<string> AllowedOverrideKeys = new(StringComparer.OrdinalIgnoreCase)
     {
         "DOOR_STATE",
         "POWER_TOGGLE",
+        "APC_BREAKER",
+        "TURRET_STATE",
         "TURRET_FACTION",
+        "CYBERLIMB_LOCK",
     };
 
     private readonly Dictionary<EntityUid, EntityUid?> _eventSources = new();
@@ -45,16 +67,15 @@ public sealed class MetaApiSystem : EntitySystem, IMetaRuntimeApi
 
     public IReadOnlyList<EntityUid> GetConnected(EntityUid target)
     {
-        if (!TryComp<TransformComponent>(target, out var xform))
-            return Array.Empty<EntityUid>();
-
         var found = new List<EntityUid>();
-        foreach (var uid in _lookup.GetEntitiesInRange(xform.Coordinates, 6f, LookupFlags.Dynamic | LookupFlags.Sundries))
+        foreach (var uid in _lookup.GetEntitiesInRange(target, 8f, LookupFlags.Dynamic | LookupFlags.Sundries))
         {
             if (uid == target)
                 continue;
 
-            if (HasComp<ApcPowerReceiverComponent>(uid) || HasComp<DoorComponent>(uid) || HasComp<IceHealthComponent>(uid))
+            if (HasComp<ApcPowerReceiverComponent>(uid) || HasComp<DoorComponent>(uid) || 
+                HasComp<IceHealthComponent>(uid) || HasComp<ApcComponent>(uid) || 
+                HasComp<DeployableTurretComponent>(uid))
                 found.Add(uid);
         }
 
@@ -101,26 +122,62 @@ public sealed class MetaApiSystem : EntitySystem, IMetaRuntimeApi
                 _powerReceiver.TogglePower(target, playSwitchSound: false, receiver: receiver);
                 return true;
 
+            case "APC_BREAKER":
+                if (!TryComp<ApcComponent>(target, out var apc))
+                    return false;
+                _apc.ApcToggleBreaker(target, apc);
+                return true;
+
+            case "TURRET_STATE":
+                if (!TryComp<DeployableTurretComponent>(target, out var turret))
+                    return false;
+                if (TryComp<ApcPowerReceiverComponent>(target, out var tReceiver))
+                    _powerReceiver.TogglePower(target, false, tReceiver);
+                return true;
+
             case "TURRET_FACTION":
-                return false;
+                if (!TryComp<TurretTargetSettingsComponent>(target, out var tAccess))
+                    return false;
+                if (value == 0)
+                {
+                    _turretAccess.SyncAccessLevelExemptions(tAccess, new List<ProtoId<AccessLevelPrototype>>());
+                }
+                return true;
+
+            case "CYBERLIMB_LOCK":
+                if (!TryComp<CyberwareComponent>(target, out var cyber))
+                    return false;
+                
+                bool hasLimbs = false;
+                foreach (var implant in cyber.InstalledImplants.Values)
+                {
+                    if (TryComp<CyberwareImplantComponent>(implant, out var imp) && 
+                        (imp.Category == CyberwareCategory.LeftArm || imp.Category == CyberwareCategory.RightArm ||
+                         imp.Category == CyberwareCategory.LeftLeg || imp.Category == CyberwareCategory.RightLeg))
+                    {
+                        hasLimbs = true;
+                        break;
+                    }
+                }
+
+                if (hasLimbs && value > 0)
+                {
+                    _stun.TryParalyze(target, TimeSpan.FromSeconds(2), true);
+                    _popup.PopupEntity("Your cyberlimbs lock up!", target, target, PopupType.LargeCaution);
+                }
+                return true;
         }
 
         return false;
     }
 
-    public int GetTrace(EntityUid deckUid)
-    {
-        return 0;
-    }
+    public int GetTrace(EntityUid deckUid) => 0;
 
-    public void Cloak(EntityUid deckUid, int strength)
-    {
-        // Reserved for stealth/trace systems integration.
-    }
+    public void Cloak(EntityUid deckUid, int strength) { }
 
     public void Ping(EntityUid target)
     {
-        // Reserved for telemetry/event hooks.
+        _audio.PlayPvs("/Audio/Effects/sparks4.ogg", target);
     }
 
     public EntityUid? GetIntruder(EntityUid deckUid)
@@ -162,12 +219,9 @@ public sealed class MetaApiSystem : EntitySystem, IMetaRuntimeApi
 
     public EntityUid? FindNearest(EntityUid deckUid, string className, int radius)
     {
-        if (!TryComp<TransformComponent>(deckUid, out var xform))
-            return null;
-
         EntityUid? best = null;
         float bestDist = float.MaxValue;
-        foreach (var uid in _lookup.GetEntitiesInRange(xform.Coordinates, Math.Max(1, radius), LookupFlags.Dynamic | LookupFlags.Sundries))
+        foreach (var uid in _lookup.GetEntitiesInRange(deckUid, Math.Max(1, radius), LookupFlags.Dynamic | LookupFlags.Sundries))
         {
             if (uid == deckUid || Deleted(uid))
                 continue;
@@ -176,7 +230,8 @@ public sealed class MetaApiSystem : EntitySystem, IMetaRuntimeApi
             if (!cls.Contains(className, StringComparison.OrdinalIgnoreCase))
                 continue;
 
-            if (xform.Coordinates.TryDistance(EntityManager, Transform(uid).Coordinates, out var dist) && dist < bestDist)
+            var dist = (_transform.GetWorldPosition(deckUid) - _transform.GetWorldPosition(uid)).Length();
+            if (dist < bestDist)
             {
                 best = uid;
                 bestDist = dist;
@@ -188,7 +243,6 @@ public sealed class MetaApiSystem : EntitySystem, IMetaRuntimeApi
 
     public IReadOnlyList<string> GetFiles(EntityUid target)
     {
-        // Placeholder deterministic file catalog tied to entity id.
         return new[] { $"syslog_{target.Id}", $"access_{target.Id}" };
     }
 
@@ -212,8 +266,34 @@ public sealed class MetaApiSystem : EntitySystem, IMetaRuntimeApi
         return _deckFiles.TryGetValue(deckUid, out var files) && files.Contains(fileId);
     }
 
-    public void Log(EntityUid deckUid, string text)
+    public IReadOnlyList<int> GetVitals(EntityUid target)
+    {
+        if (!TryComp<DamageableComponent>(target, out var damageable))
+            return Array.Empty<int>();
+
+        var list = new List<int>();
+        list.Add((int)damageable.TotalDamage);
+        
+        if (damageable.DamagePerGroup.TryGetValue("Brute", out var brute)) list.Add((int)brute);
+        else list.Add(0);
+        
+        if (damageable.DamagePerGroup.TryGetValue("Burn", out var burn)) list.Add((int)burn);
+        else list.Add(0);
+
+        if (damageable.DamagePerGroup.TryGetValue("Toxin", out var toxin)) list.Add((int)toxin);
+        else list.Add(0);
+
+        return list;
+    }
+
+    public string InterceptPda(EntityUid target)
+    {
+        return "ERROR: Message encrypted.";
+    }
+
+    public void MetaLog(EntityUid deckUid, string text)
     {
         Logger.InfoS("meta", $"[{ToPrettyString(deckUid)}] {text}");
+        _ui.ServerSendUiMessage(deckUid, CyberdeckUiKey.Key, new CyberdeckLogMessage(text));
     }
 }

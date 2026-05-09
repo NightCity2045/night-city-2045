@@ -265,10 +265,31 @@ public sealed class MetaVirtualMachineSystem : EntitySystem
         switch (i)
         {
             case MetaAllocRamInstruction a:
-                s.AllocatedRam += Math.Max(0, a.Amount);
+                var amount = Math.Max(0, a.Amount);
+                if (TryComp<CyberdeckComponent>(s.DeckUid, out var deck))
+                {
+                    if (deck.CurrentRam >= amount)
+                    {
+                        deck.CurrentRam -= amount;
+                        s.AllocatedRam += amount;
+                        Dirty(s.DeckUid, deck);
+                    }
+                    else
+                    {
+                        s.Error = $"[FATAL] META: OUT OF MEMORY. Required {amount} RAM, available {deck.CurrentRam}.";
+                    }
+                }
                 break;
             case MetaFreeRamInstruction f:
-                s.FreedRam += Math.Max(0, f.Amount);
+                var fAmount = Math.Max(0, f.Amount);
+                // Can only free what was allocated by this process.
+                var toFree = Math.Min(fAmount, s.AllocatedRam - s.FreedRam);
+                if (toFree > 0 && TryComp<CyberdeckComponent>(s.DeckUid, out var fDeck))
+                {
+                    fDeck.CurrentRam = Math.Min(fDeck.MaxRam - fDeck.LeakedRam, fDeck.CurrentRam + toFree);
+                    s.FreedRam += toFree;
+                    Dirty(s.DeckUid, fDeck);
+                }
                 break;
             case MetaDefIntInstruction d:
                 s.IntVars[d.Name] = EvalInt(s, d.Value);
@@ -293,7 +314,7 @@ public sealed class MetaVirtualMachineSystem : EntitySystem
                 s.Exited = true;
                 break;
             case MetaSysLogInstruction log:
-                _api.Log(s.DeckUid, EvalString(s, log.Message));
+                _api.MetaLog(s.DeckUid, EvalString(s, log.Message));
                 break;
             case MetaSysInjectInstruction inj:
                 var t = EvalPtr(s, inj.Target);
@@ -453,17 +474,27 @@ public sealed class MetaVirtualMachineSystem : EntitySystem
     {
         if (e is MetaVariableExpression v && s.ArrVars.TryGetValue(v.Name, out var arr))
             return new List<int>(arr);
-        if (e is MetaSysCallExpression sys && sys.Name.Equals("GET_CONNECTED", StringComparison.OrdinalIgnoreCase))
+        if (e is MetaSysCallExpression sys)
         {
-            var ptr = EvalPtr(s, sys.Arguments[0]);
-            if (ptr == null) return new List<int>();
-            return _api.GetConnected(ptr.Value).Select(u => unchecked((int)u.Id)).ToList();
-        }
-        if (e is MetaSysCallExpression files && files.Name.Equals("GET_FILES", StringComparison.OrdinalIgnoreCase))
-        {
-            var ptr = EvalPtr(s, files.Arguments[0]);
-            if (ptr == null) return new List<int>();
-            return _api.GetFiles(ptr.Value).Select(HashToInt).ToList();
+            var name = sys.Name.ToUpperInvariant();
+            if (name == "GET_CONNECTED")
+            {
+                var ptr = EvalPtr(s, sys.Arguments[0]);
+                if (ptr == null) return new List<int>();
+                return _api.GetConnected(ptr.Value).Select(u => unchecked((int) u.Id)).ToList();
+            }
+            if (name == "GET_FILES")
+            {
+                var ptr = EvalPtr(s, sys.Arguments[0]);
+                if (ptr == null) return new List<int>();
+                return _api.GetFiles(ptr.Value).Select(HashToInt).ToList();
+            }
+            if (name == "GET_VITALS")
+            {
+                var ptr = EvalPtr(s, sys.Arguments[0]);
+                if (ptr == null) return new List<int>();
+                return _api.GetVitals(ptr.Value).ToList();
+            }
         }
         return new List<int>();
     }
@@ -516,6 +547,7 @@ public sealed class MetaVirtualMachineSystem : EntitySystem
         return c.Name.ToUpperInvariant() switch
         {
             "GET_CLASS" => EvalPtr(s, c.Arguments[0]) is { } t ? _api.GetClass(t) : string.Empty,
+            "INTERCEPT_PDA" => EvalPtr(s, c.Arguments[0]) is { } p ? _api.InterceptPda(p) : string.Empty,
             _ => string.Empty
         };
     }
@@ -550,7 +582,7 @@ public sealed class MetaVirtualMachineSystem : EntitySystem
                 if (EvalPtr(s, i.Arguments[0]) is { } d) _api.Disconnect(d);
                 break;
             case "LOG":
-                _api.Log(s.DeckUid, EvalString(s, i.Arguments[0]));
+                _api.MetaLog(s.DeckUid, EvalString(s, i.Arguments[0]));
                 break;
             case "DOWNLOAD":
                 if (EvalPtr(s, i.Arguments[0]) is { } down)
