@@ -304,19 +304,19 @@ public sealed class MetaVirtualMachineSystem : EntitySystem
 
     private string EvalString(MetaContinuationState s, MetaExpression e)
     {
-        if (e is MetaStringLiteral sl) return sl.Value;
+        if (e is MetaStringLiteral sl) return sl.Value ?? "";
         if (e is MetaIntLiteral il) return il.Value.ToString(System.Globalization.CultureInfo.InvariantCulture);
         if (e is MetaVariableExpression v)
         {
-            if (s.StrVars.TryGetValue(v.Name, out var sv)) return sv;
+            if (s.StrVars.TryGetValue(v.Name, out var sv)) return sv ?? "";
             if (s.IntVars.TryGetValue(v.Name, out var iv)) return iv.ToString(System.Globalization.CultureInfo.InvariantCulture);
-            if (s.PtrVars.TryGetValue(v.Name, out var pv)) return pv.ToString();
+            if (s.PtrVars.TryGetValue(v.Name, out var pv)) return pv.ToString() ?? "";
         }
         if (e is MetaSysCallExpression sys)
         {
             var f = sys.Name.ToUpperInvariant();
-            if (f == "GET_CLASS" && CheckRam(s, SysHeavyCost)) { var t = EvalPtr(s, sys.Arguments[0]); return t != null ? _api.GetClass(t.Value) : ""; }
-            if (f == "INTERCEPT_PDA") { var t = EvalPtr(s, sys.Arguments[0]); return t != null ? _api.InterceptPda(t.Value) : ""; }
+            if (f == "GET_CLASS" && CheckRam(s, SysHeavyCost)) { var t = EvalPtr(s, sys.Arguments[0]); return t != null ? (_api.GetClass(t.Value) ?? "") : ""; }
+            if (f == "INTERCEPT_PDA") { var t = EvalPtr(s, sys.Arguments[0]); return t != null ? (_api.InterceptPda(t.Value) ?? "") : ""; }
         }
         if (e is MetaBinaryExpression b && b.Op == MetaBinaryOp.Add) return EvalString(s, b.Left) + EvalString(s, b.Right);
         return "";

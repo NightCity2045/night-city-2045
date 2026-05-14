@@ -39,6 +39,11 @@ public sealed class CyberdeckExecuteMessage : BoundUserInterfaceMessage
 }
 
 [Serializable, NetSerializable]
+public sealed class CyberdeckHotSimMessage : BoundUserInterfaceMessage
+{
+}
+
+[Serializable, NetSerializable]
 public sealed class CyberdeckLogMessage : BoundUserInterfaceMessage
 {
     public readonly string Text;

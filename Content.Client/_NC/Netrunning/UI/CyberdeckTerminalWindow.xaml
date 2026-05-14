@@ -5,6 +5,8 @@
         <BoxContainer Orientation="Horizontal" SeparationOverride="10">
             <Label Name="TargetLabel" Text="Link: None" />
             <Label Name="RamLabel" Text="RAM: 0/0" />
+            <BoxContainer HorizontalExpand="True" />
+            <Button Name="HotSimButton" Text="TEST" />
         </BoxContainer>
 
         <TabContainer VerticalExpand="True">

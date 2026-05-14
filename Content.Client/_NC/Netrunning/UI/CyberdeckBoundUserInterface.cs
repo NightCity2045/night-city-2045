@@ -32,6 +32,11 @@ public sealed class CyberdeckBoundUserInterface : BoundUserInterface
             SendMessage(new CyberdeckExecuteMessage(shard));
         };
 
+        _window.OnHotSimRequested += () =>
+        {
+            SendMessage(new CyberdeckHotSimMessage());
+        };
+
         _window.OpenCentered();
     }
 

@@ -13,6 +13,7 @@ public sealed partial class CyberdeckTerminalWindow : DefaultWindow
     public event Action<string, string, NetEntity?>? OnCompileRequested;
     public event Action<NetEntity>? OnRunRequested;
     public event Action<NetEntity>? OnEjectRequested;
+    public event Action? OnHotSimRequested;
 
     private NetEntity? _selectedShard;
     private Dictionary<NetEntity, (string Name, string Source)> _shardData = new();
@@ -21,6 +22,8 @@ public sealed partial class CyberdeckTerminalWindow : DefaultWindow
     public CyberdeckTerminalWindow()
     {
         RobustXamlLoader.Load(this);
+
+        HotSimButton.OnPressed += _ => OnHotSimRequested?.Invoke();
 
         CompileNewButton.OnPressed += _ => OnCompileRequested?.Invoke(Rope.Collapse(CodeInput.TextRope), NameInput.Text, null);
         SaveButton.OnPressed += _ =>
