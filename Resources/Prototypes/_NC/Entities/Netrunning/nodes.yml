@@ -1,0 +1,14 @@
+- type: entity
+  parent: BaseItem
+  id: LocalNetworkHub
+  name: network hub
+  description: A central server that provides local area network access. Required for persistent digital architecture.
+  components:
+  - type: NetNode
+  - type: Sprite
+    sprite: _NC/Objects/Devices/hub.rsi # Assuming this exists or using placeholder
+    state: icon
+  - type: Item
+    size: Large
+  - type: Anchorable
+  - type: Rotatable

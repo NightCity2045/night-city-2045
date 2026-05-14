@@ -23,9 +23,7 @@ public sealed class HotSimSystem : EntitySystem
     [Dependency] private readonly MindSystem _mindSystem = default!;
     [Dependency] private readonly SharedActionsSystem _actions = default!;
     [Dependency] private readonly SharedStunSystem _stun = default!;
-
-    private MapId? _netMap;
-    private EntityUid? _netGrid;
+    [Dependency] private readonly NetSpatialSystem _netSpatial = default!;
 
     public override void Initialize()
     {
@@ -43,36 +41,23 @@ public sealed class HotSimSystem : EntitySystem
         if (!_mindSystem.TryGetMind(user, out var mindId, out var mind))
             return;
 
-        // 1. Prepare Net Map (Lazy load)
-        if (_netMap == null || !_mapManager.MapExists(_netMap.Value))
+        // 1. Find anchor node (Physical server or the Deck itself)
+        // For now, if the deck doesn't have a node, we assume it's a "scavenged" entry point
+        var anchor = uid;
+        var node = EnsureComp<NetNodeComponent>(anchor);
+
+        // 2. Get or Create Grid
+        var netGrid = _netSpatial.GetOrCreateNetGrid(anchor, node);
+        if (netGrid == EntityUid.Invalid)
         {
-            _netMap = _mapManager.CreateMap();
-            
-            // Ensure map has light
-            var mapUid = _mapManager.GetMapEntityId(_netMap.Value);
-            EnsureComp<MapLightComponent>(mapUid);
-            
-            if (_mapLoader.TryLoadGrid(_netMap.Value, new ResPath("/Maps/_NC/NET/net_f1.yml"), out var grid))
-            {
-                var gridUid = grid.Value.Owner;
-                _netGrid = gridUid;
-                EnsureComp<GravityComponent>(gridUid);
-                EnsureComp<GridAtmosphereComponent>(gridUid);
-            }
-            else
-            {
-                Log.Error("Failed to load Maps/_NC/NET/net_f1.yml grid!");
-                return;
-            }
+            Log.Error($"Failed to create digital space for node {ToPrettyString(anchor)}");
+            return;
         }
 
-        if (_netGrid == null)
-            return;
-
-        // 2. Start Immersion Effect (Close eyes)
+        // 3. Start Immersion Effect (Close eyes)
         RaiseNetworkEvent(new NetrunningImmersionEvent(true), user);
 
-        // 3. Wait for fade then transfer
+        // 4. Wait for fade then transfer
         Timer.Spawn(TimeSpan.FromSeconds(1.6f), () => 
         {
             if (Deleted(user) || Deleted(uid)) return;
@@ -80,8 +65,8 @@ public sealed class HotSimSystem : EntitySystem
             // Freeze physical body
             _stun.TryParalyze(user, TimeSpan.FromHours(1), true);
 
-            // Spawn Avatar
-            var coords = new EntityCoordinates(_netGrid.Value, 0, 0);
+            // Spawn Avatar at grid center
+            var coords = new EntityCoordinates(netGrid, 0, 0);
             var avatar = Spawn("NCNetAvatar", coords);
             
             var avatarComp = EnsureComp<NetAvatarComponent>(avatar);
@@ -94,7 +79,7 @@ public sealed class HotSimSystem : EntitySystem
             // Add Jack Out Action
             _actions.AddAction(avatar, "ActionNetJackOut");
 
-            // 4. Open eyes
+            // 5. Open eyes
             RaiseNetworkEvent(new NetrunningImmersionEvent(false), avatar);
         });
     }

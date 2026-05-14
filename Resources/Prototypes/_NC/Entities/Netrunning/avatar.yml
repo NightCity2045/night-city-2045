@@ -1,5 +1,5 @@
 - type: entity
-  parent: MobHuman
+  parent: BaseMobSpecies
   id: NCNetAvatar
   name: Netrunner Avatar
   description: A digital projection of a netrunner's consciousness.
@@ -10,9 +10,8 @@
   - type: MovementSpeedModifier
     baseWalkSpeed: 6
     baseSprintSpeed: 9
-  - type: Hands
-  - type: Inventory
-  - type: InteractionOutline
+  - type: Input
+    context: "human"
   - type: Fixtures
     fixtures:
       fix1:
@@ -24,5 +23,3 @@
         - MobMask
         layer:
         - MobLayer
-  - type: Input
-    context: "human"
