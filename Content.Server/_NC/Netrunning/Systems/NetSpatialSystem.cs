@@ -1,11 +1,12 @@
-using System.Numerics;
 using Content.Shared._NC.Netrunning.Components;
-using Robust.Shared.Maths;
+using Content.Shared.Gravity;
+using Content.Server.Atmos.Components;
 using Robust.Shared.Map;
 using Robust.Shared.Map.Components;
 using Robust.Shared.EntitySerialization.Systems;
 using Robust.Shared.Utility;
 using Robust.Shared.GameObjects;
+using System.Numerics;
 
 namespace Content.Server._NC.Netrunning.Systems;
 
@@ -67,7 +68,14 @@ public sealed class NetSpatialSystem : EntitySystem
             // Link back and position
             var xform = Transform(gridUid);
             xform.WorldPosition = offset;
+
+            // Ensure breathable and walkable
+            EnsureComp<GridAtmosphereComponent>(gridUid);
+            var gravity = EnsureComp<GravityComponent>(gridUid);
+            gravity.Enabled = true;
+            gravity.Inherent = true;
             
+            Dirty(gridUid, gravity);
             Dirty(nodeUid, node);
             return gridUid;
         }

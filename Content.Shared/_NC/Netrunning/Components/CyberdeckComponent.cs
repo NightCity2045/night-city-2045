@@ -51,21 +51,43 @@ public sealed class CyberdeckLogMessage : BoundUserInterfaceMessage
 }
 
 [Serializable, NetSerializable]
+public sealed class CyberdeckConstructMessage : BoundUserInterfaceMessage
+{
+    public readonly string ModuleId;
+    public readonly NetEntity Anchor;
+    public CyberdeckConstructMessage(string moduleId, NetEntity anchor)
+    {
+        ModuleId = moduleId;
+        Anchor = anchor;
+    }
+}
+
+[Serializable, NetSerializable]
+public sealed record NetModuleInfo(string Id, string Name, string Description, int RamCost, int Price);
+
+[Serializable, NetSerializable]
+public sealed record NetAnchorInfo(NetEntity Uid, Direction Dir, bool Connected);
+
+[Serializable, NetSerializable]
 public sealed class CyberdeckUiState : BoundUserInterfaceState
 {
     public readonly int CurrentRam;
     public readonly int MaxRam;
     public readonly NetEntity? ActiveTarget;
-    public readonly List<(NetEntity Shard, string Name, string Source)> InstalledShards;
-    public readonly bool HasNetvisor;
+    public readonly List<(NetEntity Uid, string Name, string Source)> Shards;
+    public readonly bool HasAR;
+    public readonly List<NetModuleInfo> AvailableModules;
+    public readonly List<NetAnchorInfo> AvailableAnchors;
 
-    public CyberdeckUiState(int currentRam, int maxRam, NetEntity? activeTarget, List<(NetEntity, string, string)> installedShards, bool hasNetvisor)
+    public CyberdeckUiState(int currentRam, int maxRam, NetEntity? activeTarget, List<(NetEntity, string, string)> shards, bool hasAR, List<NetModuleInfo> availableModules, List<NetAnchorInfo> availableAnchors)
     {
         CurrentRam = currentRam;
         MaxRam = maxRam;
         ActiveTarget = activeTarget;
-        InstalledShards = installedShards;
-        HasNetvisor = hasNetvisor;
+        Shards = shards;
+        HasAR = hasAR;
+        AvailableModules = availableModules;
+        AvailableAnchors = availableAnchors;
     }
 }
 

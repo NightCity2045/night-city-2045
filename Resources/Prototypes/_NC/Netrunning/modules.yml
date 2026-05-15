@@ -1,0 +1,23 @@
+- type: netModule
+  id: NetModuleStorage
+  name: "Data Storage Node"
+  description: "Increases the capacity for stored DataShards and provides a secure file buffer."
+  ramCost: 5
+  price: 0
+  templatePath: "/Maps/_NC/NET/storage_node.yml"
+
+- type: netModule
+  id: NetModuleICENest
+  name: "ICE Nest"
+  description: "A specialized cluster for hosting defensive daemons. Optimized for neural-burn programs."
+  ramCost: 8
+  price: 0
+  templatePath: "/Maps/_NC/NET/ice_nest.yml"
+
+- type: netModule
+  id: NetModuleIOProxy
+  name: "I/O Proxy Link"
+  description: "Hardware bridge that allows controlling physical devices (doors, lights) through the network."
+  ramCost: 10
+  price: 2500
+  templatePath: "/Maps/_NC/NET/io_proxy.yml"

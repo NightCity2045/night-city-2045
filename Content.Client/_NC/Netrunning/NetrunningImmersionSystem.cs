@@ -78,6 +78,7 @@ public sealed class NetrunningFadeControl : Control
             }
         };
 
+        this.StopAnimation("fade");
         this.PlayAnimation(anim, "fade");
         
         Timer.Spawn(TimeSpan.FromSeconds(duration), () => onComplete?.Invoke());

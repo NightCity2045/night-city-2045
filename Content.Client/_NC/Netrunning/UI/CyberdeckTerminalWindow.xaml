@@ -33,6 +33,25 @@
                 </BoxContainer>
             </BoxContainer>
 
+            <BoxContainer Name="ConstructTab" Orientation="Vertical" Margin="4">
+                <Label Text="NET-CONSTRUCT: Modular Network Assembly" HorizontalAlignment="Center" />
+                <BoxContainer Orientation="Horizontal" SeparationOverride="10" VerticalExpand="True">
+                    <BoxContainer Orientation="Vertical" HorizontalExpand="True" MinWidth="180">
+                        <Label Text="1. Select Port:" />
+                        <ItemList Name="PortList" VerticalExpand="True" />
+                    </BoxContainer>
+                    <BoxContainer Orientation="Vertical" HorizontalExpand="True" MinWidth="180">
+                        <Label Text="2. Select Module:" />
+                        <ItemList Name="ModuleList" VerticalExpand="True" />
+                        <Button Name="ConstructButton" Text="Purchase &amp; Construct" />
+                    </BoxContainer>
+                    <BoxContainer Orientation="Vertical" HorizontalExpand="True" MinWidth="200">
+                        <Label Text="Module Description:" />
+                        <RichTextLabel Name="ModuleDesc" VerticalExpand="True" />
+                    </BoxContainer>
+                </BoxContainer>
+            </BoxContainer>
+
             <BoxContainer Name="LogsTab" Orientation="Vertical" Margin="4">
                 <Label Text="System Logs:" />
                 <RichTextLabel Name="LogOutput" VerticalExpand="True" MinHeight="250" />

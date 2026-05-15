@@ -13,6 +13,8 @@ using Robust.Shared.GameObjects;
 using Robust.Shared.Timing;
 using Robust.Shared.Utility;
 using Robust.Server.GameObjects;
+using Robust.Shared.Prototypes;
+using Content.Shared._NC.Netrunning.Prototypes;
 using System.Linq;
 
 namespace Content.Server._NC.Netrunning.Systems;
@@ -200,7 +202,9 @@ public sealed class MetaProgramSystem : EntitySystem
         UpdateUi(uid, component, user);
     }
 
-    private void UpdateUi(EntityUid uid, CyberdeckComponent component, EntityUid? user = null)
+    [Dependency] private readonly IPrototypeManager _proto = default!;
+
+    public void UpdateUi(EntityUid uid, CyberdeckComponent component, EntityUid? user = null)
     {
         var shards = new List<(NetEntity, string, string)>();
         if (_containers.TryGetContainer(uid, CyberdeckComponent.ShardContainerId, out var container))
@@ -211,8 +215,36 @@ public sealed class MetaProgramSystem : EntitySystem
                 shards.Add((GetNetEntity(ent), Name(ent), source));
             }
         }
+
+        var modules = new List<NetModuleInfo>();
+        foreach (var proto in _proto.EnumeratePrototypes<NetModulePrototype>())
+        {
+            modules.Add(new NetModuleInfo(proto.ID, proto.Name, proto.Description, proto.RamCost, proto.Price));
+        }
+
+        var anchors = new List<NetAnchorInfo>();
+        if (TryComp<NetNodeComponent>(uid, out var node) && node.DigitalGrid != null)
+        {
+            var coreGridUid = node.DigitalGrid.Value;
+            var xformQuery = GetEntityQuery<TransformComponent>();
+            if (xformQuery.TryGetComponent(coreGridUid, out var coreXform))
+            {
+                var mapId = coreXform.MapID;
+                var corePos = coreXform.WorldPosition;
+
+                var query = AllEntityQuery<NetAnchorComponent, TransformComponent>();
+                while (query.MoveNext(out var aUid, out var anchor, out var xform))
+                {
+                    if (xform.MapID == mapId && (xform.WorldPosition - corePos).Length() < 150f)
+                    {
+                        anchors.Add(new NetAnchorInfo(GetNetEntity(aUid), anchor.Direction, anchor.Connected));
+                    }
+                }
+            }
+        }
+
         var hasAR = user != null && TryGetNetvisorBonus(user.Value, out _);
-        var state = new CyberdeckUiState(component.CurrentRam, component.MaxRam, GetNetEntity(component.ActiveTarget), shards, hasAR);
+        var state = new CyberdeckUiState(component.CurrentRam, component.MaxRam, GetNetEntity(component.ActiveTarget), shards, hasAR, modules, anchors);
         _ui.SetUiState(uid, CyberdeckUiKey.Key, state);
     }
 
