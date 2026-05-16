@@ -222,6 +222,19 @@ public sealed class MetaApiSystem : EntitySystem, IMetaRuntimeApi
         _eventSources[hostUid] = source;
     }
 
+    public bool Breach(EntityUid attacker, EntityUid target)
+    {
+        if (!TryComp<NetFirewallComponent>(target, out var firewall))
+            return false;
+
+        // In a full implementation, this would involve a progress bar or minigame.
+        // For prototype: Immediate removal.
+        QueueDel(target);
+        
+        MetaLog(attacker, $"BREACH SUCCESSFUL: Firewall at {target} bypassed.");
+        return true;
+    }
+
     public void SetIntruder(EntityUid hostUid, EntityUid? intruder)
     {
         _intruders[hostUid] = intruder;

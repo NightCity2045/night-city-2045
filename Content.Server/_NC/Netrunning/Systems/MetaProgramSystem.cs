@@ -267,9 +267,24 @@ public sealed class MetaProgramSystem : EntitySystem
 
     private void OnDeckAfterInteract(EntityUid uid, CyberdeckComponent component, AfterInteractEvent args)
     {
-        if (args.Target == null || args.Handled) return;
-        var target = args.Target.Value;
+        if (args.Target is not { } target || args.Handled) return;
         if (Deleted(target)) return;
+
+        // 1. Link to Physical Server
+        if (HasComp<NetServerComponent>(target))
+        {
+            component.ActiveServer = target;
+            Dirty(uid, component);
+            
+            _ui.OpenUi(uid, CyberdeckUiKey.Key, args.User);
+            UpdateUi(uid, component, args.User);
+            
+            _popup.PopupEntity("Linked to Local Server Hardware.", target, args.User);
+            args.Handled = true;
+            return;
+        }
+
+        // 2. Standard Device Linking (Hacking/AR)
         float bonus = 0f;
         var hasAR = TryGetNetvisorBonus(args.User, out bonus);
         var maxRange = hasAR ? (component.Range + bonus) : 1.5f;

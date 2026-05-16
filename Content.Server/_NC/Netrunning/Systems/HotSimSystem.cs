@@ -150,22 +150,26 @@ public sealed class HotSimSystem : EntitySystem
         if (!_mindSystem.TryGetMind(user, out var mindId, out var mind))
             return;
 
-        // 1. Find anchor node
-        var anchor = uid;
-        var node = EnsureComp<NetNodeComponent>(anchor);
-
-        // 2. Get or Create Grid
-        var netGrid = _netSpatial.GetOrCreateNetGrid(anchor, node);
-        if (netGrid == EntityUid.Invalid)
+        // 1. Resolve Anchor Server
+        if (component.ActiveServer == null || Deleted(component.ActiveServer.Value))
         {
-            Log.Error($"Failed to create digital space for node {ToPrettyString(anchor)}");
+            _popup.PopupEntity("ERROR: Cyberdeck is not physically linked to a Net-Server.", uid, user, PopupType.MediumCaution);
             return;
         }
 
-        // 3. Start Immersion Effect
+        var anchor = component.ActiveServer.Value;
+        if (!TryComp<NetServerComponent>(anchor, out var server) || server.DigitalGrid == null)
+        {
+            _popup.PopupEntity("ERROR: Linked server hardware is offline or uninitialized.", anchor, user, PopupType.MediumCaution);
+            return;
+        }
+
+        var netGrid = server.DigitalGrid.Value;
+
+        // 2. Start Immersion Effect
         RaiseNetworkEvent(new NetrunningImmersionEvent(true), user);
 
-        // 4. Wait for fade then transfer
+        // 3. Wait for fade then transfer
         Timer.Spawn(TimeSpan.FromSeconds(1.6f), () => 
         {
             if (Deleted(user) || Deleted(uid)) return;

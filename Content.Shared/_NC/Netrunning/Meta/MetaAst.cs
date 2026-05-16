@@ -180,4 +180,5 @@ public interface IMetaRuntimeApi
     string InterceptPda(EntityUid target);
     void SetUser(EntityUid deckUid, EntityUid? userUid);
     void SetEventSource(EntityUid hostUid, EntityUid? source);
+    bool Breach(EntityUid attacker, EntityUid target);
 }

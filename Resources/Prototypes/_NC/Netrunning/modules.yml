@@ -19,5 +19,14 @@
   name: "I/O Proxy Link"
   description: "Hardware bridge that allows controlling physical devices (doors, lights) through the network."
   ramCost: 10
-  price: 2500
+  price: 0
   templatePath: "/Maps/_NC/NET/io_proxy.yml"
+
+- type: netModule
+  id: NetModuleDataGate
+  name: "Data Gate"
+  description: "A high-bandwidth gateway that bridges your local network with the Global Deep NET. WARNING: Exposure to wild data streams may be lethal."
+  ramCost: 15
+  price: 0
+  templatePath: "/Maps/_NC/NET/data_gate.yml"
+

@@ -16,6 +16,13 @@ tilemap:
   1: Space
   0: FloorDarkMono
 entities:
+- proto: NetDataGate
+  entities:
+  - uid: 10
+    components:
+    - type: Transform
+      pos: 0,0
+      parent: 1
 - proto: NetExpansionPort
   entities:
   - uid: 2

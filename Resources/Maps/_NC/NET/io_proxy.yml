@@ -4,7 +4,7 @@ meta:
   engineVersion: 260.2.0
   forkId: ""
   forkVersion: ""
-  time: 05/12/2026 02:31:45
+  time: 1
   entityCount: 1
 maps: []
 grids:
@@ -56,10 +56,10 @@ entities:
       pos: -0.40625,-0.453125
       parent: invalid
     - type: MapAtmosphere
-      space: False
+      space: false
       mixture:
         volume: 2500
-        immutable: True
+        immutable: true
         temperature: 293.15
         moles:
         - 21.82478

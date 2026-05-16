@@ -250,6 +250,7 @@ public sealed class MetaVirtualMachineSystem : EntitySystem
         if (func == "PING" && CheckRam(s, SysBaseCost)) { var t = EvalPtr(s, ss.Arguments[0]); if (t != null) _api.Ping(t.Value); }
         if (func == "BURN_NEUROPORT" && CheckRam(s, SysCriticalCost)) { var t = EvalPtr(s, ss.Arguments[0]); if (t != null) _api.BurnNeuroport(t.Value, EvalInt(s, ss.Arguments[1])); }
         if (func == "DISCONNECT" && CheckRam(s, SysHeavyCost)) { var t = EvalPtr(s, ss.Arguments[0]); if (t != null) _api.Disconnect(t.Value); }
+        if (func == "BREACH" && CheckRam(s, SysHeavyCost)) { var t = EvalPtr(s, ss.Arguments[0]); if (t != null) _api.Breach(deckUid, t.Value); }
     }
 
     private int EvalInt(MetaContinuationState s, MetaExpression e)

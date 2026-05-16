@@ -178,4 +178,10 @@ public sealed partial class CyberdeckComponent : Component
     /// </summary>
     [DataField("storageCapacity"), ViewVariables(VVAccess.ReadWrite), AutoNetworkedField]
     public int StorageCapacity = 5;
+
+    /// <summary>
+    ///     The physical server this deck is currently interacting with.
+    /// </summary>
+    [ViewVariables(VVAccess.ReadWrite)]
+    public EntityUid? ActiveServer;
 }
