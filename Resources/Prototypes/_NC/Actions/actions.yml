@@ -15,7 +15,7 @@
   description: action-desc-net-jackout
   components:
   - type: InstantAction
-    icon: { sprite: Interface/Actions/actions.rsi, state: ghost_unpossess }
+    icon: { sprite: Interface/Actions/actions_ai.rsi, state: ghost_unpossess }
     event: !type:JackOutActionEvent
     checkCanInteract: false
     useDelay: 5.0

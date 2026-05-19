@@ -9,8 +9,10 @@ using Content.Shared.Interaction;
 using Robust.Server.GameObjects;
 using Robust.Shared.EntitySerialization.Systems;
 using Content.Shared.Popups;
+using Robust.Shared.EntitySerialization;
 
 using Content.Server.GameTicking.Events;
+using Robust.Shared.Maths;
 
 namespace Content.Server._NC.Netrunning.Systems;
 
@@ -25,6 +27,7 @@ public sealed class NetGlobalSystem : EntitySystem
     [Dependency] private readonly SharedTransformSystem _transform = default!;
     [Dependency] private readonly NetSpatialSystem _netSpatial = default!;
     [Dependency] private readonly SharedPopupSystem _popup = default!;
+    [Dependency] private readonly SharedMapSystem _mapSystem = default!;
 
     public MapId? OldNetMapId;
 
@@ -45,10 +48,24 @@ public sealed class NetGlobalSystem : EntitySystem
         if (OldNetMapId != null && _mapManager.MapExists(OldNetMapId.Value))
             return;
 
-        if (_mapLoader.TryLoadMap(new ResPath("/Maps/_NC/NET/old_net.yml"), out var map, out _))
+        var options = new DeserializationOptions { InitializeMaps = true };
+        if (_mapLoader.TryLoadMap(new ResPath("/Maps/_NC/NET/old_net.yml"), out var map, out _, options))
         {
             OldNetMapId = map.Value.Comp.MapId;
-            Log.Info($"Global Old Net loaded successfully. MapId: {OldNetMapId}");
+            var mapUid = map.Value.Owner;
+
+            // NUCLEAR UNFREEZE using System
+            _mapSystem.SetPaused(OldNetMapId.Value, false);
+
+            // Ensure environment
+            var gravity = EnsureComp<GravityComponent>(mapUid);
+            gravity.Enabled = true;
+            gravity.Inherent = true;
+
+            var light = EnsureComp<MapLightComponent>(mapUid);
+            light.AmbientLightColor = Color.White;
+
+            Log.Info($"Global Old Net loaded and UNPAUSED with AUTO-MAPINIT. MapId: {OldNetMapId}");
         }
         else
         {
@@ -67,6 +84,9 @@ public sealed class NetGlobalSystem : EntitySystem
             return;
         }
 
+        // Ensure map is unpaused before entry
+        _mapSystem.SetPaused(OldNetMapId.Value, false);
+
         // 1. Determine World Position based on physical body
         var body = avatar.PhysicalBody;
         if (body == null) return;
@@ -80,6 +100,9 @@ public sealed class NetGlobalSystem : EntitySystem
     public void TransitionToGlobal(EntityUid avatarUid, NetAvatarComponent avatar)
     {
         if (avatar.PhysicalBody == null || OldNetMapId == null) return;
+
+        // Ensure map is unpaused before entry
+        _mapSystem.SetPaused(OldNetMapId.Value, false);
 
         var bodyWorldPos = Transform(avatar.PhysicalBody.Value).WorldPosition;
 

@@ -14,6 +14,7 @@ public sealed class NetMovementSystem : EntitySystem
     [Dependency] private readonly IMapManager _mapManager = default!;
     [Dependency] private readonly NetGlobalSystem _globalNet = default!;
     [Dependency] private readonly ITileDefinitionManager _tileDef = default!;
+    [Dependency] private readonly SharedMapSystem _mapSystem = default!;
 
     public override void Update(float frameTime)
     {
@@ -22,27 +23,51 @@ public sealed class NetMovementSystem : EntitySystem
         var query = EntityQueryEnumerator<NetAvatarComponent, TransformComponent>();
         while (query.MoveNext(out var uid, out var avatar, out var xform))
         {
-            if (xform.GridUid == null) continue;
+            // 1. Check if we are on a Net-related map (Local or Global)
+            if (xform.GridUid == null)
+            {
+                if (IsDigitalMap(xform.MapID))
+                {
+                    HandleAbyssFall(uid, avatar, xform);
+                }
+                continue;
+            }
 
+            // 2. Check if we are on an empty tile on a grid
             if (TryComp<MapGridComponent>(xform.GridUid, out var grid))
             {
-                var tile = grid.GetTileRef(xform.Coordinates);
+                var tile = _mapSystem.GetTileRef(xform.GridUid.Value, grid, xform.Coordinates);
                 if (tile.Tile.IsEmpty)
                 {
-                    // Avatar has stepped into the abyss!
                     HandleAbyssFall(uid, avatar, xform);
                 }
             }
         }
     }
 
+    private bool IsDigitalMap(MapId mapId)
+    {
+        // Global NET
+        if (_globalNet.OldNetMapId == mapId) return true;
+
+        // Or is it a Local Net? (Linked to a server)
+        var serverQuery = AllEntityQuery<NetServerComponent, TransformComponent>();
+        while (serverQuery.MoveNext(out var sUid, out var server, out var sXform))
+        {
+            if (sXform.MapID == mapId) return true;
+        }
+
+        return false;
+    }
+
     private void HandleAbyssFall(EntityUid uid, NetAvatarComponent avatar, TransformComponent xform)
     {
-        // 1. Is this a Local Net? (Linked to a physical body/deck)
-        if (avatar.PhysicalBody == null) return;
+        if (avatar.PhysicalBody == null || _globalNet.OldNetMapId == null) return;
 
-        // 2. Transition to Global NET
-        // We use the physical body's location for geo-routing
-        _globalNet.TransitionToGlobal(uid, avatar);
+        // If we fall in Local -> Transition to Global
+        if (xform.MapID != _globalNet.OldNetMapId)
+        {
+            _globalNet.TransitionToGlobal(uid, avatar);
+        }
     }
 }

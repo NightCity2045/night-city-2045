@@ -29,13 +29,38 @@ public sealed partial class NetServerComponent : Component
     public List<EntityUid> SpawnedNodes = new();
 }
 
+[Serializable, NetSerializable]
+public enum NetNodeUiKey : byte
+{
+    Key
+}
+
+[Serializable, NetSerializable]
+public sealed class NetNodeUiState : BoundUserInterfaceState
+{
+    public readonly NetEntity PhysicalDevice;
+    public readonly string DeviceName;
+    public NetNodeUiState(NetEntity physicalDevice, string deviceName)
+    {
+        PhysicalDevice = physicalDevice;
+        DeviceName = deviceName;
+    }
+}
+
+[Serializable, NetSerializable]
+public sealed class NetNodeControlMessage : BoundUserInterfaceMessage
+{
+    public readonly string Action;
+    public NetNodeControlMessage(string action) => Action = action;
+}
+
 /// <summary>
 ///     Attached to digital nodes in the net-grid.
 ///     Links the digital representation back to the physical device (door, camera, etc).
 /// </summary>
-[RegisterComponent, NetworkedComponent]
+[RegisterComponent, NetworkedComponent, AutoGenerateComponentState]
 public sealed partial class NetDeviceNodeComponent : Component
 {
-    [ViewVariables(VVAccess.ReadOnly)]
+    [ViewVariables(VVAccess.ReadOnly), AutoNetworkedField]
     public EntityUid PhysicalDevice;
 }

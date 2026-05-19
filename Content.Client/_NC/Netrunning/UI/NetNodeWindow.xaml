@@ -1,0 +1,16 @@
+<DefaultWindow xmlns="https://spacestation14.io"
+               Title="Network Node Controller"
+               MinWidth="400" MinHeight="350">
+    <BoxContainer Orientation="Vertical" Margin="4">
+        <Label Name="DeviceNameLabel" Text="Target: Unknown" HorizontalAlignment="Center" />
+        
+        <PanelContainer Name="ViewportContainer" VerticalExpand="True" Margin="4">
+            <!-- Viewport will be added here via code-behind -->
+        </PanelContainer>
+
+        <BoxContainer Orientation="Horizontal" SeparationOverride="10" HorizontalAlignment="Center">
+            <Button Name="ToggleButton" Text="TOGGLE STATE" />
+            <Button Name="ScanButton" Text="SCAN DEEP" />
+        </BoxContainer>
+    </BoxContainer>
+</DefaultWindow>

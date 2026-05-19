@@ -34,6 +34,8 @@ public sealed class HotSimSystem : EntitySystem
     [Dependency] private readonly IPrototypeManager _proto = default!;
     [Dependency] private readonly SharedPopupSystem _popup = default!;
     [Dependency] private readonly MetaProgramSystem _metaProgram = default!;
+    [Dependency] private readonly NetServerSystem _netServer = default!;
+    [Dependency] private readonly SharedMapSystem _mapSystem = default!;
 
     public override void Initialize()
     {
@@ -158,13 +160,32 @@ public sealed class HotSimSystem : EntitySystem
         }
 
         var anchor = component.ActiveServer.Value;
-        if (!TryComp<NetServerComponent>(anchor, out var server) || server.DigitalGrid == null)
+        if (!TryComp<NetServerComponent>(anchor, out var server))
         {
-            _popup.PopupEntity("ERROR: Linked server hardware is offline or uninitialized.", anchor, user, PopupType.MediumCaution);
+            _popup.PopupEntity("ERROR: Linked object is not a Net-Server.", anchor, user, PopupType.MediumCaution);
+            return;
+        }
+
+        _netServer.RefreshNetwork(anchor, server);
+
+        if (server.DigitalGrid == null)
+        {
+            _popup.PopupEntity("ERROR: Server failed to initialize digital space.", anchor, user, PopupType.MediumCaution);
             return;
         }
 
         var netGrid = server.DigitalGrid.Value;
+        var mapId = Transform(netGrid).MapID;
+
+        // FORCE UNPAUSE before mind transfer
+        _mapSystem.SetPaused(mapId, false);
+
+        // RE-UNPAUSE after a short delay to override any automatic engine pausing
+        Timer.Spawn(TimeSpan.FromMilliseconds(500), () => 
+        {
+            if (_mapManager.MapExists(mapId))
+                _mapSystem.SetPaused(mapId, false);
+        });
 
         // 2. Start Immersion Effect
         RaiseNetworkEvent(new NetrunningImmersionEvent(true), user);
@@ -176,6 +197,9 @@ public sealed class HotSimSystem : EntitySystem
 
             // Freeze physical body without Stun
             EnsureComp<ImmersedBodyComponent>(user);
+
+            // Double check unpause just in case engine re-paused during the timer
+            _mapSystem.SetPaused(mapId, false);
 
             // Spawn Avatar at grid center
             var coords = new EntityCoordinates(netGrid, 0, 0);
