@@ -170,7 +170,7 @@ public sealed class MetaProgramSystem : EntitySystem
         var user = args.Actor;
         if (!user.Valid) return;
         if (string.IsNullOrWhiteSpace(args.Code)) return;
-        if (!_compiler.TryCompile(args.Code, MetaProgramKind.Standard, out var bytecode, out var error) || bytecode == null)
+        if (!_compiler.TryCompile(args.Code, args.ProgramKind, out var bytecode, out var error) || bytecode == null)
         {
             _popup.PopupEntity("META compile error: " + (error ?? "Unknown"), uid, user, PopupType.MediumCaution);
             return;
@@ -183,6 +183,7 @@ public sealed class MetaProgramSystem : EntitySystem
             shard.SourceCode = args.Code;
             shard.Bytecode = bytecode;
             shard.RequiredRam = bytecode.RequiredRam;
+            shard.ProgramKind = args.ProgramKind;
             Dirty(shardUid, shard);
             _metaData.SetEntityName(shardUid, programName);
             _popup.PopupEntity("Shard updated: " + programName, uid, user);
@@ -194,6 +195,7 @@ public sealed class MetaProgramSystem : EntitySystem
             shard.SourceCode = args.Code;
             shard.Bytecode = bytecode;
             shard.RequiredRam = bytecode.RequiredRam;
+            shard.ProgramKind = args.ProgramKind;
             Dirty(shardUid, shard);
             _metaData.SetEntityName(shardUid, programName);
             _hands.TryPickupAnyHand(user, shardUid);
@@ -206,13 +208,14 @@ public sealed class MetaProgramSystem : EntitySystem
 
     public void UpdateUi(EntityUid uid, CyberdeckComponent component, EntityUid? user = null)
     {
-        var shards = new List<(NetEntity, string, string)>();
+        var shards = new List<(NetEntity, string, string, MetaProgramKind)>();
         if (_containers.TryGetContainer(uid, CyberdeckComponent.ShardContainerId, out var container))
         {
             foreach (var ent in container.ContainedEntities)
             {
                 var source = TryComp<DataShardComponent>(ent, out var s) ? s.SourceCode ?? "" : "";
-                shards.Add((GetNetEntity(ent), Name(ent), source));
+                var kind = TryComp<DataShardComponent>(ent, out var shard) ? shard.ProgramKind : MetaProgramKind.Standard;
+                shards.Add((GetNetEntity(ent), Name(ent), source, kind));
             }
         }
 
@@ -223,9 +226,19 @@ public sealed class MetaProgramSystem : EntitySystem
         }
 
         var anchors = new List<NetAnchorInfo>();
-        if (TryComp<NetNodeComponent>(uid, out var node) && node.DigitalGrid != null)
+        var serverUsedLoad = 0;
+        var serverMaxLoad = 0;
+        var hasServerAdminAccess = false;
+        if (component.ActiveServer is { } serverUid &&
+            !Deleted(serverUid) &&
+            TryComp<NetServerComponent>(serverUid, out var server) &&
+            server.DigitalGrid != null)
         {
-            var coreGridUid = node.DigitalGrid.Value;
+            serverUsedLoad = server.UsedLoad;
+            serverMaxLoad = server.MaxLoad;
+            hasServerAdminAccess = component.ActiveTarget == serverUid || component.HackedNetworks.Contains(serverUid);
+
+            var coreGridUid = server.DigitalGrid.Value;
             var xformQuery = GetEntityQuery<TransformComponent>();
             if (xformQuery.TryGetComponent(coreGridUid, out var coreXform))
             {
@@ -244,7 +257,21 @@ public sealed class MetaProgramSystem : EntitySystem
         }
 
         var hasAR = user != null && TryGetNetvisorBonus(user.Value, out _);
-        var state = new CyberdeckUiState(component.CurrentRam, component.MaxRam, GetNetEntity(component.ActiveTarget), shards, hasAR, modules, anchors);
+        var state = new CyberdeckUiState(
+            component.CurrentRam,
+            component.MaxRam,
+            component.TraceLevel,
+            component.StoredFiles.Count,
+            component.StorageCapacity,
+            serverUsedLoad,
+            serverMaxLoad,
+            GetNetEntity(component.ActiveTarget),
+            component.ActiveServer != null ? GetNetEntity(component.ActiveServer.Value) : null,
+            hasServerAdminAccess,
+            shards,
+            hasAR,
+            modules,
+            anchors);
         _ui.SetUiState(uid, CyberdeckUiKey.Key, state);
     }
 
@@ -317,6 +344,8 @@ public sealed class MetaProgramSystem : EntitySystem
     public MetaExecutionResult Execute(EntityUid deckUid, CyberdeckComponent deck, EntityUid shardUid, DataShardComponent shard)
     {
         if (shard.Bytecode == null) return new MetaExecutionResult(false, false, "No bytecode", 0, 0, GetNetEntity(shardUid));
+        if (shard.ProgramKind == MetaProgramKind.DaemonDefensive)
+            return new MetaExecutionResult(false, false, "Defensive daemon shards must be installed in a protected node.", 0, 0, GetNetEntity(shardUid));
         if (deck.ActiveTarget == null) return new MetaExecutionResult(false, false, "No link", 0, 0, GetNetEntity(shardUid));
         if (!TryGetDeckUser(deckUid, out var user)) return new MetaExecutionResult(false, false, "No user", 0, 0, GetNetEntity(shardUid));
         var effectiveMaxRam = Math.Max(0, deck.MaxRam - deck.LeakedRam);

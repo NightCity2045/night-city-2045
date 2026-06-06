@@ -3,6 +3,7 @@
                MinWidth="400" MinHeight="350">
     <BoxContainer Orientation="Vertical" Margin="4">
         <Label Name="DeviceNameLabel" Text="Target: Unknown" HorizontalAlignment="Center" />
+        <Label Name="DeviceKindLabel" Text="Type: Unknown" HorizontalAlignment="Center" />
         
         <PanelContainer Name="ViewportContainer" VerticalExpand="True" Margin="4">
             <!-- Viewport will be added here via code-behind -->
@@ -11,6 +12,14 @@
         <BoxContainer Orientation="Horizontal" SeparationOverride="10" HorizontalAlignment="Center">
             <Button Name="ToggleButton" Text="TOGGLE STATE" />
             <Button Name="ScanButton" Text="SCAN DEEP" />
+        </BoxContainer>
+        <BoxContainer Orientation="Vertical" HorizontalAlignment="Center" Margin="0 6 0 0">
+            <Button Name="MoveNorthButton" Text="MOVE N" />
+            <BoxContainer Orientation="Horizontal" SeparationOverride="4" HorizontalAlignment="Center">
+                <Button Name="MoveWestButton" Text="MOVE W" />
+                <Button Name="MoveEastButton" Text="MOVE E" />
+            </BoxContainer>
+            <Button Name="MoveSouthButton" Text="MOVE S" />
         </BoxContainer>
     </BoxContainer>
 </DefaultWindow>

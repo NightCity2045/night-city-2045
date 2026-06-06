@@ -44,9 +44,6 @@
           IF (SYS.IS_VALID(intr) == 1) {
               SYS.LOG("INTRUSION DETECTED. Executing Neuro-burn...");
               SYS.BURN_NEUROPORT(intr, 15);
-              
-              YIELD [1000]; // Delay before forced disconnect
-              
               SYS.LOG("Initiating forced Dumpshock...");
               SYS.DISCONNECT(intr);
           }

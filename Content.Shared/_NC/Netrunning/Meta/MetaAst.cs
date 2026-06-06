@@ -146,6 +146,22 @@ public sealed record MetaBytecode(
     MetaProgramKind Kind);
 
 [Serializable, NetSerializable]
+public sealed class MetaArrayValue
+{
+    public MetaValueType ElementType;
+    public List<int> IntValues = new();
+    public List<string> StrValues = new();
+    public List<NetEntity> PtrValues = new();
+
+    public int Count => ElementType switch
+    {
+        MetaValueType.Str => StrValues.Count,
+        MetaValueType.Ptr => PtrValues.Count,
+        _ => IntValues.Count
+    };
+}
+
+[Serializable, NetSerializable]
 public sealed record MetaExecutionResult(
     bool Completed,
     bool Yielded,
@@ -157,6 +173,7 @@ public sealed record MetaExecutionResult(
 public interface IMetaRuntimeApi
 {
     EntityUid? GetTarget(EntityUid deckUid);
+    EntityUid? GetServer(EntityUid deckUid);
     EntityUid GetSelf(EntityUid deckUid);
     int GetIce(EntityUid target);
     IReadOnlyList<EntityUid> GetConnected(EntityUid target);
@@ -181,4 +198,9 @@ public interface IMetaRuntimeApi
     void SetUser(EntityUid deckUid, EntityUid? userUid);
     void SetEventSource(EntityUid hostUid, EntityUid? source);
     bool Breach(EntityUid attacker, EntityUid target);
+    bool HasRoot(EntityUid deckUid, EntityUid serverUid);
+    bool TryRoot(EntityUid deckUid, EntityUid serverUid, int strength);
+    EntityUid? SpawnIce(EntityUid deckUid, EntityUid anchor, int strength, bool blackIce);
+    EntityUid? SpawnDemon(EntityUid deckUid, EntityUid anchor, int strength);
+    void ApplyNeuralDamage(EntityUid target, int damage);
 }

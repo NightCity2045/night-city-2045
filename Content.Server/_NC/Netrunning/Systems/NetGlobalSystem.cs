@@ -84,6 +84,13 @@ public sealed class NetGlobalSystem : EntitySystem
             return;
         }
 
+        var currentMap = Transform(args.User).MapID;
+        if (currentMap == OldNetMapId.Value)
+        {
+            TryEnterLocalNetwork(uid, args.User, avatar);
+            return;
+        }
+
         // Ensure map is unpaused before entry
         _mapSystem.SetPaused(OldNetMapId.Value, false);
 
@@ -125,6 +132,43 @@ public sealed class NetGlobalSystem : EntitySystem
         // In the 1:1 city cast model, we teleport exactly to the coordinates where the player is in reality
         _transform.SetParent(avatar, mapUid);
         _transform.SetWorldPosition(avatar, targetWorldPos);
+    }
+
+    private void TryEnterLocalNetwork(EntityUid gateUid, EntityUid avatarUid, NetAvatarComponent avatar)
+    {
+        if (avatar.Cyberdeck is not { } deckUid ||
+            !TryComp<CyberdeckComponent>(deckUid, out var deck))
+        {
+            _popup.PopupEntity("ACCESS ERROR: No cyberdeck link.", avatarUid, avatarUid);
+            return;
+        }
+
+        if (!TryComp<NetDeviceNodeComponent>(gateUid, out var gateNode) ||
+            gateNode.Server is not { } serverUid ||
+            Deleted(serverUid) ||
+            !TryComp<NetServerComponent>(serverUid, out var server) ||
+            server.DigitalGrid == null)
+        {
+            _popup.PopupEntity("ACCESS ERROR: Broken gateway route.", avatarUid, avatarUid);
+            return;
+        }
+
+        if (!deck.HackedNetworks.Contains(serverUid))
+        {
+            _popup.PopupEntity("ACCESS DENIED: Root required for local NET entry.", avatarUid, avatarUid);
+            return;
+        }
+
+        var localGridUid = server.DigitalGrid.Value;
+        if (Deleted(localGridUid))
+        {
+            _popup.PopupEntity("ACCESS ERROR: Local NET unavailable.", avatarUid, avatarUid);
+            return;
+        }
+
+        var coords = new EntityCoordinates(localGridUid, 0, 0);
+        _transform.SetCoordinates(avatarUid, coords);
+        _popup.PopupEntity($"TUNNEL OPEN: Entering {Name(serverUid)}.", avatarUid, avatarUid);
     }
 
     // Deprecated for the unified map model, but keeping as placeholder if needed later

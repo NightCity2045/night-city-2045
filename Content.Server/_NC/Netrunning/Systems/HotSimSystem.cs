@@ -1,4 +1,6 @@
 using Content.Server.Mind;
+using Content.Server.Power.Components;
+using Content.Shared._NC.Power.Components;
 using Content.Shared._NC.Netrunning;
 using Content.Shared._NC.Netrunning.Components;
 using Content.Shared._NC.Netrunning.Prototypes;
@@ -43,6 +45,7 @@ public sealed class HotSimSystem : EntitySystem
         SubscribeLocalEvent<CyberdeckComponent, CyberdeckHotSimMessage>(OnHotSim);
         SubscribeLocalEvent<CyberdeckComponent, CyberdeckConstructMessage>(OnConstruct);
         SubscribeLocalEvent<NetAvatarComponent, JackOutActionEvent>(OnJackOut);
+        SubscribeLocalEvent<NetModuleComponent, ComponentShutdown>(OnModuleShutdown);
     }
 
     private void OnConstruct(EntityUid uid, CyberdeckComponent component, CyberdeckConstructMessage args)
@@ -50,7 +53,10 @@ public sealed class HotSimSystem : EntitySystem
         var user = args.Actor;
         if (!user.Valid) return;
 
-        if (!TryComp<NetNodeComponent>(uid, out var node) || node.DigitalGrid == null)
+        if (component.ActiveServer is not { } serverUid ||
+            Deleted(serverUid) ||
+            !TryComp<NetServerComponent>(serverUid, out var server) ||
+            server.DigitalGrid == null)
         {
             _popup.PopupEntity("ERROR: No active network link to construct.", uid, user, PopupType.MediumCaution);
             return;
@@ -58,15 +64,27 @@ public sealed class HotSimSystem : EntitySystem
 
         if (!_proto.TryIndex<NetModulePrototype>(args.ModuleId, out var module)) return;
 
-        // 1. RAM Check
-        if (component.MaxRam - component.LeakedRam < module.RamCost)
+        if (!HasServerAdminAccess(component, serverUid))
         {
-            _popup.PopupEntity($"Insufficient RAM capacity (Need {module.RamCost}).", uid, user, PopupType.MediumCaution);
+            _popup.PopupEntity("ERROR: Root/admin access required for NET construction.", uid, user, PopupType.MediumCaution);
             return;
         }
 
-        var gridUid = node.DigitalGrid.Value;
-        if (!TryComp<MapGridComponent>(gridUid, out var grid)) return;
+        if (server.SpawnedModules.Count >= server.MaxModules)
+        {
+            _popup.PopupEntity($"ERROR: Server module limit reached ({server.MaxModules}).", uid, user, PopupType.MediumCaution);
+            return;
+        }
+
+        // Persistent rooms reserve physical server load, not cyberdeck RAM.
+        if (server.UsedLoad + module.RamCost > server.MaxLoad)
+        {
+            _popup.PopupEntity($"ERROR: Server load exceeded ({server.UsedLoad + module.RamCost}/{server.MaxLoad}).", uid, user, PopupType.MediumCaution);
+            return;
+        }
+
+        var gridUid = server.DigitalGrid.Value;
+        if (!HasComp<MapGridComponent>(gridUid)) return;
 
         // 2. Resolve the selected anchor
         var targetAnchorUid = GetEntity(args.Anchor);
@@ -111,6 +129,8 @@ public sealed class HotSimSystem : EntitySystem
             // Link metadata
             var modComp = EnsureComp<NetModuleComponent>(loadedGridUid);
             modComp.PrototypeId = module.ID;
+            modComp.ReservedLoad = module.RamCost;
+            modComp.Server = serverUid;
 
             // Mark anchors as used
             targetAnchor.Connected = true;
@@ -120,15 +140,33 @@ public sealed class HotSimSystem : EntitySystem
                 entryAnchor.Connected = true;
             }
 
-            // Permanent RAM deduction
-            component.MaxRam -= module.RamCost;
-            Dirty(uid, component);
+            server.UsedLoad += module.RamCost;
+            server.SpawnedModules.Add(loadedGridUid);
+            Dirty(serverUid, server);
 
             _popup.PopupEntity($"{module.Name} docked to port.", uid, user);
 
             // Refresh UI
             _metaProgram.UpdateUi(uid, component, user);
         }
+    }
+
+    private bool HasServerAdminAccess(CyberdeckComponent deck, EntityUid serverUid)
+    {
+        // Direct server-console link represents local sysadmin maintenance access.
+        return deck.ActiveTarget == serverUid || deck.HackedNetworks.Contains(serverUid);
+    }
+
+    private void OnModuleShutdown(EntityUid uid, NetModuleComponent component, ComponentShutdown args)
+    {
+        if (component.Server is not { } serverUid ||
+            Deleted(serverUid) ||
+            !TryComp<NetServerComponent>(serverUid, out var server))
+            return;
+
+        server.SpawnedModules.Remove(uid);
+        server.UsedLoad = Math.Max(0, server.UsedLoad - component.ReservedLoad);
+        Dirty(serverUid, server);
     }
 
     private Direction GetOppositeDirection(Direction dir)
@@ -152,19 +190,16 @@ public sealed class HotSimSystem : EntitySystem
         if (!_mindSystem.TryGetMind(user, out var mindId, out var mind))
             return;
 
-        // 1. Resolve Anchor Server
-        if (component.ActiveServer == null || Deleted(component.ActiveServer.Value))
+        // 1. Resolve the local network server. A deck can enter through the
+        // server itself or through any electronics connected to the same LCP/APC.
+        if (!TryResolveAnchorServer(component, out var anchor, out var server))
         {
-            _popup.PopupEntity("ERROR: Cyberdeck is not physically linked to a Net-Server.", uid, user, PopupType.MediumCaution);
+            _popup.PopupEntity("ERROR: No local network server found for this link.", uid, user, PopupType.MediumCaution);
             return;
         }
 
-        var anchor = component.ActiveServer.Value;
-        if (!TryComp<NetServerComponent>(anchor, out var server))
-        {
-            _popup.PopupEntity("ERROR: Linked object is not a Net-Server.", anchor, user, PopupType.MediumCaution);
-            return;
-        }
+        component.ActiveServer = anchor;
+        Dirty(uid, component);
 
         _netServer.RefreshNetwork(anchor, server);
 
@@ -251,5 +286,75 @@ public sealed class HotSimSystem : EntitySystem
             // 5. Open eyes
             RaiseNetworkEvent(new NetrunningImmersionEvent(false), body);
         });
+    }
+
+    private bool TryResolveAnchorServer(CyberdeckComponent deck, out EntityUid anchor, out NetServerComponent server)
+    {
+        if (deck.ActiveServer is { } direct && !Deleted(direct) && TryComp<NetServerComponent>(direct, out var directServer))
+        {
+            anchor = direct;
+            server = directServer;
+            return true;
+        }
+
+        if (deck.ActiveTarget is not { } target || Deleted(target))
+        {
+            anchor = EntityUid.Invalid;
+            server = default!;
+            return false;
+        }
+
+        if (TryComp<NetServerComponent>(target, out var targetServer))
+        {
+            anchor = target;
+            server = targetServer;
+            return true;
+        }
+
+        var query = EntityQueryEnumerator<NetServerComponent>();
+        while (query.MoveNext(out var serverUid, out var candidate))
+        {
+            if (SharesNetwork(target, serverUid))
+            {
+                anchor = serverUid;
+                server = candidate;
+                return true;
+            }
+        }
+
+        anchor = EntityUid.Invalid;
+        server = default!;
+        return false;
+    }
+
+    private bool SharesNetwork(EntityUid deviceUid, EntityUid serverUid)
+    {
+        if (TryComp<ApcPowerReceiverComponent>(deviceUid, out var deviceApc) &&
+            TryComp<ApcPowerReceiverComponent>(serverUid, out var serverApc) &&
+            deviceApc.NetworkLoad.LinkedNetwork != default &&
+            deviceApc.NetworkLoad.LinkedNetwork == serverApc.NetworkLoad.LinkedNetwork)
+        {
+            return true;
+        }
+
+        if (TryComp<LogicPowerReceiverComponent>(deviceUid, out var deviceLogic) && deviceLogic.Provider != null)
+        {
+            if (TryComp<LogicPowerReceiverComponent>(serverUid, out var serverLogic) &&
+                serverLogic.Provider == deviceLogic.Provider)
+            {
+                return true;
+            }
+
+            if (serverUid == deviceLogic.Provider)
+                return true;
+        }
+
+        if (TryComp<LogicPowerProviderComponent>(serverUid, out var serverProvider) &&
+            serverProvider.Receivers.Contains(deviceUid))
+        {
+            return true;
+        }
+
+        return false;
     }
 }

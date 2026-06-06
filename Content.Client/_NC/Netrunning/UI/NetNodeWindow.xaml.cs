@@ -32,11 +32,18 @@ public sealed partial class NetNodeWindow : DefaultWindow
 
         ToggleButton.OnPressed += _ => OnControlAction?.Invoke("toggle");
         ScanButton.OnPressed += _ => OnControlAction?.Invoke("scan");
+        MoveNorthButton.OnPressed += _ => OnControlAction?.Invoke("move_north");
+        MoveSouthButton.OnPressed += _ => OnControlAction?.Invoke("move_south");
+        MoveWestButton.OnPressed += _ => OnControlAction?.Invoke("move_west");
+        MoveEastButton.OnPressed += _ => OnControlAction?.Invoke("move_east");
     }
 
     public void UpdateState(NetNodeUiState state)
     {
         DeviceNameLabel.Text = $"Target: {state.DeviceName}";
+        DeviceKindLabel.Text = state.Kind == NetDeviceNodeKind.CameraGroup
+            ? $"Type: {state.Kind} ({state.DeviceCount} cameras)"
+            : $"Type: {state.Kind}";
         
         var entMan = IoCManager.Resolve<IEntityManager>();
         var physicalUid = entMan.GetEntity(state.PhysicalDevice);

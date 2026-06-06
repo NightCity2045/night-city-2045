@@ -12,12 +12,15 @@ using Content.Server.DeviceNetwork.Components;
 using Robust.Shared.EntitySerialization.Systems;
 using Content.Shared.Popups;
 using Content.Shared.Doors.Components;
+using Content.Shared._NC.Power.Components;
 using Robust.Shared.Map.Components;
 using Content.Shared.Gravity;
 using Content.Shared.Interaction;
 using Robust.Shared.Maths;
 using Robust.Shared.EntitySerialization;
+using Content.Shared.SurveillanceCamera.Components;
 using System.Linq;
+using Content.Shared.Verbs;
 
 namespace Content.Server._NC.Netrunning.Systems;
 
@@ -47,6 +50,8 @@ public sealed class NetServerSystem : EntitySystem
         SubscribeLocalEvent<NetServerComponent, ComponentShutdown>(OnShutdown);
         SubscribeLocalEvent<NetDeviceNodeComponent, ActivateInWorldEvent>(OnNodeActivate);
         SubscribeLocalEvent<NetDeviceNodeComponent, NetNodeControlMessage>(OnControlMessage);
+        SubscribeLocalEvent<NetDefenseComponent, GetVerbsEvent<UtilityVerb>>(OnDefenseMoveVerbs);
+        SubscribeLocalEvent<DefensiveDaemonComponent, GetVerbsEvent<UtilityVerb>>(OnDaemonMoveVerbs);
     }
 
     private void OnNodeActivate(EntityUid uid, NetDeviceNodeComponent component, ActivateInWorldEvent args)
@@ -65,7 +70,10 @@ public sealed class NetServerSystem : EntitySystem
     private void UpdateNodeUi(EntityUid uid, NetDeviceNodeComponent component)
     {
         var physical = component.PhysicalDevice;
-        var state = new NetNodeUiState(GetNetEntity(physical), Name(physical));
+        var deviceName = component.Kind == NetDeviceNodeKind.CameraGroup
+            ? $"Camera Control ({component.PhysicalDevices.Count})"
+            : Name(physical);
+        var state = new NetNodeUiState(GetNetEntity(physical), deviceName, component.Kind, Math.Max(1, component.PhysicalDevices.Count));
         _ui.SetUiState(uid, NetNodeUiKey.Key, state);
     }
 
@@ -76,6 +84,31 @@ public sealed class NetServerSystem : EntitySystem
 
         switch (args.Action)
         {
+            case "scan":
+                if (component.Server is { } scanServer &&
+                    TryHasNodeAdminAccess(args.Actor, scanServer) &&
+                    TryComp<NetServerComponent>(scanServer, out var serverComp))
+                {
+                    RefreshNetwork(scanServer, serverComp);
+                }
+                break;
+
+            case "move_north":
+                TryMoveNode(uid, component, args.Actor, new Vector2(0, 1));
+                break;
+
+            case "move_south":
+                TryMoveNode(uid, component, args.Actor, new Vector2(0, -1));
+                break;
+
+            case "move_west":
+                TryMoveNode(uid, component, args.Actor, new Vector2(-1, 0));
+                break;
+
+            case "move_east":
+                TryMoveNode(uid, component, args.Actor, new Vector2(1, 0));
+                break;
+
             case "toggle":
                 if (TryComp<DoorComponent>(physical, out var door))
                 {
@@ -83,6 +116,103 @@ public sealed class NetServerSystem : EntitySystem
                 }
                 break;
         }
+    }
+
+    private void TryMoveNode(EntityUid nodeUid, NetDeviceNodeComponent node, EntityUid actor, Vector2 offset)
+    {
+        if (node.Server is not { } serverUid || !TryHasNodeAdminAccess(actor, serverUid))
+        {
+            _popup.PopupEntity("ERROR: Root/admin access required to move network nodes.", nodeUid, actor, PopupType.MediumCaution);
+            return;
+        }
+
+        var xform = Transform(nodeUid);
+        _transform.SetLocalPosition(nodeUid, xform.LocalPosition + offset, xform);
+    }
+
+    private void OnDefenseMoveVerbs(EntityUid uid, NetDefenseComponent component, GetVerbsEvent<UtilityVerb> args)
+    {
+        if (!args.CanAccess || !args.CanInteract || component.Server is not { } serverUid || !TryHasNodeAdminAccess(args.User, serverUid))
+            return;
+
+        AddTopologyMoveVerbs(uid, serverUid, args);
+    }
+
+    private void OnDaemonMoveVerbs(EntityUid uid, DefensiveDaemonComponent component, GetVerbsEvent<UtilityVerb> args)
+    {
+        if (!args.CanAccess || !args.CanInteract)
+            return;
+
+        var serverUid = ResolveTopologyServer(uid);
+        if (serverUid == null || !TryHasNodeAdminAccess(args.User, serverUid.Value))
+            return;
+
+        AddTopologyMoveVerbs(uid, serverUid.Value, args);
+    }
+
+    private void AddTopologyMoveVerbs(EntityUid uid, EntityUid serverUid, GetVerbsEvent<UtilityVerb> args)
+    {
+        AddTopologyMoveVerb(uid, serverUid, args, "Move North", new Vector2(0, 1));
+        AddTopologyMoveVerb(uid, serverUid, args, "Move South", new Vector2(0, -1));
+        AddTopologyMoveVerb(uid, serverUid, args, "Move West", new Vector2(-1, 0));
+        AddTopologyMoveVerb(uid, serverUid, args, "Move East", new Vector2(1, 0));
+    }
+
+    private void AddTopologyMoveVerb(EntityUid uid, EntityUid serverUid, GetVerbsEvent<UtilityVerb> args, string text, Vector2 offset)
+    {
+        args.Verbs.Add(new UtilityVerb
+        {
+            Text = text,
+            Category = VerbCategory.Admin,
+            Act = () => TryMoveTopologyEntity(uid, serverUid, args.User, offset)
+        });
+    }
+
+    private void TryMoveTopologyEntity(EntityUid uid, EntityUid serverUid, EntityUid actor, Vector2 offset)
+    {
+        if (!TryHasNodeAdminAccess(actor, serverUid))
+        {
+            _popup.PopupEntity("ERROR: Root/admin access required to move topology.", uid, actor, PopupType.MediumCaution);
+            return;
+        }
+
+        var xform = Transform(uid);
+        _transform.SetLocalPosition(uid, xform.LocalPosition + offset, xform);
+    }
+
+    private EntityUid? ResolveTopologyServer(EntityUid uid)
+    {
+        if (TryComp<NetDefenseComponent>(uid, out var defense) && defense.Server is { } defenseServer && !Deleted(defenseServer))
+            return defenseServer;
+
+        if (TryComp<NetDeviceNodeComponent>(uid, out var node) && node.Server is { } nodeServer && !Deleted(nodeServer))
+            return nodeServer;
+
+        if (TryComp<NetModuleComponent>(uid, out var module) && module.Server is { } moduleServer && !Deleted(moduleServer))
+            return moduleServer;
+
+        var xform = Transform(uid);
+        if (xform.GridUid is not { } gridUid || Deleted(gridUid))
+            return null;
+
+        if (HasComp<NetServerComponent>(gridUid))
+            return gridUid;
+
+        if (TryComp<NetModuleComponent>(gridUid, out var gridModule) && gridModule.Server is { } gridServer && !Deleted(gridServer))
+            return gridServer;
+
+        return null;
+    }
+
+    private bool TryHasNodeAdminAccess(EntityUid actor, EntityUid serverUid)
+    {
+        if (!TryComp<NetAvatarComponent>(actor, out var avatar) || avatar.Cyberdeck is not { } deckUid)
+            return false;
+
+        if (!TryComp<CyberdeckComponent>(deckUid, out var deck))
+            return false;
+
+        return deck.ActiveTarget == serverUid || deck.HackedNetworks.Contains(serverUid);
     }
 
     private void OnMapInit(EntityUid uid, NetServerComponent component, MapInitEvent args)
@@ -117,7 +247,11 @@ public sealed class NetServerSystem : EntitySystem
         var centerPos = new EntityCoordinates(globalGridUid, globalPos);
         var portal = Spawn("NetDataGate", centerPos);
         var nodeComp = EnsureComp<NetDeviceNodeComponent>(portal);
-        nodeComp.PhysicalDevice = serverUid; 
+        nodeComp.PhysicalDevice = serverUid;
+        nodeComp.Kind = NetDeviceNodeKind.DataGate;
+        nodeComp.Server = serverUid;
+        nodeComp.PhysicalDevices.Clear();
+        nodeComp.PhysicalDevices.Add(serverUid);
         _metaData.SetEntityName(portal, $"Access: {Name(serverUid)}");
 
         // Borders (NetFirewallWall)
@@ -138,6 +272,14 @@ public sealed class NetServerSystem : EntitySystem
         {
             QueueDel(component.DigitalGrid.Value);
         }
+
+        foreach (var defense in component.SpawnedDefenses)
+        {
+            if (!Deleted(defense))
+                QueueDel(defense);
+        }
+
+        component.SpawnedDefenses.Clear();
     }
 
     public void RefreshNetwork(EntityUid uid, NetServerComponent component)
@@ -191,29 +333,36 @@ public sealed class NetServerSystem : EntitySystem
         }
         component.SpawnedNodes.Clear();
 
-        // 3. Scan Power Network (LCP/APC)
-        if (!TryComp<ApcPowerReceiverComponent>(uid, out var receiver) || receiver.NetworkLoad.LinkedNetwork == default)
+        var devices = CollectNetworkDevices(uid);
+        if (devices.Count == 0)
         {
             _popup.PopupEntity("SCAN ERROR: Server has no power link (LCP/APC).", uid, PopupType.MediumCaution);
             return;
         }
 
-        var powerNet = receiver.NetworkLoad.LinkedNetwork;
-        int nodeCount = 0;
-        
-        // Find all consumers on the SAME network
-        var deviceQuery = AllEntityQuery<ApcPowerReceiverComponent, TransformComponent>();
-        while (deviceQuery.MoveNext(out var dUid, out var dReceiver, out var dXform))
+        var nodeCount = 0;
+        var cameraGroup = new List<EntityUid>();
+
+        foreach (var device in devices)
         {
-            if (dReceiver.NetworkLoad.LinkedNetwork == powerNet && dUid != uid)
+            if (HasComp<SurveillanceCameraComponent>(device))
             {
-                // Is it a device we care about?
-                if (HasComp<DoorComponent>(dUid) || HasComp<DeviceNetworkComponent>(dUid))
-                {
-                    SpawnNodeForDevice(component, hubGridUid, dUid, nodeCount++);
-                }
+                cameraGroup.Add(device);
+                continue;
             }
+
+            if (HasComp<DoorComponent>(device))
+            {
+                SpawnNodeForDevice(uid, component, hubGridUid, device, NetDeviceNodeKind.Door, nodeCount++);
+                continue;
+            }
+
+            if (HasComp<DeviceNetworkComponent>(device))
+                SpawnNodeForDevice(uid, component, hubGridUid, device, NetDeviceNodeKind.Generic, nodeCount++);
         }
+
+        if (cameraGroup.Count > 0)
+            SpawnCameraGroupNode(uid, component, hubGridUid, cameraGroup, nodeCount++);
 
         if (nodeCount > 0)
         {
@@ -225,7 +374,52 @@ public sealed class NetServerSystem : EntitySystem
         }
     }
 
-    private void SpawnNodeForDevice(NetServerComponent server, EntityUid gridUid, EntityUid device, int index)
+    private HashSet<EntityUid> CollectNetworkDevices(EntityUid serverUid)
+    {
+        var devices = new HashSet<EntityUid>();
+
+        if (TryComp<ApcPowerReceiverComponent>(serverUid, out var receiver) && receiver.NetworkLoad.LinkedNetwork != default)
+        {
+            var powerNet = receiver.NetworkLoad.LinkedNetwork;
+            var apcQuery = AllEntityQuery<ApcPowerReceiverComponent, TransformComponent>();
+            while (apcQuery.MoveNext(out var uid, out var apcReceiver, out _))
+            {
+                if (uid != serverUid && apcReceiver.NetworkLoad.LinkedNetwork == powerNet)
+                    devices.Add(uid);
+            }
+        }
+
+        if (TryComp<LogicPowerReceiverComponent>(serverUid, out var logicReceiver) && logicReceiver.Provider != null)
+            CollectLogicPowerReceivers(serverUid, logicReceiver.Provider.Value, devices);
+        else if (TryComp<LogicPowerProviderComponent>(serverUid, out var serverProvider))
+            CollectLogicProviderList(serverUid, serverProvider, devices);
+
+        return devices;
+    }
+
+    private void CollectLogicPowerReceivers(EntityUid serverUid, EntityUid providerUid, HashSet<EntityUid> devices)
+    {
+        if (TryComp<LogicPowerProviderComponent>(providerUid, out var provider))
+            CollectLogicProviderList(serverUid, provider, devices);
+
+        var logicQuery = AllEntityQuery<LogicPowerReceiverComponent>();
+        while (logicQuery.MoveNext(out var uid, out var receiver))
+        {
+            if (uid != serverUid && receiver.Provider == providerUid)
+                devices.Add(uid);
+        }
+    }
+
+    private void CollectLogicProviderList(EntityUid serverUid, LogicPowerProviderComponent provider, HashSet<EntityUid> devices)
+    {
+        foreach (var receiverUid in provider.Receivers)
+        {
+            if (receiverUid != serverUid && !Deleted(receiverUid))
+                devices.Add(receiverUid);
+        }
+    }
+
+    private void SpawnNodeForDevice(EntityUid serverUid, NetServerComponent server, EntityUid gridUid, EntityUid device, NetDeviceNodeKind kind, int index)
     {
         // Spread nodes in a 3x3 pattern with 2-tile spacing
         var x = (index % 3) * 2 - 2;
@@ -236,9 +430,30 @@ public sealed class NetServerSystem : EntitySystem
         
         var nodeComp = EnsureComp<NetDeviceNodeComponent>(nodeUid);
         nodeComp.PhysicalDevice = device;
+        nodeComp.Kind = kind;
+        nodeComp.Server = serverUid;
+        nodeComp.PhysicalDevices.Clear();
+        nodeComp.PhysicalDevices.Add(device);
         
         _metaData.SetEntityName(nodeUid, $"Node: {Name(device)}");
         
+        server.SpawnedNodes.Add(nodeUid);
+    }
+
+    private void SpawnCameraGroupNode(EntityUid serverUid, NetServerComponent server, EntityUid gridUid, List<EntityUid> cameras, int index)
+    {
+        var x = (index % 3) * 2 - 2;
+        var y = (index / 3) * 2 - 2;
+
+        var nodeUid = Spawn("NetDeviceNode", new EntityCoordinates(gridUid, x, y));
+        var nodeComp = EnsureComp<NetDeviceNodeComponent>(nodeUid);
+        nodeComp.PhysicalDevice = cameras[0];
+        nodeComp.Kind = NetDeviceNodeKind.CameraGroup;
+        nodeComp.Server = serverUid;
+        nodeComp.PhysicalDevices.Clear();
+        nodeComp.PhysicalDevices.AddRange(cameras);
+
+        _metaData.SetEntityName(nodeUid, $"Node: Camera Control ({cameras.Count})");
         server.SpawnedNodes.Add(nodeUid);
     }
 }

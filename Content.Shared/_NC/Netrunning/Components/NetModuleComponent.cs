@@ -14,4 +14,16 @@ public sealed partial class NetModuleComponent : Component
     /// </summary>
     [DataField, AutoNetworkedField]
     public string PrototypeId = string.Empty;
+
+    /// <summary>
+    ///     Permanent server processing budget reserved while this module is alive.
+    /// </summary>
+    [DataField, AutoNetworkedField]
+    public int ReservedLoad;
+
+    /// <summary>
+    ///     Physical server that owns this persistent module.
+    /// </summary>
+    [DataField, AutoNetworkedField]
+    public EntityUid? Server;
 }

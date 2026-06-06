@@ -1,4 +1,5 @@
 using System;
+using System;
 using System.Collections.Generic;
 using Robust.Shared.IoC;
 using Robust.Shared.GameObjects;
@@ -12,6 +13,7 @@ public sealed class MetaCompilerSystem : EntitySystem
     private static readonly Dictionary<string, (int Min, int Max)> SysArity = new()
     {
         ["GET_TARGET"] = (0, 0),
+        ["GET_SERVER"] = (0, 0),
         ["GET_SELF"] = (0, 0),
         ["GET_CONNECTED"] = (1, 1),
         ["GET_CLASS"] = (1, 1),
@@ -30,8 +32,16 @@ public sealed class MetaCompilerSystem : EntitySystem
         ["GET_FILES"] = (1, 1),
         ["DOWNLOAD"] = (2, 2),
         ["UPLOAD"] = (2, 2),
+        ["GET_VITALS"] = (1, 1),
+        ["INTERCEPT_PDA"] = (1, 1),
         ["ARR_LENGTH"] = (1, 1),
         ["LOG"] = (1, 1),
+        ["HAS_ROOT"] = (1, 1),
+        ["ROOT"] = (2, 2),
+        ["SPAWN_ICE"] = (2, 2),
+        ["SPAWN_BLACK_ICE"] = (2, 2),
+        ["SPAWN_DEMON"] = (2, 2),
+        ["DUMPSHOCK"] = (2, 2),
     };
 
     public bool TryCompile(string source, MetaProgramKind kind, out MetaBytecode? bytecode, out string? error)
@@ -89,6 +99,9 @@ public sealed class MetaCompilerSystem : EntitySystem
             case MetaDefArrInstruction a:
                 if (!ExpectType(a.Value, MetaValueType.Arr, ctx, out error)) return false;
                 ctx.Types[a.Name] = MetaValueType.Arr;
+                if (!InferArrayElementType(a.Value, ctx, out var elementType, out error))
+                    return false;
+                ctx.ArrayElementTypes[a.Name] = elementType;
                 break;
             case MetaAssignInstruction assign:
                 if (!ctx.Types.TryGetValue(assign.Name, out var targetType))
@@ -104,7 +117,13 @@ public sealed class MetaCompilerSystem : EntitySystem
                     error = $"Compilation Error: '{arrAssign.ArrayName}' is not ARR.";
                     return false;
                 }
+                if (!ctx.ArrayElementTypes.TryGetValue(arrAssign.ArrayName, out var elementType) || elementType != MetaValueType.Int)
+                {
+                    error = $"Compilation Error: '{arrAssign.ArrayName}' does not support numeric assignment.";
+                    return false;
+                }
                 if (!ExpectType(arrAssign.Index, MetaValueType.Int, ctx, out error)) return false;
+                if (!ExpectType(arrAssign.Value, MetaValueType.Int, ctx, out error)) return false;
                 break;
             case MetaIfInstruction ifi:
                 if (!ExpectType(ifi.Condition, MetaValueType.Int, ctx, out error)) return false;
@@ -141,6 +160,11 @@ public sealed class MetaCompilerSystem : EntitySystem
                 if (!evt.EventName.Equals("INTRUSION", StringComparison.OrdinalIgnoreCase))
                 {
                     error = $"Compilation Error: Unsupported event '{evt.EventName}'.";
+                    return false;
+                }
+                if (ContainsYield(evt.Body))
+                {
+                    error = "Compilation Error: YIELD is not allowed inside ON_EVENT handlers.";
                     return false;
                 }
                 if (!ValidateInstructions(evt.Body, ctx.PushLoop(ctx.LoopDepth), kind, out error))
@@ -234,7 +258,12 @@ public sealed class MetaCompilerSystem : EntitySystem
                     type = MetaValueType.Int;
                     return false;
                 }
-                type = MetaValueType.Int;
+                if (!ctx.ArrayElementTypes.TryGetValue(a.ArrayName, out type))
+                {
+                    error = $"Compilation Error: Unknown ARR element type for '{a.ArrayName}'.";
+                    type = MetaValueType.Int;
+                    return false;
+                }
                 return true;
             case MetaUnaryExpression u:
                 if (u.Op == MetaUnaryOp.Not)
@@ -285,13 +314,51 @@ public sealed class MetaCompilerSystem : EntitySystem
     {
         return name.ToUpperInvariant() switch
         {
-            "GET_TARGET" or "GET_SELF" or "GET_INTRUDER" => MetaValueType.Ptr,
+            "GET_TARGET" or "GET_SERVER" or "GET_SELF" or "GET_INTRUDER" => MetaValueType.Ptr,
             "GET_EVENT_SOURCE" or "FIND_NEAREST" => MetaValueType.Ptr,
-            "GET_CONNECTED" or "GET_FILES" => MetaValueType.Arr,
-            "GET_CLASS" => MetaValueType.Str,
+            "GET_CONNECTED" or "GET_FILES" or "GET_VITALS" => MetaValueType.Arr,
+            "GET_CLASS" or "INTERCEPT_PDA" => MetaValueType.Str,
             "GET_ICE" or "GET_TRACE" or "ARR_LENGTH" or "IS_VALID" => MetaValueType.Int,
+            "HAS_ROOT" or "ROOT" => MetaValueType.Int,
+            "SPAWN_ICE" or "SPAWN_BLACK_ICE" or "SPAWN_DEMON" => MetaValueType.Ptr,
             _ => MetaValueType.Int
         };
+    }
+
+    private bool InferArrayElementType(MetaExpression expr, ValidationContext ctx, out MetaValueType type, out string? error)
+    {
+        if (expr is MetaVariableExpression variable && ctx.ArrayElementTypes.TryGetValue(variable.Name, out type))
+        {
+            error = null;
+            return true;
+        }
+
+        if (expr is not MetaSysCallExpression sys)
+        {
+            type = MetaValueType.Int;
+            error = "Compilation Error: Unsupported ARR source.";
+            return false;
+        }
+
+        switch (sys.Name.ToUpperInvariant())
+        {
+            case "GET_CONNECTED":
+                type = MetaValueType.Ptr;
+                error = null;
+                return true;
+            case "GET_FILES":
+                type = MetaValueType.Str;
+                error = null;
+                return true;
+            case "GET_VITALS":
+                type = MetaValueType.Int;
+                error = null;
+                return true;
+            default:
+                type = MetaValueType.Int;
+                error = $"Compilation Error: SYS.{sys.Name} does not produce an indexed ARR.";
+                return false;
+        }
     }
 
     private static bool ValidateSysArity(string name, int count, out string? error)
@@ -325,7 +392,16 @@ public sealed class MetaCompilerSystem : EntitySystem
             case "DISCONNECT":
             case "IS_VALID":
             case "GET_FILES":
+            case "HAS_ROOT":
+            case "GET_VITALS":
+            case "INTERCEPT_PDA":
                 return args.Count > 0 && ExpectType(args[0], MetaValueType.Ptr, ctx, out error);
+            case "ROOT":
+            case "SPAWN_ICE":
+            case "SPAWN_BLACK_ICE":
+            case "SPAWN_DEMON":
+            case "DUMPSHOCK":
+                return args.Count > 1 && ExpectType(args[0], MetaValueType.Ptr, ctx, out error) && ExpectType(args[1], MetaValueType.Int, ctx, out error);
             case "INJECT":
                 return args.Count > 1 && ExpectType(args[0], MetaValueType.Ptr, ctx, out error) && ExpectType(args[1], MetaValueType.Int, ctx, out error);
             case "CLOAK":
@@ -389,6 +465,7 @@ public sealed class MetaCompilerSystem : EntitySystem
     private sealed class ValidationContext
     {
         public readonly Dictionary<string, MetaValueType> Types = new();
+        public readonly Dictionary<string, MetaValueType> ArrayElementTypes = new();
         public int LoopDepth;
 
         public ValidationContext PushLoop(int loopDepth)
@@ -396,6 +473,8 @@ public sealed class MetaCompilerSystem : EntitySystem
             var ctx = new ValidationContext { LoopDepth = loopDepth };
             foreach (var (k, v) in Types)
                 ctx.Types[k] = v;
+            foreach (var (k, v) in ArrayElementTypes)
+                ctx.ArrayElementTypes[k] = v;
             return ctx;
         }
     }

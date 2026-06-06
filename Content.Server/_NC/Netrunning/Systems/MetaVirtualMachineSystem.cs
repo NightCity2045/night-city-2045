@@ -157,6 +157,40 @@ public sealed class MetaVirtualMachineSystem : EntitySystem
             }
 
             ExecuteSingleInstruction(s, inst);
+            HandleLoopControl(s);
+        }
+    }
+
+    private void HandleLoopControl(MetaContinuationState s)
+    {
+        if (s.BreakRequested)
+        {
+            while (s.CallStack.Count > 0)
+            {
+                var popped = s.CallStack.Pop();
+                if (popped.Kind is MetaFrameKind.WhileLoop or MetaFrameKind.ForLoop)
+                    break;
+            }
+
+            s.BreakRequested = false;
+            return;
+        }
+
+        if (s.ContinueRequested)
+        {
+            while (s.CallStack.Count > 0)
+            {
+                var frame = s.CallStack.Peek();
+                if (frame.Kind is MetaFrameKind.WhileLoop or MetaFrameKind.ForLoop)
+                {
+                    frame.InstructionPointer = frame.Code.Count;
+                    break;
+                }
+
+                s.CallStack.Pop();
+            }
+
+            s.ContinueRequested = false;
         }
     }
 
@@ -216,7 +250,10 @@ public sealed class MetaVirtualMachineSystem : EntitySystem
                 break;
             }
             case MetaAssignInstruction asgn:
-                if (s.IntVars.ContainsKey(asgn.Name)) s.IntVars[asgn.Name] = ApplyAssign(asgn.Op, s.IntVars[asgn.Name], EvalInt(s, asgn.Value));
+                ExecuteAssign(s, asgn);
+                break;
+            case MetaAssignArrayInstruction arrAssign:
+                ExecuteArrayAssign(s, arrAssign);
                 break;
             case MetaSysLogInstruction l:
                 _api.MetaLog(deckUid, EvalString(s, l.Message));
@@ -237,10 +274,55 @@ public sealed class MetaVirtualMachineSystem : EntitySystem
             case MetaWhileInstruction w:
                 if (EvalInt(s, w.Condition) != 0) s.CallStack.Push(new MetaCallFrame(w.Body, MetaFrameKind.WhileLoop) { LoopCondition = w.Condition });
                 break;
+            case MetaForInstruction f:
+                if (f.Init != null)
+                    ExecuteSingleInstruction(s, f.Init);
+                if (!s.ShouldStop && (f.Condition == null || EvalInt(s, f.Condition) != 0))
+                    s.CallStack.Push(new MetaCallFrame(f.Body, MetaFrameKind.ForLoop) { LoopCondition = f.Condition, LoopStep = f.Step });
+                break;
+            case MetaBreakInstruction:
+                s.BreakRequested = true;
+                break;
+            case MetaContinueInstruction:
+                s.ContinueRequested = true;
+                break;
             case MetaExitInstruction ex:
+                s.ExitCode = EvalInt(s, ex.Code);
                 s.Exited = true;
                 break;
         }
+    }
+
+    private void ExecuteAssign(MetaContinuationState s, MetaAssignInstruction asgn)
+    {
+        if (s.IntVars.ContainsKey(asgn.Name))
+        {
+            s.IntVars[asgn.Name] = ApplyAssign(asgn.Op, s.IntVars[asgn.Name], EvalInt(s, asgn.Value));
+            return;
+        }
+
+        if (s.StrVars.ContainsKey(asgn.Name) && asgn.Op == MetaAssignOp.Set)
+        {
+            s.StrVars[asgn.Name] = EvalString(s, asgn.Value);
+            return;
+        }
+
+        if (s.PtrVars.ContainsKey(asgn.Name) && asgn.Op == MetaAssignOp.Set)
+        {
+            s.PtrVars[asgn.Name] = GetNetEntity(EvalPtr(s, asgn.Value));
+        }
+    }
+
+    private void ExecuteArrayAssign(MetaContinuationState s, MetaAssignArrayInstruction asgn)
+    {
+        if (!s.ArrVars.TryGetValue(asgn.ArrayName, out var arr))
+            return;
+
+        var idx = EvalInt(s, asgn.Index);
+        if (idx < 0 || idx >= arr.Count || arr.ElementType != MetaValueType.Int)
+            return;
+
+        arr.IntValues[idx] = ApplyAssign(asgn.Op, arr.IntValues[idx], EvalInt(s, asgn.Value));
     }
 
     private void ExecSimple(MetaContinuationState s, MetaSysSimpleInstruction ss)
@@ -251,13 +333,34 @@ public sealed class MetaVirtualMachineSystem : EntitySystem
         if (func == "BURN_NEUROPORT" && CheckRam(s, SysCriticalCost)) { var t = EvalPtr(s, ss.Arguments[0]); if (t != null) _api.BurnNeuroport(t.Value, EvalInt(s, ss.Arguments[1])); }
         if (func == "DISCONNECT" && CheckRam(s, SysHeavyCost)) { var t = EvalPtr(s, ss.Arguments[0]); if (t != null) _api.Disconnect(t.Value); }
         if (func == "BREACH" && CheckRam(s, SysHeavyCost)) { var t = EvalPtr(s, ss.Arguments[0]); if (t != null) _api.Breach(deckUid, t.Value); }
+        if (func == "DUMPSHOCK" && CheckRam(s, SysCriticalCost)) { var t = EvalPtr(s, ss.Arguments[0]); if (t != null) _api.ApplyNeuralDamage(t.Value, EvalInt(s, ss.Arguments[1])); }
+        if (func == "CLOAK" && CheckRam(s, SysHeavyCost)) { _api.Cloak(deckUid, EvalInt(s, ss.Arguments[0])); }
+        if (func == "DOWNLOAD" && CheckRam(s, SysNetworkCost)) { var t = EvalPtr(s, ss.Arguments[0]); if (t != null) _api.Download(deckUid, t.Value, EvalString(s, ss.Arguments[1])); }
+        if (func == "UPLOAD" && CheckRam(s, SysNetworkCost)) { var t = EvalPtr(s, ss.Arguments[0]); if (t != null) _api.Upload(deckUid, t.Value, EvalString(s, ss.Arguments[1])); }
     }
 
     private int EvalInt(MetaContinuationState s, MetaExpression e)
     {
         if (e is MetaIntLiteral i) return i.Value;
         if (e is MetaVariableExpression v && s.IntVars.TryGetValue(v.Name, out var val)) return val;
-        if (e is MetaBinaryExpression b) return ApplyBin(b.Op, EvalInt(s, b.Left), EvalInt(s, b.Right));
+        if (e is MetaArrayIndexExpression a && s.ArrVars.TryGetValue(a.ArrayName, out var arr))
+        {
+            var idx = EvalInt(s, a.Index);
+            return idx >= 0 && idx < arr.Count && arr.ElementType == MetaValueType.Int ? arr.IntValues[idx] : 0;
+        }
+        if (e is MetaUnaryExpression u)
+            return u.Op == MetaUnaryOp.Not ? (EvalInt(s, u.Operand) == 0 ? 1 : 0) : -EvalInt(s, u.Operand);
+        if (e is MetaBinaryExpression b)
+        {
+            if (b.Op is MetaBinaryOp.Equals or MetaBinaryOp.NotEquals &&
+                (IsStringExpression(s, b.Left) || IsStringExpression(s, b.Right)))
+            {
+                var eq = string.Equals(EvalString(s, b.Left), EvalString(s, b.Right), StringComparison.Ordinal);
+                return b.Op == MetaBinaryOp.Equals ? (eq ? 1 : 0) : (eq ? 0 : 1);
+            }
+
+            return ApplyBin(b.Op, EvalInt(s, b.Left), EvalInt(s, b.Right));
+        }
         if (e is MetaSysCallExpression sys) return EvalSysInt(s, sys);
         return 0;
     }
@@ -271,12 +374,19 @@ public sealed class MetaVirtualMachineSystem : EntitySystem
         if (f == "ARR_LENGTH") { if (sys.Arguments[0] is MetaVariableExpression av && s.ArrVars.TryGetValue(av.Name, out var arr)) return arr.Count; }
         if (f == "GET_GAS") return s.GasRemaining;
         if (f == "GET_RAM_AVAILABLE") return s.AllocatedRam - s.VariablesUsed;
+        if (f == "HAS_ROOT") { var t = EvalPtr(s, sys.Arguments[0]); return t != null && _api.HasRoot(GetEntity(s.DeckUid), t.Value) ? 1 : 0; }
+        if (f == "ROOT" && CheckRam(s, SysNetworkCost)) { var t = EvalPtr(s, sys.Arguments[0]); return t != null && _api.TryRoot(GetEntity(s.DeckUid), t.Value, EvalInt(s, sys.Arguments[1])) ? 1 : 0; }
         return 0;
     }
 
     private EntityUid? EvalPtr(MetaContinuationState s, MetaExpression e)
     {
         if (e is MetaVariableExpression v && s.PtrVars.TryGetValue(v.Name, out var p)) return GetEntity(p);
+        if (e is MetaArrayIndexExpression a && s.ArrVars.TryGetValue(a.ArrayName, out var arr))
+        {
+            var idx = EvalInt(s, a.Index);
+            return idx >= 0 && idx < arr.Count && arr.ElementType == MetaValueType.Ptr ? GetEntity(arr.PtrValues[idx]) : null;
+        }
         if (e is MetaSysCallExpression sys) return EvalSysPtr(s, sys);
         return null;
     }
@@ -286,24 +396,55 @@ public sealed class MetaVirtualMachineSystem : EntitySystem
         var deckUid = GetEntity(s.DeckUid);
         var f = sys.Name.ToUpperInvariant();
         if (f == "GET_TARGET" && CheckRam(s, SysBaseCost)) return _api.GetTarget(deckUid);
+        if (f == "GET_SERVER" && CheckRam(s, SysBaseCost)) return _api.GetServer(deckUid);
         if (f == "GET_SELF") return _api.GetSelf(deckUid);
         if (f == "GET_INTRUDER") return _api.GetIntruder(deckUid);
         if (f == "GET_EVENT_SOURCE") return _api.GetEventSource(deckUid);
         if (f == "FIND_NEAREST" && CheckRam(s, SysNetworkCost)) return _api.FindNearest(deckUid, EvalString(s, sys.Arguments[0]), EvalInt(s, sys.Arguments[1]));
+        if (f == "SPAWN_ICE" && CheckRam(s, SysCriticalCost)) { var t = EvalPtr(s, sys.Arguments[0]); return t != null ? _api.SpawnIce(deckUid, t.Value, EvalInt(s, sys.Arguments[1]), false) : null; }
+        if (f == "SPAWN_BLACK_ICE" && CheckRam(s, SysCriticalCost)) { var t = EvalPtr(s, sys.Arguments[0]); return t != null ? _api.SpawnIce(deckUid, t.Value, EvalInt(s, sys.Arguments[1]), true) : null; }
+        if (f == "SPAWN_DEMON" && CheckRam(s, SysCriticalCost)) { var t = EvalPtr(s, sys.Arguments[0]); return t != null ? _api.SpawnDemon(deckUid, t.Value, EvalInt(s, sys.Arguments[1])) : null; }
         return null;
     }
 
-    private List<int> EvalArray(MetaContinuationState s, MetaExpression e)
+    private MetaArrayValue EvalArray(MetaContinuationState s, MetaExpression e)
     {
         if (e is MetaSysCallExpression sys && sys.Name.ToUpperInvariant() == "GET_CONNECTED")
         {
-            if (!CheckRam(s, SysNetworkCost)) return new List<int>();
+            if (!CheckRam(s, SysNetworkCost)) return new MetaArrayValue();
             var t = EvalPtr(s, sys.Arguments[0]);
-            if (t == null) return new List<int>();
+            if (t == null) return new MetaArrayValue { ElementType = MetaValueType.Ptr };
             var ents = _api.GetConnected(t.Value);
-            return ents.Select(uid => (int)uid).ToList();
+            return new MetaArrayValue
+            {
+                ElementType = MetaValueType.Ptr,
+                PtrValues = ents.Select(GetNetEntity).ToList()
+            };
         }
-        return new List<int>();
+
+        if (e is MetaSysCallExpression fileSys && fileSys.Name.ToUpperInvariant() == "GET_FILES")
+        {
+            if (!CheckRam(s, SysNetworkCost)) return new MetaArrayValue();
+            var t = EvalPtr(s, fileSys.Arguments[0]);
+            return new MetaArrayValue
+            {
+                ElementType = MetaValueType.Str,
+                StrValues = t != null ? _api.GetFiles(t.Value).ToList() : new List<string>()
+            };
+        }
+
+        if (e is MetaSysCallExpression vitalsSys && vitalsSys.Name.ToUpperInvariant() == "GET_VITALS")
+        {
+            if (!CheckRam(s, SysHeavyCost)) return new MetaArrayValue();
+            var t = EvalPtr(s, vitalsSys.Arguments[0]);
+            return new MetaArrayValue
+            {
+                ElementType = MetaValueType.Int,
+                IntValues = t != null ? _api.GetVitals(t.Value).ToList() : new List<int>()
+            };
+        }
+
+        return new MetaArrayValue();
     }
 
     private string EvalString(MetaContinuationState s, MetaExpression e)
@@ -316,26 +457,56 @@ public sealed class MetaVirtualMachineSystem : EntitySystem
             if (s.IntVars.TryGetValue(v.Name, out var iv)) return iv.ToString(System.Globalization.CultureInfo.InvariantCulture);
             if (s.PtrVars.TryGetValue(v.Name, out var pv)) return pv.ToString() ?? "";
         }
+        if (e is MetaArrayIndexExpression a && s.ArrVars.TryGetValue(a.ArrayName, out var arr))
+        {
+            var idx = EvalInt(s, a.Index);
+            return idx >= 0 && idx < arr.Count && arr.ElementType == MetaValueType.Str ? arr.StrValues[idx] : "";
+        }
         if (e is MetaSysCallExpression sys)
         {
             var f = sys.Name.ToUpperInvariant();
             if (f == "GET_CLASS" && CheckRam(s, SysHeavyCost)) { var t = EvalPtr(s, sys.Arguments[0]); return t != null ? (_api.GetClass(t.Value) ?? "") : ""; }
             if (f == "INTERCEPT_PDA") { var t = EvalPtr(s, sys.Arguments[0]); return t != null ? (_api.InterceptPda(t.Value) ?? "") : ""; }
         }
-        if (e is MetaBinaryExpression b && b.Op == MetaBinaryOp.Add) return EvalString(s, b.Left) + EvalString(s, b.Right);
+        if (e is MetaBinaryExpression b && b.Op == MetaBinaryOp.Add && (IsStringExpression(s, b.Left) || IsStringExpression(s, b.Right)))
+            return EvalString(s, b.Left) + EvalString(s, b.Right);
         return "";
     }
 
     private int ApplyBin(MetaBinaryOp op, int l, int r) => op switch {
-        MetaBinaryOp.Add => l + r, MetaBinaryOp.Subtract => l - r, MetaBinaryOp.Multiply => l * r,
-        MetaBinaryOp.Divide => r == 0 ? 0 : l / r, MetaBinaryOp.Equals => l == r ? 1 : 0,
-        MetaBinaryOp.NotEquals => l != r ? 1 : 0, MetaBinaryOp.Greater => l > r ? 1 : 0,
-        MetaBinaryOp.Less => l < r ? 1 : 0, _ => 0
+        MetaBinaryOp.Add => l + r,
+        MetaBinaryOp.Subtract => l - r,
+        MetaBinaryOp.Multiply => l * r,
+        MetaBinaryOp.Divide => r == 0 ? 0 : l / r,
+        MetaBinaryOp.Modulo => r == 0 ? 0 : l % r,
+        MetaBinaryOp.And => l != 0 && r != 0 ? 1 : 0,
+        MetaBinaryOp.Or => l != 0 || r != 0 ? 1 : 0,
+        MetaBinaryOp.Equals => l == r ? 1 : 0,
+        MetaBinaryOp.NotEquals => l != r ? 1 : 0,
+        MetaBinaryOp.Greater => l > r ? 1 : 0,
+        MetaBinaryOp.GreaterOrEqual => l >= r ? 1 : 0,
+        MetaBinaryOp.Less => l < r ? 1 : 0,
+        MetaBinaryOp.LessOrEqual => l <= r ? 1 : 0,
+        _ => 0
     };
 
     private int ApplyAssign(MetaAssignOp op, int old, int val) => op switch {
         MetaAssignOp.Set => val, MetaAssignOp.AddAssign => old + val, MetaAssignOp.SubAssign => old - val, _ => val
     };
+
+    private bool IsStringExpression(MetaContinuationState s, MetaExpression e)
+    {
+        return e switch
+        {
+            MetaStringLiteral => true,
+            MetaVariableExpression v => s.StrVars.ContainsKey(v.Name),
+            MetaArrayIndexExpression a => s.ArrVars.TryGetValue(a.ArrayName, out var arr) && arr.ElementType == MetaValueType.Str,
+            MetaSysCallExpression sys => sys.Name.Equals("GET_CLASS", StringComparison.OrdinalIgnoreCase) ||
+                                         sys.Name.Equals("INTERCEPT_PDA", StringComparison.OrdinalIgnoreCase),
+            MetaBinaryExpression b when b.Op == MetaBinaryOp.Add => IsStringExpression(s, b.Left) || IsStringExpression(s, b.Right),
+            _ => false
+        };
+    }
 
     private void ConsumeGas(MetaContinuationState s, int gas) { s.GasRemaining -= gas; if (s.GasRemaining <= 0) s.Error = "GAS LIMIT EXCEEDED"; }
 }

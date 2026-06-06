@@ -9,8 +9,17 @@
     state: server
   - type: NetServer
     maxModules: 3
+    maxLoad: 100
+    rootDifficulty: 50
   - type: ApcPowerReceiver
     powerLoad: 500
+  - type: LogicPowerReceiver
+    powerLoad: 500
+  - type: NetFileStore
+    files:
+    - boot.log
+    - security.tbl
+    - payroll_2045.qnt
   - type: Transform
     anchored: true
   - type: Physics

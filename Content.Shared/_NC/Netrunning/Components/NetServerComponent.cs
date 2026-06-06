@@ -18,6 +18,24 @@ public sealed partial class NetServerComponent : Component
     public int MaxModules = 1;
 
     /// <summary>
+    ///     Total processing budget available for persistent NET rooms, ICE, demons, and hosted scripts.
+    /// </summary>
+    [DataField("maxLoad"), ViewVariables(VVAccess.ReadWrite)]
+    public int MaxLoad = 100;
+
+    /// <summary>
+    ///     Minimum META root strength required to gain server administration.
+    /// </summary>
+    [DataField("rootDifficulty"), ViewVariables(VVAccess.ReadWrite)]
+    public int RootDifficulty = 50;
+
+    /// <summary>
+    ///     Processing budget currently reserved by persistent NET architecture.
+    /// </summary>
+    [ViewVariables(VVAccess.ReadOnly)]
+    public int UsedLoad;
+
+    /// <summary>
     ///     Reference to the MapId of the local network grid.
     /// </summary>
     [ViewVariables(VVAccess.ReadOnly)]
@@ -27,6 +45,25 @@ public sealed partial class NetServerComponent : Component
     ///     List of digital node entities spawned in the local net.
     /// </summary>
     public List<EntityUid> SpawnedNodes = new();
+
+    /// <summary>
+    ///     Persistent module grids docked to this server.
+    /// </summary>
+    public List<EntityUid> SpawnedModules = new();
+
+    /// <summary>
+    ///     Persistent ICE, Black ICE, and demons hosted by this server.
+    /// </summary>
+    public List<EntityUid> SpawnedDefenses = new();
+}
+
+[Serializable, NetSerializable]
+public enum NetDeviceNodeKind : byte
+{
+    Generic,
+    Door,
+    CameraGroup,
+    DataGate,
 }
 
 [Serializable, NetSerializable]
@@ -40,10 +77,15 @@ public sealed class NetNodeUiState : BoundUserInterfaceState
 {
     public readonly NetEntity PhysicalDevice;
     public readonly string DeviceName;
-    public NetNodeUiState(NetEntity physicalDevice, string deviceName)
+    public readonly NetDeviceNodeKind Kind;
+    public readonly int DeviceCount;
+
+    public NetNodeUiState(NetEntity physicalDevice, string deviceName, NetDeviceNodeKind kind = NetDeviceNodeKind.Generic, int deviceCount = 1)
     {
         PhysicalDevice = physicalDevice;
         DeviceName = deviceName;
+        Kind = kind;
+        DeviceCount = deviceCount;
     }
 }
 
@@ -61,6 +103,15 @@ public sealed class NetNodeControlMessage : BoundUserInterfaceMessage
 [RegisterComponent, NetworkedComponent, AutoGenerateComponentState]
 public sealed partial class NetDeviceNodeComponent : Component
 {
-    [ViewVariables(VVAccess.ReadOnly), AutoNetworkedField]
+    [ViewVariables(VVAccess.ReadOnly), AutoNetworkedField, DataField]
     public EntityUid PhysicalDevice;
+
+    [ViewVariables(VVAccess.ReadOnly), AutoNetworkedField, DataField]
+    public NetDeviceNodeKind Kind = NetDeviceNodeKind.Generic;
+
+    [ViewVariables(VVAccess.ReadOnly), AutoNetworkedField, DataField]
+    public List<EntityUid> PhysicalDevices = new();
+
+    [ViewVariables(VVAccess.ReadOnly), AutoNetworkedField, DataField]
+    public EntityUid? Server;
 }

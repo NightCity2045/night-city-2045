@@ -92,7 +92,7 @@ public sealed class MetaContinuationState
     public readonly Dictionary<string, int> IntVars = new();
     public readonly Dictionary<string, string> StrVars = new();
     public readonly Dictionary<string, NetEntity?> PtrVars = new();
-    public readonly Dictionary<string, List<int>> ArrVars = new();
+    public readonly Dictionary<string, MetaArrayValue> ArrVars = new();
 
     // --- Execution counters ---
     public int GasRemaining;
@@ -110,7 +110,14 @@ public sealed class MetaContinuationState
     // --- YIELD timing ---
 
     /// <summary>
-    /// Server game-time (in seconds) when the YIELD delay expires and execution should resume.
+    /// Delay requested by the last YIELD in milliseconds.
+    /// Scheduler converts this into an absolute resume time or a DoAfter duration.
+    /// </summary>
+    public int YieldDelayMs;
+
+    /// <summary>
+    /// Absolute server game-time (in seconds) when this continuation may resume.
+    /// Used for fallback scheduling when a DoAfter is not created.
     /// </summary>
     public double ResumeAtTime;
     
