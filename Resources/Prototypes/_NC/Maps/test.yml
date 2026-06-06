@@ -1,0 +1,47 @@
+
+- type: gameMap
+  id: Test
+  mapName: Test
+  mapPath: /Maps/Test/Test/Test0.yml
+  minPlayers: 0
+  stations:
+    Test:
+      stationProto: StandardNanotrasenStation
+      components:
+      - type: StationNameSetup
+        mapNameTemplate: "Test"
+      - type: StationJobs
+        availableJobs:
+          Captain: [ 1, 1 ]
+      - type: CEStationZLevels
+        mapsBelow:
+        - /Maps/Test/Test/Test-2.yml
+        - /Maps/Test/Test/Test-1.yml
+        mapsAbove:
+        - /Maps/Test/Test/Test0.yml
+        - /Maps/Test/Test/Test1.yml
+        - /Maps/Test/Test/Test2.yml
+        - /Maps/Test/Test/Test3.yml
+        zLevelsComponentOverrides:
+        - type: MapAtmosphere
+          space: False
+          mixture:
+            volume: 2500
+            immutable: True
+            temperature: 293.15
+            #moles:
+              #Oxygen: 21.824879
+              #Nitrogen: 82.10312
+        #- type: Parallax
+          #parallax: CESky
+        #- type: SunShadowCycle
+          #offset: 100
+          #duration: 600
+        #- type: LightCycle
+          #offset: 100
+          #duration: 600
+          #originalColor: "#75e3ff"
+        #- type: CEZLevelMapRoof
+        #- type: SunShadow
+        #- type: MapLight
+          #ambientLightColor: "#75e3ff"

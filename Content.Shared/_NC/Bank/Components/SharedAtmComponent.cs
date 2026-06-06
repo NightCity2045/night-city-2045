@@ -1,12 +1,11 @@
 using Content.Shared.Containers.ItemSlots;
-using Content.Shared.Tag; 
-using Content.Shared.Whitelist; 
+using Content.Shared.Tag;
+using Content.Shared.Whitelist;
 using Robust.Shared.GameStates;
-using Robust.Shared.Prototypes; 
+using Robust.Shared.Prototypes;
 using Robust.Shared.Serialization;
-using System.Collections.Generic; 
 
-namespace Content.Shared._NC.Bank.Components 
+namespace Content.Shared._NC.Bank.Components
 {
     [RegisterComponent, NetworkedComponent]
     public sealed partial class AtmComponent : Component

@@ -35,7 +35,7 @@
     price: 15
     count: 5
   - proto: PlantAnalyzer
-    price: 150
+    price: 400
     count: 2
   - proto: HydroponicsToolHatchet
     price: 80
@@ -52,11 +52,17 @@
   - proto: HydroponicsToolMiniHoe
     price: 50
     count: 3
+  - proto: WateringCan
+    price: 140
+    count: 3
   - proto: Bucket
     price: 30
     count: 5
+  - proto: BucketBig
+    price: 200
+    count: 2
   - proto: BoxMouthSwab
-    price: 40
+    price: 200
     count: 2
   - proto: PlantBag
     price: 100
@@ -75,15 +81,21 @@
   - proto: WeedSpray
     price: 50
     count: 5
-  - proto: RobustHarvestChemistryBottle
+  - proto: NCFertilizerBagNutriment
+    price: 80
+    count: 5
+  - proto: NCFertilizerBagPotency
     price: 120
     count: 3
   - proto: UnstableMutagenChemistryBottle
-    price: 200
+    price: 300
     count: 2
-  - proto: EZNutrientChemistryBottle
-    price: 80
-    count: 5
+  - proto: Left4ZedChemistryBottle
+    price: 400
+    count: 2
+  - proto: SeedEmUpSpray
+    price: 400
+    count: 2
 
 - type: storeCategoryStructured
   id: TradeBotany_Apparel
@@ -97,6 +109,12 @@
     count: 2
   - proto: ClothingHandsGlovesLeather
     price: 60
+    count: 2
+  - proto: ClothingHeadHatTrucker
+    price: 40
+    count: 2
+  - proto: ClothingEyesGogglesBotany
+    price: 160
     count: 2
 
 - type: storeCategoryStructured

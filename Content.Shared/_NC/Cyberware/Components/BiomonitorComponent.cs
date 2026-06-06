@@ -25,13 +25,13 @@ public sealed partial class BiomonitorComponent : Component
     ///     Сигнал при попадании в пул (подтверждение направления).
     /// </summary>
     [DataField("pingSound")]
-    public SoundSpecifier PingSound = new SoundPathSpecifier("/Audio/Effects/empulse.ogg");
+    public SoundSpecifier PingSound = new SoundPathSpecifier("/Audio/Effects/voteding.ogg");
 
     /// <summary>
     ///     Сигнал при болевом триггере.
     /// </summary>
     [DataField("traumaSound")]
-    public SoundSpecifier TraumaSound = new SoundPathSpecifier("/Audio/Effects/Arcade/error.ogg");
+    public SoundSpecifier TraumaSound = new SoundPathSpecifier("/Audio/Effects/Arcade/gameover.ogg");
 
     /// <summary>
     ///     Текущий подключённый пациент.

@@ -14,7 +14,6 @@
     state: icon
   - type: ApcPowerReceiver
     powerLoad: 200
-  - type: ExtensionCableReceiver
   - type: Anchorable
 
 # Предзаполненный вариант для маппинга

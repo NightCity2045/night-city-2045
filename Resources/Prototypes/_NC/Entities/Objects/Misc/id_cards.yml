@@ -1,36 +1,4 @@
-- type: entity
-  parent: IDCardStandard
-  id: CafeOwnerIDCard
-  name: идентификационная карта владельца кафе
-  components:
-    - type: Sprite
-      layers:
-        - state: default
-        - state: department
-          color: '#ffda1a'
-        - state: subdepartment
-          color: '#000000'
-        - state: assistant
-    - type: Access
-      tags:
-        - NC_General
-
-- type: entity
-  parent: IDCardStandard
-  id: RestaurantOwnerIDCard
-  name: идентификационная карта владельца ресторана
-  components:
-    - type: Sprite
-      layers:
-        - state: default
-        - state: department
-          color: '#ffda1a'
-        - state: subdepartment
-          color: '#000000'
-        - state: assistant
-    - type: Access
-      tags:
-        - NC_General
+# region NCPD
 
 - type: entity
   parent: IDCardStandard
@@ -185,6 +153,8 @@
     - type: PresetIdCard
       job: NCPDWatchAgent
 
+# region MaxTac
+
 - type: entity
   parent: IDCardStandard
   id: MaxTacCommanderIDCard
@@ -250,8 +220,8 @@
         - MaxTac_Armory
         - NCPD_Patrol
         - NC_General
-    - type: PresetIdCard
-      job: MaxTacInterdictor
+    # - type: PresetIdCard
+    #   job: MaxTacInterdictor
 
 - type: entity
   parent: IDCardStandard
@@ -272,8 +242,8 @@
         - MaxTac_Armory
         - NCPD_Patrol
         - NC_General
-    - type: PresetIdCard
-      job: MaxTacNetrunner
+    # - type: PresetIdCard
+    #   job: MaxTacNetrunner
 
 - type: entity
   parent: IDCardStandard
@@ -294,8 +264,10 @@
         - MaxTac_Armory
         - NCPD_Patrol
         - NC_General
-    - type: PresetIdCard
-      job: MaxTacPretor
+    # - type: PresetIdCard
+    #   job: MaxTacPretor
+
+# region Trauma Team
 
 - type: entity
   parent: IDCardStandard
@@ -472,6 +444,44 @@
     - type: PresetIdCard
       job: TraumaTeamTech
 
+# region Citizen
+
+- type: entity
+  parent: IDCardStandard
+  id: CafeOwnerIDCard
+  name: идентификационная карта владельца кафе
+  components:
+    - type: Sprite
+      layers:
+        - state: default
+        - state: department
+          color: '#ffda1a'
+        - state: subdepartment
+          color: '#000000'
+        - state: assistant
+    - type: Access
+      tags:
+        - NC_General
+        - Cafe
+
+- type: entity
+  parent: IDCardStandard
+  id: RestaurantOwnerIDCard
+  name: идентификационная карта владельца ресторана
+  components:
+    - type: Sprite
+      layers:
+        - state: default
+        - state: department
+          color: '#ffda1a'
+        - state: subdepartment
+          color: '#000000'
+        - state: assistant
+    - type: Access
+      tags:
+        - NC_General
+        - Restaurant
+
 - type: entity
   parent: IDCardStandard
   id: CitizenIDCard
@@ -548,6 +558,8 @@
         - Ripper
     - type: PresetIdCard
       job: Reaper
+
+# region Biotechnica
 
 - type: entity
   parent: IDCardStandard
@@ -725,4 +737,3 @@
         - Biotech_General
     - type: PresetIdCard
       job: BiotechnicaTech
-

@@ -1,0 +1,73 @@
+- type: citiNetStoreCategory
+  id: NightMarket_Weapons
+  name: "Оружие"
+  entries:
+  - proto: WeaponPistolHelloCutie
+    price: 60
+    count: 3
+  - proto: WeaponPistolOverlord
+    price: 80
+    count: 2
+  - proto: WeaponPistolStreetMaster
+    price: 120
+    count: 3
+  - proto: NCWeaponRevolverSternmeyerP35
+    price: 400
+    count: 2
+  - proto: WeaponRifleArasakaNOWAKI
+    price: 1500
+    count: 2
+  - proto: WeaponSubMachineGunMilitechSaratoga
+    price: 700
+    count: 2
+
+- type: citiNetStoreCategory
+  id: NightMarket_Armor
+  name: "Защита"
+  entries:
+  - proto: ClothingOuterArmorBasic
+    price: 150
+    count: 5
+  - proto: ClothingOuterVestWebMerc
+    price: 250
+    count: 3
+  - proto: ClothingHeadHelmetBasic
+    price: 80
+    count: 5
+
+- type: citiNetStoreCategory
+  id: NightMarket_Ammo
+  name: "Боеприпасы"
+  entries:
+  - proto: AmmoBox9x19
+    price: 100
+    count: 5
+  - proto: AmmoBox11x20
+    price: 150
+    count: 5
+  - proto: MagazineRifleNowaki
+    price: 90
+    count: 8
+
+- type: citiNetStoreCategory
+  id: NightMarket_Cyberware
+  name: "Кибер-Импланты"
+  entries:
+  - proto: CyberwareNeuroKerenzikovMk1
+    price: 350
+    count: 4
+  - proto: CyberwareNeuroSandevistanMk1
+    price: 800
+    count: 3
+  - proto: CyberwareExternalKevlarSublayer
+    price: 200
+    count: 8
+
+- type: citiNetStorePreset
+  id: NightMarketMarket
+  defaultDelivery: DeadDrop
+  categories:
+  - NightMarket_Weapons
+  - NightMarket_Armor
+  - NightMarket_Ammo
+  - NightMarket_Cyberware

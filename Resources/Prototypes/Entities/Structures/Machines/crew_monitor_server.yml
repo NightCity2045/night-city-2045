@@ -33,7 +33,6 @@
     - type: StationLimitedNetwork
     - type: ApcPowerReceiver
       powerLoad: 200
-    - type: ExtensionCableReceiver
     - type: Destructible
       thresholds:
         - trigger:

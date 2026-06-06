@@ -7051,7 +7051,7 @@ ent-Coal = уголь
 
 ent-SaltOre = соль
 
-ent-BluespaceOre = блюспейс-руда
+ent-BluespaceOre = загадочная руда
 
 ent-NormalityOre = руда нормальности
 
@@ -7377,12 +7377,12 @@ ent-ShadowkinShadow = пелена Теневиков
 ent-ShadowKudzuTemp = угасающая пелена
 
 
-ent-BluespaceCapacitorStockPart = блюспейс-конденсатор
-    .desc = Использует блюспейс-технологии для обеспечения высокой ёмкости.
+ent-BluespaceCapacitorStockPart = вместительный конденсатор
+    .desc = Использует нанотехнологии для обеспечения высокой ёмкости.
 
 
-ent-BluespaceManipulatorStockPart = блюспейс-манипулятор
-    .desc = Манипулятор, способный работать вне времени и пространства. Почти.
+ent-BluespaceManipulatorStockPart = вместительный манипулятор
+    .desc = Манипулятор, способный работать в стазисе. Почти.
 
 
 ent-MailCapsulePrimed = почтовая капсула
@@ -7638,7 +7638,7 @@ ent-BoxSoapsAssorted = набор ароматного мыла
 
 
 ent-BoxSoapsAssortedOmega = набор ароматного мыла
-    .desc = Коробочка с мылом из блюспейса. Аромат за гранью.
+    .desc = Коробочка с научным мылом. Аромат за гранью.
 
 
 ent-BoxBuildABuddyHuman = набор «Собери-друга»
@@ -7757,7 +7757,7 @@ ent-BorgHypo = боргоспрей
 
 
 ent-AdminHypo = экспериментальный гипоспрей
-    .desc = Абсолют величия блюспейс-инъекций. Инстант всё.
+    .desc = Абсолют величия инъекций. Инстант всё.
 
 
 ent-BruteAutoInjector = автоинъектор от ударов
@@ -8797,7 +8797,7 @@ ent-WoodenBench = деревянная скамейка
 
 
 ent-Shower = душ
-    .desc = Душ с блюспейс-водой. Освежит даже в вакууме.
+    .desc = Душ с обычной водой. Освежит даже в темноте.
 
 
 ent-TableBrass = латунный стол
@@ -9353,7 +9353,7 @@ ent-LockerSyndicateAgentLocker = шкаф агента Синдиката
     .desc = Личное хранилище снаряжения для агентов.
 
 
-ent-LockerBluespaceStation = блюспейс-шкаф
+ent-LockerBluespaceStation = вместительный шкаф
     .desc = Продвинутая технология хранения. Почти магия.
 
 
@@ -16731,8 +16731,8 @@ ent-FloorTileItemReinforcedGlassFrame = усиленное стеклянное 
 ent-FloorTileItemGlassFrame = стеклянное покрытие
 
 
-ent-BodyBagBluespace = блюспейс-мешок для тел
-    .desc = Прочный мешок с блюспейс-изоляцией для хранения и транспортировки тел, предотвращает разложение.
+ent-BodyBagBluespace = криостазисный мешок для тел
+    .desc = Прочный мешок с крио-изоляцией для хранения и транспортировки тел, предотвращает разложение.
 
 
 ent-BodyBagNanoTrasen = синий мешок для тел

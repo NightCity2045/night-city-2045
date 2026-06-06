@@ -8,7 +8,7 @@
     sprite: Objects/Devices/cartridge.rsi
     state: cart-nav
   - type: Cartridge
-    programName: citinet-map-program-name
+    programName: map-program-name
     icon:
       sprite: Interface/Misc/program_icons.rsi
       state: nano_task # Placeholder icon until we have a proper one

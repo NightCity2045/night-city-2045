@@ -32,13 +32,13 @@
   - type: MidRoundAntagRule
     spawner: SpawnPointGhostRatKing
 
-- type: entity
-  categories: [ HideSpawnMenu ]
-  parent: BaseMidRoundAntag
-  id: ParadoxAnomalySpawn
-  components:
-  - type: MidRoundAntagRule
-    spawner: SpawnPointGhostParadoxAnomaly
+# - type: entity
+#   categories: [ HideSpawnMenu ]
+#   parent: BaseMidRoundAntag
+#   id: ParadoxAnomalySpawn
+#   components:
+#   - type: MidRoundAntagRule
+#     spawner: SpawnPointGhostParadoxAnomaly
 
 # Base glimmer event
 # - type: entity

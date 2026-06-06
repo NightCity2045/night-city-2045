@@ -7,7 +7,7 @@
       edges:
         - to: end
           steps:
-            - material: Aluminum
+            - material: Aluminium
               amount: 5
               doAfter: 5
     - node: end

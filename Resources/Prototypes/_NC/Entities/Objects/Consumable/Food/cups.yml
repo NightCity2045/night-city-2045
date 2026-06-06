@@ -1,0 +1,420 @@
+# region Abstract
+
+- type: entity
+  parent: DrinkBaseCup
+  id: NCDrinkCup
+  name: кружка
+  description: Тёмная прочная кружка.
+  suffix: кружка
+  components:
+  - type: SolutionContainerManager
+    solutions:
+      drink:
+        maxVol: 20
+  - type: Icon
+    sprite: _NC/Objects/Consumable/Food/Vending/cups.rsi
+    state: icon-vend
+  - type: Sprite
+    sprite: _NC/Objects/Consumable/Food/Vending/cups.rsi
+    layers:
+      - state: icon-0
+      - map: ["enum.SolutionContainerLayers.Fill"]
+        state: icon-4
+  - type: Appearance
+  - type: SolutionContainerVisuals
+    maxFillLevels: 4
+    fillBaseName: icon-
+  - type: TrashOnSolutionEmpty
+    solution: drink
+
+# region Soups
+
+- type: entity
+  parent: NCDrinkCup
+  id: NCDrinkEggCooked
+  name: яичный суп
+  description: Горячие сваренные яйца в кружке. Просто и дешево.
+  components:
+  - type: SolutionContainerManager
+    solutions:
+      drink:
+        reagents:
+        - ReagentId: EggCooked
+          Quantity: 20
+  - type: StaticPrice
+    price: 22
+
+- type: entity
+  parent: NCDrinkCup
+  id: NCDrinkHotRamen
+  name: рамэн
+  description: Горячая лапша в кружке. Просто и дешево.
+  components:
+  - type: SolutionContainerManager
+    solutions:
+      drink:
+        reagents:
+        - ReagentId: HotRamen
+          Quantity: 20
+  - type: StaticPrice
+    price: 26
+
+- type: entity
+  parent: NCDrinkCup
+  id: NCDrinkMisoSoup
+  name: мисо суп
+  description: Полноценный обед в маленькой кружке. Вкусно, но ты хочешь больше!
+  components:
+  - type: SolutionContainerManager
+    solutions:
+      drink:
+        reagents:
+        - ReagentId: HotRamen
+          Quantity: 9
+        - ReagentId: EggCooked
+          Quantity: 5
+        - ReagentId: Soysauce
+          Quantity: 4
+        - ReagentId: Oil
+          Quantity: 2
+  - type: StaticPrice
+    price: 34
+
+- type: entity
+  parent: NCDrinkCup
+  id: NCDrinkTomYamSoup
+  name: том ям суп
+  description: Полноценный обед в маленькой кружке. Острый, но ты хочешь больше!
+  components:
+  - type: SolutionContainerManager
+    solutions:
+      drink:
+        reagents:
+        - ReagentId: HotRamen
+          Quantity: 10
+        - ReagentId: EggCooked
+          Quantity: 5
+        - ReagentId: CapsaicinOil
+          Quantity: 5
+  - type: StaticPrice
+    price: 34
+
+- type: entity
+  parent: NCDrinkCup
+  id: NCDrinkPumpkinSoup
+  name: тыквенный суп
+  description: Полноценный обед в маленькой кружке. Жуткий, но ты хочешь больше!
+  components:
+  - type: SolutionContainerManager
+    solutions:
+      drink:
+        reagents:
+        - ReagentId: PumpkinFlesh
+          Quantity: 12
+        - ReagentId: OilOlive
+          Quantity: 4
+        - ReagentId: TableSalt
+          Quantity: 2
+        - ReagentId: Blackpepper
+          Quantity: 2
+  - type: StaticPrice
+    price: 40
+
+- type: entity
+  parent: NCDrinkCup
+  id: NCDrinkGarlicSoup
+  name: чесночный суп
+  description: Полноценный обед в маленькой кружке. Горький, но ты хочешь больше!
+  components:
+  - type: SolutionContainerManager
+    solutions:
+      drink:
+        reagents:
+        - ReagentId: Nutriment
+          Quantity: 10
+        - ReagentId: OilOlive
+          Quantity: 2
+        - ReagentId: Blackpepper
+          Quantity: 2
+        - ReagentId: Pesto
+          Quantity: 6
+  - type: StaticPrice
+    price: 40
+
+# region Drinks
+
+- type: entity
+  parent: NCDrinkCup
+  id: NCDrinkPumpkinSpiceLatte
+  name: тыквенный пряный латте
+  description: Вкусно - просто не перехайпи его.
+  components:
+  - type: SolutionContainerManager
+    solutions:
+      drink:
+        reagents:
+        - ReagentId: PumpkinFlesh
+          Quantity: 6
+        - ReagentId: CafeLatte
+          Quantity: 14
+  - type: StaticPrice
+    price: 30
+
+- type: entity
+  parent: NCDrinkCup
+  id: NCDrinkLatte
+  name: латте
+  description: Горячий кофе с молоком и молочной пеной.
+  components:
+  - type: SolutionContainerManager
+    solutions:
+      drink:
+        reagents:
+        - ReagentId: CafeLatte
+          Quantity: 20
+  - type: StaticPrice
+    price: 28
+
+- type: entity
+  parent: NCDrinkCup
+  id: NCDrinkHotCocoa
+  name: горячий шоколад
+  description: Горячий шоколад. Вкусно!
+  components:
+  - type: SolutionContainerManager
+    solutions:
+      drink:
+        reagents:
+        - ReagentId: HotCocoa
+          Quantity: 20
+  - type: StaticPrice
+    price: 25
+
+- type: entity
+  parent: NCDrinkCup
+  id: NCDrinkCoffee
+  name: кофе
+  description: Горячий кофе. Вкусно!
+  components:
+  - type: SolutionContainerManager
+    solutions:
+      drink:
+        reagents:
+        - ReagentId: Coffee
+          Quantity: 20
+  - type: StaticPrice
+    price: 22
+
+- type: entity
+  parent: NCDrinkCup
+  id: NCDrinkTea
+  name: чай
+  description: Горячий чай. Вкусно!
+  components:
+  - type: SolutionContainerManager
+    solutions:
+      drink:
+        reagents:
+        - ReagentId: Tea
+          Quantity: 20
+  - type: StaticPrice
+    price: 20
+
+- type: entity
+  parent: NCDrinkCup
+  id: NCDrinkGreenTea
+  name: зеленый чай
+  description: Горячий зеленый чай. Вкусно!
+  components:
+  - type: SolutionContainerManager
+    solutions:
+      drink:
+        reagents:
+        - ReagentId: GreenTea
+          Quantity: 20
+  - type: StaticPrice
+    price: 20
+
+- type: entity
+  parent: NCDrinkCup
+  id: NCDrinkLean
+  name: лин
+  description: Горячий лин. Вкусно!
+  components:
+  - type: SolutionContainerManager
+    solutions:
+      drink:
+        reagents:
+        - ReagentId: Lean
+          Quantity: 20
+  - type: StaticPrice
+    price: 30
+
+- type: entity
+  parent: NCDrinkCup
+  id: NCDrinkSoyLatte
+  name: соевый латте
+  description: Горячий соевый латте. Вкусно!
+  components:
+  - type: SolutionContainerManager
+    solutions:
+      drink:
+        reagents:
+        - ReagentId: SoyLatte
+          Quantity: 20
+  - type: StaticPrice
+    price: 26
+
+- type: entity
+  parent: NCDrinkCup
+  id: NCDrinkCreamOfCoconut
+  name: кокосовые сливки
+  description: Горячие кокосовые сливки. Вкусно!
+  components:
+  - type: SolutionContainerManager
+    solutions:
+      drink:
+        reagents:
+        - ReagentId: CreamOfCoconut
+          Quantity: 20
+  - type: StaticPrice
+    price: 24
+
+- type: entity
+  parent: NCDrinkCup
+  id: NCDrinkCream
+  name: сливки
+  description: Горячие сливки. Вкусно!
+  components:
+  - type: SolutionContainerManager
+    solutions:
+      drink:
+        reagents:
+        - ReagentId: Cream
+          Quantity: 20
+  - type: StaticPrice
+    price: 22
+
+- type: entity
+  parent: NCDrinkCup
+  id: NCDrinkMilkChoco
+  name: шоколадное молоко
+  description: Горячее шоколадное молоко. Вкусно!
+  components:
+  - type: SolutionContainerManager
+    solutions:
+      drink:
+        reagents:
+        - ReagentId: MilkChoco
+          Quantity: 20
+  - type: StaticPrice
+    price: 26
+
+- type: entity
+  parent: NCDrinkCup
+  id: NCDrinkCreamCoffee
+  name: сливочный кофе
+  description: Горячий сливочный кофе. Вкусно!
+  components:
+  - type: SolutionContainerManager
+    solutions:
+      drink:
+        reagents:
+        - ReagentId: Coffee
+          Quantity: 10
+        - ReagentId: Sugar
+          Quantity: 5
+        - ReagentId: Cream
+          Quantity: 5
+  - type: StaticPrice
+    price: 24
+
+# region Random Spawner
+
+- type: entity
+  parent: MarkerBase
+  id: NCDrinkCupSpawner
+  name: случайный напиток
+  description: Спавнер случайного напитка.
+  suffix: кружка
+  placement:
+    mode: PlaceFree
+  components:
+  - type: Transform
+    anchored: false
+  - type: RandomSpawner
+    prototypes:
+    # Empty
+    - NCDrinkCup
+    # Soups
+    - NCDrinkEggCooked
+    - NCDrinkHotRamen
+    # Drinks
+    - NCDrinkLatte
+    - NCDrinkHotCocoa
+    - NCDrinkCoffee
+    - NCDrinkTea
+    - NCDrinkGreenTea
+    - NCDrinkSoyLatte
+    - NCDrinkCreamOfCoconut
+    - NCDrinkCream
+    - NCDrinkMilkChoco
+    - NCDrinkCreamCoffee
+    chance: 0.8
+    rarePrototypes:
+    # Soups
+    - NCDrinkMisoSoup
+    - NCDrinkTomYamSoup
+    - NCDrinkPumpkinSoup
+    - NCDrinkGarlicSoup
+    # Drinks
+    - NCDrinkLean
+    - NCDrinkPumpkinSpiceLatte
+    rareChance: 0.1
+    offset: 0.0
+  - type: Sprite
+    sprite: _NC/Objects/Consumable/Food/Vending/cups.rsi
+    state: icon-vend
+
+# region Vending Inventories
+
+- type: vendingMachineInventory
+  id: NCDrinkCupSoupMachineInventory
+  startingInventory:
+    NCDrinkEggCooked: 5
+    NCDrinkHotRamen: 5
+    NCDrinkMisoSoup: 5
+    NCDrinkTomYamSoup: 5
+    NCDrinkPumpkinSoup: 5
+    NCDrinkGarlicSoup: 5
+  startingItemPrices:
+    NCDrinkEggCooked: 25
+    NCDrinkHotRamen: 30
+    NCDrinkMisoSoup: 25
+    NCDrinkTomYamSoup: 28
+    NCDrinkPumpkinSoup: 26
+    NCDrinkGarlicSoup: 24
+
+- type: entity
+  parent: VendingMachineCoffee
+  id: VendingMachineSoups
+  name: Лучшие горячие супы НайтСити
+  description: Подаются кипящими, чтобы оставались горячими весь день!
+  suffix: профит Кафе
+  components:
+  - type: VendingMachine
+    pack: NCDrinkCupSoupMachineInventory
+    screenState: null
+  - type: Sprite
+    noRot: true
+    sprite: Structures/Machines/VendingMachines/soda.rsi
+    layers:
+    - state: "off"
+      map: ["enum.VendingMachineVisualLayers.Base"]
+    - state: "off"
+      map: ["enum.VendingMachineVisualLayers.BaseUnshaded"]
+      shader: unshaded
+    - state: panel
+      map: ["enum.WiresVisualLayers.MaintenancePanel"]
+  - type: MoneyCollector
+    access: [ [ "Cafe" ] ]

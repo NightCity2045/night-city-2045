@@ -63,7 +63,7 @@ public sealed class SaturationScaleSystem : EntitySystem
         if (!_moodEffectsEnabled)
             return;
 
-        _overlayMan.AddOverlay(_overlay);
+        // _overlayMan.AddOverlay(_overlay);
     }
 
     private void OnShutdown(EntityUid uid, SaturationScaleOverlayComponent component, ComponentShutdown args)
@@ -79,6 +79,6 @@ public sealed class SaturationScaleSystem : EntitySystem
         if (uid != _playerMan.LocalEntity || !_moodEffectsEnabled)
             return;
 
-        _overlayMan.AddOverlay(_overlay);
+        // _overlayMan.AddOverlay(_overlay);
     }
 }

@@ -1,6 +1,6 @@
 - type: job
   id: NCCitizen
-  name: Житель
+  name: job-name-nccitizen
   description: job-description-citizen
   playTimeTracker: JobNCCitizen
   icon: "JobIconCivilCitizen"

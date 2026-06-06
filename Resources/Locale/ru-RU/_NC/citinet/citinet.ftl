@@ -81,3 +81,5 @@ citinet-emergency-police-desc =  SOS: { $caller } вызов Траума.
 citinet-emergency-trauma-desc =  SOS: { $caller } вызов патрульных в { $sector }.
 citinet-bbs-game-chat = [CitiNet/{$channel}] {$sender}: {$message}
 
+# Delivery
+nc-delivery-map-marker = Посылка: { $location }

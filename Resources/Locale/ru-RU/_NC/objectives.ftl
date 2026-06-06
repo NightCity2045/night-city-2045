@@ -11,3 +11,6 @@ objective-traumateam-bank-description = Медицина — это бизнес
 
 objective-ncpd-bank-title = Бюджет NCPD
 objective-ncpd-bank-description = Безопасность города требует вложений. На счету департамента должно быть не менее 100,000 eb.
+
+objective-cyberpsychosis-title = Убить всех. Плоть слаба.
+objective-cyberpsychosis-description = Уничтожьте всех органиков, которых встретите.

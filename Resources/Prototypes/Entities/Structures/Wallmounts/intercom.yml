@@ -7,6 +7,7 @@
   - type: StationAiWhitelist
   - type: WallMount
   - type: ApcPowerReceiver
+  - type: LogicPowerReceiver
   - type: Electrified
     enabled: false
     usesApcPower: true
@@ -27,7 +28,6 @@
   - type: VoiceOverride # This is for the wire that makes an electricity zapping noise.
     speechVerbOverride: Electricity
     enabled: false
-  - type: ExtensionCableReceiver
   - type: Clickable
   - type: InteractionOutline
   - type: Appearance

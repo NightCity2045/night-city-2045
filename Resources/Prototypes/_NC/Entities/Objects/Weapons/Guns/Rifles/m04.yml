@@ -1,6 +1,6 @@
 - type: entity
   name: Штейнмейер М-04
-  parent: [BaseItem, NCBrandSternmeyer]
+  parent: [BaseWeaponRifle, NCBrandSternmeyer]
   id: WeaponRifleM04
   description: "М-04 Изменяемая Штурмовка от компании Штейнмейер. Компактное многоцелевое оружие с встроенным гранатометом. Магазин винтовки на 20 безгильзовых патронов 6.22мм, гранатомета — на 2 гранаты. Перезаряжаются отдельно."
   components:
@@ -23,15 +23,10 @@
 
   - type: Gun
     fireRate: 5
-    angleIncrease: 6
-    angleDecay: 10
-    cameraRecoilScalar: 1
     minAngle: 21
-    maxAngle: 45
-    bonusAngleIncreaseMove: 15
-    bonusAngleIncreaseTurn: 0.4
-    bonusAngleDecay: 40
-    maxBonusAngle: 20
+    maxAngle: 25
+    bonusAngleIncreaseMove: 5
+    bonusAngleIncreaseTurn: 1
     selectedMode: FullAuto
     availableModes:
     - FullAuto
@@ -39,9 +34,8 @@
     soundGunshot:
       path: /Audio/Weapons/Guns/Gunshots/batrifle.ogg
   - type: GunWieldBonus
-    minAngle: -20
-    maxAngle: -30
-    angleDecay: 7
+    minAngle: -19
+    maxAngle: -16
 
   - type: ContainerContainer
     containers:

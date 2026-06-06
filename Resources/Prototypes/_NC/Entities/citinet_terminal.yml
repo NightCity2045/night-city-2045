@@ -1,0 +1,99 @@
+- type: entity
+  parent: BaseComputer
+  id: CitiNetTerminal
+  name: CitiNet Terminal
+  description: A bulky desktop terminal with a flickering CRT monitor.
+  components:
+  - type: Sprite
+    sprite: Structures/Machines/computers.rsi
+    state: computer
+  - type: NetBrowser
+  - type: CitiNetStore
+  - type: ItemSlots
+    slots:
+      chip_slot:
+        name: Data Chip Slot
+        whitelist:
+          components:
+          - DataChip
+  - type: ActivatableUI
+    key: enum.NetBrowserUiKey.Key
+  - type: UserInterface
+    interfaces:
+      enum.NetBrowserUiKey.Key:
+        type: NetBrowserBoundUserInterface
+
+- type: entity
+  parent: BaseItem
+  id: CitiNetDataChipNCPD
+  name: NCPD Access Chip
+  description: A small chip containing encrypted access keys for the NCPD database.
+  components:
+  - type: Sprite
+    sprite: Objects/Devices/cartridge.rsi
+    state: cart-sec
+  - type: DataChip
+    unlockedSiteId: NCPDDatabase
+
+- type: entity
+  parent: BaseItem
+  id: CitiNetDataChipNCPDForensics
+  name: NCPD Forensics Access Chip
+  description: A small chip containing encrypted access keys for the NCPD forensics database.
+  components:
+  - type: Sprite
+    sprite: Objects/Devices/cartridge.rsi
+    state: cart-red
+  - type: DataChip
+    unlockedSiteId: NcpdForensics
+
+- type: entity
+  parent: CrateBaseSecure
+  id: CitiNetCorporateDropBox
+  name: Почтомат "Vendit"
+  description: Защищенный корпоративный терминал для получения посылок. Требуется PIN-код.
+  components:
+  - type: Transform
+    anchored: true
+  - type: DropPoint
+    dropType: Corporate
+    locationName: "Сектор 4, Главный холл"
+  - type: OTPKeypad
+  - type: AccessReader # Overriding with empty access to prevent opening by any card
+    access: []
+  - type: Lock
+    locked: true
+    unlockOnClick: false
+    lockOnClick: false
+  - type: ActivatableUI
+    key: enum.OTPKeypadUiKey.Key
+  - type: UserInterface
+    interfaces:
+      enum.OTPKeypadUiKey.Key:
+        type: OTPKeypadBoundUserInterface
+
+- type: entity
+  parent: Trashbin
+  id: CitiNetStreetDeadDrop
+  name: Старая мусорка
+  description: Грязный бак, забитый старыми газетами. Кажется, тут что-то припрятано.
+  components:
+  - type: Transform
+    anchored: true
+  - type: DropPoint
+    dropType: DeadDrop
+    locationName: "Переулок за баром Джо"
+
+- type: entity
+  parent: BaseItem
+  id: CitiNetDeliveryChip
+  name: "Навигационный чип 'QuickPath'"
+  description: "Одноразовый чип с координатами вашей посылки. Вставьте в КПК для активации GPS-метки."
+  components:
+  - type: Cartridge
+    programName: "QuickPath Navi"
+  - type: Sprite
+    sprite: Objects/Devices/encryption_keys.rsi
+    layers:
+    - state: crypt_blue
+  - type: DeliveryChip

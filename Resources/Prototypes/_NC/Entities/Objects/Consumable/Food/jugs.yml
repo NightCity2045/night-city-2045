@@ -1,0 +1,170 @@
+# region Drinks
+
+- type: entity
+  parent: [DrinkBottleVisualsOpenable, DrinkBottlePlasticBaseFull]
+  id: NCDrinkJugAppleJuice
+  name: кувшин с яблочным соком
+  description: Просто яблоки.
+  suffix: кувшин
+  components:
+  - type: SolutionContainerManager
+    solutions:
+      drink:
+        maxVol: 300
+        reagents:
+        - ReagentId: JuiceApple
+          Quantity: 300
+  - type: Drink
+  - type: Label
+    currentLabel: reagent-name-juice-apple
+
+- type: entity
+  parent: [DrinkBottleVisualsOpenable, DrinkBottlePlasticBaseFull]
+  id: NCDrinkJugLemonJuice
+  name: кувшин с лимонным соком
+  description: Очень желтый вкус.
+  suffix: кувшин
+  components:
+  - type: SolutionContainerManager
+    solutions:
+      drink:
+        maxVol: 300
+        reagents:
+        - ReagentId: JuiceLemon
+          Quantity: 150
+  - type: Drink
+  - type: Label
+    currentLabel: reagent-name-juice-lemon
+
+- type: entity
+  parent: [DrinkBottleVisualsOpenable, DrinkBottlePlasticBaseFull]
+  id: NCDrinkJugBluePumpkinJuice
+  name: кувшин с соком секрета Биотехники.
+  description: Очень синий вкус.
+  suffix: кувшин
+  components:
+  - type: SolutionContainerManager
+    solutions:
+      drink:
+        maxVol: 300
+        reagents:
+        - ReagentId: JuiceBluePumpkin
+          Quantity: 150
+  - type: Drink
+  - type: Label
+    currentLabel: reagent-name-juice-blue-pumpkin
+
+- type: entity
+  parent: [DrinkBottleVisualsOpenable, DrinkBottlePlasticBaseFull]
+  id: NCDrinkJugBungoJuice
+  name: кувшин с соком тропиков.
+  description: Очень тропический вкус.
+  suffix: кувшин
+  components:
+  - type: SolutionContainerManager
+    solutions:
+      drink:
+        maxVol: 300
+        reagents:
+        - ReagentId: JuiceBungo
+          Quantity: 150
+  - type: Drink
+  - type: Label
+    currentLabel: reagent-name-juice-bungo
+
+# region Random Spawner
+
+- type: entity
+  parent: MarkerBase
+  id: NCDrinkJugSpawner
+  name: случайный напиток
+  description: Спавнер случайного напитка.
+  suffix: кувшин
+  placement:
+    mode: PlaceFree
+  components:
+  - type: Transform
+    anchored: false
+  - type: RandomSpawner
+    prototypes:
+    # Empty
+    - CustomDrinkJug
+    # Juices
+    - NCDrinkJugAppleJuice
+    - NCDrinkJugLemonJuice
+    - DrinkSugarJug
+    - DrinkLemonLimeJug
+    - DrinkIceJug
+    - DrinkCoconutWaterJug
+    - DrinkCoffeeJug
+    - DrinkTeaJug
+    - DrinkGreenTeaJug
+    - DrinkIcedTeaJug
+    - DrinkWaterMelonJuiceJug
+    - DrinkEnergyDrinkJug
+    chance: 0.8
+    rarePrototypes:
+    # Juices
+    - NCDrinkJugBluePumpkinJuice
+    - NCDrinkJugBungoJuice
+    - DrinkMeadJug
+    - DrinkDrGibbJug
+    - DrinkRootBeerJug
+    rareChance: 0.1
+    offset: 0.0
+  - type: Sprite
+    sprite: Objects/Consumable/Drinks/generic_jug.rsi
+    state: icon
+
+# region Vending Inventories
+
+- type: vendingMachineInventory
+  id: NCDrinkJugMachineInventory
+  startingInventory:
+    NCDrinkJugAppleJuice: 5
+    NCDrinkJugLemonJuice: 5
+    DrinkSugarJug: 5
+    DrinkLemonLimeJug: 5
+    DrinkIceJug: 5
+    DrinkCoconutWaterJug: 5
+    DrinkCoffeeJug: 5
+    DrinkTeaJug: 5
+    DrinkGreenTeaJug: 5
+    DrinkIcedTeaJug: 5
+    DrinkWaterMelonJuiceJug: 5
+    DrinkEnergyDrinkJug: 5
+  startingItemPrices:
+    NCDrinkJugAppleJuice: 50
+    NCDrinkJugLemonJuice: 50
+    DrinkSugarJug: 50
+    DrinkLemonLimeJug: 50
+    DrinkIceJug: 50
+    DrinkCoconutWaterJug: 50
+    DrinkCoffeeJug: 50
+    DrinkTeaJug: 50
+    DrinkGreenTeaJug: 50
+    DrinkIcedTeaJug: 50
+    DrinkWaterMelonJuiceJug: 50
+    DrinkEnergyDrinkJug: 50
+  contrabandInventory:
+    NCDrinkJugBluePumpkinJuice: 2
+    NCDrinkJugBungoJuice: 2
+    DrinkMeadJug: 2
+    DrinkDrGibbJug: 2
+    DrinkRootBeerJug: 2
+  contrabandItemPrices:
+    NCDrinkJugBluePumpkinJuice: 100
+    NCDrinkJugBungoJuice: 100
+    DrinkMeadJug: 100
+    DrinkDrGibbJug: 100
+    DrinkRootBeerJug: 100
+
+- type: entity
+  parent: VendingMachineColaBlack
+  id: NCVendingMachineJugs
+  name: КорпоБар Вендинг
+  description: Автомат с напитками в кувшинах для вашего бара!
+  components:
+  - type: VendingMachine
+    pack: NCDrinkJugMachineInventory
+    initialStockQuality: 1.00

@@ -1,6 +1,6 @@
 - type: entity
   name: Прототип Изменяемой Штурмовой Винтовки Арасака
-  parent: [BaseItem, NCBrandArasaka]
+  parent: [BaseWeaponRifle, NCBrandArasaka]
   id: WeaponRifleArasakaProto
   description: "Экзотическая штурмовая винтовка отличного качества с уникальным альтернативным режимом рельсотрона. В альтернативном режиме стреляет мощными бронебойными зарядами."
   components:
@@ -25,15 +25,10 @@
 
   - type: Gun
     fireRate: 9
-    angleIncrease: 6
-    angleDecay: 10
-    cameraRecoilScalar: 1
-    minAngle: 10
-    maxAngle: 20
+    minAngle: 21
+    maxAngle: 25
     bonusAngleIncreaseMove: 5
-    bonusAngleIncreaseTurn: 0.4
-    bonusAngleDecay: 40
-    maxBonusAngle: 20
+    bonusAngleIncreaseTurn: 1
     selectedMode: FullAuto
     availableModes:
     - FullAuto
@@ -41,9 +36,8 @@
     soundGunshot:
       path: /Audio/Weapons/Guns/Gunshots/batrifle.ogg
   - type: GunWieldBonus
-    minAngle: -20
-    maxAngle: -30
-    angleDecay: 7
+    minAngle: -19
+    maxAngle: -16
 
   # Двойной магазин (Обычный + Рельсотрон)
   # В оригинале рельсотрон сжигает и патрон и батарею, но для движка пока делаем как переключаемые магазины.
@@ -62,7 +56,7 @@
     - prototype: CartridgeArasakaRailgun # Лазерный выстрел (рельсотрон)
       capacity: 8
       count: 8
-      modeName: ammo-provider-mode-railgun
+      modeName: dual-ammo-mode-railgun
       fireRate: 1
       soundGunshot:
         path: /Audio/Weapons/Guns/Gunshots/laser_cannon.ogg

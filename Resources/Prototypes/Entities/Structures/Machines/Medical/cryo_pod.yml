@@ -72,7 +72,6 @@
           acts: [ "Destruction" ]
   - type: ApcPowerReceiver
     powerLoad: 3000
-  - type: ExtensionCableReceiver
   - type: NodeContainer
     nodes:
       port:

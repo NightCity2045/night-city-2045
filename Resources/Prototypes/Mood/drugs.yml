@@ -186,3 +186,20 @@
   id: TastyEffect
   moodChange: 3
   timeout: 1800 #30 minutes
+
+# NC edit start: NightCity FastFood
+- type: moodEffect
+  id: ColaEffect
+  moodChange: -2
+  timeout: 300 #5 minutes
+
+- type: moodEffect
+  id: PlainWaterEffect
+  moodChange: -1
+  timeout: 300 #5 minutes
+
+- type: moodEffect
+  id: NotTastyEffect
+  moodChange: -3
+  timeout: 300 #5 minutes
+# NC edit end: NightCity FastFood

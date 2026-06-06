@@ -50,6 +50,7 @@ public sealed partial class StaminaSystem : EntitySystem
     /// How much of a buffer is there between the stun duration and when stuns can be re-applied.
     /// </summary>
     private static readonly TimeSpan StamCritBufferTime = TimeSpan.FromSeconds(3f);
+    public const string StaminaAnimationKey = "stamina"; //CrystallEdge public
 
     public override void Initialize()
     {

@@ -11,6 +11,57 @@
     mask: /Textures/Effects/LightMasks/cone.png
     autoRot: true
 
+- type: entity
+  parent: BaseItem
+  id: BaseVendingMachineRestockPartial
+  abstract: true
+  name: частичный набор пополнения торгового автомата
+  description: Наполняет торговые автоматы определенными предметами.
+  components:
+  - type: VendingMachineRestockPartial
+  - type: Sprite
+    sprite: Objects/Specific/Service/vending_machine_restock.rsi
+    layers:
+    - state: base
+    - state: green_bit
+      shader: unshaded
+  - type: MeleeWeapon
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      path: /Audio/Weapons/genhit2.ogg
+    soundSwing:
+      path: /Audio/Weapons/punchmiss.ogg
+  - type: DamageOtherOnHit
+    damage:
+      types:
+        Blunt: 11
+    staminaCost: 15
+  - type: Item
+    size: Normal
+  - type: Damageable
+    damageContainer: Inorganic
+    damageModifierSet: Metallic
+  - type: Destructible
+    thresholds:
+    - trigger:
+        !type:DamageTrigger
+        damage: 40
+      behaviors:
+        - !type:DoActsBehavior
+          acts: [ "Destruction" ]
+    - trigger:
+        !type:DamageTrigger
+        damage: 20
+      behaviors:
+      - !type:PlaySoundBehavior
+        sound:
+          collection: MetalBreak
+      - !type:DumpRestockInventory
+      - !type:DoActsBehavior
+        acts: [ "Destruction" ]
+
 # region Botany
 
 - type: entity
@@ -140,3 +191,103 @@
     sprite: Structures/Machines/VendingMachines/laptop.rsi
   - type: AccessReader
     access: [ [ "Biotech_Director" ], [ "Biotech_HeadOfDepartment" ] ]
+
+# region Commercial
+
+- type: entity
+  parent: [VendingMachineBiotechnica, VendingMachineNutri]
+  id: VendingMachineBiotechnicaDrinks
+  name: Напитки Biotechnica
+  description: Вкуснейшие, научно передовые напитки от Biotechnica.
+  components:
+  - type: MoneyCollector
+    bankAccount: Biotechnica
+  - type: Sprite
+    sprite: _NC/Structures/Machines/Biotechnica/tech.rsi
+  - type: VendingMachine
+    pack: BiotechnicaVendingInventory
+    initialStockQuality: 0.33
+  - type: Advertise
+    pack: ChangAds
+
+- type: entity
+  parent: VendingMachineBiotechnicaDrinks
+  id: VendingMachineBiotechnicaDrinksCafe
+  name: Напитки Biotechnica
+  description: Вкуснейшие, научно передовые напитки от Biotechnica. 20% от выручки идет на счет кафе.
+  suffix: Кафе, 20% профита
+  components:
+  - type: MoneyCollector
+    bankAccount: Biotechnica
+    collectPercentage: 0.2
+    access: [ [ "Cafe" ] ]
+
+- type: entity
+  parent: VendingMachineBiotechnicaDrinks
+  id: VendingMachineBiotechnicaDrinksRestaurant
+  name: Напитки Biotechnica
+  description: Вкуснейшие, научно передовые напитки от Biotechnica. 20% от выручки идет на счет ресторана.
+  suffix: Ресторан, 20% профита
+  components:
+  - type: MoneyCollector
+    bankAccount: Biotechnica
+    collectPercentage: 0.2
+    access: [ [ "Restaurant" ] ]
+
+- type: entity
+  parent: BaseVendingMachineRestock
+  id: BiotechnicaVendingRestock
+  name: набор пополнения Biotechnica
+  description: Коробка с полным запасом для торговых автоматов с напитками Biotechnica.
+  components:
+  - type: VendingMachineRestock
+    canRestock:
+    - BiotechnicaVendingInventory
+  - type: Sprite
+    layers:
+    - state: base
+    - state: green_bit
+      shader: unshaded
+    - state: refill_chinese
+
+- type: entity
+  parent: BaseVendingMachineRestockPartial
+  id: BiotechnicaVendingRestockPartial
+  name: набор пополнения Biotechnica
+  description: Коробка с запасом супов для торговых автоматов с напитками Biotechnica.
+  suffix: Супы
+  components:
+  - type: VendingMachineRestockPartial
+    canRestock:
+    - BiotechnicaVendingInventory
+    contents:
+    - id: BiotechnicaDropper  # Will only add 1 since no amount was specified
+    - id: Gauze
+      amount: 80
+      price: 2000  # This won't override the price in the machine since it was already specified there
+    - id: FoodSoupMiso  # New item that wasn't originally in BiotechnicaVendingInventory
+      amount: 10
+      price: 50  # Price if this soup wasn't already in the machine
+    - id: FoodSoupVegetable  # New item that wasn't originally in BiotechnicaVendingInventory
+      amount: 8
+      price: 40  # Price if this soup wasn't already in the machine
+  - type: Sprite
+    layers:
+    - state: base
+    - state: green_bit
+      shader: unshaded
+    - state: refill_chinese
+
+- type: entity
+  parent: [VendingMachineBiotechnica, VendingMachineNutri]
+  id: VendingMachineBiotechnicaBotanyChemicals
+  name: Фермеромат Biotechnica
+  description: Лучшие хим. удобрения для вашего сада!
+  components:
+  - type: MoneyCollector
+    bankAccount: Biotechnica
+  - type: Sprite
+    sprite: _NC/Structures/Machines/Biotechnica/tech.rsi
+  - type: VendingMachine
+    pack: BiotechnicaBotanyCommercialInventory
+    initialStockQuality: 0.75

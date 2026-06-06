@@ -137,7 +137,7 @@
 - type: entity
   parent: DrinkGlass
   id: DoubleIceCreamGlass
-  suffix: double ice cream
+  name: двойное мороженое  # NC edit: NightCity FastFood
   components:
   - type: SolutionContainerManager
     solutions:

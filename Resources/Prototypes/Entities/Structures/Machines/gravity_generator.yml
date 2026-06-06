@@ -26,7 +26,6 @@
     anchored: true
   - type: ApcPowerReceiver
     powerLoad: 2500
-  - type: ExtensionCableReceiver
   - type: Physics
     bodyType: Static
   - type: Fixtures

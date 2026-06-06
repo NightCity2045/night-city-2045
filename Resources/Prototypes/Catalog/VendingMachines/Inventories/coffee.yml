@@ -1,18 +1,38 @@
 ﻿- type: vendingMachineInventory
   id: HotDrinksMachineInventory
+  # NC edit start: NightCity FastFood
   startingInventory:
-    DrinkHotCoffee: 5
-    DrinkCafeLatte: 5
-    DrinkTeacup: 5
-    DrinkGreenTea: 5
-    DrinkHotCoco: 5
+    NCDrinkTea: 3
+    NCDrinkGreenTea: 3
+    NCDrinkHotCocoa: 3
+    NCDrinkCoffee: 3
+    NCDrinkCreamCoffee: 3
+    NCDrinkLatte: 3
+    NCDrinkSoyLatte: 3
+    NCDrinkMilkChoco: 3
+    NCDrinkLean: 3
+    NCDrinkCreamOfCoconut: 3
+    NCDrinkCream: 3
+    NCDrinkPumpkinSpiceLatte: 3
   startingItemPrices:
-    DrinkHotCoffee: 10
-    DrinkCafeLatte: 10
-    DrinkTeacup: 10
-    DrinkGreenTea: 10
-    DrinkHotCoco: 10
+    NCDrinkTea: 20
+    NCDrinkGreenTea: 20
+    NCDrinkHotCocoa: 25
+    NCDrinkCoffee: 22
+    NCDrinkCreamCoffee: 24
+    NCDrinkLatte: 28
+    NCDrinkSoyLatte: 26
+    NCDrinkMilkChoco: 26
+    NCDrinkLean: 30
+    NCDrinkCreamOfCoconut: 24
+    NCDrinkCream: 22
+    NCDrinkPumpkinSpiceLatte: 30
+  contrabandInventory:
+    DrinkNothing: 2
+  contrabandItemPrices:
+    DrinkNothing: 50
   emaggedInventory:
     DrinkNothing: 2
   emaggedItemPrices:
     DrinkNothing: 50
+  # NC edit end: NightCity FastFood

@@ -46,7 +46,7 @@ namespace Content.Server._NC.Bank.Consoles
         private void OnInteractUsing(EntityUid uid, FactionBankConsoleComponent component, InteractUsingEvent args)
         {
             if (!TryComp<Content.Shared.Stacks.StackComponent>(args.Used, out var stack) ||
-               MetaData(args.Used).EntityPrototype?.ID != "SpaceCash") return;
+               stack.StackTypeId != "Credit") return;
 
             if (_containerSystem.TryGetContainer(uid, CashSlotId, out var cashContainer))
             {
@@ -136,31 +136,28 @@ namespace Content.Server._NC.Bank.Consoles
                 }
             }
 
-            if (totalInserted < args.Amount)
-            {
-                _popupSystem.PopupEntity($"Недостаточно наличных! Вставлено: {totalInserted}, Требуется: {args.Amount}", uid, player);
-                return;
-            }
+            var depositAmount = Math.Min(args.Amount, totalInserted);
+            if (depositAmount <= 0) return;
 
             // Execute Deposit
-            if (_bankSystem.TryFactionDeposit(station.Value, component.BankAccount, args.Amount))
+            if (_bankSystem.TryFactionDeposit(station.Value, component.BankAccount, depositAmount))
             {
                 // Delete all inserted cash
                 foreach (var item in toDelete) QueueDel(item);
 
                 // Return Change
-                int change = totalInserted - args.Amount;
+                int change = totalInserted - depositAmount;
                 if (change > 0)
                 {
                     _stackSystem.SpawnMultiple("SpaceCash", change, Transform(uid).Coordinates);
                     _popupSystem.PopupEntity($"Сдача: {change} эдди.", uid, player);
                 }
 
-                _popupSystem.PopupEntity($"Внесено {args.Amount} эдди. {args.Description}", uid, player);
+                _popupSystem.PopupEntity($"Внесено {depositAmount} эдди. {args.Description}", uid, player);
 
                 // Add Log
                 AddLog(station.Value, component.BankAccount, new BankTransaction(
-                   _timing.CurTime, Name(player), BankTransactionType.Deposit, args.Amount, args.Description));
+                   _timing.CurTime, Name(player), BankTransactionType.Deposit, depositAmount, args.Description));
 
                 UpdateUi(uid, component);
             }

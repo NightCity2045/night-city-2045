@@ -44,6 +44,7 @@ public abstract partial class SharedVendingMachineSystem : EntitySystem
         SubscribeLocalEvent<VendingMachineComponent, GotEmaggedEvent>(OnEmagged);
 
         SubscribeLocalEvent<VendingMachineRestockComponent, AfterInteractEvent>(OnAfterInteract);
+        SubscribeLocalEvent<VendingMachineRestockPartialComponent, AfterInteractEvent>(OnAfterInteractPartial);  // NC edit: Partial vending machine restock
 
         Subs.BuiEvents<VendingMachineComponent>(VendingMachineUiKey.Key, subs =>
         {

@@ -1,12 +1,9 @@
 - type: entity
   id: MapBeaconAnchor
+  parent: MarkerBase
   name: Map POI Anchor
   suffix: CitiNet
   components:
-  - type: Transform
-    anchored: true
-  - type: Clickable
-  - type: InteractionOutline
   - type: Physics
     bodyType: Static
   - type: Fixtures
@@ -17,9 +14,7 @@
           bounds: "-0.25,-0.25,0.25,0.25"
         hard: false
   - type: Sprite
-    sprite: Markers/cross.rsi
     state: green # Зеленый крестик для маяков
-    drawdepth: SmallObjects
   - type: MapBeacon
     label: "New POI"
     color: "#00ffff"

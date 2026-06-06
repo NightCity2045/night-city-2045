@@ -14,8 +14,8 @@ ent-CryostasisBeaker = криостазисная мензурка
     .desc = Используется для хранения химикатов и растворов без протекания реакции.
     .suffix = { "" }
 
-ent-BluespaceBeaker = блюспейс мензурка
-    .desc = Работает на экспериментальной блюспейс технологии.
+ent-BluespaceBeaker = вместительная мензурка
+    .desc = Работает на экспериментальной технологии распределения жидкости.
     .suffix = { "" }
 
 ent-BaseBeakerMetallic = "металлическая мензурка"
@@ -84,6 +84,6 @@ ent-SyringeStimulants = шприц со стимуляторами
     .desc = { ent-BaseSyringe.desc }
     .suffix = { "" }
 
-ent-SyringeBluespace = блюспейс шприц
-    .desc = Внедрение передовой технологии bluespace.
+ent-SyringeBluespace = вместительный шприц
+    .desc = Внедрение передовой технологии распределения жидкости.
     .suffix = { "" }

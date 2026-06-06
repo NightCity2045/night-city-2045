@@ -10,6 +10,7 @@ dual-ammo-mode-pistol = Пистолет
 dual-ammo-mode-shotgun = Дробовик
 dual-ammo-mode-rifle = Винтовка
 dual-ammo-mode-grenade = Гранатомёт
+dual-ammo-mode-railgun = Рельсотрон
 
 # DualAmmoProvider - UI сообщения
 dual-ammo-current-mode = Режим: [color=cyan]{$mode}[/color]

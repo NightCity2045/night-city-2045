@@ -1,8 +1,8 @@
-ent-MaterialBluespace = блюспейс кристаллы
+ent-MaterialBluespace = загадочные кристаллы
     .desc = { "" }
     .suffix = Полный
 
-ent-MaterialBluespace1 = блюспейс кристалл
+ent-MaterialBluespace1 = загадочный кристалл
     .desc = { ent-MaterialBluespace.desc }
     .suffix = 1
 

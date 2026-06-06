@@ -19,6 +19,7 @@
           EdgeRunnerSolo: [2, 2]
           Fixer: [1, 1]
           Reaper: [1, 1]
+          CafeOwner: [1, 1]
           RestaurantOwner: [1, 1]
           # === NCPD ===
           NCPDChief: [1, 1]
@@ -33,8 +34,8 @@
           # === Trauma Team ===
           TraumaTeamChief: [1, 1]
           TraumaTeamDoctor: [3, 3]
-          TraumaTeamParamedic: [2, 2]
-          TraumaTeamOperative: [4, 4]
+          TraumaTeamParamedic: [1, 1]
+          TraumaTeamOperative: [2, 2]
           TraumaTeamCoroner: [1, 1]
           TraumaTeamPsych: [1, 1]
           TraumaTeamIntern: [5, 5]

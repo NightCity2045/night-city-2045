@@ -36,6 +36,22 @@
         { "name": "glass_cocktail_fill-1" },
         { "name": "glass_cocktail_fill-2" },
         { "name": "glass_cocktail_fill-3" },
-        { "name": "glass_cocktail_fill-4" }
+        { "name": "glass_cocktail_fill-4" },
+        { "name": "glass_orchito" },
+        { "name": "glass_orchito_empty" },
+        { "name": "glass_orchito_fill-1" },
+        { "name": "glass_orchito_fill-2" },
+        { "name": "glass_orchito_fill-3" },
+        { "name": "glass_orchito_fill-4" },
+        { "name": "glass_orchito_fill-5" },
+        { "name": "glass_orchito_fill-6" },
+        { "name": "glass_orchito_stardust" },
+        { "name": "glass_orchito_stardust_empty" },
+        { "name": "glass_orchito_stardust_fill-1" },
+        { "name": "glass_orchito_stardust_fill-2" },
+        { "name": "glass_orchito_stardust_fill-3" },
+        { "name": "glass_orchito_stardust_fill-4" },
+        { "name": "glass_orchito_stardust_fill-5" },
+        { "name": "glass_orchito_stardust_fill-6" }
     ]
 }

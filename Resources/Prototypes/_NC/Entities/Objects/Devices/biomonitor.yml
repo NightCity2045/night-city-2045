@@ -20,9 +20,9 @@
     successSound: !type:SoundPathSpecifier
       path: /Audio/Effects/alert.ogg
     pingSound: !type:SoundPathSpecifier
-      path: /Audio/Effects/empulse.ogg
+      path: /Audio/Effects/voteding.ogg
     traumaSound: !type:SoundPathSpecifier
-      path: /Audio/Effects/Arcade/error.ogg
+      path: /Audio/Effects/Arcade/gameover.ogg
   - type: Tag
     tags:
     - NCBiomonitor

@@ -27,7 +27,6 @@
     startingCharge: 500
   - type: BatterySelfRecharger
     autoRecharge: true
-    active: true
 
 - type: entity
   parent: BaseItem

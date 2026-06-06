@@ -22,7 +22,9 @@
   - type: Gun
     # WD EDIT START
     minAngle: 21
-    maxAngle: 32
+    maxAngle: 27
+    bonusAngleIncreaseMove: 5
+    bonusAngleIncreaseTurn: 1
     # WD EDIT END
     fireRate: 10
     shotsPerBurst: 5

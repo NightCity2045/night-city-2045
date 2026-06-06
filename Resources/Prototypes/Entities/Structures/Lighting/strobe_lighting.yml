@@ -101,7 +101,6 @@
     bulb: Bulb
     on: false
   - type: ApcPowerReceiver
-  - type: ExtensionCableReceiver
   - type: DeviceNetwork
     deviceNetId: Wireless
     receiveFrequencyId: SmartLight

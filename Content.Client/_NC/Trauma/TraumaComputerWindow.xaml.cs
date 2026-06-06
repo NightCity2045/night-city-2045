@@ -126,7 +126,7 @@ namespace Content.Client._NC.Trauma
             row.RowContent.AddChild(new Control { MinSize = new Vector2(10, 0) });
 
             row.TierSelector = new OptionButton { MinWidth = 130 };
-            for (int i = 0; i < 4; i++)
+            for (int i = 0; i < 5; i++)
             {
                 var tier = (TraumaSubscriptionTier) i;
                 row.TierSelector.AddItem(tier.ToString().ToUpper(), i);
@@ -193,6 +193,7 @@ namespace Content.Client._NC.Trauma
                 label.FontColorOverride = patient.Subscription switch
                 {
                     TraumaSubscriptionTier.Platinum => Color.FromHex("#FFC107"), // Gold
+                    TraumaSubscriptionTier.Gold => Color.FromHex("#FFD700"),     // Yellow Gold
                     TraumaSubscriptionTier.Silver => Color.FromHex("#64B5F6"),   // Light Blue
                     TraumaSubscriptionTier.Bronze => Color.FromHex("#FFD54F"),
                     _ => Color.FromHex("#9E9E9E") // Grey
@@ -213,7 +214,7 @@ namespace Content.Client._NC.Trauma
                 row.DispatchHandler = _ => OnConfirmCompletion?.Invoke(patient.EntityUid);
                 row.DispatchBtn.OnPressed += row.DispatchHandler;
             }
-            else if (patient.Subscription == TraumaSubscriptionTier.Platinum)
+            else if (patient.Subscription == TraumaSubscriptionTier.Platinum || patient.Subscription == TraumaSubscriptionTier.Gold)
             {
                 row.DispatchBtn!.Disabled = false;
                 row.DispatchBtn.Text = "⪮ DISPATCH";

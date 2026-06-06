@@ -326,7 +326,8 @@ public abstract class SharedStorageSystem : EntitySystem
             UI.IsUiOpen(container.Owner, StorageComponent.StorageUiKey.Key, actor))
         {
             _nestedCheck = true;
-            HideStorageWindow(container.Owner, actor);
+            // NC Edit: Don't hide the parent storage window
+            // HideStorageWindow(container.Owner, actor);
             OpenStorageUIInternal(uid, actor, storageComp, silent: true);
             _nestedCheck = false;
         }
@@ -355,19 +356,6 @@ public abstract class SharedStorageSystem : EntitySystem
         silent |= useDelay != null && UseDelay.IsDelayed((uid, useDelay), id: OpenUiUseDelayID);
         if (!CanInteract(entity, (uid, storageComp), silent: silent))
             return;
-
-        if (storageComp.OpenDelay > TimeSpan.Zero)
-        {
-            var doAfterArgs = new DoAfterArgs(EntityManager, entity, storageComp.OpenDelay, new StorageOpenDoAfterEvent(), uid, target: uid)
-            {
-                BreakOnDamage = true,
-                BreakOnMove = false,
-                NeedHand = true
-            };
-
-            _doAfterSystem.TryStartDoAfter(doAfterArgs);
-            return;
-        }
 
         OpenStorageUIInternalFinal(uid, entity, storageComp, silent, useDelay);
     }

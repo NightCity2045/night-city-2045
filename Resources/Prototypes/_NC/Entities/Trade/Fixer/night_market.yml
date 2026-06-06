@@ -1,27 +1,3 @@
-- type: entity
-  parent: BaseItem
-  id: NightMarket
-  name: Ночной рынок
-  description: Особое устройство фиксера для покупки редкого снаряжения.
-  suffix: tablet, small
-  components:
-  - type: UserInterface
-    interfaces:
-      enum.StoreUiKey.Key:
-        type: NcStoreStructuredBoundUi
-  - type: ActivatableUI
-    key: enum.StoreUiKey.Key
-  - type: Sprite
-    sprite: Objects/Devices/pda.rsi # Placeholder, maybe use a laptop sprite if available
-    state: pda-bartender # Placeholder
-    layers:
-    - state: pda-bartender # Placeholder
-  - type: NcStore
-    buyPresets:
-    - NightMarket_Buy
-    contractPresets:
-    - PresetFixer
-
 - type: storeCategoryStructured
   id: NightMarket_Weapons
   name: "Оружие"
@@ -456,7 +432,7 @@
     price: 15
     count: 5
   - proto: PlantAnalyzer
-    price: 150
+    price: 400
     count: 2
   - proto: HydroponicsToolHatchet
     price: 80
@@ -476,8 +452,11 @@
   - proto: Bucket
     price: 30
     count: 5
+  - proto: BucketBig
+    price: 200
+    count: 2
   - proto: BoxMouthSwab
-    price: 40
+    price: 200
     count: 2
   - proto: PlantBag
     price: 100

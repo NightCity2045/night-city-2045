@@ -6,6 +6,8 @@ using Content.Shared._NC.Bank;
 using Content.Shared.Interaction;
 using Content.Shared.Stacks;
 using Content.Server.Station.Systems;
+using Content.Server.Power.EntitySystems;
+using Content.Shared.UserInterface;
 using Robust.Server.GameObjects;
 using Robust.Shared.Containers;
 using Robust.Shared.GameObjects;
@@ -29,6 +31,8 @@ namespace Content.Server._NC.Bank.ATM
         [Dependency] private readonly UserInterfaceSystem _uiSystem = default!;
         [Dependency] private readonly StationSystem _stationSystem = default!;
         [Dependency] private readonly IPlayerManager _playerManager = default!;
+        [Dependency] private readonly PowerReceiverSystem _powerReceiver = default!;
+        [Dependency] private readonly ActivatableUISystem _activatableUi = default!;
 
         // Работаем с вашей системой БД
         [Dependency] private readonly BankSystem _bankSystem = default!;
@@ -240,6 +244,14 @@ namespace Content.Server._NC.Bank.ATM
 
         private void UpdateUi(EntityUid uid, AtmComponent component)
         {
+            // NC Edit Start: Close UI if power is lost during interaction
+            if (!_powerReceiver.IsPowered(uid))
+            {
+                _activatableUi.CloseAll(uid);
+                return;
+            }
+            // NC Edit End
+
             string accountName = "Не авторизован";
             int balance = 0;
             bool isLoggedIn = false;

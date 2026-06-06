@@ -1,0 +1,23 @@
+- type: gameMap
+  id: ZMappingTest
+  mapName: ZMappingTest
+  mapPath: /Maps/_CE/Empty.yml
+  minPlayers: 0
+  stations:
+    Dev:
+      stationProto: NightCityStation
+      components:
+        - type: CEStationZLevels
+          mapsAbove:
+            - /Maps/_CE/Empty.yml
+            - /Maps/_CE/Empty.yml
+            - /Maps/_CE/Empty.yml
+            - /Maps/_CE/Empty.yml
+          mapsBelow:
+            - /Maps/_CE/Empty.yml
+            - /Maps/_CE/Empty.yml
+            - /Maps/_CE/Empty.yml
+            - /Maps/_CE/Empty.yml
+          # zLevelsComponentOverrides:
+            # Любые компоненты, которые вы хотите чтобы были добавлены на все карты z-уровней. Гравитация, Атмосфера, освещение, параллаксы и т.д.
+      # Дальше стандартная настройка gameMap

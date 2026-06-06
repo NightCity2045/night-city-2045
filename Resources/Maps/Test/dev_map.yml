@@ -5270,13 +5270,6 @@ entities:
       noAirWhenFullyAirBlocked: True
     missingComponents:
     - TimedDespawn
-- proto: HolofanProjector
-  entities:
-  - uid: 1569
-    components:
-    - type: Transform
-      pos: 7.2439203,-7.545966
-      parent: 179
 - proto: HolosignWetFloor
   entities:
   - uid: 848

@@ -1,0 +1,21 @@
+- type: entity
+  parent: ClothingEyesBase
+  id: ClothingEyesGogglesBotany
+  name: ботанические защитные очки
+  description: Продвинутые очки, которые защищают ваши глаза от шипов и колючек.
+  suffix: Гидропоника, Ботаника
+  components:
+  - type: Sprite
+    sprite: &botanical_goggles_sprite _NC/Clothing/Eyes/Goggles/botany.rsi
+  - type: Clothing
+    sprite: *botanical_goggles_sprite
+    equipSound:
+      path: /Audio/_Goobstation/Items/handling/generic_equip2.ogg
+      params:
+        volume: -4
+  - type: Armor
+    modifiers:
+      coefficients:
+        Piercing: 0.85
+        Slash: 0.95
+        Caustic: 0.95

@@ -23,7 +23,16 @@
   - type: AmmoCounter
   - type: Wieldable
   - type: GunRequiresWield
+  - type: GunWieldBonus
+    minAngle: -19
+    maxAngle: -16
   - type: Gun
+  # WD EDIT START
+    minAngle: 21
+    maxAngle: 25
+    bonusAngleIncreaseMove: 5
+    bonusAngleIncreaseTurn: 1
+    # WD EDIT END
     availableModes:
     - FullAuto
     - SemiAuto

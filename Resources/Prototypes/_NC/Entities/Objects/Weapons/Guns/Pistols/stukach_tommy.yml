@@ -38,10 +38,16 @@
       path: /Audio/Weapons/Guns/Empty/empty.ogg
     fireOnDropChance: 0.3
     # Повышенная отдача для крупного калибра
-    minAngle: 2
-    maxAngle: 25
+    minAngle: 20
+    maxAngle: 23
     angleIncrease: 8
     angleDecay: 6
+    bonusAngleIncreaseMove: 5
+    bonusAngleIncreaseTurn: 1
+
+  - type: GunWieldBonus
+    minAngle: -19
+    maxAngle: -16
 
   - type: ContainerContainer
     containers:

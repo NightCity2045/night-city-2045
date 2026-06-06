@@ -165,7 +165,7 @@
   name: maxtac netrunner spawn point
   components:
   - type: SpawnPoint
-    job_id: MaxTacNetrunner
+    job_id: MaxTacEraser
   - type: Sprite
     layers:
       - state: green
@@ -176,7 +176,7 @@
   name: maxtac operative spawn point
   components:
   - type: SpawnPoint
-    job_id: MaxTacOperative
+    job_id: MaxTacEraser
   - type: Sprite
     layers:
       - state: green
@@ -269,17 +269,6 @@
   components:
   - type: SpawnPoint
     job_id: BiotechnicaChief
-  - type: Sprite
-    layers:
-      - state: green
-
-- type: entity
-  id: SpawnPointBiotechnicaSecurityLead
-  parent: SpawnPointJobBase
-  name: biotechnica security lead spawn point
-  components:
-  - type: SpawnPoint
-    job_id: BiotechnicaSecurityLead
   - type: Sprite
     layers:
       - state: green

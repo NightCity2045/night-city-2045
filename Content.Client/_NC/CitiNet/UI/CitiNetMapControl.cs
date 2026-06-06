@@ -61,6 +61,18 @@ public sealed partial class CitiNetMapControl : NavMapControl
 
     public void Recenter() => Recentering = true;
 
+    public float MapRange
+    {
+        get => WorldRange;
+        set => WorldRange = value;
+    }
+
+    public Vector2 MapOffset
+    {
+        get => Offset;
+        set => Offset = value;
+    }
+
     protected override void Draw(DrawingHandleScreen handle)
     {
         handle.DrawRect(new UIBox2(Vector2.Zero, PixelSize), CitiNetBg.WithAlpha(0.98f));

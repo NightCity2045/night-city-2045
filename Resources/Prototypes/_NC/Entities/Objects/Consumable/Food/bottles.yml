@@ -1,0 +1,240 @@
+# region Abstract
+
+- type: entity
+  parent: [DrinkBottleVisualsOpenable, DrinkBottleGlassBaseFull]
+  id: NCDrinkBottle
+  name: бутылка
+  description: Надеюсь внутри нет микропластмассы.
+  suffix: бутылка
+  components:
+  - type: SolutionContainerManager
+    solutions:
+      drink:
+        maxVol: 100
+  - type: Sprite
+    sprite: _NC/Objects/Consumable/Food/Vending/bottles.rsi
+    layers:
+      - state: icon
+        map: ["enum.OpenableVisuals.Layer"]
+      - state: fill-1
+        map: ["enum.SolutionContainerLayers.Fill"]
+        visible: false
+  - type: SolutionContainerVisuals
+    maxFillLevels: 5
+    fillBaseName: fill-
+
+# region Juices
+
+- type: entity
+  parent: NCDrinkBottle
+  id: NCDrinkBottlePumpkin
+  name: бутылка Pumpkin Paradise
+  description: Бутылка с неподслащенной тыквенной мякотью.
+  components:
+  - type: SolutionContainerManager
+    solutions:
+      drink:
+        reagents:
+        - ReagentId: PumpkinFlesh
+          Quantity: 100
+
+- type: entity
+  parent: NCDrinkBottle
+  id: NCDrinkBottleBluemax
+  name: бутылка Bluemax
+  description: Бутылка с неподслащенным секретным соком Biotechnica.
+  components:
+  - type: SolutionContainerManager
+    solutions:
+      drink:
+        reagents:
+        - ReagentId: JuiceBluePumpkin
+          Quantity: 100
+
+- type: entity
+  parent: NCDrinkBottle
+  id: NCDrinkBottleMultifruit
+  name: бутылка Мультифрукта
+  description: Бутылка с здоровым вкусом фруктов, соединяющихся вместе.
+  components:
+  - type: SolutionContainerManager
+    solutions:
+      drink:
+        reagents:
+        - ReagentId: JuiceApple
+          Quantity: 25
+        - ReagentId: JuicePineapple
+          Quantity: 25
+        - ReagentId: JuiceBanana
+          Quantity: 25
+        - ReagentId: JuiceOrange
+          Quantity: 25
+
+- type: entity
+  parent: NCDrinkBottle
+  id: NCDrinkBottleLemonLimeStill
+  name: бутылка Sprime Still
+  description: Бутылка с негазированным напитком от Sprime!
+  components:
+  - type: SolutionContainerManager
+    solutions:
+      drink:
+        reagents:
+        - ReagentId: JuiceLemon
+          Quantity: 40
+        - ReagentId: JuiceLime
+          Quantity: 40
+        - ReagentId: Sugar
+          Quantity: 20
+
+- type: entity
+  parent: NCDrinkBottle
+  id: NCDrinkBottlePineapple
+  name: бутылка Желтого Бума
+  description: Бутылка с негазированной сладостью для тех, кто не любит пузырьки.
+  components:
+  - type: SolutionContainerManager
+    solutions:
+      drink:
+        reagents:
+        - ReagentId: JuicePineapple
+          Quantity: 80
+        - ReagentId: Sugar
+          Quantity: 20
+
+- type: entity
+  parent: NCDrinkBottle
+  id: NCDrinkBottleBluePumpkin
+  name: бутылка Синего Бума
+  description: Бутылка с негазированной сладостью для тех, кто любит загадки.
+  components:
+  - type: SolutionContainerManager
+    solutions:
+      drink:
+        reagents:
+        - ReagentId: JuiceBluePumpkin
+          Quantity: 80
+        - ReagentId: Sugar
+          Quantity: 20
+
+- type: entity
+  parent: NCDrinkBottle
+  id: NCDrinkBottlePoison
+  name: бутылка Ядовитого Бума
+  description: Бутылка с негазированной сладостью для тех, кто любит умирать.
+  components:
+  - type: SolutionContainerManager
+    solutions:
+      drink:
+        reagents:
+        - ReagentId: JuiceBerryPoison
+          Quantity: 80
+        - ReagentId: Sugar
+          Quantity: 20
+
+# region Sodas
+
+- type: entity
+  parent: NCDrinkBottle
+  id: NCDrinkBottleSupermax
+  name: бутылка Supermax
+  description: Суперзаряженная синяя газированная сладость.
+  components:
+  - type: SolutionContainerManager
+    solutions:
+      drink:
+        reagents:
+        - ReagentId: JuiceBluePumpkin
+          Quantity: 45
+        - ReagentId: SodaWater
+          Quantity: 45
+        - ReagentId: Sugar
+          Quantity: 10
+
+# region Random Spawner
+
+- type: entity
+  parent: MarkerBase
+  id: NCDrinkBottleSpawner
+  name: случайный напиток
+  description: Спавнер случайного напитка.
+  suffix: бутылка
+  placement:
+    mode: PlaceFree
+  components:
+  - type: Transform
+    anchored: false
+  - type: RandomSpawner
+    prototypes:
+    # Empty
+    - NCDrinkBottle
+    # Juices
+    - NCDrinkBottleBluemax
+    - NCDrinkBottleMultifruit
+    - NCDrinkBottleLemonLimeStill
+    - NCDrinkBottlePineapple
+    - NCDrinkBottleBluePumpkin
+    - NCDrinkBottlePoison
+    - DrinkWaterBottleFull
+    - DrinkSodaWaterBottleFull
+    - DrinkTonicWaterBottleFull
+    # Sodas
+    - NCDrinkBottleSupermax
+    chance: 0.8
+    rarePrototypes:
+    # Juices
+    - NCDrinkBottlePumpkin
+    - DrinkColaBottleFull
+    - DrinkGrenadineBottleFull
+    rareChance: 0.1
+    offset: 0.0
+  - type: Sprite
+    sprite: _NC/Objects/Consumable/Food/Vending/bottles.rsi
+    state: icon
+
+# region Vending Inventories
+
+- type: vendingMachineInventory
+  id: NCDrinkBottleMachineInventory
+  startingInventory:
+    DrinkWaterBottleFull: 2
+    NCDrinkBottleBluemax: 2
+    NCDrinkBottleMultifruit: 2
+    NCDrinkBottleLemonLimeStill: 2
+    NCDrinkBottlePineapple: 2
+    NCDrinkBottleBluePumpkin: 2
+    NCDrinkBottlePoison: 2
+    DrinkSodaWaterBottleFull: 2
+    DrinkTonicWaterBottleFull: 2
+    NCDrinkBottleSupermax: 2
+    DrinkColaBottleFull: 2
+    DrinkGrenadineBottleFull: 2
+  startingItemPrices:
+    DrinkWaterBottleFull: 50
+    NCDrinkBottleBluemax: 100
+    NCDrinkBottleMultifruit: 100
+    NCDrinkBottleLemonLimeStill: 100
+    NCDrinkBottlePineapple: 100
+    NCDrinkBottleBluePumpkin: 100
+    NCDrinkBottlePoison: 100
+    DrinkSodaWaterBottleFull: 75
+    DrinkTonicWaterBottleFull: 75
+    NCDrinkBottleSupermax: 100
+    DrinkColaBottleFull: 80
+    DrinkGrenadineBottleFull: 80
+  contrabandInventory:
+    NCDrinkBottlePumpkin: 2
+  contrabandItemPrices:
+    NCDrinkBottlePumpkin: 80
+
+- type: entity
+  parent: VendingMachineColaBlack
+  id: NCVendingMachineBottles
+  name: Напитки БигСити
+  description: Автомат с напитками в больших упаковках большого города!
+  suffix: профит Кафе
+  components:
+  - type: VendingMachine
+    pack: NCDrinkBottleMachineInventory
+  - type: MoneyCollector
+    access: [ [ "Cafe" ] ]

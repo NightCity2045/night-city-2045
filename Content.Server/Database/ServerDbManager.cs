@@ -50,6 +50,9 @@ namespace Content.Server.Database
         Task<PlayerPreferences?> GetPlayerPreferencesAsync(NetUserId userId, CancellationToken cancel);
 
         Task ResetAllBankBalances(int startingBalance);
+
+        Task<Dictionary<int, int>> GetFactionBankBalancesAsync();
+        Task SaveFactionBankBalanceAsync(int factionId, int balance);
         #endregion
 
         #region User Ids
@@ -510,6 +513,18 @@ namespace Content.Server.Database
         {
             DbWriteOpsMetric.Inc();
             return RunDbCommand(() => _db.ResetAllBankBalances(startingBalance));
+        }
+
+        public Task<Dictionary<int, int>> GetFactionBankBalancesAsync()
+        {
+            DbReadOpsMetric.Inc();
+            return RunDbCommand(() => _db.GetFactionBankBalancesAsync());
+        }
+
+        public Task SaveFactionBankBalanceAsync(int factionId, int balance)
+        {
+            DbWriteOpsMetric.Inc();
+            return RunDbCommand(() => _db.SaveFactionBankBalanceAsync(factionId, balance));
         }
 
         public Task AssignUserIdAsync(string name, NetUserId userId)

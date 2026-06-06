@@ -1,26 +1,28 @@
 - type: vendingMachineInventory
   id: RobustSoftdrinksInventory
+  # NC edit start: NightCity FastFood
   startingInventory:
-    DrinkColaCan: 4
-    DrinkGrapeCan: 2
-    DrinkRootBeerCan: 2
-    DrinkIcedTeaCan: 2
-    DrinkSolDryCan: 2
-    DrinkLemonLimeCan: 2
-    DrinkLemonLimeCranberryCan: 2
-    DrinkFourteenLokoCan: 2
+    NCDrinkCanCola: 6
+    NCDrinkCanClassicCola: 4
+    NCDrinkCanSweetCola: 3
+    NCDrinkCanBerryCola: 3
+    NCDrinkCanRipperCola: 4
+    NCDrinkCanSoda: 3
+    NCDrinkCanSodaAccelerate: 3
+    NCDrinkCanRipperRedCola: 3
   startingItemPrices:
-    DrinkColaCan: 10
-    DrinkGrapeCan: 10
-    DrinkRootBeerCan: 10
-    DrinkIcedTeaCan: 10
-    DrinkSolDryCan: 10
-    DrinkLemonLimeCan: 10
-    DrinkLemonLimeCranberryCan: 10
-    DrinkFourteenLokoCan: 10
-  emaggedInventory:
-    DrinkNukieCan: 2
-    DrinkChangelingStingCan: 2
-  emaggedItemPrices:
-    DrinkNukieCan: 100
-    DrinkChangelingStingCan: 100
+    NCDrinkCanCola: 15
+    NCDrinkCanClassicCola: 17
+    NCDrinkCanSweetCola: 18
+    NCDrinkCanBerryCola: 16
+    NCDrinkCanRipperCola: 18
+    NCDrinkCanSoda: 14
+    NCDrinkCanSodaAccelerate: 15
+    NCDrinkCanRipperRedCola: 13
+  contrabandInventory:
+    NCDrinkCanAltCola: 3
+    NCDrinkCanOrbitalAirCola: 3
+  contrabandItemPrices:
+    NCDrinkCanAltCola: 13
+    NCDrinkCanOrbitalAirCola: 26
+  # NC edit end: NightCity FastFood

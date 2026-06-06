@@ -1,0 +1,58 @@
+- type: entity
+  id: CEZLevelsLadder
+  abstract: true
+  name: ladder
+  suffix: Z-lvl
+  components:
+  - type: Sprite
+    sprite: Structures/stairs.rsi
+    state: stairs_steel
+    drawdepth: FloorTiles
+  - type: Damageable
+    damageContainer: StructuralInorganic
+    damageModifierSet: Rock
+  - type: Destructible
+    thresholds:
+    - trigger:
+        !type:DamageTrigger
+        damage: 30
+      behaviors:
+      - !type:PlaySoundBehavior
+        sound:
+          path: /Audio/Effects/break_stone.ogg
+          params:
+            volume: -6
+      - !type:DoActsBehavior
+        acts: ["Destruction"]
+
+- type: entity
+  parent:
+  - CEZLevelLadderBase
+  - CEZLevelsLadder
+  id: CEZLevelLadder
+  components:
+  - type: Construction
+    graph: CEZLevelLadder
+    node: CEZLevelLadder
+
+#- type: entity
+  #parent:
+  #- CEZLevelLadderCornerBase
+  #- CEZLevelsLadder
+  #id: CEZLevelLadderCorner
+  #suffix: Corner
+  #components:
+  #- type: Construction
+    #graph: CEZLevelLadder
+    #node: CEZLevelLadderCorner
+#
+#- type: entity
+  #parent:
+  #- CEZLevelLadderCornerInnerBase
+  #- CEZLevelsLadder
+  #id: CEZLevelLadderCornerInner
+  #suffix: Inner Corner
+  #components:
+  #- type: Construction
+    #graph: CEZLevelLadder
+    #node: CEZLevelLadderCornerInner

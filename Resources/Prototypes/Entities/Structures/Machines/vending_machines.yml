@@ -415,6 +415,7 @@
   id: VendingMachineCoffee
   name: Solar's Best Hot Drinks
   description: Served boiling so it stays hot all shift!
+  suffix: профит Кафе
   components:
   - type: VendingMachine
     pack: HotDrinksMachineInventory
@@ -459,6 +460,8 @@
   - type: Rotatable
     rotateWhileAnchored: false
     rotateWhilePulling: true
+  - type: MoneyCollector
+    access: [ [ "Cafe" ] ]
 
 - type: entity
   parent: VendingMachine
@@ -1593,6 +1596,7 @@
   id: VendingMachineDonut
   name: Monkin' Donuts
   description: A donut vendor provided by Robust Industries, LLC.
+  suffix: профит Кафе
   components:
   - type: VendingMachine
     pack: DonutInventory
@@ -1623,6 +1627,8 @@
     color: "#d4ab33"
     mask: /Textures/Effects/LightMasks/cone.png
     autoRot: true
+  - type: MoneyCollector
+    access: [ [ "Cafe" ] ]
 
 # wallmounted machines
 

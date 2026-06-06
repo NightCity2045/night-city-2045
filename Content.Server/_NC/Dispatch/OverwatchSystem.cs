@@ -107,30 +107,19 @@ namespace Content.Server._NC.Dispatch
                     if (alert.Dispatched)
                         break;
 
-                    // If we're tracking an entity (wanted/cyberpsycho), use its position
+                    // If we're tracking an entity (wanted/cyberpsycho), use its current position
                     // and pass targetUid for real-time tracking on tablets.
                     EntityUid? trackTarget = null;
-                    EntityCoordinates dispatchCoords;
+                    NetCoordinates dispatchNetCoords = alert.Coordinates;
 
                     if (alert.TargetUid is { } targetNet)
                     {
                         var targetEnt = EntityManager.GetEntity(targetNet);
                         if (EntityManager.EntityExists(targetEnt))
                         {
-                            dispatchCoords = Transform(targetEnt).Coordinates;
+                            dispatchNetCoords = GetNetCoordinates(_transform.GetMoverCoordinates(targetEnt));
                             trackTarget = targetEnt;
                         }
-                        else
-                        {
-                            // Target entity no longer exists, fall back to camera
-                            var fallbackCam = EntityManager.GetEntity(alert.CameraUid);
-                            dispatchCoords = Transform(fallbackCam).Coordinates;
-                        }
-                    }
-                    else
-                    {
-                        var camUid = EntityManager.GetEntity(alert.CameraUid);
-                        dispatchCoords = Transform(camUid).Coordinates;
                     }
 
                     var desc = (alert.Type == "TRAUMA SOS" || alert.Type == "CIVILIAN SOS") 
@@ -152,7 +141,7 @@ namespace Content.Server._NC.Dispatch
                             alert.Type,
                             alert.Sector,
                             desc,
-                            GetNetCoordinates(dispatchCoords),
+                            dispatchNetCoords,
                             $"overwatch_{msg.AlertId}",
                             trackTarget);
                     }
@@ -246,6 +235,9 @@ namespace Content.Server._NC.Dispatch
             var transform = Transform(cameraUid);
             var gridPos = _transform.GetGridOrMapTilePosition(cameraUid, transform);
             var sectorWithCoords = $"({gridPos.X}, {gridPos.Y}) {sector}";
+            
+            // NC Edit: Capture coordinates immediately so they remain valid even if camera is destroyed later.
+            var coordinates = GetNetCoordinates(_transform.GetMoverCoordinates(cameraUid));
 
             // update every console on station
             var consoles = EntityQueryEnumerator<OverwatchConsoleComponent>();
@@ -263,6 +255,7 @@ namespace Content.Server._NC.Dispatch
                         {
                             a.TimeStr = timeStr;
                             a.Sector = sectorWithCoords;
+                            a.Coordinates = coordinates; // Update to last known pos
                             break;
                         }
                     }
@@ -272,7 +265,7 @@ namespace Content.Server._NC.Dispatch
                     var id = comp.NextAlertId++;
                     // derive camera name from surveillance component if available
                     var camName = sector;
-                    comp.ActiveAlerts[id] = new OverwatchAlertData(id, type, sectorWithCoords, camName, timeStr, EntityManager.GetNetEntity(cameraUid));
+                    comp.ActiveAlerts[id] = new OverwatchAlertData(id, type, sectorWithCoords, camName, timeStr, EntityManager.GetNetEntity(cameraUid), coordinates);
                     comp.LastAlertTime[cameraUid] = now;
 
                     // play alarm sound at the console if high priority
@@ -295,6 +288,9 @@ namespace Content.Server._NC.Dispatch
             var transform = Transform(targetUid);
             var gridPos = _transform.GetGridOrMapTilePosition(targetUid, transform);
             var sectorWithCoords = $"({gridPos.X}, {gridPos.Y}) {description}";
+            
+            // NC Edit: Capture coordinates immediately
+            var coordinates = GetNetCoordinates(_transform.GetMoverCoordinates(targetUid));
 
             var consoles = EntityQueryEnumerator<OverwatchConsoleComponent>();
             while (consoles.MoveNext(out var uid, out var comp))
@@ -307,6 +303,7 @@ namespace Content.Server._NC.Dispatch
                     description,
                     timeStr,
                     EntityManager.GetNetEntity(targetUid),  // CameraUid doubles as position source
+                    coordinates,
                     dispatched: false,
                     targetUid: EntityManager.GetNetEntity(targetUid)  // TargetUid for live tracking
                 );

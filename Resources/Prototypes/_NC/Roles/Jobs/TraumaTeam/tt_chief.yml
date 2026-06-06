@@ -20,7 +20,7 @@
     - type: MapBeacon
       group: TraumaTeam
       color: "#4bdc99"
-      icon: /Textures/Interface/VerbIcons/trauma_team.png
+      icon: /Textures/_NC/Interface/Misc/job_icons.rsi/trauma-glava.png
       visibleInWorld: false
     - type: TraumaSubscriber
       tier: Platinum

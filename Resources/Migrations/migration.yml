@@ -497,3 +497,7 @@ AirlockHydroponics: AirlockHydroponicsLocked
 # Biogenerator: null  # NC edit: Bring back biogenerator
 FloraGreyStalagmite: null
 FelinidCube: TajaranCube
+
+# NC edit: NightCity FastFood Mapping
+RandomSnacks: NCFoodSnackSpawnerWrapped
+PosterContrabandLustyExomorph: null

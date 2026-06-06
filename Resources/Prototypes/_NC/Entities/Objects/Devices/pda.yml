@@ -14,6 +14,7 @@
       borderColor: '#4d4d4d'
       accentHColor: '#2f5c9e'
       accentVColor: '#2f5c9e'
+
 - type: entity
   parent: BasePDA
   id: NCPDCommanderPDA

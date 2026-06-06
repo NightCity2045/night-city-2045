@@ -1,6 +1,4 @@
 using System.Threading.Tasks;
-using System.Linq;
-using Content.Server.Station.Systems;
 using Content.Shared._NC.Bank;
 using Content.Shared._NC.Bank.Components;
 using Content.Server.Preferences.Managers;
@@ -10,13 +8,10 @@ using Robust.Shared.Player;
 using Content.Shared.GameTicking;
 using Content.Server.Chat.Managers;
 using Robust.Shared.Enums;
-using Content.Shared.Roles;
-using Robust.Shared.Prototypes;
 using Content.Shared.Roles.Jobs;
 using Content.Shared.Mind;
 using Content.Shared.Ghost;
 using Content.Server.Popups;
-using Robust.Shared.Localization;
 
 namespace Content.Server._NC.Bank
 {
@@ -30,13 +25,14 @@ namespace Content.Server._NC.Bank
         [Dependency] private readonly IServerDbManager _db = default!;
         [Dependency] private readonly ISharedPlayerManager _playerManager = default!;
         [Dependency] private readonly IChatManager _chatManager = default!;
-        [Dependency] private readonly IPrototypeManager _protoManager = default!;
         [Dependency] private readonly SharedJobSystem _jobSystem = default!;
         [Dependency] private readonly SharedMindSystem _mindSystem = default!;
         [Dependency] private readonly PopupSystem _popupSystem = default!;
         [Dependency] private readonly Robust.Shared.Random.IRobustRandom _random = default!;
 
         private ISawmill _log = default!;
+
+        private Dictionary<int, int> _factionBalances = new();
 
         // === НАСТРОЙКИ ТАЙМЕРА ===
         private const float PaydayInterval = 1800.0f;
@@ -51,8 +47,22 @@ namespace Content.Server._NC.Bank
             SubscribeLocalEvent<StationBankComponent, MapInitEvent>(OnStationBankInit);
             SubscribeLocalEvent<PlayerSpawnCompleteEvent>(OnPlayerSpawn);
             SubscribeLocalEvent<BankAccountComponent, Content.Shared.Verbs.GetVerbsEvent<Content.Shared.Verbs.ActivationVerb>>(OnGetVerbs);
+
+            LoadFactionBalances();
         }
-        
+
+        private async void LoadFactionBalances()
+        {
+            _factionBalances = await _db.GetFactionBankBalancesAsync();
+
+            var query = EntityQueryEnumerator<StationBankComponent>();
+            while (query.MoveNext(out var uid, out var bank))
+            {
+                EnsureDefaultAccounts(bank);
+                Dirty(uid, bank);
+            }
+        }
+
         private void OnGetVerbs(EntityUid uid, BankAccountComponent component, Content.Shared.Verbs.GetVerbsEvent<Content.Shared.Verbs.ActivationVerb> args)
         {
             if (args.User != uid) return;
@@ -60,10 +70,7 @@ namespace Content.Server._NC.Bank
             args.Verbs.Add(new Content.Shared.Verbs.ActivationVerb
             {
                 Text = "Реквизиты счета",
-                Act = () =>
-                {
-                    _popupSystem.PopupEntity($"Счет: {component.AccountNumber} | ПИН: {component.PIN}", uid, uid);
-                }
+                Act = () => _popupSystem.PopupEntity($"Счет: {component.AccountNumber} | ПИН: {component.PIN}", uid, uid)
             });
         }
 
@@ -78,21 +85,21 @@ namespace Content.Server._NC.Bank
                 return;
 
             var bankComp = EnsureComp<BankAccountComponent>(ev.Mob);
-            
+
             // Берем баланс напрямую из профиля, загруженного при спавне
             bankComp.Balance = ev.Profile.BankBalance;
 
             // Устанавливаем индекс слота персонажа для корректного сохранения в БД
             bankComp.ProfileSlot = _prefsManager.GetPreferences(ev.Player.UserId).SelectedCharacterIndex;
-            
+
             if (string.IsNullOrEmpty(bankComp.AccountNumber))
             {
                 bankComp.AccountNumber = $"NC-{_random.Next(100000, 999999)}";
                 bankComp.PIN = _random.Next(1000, 9999).ToString();
             }
-            
+
             Dirty(ev.Mob, bankComp);
-            
+
             _chatManager.DispatchServerMessage(ev.Player, $"Ваш банковский счет: {bankComp.AccountNumber}, ПИН-код: {bankComp.PIN}. Никому не сообщайте эти данные.");
         }
 
@@ -105,22 +112,29 @@ namespace Content.Server._NC.Bank
 
         private void EnsureDefaultAccounts(StationBankComponent component)
         {
-            EnsureAccount(component, SectorBankAccount.CityAdmin, 0, 0);
-            EnsureAccount(component, SectorBankAccount.TraumaTeam, 10000, 5);
-            EnsureAccount(component, SectorBankAccount.Militech, 25000, 8);
-            EnsureAccount(component, SectorBankAccount.Biotechnica, 15000, 6);
-            EnsureAccount(component, SectorBankAccount.Ncpd, 5000, 0);
+            EnsureAccount(component, SectorBankAccount.CityAdmin, 0);
+            EnsureAccount(component, SectorBankAccount.TraumaTeam, 10000);
+            EnsureAccount(component, SectorBankAccount.Militech, 25000);
+            EnsureAccount(component, SectorBankAccount.Biotechnica, 15000);
+            EnsureAccount(component, SectorBankAccount.Ncpd, 5000);
         }
 
-        private void EnsureAccount(StationBankComponent component, SectorBankAccount account, int defaultBalance, int defaultIncrease)
+        private void EnsureAccount(StationBankComponent component, SectorBankAccount account, int defaultBalance)
         {
-            if (!component.Accounts.ContainsKey(account))
+            var balance = defaultBalance;
+            if (_factionBalances.TryGetValue((int)account, out var storedBalance))
+                balance = storedBalance;
+
+            if (!component.Accounts.TryGetValue(account, out var info))
             {
                 component.Accounts[account] = new StationBankAccountInfo
                 {
-                    Balance = defaultBalance,
-                    IncreasePerSecond = defaultIncrease
+                    Balance = balance,
                 };
+            }
+            else
+            {
+                info.Balance = balance;
             }
         }
 
@@ -134,29 +148,6 @@ namespace Content.Server._NC.Bank
                 _paydayTimer -= PaydayInterval;
                 ProcessPayday();
             }
-
-            var query = EntityQueryEnumerator<StationBankComponent>();
-            while (query.MoveNext(out var uid, out var bank))
-            {
-                bank.SecondsSinceLastIncrease += frameTime;
-                if (bank.SecondsSinceLastIncrease >= 1.0f)
-                {
-                    bank.SecondsSinceLastIncrease -= 1.0f;
-
-                    bool changed = false;
-                    foreach (var account in bank.Accounts.Values)
-                    {
-                        if (account.IncreasePerSecond != 0)
-                        {
-                            account.Balance += account.IncreasePerSecond;
-                            changed = true;
-                        }
-                    }
-
-                    if (changed)
-                        Dirty(uid, bank);
-                }
-            }
         }
 
         public bool TryFactionWithdraw(EntityUid stationUid, SectorBankAccount accountType, int amount)
@@ -169,6 +160,8 @@ namespace Content.Server._NC.Bank
             if (account.Balance < amount) return false;
 
             account.Balance -= amount;
+            _factionBalances[(int)accountType] = account.Balance;
+            _db.SaveFactionBankBalanceAsync((int)accountType, account.Balance);
             Dirty(stationUid, bank);
             return true;
         }
@@ -182,6 +175,8 @@ namespace Content.Server._NC.Bank
             if (!bank.Accounts.TryGetValue(accountType, out var account)) return false;
 
             account.Balance += amount;
+            _factionBalances[(int)accountType] = account.Balance;
+            _db.SaveFactionBankBalanceAsync((int)accountType, account.Balance);
             Dirty(stationUid, bank);
             return true;
         }
@@ -279,7 +274,7 @@ namespace Content.Server._NC.Bank
             // Ищем сессию игрока. Сначала по сущности, потом по номеру счета во всем мире.
             if (!_playerManager.TryGetSessionByEntity(mobUid, out var session))
             {
-                // Если сущность не привязана к сессии (например, это карта или банкомат), 
+                // Если сущность не привязана к сессии (например, это карта или банкомат),
                 // ищем живого игрока с таким же номером счета.
                 foreach (var s in _playerManager.Sessions)
                 {
@@ -297,7 +292,7 @@ namespace Content.Server._NC.Bank
             if (session != null && bankComp.ProfileSlot != -1)
             {
                 var prefs = _prefsManager.GetPreferences(session.UserId);
-                if (prefs.Characters.TryGetValue(bankComp.ProfileSlot, out var iProfile) && 
+                if (prefs.Characters.TryGetValue(bankComp.ProfileSlot, out var iProfile) &&
                     iProfile is HumanoidCharacterProfile profile)
                 {
                     var newProfile = profile.WithBankBalance(bankComp.Balance);

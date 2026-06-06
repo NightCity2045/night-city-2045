@@ -1,0 +1,23 @@
+<BoxContainer xmlns="https://spacestation14.io"
+              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+              x:Class="Content.Client._NC.CitiNet.UI.NetHomeSiteUI"
+              Orientation="Vertical"
+              HorizontalExpand="True" VerticalExpand="True"
+              StyleClasses="FixerSiteMain">
+    
+    <Label Text="CITINET // HOME_PAGE" 
+           FontColorOverride="#00f2ff"
+           HorizontalAlignment="Center" 
+           Margin="0 40"/>
+    
+    <BoxContainer Orientation="Vertical" Margin="20" Name="SiteList">
+        <Label Text="AVAILABLE_SERVICES:" FontColorOverride="#ff003c" Margin="0 0 0 10"/>
+        <!-- Dynamic buttons will be added here -->
+    </BoxContainer>
+
+    <BoxContainer Orientation="Vertical" Margin="20" VerticalAlignment="Bottom">
+        <Label Text="LATEST_NEWS:" FontColorOverride="#666666"/>
+        <Label Text="- Trauma Team reports record response times." FontColorOverride="#444444"/>
+        <Label Text="- Arasaka Tower renovation completed." FontColorOverride="#444444"/>
+    </BoxContainer>
+</BoxContainer>

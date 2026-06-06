@@ -144,7 +144,8 @@ namespace Content.Server._NC.Trauma
         private void OnDispatch(EntityUid uid, TraumaComputerComponent component, TraumaDispatchMsg args)
         {
             var target = GetEntity(args.TargetEntity);
-            if (TryComp<TraumaSubscriberComponent>(target, out var subscriber) && subscriber.Tier == TraumaSubscriptionTier.Platinum)
+            if (TryComp<TraumaSubscriberComponent>(target, out var subscriber) && 
+                (subscriber.Tier == TraumaSubscriptionTier.Platinum || subscriber.Tier == TraumaSubscriptionTier.Gold))
             {
                 var tabletSystem = EntityManager.System<TraumaTabletSystem>();
                 if (tabletSystem.DispatchTeam(target))

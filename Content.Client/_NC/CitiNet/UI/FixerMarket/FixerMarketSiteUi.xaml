@@ -1,0 +1,17 @@
+<PanelContainer xmlns="https://spacestation14.io"
+                xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                x:Class="Content.Client._NC.CitiNet.UI.FixerMarket.FixerMarketSiteUi"
+                HorizontalExpand="True" VerticalExpand="True">
+    <BoxContainer Orientation="Vertical">
+        <PanelContainer StyleClasses="PanelBackgroundBaseDark" MinHeight="40">
+            <BoxContainer Orientation="Horizontal" Margin="8 4">
+                <Label Text="NIGHT MARKET // SECURE_LISTINGS" VerticalAlignment="Center" HorizontalExpand="True" StyleClasses="LabelHeading"/>
+                <Label Name="BalanceLabel" Text="BALANCE: 0" VerticalAlignment="Center" FontColorOverride="#fcee0a"/>
+            </BoxContainer>
+        </PanelContainer>
+
+        <TabContainer Name="Tabs" VerticalExpand="True" Margin="4">
+             <!-- Categories will be added as Tabs dynamically -->
+        </TabContainer>
+    </BoxContainer>
+</PanelContainer>

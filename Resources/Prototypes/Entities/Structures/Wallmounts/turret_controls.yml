@@ -178,7 +178,6 @@
 
   # General properties
   - type: ApcPowerReceiver
-  - type: ExtensionCableReceiver
   - type: Electrified
     enabled: false
     usesApcPower: true

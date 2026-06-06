@@ -34,7 +34,7 @@ materials-bones = кости
 materials-coal = уголь
 materials-diamond = алмазы
 materials-gunpowder = чёрный порох
-materials-bluespace = блюспейс
+materials-bluespace = кристаллы
 materials-normality = нормальность
 materials-circuitry = микросхемы
 

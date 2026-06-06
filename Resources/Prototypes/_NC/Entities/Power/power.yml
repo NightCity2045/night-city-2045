@@ -1,0 +1,7 @@
+- type: entity
+  id: ClothingEyesGlassesMesonAR
+  parent: ClothingEyesGlassesMeson
+  name: engineering AR goggles
+  description: Green-tinted goggles upgraded with AR capabilities to see logical power links.
+  components:
+  - type: ARPowerVisor

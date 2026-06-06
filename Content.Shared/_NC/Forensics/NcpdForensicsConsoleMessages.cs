@@ -1,15 +1,10 @@
 using Robust.Shared.Network;
 using Robust.Shared.Serialization;
+using Robust.Shared.Map;
 using System;
 using System.Collections.Generic;
 
 namespace Content.Shared._NC.Forensics;
-
-[Serializable, NetSerializable]
-public enum NcpdForensicsConsoleUiKey : byte
-{
-    Key
-}
 
 [Serializable, NetSerializable]
 public sealed class NcpdForensicsConsoleBuiState : BoundUserInterfaceState
@@ -50,6 +45,7 @@ public struct ForensicsAlertData
     public string Location;
     public float X;
     public float Y;
+    public NetCoordinates? Coordinates; // Added for map and printing
     public TimeSpan Time;
     public bool Dispatched;
     public bool Archived;

@@ -16,7 +16,6 @@
     state: conveyor_started_cw
     drawdepth: HighFloorObjects
   - type: ApcPowerReceiver
-  - type: ExtensionCableReceiver
   - type: Physics
     bodyType: Static
   - type: Fixtures

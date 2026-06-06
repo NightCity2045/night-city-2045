@@ -1,0 +1,261 @@
+# region Watering Cans
+
+- type: entity
+  parent: DrinkBase
+  id: WateringCan
+  name: лейка
+  description: Обычная лейка для полива растений. Вмещает чуть больше воды чем ведро и не проливает ее.
+  components:
+  - type: Clickable
+  - type: Sprite
+    sprite: _NC/Objects/Tools/watering_can.rsi
+    state: icon
+  - type: Item
+    size: Normal
+  - type: MixableSolution
+    solution: bucket
+  - type: SolutionTransfer
+    transferAmount: 100
+    maxTransferAmount: 100
+    minTransferAmount: 10
+    canChangeTransferAmount: true
+  - type: UserInterface
+    interfaces:
+      enum.TransferAmountUiKey.Key:
+        type: TransferAmountBoundUserInterface
+  - type: MeleeWeapon
+    soundNoDamage:
+      path: "/Audio/Effects/Fluids/splat.ogg"
+    damage:
+      types:
+        Blunt: 1
+  - type: RefillableSolution
+    solution: bucket
+  - type: DrainableSolution
+    solution: bucket
+  - type: SolutionItemStatus
+    solution: bucket
+  - type: Appearance
+  - type: ExaminableSolution
+    solution: bucket
+  - type: Tag
+    tags:
+      - Bucket
+  - type: SolutionContainerManager
+    solutions:
+      bucket:
+        maxVol: 300
+  - type: PhysicalComposition
+    materialComposition:
+      Steel: 75
+      Plastic: 75
+
+- type: entity
+  parent: WateringCan
+  id: WateringCanExperimental
+  name: продвинутая лейка
+  description: Экспериментальная лейка, которая медленно пополняется сама.
+  components:
+  - type: Sprite
+    sprite: _NC/Objects/Tools/watering_can_experimental.rsi
+  - type: SolutionContainerManager
+    solutions:
+      bucket:
+        maxVol: 300
+  - type: PhysicalComposition
+    materialComposition:
+      Steel: 125
+      Plastic: 125
+      Plasma: 50
+  - type: SolutionRegeneration
+    solution: bucket
+    generated:
+      reagents:
+        - ReagentId: Water
+          Quantity: 2.0
+  - type: ReverseEngineering
+    difficulty: 4
+    recipes:
+      - WateringCanExperimental
+
+- type: entity
+  parent: WateringCanExperimental
+  id: BluespaceWateringCanExperimental
+  name: вместительная продвинутая лейка
+  description: Улучшенная экспериментальная самовосполняющаяся лейка, расширенная в три раза.
+  components:
+  - type: Sprite
+    state: icon_bluespace
+  - type: SolutionContainerManager
+    solutions:
+      bucket:
+        maxVol: 900
+  - type: PhysicalComposition
+    materialComposition:
+      Steel: 125
+      Plastic: 125
+      Plasma: 50
+      BSCrystal: 12
+  - type: ReverseEngineering
+    difficulty: 5
+    recipes:
+      - BluespaceWateringCanExperimental
+
+# region Shakers
+
+- type: entity
+  parent: DrinkShaker
+  id: DrinkShakerAdvanced
+  name: продвинутый шейкер
+  description: Этот прозрачный мерный шейкер имеет авто-размешиватель внутри, позволяя одновременно встряхивать и размешивать жидкости. А еще он немного больше обычного.
+  components:
+  - type: SolutionContainerManager
+    solutions:
+      drink:
+        maxVol: 120  # Exactly 4 drinks
+  - type: PhysicalComposition
+    materialComposition:
+      Steel: 100
+  - type: ReactionMixer
+    mixOnInteract: false
+    reactionTypes:
+    - Shake
+    - Stir
+  - type: ExaminableSolution
+    heldOnly: false
+    examinableWhileClosed: true
+    exactVolume: true
+  - type: Sprite
+    sprite: _NC/Objects/Consumable/Drinks/shaker.rsi
+    layers:
+      - state: icon
+        map: [ "enum.SolutionContainerLayers.Base" ]
+      - state: fill-1
+        map: [ "enum.SolutionContainerLayers.Fill" ]
+        visible: false
+  - type: Appearance
+  - type: SolutionContainerVisuals
+    maxFillLevels: 6
+    fillBaseName: fill-
+
+- type: entity
+  parent: DrinkShakerAdvanced
+  id: BluespaceDrinkShakerAdvanced
+  name: вместительный продвинутый шейкер
+  description: Этот продвинутый шейкер способен вместить гораздо больше жидкости.
+  components:
+  - type: SolutionContainerManager
+    solutions:
+      drink:
+        maxVol: 500
+  - type: Sprite
+    layers:
+      - state: icon_bluespace
+        map: [ "enum.SolutionContainerLayers.Base" ]
+      - state: fill-1
+        map: [ "enum.SolutionContainerLayers.Fill" ]
+        visible: false
+
+# region Kettles
+
+- type: entity
+  parent: Pitcher
+  id: DrinkKettleAdvanced
+  name: продвинутый чайник
+  description: Этот прозрачный мерный чайник имеет авто-нагреватель внутри, позволяя нагревать напиток на ходу до 400 градусов. И он немного больше обычных чайников.
+  components:
+  - type: SolutionContainerManager
+    solutions:
+      drink:
+        maxVol: 120  # Exactly 4 drinks
+  - type: PhysicalComposition
+    materialComposition:
+      Steel: 100
+  - type: SolutionHeaterAuto
+    heatPerSecond: 80
+    maxHeat: 350
+    solution: drink
+  - type: ExaminableSolution
+    heldOnly: false
+    examinableWhileClosed: true
+    exactVolume: true
+  - type: Sprite
+    sprite: _NC/Objects/Consumable/Drinks/kettle.rsi
+    layers:
+      - state: icon
+        map: [ "enum.SolutionContainerLayers.Base" ]
+      - state: fill-1
+        map: [ "enum.SolutionContainerLayers.Fill" ]
+        visible: false
+  - type: Appearance
+  - type: SolutionContainerVisuals
+    maxFillLevels: 6
+    fillBaseName: fill-
+
+- type: entity
+  parent: DrinkKettleAdvanced
+  id: BluespaceDrinkKettleAdvanced
+  name: вместительный продвинутый чайник
+  description: Этот продвинутый чайник способен вместить гораздо больше жидкости.
+  components:
+  - type: SolutionContainerManager
+    solutions:
+      drink:
+        maxVol: 500
+  - type: Sprite
+    layers:
+      - state: icon_bluespace
+        map: [ "enum.SolutionContainerLayers.Base" ]
+      - state: fill-1
+        map: [ "enum.SolutionContainerLayers.Fill" ]
+        visible: false
+
+# region Buckets
+
+- type: entity
+  parent: Bucket
+  id: BucketBig
+  name: строительное ведро
+  description: Большое ведро, обычно используещеся для стройматериалов. Но в НайтСити "народные умельцы" находят ему другое применение...
+  components:
+  - type: Sprite
+    sprite: &bucket_big_sprite _NC/Objects/Tools/bucket_big.rsi
+  - type: Clothing
+    sprite: *bucket_big_sprite
+  - type: SolutionContainerManager
+    solutions:
+      bucket:
+        maxVol: 500
+  - type: PhysicalComposition
+    materialComposition:
+      Steel: 300
+      Plastic: 200
+  - type: ReverseEngineering
+    difficulty: 2
+    recipes:
+      - BucketBig
+
+- type: entity
+  parent: Bucket
+  id: BluespaceBucket
+  name: продвинутое ведро
+  description: Технологичное ведро, способное вместить гораздо больше жидкости.
+  components:
+  - type: Sprite
+    sprite: &bluespace_bucket_sprite _NC/Objects/Tools/Biotechnica/Botany/bluespace_bucket.rsi
+  - type: Clothing
+    sprite: *bluespace_bucket_sprite
+  - type: SolutionContainerManager
+    solutions:
+      bucket:
+        maxVol: 1500
+  - type: PhysicalComposition
+    materialComposition:
+      Steel: 25
+      Plastic: 125
+      Plasma: 37
+      BSCrystal: 12
+  - type: ReverseEngineering
+    difficulty: 4
+    recipes:
+      - BluespaceBucket

@@ -27,3 +27,80 @@
     dynamicPacks:
     - AdvancedTools
 
+# region Civilian
+
+- type: latheRecipe
+  id: ClothingEyesGogglesBotany
+  result: ClothingEyesGogglesBotany
+  completetime: 2
+  materials:
+    Glass: 100
+    Plastic: 100
+    Cloth: 100
+
+- type: latheRecipe
+  id: BluespaceBucket
+  result: BluespaceBucket
+  completetime: 3
+  materials:
+    Steel: 100
+    Plastic: 500
+    Plasma: 150
+    BSCrystal: 50
+
+- type: latheRecipe
+  id: WateringCan
+  result: WateringCan
+  completetime: 2
+  materials:
+    Steel: 300
+    Plastic: 300
+
+- type: latheRecipe
+  id: BluespaceWateringCanExperimental
+  result: BluespaceWateringCanExperimental
+  completetime: 5
+  materials:
+    Steel: 500
+    Plastic: 500
+    Plasma: 250
+    BSCrystal: 50
+
+- type: latheRecipe
+  id: WateringCanExperimental
+  result: WateringCanExperimental
+  completetime: 4
+  materials:
+    Steel: 500
+    Plastic: 500
+    Plasma: 250
+
+- type: latheRecipe
+  id: DrinkShakerAdvanced
+  result: DrinkShakerAdvanced
+  completetime: 2
+  materials:
+    Steel: 200
+    Plastic: 500
+    Glass: 50
+
+- type: latheRecipe
+  parent: DrinkShakerAdvanced
+  id: DrinkKettleAdvanced
+  result: DrinkKettleAdvanced
+
+- type: latheRecipe
+  id: BluespaceDrinkShakerAdvanced
+  result: BluespaceDrinkShakerAdvanced
+  completetime: 3
+  materials:
+    Steel: 200
+    Plastic: 500
+    Glass: 50
+    Plasma: 50
+    BSCrystal: 50
+
+- type: latheRecipe
+  parent: BluespaceDrinkShakerAdvanced
+  id: BluespaceDrinkKettleAdvanced
+  result: BluespaceDrinkKettleAdvanced

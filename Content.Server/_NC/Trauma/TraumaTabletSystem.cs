@@ -24,6 +24,7 @@ namespace Content.Server._NC.Trauma
         [Dependency] private readonly SharedAudioSystem _audio = default!;
         [Dependency] private readonly SharedPopupSystem _popup = default!;
         [Dependency] private readonly SharedPinpointerSystem _pinpointer = default!;
+        [Dependency] private readonly TransformSystem _transform = default!;
 
         public override void Initialize()
         {
@@ -196,8 +197,7 @@ namespace Content.Server._NC.Trauma
                         if (damageable.DamagePerGroup.TryGetValue("Toxin", out var toxinVal)) toxin = toxinVal.Float();
                     }
 
-                    var xform = Transform(patientUid);
-                    var targetCoords = GetNetCoordinates(xform.Coordinates);
+                    var targetCoords = GetNetCoordinates(_transform.GetMoverCoordinates(patientUid));
 
                     var jobTitle = Loc.GetString("trauma-unknown-job");
                     if (TryComp<MindContainerComponent>(patientUid, out var mindContainer) &&

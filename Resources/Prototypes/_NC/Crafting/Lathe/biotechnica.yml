@@ -93,12 +93,18 @@
   - ClothingHandsGlovesNitrile
   - ClothingHandsMittsBiotechnica
   - ClothingHandsGlovesColorYellow
+  - ClothingMaskBreathBiotechnicaBotany
+  - ClothingMaskBreathBiotechnicaAdvanced
+  - ClothingEyesGogglesBiotechnicaBotany
+  - ClothingEyesGogglesBiotechnicaTech
+  - ClothingShoesEnviroshoesBiotechnicaBotany
+  - ClothingShoesEnviroshoesBiotechnica
 
 # ==========================================
 # РЕЦЕПТЫ ФАБА
 # ==========================================
 
-# Botany
+# region Botany
 
 - type: latheRecipe
   id: BiotechnicaHoe
@@ -245,7 +251,7 @@
   materials:
     Cloth: 500
     Plastic: 200
-    Aluminium: 200
+    Aluminum: 200
     Plasma: 200
 
 - type: latheRecipe
@@ -280,3 +286,41 @@
   parent: UtilityBelt
   id: ClothingBeltBiotechnicaTech
   result: ClothingBeltBiotechnicaTech
+
+- type: latheRecipe
+  id: ClothingMaskBreathBiotechnicaBotany
+  result: ClothingMaskBreathBiotechnicaBotany
+  completetime: 2
+  materials:
+    Glass: 50
+    Plastic: 150
+    Cloth: 100
+
+- type: latheRecipe
+  parent: ClothingMaskBreathBiotechnicaBotany
+  id: ClothingMaskBreathBiotechnicaAdvanced
+  result: ClothingMaskBreathBiotechnicaAdvanced
+
+- type: latheRecipe
+  parent: ClothingEyesGogglesBotany
+  id: ClothingEyesGogglesBiotechnicaBotany
+  result: ClothingEyesGogglesBiotechnicaBotany
+
+- type: latheRecipe
+  parent: ClothingEyesGogglesBotany
+  id: ClothingEyesGogglesBiotechnicaTech
+  result: ClothingEyesGogglesBiotechnicaTech
+
+- type: latheRecipe
+  id: ClothingShoesEnviroshoesBiotechnicaBotany
+  result: ClothingShoesEnviroshoesBiotechnicaBotany
+  completetime: 2
+  materials:
+    Steel: 50
+    Plastic: 150
+    Cloth: 100
+
+- type: latheRecipe
+  parent: ClothingShoesEnviroshoesBiotechnicaBotany
+  id: ClothingShoesEnviroshoesBiotechnica
+  result: ClothingShoesEnviroshoesBiotechnica

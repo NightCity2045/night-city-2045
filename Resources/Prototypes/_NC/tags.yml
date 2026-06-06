@@ -41,6 +41,15 @@
   id: Cartridge556x45CL
 
 - type: Tag
+  id: Cartridge127mm
+
+- type: Tag
+  id: Cartridge152mm
+
+- type: Tag
+  id: Cartridge622mmCaseless
+
+- type: Tag
   id: CartridgeNomadSpike
 
 - type: Tag
@@ -72,3 +81,6 @@
 
 - type: Tag
   id: MagazinePistolSubMachineGunSaratoga
+
+- type: Tag
+  id: SpaceCash

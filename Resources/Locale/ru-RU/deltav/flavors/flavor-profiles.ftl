@@ -1,50 +1,51 @@
-## Nyano
-flavor-base-acidic = acidic
-flavor-complex-nuggie = like "chicken"
-flavor-complex-enthralling = enthralling
-flavor-complex-sublime = sublime
-flavor-base-seeds = seeds
-flavor-complex-vanilla = like vanilla
-flavor-complex-soju = like bold, alcoholic rice
-flavor-complex-orangecreamcicle = like creamy, alcoholic orange juice
-flavor-complex-silverjack = like a rockstars dream
-flavor-complex-brainbomb = like liver damage
-flavor-complex-atomicpunch = like bittersweet radiation
-flavor-complex-circusjuice = extremely funny
-flavor-complex-pinkdrink = overwhelmingly like pink
-flavor-complex-sapopicante = like tomatoes and spices
-flavor-complex-graveyard = like a strong cold brew
-flavor-complex-bubbletea = like creamy sweetness
-flavor-complex-corncob = like a sick joke
+# Nyano
 
-## Delta
-## Delta
-flavor-complex-gunmetal = bittersweet and creamy
-flavor-complex-lemondrop = refreshingly tart
-flavor-complex-greengrass = like a holiday in the sun
-flavor-complex-daiquiri = fashionable
-flavor-complex-arsonistsbrew = like ash and flame
-flavor-complex-healthcodeviolation = ominous
-flavor-complex-blellow = like an impossible color
-flavor-complex-candy-strawberry = like strawberries
-flavor-complex-candy-bubblegum = like bubble gum
-flavor-complex-double-ice-cream = like ice cream, twice
-flavor-complex-drgibbbloodred = like severe malpractice
+flavor-base-acidic = кисло
+flavor-complex-nuggie = как "курица"
+flavor-complex-enthralling = завораживающе
+flavor-complex-sublime = возвышенно
+flavor-base-seeds = как семена
+flavor-complex-vanilla = как ваниль
+flavor-complex-soju = как крепкий рисовый алкоголь
+flavor-complex-orangecreamcicle = как сливочный алкогольный апельсиновый сок
+flavor-complex-silverjack = как мечта рок-звезды
+flavor-complex-brainbomb = как вред печени
+flavor-complex-atomicpunch = как горьковатая радиация
+flavor-complex-circusjuice = очень смешно
+flavor-complex-pinkdrink = невыносимо розово
+flavor-complex-sapopicante = как помидоры и специи
+flavor-complex-graveyard = как крепкий холодный напиток
+flavor-complex-bubbletea = как сливочная сладость
+flavor-complex-corncob = как больная шутка
 
-## Delta-V additional drink flavors
-## Delta-V additional drink flavors
-flavor-complex-deadrum = like a botched murder
-flavor-complex-n-t-cahors = five hundred dollars too expensive
-flavor-complex-poison-wine = like a dark velvet
-flavor-complex-doctors-delight = like a medical miracle
-flavor-complex-irish-cream = like whiskey and cream
-flavor-complex-kira-special = kawaii
-flavor-complex-rewriter = like an all-nighter
-flavor-complex-silencer = like a broken vow
-flavor-complex-syndicate-bomb = like it will blow your mind
-flavor-complex-kvass = like bread tossed into a blender
-flavor-complex-mothamphetamine = like there are buzzing wings in your mouth
+# Delta
 
-candy-flavor-profile = This one is supposed to taste {$flavor}.
-candy-flavor-profile-multiple = This one is supposed to taste {$flavors} and {$lastFlavor}.
-candy-flavor-profile-unknown = You have no idea what this one is supposed to taste like.
+flavor-complex-gunmetal = горьковато и сливочно
+flavor-complex-lemondrop = освежающе терпко
+flavor-complex-greengrass = как праздник под солнцем
+flavor-complex-daiquiri = модно
+flavor-complex-arsonistsbrew = как пепел и пламя
+flavor-complex-healthcodeviolation = зловеще
+flavor-complex-blellow = как невозможный цвет
+flavor-complex-candy-strawberry = как клубника
+flavor-complex-candy-bubblegum = как жевательная резинка
+flavor-complex-double-ice-cream = как мороженое, дважды
+flavor-complex-drgibbbloodred = как крайняя халатность
+
+# Delta-V additional drink flavors
+
+flavor-complex-deadrum = как неудачное убийство
+flavor-complex-n-t-cahors = на пятьсот долларов слишком дорого
+flavor-complex-poison-wine = как тёмный бархат
+flavor-complex-doctors-delight = как медицинское чудо
+flavor-complex-irish-cream = как виски и сливки
+flavor-complex-kira-special = кавайно
+flavor-complex-rewriter = как бессонная ночь
+flavor-complex-silencer = как нарушенная клятва
+flavor-complex-syndicate-bomb = как будто взорвёт мозг
+flavor-complex-kvass = как хлеб, брошенный в блендер
+flavor-complex-mothamphetamine = как будто во рту жужжат крылья
+
+candy-flavor-profile = Этот должен иметь вкус {$flavor}.
+candy-flavor-profile-multiple = Этот должен иметь вкус {$flavors} и {$lastFlavor}.
+candy-flavor-profile-unknown = У тебя ни малейшего понятия, какой вкус должен быть у этого.

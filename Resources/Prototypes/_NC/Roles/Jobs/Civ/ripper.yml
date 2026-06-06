@@ -7,6 +7,7 @@
   salary: 40
   access:
     - NC_General
+    - Ripper
   startingGear: ReaperGear
 
 - type: startingGear

@@ -8,6 +8,7 @@
   startingGear: CafeOwnerGear
   access:
     - NC_General
+    - Cafe
 
 - type: job
   id: RestaurantOwner
@@ -19,6 +20,7 @@
   startingGear: RestaurantOwnerGear
   access:
     - NC_General
+    - Restaurant
 
 - type: startingGear
   id: CafeOwnerGear

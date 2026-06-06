@@ -23,6 +23,7 @@
   - type: AccessReader
     containerAccessProvider: null
 
+# region Doors
 
 - type: entity
   id: NCAirlockGeneral
@@ -98,3 +99,29 @@
   - type: DoorInterface
     price: 350
     address: "Апартаменты Высшего класса"
+
+# region Airlocks
+
+- type: entity
+  parent: BaseNCAirlock
+  id: RipperAirlock
+  name: шлюз риппера
+  components:
+  - type: AccessReader
+    access: [["Ripper"]]
+
+- type: entity
+  parent: BaseNCAirlock
+  id: CafeAirlock
+  name: шлюз кафе
+  components:
+  - type: AccessReader
+    access: [["Cafe"]]
+
+- type: entity
+  parent: BaseNCAirlock
+  id: RestaurantAirlock
+  name: шлюз ресторана
+  components:
+  - type: AccessReader
+    access: [["Restaurant"]]

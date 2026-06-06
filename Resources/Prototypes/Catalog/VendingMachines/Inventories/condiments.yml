@@ -1,36 +1,94 @@
 - type: vendingMachineInventory
   id: CondimentInventory
   startingInventory:
-    FoodCondimentPacketAstrotame: 5
-    FoodCondimentPacketBbq: 5
-    FoodCondimentPacketFrostoil: 5
-    FoodCondimentPacketHorseradish: 5
-    FoodCondimentPacketHotsauce: 5
-    FoodCondimentPacketKetchup: 5
-    FoodCondimentPacketMustard: 5
+    # NC edit start: NightCity FastFood
+    NCCondimentPacketKetchup: 5
+    NCCondimentPacketHotKetchup: 3
+    NCCondimentPacketBbqSauce: 3
+    NCCondimentPacketCornoil: 5
+    NCCondimentPacketHorseradishSauce: 3
+    NCCondimentPacketVasabi: 2
+    NCCondimentPacketHotSauce: 3
+    NCCondimentPacketKetchunaise: 3
+    NCCondimentPacketMayo: 5
+    NCCondimentPacketMustard: 5
+    NCCondimentPacketVinaigrette: 3
+    NCCondimentPacketSoySauce: 3
+    NCCondimentPacketSyrup: 3
+    NCCondimentPacketGarlic: 2
+    NCCondimentPacketSourGreenSauce: 2
+    NCCondimentPacketCarrot: 2
+    NCCondimentPacketHollandaise: 2
+    NCCondimentPacketTomatoSauce: 4
+    NCCondimentPacketTomatoDressing: 3
+    NCCondimentPacketTartarSauce: 2
+    NCCondimentPacketPesto: 2
+    NCCondimentPacketBechamel: 2
+    NCCondimentPacketLasagnaSauce: 2
+    NCCondimentPacketBananaSauce: 2
+    NCCondimentPacketCherryJam: 2
+    NCCondimentPacketBerryJam: 2
+    NCCondimentPacketAppleJam: 2
+    NCCondimentPacketOrangeJam: 2
+    NCCondimentPacketMustardSauce: 3
+    NCCondimentPacketSatsibili: 2
+    NCCondimentPacketCheeseSauce: 2
+    NCCondimentPacketCarbonaraSauce: 2
+    NCCondimentPacketSweetChili: 2
+    NCCondimentPacketBurgerSauce: 2
+    NCCondimentPacketGolfSauce: 1
+    NCCondimentPacketVodkaSauce: 1
     FoodCondimentPacketPepper: 5
     FoodCondimentPacketSalt: 5
-    FoodCondimentPacketSoy: 5
     FoodCondimentPacketSugar: 5
-    FoodCondimentPacketCornoil: 5
+    # NC edit end: NightCity FastFood
     ForkPlastic: 10
     SpoonPlastic: 10
     KnifePlastic: 10
     FoodPlatePlastic: 10
     FoodPlateSmallPlastic: 10
   startingItemPrices:
-    FoodCondimentPacketAstrotame: 2
-    FoodCondimentPacketBbq: 2
-    FoodCondimentPacketFrostoil: 2
-    FoodCondimentPacketHorseradish: 2
-    FoodCondimentPacketHotsauce: 2
-    FoodCondimentPacketKetchup: 2
-    FoodCondimentPacketMustard: 2
-    FoodCondimentPacketPepper: 2
-    FoodCondimentPacketSalt: 2
-    FoodCondimentPacketSoy: 2
-    FoodCondimentPacketSugar: 2
-    FoodCondimentPacketCornoil: 2
+    # NC edit start: NightCity FastFood
+    NCCondimentPacketKetchup: 10
+    NCCondimentPacketHotKetchup: 12
+    NCCondimentPacketBbqSauce: 18
+    NCCondimentPacketCornoil: 8
+    NCCondimentPacketHorseradishSauce: 20
+    NCCondimentPacketVasabi: 35
+    NCCondimentPacketHotSauce: 14
+    NCCondimentPacketKetchunaise: 16
+    NCCondimentPacketMayo: 13
+    NCCondimentPacketMustard: 11
+    NCCondimentPacketVinaigrette: 22
+    NCCondimentPacketSoySauce: 17
+    NCCondimentPacketSyrup: 25
+    NCCondimentPacketGarlic: 28
+    NCCondimentPacketSourGreenSauce: 32
+    NCCondimentPacketCarrot: 26
+    NCCondimentPacketHollandaise: 42
+    NCCondimentPacketTomatoSauce: 19
+    NCCondimentPacketTomatoDressing: 24
+    NCCondimentPacketTartarSauce: 38
+    NCCondimentPacketPesto: 20
+    NCCondimentPacketBechamel: 21
+    NCCondimentPacketLasagnaSauce: 36
+    NCCondimentPacketBananaSauce: 33
+    NCCondimentPacketCherryJam: 29
+    NCCondimentPacketBerryJam: 31
+    NCCondimentPacketAppleJam: 27
+    NCCondimentPacketOrangeJam: 30
+    NCCondimentPacketMustardSauce: 15
+    NCCondimentPacketSatsibili: 25
+    NCCondimentPacketCheeseSauce: 35
+    NCCondimentPacketCarbonaraSauce: 40
+    NCCondimentPacketSweetChili: 30
+    NCCondimentPacketBurgerSauce: 45
+    NCCondimentPacketGolfSauce: 50
+    NCCondimentPacketVodkaSauce: 60
+    FoodCondimentPacketPepper: 5
+    FoodCondimentPacketSalt: 5
+    FoodCondimentPacketSugar: 5
+    # NC edit end: NightCity FastFood
     ForkPlastic: 2
     SpoonPlastic: 2
     KnifePlastic: 2

@@ -57,7 +57,7 @@
       NCRawDataTier2: 30
       NCRawDataTier3: 20
   - type: ApcPowerReceiver
-  - type: ExtensionCableReceiver
+  - type: LogicPowerReceiver
   - type: Appearance
   - type: UserInterface
     interfaces:

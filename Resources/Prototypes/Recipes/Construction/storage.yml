@@ -70,21 +70,21 @@
 
 # Shelfs
 # Normals
-- type: construction
-  id: ShelfWood
-  name: wooden shelf
-  description: A convenient place to place, well, anything really.
-  graph: Shelf
-  startNode: start
-  targetNode: ShelfWood
-  icon:
-    sprite: Structures/Storage/Shelfs/wood.rsi
-    state: base
-  objectType: Structure
-  placementMode: SnapgridCenter
-  canBuildInImpassable: true
-  conditions:
-    - !type:WallmountCondition
+# - type: construction
+#   id: ShelfWood
+#   name: wooden shelf
+#   description: A convenient place to place, well, anything really.
+#   graph: Shelf
+#   startNode: start
+#   targetNode: ShelfWood
+#   icon:
+#     sprite: Structures/Storage/Shelfs/wood.rsi
+#     state: base
+#   objectType: Structure
+#   placementMode: SnapgridCenter
+#   canBuildInImpassable: true
+#   conditions:
+#     - !type:WallmountCondition
 
 - type: construction
   id: ShelfMetal
@@ -119,21 +119,21 @@
     - !type:WallmountCondition
 
 # Reinforced
-- type: construction
-  id: ShelfRWood
-  name: sturdy wooden shelf
-  description: The perfect place to store all your vintage records.
-  graph: Shelf
-  startNode: start
-  targetNode: ShelfRWood
-  icon:
-    sprite: Structures/Storage/Shelfs/wood.rsi
-    state: rbase
-  objectType: Structure
-  placementMode: SnapgridCenter
-  canBuildInImpassable: true
-  conditions:
-    - !type:WallmountCondition
+# - type: construction
+#   id: ShelfRWood
+#   name: sturdy wooden shelf
+#   description: The perfect place to store all your vintage records.
+#   graph: Shelf
+#   startNode: start
+#   targetNode: ShelfRWood
+#   icon:
+#     sprite: Structures/Storage/Shelfs/wood.rsi
+#     state: rbase
+#   objectType: Structure
+#   placementMode: SnapgridCenter
+#   canBuildInImpassable: true
+#   conditions:
+#     - !type:WallmountCondition
 
 - type: construction
   id: ShelfRMetal
@@ -168,21 +168,21 @@
     - !type:WallmountCondition
 
 # Departmental
-- type: construction
-  id: ShelfBar
-  name: bar shelf
-  description: A convenient place for all your extra booze, specifically designed to hold more bottles!
-  graph: Shelf
-  startNode: start
-  targetNode: ShelfBar
-  icon:
-    sprite: Structures/Storage/Shelfs/Departments/Service/bar.rsi
-    state: base
-  objectType: Structure
-  placementMode: SnapgridCenter
-  canBuildInImpassable: true
-  conditions:
-    - !type:WallmountCondition
+# - type: construction
+#   id: ShelfBar
+#   name: bar shelf
+#   description: A convenient place for all your extra booze, specifically designed to hold more bottles!
+#   graph: Shelf
+#   startNode: start
+#   targetNode: ShelfBar
+#   icon:
+#     sprite: Structures/Storage/Shelfs/Departments/Service/bar.rsi
+#     state: base
+#   objectType: Structure
+#   placementMode: SnapgridCenter
+#   canBuildInImpassable: true
+#   conditions:
+#     - !type:WallmountCondition
 
 - type: construction
   id: ShelfKitchen

@@ -18,9 +18,6 @@ ghost-role-information-xenomorph-hunter-description = Вы ксеноморф-о
 ghost-role-information-xenomorph-larva-name = личинка ксеноморфа
 ghost-role-information-xenomorph-larva-description = Вы личинка ксеноморфа. Помогайте своему улью расширяться и эволюционировать в высшую касту.
 
-ghost-role-information-xenomorph-maid-name = Похотливая ксено-горничная
-ghost-role-information-xenomorph-maid-description = Вы ксено-горничная. Будьте похотливы. Выполняйте самую важную работу в вашем улье - соблазняйте космонавтов.
-
 ghost-role-information-xenomorph-praetorian-name = ксеноморф преторианец
 ghost-role-information-xenomorph-praetorian-description = Вы ксеноморф-преторианец. Защищайте улей и королеву. Внушайте страх своим врагам.
 

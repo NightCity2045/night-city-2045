@@ -78,7 +78,7 @@ public sealed class LavalandPlanetSystem : EntitySystem
             return;
         }
 
-        SetupLavalands();
+        // SetupLavalands();
     }
 
     private void OnRoundStart(RoundStartAttemptEvent ev)
@@ -88,19 +88,19 @@ public sealed class LavalandPlanetSystem : EntitySystem
             return;
         }
 
-        var lavalands = GetLavalands();
-        if (lavalands.Count == 0)
-            return;
+        // var lavalands = GetLavalands();
+        // if (lavalands.Count == 0)
+        //     return;
 
-        var defaultStation = _station.GetStationInMap(_ticker.DefaultMap);
-        if (defaultStation == null)
-            return;
+        // var defaultStation = _station.GetStationInMap(_ticker.DefaultMap);
+        // if (defaultStation == null)
+        //     return;
 
-        foreach (var lavaland in lavalands)
-        {
-            // Add all outposts as a new station grid member
-            _station.AddGridToStation(defaultStation.Value, lavaland.Comp.Outpost);
-        }
+        // foreach (var lavaland in lavalands)
+        // {
+        //     // Add all outposts as a new station grid member
+        //     _station.AddGridToStation(defaultStation.Value, lavaland.Comp.Outpost);
+        // }
     }
 
     private void OnCleanup(RoundRestartCleanupEvent ev)
@@ -156,7 +156,7 @@ public sealed class LavalandPlanetSystem : EntitySystem
         }
     }
 
-    public bool SetupLavalandPlanet(out Entity<LavalandMapComponent>? lavaland,  LavalandMapPrototype prototype, int? seed = null)
+    public bool SetupLavalandPlanet(out Entity<LavalandMapComponent>? lavaland, LavalandMapPrototype prototype, int? seed = null)
     {
         if (_lavalandPreloader == null)
             SetupPreloader();
@@ -194,9 +194,9 @@ public sealed class LavalandPlanetSystem : EntitySystem
         {
             var flag = IFFFlags.Hide;
 
-            #if DEBUG || TOOLS
+#if DEBUG || TOOLS
             flag = IFFFlags.HideLabel;
-            #endif
+#endif
 
             _shuttle.AddIFFFlag(grid, flag);
         }
@@ -493,7 +493,7 @@ public sealed class LavalandPlanetSystem : EntitySystem
         var mapXform = Transform(salvMap);
 
         // Try to load everything on a dummy map
-        if (!_mapLoader.TryLoadGrid(mapXform.MapID, ruin.Path, out _, offset:coord))
+        if (!_mapLoader.TryLoadGrid(mapXform.MapID, ruin.Path, out _, offset: coord))
         {
             Log.Error($"Failed to load ruin {ruin.ID} onto dummy map!");
             return false;

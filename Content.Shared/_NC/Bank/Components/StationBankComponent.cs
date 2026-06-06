@@ -7,16 +7,11 @@ namespace Content.Shared._NC.Bank.Components
     /// Компонент, который хранит бюджеты департаментов на станции.
     /// </summary>
     [RegisterComponent, NetworkedComponent]
+    [AutoGenerateComponentState]
     public sealed partial class StationBankComponent : Component
     {
-        [DataField("accounts")]
+        [DataField("accounts"), AutoNetworkedField]
         public Dictionary<SectorBankAccount, StationBankAccountInfo> Accounts = new();
-
-        /// <summary>
-        /// Таймер для начисления пассивного дохода корпорациям.
-        /// </summary>
-        [ViewVariables(VVAccess.ReadOnly)]
-        public float SecondsSinceLastIncrease = 0.0f;
     }
 
     [DataDefinition, Serializable, NetSerializable]
@@ -24,9 +19,6 @@ namespace Content.Shared._NC.Bank.Components
     {
         [DataField("balance")]
         public int Balance;
-
-        [DataField("increasePerSecond")]
-        public int IncreasePerSecond;
 
         [DataField("logs")]
         public List<BankTransaction> Logs = new();

@@ -1,0 +1,51 @@
+- type: netSite
+  id: CitiNetHome
+  name: CitiNet Home
+  url: nightcity.gov
+  uiKey: NetHome
+
+- type: netSite
+  id: CitiNetComm
+  name: CitiNet Comm
+  url: citinet.net
+  uiKey: CitiNetComm
+
+- type: netSite
+  id: NcpdForensics
+  name: "База данных Flatline"
+  url: "ncpd.gov/forensics"
+  uiKey: NcpdForensics
+  requiredAccess:
+  - Security
+
+- type: netSite
+  id: AstrozonHome
+  name: "Astrozon"
+  url: "astrozon.nc"
+  uiKey: FixerMarket
+  storePreset: AstrozonMarket
+
+- type: netSite
+  id: NightMarket
+  name: "Ночной рынок"
+  url: "fixer.nc/market"
+  uiKey: FixerMarket
+  requiredAccess:
+  - Fixer
+  storePreset: NightMarketMarket
+
+- type: netSite
+  id: NCPDDatabase
+  name: NCPD Central Database
+  url: ncpd.gov/records
+  requiredAccess:
+  - NCPD_Command
+  uiKey: NetHome # Placeholder
+
+- type: netSite
+  id: TraumaCare
+  name: Trauma Care Monitor
+  url: traumacare.com/monitor
+  requiredAccess:
+  - Trauma_Medical
+  uiKey: NetHome # Placeholder

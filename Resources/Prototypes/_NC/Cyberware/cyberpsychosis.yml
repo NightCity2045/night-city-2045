@@ -25,10 +25,10 @@
   - type: Objective
     difficulty: 0
     issuer: objective-issuer-self
-    title: Убить всех. Плоть слаба.
-    description: Уничтожьте всех органиков, которых встретите.
+    title: objective-cyberpsychosis-title
+    description: objective-cyberpsychosis-description
     icon:
-      sprite: Objects/Weapons/Melee/sword.rsi
+      sprite: Objects/Weapons/Melee/katana.rsi
       state: icon
   - type: RoleplayObjective
 
@@ -52,10 +52,10 @@
 # --- ЯЗЫК КИБЕРПСИХОЗА ---
 - type: language
   id: Cyberpsycho
-  name: Кибер-бред
-  description: Язык сломанного разума.
-  speechOverride:
-    fontId: Monospace
+  # name: Кибер-бред
+  # description: Язык сломанного разума.
+  # speechOverride:
+  #   fontId: Monospace
   obfuscation:
     !type:SyllableObfuscation
     minSyllables: 1

@@ -1,0 +1,876 @@
+# region Abstract
+
+- type: entity
+  parent: BaseFoodCondimentBottle
+  id: NCCondimentBottle
+  name: бутылка для приправы
+  description: Идеально для готовки.
+  suffix: бутылка ингредиента
+  components:
+  - type: Sprite
+    layers:
+    - state: bottle-empty
+      map: ["enum.OpenableVisuals.Layer"]
+    - state: label-c
+    - state: bottle-alpha-6
+      map: ["enum.SolutionContainerLayers.Fill"]
+      visible: true
+  - type: SolutionContainerManager
+    solutions:
+      drink:
+        maxVol: 30
+  - type: Icon
+    state: bottle-coldsauce
+  - type: Tag
+    tags:
+      - DrinkBottle
+
+# region Condiments
+
+- type: entity
+  parent: NCCondimentBottle
+  id: NCCondimentBottleKetchup
+  name: кетчуп
+  description: Распространенная приправа.
+  components:
+  - type: SolutionContainerManager
+    solutions:
+      food:
+        reagents:
+        - ReagentId: Ketchup
+          Quantity: 30
+  - type: StaticPrice
+    price: 30
+
+- type: entity
+  parent: NCCondimentBottle
+  id: NCCondimentBottleBbqSauce
+  name: соус барбекю
+  description: Распространенная приправа.
+  components:
+  - type: SolutionContainerManager
+    solutions:
+      food:
+        reagents:
+        - ReagentId: BbqSauce
+          Quantity: 30
+  - type: StaticPrice
+    price: 50
+
+- type: entity
+  parent: NCCondimentBottle
+  id: NCCondimentBottleHotSauce
+  name: острый соус
+  description: Распространенная приправа.
+  components:
+  - type: SolutionContainerManager
+    solutions:
+      food:
+        reagents:
+        - ReagentId: Hotsauce
+          Quantity: 30
+  - type: StaticPrice
+    price: 40
+
+- type: entity
+  parent: NCCondimentBottle
+  id: NCCondimentBottleKetchunaise
+  name: кетчунез
+  description: Распространенная приправа.
+  components:
+  - type: SolutionContainerManager
+    solutions:
+      food:
+        reagents:
+        - ReagentId: Ketchunaise
+          Quantity: 30
+  - type: StaticPrice
+    price: 46
+
+- type: entity
+  parent: NCCondimentBottle
+  id: NCCondimentBottleMayo
+  name: майонез
+  description: Распространенная приправа.
+  components:
+  - type: SolutionContainerManager
+    solutions:
+      food:
+        reagents:
+        - ReagentId: Mayo
+          Quantity: 30
+  - type: StaticPrice
+    price: 38
+
+- type: entity
+  parent: NCCondimentBottle
+  id: NCCondimentBottleMustard
+  name: горчица
+  description: Распространенная приправа.
+  components:
+  - type: SolutionContainerManager
+    solutions:
+      food:
+        reagents:
+        - ReagentId: Mustard
+          Quantity: 30
+  - type: StaticPrice
+    price: 32
+
+- type: entity
+  parent: NCCondimentBottle
+  id: NCCondimentBottleSoySauce
+  name: соевый соус
+  description: Распространенный ингредиент для восточных блюд.
+  components:
+  - type: SolutionContainerManager
+    solutions:
+      food:
+        reagents:
+        - ReagentId: Soysauce
+          Quantity: 30
+  - type: StaticPrice
+    price: 50
+
+- type: entity
+  parent: NCCondimentBottle
+  id: NCCondimentBottlePesto
+  name: песто
+  description: Распространенный ингредиент для итальянской кухни.
+  components:
+  - type: SolutionContainerManager
+    solutions:
+      food:
+        reagents:
+        - ReagentId: Pesto
+          Quantity: 30
+  - type: StaticPrice
+    price: 58
+
+- type: entity
+  parent: NCCondimentBottle
+  id: NCCondimentBottleBechamel
+  name: бешамель
+  description: Распространенный ингредиент для французской кухни.
+  components:
+  - type: SolutionContainerManager
+    solutions:
+      food:
+        reagents:
+        - ReagentId: Bechamel
+          Quantity: 30
+  - type: StaticPrice
+    price: 62
+
+- type: entity
+  parent: NCCondimentBottle
+  id: NCCondimentBottleTomatoSauce
+  name: томатный соус
+  description: Распространенный ингредиент для итальянской кухни.
+  components:
+  - type: SolutionContainerManager
+    solutions:
+      food:
+        reagents:
+        - ReagentId: TomatoSauce
+          Quantity: 30
+  - type: StaticPrice
+    price: 55
+
+# region Ingredients
+
+- type: entity
+  parent: NCCondimentBottle
+  id: NCCondimentBottleEnzyme
+  name: фермент
+  description: Идеально для готовки.
+  components:
+  - type: SolutionContainerManager
+    solutions:
+      food:
+        reagents:
+        - ReagentId: Enzyme
+          Quantity: 30
+  - type: StaticPrice
+    price: 38
+
+- type: entity
+  parent: NCCondimentBottle
+  id: NCCondimentBottleVinegar
+  name: уксус
+  description: Идеально для готовки.
+  components:
+  - type: SolutionContainerManager
+    solutions:
+      food:
+        reagents:
+        - ReagentId: Vinegar
+          Quantity: 30
+  - type: StaticPrice
+    price: 24
+
+- type: entity
+  parent: NCCondimentBottle
+  id: NCCondimentBottleVinaigrette
+  name: салатная заправка
+  description: Идеально для готовки.
+  components:
+  - type: SolutionContainerManager
+    solutions:
+      food:
+        reagents:
+        - ReagentId: Vinaigrette
+          Quantity: 30
+  - type: StaticPrice
+    price: 62
+
+- type: entity
+  parent: NCCondimentBottle
+  id: NCCondimentBottleHorseradishSauce
+  name: хрен
+  description: Идеально для готовки.
+  components:
+  - type: SolutionContainerManager
+    solutions:
+      food:
+        reagents:
+        - ReagentId: HorseradishSauce
+          Quantity: 30
+  - type: StaticPrice
+    price: 60
+
+- type: entity
+  parent: NCCondimentBottle
+  id: NCCondimentBottleSyrup
+  name: сироп
+  description: Идеально для готовки.
+  components:
+  - type: SolutionContainerManager
+    solutions:
+      food:
+        reagents:
+        - ReagentId: Syrup
+          Quantity: 30
+  - type: StaticPrice
+    price: 72
+
+- type: entity
+  parent: NCCondimentBottle
+  id: NCCondimentBottleBlackpepper
+  name: черный перец
+  description: Идеально для готовки.
+  components:
+  - type: SolutionContainerManager
+    solutions:
+      food:
+        reagents:
+        - ReagentId: Blackpepper
+          Quantity: 30
+  - type: StaticPrice
+    price: 40
+
+- type: entity
+  parent: NCCondimentBottle
+  id: NCCondimentBottleTonic
+  name: тоник
+  description: Идеально для готовки.
+  components:
+  - type: SolutionContainerManager
+    solutions:
+      food:
+        reagents:
+        - ReagentId: TonicWater
+          Quantity: 30
+  - type: StaticPrice
+    price: 24
+
+- type: entity
+  parent: NCCondimentBottle
+  id: NCCondimentBottleGrenadine
+  name: гренадин
+  description: Идеально для готовки.
+  components:
+  - type: SolutionContainerManager
+    solutions:
+      food:
+        reagents:
+        - ReagentId: Grenadine
+          Quantity: 30
+  - type: StaticPrice
+    price: 40
+
+- type: entity
+  parent: NCCondimentBottle
+  id: NCCondimentBottleTeaPowder
+  name: чайная заварка
+  description: Идеально для готовки.
+  components:
+  - type: SolutionContainerManager
+    solutions:
+      food:
+        reagents:
+        - ReagentId: TeaPowder
+          Quantity: 30
+  - type: StaticPrice
+    price: 12
+
+# region Mixes
+
+- type: entity
+  parent: NCCondimentBottle
+  id: NCCondimentBottleTeriyaki
+  name: терияки
+  description: Элегантная приправа на алкогольной основе для восточных блюд.
+  components:
+  - type: SolutionContainerManager
+    solutions:
+      food:
+        reagents:
+        - ReagentId: Soysauce
+          Quantity: 12
+        - ReagentId: Sake
+          Quantity: 10
+        - ReagentId: Sugar
+          Quantity: 5
+        - ReagentId: Allicin
+          Quantity: 3
+  - type: StaticPrice
+    price: 70
+
+- type: entity
+  parent: NCCondimentBottle
+  id: NCCondimentBottleExoticBitter
+  name: экзотический биттер
+  description: Элегантная приправа для напитков на малоалкогольной основе.
+  components:
+  - type: SolutionContainerManager
+    solutions:
+      food:
+        reagents:
+        - ReagentId: Ethanol
+          Quantity: 5
+        - ReagentId: TeaPowder
+          Quantity: 10
+        - ReagentId: OilOlive
+          Quantity: 10
+        - ReagentId: Enzyme
+          Quantity: 5
+  - type: StaticPrice
+    price: 88
+
+- type: entity
+  parent: NCCondimentBottle
+  id: NCCondimentBottleVodkaSauce
+  name: водочный соус
+  description: Элегантная приправа на алкогольной основе.
+  components:
+  - type: SolutionContainerManager
+    solutions:
+      food:
+        reagents:
+        - ReagentId: Vodka
+          Quantity: 12
+        - ReagentId: JuiceTomato
+          Quantity: 9
+        - ReagentId: Cream
+          Quantity: 6
+        - ReagentId: Allicin
+          Quantity: 3
+  - type: StaticPrice
+    price: 90
+
+# region Oils
+
+- type: entity
+  parent: NCCondimentBottle
+  id: NCCondimentBottleOil
+  name: подсолнечное масло Prime
+  description: Идеально для готовки.
+  components:
+  - type: SolutionContainerManager
+    solutions:
+      food:
+        reagents:
+        - ReagentId: Oil
+          Quantity: 27
+        - ReagentId: Nutriment
+          Quantity: 1
+        - ReagentId: Water
+          Quantity: 1
+        - ReagentId: Butter
+          Quantity: 1
+  - type: StaticPrice
+    price: 20
+
+- type: entity
+  parent: NCCondimentBottle
+  id: NCCondimentBottleOilOlive
+  name: оливковое масло Prime
+  description: Идеально для готовки.
+  components:
+  - type: SolutionContainerManager
+    solutions:
+      food:
+        reagents:
+        - ReagentId: OilOlive
+          Quantity: 30
+  - type: StaticPrice
+    price: 25
+
+- type: entity
+  parent: NCCondimentBottle
+  id: NCCondimentBottleCapsaicinOil
+  name: капсаициновое масло Prime
+  description: Идеально для готовки.
+  components:
+  - type: SolutionContainerManager
+    solutions:
+      food:
+        reagents:
+        - ReagentId: CapsaicinOil
+          Quantity: 30
+  - type: StaticPrice
+    price: 35
+
+- type: entity
+  parent: NCCondimentBottle
+  id: NCCondimentBottleFrostOil
+  name: морозное масло Prime
+  description: Идеально для готовки.
+  components:
+  - type: SolutionContainerManager
+    solutions:
+      food:
+        reagents:
+        - ReagentId: Frostoil
+          Quantity: 30
+  - type: StaticPrice
+    price: 40
+
+- type: entity
+  parent: NCCondimentBottle
+  id: NCCondimentBottleCornOil
+  name: кукурузное масло Prime
+  description: Идеально для готовки.
+  components:
+  - type: SolutionContainerManager
+    solutions:
+      food:
+        reagents:
+        - ReagentId: Cornoil
+          Quantity: 30
+  - type: StaticPrice
+    price: 25
+
+- type: entity
+  parent: NCCondimentBottle
+  id: NCCondimentBottleOilRefined
+  name: рафинированное масло Prime
+  description: Идеально для готовки.
+  components:
+  - type: SolutionContainerManager
+    solutions:
+      food:
+        reagents:
+        - ReagentId: Oil
+          Quantity: 30
+  - type: StaticPrice
+    price: 30
+
+# region Special condiments
+
+- type: entity
+  parent: NCCondimentBottle
+  id: NCCondimentBottleAstro
+  name: Астросоус
+  description: Идеально для готовки.
+  components:
+  - type: SolutionContainerManager
+    solutions:
+      food:
+        reagents:
+        - ReagentId: Astrotame
+          Quantity: 30
+  - type: StaticPrice
+    price: 65
+
+- type: entity
+  parent: NCCondimentBottle
+  id: NCCondimentBottleLaughinSyrup
+  name: веселящий сироп
+  description: Хорошо поднимает настроение.
+  components:
+  - type: SolutionContainerManager
+    solutions:
+      food:
+        reagents:
+        - ReagentId: LaughinSyrup
+          Quantity: 30
+  - type: StaticPrice
+    price: 80
+
+# region Random Spawner
+
+- type: entity
+  parent: MarkerBase
+  id: NCCondimentBottleSpawner
+  name: случайная приправа
+  description: Спавнер случайной приправы.
+  suffix: бутылка ингредиента
+  placement:
+    mode: PlaceFree
+  components:
+  - type: Transform
+    anchored: false
+  - type: RandomSpawner
+    prototypes:
+    # Empty
+    - NCCondimentBottle
+    # Condiments
+    - NCCondimentBottleKetchup
+    - NCCondimentBottleBbqSauce
+    - NCCondimentBottleHotSauce
+    - NCCondimentBottleKetchunaise
+    - NCCondimentBottleMayo
+    - NCCondimentBottleMustard
+    - NCCondimentBottleSoySauce
+    - NCCondimentBottlePesto
+    - NCCondimentBottleBechamel
+    - NCCondimentBottleTomatoSauce
+    # Ingredients
+    - NCCondimentBottleEnzyme
+    - NCCondimentBottleVinegar
+    - NCCondimentBottleVinaigrette
+    - NCCondimentBottleHorseradishSauce
+    - NCCondimentBottleSyrup
+    - NCCondimentBottleBlackpepper
+    - NCCondimentBottleTonic
+    - NCCondimentBottleGrenadine
+    - NCCondimentBottleTeaPowder
+    # Oils
+    - NCCondimentBottleOil
+    - NCCondimentBottleOilOlive
+    - NCCondimentBottleCapsaicinOil
+    - NCCondimentBottleFrostOil
+    - NCCondimentBottleCornOil
+    - NCCondimentBottleOilRefined
+    chance: 0.8
+    rarePrototypes:
+    # Mixes
+    - NCCondimentBottleExoticBitter
+    - NCCondimentBottleTeriyaki
+    - NCCondimentBottleVodkaSauce
+    # Special condiments
+    - NCCondimentBottleAstro
+    - NCCondimentBottleLaughinSyrup
+    rareChance: 0.1
+    offset: 0.0
+  - type: Sprite
+    sprite: Objects/Consumable/Food/condiments.rsi
+    state: bottle-empty
+
+# region Vending Inventories
+
+- type: vendingMachineInventory
+  id: NCMachineInventoryCondimentBottle
+  startingInventory:
+    NCCondimentBottleKetchup: 5
+    NCCondimentBottleBbqSauce: 5
+    NCCondimentBottleHotSauce: 5
+    NCCondimentBottleKetchunaise: 5
+    NCCondimentBottleMayo: 5
+    NCCondimentBottleMustard: 5
+    NCCondimentBottleSoySauce: 5
+    NCCondimentBottlePesto: 5
+    NCCondimentBottleBechamel: 5
+    NCCondimentBottleTomatoSauce: 5
+    NCCondimentBottleEnzyme: 5
+    NCCondimentBottleVinegar: 5
+    NCCondimentBottleVinaigrette: 5
+    NCCondimentBottleHorseradishSauce: 5
+    NCCondimentBottleSyrup: 5
+    NCCondimentBottleBlackpepper: 5
+    NCCondimentBottleTonic: 5
+    NCCondimentBottleGrenadine: 5
+    NCCondimentBottleTeaPowder: 5
+    NCCondimentBottleOil: 5
+    NCCondimentBottleOilOlive: 5
+    NCCondimentBottleCapsaicinOil: 5
+    NCCondimentBottleFrostOil: 5
+    NCCondimentBottleCornOil: 5
+    NCCondimentBottleOilRefined: 5
+  startingItemPrices:
+    NCCondimentBottleKetchup: 30
+    NCCondimentBottleBbqSauce: 50
+    NCCondimentBottleHotSauce: 40
+    NCCondimentBottleKetchunaise: 46
+    NCCondimentBottleMayo: 38
+    NCCondimentBottleMustard: 32
+    NCCondimentBottleSoySauce: 50
+    NCCondimentBottlePesto: 58
+    NCCondimentBottleBechamel: 62
+    NCCondimentBottleTomatoSauce: 55
+    NCCondimentBottleEnzyme: 38
+    NCCondimentBottleVinegar: 24
+    NCCondimentBottleVinaigrette: 62
+    NCCondimentBottleHorseradishSauce: 60
+    NCCondimentBottleSyrup: 72
+    NCCondimentBottleBlackpepper: 40
+    NCCondimentBottleTonic: 24
+    NCCondimentBottleGrenadine: 40
+    NCCondimentBottleTeaPowder: 12
+    NCCondimentBottleOil: 20
+    NCCondimentBottleOilOlive: 25
+    NCCondimentBottleCapsaicinOil: 35
+    NCCondimentBottleFrostOil: 40
+    NCCondimentBottleCornOil: 25
+    NCCondimentBottleOilRefined: 30
+  contrabandInventory:
+    NCCondimentBottleExoticBitter: 2
+    NCCondimentBottleTeriyaki: 2
+    NCCondimentBottleVodkaSauce: 2
+    NCCondimentBottleAstro: 2
+    NCCondimentBottleLaughinSyrup: 2
+  contrabandItemPrices:
+    NCCondimentBottleExoticBitter: 88
+    NCCondimentBottleTeriyaki: 70
+    NCCondimentBottleVodkaSauce: 90
+    NCCondimentBottleAstro: 65
+    NCCondimentBottleLaughinSyrup: 80
+
+- type: vendingMachineInventory
+  id: NCDrinkOMatInventory
+  startingInventory:
+    NCCondimentBottleSyrup: 3
+    NCCondimentBottleTonic: 3
+    NCCondimentBottleGrenadine: 3
+    NCCondimentBottleTeaPowder: 3
+    NCCondimentBottleExoticBitter: 3
+    NCDrinkBottleBluemax: 2
+    DrinkSodaWaterBottleFull: 2
+    DrinkColaBottleFull: 2
+    DrinkEnergyDrinkCan: 8
+    DrinkGrenadineBottleFull: 2
+    DrinkSolDryCan: 8
+    DrinkSpaceMountainWindBottleFull: 3
+    DrinkSpaceUpBottleFull: 3
+    NCDrinkCartonPineapple: 5
+    NCDrinkCartonMultifruit: 5
+    DrinkJuiceLimeCarton: 5
+    DrinkJuiceOrangeCarton: 5
+    DrinkJuiceTomatoCarton: 5
+    DrinkCoconutWaterCarton: 5
+    DrinkCreamCarton: 5
+    DrinkMilkCarton: 5
+    DrinkSoyMilkCarton: 5
+    DrinkOatMilkCarton: 5
+    DrinkJuiceLemonCarton: 5
+  startingItemPrices:
+    NCCondimentBottleSyrup: 72
+    NCCondimentBottleTonic: 24
+    NCCondimentBottleGrenadine: 40
+    NCCondimentBottleTeaPowder: 12
+    NCCondimentBottleExoticBitter: 88
+    NCDrinkBottleBluemax: 90
+    DrinkSodaWaterBottleFull: 60
+    DrinkColaBottleFull: 80
+    DrinkEnergyDrinkCan: 30
+    DrinkGrenadineBottleFull: 50
+    DrinkSolDryCan: 20
+    DrinkSpaceMountainWindBottleFull: 30
+    DrinkSpaceUpBottleFull: 30
+    NCDrinkCartonPineapple: 50
+    NCDrinkCartonMultifruit: 50
+    DrinkJuiceLimeCarton: 50
+    DrinkJuiceOrangeCarton: 50
+    DrinkJuiceTomatoCarton: 50
+    DrinkCoconutWaterCarton: 50
+    DrinkCreamCarton: 20
+    DrinkMilkCarton: 30
+    DrinkSoyMilkCarton: 30
+    DrinkOatMilkCarton: 30
+    DrinkJuiceLemonCarton: 50
+  contrabandInventory:
+    NCDrinkCartonBluePumpkin: 2
+    NCDrinkCartonWine: 2
+    NCCondimentBottleLaughinSyrup: 3
+  contrabandItemPrices:
+    NCCondimentBottleLaughinSyrup: 80
+    NCDrinkCartonBluePumpkin: 50
+    NCDrinkCartonWine: 100
+
+- type: vendingMachineInventory
+  id: NCBarOMatInventory
+  startingInventory:
+    DrinkGlass: 20
+    DrinkShotGlass: 10
+    DrinkGlassCoupeShaped: 10
+    DrinkVacuumFlask: 5
+    DrinkShaker: 5
+    DrinkShakerAdvanced: 2
+    DrinkKettleAdvanced: 2
+    DrinkJigger: 5
+    DrinkIceBucket: 2
+    BarSpoon: 3
+    CustomDrinkJug: 2
+    Pitcher: 2
+    DrinkMug: 5
+    DrinkMugBlack: 2
+    DrinkMugBlue: 2
+    DrinkMugGreen: 2
+    DrinkMugHeart: 1
+    DrinkMugMetal: 2
+    DrinkMugMoebius: 1
+    DrinkMugOne: 1
+    DrinkMugRainbow: 2
+    DrinkMugRed: 2
+  startingItemPrices:
+    DrinkGlass: 5
+    DrinkShotGlass: 5
+    DrinkGlassCoupeShaped: 5
+    DrinkVacuumFlask: 20
+    DrinkShaker: 20
+    DrinkShakerAdvanced: 180
+    DrinkKettleAdvanced: 180
+    DrinkJigger: 10
+    DrinkIceBucket: 20
+    BarSpoon: 5
+    CustomDrinkJug: 10
+    Pitcher: 10
+    DrinkMug: 5
+    DrinkMugBlack: 5
+    DrinkMugBlue: 5
+    DrinkMugGreen: 5
+    DrinkMugHeart: 5
+    DrinkMugMetal: 5
+    DrinkMugMoebius: 5
+    DrinkMugOne: 5
+    DrinkMugRainbow: 5
+    DrinkMugRed: 5
+  contrabandInventory:
+    DrinkFlaskBar: 5
+    BluespaceDrinkShakerAdvanced: 1
+    BluespaceDrinkKettleAdvanced: 1
+  contrabandItemPrices:
+    DrinkFlaskBar: 20
+    BluespaceDrinkShakerAdvanced: 600
+    BluespaceDrinkKettleAdvanced: 600
+
+- type: vendingMachineInventory
+  id: NCSauceOMatInventory
+  startingInventory:
+    NCCondimentBottleKetchup: 2
+    NCCondimentBottleBbqSauce: 2
+    NCCondimentBottleHotSauce: 2
+    NCCondimentBottleKetchunaise: 2
+    NCCondimentBottleMayo: 2
+    NCCondimentBottleMustard: 2
+    NCCondimentBottleSoySauce: 2
+    NCCondimentBottlePesto: 2
+    NCCondimentBottleBechamel: 2
+    NCCondimentBottleTomatoSauce: 2
+    NCCondimentBottleVinaigrette: 2
+    NCCondimentBottleHorseradishSauce: 2
+    NCCondimentBottleTeriyaki: 2
+  startingItemPrices:
+    NCCondimentBottleKetchup: 30
+    NCCondimentBottleBbqSauce: 50
+    NCCondimentBottleHotSauce: 40
+    NCCondimentBottleKetchunaise: 46
+    NCCondimentBottleMayo: 38
+    NCCondimentBottleMustard: 32
+    NCCondimentBottleSoySauce: 50
+    NCCondimentBottlePesto: 58
+    NCCondimentBottleBechamel: 62
+    NCCondimentBottleTomatoSauce: 55
+    NCCondimentBottleVinaigrette: 62
+    NCCondimentBottleHorseradishSauce: 60
+    NCCondimentBottleTeriyaki: 70
+  contrabandInventory:
+    NCCondimentBottleAstro: 2
+    NCCondimentBottleVodkaSauce: 2
+  contrabandItemPrices:
+    NCCondimentBottleAstro: 65
+    NCCondimentBottleVodkaSauce: 90
+
+- type: reagentDispenserInventory
+  id: NCCondimentDispenserInventory
+  inventory:
+  - NCCondimentBottleKetchup
+  - NCCondimentBottleBbqSauce
+  - NCCondimentBottleHotSauce
+  - NCCondimentBottleMayo
+  - NCCondimentBottleMustard
+  - NCCondimentBottleSoySauce
+
+- type: entity
+  parent: VendingMachineBooze
+  id: NCVendingMachineDrink
+  name: НапиткоМат
+  description: Автомат с безалкогольными напитками и барными ингредиентами.
+  components:
+  - type: VendingMachine
+    pack: NCDrinkOMatInventory
+  - type: Sprite
+    sprite: Structures/Machines/VendingMachines/bruiseomat.rsi
+
+- type: entity
+  parent: VendingMachineColaBlack
+  id: NCVendingMachineSauces
+  name: СоусоМат
+  description: Автомат с соусами и приправами.
+  components:
+  - type: VendingMachine
+    pack: NCSauceOMatInventory
+    initialStockQuality: 1.00
+
+- type: entity
+  parent: VendingMachineDinnerware
+  id: NCVendingMachineBar
+  name: БарОМат
+  description: Автомат с барной посудой и инструментами.
+  components:
+  - type: VendingMachine
+    pack: NCBarOMatInventory
+
+- type: entity
+  parent: SodaDispenser
+  id: NCSauceDispenser
+  name: раздатчик соусов
+  description: Диспенсер для соусов и приправ.
+  suffix: Filled
+  components:
+  - type: Sprite
+    state: sauce
+  - type: ReagentDispenser
+    storageWhitelist:
+      tags:
+      - DrinkBottle
+    pack: NCCondimentDispenserInventory
+  - type: GuideHelp
+    guides:
+    - Chef
+    - FoodRecipes
+
+- type: entity
+  parent: NCSauceDispenser
+  id: NCSauceDispenserEmpty
+  name: раздатчик соусов
+  description: Диспенсер для соусов и приправ.
+  suffix: Empty
+  components:
+  - type: ReagentDispenser
+    storageWhitelist:
+      tags:
+      - DrinkBottle
+    pack: EmptyInventory
+
+- type: entity
+  parent: VendingMachineColaBlack
+  id: NCVendingMachineCondimentBottles
+  name: Ультимейт-Вендинг
+  description: Автомат с соусами и приправами!
+  suffix: Соусы и приправы
+  components:
+  - type: VendingMachine
+    pack: NCMachineInventoryCondimentBottle

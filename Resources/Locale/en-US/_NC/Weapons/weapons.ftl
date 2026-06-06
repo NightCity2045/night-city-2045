@@ -10,6 +10,7 @@ dual-ammo-mode-pistol = Pistol
 dual-ammo-mode-shotgun = Shotgun
 dual-ammo-mode-rifle = Rifle
 dual-ammo-mode-grenade = Grenade Launcher
+dual-ammo-mode-railgun = Railgun
 
 # DualAmmoProvider - UI messages
 dual-ammo-current-mode = Mode: [color=cyan]{$mode}[/color]

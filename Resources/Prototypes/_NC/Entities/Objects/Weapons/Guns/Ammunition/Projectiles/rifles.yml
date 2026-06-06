@@ -28,7 +28,7 @@
     layers:
     - state: piercing
       shader: unshaded
-  
+
 - type: entity
   id: Bullet127x99CL
   name: пуля (12.7×99)
@@ -43,4 +43,63 @@
     layers:
     - state: piercing
       shader: unshaded
-      
+
+- type: entity
+  id: BulletNomadSpike
+  name: заточенный штырь
+  parent: BaseBullet
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: Projectile
+    damage:
+      types:
+        Piercing: 70
+  - type: Sprite
+    layers:
+    - state: piercing
+      shader: unshaded
+
+- type: entity
+  id: Bullet152mm
+  name: пуля (15.2мм)
+  parent: BaseBullet
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: Projectile
+    damage:
+      types:
+        Piercing: 100
+  - type: Sprite
+    layers:
+    - state: piercing
+      shader: unshaded
+
+- type: entity
+  id: Bullet622mmCaseless
+  name: пуля (6.22мм без оболочки)
+  parent: BaseBullet
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: Projectile
+    damage:
+      types:
+        Piercing: 50
+  - type: Sprite
+    layers:
+    - state: piercing
+      shader: unshaded
+
+- type: entity
+  id: Bullet127mm
+  name: пуля (12.7мм)
+  parent: BaseBullet
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: Projectile
+    damage:
+      types:
+        Piercing: 70
+  - type: Sprite
+    layers:
+    - state: piercing
+      shader: unshaded

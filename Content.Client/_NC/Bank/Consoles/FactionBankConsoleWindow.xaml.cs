@@ -40,6 +40,8 @@ namespace Content.Client._NC.Bank.Consoles
             {
                 if (int.TryParse(_leAmount.Text, out var amount))
                     OnDeposit?.Invoke(amount, _leDescription.Text);
+                else if (string.IsNullOrEmpty(_leAmount.Text))
+                    OnDeposit?.Invoke(int.MaxValue, _leDescription.Text);
             };
         }
 

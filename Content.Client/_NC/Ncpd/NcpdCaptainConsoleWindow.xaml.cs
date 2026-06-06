@@ -42,6 +42,10 @@ public sealed partial class NcpdCaptainConsoleWindow : DefaultWindow
                 OnDeposit?.Invoke(amount);
                 WithdrawAmountInput.Text = string.Empty;
             }
+            else if (string.IsNullOrEmpty(WithdrawAmountInput.Text))
+            {
+                OnDeposit?.Invoke(int.MaxValue);
+            }
         };
     }
 

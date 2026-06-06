@@ -85,7 +85,6 @@
   - type: ElectrocutionHUDVisuals
   - type: ApcPowerReceiver
     powerLoad: 20
-  - type: ExtensionCableReceiver
   - type: Electrified
     enabled: false
     usesApcPower: true

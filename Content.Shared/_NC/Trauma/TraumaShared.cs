@@ -10,6 +10,7 @@ namespace Content.Shared._NC.Trauma
         None = 0,    // Нет подписки
         Bronze,      // Базовая (по умолчанию)
         Silver,
+        Gold,        // High-end
         Platinum     // Элита
     }
 

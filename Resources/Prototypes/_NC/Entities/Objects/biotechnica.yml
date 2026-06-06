@@ -128,6 +128,50 @@
     - state: analyzer
       shader: unshaded
 
+# Watering Cans
+
+- type: entity
+  parent: WateringCan
+  id: BiotechnicaWateringCan
+  name: лейка
+  description: Корпоративная лейка для полива растений. Вмещает чуть больше воды чем ведро и не проливает ее.
+  components:
+  - type: Sprite
+    sprite: _NC/Objects/Tools/Biotechnica/Botany/watering_can.rsi
+
+- type: entity
+  parent: WateringCanExperimental
+  id: BiotechnicaWateringCanExperimental
+  name: продвинутая лейка
+  description: Корпоративная лейка, которая медленно пополняется сама.
+  components:
+  - type: Sprite
+    sprite: _NC/Objects/Tools/Biotechnica/Botany/watering_can_experimental.rsi
+
+# Sprays
+
+- type: entity
+  parent: SprayBottle
+  id: SeedEmUpSpray
+  name: спрей "БиоПлюс"
+  description: Лечит бесплодие растений. Используйте умеренно.
+  suffix: Заполненный
+  components:
+  - type: Sprite
+    sprite: Objects/Tools/Hydroponics/sprays.rsi
+    state: nolabelspray
+  - type: SolutionContainerManager
+    solutions:
+      spray:
+        maxVol: 50
+        reagents:
+        - ReagentId: Sedin
+          Quantity: 10
+  - type: DrainableSolution
+    solution: spray
+  - type: Item
+    sprite: Objects/Tools/Hydroponics/sprays.rsi
+
 # region MedTech
 
 - type: entity

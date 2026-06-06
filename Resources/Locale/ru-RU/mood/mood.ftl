@@ -58,7 +58,7 @@ mood-effect-HeirloomSecure = Моя реликвия в безопасности
 mood-effect-HeirloomLost = Я не могу найти свою реликвию, как же теперь прошлое будет в безопасности?
 
 # Зависимости
-# Addictions
+
 mood-effect-LotoTranscendence =
     Я ВИЖУ ВСЁ, ЧТО ЕСТЬ, ВСЁ, ЧТО БУДЕТ, И ВСЁ, ЧТО БЫЛО. ВСЁ ТВОРЕНИЕ ОТКРЫЛОСЬ МОЕМУ УМУ!
     Я ДОЛЖЕН ВСЁ ИМЕТЬ. Я ДОЛЖЕН ВСЁ ЗНАТЬ. ВСЁ. НАВСЕГДА!
@@ -71,90 +71,104 @@ mood-effect-NicotineBenefit =
 mood-effect-NicotineWithdrawal =
     Прямо сейчас я бы с удовольствием покурил.
 
-# Хирургия
 mood-effect-MorphineBenefit =
-    The morphine helps me forget my worries.
+    Морфин помогает мне забыть о моих заботах.
 mood-effect-MorphineWithdrawal =
-    Everything is too loud, too bright. I need something to take the edge off...
+    Всё слишком громко, слишком ярко. Мне нужно что-то, чтобы сгладить острые углы...
 
-# Surgery
+# Хирургия
+
 mood-effect-SurgeryPain = Надрез болит.
+
 # Наркотики
-# Drugs
+
 mood-effect-EthanolBenefit =
     Я так расслабился от выпивки.
 mood-effect-SpaceDrugsBenefit =
     Ух ты, такие красивые цвета, чувак. Кажется, я слышу цвета и ощущаю на вкус звуки, чувак.
 
 # Плазмочеловек
-# Plasmaman
+
 mood-effect-PlasmamanIngestPlasma =
     Моё тело омолодилось от свежей плазмы, текущей по моему телу.
-
 mood-effect-PlasmamanIngestMilk =
     Я чувствую, как кальций из молока восстанавливает мои кости. Это просто восхитительно!
-# Floor Juice
+
+# Напитки с пола
+
 mood-effect-DrankBlood =
-    I've just drank salty, lukewarm blood. That's disgusting!
+    Я только что выпил солёную, тёплую кровь. Это отвратительно!
 mood-effect-DrankBloodVampiric =
-    Oh what sweet nectar is this, like a fine vintage.
+    О, какой сладкий нектар, какое изысканное вино.
 mood-effect-DrankInsectBlood =
-    I've just drank slimy insect goop. That's disgusting!
+    Я только что выпил слизистую инсектов. Это отвратительно!
 mood-effect-DrankVomit =
-    Why did I just drink that vomit? It tastes like vomit!
+    Почему я только что выпил эту рвоту? Она на вкус как рвота!
 mood-effect-DrankZombieBlood =
-    THAT TASTED VILE, LIKE DEATH IN LIQUID FORM!
+    ЭТО БЫЛО УЖАСНО, КАК СМЕРТЬ В ЖИДКОМ ВИДЕ!
 
-# Medicines
+# Лекарства
+
 mood-effect-EpinephrineEffect =
-    My blood feels like it has been set on fire!
+    Моя кровь чувствует себя как будто её подожгли!
 mood-effect-PsicodineEffect =
-    I feel completely at peace.
+    Я чувствую себя полностью спокойным.
 mood-effect-StrongStimulant =
-    LET'S FUCKING GO!!!
+    ПОЕХАЛИ!!!
 mood-effect-MildPaincauser =
-    My body feels sore.
+    Моё тело болит.
 mood-effect-StrongPaincauser =
-    Agony gnaws at my soul.
+    Агония разгрызает мою душу.
 mood-effect-MildPainkiller =
-    My aches and pains are just a little better.
+    Мои боли и страдания немного утихли.
 mood-effect-StrongPainkiller =
-    I can barely feel anything, all of my pains are washed out and faded.
+    Я почти ничего не чувствую, все мои боли смыты и поблекли.
 
-# Poisons
+# Яды
+
 mood-effect-LacerinolEffect =
-    BILLIONS OF TINY KNIVES ARE INSIDE ME, GET THEM OUT!
+    МИЛЛИАРДЫ ТОНЕНЬКИХ НОЖЕЙ ВНУТРИ МЕНЯ, ВЫТАЩИТЕ ИХ!
 mood-effect-PuncturaseEffect =
-    MY BODY IS FULL OF NEEDLES, GET THEM OUT!
+    МОЁ ТЕЛО ПОЛНО ИГЛ, ВЫТАЩИТЕ ИХ!
 mood-effect-BruizineEffect =
-    I FEEL LIKE I'M BEING CRUSHED BY A THOUSAND TON SPACE SHIP!
+    Я ЧУВСТВУЮ, КАК МЕНЯ ДАВИТ ТЫСЯЧЕТОННЫЙ КОРАБЛЬ!
 mood-effect-TearGasEffect =
-    MY EYES ARE BURNING, IT HURTS SO MUCH!
+    МОИ ГЛАЗА ГОРЯТ, ЭТО ТАК БОЛЬНО!
 mood-effect-BuzzochloricBeesEffect =
-    OH NO NOT THE BEES! NOT THE BEES! NOT THE BEES AGHHHHHHHHHHHH! THEY'RE IN MY EYES!
+    О НЕТ, НЕ ПЧЁЛЫ! НЕ ПЧЁЛЫ! НЕ ПЧЁЛЫ ААААААААААААА! ОНИ В МОИХ ГЛАЗАХ!
 mood-effect-RomerolEffect =
-    I THINK I AM GOING TO DIE. I AM BUT A CORPSE AWAITING ITS GRAVE.
+    Я ДУМАЮ, Я УМРУ. Я ВСЕГО ЛИШЬ ТРУП, ЖДУЩИЙ СВОЕЙ МОГИЛЫ.
 mood-effect-PaxEffect =
-    Woah...
+    Вау...
 
-# Food
+# Еда
+
 mood-effect-SweetenerEffect =
-    That tasted really sweet.
+    Это было очень сладко.
 mood-effect-SpicyEffect =
-    That tasted spicy, hot in a good way.
+    Это было пряно, остро в хорошем смысле.
 mood-effect-OilyEffect =
-    I ate something cooked with sweet oil.
+    Я съел что-то приготовленное на сладком масле.
 mood-effect-SaltyEffect =
-    I ate something salty, it tasted great!
+    Я съел что-то солёное, было вкусно!
 mood-effect-MintyEffect =
-    I ate something minty, it was cool and refreshing.
+    Я съел что-то мятное, было прохладно и освежающе.
 mood-effect-PepperEffect =
-    I ate something peppery, it tasted great!
+    Я съел что-то перечное, было вкусно!
 mood-effect-ChocolateEffect =
-    I ate something with chocolate, it was so good!
+    Я съел что-то с шоколадом, было так вкусно!
 mood-effect-ButterEffect =
-    I ate a buttery treat, I could eat this all day.
+    Я съел сливочное лакомство, мог бы есть это весь день.
 mood-effect-DeepFriedEffect =
-    I ate something deep fried! It was the tastiest thing I've ever had in my life!
+    Я съел что-то жареное во фритюре! Это была самая вкусная вещь, которую я когда-либо ел в своей жизни!
 mood-effect-TastyEffect =
-    That was really tasty!
+    Это было очень вкусно!
+
+# NC
+
+mood-effect-ColaEffect =
+    Эти фальшивые напитки вгоняют в тоску...
+mood-effect-PlainWaterEffect =
+    Вот бы выпить что-то более вкусное.
+mood-effect-NotTastyEffect =
+    Это было гадко...

@@ -1,0 +1,16 @@
+- type: citiNetStoreCategory
+  id: AstrozonTools
+  name: "Инструменты"
+  entries:
+  - proto: Wrench
+    price: 60
+    count: 5
+  - proto: Crowbar
+    price: 70
+    count: 5
+
+- type: citiNetStorePreset
+  id: AstrozonMarket
+  defaultDelivery: Corporate
+  categories:
+  - AstrozonTools

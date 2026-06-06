@@ -7,7 +7,6 @@
   components:
   - type: ApcPowerReceiver
     powerLoad: 350
-  - type: ExtensionCableReceiver
   - type: PointLight
     radius: 1.8
     energy: 1.6

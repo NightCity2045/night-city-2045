@@ -195,7 +195,7 @@ public sealed class ApcSystem : EntitySystem
 
     private ApcExternalPowerState CalcExtPowerState(EntityUid uid, PowerState.Battery battery)
     {
-        if (battery.CurrentReceiving == 0 && !MathHelper.CloseTo(battery.CurrentStorage / battery.Capacity, 1))
+        if (battery.CurrentReceiving <= 0)
         {
             return ApcExternalPowerState.None;
         }

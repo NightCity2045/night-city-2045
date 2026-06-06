@@ -102,6 +102,12 @@ namespace Content.Server._NC.Ncpd
         /// </summary>
         public void AddCall(string title, string sector, string description, NetCoordinates coordinates, string sourceId = "", EntityUid? targetUid = null)
         {
+            // NC Edit Start: Safety check for invalid coordinates (0,0 bug prevention)
+            var coords = EntityManager.GetCoordinates(coordinates);
+            if (!coords.EntityId.Valid)
+                return;
+            // NC Edit End
+
             // If already dispatched, ignore (safety check)
             if (!string.IsNullOrEmpty(sourceId) && _activeCalls.Any(c => c.SourceId == sourceId))
                 return;
@@ -149,11 +155,31 @@ namespace Content.Server._NC.Ncpd
 
             var gridUid = _transform.GetGrid(uid);
             var mapUid = _transform.GetMap(uid);
+            var displayGrid = gridUid ?? mapUid ?? uid;
+
+            // NC Edit Start: If we have an active call selected, use its grid for the map display
+            if (component.ActiveCallId is { } activeCallId)
+            {
+                var activeCall = _activeCalls.FirstOrDefault(c => c.Id == activeCallId);
+                if (activeCall.Id != 0)
+                {
+                    var callCoords = EntityManager.GetCoordinates(activeCall.Coordinates);
+                    if (callCoords.EntityId.Valid)
+                    {
+                        displayGrid = callCoords.EntityId;
+                    }
+                }
+            }
+            // NC Edit End
 
             var sectors = new List<CitiNetMapSectorData>();
             var sectorQuery = EntityQueryEnumerator<MapSectorComponent>();
             while (sectorQuery.MoveNext(out var sUid, out var sComp))
             {
+                // Only show sectors belonging to the current display grid
+                if (_transform.GetGrid(sUid) != displayGrid && _transform.GetMap(sUid) != displayGrid)
+                    continue;
+
                 sectors.Add(new CitiNetMapSectorData(sComp.SectorName, sComp.Color, sComp.Bounds, sComp.FontSize));
             }
 
@@ -162,6 +188,10 @@ namespace Content.Server._NC.Ncpd
             while (beaconQuery.MoveNext(out var bUid, out var bComp, out var bXform))
             {
                 if (!bComp.IsVisible) continue;
+
+                // Only show beacons for the current grid
+                if (bXform.GridUid != displayGrid && bXform.MapID != MapId.Nullspace)
+                    continue;
                 
                 // SHOW ONLY PUBLIC BEACONS: No required role AND group is Public
                 if (!string.IsNullOrEmpty(bComp.RequiredRole)) continue;
@@ -178,7 +208,7 @@ namespace Content.Server._NC.Ncpd
                 ));
             }
 
-            var pings = _citiNetMapSystem.GetActivePings(gridUid ?? mapUid ?? uid);
+            var pings = _citiNetMapSystem.GetActivePings(displayGrid);
 
             // === Live Entity Tracking ===
             // If this tablet's active call is tracking a live entity,
@@ -191,19 +221,27 @@ namespace Content.Server._NC.Ncpd
                     var targetEnt = GetEntity(targetNet);
                     if (EntityManager.EntityExists(targetEnt) && TryComp<TransformComponent>(targetEnt, out var targetXform))
                     {
-                        var targetPos = _transform.GetGridOrMapTilePosition(targetEnt, targetXform);
+                        // Check if target is on the grid we are looking at
+                        if (targetXform.GridUid != displayGrid && targetXform.MapID != MapId.Nullspace)
+                        {
+                            // Optional: could show an indicator that target is off-grid
+                        }
+                        else
+                        {
+                            var targetPos = _transform.GetGridOrMapTilePosition(targetEnt, targetXform);
 
-                        // Determine tracker color by call type:
-                        // Cyberpsycho = bright red, Wanted = yellow
-                        var isCP = activeCall.Title.Contains("CYBERPSYCHO", System.StringComparison.OrdinalIgnoreCase);
-                        var trackerColor = isCP ? Color.Red : Color.Yellow;
+                            // Determine tracker color by call type:
+                            // Cyberpsycho = bright red, Wanted = yellow
+                            var isCP = activeCall.Title.Contains("CYBERPSYCHO", System.StringComparison.OrdinalIgnoreCase);
+                            var trackerColor = isCP ? Color.Red : Color.Yellow;
 
-                        pings.Add(new CitiNetMapPingData(
-                            targetPos,
-                            trackerColor,
-                            8f,  // large radius for visibility
-                            CitiNetPingType.Tracker
-                        ));
+                            pings.Add(new CitiNetMapPingData(
+                                targetPos,
+                                trackerColor,
+                                8f,  // large radius for visibility
+                                CitiNetPingType.Tracker
+                            ));
+                        }
                     }
                 }
             }
@@ -211,7 +249,7 @@ namespace Content.Server._NC.Ncpd
             _ui.SetUiState(uid, NcpdTabletUiKey.Key, new NcpdTabletState(
                 _activeCalls, 
                 component.ActiveCallId, 
-                GetNetEntity(gridUid ?? mapUid ?? uid),
+                GetNetEntity(displayGrid),
                 sectors, 
                 beacons, 
                 pings));

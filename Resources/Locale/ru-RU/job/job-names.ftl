@@ -42,6 +42,7 @@ job-name-chaplain = Священник
 job-name-botanist = Ботаник
 job-name-bartender = Бармен
 job-name-passenger = Ассистент
+job-name-nccitizen = Житель
 job-name-salvagespec = Утилизатор
 job-name-station-ai = Станционный ИИ
 job-name-qm = Квартирмейстер

@@ -392,6 +392,34 @@ namespace Content.Server.Database
 
             return profile;
         }
+
+        #region Faction Bank
+        public async Task<Dictionary<int, int>> GetFactionBankBalancesAsync()
+        {
+            await using var db = await GetDb();
+            return await db.DbContext.FactionBankBalances.ToDictionaryAsync(f => f.FactionId, f => f.Balance);
+        }
+
+        public async Task SaveFactionBankBalanceAsync(int factionId, int balance)
+        {
+            await using var db = await GetDb();
+            var existing = await db.DbContext.FactionBankBalances.SingleOrDefaultAsync(f => f.FactionId == factionId);
+            if (existing == null)
+            {
+                db.DbContext.FactionBankBalances.Add(new FactionBankBalance
+                {
+                    FactionId = factionId,
+                    Balance = balance
+                });
+            }
+            else
+            {
+                existing.Balance = balance;
+            }
+            await db.DbContext.SaveChangesAsync();
+        }
+        #endregion
+
         #endregion
 
         #region User Ids

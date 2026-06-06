@@ -136,6 +136,55 @@
         Slash: 0.95
         Caustic: 0.95
 
+- type: entity
+  parent: [ClothingShoesBase, BiotechnicaContraband]
+  id: ClothingShoesEnviroshoesBiotechnicaBotany
+  name: ботанические эко-ботинки
+  description: Стерильная герметичная обувь для работы с растениями. Защищает от увечий и колючек.
+  suffix: Biotechnica, Ботаник
+  components:
+  - type: Sprite
+    sprite: &botanical_shoes_sprite _NC/Clothing/Shoes/Enviroshoes/biotechnica_botany.rsi
+  - type: Clothing
+    sprite: *botanical_shoes_sprite
+  - type: Armor
+    modifiers:
+      coefficients:
+        Slash: 0.95
+        Piercing: 0.90
+
+# Masks
+
+- type: entity
+  parent: [ClothingMaskBreathMedical, BiotechnicaContraband]
+  id: ClothingMaskBreathBiotechnicaBotany
+  name: ботаническая дыхательная маска
+  description: Эта прочная дыхательная маска также защищает лицо ботаника от особо колючих растений.
+  suffix: Biotechnica, Гидропоника, Ботаника
+  components:
+  - type: Sprite
+    sprite: _NC/Clothing/Mask/Biotechnica/botany.rsi
+  - type: Clothing
+    sprite: _NC/Clothing/Mask/Biotechnica/botany.rsi
+  - type: Armor
+    modifiers:
+      coefficients:
+        Slash: 0.85
+
+# Goggles
+
+- type: entity
+  parent: [ClothingEyesGogglesBotany, BiotechnicaContraband]
+  id: ClothingEyesGogglesBiotechnicaBotany
+  name: ботанические защитные очки
+  description: Продвинутые очки, которые защищают ваши глаза от шипов и колючек.
+  suffix: Biotechnica, Гидропоника, Ботаника
+  components:
+  - type: Sprite
+    sprite: &botanical_goggles_sprite _NC/Clothing/Eyes/Goggles/Biotechnica/botany.rsi
+  - type: Clothing
+    sprite: *botanical_goggles_sprite
+
 # Lockers
 
 - type: entity
@@ -202,6 +251,27 @@
     - id: HandheldGPSBasic
     - id: AccessConfigurator
     - id: Multitool
+
+# Goggles
+
+- type: entity
+  parent: [ClothingEyesGogglesBotany, BiotechnicaContraband]
+  id: ClothingEyesGogglesBiotechnicaTech
+  name: технические защитные очки
+  description: Продвинутые очки, которые защищают ваши глаза от искр, вспышек и ожогов.
+  suffix: Biotechnica, Тех
+  components:
+  - type: Sprite
+    sprite: &tech_goggles_sprite _NC/Clothing/Eyes/Goggles/Biotechnica/tech.rsi
+  - type: Clothing
+    sprite: *tech_goggles_sprite
+  - type: Armor
+    modifiers:
+      coefficients:
+        Heat: 0.90
+        Piercing: 0.85
+  - type: FlashImmunity
+  - type: EyeProtection
 
 # region MedTech
 
@@ -394,6 +464,24 @@
   - type: Clothing
     sprite: _NC/Clothing/Head/Hats/biotechnica_sterile.rsi
 
+# Masks
+
+- type: entity
+  parent: [ClothingMaskBreathMedical, BiotechnicaContraband]
+  id: ClothingMaskBreathBiotechnicaAdvanced
+  name: продвинутая дыхательная маска
+  description: Эта маска дополнительно защищает от попадания вредных химикатов.
+  suffix: Biotechnica, МедТех
+  components:
+  - type: Sprite
+    sprite: _NC/Clothing/Mask/Biotechnica/medtech.rsi
+  - type: Clothing
+    sprite: _NC/Clothing/Mask/Biotechnica/medtech.rsi
+  - type: Armor
+    modifiers:
+      coefficients:
+        Caustic: 0.85
+
 # region Mixed
 
 - type: entity
@@ -482,6 +570,24 @@
   - type: Fiber
     fiberMaterial: fibers-leather
     fiberColor: fibers-blue
+
+- type: entity
+  parent: [ClothingShoesBase, BiotechnicaContraband]
+  id: ClothingShoesEnviroshoesBiotechnica
+  name: эко-ботинки
+  description: Стерильная герметичная обувь для работы с растениями. Защищает от увечий и колючек.
+  suffix: Biotechnica, Ботаник
+  components:
+  - type: Sprite
+    sprite: &shoes_sprite _NC/Clothing/Shoes/Enviroshoes/biotechnica.rsi
+  - type: Clothing
+    sprite: *shoes_sprite
+  - type: Armor
+    modifiers:
+      coefficients:
+        Slash: 0.95
+        Piercing: 0.95
+        Caustic: 0.95
 
 # Lockers
 

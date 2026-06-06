@@ -540,6 +540,8 @@
         type: WiresBoundUserInterface
   - type: ApcPowerReceiver
     powerLoad: 1000
+  - type: LogicPowerReceiver
+    powerLoad: 1000
   - type: Computer
     board: ResearchComputerCircuitboard
   - type: AccessReader
@@ -591,6 +593,8 @@
       enum.WiresUiKey.Key:
         type: WiresBoundUserInterface
   - type: ApcPowerReceiver
+    powerLoad: 1000
+  - type: LogicPowerReceiver
     powerLoad: 1000
   - type: Computer
     board: AnalysisComputerCircuitboard
@@ -1015,6 +1019,8 @@
       state: generic_panel_open
   - type: ApcPowerReceiver
     powerLoad: 3100 #We want this to fail first so I transferred most of the scanner and pod's power here. (3500 in total)
+  - type: LogicPowerReceiver
+    powerLoad: 3100
   - type: Computer
     board: CloningConsoleComputerCircuitboard
   - type: PointLight
@@ -1333,6 +1339,8 @@
         type: WiresBoundUserInterface
   - type: ApcPowerReceiver
     powerLoad: 1000
+  - type: LogicPowerReceiver
+    powerLoad: 1000
   - type: DeviceNetwork
     deviceNetId: Wireless
     receiveFrequencyId: RoboticsConsole
@@ -1365,6 +1373,8 @@
     - map: [ "enum.WiresVisualLayers.MaintenancePanel" ]
       state: generic_panel_open
   - type: ApcPowerReceiver
+    powerLoad: 1000
+  - type: LogicPowerReceiver
     powerLoad: 1000
   - type: AccessReader
     access: [ [ "ResearchDirector" ] ]

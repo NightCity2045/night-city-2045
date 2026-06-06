@@ -91,18 +91,21 @@ namespace Content.Client._NC.Ncpd
                 // Update Map position
                 var coords = entManager.GetCoordinates(selectedCall.Coordinates);
                 
-                // Add Personal Case Marker
-                NavMap.MapBeacons.Add(new CitiNetMapBeaconData(
-                    default,
-                    $"[!] {selectedCall.Title}",
-                    new SpriteSpecifier.Texture(new ResPath("/Textures/Interface/NavMap/beveled_star.png")),
-                    Color.FromHex("#FF5252"),
-                    coords.Position,
-                    10
-                ));
+                if (coords.EntityId.Valid)
+                {
+                    // Add Personal Case Marker
+                    NavMap.MapBeacons.Add(new CitiNetMapBeaconData(
+                        default,
+                        $"[!] {selectedCall.Title}",
+                        new SpriteSpecifier.Texture(new ResPath("/Textures/Interface/NavMap/beveled_star.png")),
+                        Color.FromHex("#FF5252"),
+                        coords.Position,
+                        10
+                    ));
 
-                NavMap.CenterToCoordinates(coords);
-                NavMap.ForceNavMapUpdate();
+                    NavMap.CenterToCoordinates(coords);
+                    NavMap.ForceNavMapUpdate();
+                }
             }
             else
             {

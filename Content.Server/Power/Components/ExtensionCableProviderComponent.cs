@@ -1,10 +1,13 @@
 ﻿using Content.Server.Power.EntitySystems;
 
+using Content.Server.Power.EntitySystems;
+using Content.Server.Power.NodeGroups;
+
 namespace Content.Server.Power.Components
 {
     [RegisterComponent]
     [Access(typeof(ExtensionCableSystem))]
-    public sealed partial class ExtensionCableProviderComponent : Component
+    public sealed partial class ExtensionCableProviderComponent : BaseApcNetComponent
     {
         /// <summary>
         ///     The max distance this can connect to <see cref="ExtensionCableReceiverComponent"/>s from.
@@ -21,6 +24,13 @@ namespace Content.Server.Power.Components
         [ViewVariables(VVAccess.ReadWrite)]
         public bool Connectable { get; set; } = true;
 
+        protected override void AddSelfToNet(IApcNet apcNet)
+        {
+            // Extension cables don't add themselves to the net directly in the same way APCs do.
+        }
 
+        protected override void RemoveSelfFromNet(IApcNet apcNet)
+        {
+        }
     }
 }

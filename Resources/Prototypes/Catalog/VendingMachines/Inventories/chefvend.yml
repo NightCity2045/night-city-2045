@@ -1,56 +1,58 @@
 - type: vendingMachineInventory
   id: ChefvendInventory
+  # NC edit start: NightCity FastFood
   startingInventory:
     ReagentContainerFlour: 2
     ReagentContainerCornmeal: 2
     ReagentContainerSugar: 2
     ReagentContainerRice: 2
-    FoodCondimentPacketSalt: 4
-    FoodCondimentBottleEnzyme: 2
-    FoodCondimentBottleHotsauce: 1
-    FoodCondimentBottleKetchup: 1
-    FoodCondimentBottleBBQ: 1
-    FoodCondimentBottleVinegar: 2
-    ReagentContainerOliveoil: 2
-    ReagentContainerMayo: 1
-    VariantCubeBox: 1
-    FoodContainerEgg: 2 # DeltaV - more eggs
+    NCCondimentBottleEnzyme: 2
+    NCCondimentBottleVinegar: 2
+    NCCondimentBottleBlackpepper: 2
+    NCCondimentBottleOil: 2
+    NCCondimentBottleOilOlive: 2
+    NCCondimentBottleCapsaicinOil: 2
+    NCCondimentBottleFrostOil: 2
+    NCCondimentBottleCornOil: 2
+    NCCondimentBottleOilRefined: 2
+    NCDrinkBottlePumpkin: 2
+    FoodContainerEgg: 2
     DrinkMilkCarton: 2
     DrinkSoyMilkCarton: 1
+    DrinkCreamCarton: 1
     FoodButter: 3
     FoodCheese: 1
     FoodMeat: 6
-    LunchboxGenericFilledRandom: 5 # Delta-V Adds Lunchbox
-    ReagentContainerSalt: 1 # DeltaV adds big containers
-    ReagentContainerPepper: 1 # DeltaV adds big containers
-    ReagentContainerChocolate: 1 # DeltaV adds big containers
+    ReagentContainerSalt: 2
+    ReagentContainerPepper: 2
+    ReagentContainerChocolate: 2
   startingItemPrices:
     ReagentContainerFlour: 10
     ReagentContainerCornmeal: 10
     ReagentContainerSugar: 10
     ReagentContainerRice: 10
-    FoodCondimentPacketSalt: 5
-    FoodCondimentBottleEnzyme: 20
-    FoodCondimentBottleHotsauce: 20
-    FoodCondimentBottleKetchup: 20
-    FoodCondimentBottleBBQ: 20
-    FoodCondimentBottleVinegar: 20
-    ReagentContainerOliveoil: 20
-    ReagentContainerMayo: 20
-    VariantCubeBox: 50
-    FoodContainerEgg: 10
-    DrinkMilkCarton: 10
-    DrinkSoyMilkCarton: 10
-    FoodButter: 10
-    FoodCheese: 10
+    NCCondimentBottleEnzyme: 38
+    NCCondimentBottleVinegar: 24
+    NCCondimentBottleBlackpepper: 40
+    NCCondimentBottleOil: 20
+    NCCondimentBottleOilOlive: 25
+    NCCondimentBottleCapsaicinOil: 35
+    NCCondimentBottleFrostOil: 40
+    NCCondimentBottleCornOil: 25
+    NCCondimentBottleOilRefined: 30
+    NCDrinkBottlePumpkin: 60
+    FoodContainerEgg: 20
+    DrinkMilkCarton: 20
+    DrinkSoyMilkCarton: 20
+    DrinkCreamCarton: 20
+    FoodButter: 20
+    FoodCheese: 30
     FoodMeat: 20
-    LunchboxGenericFilledRandom: 20
     ReagentContainerSalt: 20
     ReagentContainerPepper: 20
     ReagentContainerChocolate: 20
-  #wwdp edit start
-  emaggedInventory:
-    Whetstone: 2
-  emaggedItemPrices:
-    Whetstone: 100
-  #wwdp edit end
+  contrabandInventory:
+    LunchboxGenericFilledRandom: 5
+  contrabandItemPrices:
+    LunchboxGenericFilledRandom: 50
+  # NC edit end: NightCity FastFood

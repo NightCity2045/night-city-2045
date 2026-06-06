@@ -38,8 +38,8 @@ ent-ClothingBackpackSatchelSalvage = сумка утилизатора
     .desc = Прочная сумка для хранения добычи.
     .suffix = { "" }
 
-ent-ClothingBackpackSatchelHolding = блюспейс сумка
-    .desc = Сумка, открывающаяся в локальный карман блюспейса.
+ent-ClothingBackpackSatchelHolding = вместительная сумка
+    .desc = Сумка, имеющая особые растягиваемые скрытые карманы для хранения большого количества вещей.
     .suffix = { "" }
 
 ent-ClothingBackpackSatchelLeather = кожаная сумка

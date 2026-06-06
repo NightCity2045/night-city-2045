@@ -32,7 +32,7 @@
     - tasks:
         - !type:HTNPrimitiveTask
           operator: !type:FleeOperator
-          fleeDistance: 15
+            fleeDistance: 15
 
 - type: htnCompound
   id: RackGunCompound
@@ -68,7 +68,7 @@
     - tasks:
         - !type:HTNPrimitiveTask
           operator: !type:CirclingOperator
-          duration: 3
+            duration: 3
       preconditions:
         - !type:NCTargetInRangePrecondition
           minRange: 3
@@ -87,10 +87,11 @@
           operator: !type:PickCoverOperator
         - !type:HTNPrimitiveTask
           operator: !type:MoveToOperator
-          removeKeyOnFinish: true
+            removeKeyOnFinish: true
         - !type:HTNPrimitiveTask
           operator: !type:WaitOperator
-          wait: 2
+            key: CoverWait
+            # wait: 2
 
 - type: htnCompound
   id: NCBanditTier2CombatCompound

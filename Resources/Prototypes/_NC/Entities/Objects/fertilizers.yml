@@ -1,0 +1,59 @@
+# region Abstract
+
+- type: entity
+  parent: [DrinkCartonVisualsOpenable, DrinkCartonBaseFull]
+  id: NCFertilizerBag
+  name: мешок для удобрений
+  description: Просто мешок для удобрений.
+  suffix: мешок удобрений
+  components:
+  - type: SolutionContainerManager
+    solutions:
+      drink:
+        maxVol: 50
+  - type: Sprite
+    sprite: _NC/Objects/Tools/fertilizers.rsi
+
+# region Fertilizers
+
+- type: entity
+  parent: NCFertilizerBag
+  id: NCFertilizerBagPotency
+  name: мешок потентного удобрения
+  description: Мешок с удобрением, повышающим потенцию растения. Побочные эффекты включают отсутсвие семян и нашествия насекомых-вредителей.
+  suffix: мешок удобрений
+  components:
+  - type: SolutionContainerManager
+    solutions:
+      drink:
+        reagents:
+        - ReagentId: RobustHarvest
+          Quantity: 30
+        - ReagentId: Sugar
+          Quantity: 20
+  - type: Sprite
+    layers:
+      - state: icon
+        map: ["enum.OpenableVisuals.Layer"]
+      - state: potency
+
+- type: entity
+  parent: NCFertilizerBag
+  id: NCFertilizerBagNutriment
+  name: мешок питательного удобрения
+  description: Мешок с удобрением, повышающим потенцию растения. Побочные эффекты включают отсутсвие семян и нашествия насекомых-вредителей.
+  suffix: мешок удобрений
+  components:
+  - type: SolutionContainerManager
+    solutions:
+      drink:
+        reagents:
+        - ReagentId: Nutriment
+          Quantity: 30
+        - ReagentId: Sugar
+          Quantity: 20
+  - type: Sprite
+    layers:
+      - state: icon
+        map: ["enum.OpenableVisuals.Layer"]
+      - state: nutriment

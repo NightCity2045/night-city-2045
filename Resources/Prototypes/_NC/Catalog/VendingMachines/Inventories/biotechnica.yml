@@ -8,6 +8,8 @@
     BiotechnicaClippers: 2
     BiotechnicaScythe: 2
     BiotechnicaHatchet: 2
+    BiotechnicaWateringCan: 2
+    BiotechnicaWateringCanExperimental: 1
     BiotechnicaLabeler: 2
     BiotechnicaDropper: 4
     BiotechnicaPlantAnalyzer: 2
@@ -20,6 +22,7 @@
     RobustHarvestChemistryBottle: 3
     EZNutrientChemistryBottle: 3
     Bucket: 3
+    BluespaceBucket: 1
     DiseaseSwab: 20
     BoxMouthSwab: 1
   startingItemPrices:
@@ -28,6 +31,8 @@
     BiotechnicaClippers: 20
     BiotechnicaScythe: 40
     BiotechnicaHatchet: 60
+    BiotechnicaWateringCan: 80
+    BiotechnicaWateringCanExperimental: 780
     BiotechnicaLabeler: 140
     BiotechnicaDropper: 10
     BiotechnicaPlantAnalyzer: 400
@@ -40,16 +45,21 @@
     RobustHarvestChemistryBottle: 80
     EZNutrientChemistryBottle: 60
     Bucket: 20
+    BluespaceBucket: 640
     DiseaseSwab: 10
     BoxMouthSwab: 200  # Cheaper than buying swabs separately
   contrabandInventory:
     UnstableMutagenChemistryBottle: 1
     Joint: 1
     Blunt: 1
+    SeedEmUpSpray: 1
+    BluespaceWateringCanExperimental: 1
   contrabandItemPrices:
     UnstableMutagenChemistryBottle: 100
     Joint: 50
     Blunt: 50
+    SeedEmUpSpray: 200
+    BluespaceWateringCanExperimental: 1000
   emaggedInventory:
     Left4ZedChemistryBottle: 1
     Chainsaw: 1
@@ -65,6 +75,8 @@
     ClothingBackpackDuffelBiotechnica: 2
     ClothingUniformJumpsuitBiotechnica: 3
     ClothingOuterApronBiotechnicaBotany: 2
+    ClothingEyesGogglesBiotechnicaBotany: 2
+    ClothingMaskBreathBiotechnicaBotany: 2
     ClothingShoesColorWhite: 2
     ClothingBeltBiotechnicaBotany: 2
     ClothingHeadBandBotany: 2
@@ -73,6 +85,7 @@
     ClothingHeadEnvirohelmBiotechnicaBotany: 2
     ClothingUniformEnvirosuitBiotechnicaBotany: 2
     ClothingHandsGlovesEnviroglovesBiotechnicaBotany: 3
+    ClothingShoesEnviroshoesBiotechnicaBotany: 3
   contrabandInventory:
     ClothingOuterWinterHydro: 2
     ClothingShoesBootsWinterHydro: 2
@@ -82,6 +95,8 @@
     ClothingBackpackDuffelBiotechnica: 100
     ClothingUniformJumpsuitBiotechnica: 100
     ClothingOuterApronBiotechnicaBotany: 150
+    ClothingEyesGogglesBiotechnicaBotany: 200
+    ClothingMaskBreathBiotechnicaBotany: 250
     ClothingShoesColorWhite: 50
     ClothingBeltBiotechnicaBotany: 100
     ClothingHeadBandBotany: 50
@@ -90,6 +105,7 @@
     ClothingHeadEnvirohelmBiotechnicaBotany: 300
     ClothingUniformEnvirosuitBiotechnicaBotany: 300
     ClothingHandsGlovesEnviroglovesBiotechnicaBotany: 200
+    ClothingShoesEnviroshoesBiotechnicaBotany: 150
   contrabandItemPrices:
     ClothingOuterWinterHydro: 200
     ClothingShoesBootsWinterHydro: 100
@@ -261,6 +277,7 @@
     ClothingUniformJumpsuitBiotechnica: 3
     ClothingMaskSterile: 2
     ClothingMaskBreathMedical: 2
+    ClothingMaskBreathBiotechnicaAdvanced: 2
     ClothingHeadHatBiotechnicaSterile: 2
     ClothingOuterApronBiotechnica: 2
     ClothingOuterApronChemist: 2
@@ -277,6 +294,7 @@
     ClothingHandsGlovesEnviroglovesBiotechnica: 2
     ClothingHeadEnvirohelmBiotechnica: 2
     ClothingUniformEnvirosuitBiotechnica: 2
+    ClothingShoesEnviroshoesBiotechnica: 2
     ClothingEyesGlassesChemist: 2
     ClothingEyesGlassesChemical: 2
   contrabandInventory:
@@ -293,6 +311,7 @@
     ClothingHeadHatBiotechnicaCap: 50
     ClothingMaskSterile: 50
     ClothingMaskBreathMedical: 80
+    ClothingMaskBreathBiotechnicaAdvanced: 250
     ClothingHeadHatBiotechnicaSterile: 50
     ClothingOuterApronBiotechnica: 100
     ClothingOuterApronChemist: 380
@@ -309,6 +328,7 @@
     ClothingHandsGlovesEnviroglovesBiotechnica: 150
     ClothingHeadEnvirohelmBiotechnica: 250
     ClothingUniformEnvirosuitBiotechnica: 250
+    ClothingShoesEnviroshoesBiotechnica: 150
     ClothingEyesGlassesChemist: 50
     ClothingEyesGlassesChemical: 350
   contrabandItemPrices:
@@ -403,8 +423,10 @@
     ClothingHandsGlovesEnviroglovesBiotechnica: 2
     ClothingHeadEnvirohelmBiotechnica: 2
     ClothingUniformEnvirosuitBiotechnica: 2
+    ClothingShoesEnviroshoesBiotechnica: 2
     ClothingEyesGlassesChemist: 2
     ClothingEyesGlassesMeson: 2
+    ClothingEyesGogglesBiotechnicaTech: 2
     ClothingHeadHatWelding: 2
   contrabandInventory:
     ClothingHeadHatWeldingMaskFlame: 2
@@ -431,8 +453,10 @@
     ClothingHandsGlovesEnviroglovesBiotechnica: 150
     ClothingHeadEnvirohelmBiotechnica: 250
     ClothingUniformEnvirosuitBiotechnica: 250
+    ClothingShoesEnviroshoesBiotechnica: 150
     ClothingEyesGlassesChemist: 50
     ClothingEyesGlassesMeson: 250
+    ClothingEyesGogglesBiotechnicaTech: 250
     ClothingHeadHatWelding: 50
   contrabandItemPrices:
     ClothingHeadHatWeldingMaskFlame: 150
@@ -473,3 +497,63 @@
     RubberStampDenied: 20
     Paper: 5
     Envelope: 5
+
+# region Commercial
+
+- type: vendingMachineInventory
+  id: BiotechnicaVendingInventory
+  startingInventory:
+    NCDrinkCanBiotechnicaMultifruitFake: 4
+    NCDrinkCanBiotechnicaTeaFake: 4
+    NCDrinkCanBiotechnicaTonicMutagen: 4
+    NCDrinkCanBiotechnica: 3
+    NCDrinkCanBiotechnicaRespawn: 5
+    NCDrinkCanBiotechnicaTonicFake: 3
+    NCDrinkCanBiotechnicaBerry: 1
+    NCDrinkCanBiotechnicaCherry: 1
+    NCDrinkCanBiotechnicaBluePumpkin: 1
+    NCDrinkCanBiotechnicaMultifruit: 1
+    NCDrinkCanBiotechnicaBungo: 1
+    NCDrinkCanBiotechnicaVeggie: 1
+  startingItemPrices:
+    NCDrinkCanBiotechnicaMultifruitFake: 12
+    NCDrinkCanBiotechnicaTeaFake: 12
+    NCDrinkCanBiotechnicaTonicMutagen: 12
+    NCDrinkCanBiotechnica: 10
+    NCDrinkCanBiotechnicaRespawn: 12
+    NCDrinkCanBiotechnicaTonicFake: 14
+    NCDrinkCanBiotechnicaBerry: 25
+    NCDrinkCanBiotechnicaCherry: 25
+    NCDrinkCanBiotechnicaBluePumpkin: 28
+    NCDrinkCanBiotechnicaMultifruit: 28
+    NCDrinkCanBiotechnicaBungo: 27
+    NCDrinkCanBiotechnicaVeggie: 26
+  contrabandInventory:
+    NCDrinkCanBiotechnicaVitamins: 1
+  contrabandItemPrices:
+    NCDrinkCanBiotechnicaVitamins: 40
+
+- type: vendingMachineInventory
+  id: BiotechnicaBotanyCommercialInventory
+  startingInventory:
+    PlantBGoneSpray: 5
+    WeedSpray: 5
+    PestSpray: 5
+    Syringe: 5
+    DiseaseSwab: 20
+    RobustHarvestChemistryBottle: 3
+    EZNutrientChemistryBottle: 3
+    Left4ZedChemistryBottle: 2
+    SeedEmUpSpray: 2
+    UnstableMutagenChemistryBottle: 3
+  startingItemPrices:
+    PlantBGoneSpray: 40
+    WeedSpray: 80
+    PestSpray: 80
+    Syringe: 20
+    DiseaseSwab: 10
+    RobustHarvestChemistryBottle: 80
+    EZNutrientChemistryBottle: 60
+    Left4ZedChemistryBottle: 400
+    SeedEmUpSpray: 400
+    UnstableMutagenChemistryBottle: 200

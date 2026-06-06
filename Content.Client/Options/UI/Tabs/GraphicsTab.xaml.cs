@@ -68,6 +68,14 @@ public sealed partial class GraphicsTab : Control
             FilmGrainSlider,
             25,
             125);
+        Control.AddOptionCheckBox(WhiteCVars.Bloom, BloomCheckBox);
+        Control.AddOptionSlider(
+            WhiteCVars.BloomIntensity,
+            BloomIntensitySlider,
+            0,
+            200,
+            (_, value) => (value / 100.0f).ToString("F2"));
+        Control.AddOptionCheckBox(WhiteCVars.Vignette, VignetteCheckBox);
         // WD EDIT END
         Control.AddOptionCheckBox(CCVars.HudFpsCounterVisible, FpsCounterCheckBox);
         Control.AddOptionCheckBox(CCVars.MoodVisualEffects, MoodVisualEffectsCheckBox);

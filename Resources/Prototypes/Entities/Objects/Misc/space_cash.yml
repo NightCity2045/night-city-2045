@@ -53,6 +53,11 @@
         - ItemMask
   - type: Appearance
   - type: CargoSellBlacklist
+  # NC edit start: Fix CI checks 2
+  - type: Tag
+    tags:
+    - SpaceCash
+  # NC edit end: Fix CI checks 2
 
 - type: material
   id: Credit

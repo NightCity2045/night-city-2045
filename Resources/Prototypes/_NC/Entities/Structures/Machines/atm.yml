@@ -22,6 +22,7 @@
   - type: InteractionOutline
   - type: Clickable
   - type: ApcPowerReceiver
+  - type: LogicPowerReceiver
     powerLoad: 100
     needsPower: true
   - type: Appearance
@@ -49,6 +50,8 @@
     key: enum.AtmUiKey.Key
     inHandsOnly: false
     singleUser: true
+
+  - type: ActivatableUIRequiresPower
 
   - type: UserInterface
     interfaces:

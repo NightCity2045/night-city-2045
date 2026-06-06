@@ -46,14 +46,14 @@
     NCCasingMat: 3000
     Gunpowder: 3000
 
-- type: latheRecipe
-  id: NCAmmoBoxShotgunBuckshot
-  result: AmmoBoxShotgunBuckshot
-  completetime: 5
-  materials:
-    NCBulletTipMat: 2000
-    NCCasingMat: 2000
-    Gunpowder: 2000
+# - type: latheRecipe
+#   id: NCAmmoBoxShotgunBuckshot
+#   result: AmmoBoxShotgunBuckshot
+#   completetime: 5
+#   materials:
+#     NCBulletTipMat: 2000
+#     NCCasingMat: 2000
+#     Gunpowder: 2000
 
 - type: latheRecipePack
   id: NCCyberpunkAmmoPack
@@ -95,6 +95,9 @@
     whitelist:
       tags:
       - RawMaterial
+      - Sheet
+      - Ingot
+      - Metal
   - type: Lathe
     idleState: icon
     runningState: building

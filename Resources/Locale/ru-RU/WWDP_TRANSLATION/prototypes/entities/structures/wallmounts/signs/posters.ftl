@@ -18,10 +18,6 @@ ent-PosterContrabandFunPolice = Полиция юмора
     .desc = Плакат с критикой службы безопасности станции.
     .suffix = { "" }
 
-ent-PosterContrabandLustyExomorph = Похотливая Ксено дева
-    .desc = Еретический плакат с изображением главной звезды не менее еретической книги.
-    .suffix = { "" }
-
 ent-PosterContrabandSyndicateRecruitment = Вступайте в Синдикат
     .desc = Увидьте галактику! Сокрушите коррумпированные мегакорпорации! Вступайте сегодня!
     .suffix = { "" }

@@ -68,6 +68,9 @@ namespace Content.Server.Power.EntitySystems
         {
             provider.Connectable = true;
 
+            if (provider.Voltage == Voltage.Apc)
+                return;
+
             foreach (var receiver in FindAvailableReceivers(uid, provider.TransferRange))
             {
                 receiver.Comp.Provider?.LinkedReceivers.Remove(receiver);
@@ -261,7 +264,7 @@ namespace Content.Server.Power.EntitySystems
             var closestDistanceFound = float.MaxValue;
             foreach (var entity in nearbyEntities)
             {
-                if (entity == owner || !cableQuery.TryGetComponent(entity, out var provider) || !provider.Connectable)
+                if (entity == owner || !cableQuery.TryGetComponent(entity, out var provider) || !provider.Connectable || provider.Voltage == Voltage.Apc)
                     continue;
 
                 if (EntityManager.IsQueuedForDeletion(entity))

@@ -1,90 +1,41 @@
 - type: vendingMachineInventory
   id: BoozeOMatInventory
+  # NC edit start: NightCity FastFood
   startingInventory:
-    DrinkGlass: 20 #Kept glasses at top for ease to differentiate from booze.
-    DrinkShotGlass: 10
-    DrinkGlassCoupeShaped: 10
-    DrinkVacuumFlask: 5
-    DrinkFlaskBar: 5
-    DrinkShaker: 5
-    DrinkJigger: 5
-    DrinkIceBucket: 2
-    BarSpoon: 3
-    CustomDrinkJug: 2 #to allow for custom drinks in the soda/booze dispensers
     DrinkAbsintheBottleFull: 2
     DrinkAleBottleFull: 5
     DrinkBeerBottleFull: 5
     DrinkBlueCuracaoBottleFull: 2
     DrinkCognacBottleFull: 4
-    DrinkCoconutWaterCarton: 3
-    DrinkColaBottleFull: 4
-    DrinkEnergyDrinkCan: 8
-    DrinkMilkCarton: 2
-    DrinkCreamCarton: 5
     DrinkGinBottleFull: 3
-    DrinkGildlagerBottleFull: 2 #if champagne gets less because its premium, then gildlager should match this and have two
-    DrinkGrenadineBottleFull: 2
-    DrinkJuiceLimeCarton: 3
-    DrinkJuiceLemonCarton: 3
-    DrinkJuiceOrangeCarton: 3
-    DrinkJuiceTomatoCarton: 3
+    DrinkGildlagerBottleFull: 2
     DrinkCoffeeLiqueurBottleFull: 3
     DrinkMelonLiquorBottleFull: 3
     DrinkPatronBottleFull: 2
     DrinkRumBottleFull: 4
-    DrinkSodaWaterCan: 8
-    DrinkSolDryCan: 8
-    DrinkSpaceMountainWindBottleFull: 3
-    DrinkSpaceUpBottleFull: 3
     DrinkTequilaBottleFull: 3
-    DrinkTonicWaterCan: 8
     DrinkVermouthBottleFull: 5
     DrinkVodkaBottleFull: 5
     DrinkWhiskeyBottleFull: 5
     DrinkWineBottleFull: 5
-    DrinkChampagneBottleFull: 2 #because the premium drink
+    DrinkChampagneBottleFull: 2
     DrinkSakeBottleFull: 3
-    DrinkSojuBottleFull: 2 # DeltaV - Soju bottle
+    DrinkSojuBottleFull: 2
     DrinkBeerCan: 5
     DrinkWineCan: 5
   startingItemPrices:
-    DrinkGlass: 5
-    DrinkShotGlass: 5
-    DrinkGlassCoupeShaped: 5
-    DrinkVacuumFlask: 20
-    DrinkFlaskBar: 20
-    DrinkShaker: 20
-    DrinkJigger: 10
-    DrinkIceBucket: 20
-    BarSpoon: 5
-    CustomDrinkJug: 10
     DrinkAbsintheBottleFull: 50
     DrinkAleBottleFull: 20
     DrinkBeerBottleFull: 20
     DrinkBlueCuracaoBottleFull: 30
     DrinkCognacBottleFull: 50
-    DrinkCoconutWaterCarton: 10
-    DrinkColaBottleFull: 10
-    DrinkEnergyDrinkCan: 10
-    DrinkMilkCarton: 10
-    DrinkCreamCarton: 10
     DrinkGinBottleFull: 30
     DrinkGildlagerBottleFull: 50
-    DrinkGrenadineBottleFull: 20
-    DrinkJuiceLimeCarton: 10
-    DrinkJuiceLemonCarton: 10
-    DrinkJuiceOrangeCarton: 10
-    DrinkJuiceTomatoCarton: 10
     DrinkCoffeeLiqueurBottleFull: 30
     DrinkMelonLiquorBottleFull: 30
     DrinkPatronBottleFull: 40
     DrinkRumBottleFull: 30
-    DrinkSodaWaterCan: 10
-    DrinkSolDryCan: 10
-    DrinkSpaceMountainWindBottleFull: 20
-    DrinkSpaceUpBottleFull: 20
     DrinkTequilaBottleFull: 30
-    DrinkTonicWaterCan: 10
     DrinkVermouthBottleFull: 30
     DrinkVodkaBottleFull: 20
     DrinkWhiskeyBottleFull: 30
@@ -94,13 +45,8 @@
     DrinkSojuBottleFull: 20
     DrinkBeerCan: 10
     DrinkWineCan: 10
-  emaggedInventory:
+  contrabandInventory:
     DrinkPoisonWinebottleFull: 2
-    #WWDP edit start
-    DrinkNukieCan: 4
-    DrinkChangelingStingCan: 4
-    #WWDP edit end
-  emaggedItemPrices:
+  contrabandItemPrices:
     DrinkPoisonWinebottleFull: 200
-    DrinkNukieCan: 100
-    DrinkChangelingStingCan: 100
+  # NC edit end: NightCity FastFood

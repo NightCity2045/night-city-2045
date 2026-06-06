@@ -29,7 +29,6 @@
     mode: SnapgridCenter
   components:
     - type: ApcPowerReceiver
-    - type: ExtensionCableReceiver
     - type: DeviceNetwork
       prefix: device-address-prefix-vent
     - type: Tag
@@ -115,7 +114,6 @@
     mode: SnapgridCenter
   components:
     - type: ApcPowerReceiver
-    - type: ExtensionCableReceiver
     - type: DeviceNetwork
       prefix: device-address-prefix-scrubber
     - type: Tag

@@ -102,7 +102,7 @@
   id: Stardust
   name: reagent-name-stardust
   desc: reagent-desc-stardust
-  physicalDesc: reagent-physical-desc-powdery
+  physicalDesc: reagent-physical-desc-starry
   flavor: stardust
   color: "#5000c0"
   recognizable: true

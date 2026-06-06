@@ -1,12 +1,9 @@
 - type: entity
   id: MapSectorAnchor
   name: Map Sector Anchor
+  parent: MarkerBase
   suffix: CitiNet
   components:
-  - type: Transform
-    anchored: true
-  - type: Clickable
-  - type: InteractionOutline
   - type: Physics
     bodyType: Static
   - type: Fixtures
@@ -17,9 +14,7 @@
           bounds: "-0.4,-0.4,0.4,0.4"
         hard: false # So people can walk through it
   - type: Sprite
-    sprite: Markers/cross.rsi
     state: pink
-    drawdepth: SmallObjects
   - type: MapSector
     name: "New Sector"
     color: "#ff00ff44"

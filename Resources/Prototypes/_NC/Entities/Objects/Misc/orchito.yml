@@ -1,0 +1,171 @@
+# SPDX-FileCopyrightText: Made by Ceterai on GitHub.
+#
+# SPDX-License-Identifier: CC-BY-SA-4.0
+#
+# Title: Orchito
+
+# A tea-based refreshing cocktail made by Orchi Dea - a non-alcoholic version of a regular mojito.
+#
+# Includes:
+#
+# - Orchito (the regular version, can be made by shaking all needed ingredients together)
+# - Stardust Orchito (can be made by mixing orchito with stardust)
+#
+# Disclaimer:
+#
+# - This is a personal item, so all dependent prototypes are not meant to be mapped (with exceptions).
+
+
+
+
+
+# region PROTOTYPES
+
+
+
+
+
+# region Orchito
+
+- type: reagent
+  parent: BaseDrink
+  id: Orchito
+  name: reagent-name-orchito
+  desc: reagent-desc-orchito
+  physicalDesc: reagent-physical-desc-sweet
+  flavor: icedtea
+  color: "#a0f080"
+  metamorphicSprite:
+    sprite: &stardust_rsi _NC/Objects/Misc/stardust.rsi
+    state: glass_orchito_stardust_empty
+  metamorphicMaxFillLevels: 6
+  metamorphicFillBaseName: glass_orchito_stardust_fill-
+  metamorphicChangeColor: false
+  metabolisms:
+    Drink:
+      effects:
+      - !type:SatiateThirst
+        factor: 5
+      - !type:AdjustReagent
+        reagent: Theobromine
+        amount: 0.01
+      - !type:ChemAddMoodlet
+        moodPrototype: SweetenerEffect
+
+- type: reaction
+  id: Orchito
+  requiredMixerCategories:
+  - Shake
+  reactants:
+    IcedTea:
+      amount: 3
+    JuiceLemon:
+      amount: 1
+    JuiceLime:
+      amount: 1
+    Sugar:
+      amount: 1
+  products:
+    Orchito: 6
+
+- type: entity
+  parent: DrinkGlass
+  id: DrinkOrchitoGlass
+  suffix: orchito
+  components:
+  - type: SolutionContainerManager
+    solutions:
+      drink:
+        maxVol: 30
+        reagents:
+        - ReagentId: Orchito
+          Quantity: 30
+  - type: Icon
+    sprite: *stardust_rsi
+    state: glass_orchito_stardust
+
+- type: entity
+  parent: DrinkBottlePlasticBaseFull
+  id: DrinkOrchitoJug
+  components:
+  - type: SolutionContainerManager
+    solutions:
+      drink:
+        maxVol: 300
+        reagents:
+        - ReagentId: Orchito
+          Quantity: 300
+  - type: Drink
+  - type: Label
+    currentLabel: reagent-name-orchito
+
+# region Stardust Orchito
+
+- type: reagent
+  parent: BaseDrink
+  id: StardustOrchito
+  name: reagent-name-stardust-orchito
+  desc: reagent-desc-stardust-orchito
+  physicalDesc: reagent-physical-desc-enigmatic
+  flavor: enthralling
+  color: "#02667f"
+  metamorphicSprite:
+    sprite: *stardust_rsi
+    state: glass_orchito_empty
+  metamorphicMaxFillLevels: 6
+  metamorphicFillBaseName: glass_orchito_fill-
+  metamorphicChangeColor: false
+  metabolisms:
+    Drink:
+      effects:
+      - !type:AdjustReagent
+        reagent: Stardust
+        amount: 1.15
+      - !type:SatiateThirst
+        factor: 4
+      - !type:AdjustReagent
+        reagent: Theobromine
+        amount: 0.01
+      - !type:ChemAddMoodlet
+        moodPrototype: SweetenerEffect
+
+- type: reaction
+  id: StardustOrchito
+  reactants:
+    Orchito:
+      amount: 2
+    Stardust:
+      amount: 1
+  products:
+    StardustOrchito: 3
+
+- type: entity
+  parent: DrinkGlass
+  id: DrinkStardustOrchitoGlass
+  suffix: stardust orchito
+  components:
+  - type: SolutionContainerManager
+    solutions:
+      drink:
+        maxVol: 30
+        reagents:
+        - ReagentId: StardustOrchito
+          Quantity: 30
+  - type: Icon
+    sprite: *stardust_rsi
+    state: glass_orchito
+
+- type: entity
+  parent: DrinkBottlePlasticBaseFull
+  id: DrinkStardustOrchitoJug
+  components:
+  - type: SolutionContainerManager
+    solutions:
+      drink:
+        maxVol: 300
+        reagents:
+        - ReagentId: StardustOrchito
+          Quantity: 300
+  - type: Drink
+  - type: Label
+    currentLabel: reagent-name-stardust-orchito

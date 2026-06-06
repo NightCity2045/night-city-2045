@@ -7,6 +7,7 @@ using Content.Shared.Mobs.Components;
 using Content.Shared.Mobs.Systems;
 using Content.Shared.Access.Systems;
 using Content.Shared.Access.Components;
+using Content.Shared.Paper;
 using Robust.Shared.Timing;
 using Robust.Shared.Player;
 using Robust.Server.GameObjects;
@@ -16,6 +17,7 @@ using Robust.Shared.GameStates;
 using Content.Server._NC.Ncpd;
 using Content.Shared._NC.Ncpd;
 using System.Linq;
+using Content.Shared._NC.CitiNet.Components;
 
 namespace Content.Server._NC.Forensics;
 
@@ -29,18 +31,29 @@ public sealed class NcpdForensicsSystem : EntitySystem
     [Dependency] private readonly UserInterfaceSystem _uiSystem = default!;
     [Dependency] private readonly NcpdDispatchSystem _dispatchSystem = default!;
 
+    private float _updateTimer = 0f;
+    private const float UpdateInterval = 0.5f;
+
     public override void Initialize()
     {
         base.Initialize();
         SubscribeLocalEvent<MobStateChangedEvent>(OnMobStateChanged);
-        SubscribeLocalEvent<NcpdForensicsConsoleComponent, BoundUIOpenedEvent>(OnConsoleOpened);
         
-        Subs.BuiEvents<NcpdForensicsConsoleComponent>(NcpdForensicsConsoleUiKey.Key, subs => {
-            subs.Event<NcpdForensicsAlertActionMessage>(OnAlertAction);
+        // Browser support
+        Subs.BuiEvents<NetBrowserComponent>(NetBrowserUiKey.Key, subs => {
+            subs.Event<NcpdForensicsAlertActionMessage>(OnBrowserAlertAction);
         });
     }
 
-    private void OnAlertAction(EntityUid uid, NcpdForensicsConsoleComponent component, NcpdForensicsAlertActionMessage msg)
+    private void OnBrowserAlertAction(EntityUid uid, NetBrowserComponent component, NcpdForensicsAlertActionMessage msg)
+    {
+        if (component.CurrentUrl != "ncpd.gov/forensics")
+            return;
+
+        ProcessAlertAction(uid, msg);
+    }
+
+    private void ProcessAlertAction(EntityUid uid, NcpdForensicsAlertActionMessage msg)
     {
         var stationUid = _stationSystem.GetOwningStation(uid);
         if (stationUid == null && _stationSystem.GetStationsSet().Count > 0)
@@ -71,8 +84,7 @@ public sealed class NcpdForensicsSystem : EntitySystem
                 station.Alerts[msg.AlertIndex] = alert; // Update the struct in list
                 break;
             case NcpdForensicsAlertAction.PrintTicket:
-                var call = new NcpdCallData(0, Loc.GetString("nspd-call-type-flatline"), alert.Location, Loc.GetString("nspd-call-desc-victim", ("name", alert.Victim)), default, alert.Time);
-                _dispatchSystem.SpawnDispatchTicket(uid, call);
+                SpawnDispatchTicket(uid, alert);
                 break;
             case NcpdForensicsAlertAction.Archive:
                 alert.Archived = true;
@@ -95,7 +107,34 @@ public sealed class NcpdForensicsSystem : EntitySystem
 
         var alerts = EnsureComp<NcpdForensicsStationComponent>(stationUid.Value).Alerts;
         var state = new NcpdForensicsConsoleBuiState(new List<ForensicsAlertData>(alerts));
-        _uiSystem.SetUiState(uid, NcpdForensicsConsoleUiKey.Key, state);
+        
+        _uiSystem.SetUiState(uid, NetBrowserUiKey.Key, state);
+    }
+
+    public override void Update(float frameTime)
+    {
+        base.Update(frameTime);
+        _updateTimer += frameTime;
+        if (_updateTimer >= UpdateInterval)
+        {
+            _updateTimer = 0f;
+            UpdateAllBrowserInterfaces();
+        }
+    }
+
+    private void UpdateAllBrowserInterfaces()
+    {
+        var query = EntityQueryEnumerator<NetBrowserComponent>();
+        while (query.MoveNext(out var uid, out var component))
+        {
+            if (component.CurrentUrl != "ncpd.gov/forensics")
+                continue;
+
+            if (!_uiSystem.GetActors(uid, NetBrowserUiKey.Key).Any())
+                continue;
+
+            UpdateConsoleUi(uid);
+        }
     }
 
     private void OnMobStateChanged(MobStateChangedEvent args)
@@ -122,7 +161,10 @@ public sealed class NcpdForensicsSystem : EntitySystem
         }
 
         var coords = _transformSystem.GetMapCoordinates(target);
-        var mapUid = _mapManager.GetMapEntityId(coords.MapId);
+        var gridUid = _transformSystem.GetGrid(target);
+        
+        // Use GridUid if possible for NavMap, otherwise MapEntity
+        var mapUid = gridUid ?? _mapManager.GetMapEntityId(coords.MapId);
         
         var locString = Name(mapUid);
         var pos = coords.Position;
@@ -133,6 +175,7 @@ public sealed class NcpdForensicsSystem : EntitySystem
             Location = locString,
             X = (float)Math.Round(pos.X, 1),
             Y = (float)Math.Round(pos.Y, 1),
+            Coordinates = GetNetCoordinates(_transformSystem.ToCoordinates(mapUid, coords)),
             Time = _timing.CurTime
         };
 
@@ -141,21 +184,38 @@ public sealed class NcpdForensicsSystem : EntitySystem
         if (station.Alerts.Count > 50)
             station.Alerts.RemoveAt(station.Alerts.Count - 1);
 
-        // Обновляем все открытые консоли на этой станции, чтобы запись появилась мгновенно
-        var query = EntityQueryEnumerator<NcpdForensicsConsoleComponent>();
-        while (query.MoveNext(out var consoleUid, out var _))
+        // Обновляем все открытые браузеры на этой странице
+        var browserQuery = EntityQueryEnumerator<NetBrowserComponent>();
+        while (browserQuery.MoveNext(out var browserUid, out var browser))
         {
-            var consoleStation = _stationSystem.GetOwningStation(consoleUid);
-            if (consoleStation == null && _stationSystem.GetStationsSet().Count > 0)
-                consoleStation = _stationSystem.GetStationsSet().First();
-                
-            if (consoleStation == stationUid)
-                UpdateConsoleUi(consoleUid);
+            if (browser.CurrentUrl != "ncpd.gov/forensics")
+                continue;
+
+            var browserStation = _stationSystem.GetOwningStation(browserUid);
+            if (browserStation == null && _stationSystem.GetStationsSet().Count > 0)
+                browserStation = _stationSystem.GetStationsSet().First();
+
+            if (browserStation == stationUid)
+                UpdateConsoleUi(browserUid);
         }
     }
 
-    private void OnConsoleOpened(EntityUid uid, NcpdForensicsConsoleComponent component, BoundUIOpenedEvent args)
+    public void SpawnDispatchTicket(EntityUid consoleUid, ForensicsAlertData alert)
     {
-        UpdateConsoleUi(uid);
+        var coords = _transformSystem.GetMoverCoordinates(consoleUid);
+        var chip = EntityManager.SpawnEntity("NcpdEvidenceChip", coords);
+        
+        var metaSystem = EntityManager.System<MetaDataSystem>();
+        metaSystem.SetEntityName(chip, Loc.GetString("nc-forensics-chip-name", ("name", alert.Victim)));
+        metaSystem.SetEntityDescription(chip, Loc.GetString("nc-forensics-chip-desc"));
+
+        if (alert.Coordinates != null)
+        {
+            var forensic = EnsureComp<ForensicChipComponent>(chip);
+            forensic.VictimName = alert.Victim;
+            forensic.Coordinates = alert.Coordinates.Value;
+            forensic.Timestamp = alert.Time;
+            Dirty(chip, forensic);
+        }
     }
 }
