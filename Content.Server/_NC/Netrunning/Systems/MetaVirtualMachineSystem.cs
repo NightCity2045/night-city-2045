@@ -418,7 +418,7 @@ public sealed class MetaVirtualMachineSystem : EntitySystem
             return new MetaArrayValue
             {
                 ElementType = MetaValueType.Ptr,
-                PtrValues = ents.Select(GetNetEntity).ToList()
+                PtrValues = ents.Select(uid => GetNetEntity(uid)).ToList()
             };
         }
 

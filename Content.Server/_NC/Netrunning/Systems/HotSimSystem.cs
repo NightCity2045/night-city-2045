@@ -22,6 +22,7 @@ using System.Linq;
 using System.Numerics;
 
 using Content.Shared.StatusEffect;
+using Robust.Server.GameObjects;
 
 namespace Content.Server._NC.Netrunning.Systems;
 
@@ -38,6 +39,7 @@ public sealed class HotSimSystem : EntitySystem
     [Dependency] private readonly MetaProgramSystem _metaProgram = default!;
     [Dependency] private readonly NetServerSystem _netServer = default!;
     [Dependency] private readonly SharedMapSystem _mapSystem = default!;
+    [Dependency] private readonly UserInterfaceSystem _ui = default!;
 
     public override void Initialize()
     {
@@ -45,6 +47,7 @@ public sealed class HotSimSystem : EntitySystem
         SubscribeLocalEvent<CyberdeckComponent, CyberdeckHotSimMessage>(OnHotSim);
         SubscribeLocalEvent<CyberdeckComponent, CyberdeckConstructMessage>(OnConstruct);
         SubscribeLocalEvent<NetAvatarComponent, JackOutActionEvent>(OnJackOut);
+        SubscribeLocalEvent<NetAvatarComponent, OpenLinkedCyberdeckActionEvent>(OnOpenLinkedCyberdeck);
         SubscribeLocalEvent<NetModuleComponent, ComponentShutdown>(OnModuleShutdown);
     }
 
@@ -249,6 +252,7 @@ public sealed class HotSimSystem : EntitySystem
 
             // Add Jack Out Action
             _actions.AddAction(avatar, "ActionNetJackOut");
+            _actions.AddAction(avatar, "ActionOpenLinkedCyberdeck");
 
             // 5. Open eyes
             RaiseNetworkEvent(new NetrunningImmersionEvent(false), avatar);
@@ -256,6 +260,16 @@ public sealed class HotSimSystem : EntitySystem
             // Refresh UI
             _metaProgram.UpdateUi(uid, component, user);
         });
+    }
+
+    private void OnOpenLinkedCyberdeck(EntityUid uid, NetAvatarComponent component, OpenLinkedCyberdeckActionEvent args)
+    {
+        if (component.Cyberdeck is not { } deckUid || Deleted(deckUid))
+            return;
+
+        _ui.OpenUi(deckUid, CyberdeckUiKey.Key, uid);
+        if (TryComp<CyberdeckComponent>(deckUid, out var deck))
+            _metaProgram.UpdateUi(deckUid, deck, uid);
     }
 
     private void OnJackOut(EntityUid uid, NetAvatarComponent component, JackOutActionEvent args)

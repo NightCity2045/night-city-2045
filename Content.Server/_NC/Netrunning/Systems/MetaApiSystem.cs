@@ -38,6 +38,7 @@ using Content.Server._NC.CitiNet.Cartridges;
 using Content.Shared.CartridgeLoader;
 using Content.Shared._NC.CitiNet;
 using Content.Shared._NC.CitiNet.Live;
+using Content.Shared._NC.Netrunning;
 
 namespace Content.Server._NC.Netrunning.Systems;
 

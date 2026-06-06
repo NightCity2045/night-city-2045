@@ -11,6 +11,8 @@ namespace Content.Shared._NC.Netrunning.Components;
 [RegisterComponent, NetworkedComponent]
 public sealed partial class NetServerComponent : Component
 {
+    public const string DaemonShardContainerId = "daemon_shard";
+
     /// <summary>
     ///     Maximum number of digital modules (rooms) this server can support.
     /// </summary>

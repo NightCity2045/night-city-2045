@@ -21,6 +21,10 @@ using Robust.Shared.EntitySerialization;
 using Content.Shared.SurveillanceCamera.Components;
 using System.Linq;
 using Content.Shared.Verbs;
+using Content.Shared.Interaction.Events;
+using Content.Shared._NC.Netrunning.Meta;
+using Content.Server.Light.Components;
+using Robust.Shared.Containers;
 
 namespace Content.Server._NC.Netrunning.Systems;
 
@@ -30,6 +34,8 @@ namespace Content.Server._NC.Netrunning.Systems;
 /// </summary>
 public sealed class NetServerSystem : EntitySystem
 {
+    private const float FallbackSubnetRadius = 20f;
+
     [Dependency] private readonly IMapManager _mapManager = default!;
     [Dependency] private readonly MapLoaderSystem _mapLoader = default!;
     [Dependency] private readonly SharedTransformSystem _transform = default!;
@@ -42,16 +48,62 @@ public sealed class NetServerSystem : EntitySystem
     [Dependency] private readonly EntityLookupSystem _lookup = default!;
     [Dependency] private readonly SharedEyeSystem _eye = default!;
     [Dependency] private readonly SharedMapSystem _mapSystem = default!;
+    [Dependency] private readonly SharedContainerSystem _containers = default!;
 
     public override void Initialize()
     {
         base.Initialize();
         SubscribeLocalEvent<NetServerComponent, MapInitEvent>(OnMapInit);
         SubscribeLocalEvent<NetServerComponent, ComponentShutdown>(OnShutdown);
+        SubscribeLocalEvent<NetServerComponent, InteractUsingEvent>(OnServerInteractUsing);
+        SubscribeLocalEvent<NetServerComponent, GetVerbsEvent<ActivationVerb>>(OnServerVerbs);
         SubscribeLocalEvent<NetDeviceNodeComponent, ActivateInWorldEvent>(OnNodeActivate);
         SubscribeLocalEvent<NetDeviceNodeComponent, NetNodeControlMessage>(OnControlMessage);
         SubscribeLocalEvent<NetDefenseComponent, GetVerbsEvent<UtilityVerb>>(OnDefenseMoveVerbs);
         SubscribeLocalEvent<DefensiveDaemonComponent, GetVerbsEvent<UtilityVerb>>(OnDaemonMoveVerbs);
+    }
+
+    private void OnServerInteractUsing(EntityUid uid, NetServerComponent component, InteractUsingEvent args)
+    {
+        if (!TryComp<DataShardComponent>(args.Used, out var shard) || shard.ProgramKind != MetaProgramKind.DaemonDefensive)
+            return;
+
+        if (!_containers.TryGetContainer(uid, NetServerComponent.DaemonShardContainerId, out var container))
+            return;
+
+        if (container.ContainedEntities.Count > 0)
+        {
+            _popup.PopupEntity("Server daemon slot already occupied.", uid, args.User, PopupType.MediumCaution);
+            args.Handled = true;
+            return;
+        }
+
+        if (_containers.Insert(args.Used, container))
+        {
+            _popup.PopupEntity("Defensive META shard installed into server.", uid, args.User);
+            args.Handled = true;
+        }
+    }
+
+    private void OnServerVerbs(EntityUid uid, NetServerComponent component, GetVerbsEvent<ActivationVerb> args)
+    {
+        if (!args.CanAccess || !args.CanInteract)
+            return;
+
+        if (!_containers.TryGetContainer(uid, NetServerComponent.DaemonShardContainerId, out var container) ||
+            container.ContainedEntities.Count == 0)
+            return;
+
+        var installed = container.ContainedEntities[0];
+        args.Verbs.Add(new ActivationVerb
+        {
+            Text = "Eject Defensive Shard",
+            Act = () =>
+            {
+                if (_containers.Remove(installed, container))
+                    _popup.PopupEntity("Defensive META shard ejected.", uid, args.User);
+            }
+        });
     }
 
     private void OnNodeActivate(EntityUid uid, NetDeviceNodeComponent component, ActivateInWorldEvent args)
@@ -357,6 +409,12 @@ public sealed class NetServerSystem : EntitySystem
                 continue;
             }
 
+            if (HasComp<PoweredLightComponent>(device))
+            {
+                SpawnNodeForDevice(uid, component, hubGridUid, device, NetDeviceNodeKind.Generic, nodeCount++);
+                continue;
+            }
+
             if (HasComp<DeviceNetworkComponent>(device))
                 SpawnNodeForDevice(uid, component, hubGridUid, device, NetDeviceNodeKind.Generic, nodeCount++);
         }
@@ -394,7 +452,40 @@ public sealed class NetServerSystem : EntitySystem
         else if (TryComp<LogicPowerProviderComponent>(serverUid, out var serverProvider))
             CollectLogicProviderList(serverUid, serverProvider, devices);
 
+        CollectSpatialFallbackDevices(serverUid, devices);
+
         return devices;
+    }
+
+    private void CollectSpatialFallbackDevices(EntityUid serverUid, HashSet<EntityUid> devices)
+    {
+        if (!TryComp<TransformComponent>(serverUid, out var serverXform) || serverXform.GridUid is not { } serverGrid)
+            return;
+
+        var serverPos = serverXform.WorldPosition;
+        var query = EntityQueryEnumerator<TransformComponent>();
+        while (query.MoveNext(out var uid, out var xform))
+        {
+            if (uid == serverUid || Deleted(uid) || xform.GridUid != serverGrid)
+                continue;
+
+            if ((xform.WorldPosition - serverPos).Length() > FallbackSubnetRadius)
+                continue;
+
+            if (!IsSupportedSubnetDevice(uid))
+                continue;
+
+            devices.Add(uid);
+        }
+    }
+
+    private bool IsSupportedSubnetDevice(EntityUid uid)
+    {
+        return HasComp<DoorComponent>(uid) ||
+               HasComp<SurveillanceCameraComponent>(uid) ||
+               HasComp<PoweredLightComponent>(uid) ||
+               HasComp<DeviceNetworkComponent>(uid) ||
+               HasComp<ApcPowerReceiverComponent>(uid);
     }
 
     private void CollectLogicPowerReceivers(EntityUid serverUid, EntityUid providerUid, HashSet<EntityUid> devices)

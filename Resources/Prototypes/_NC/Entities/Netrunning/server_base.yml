@@ -11,6 +11,17 @@
     maxModules: 3
     maxLoad: 100
     rootDifficulty: 50
+  - type: DefensiveDaemon
+  - type: ItemSlots
+    slots:
+      daemon_shard:
+        name: Daemon Shard
+        whitelist:
+          components:
+          - DataShard
+  - type: ContainerContainer
+    containers:
+      daemon_shard: !type:ContainerSlot
   - type: ApcPowerReceiver
     powerLoad: 500
   - type: LogicPowerReceiver

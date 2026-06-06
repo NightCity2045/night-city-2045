@@ -1,5 +1,4 @@
 using System;
-using System;
 using System.Collections.Generic;
 using Robust.Shared.IoC;
 using Robust.Shared.GameObjects;
@@ -99,9 +98,9 @@ public sealed class MetaCompilerSystem : EntitySystem
             case MetaDefArrInstruction a:
                 if (!ExpectType(a.Value, MetaValueType.Arr, ctx, out error)) return false;
                 ctx.Types[a.Name] = MetaValueType.Arr;
-                if (!InferArrayElementType(a.Value, ctx, out var elementType, out error))
+                if (!InferArrayElementType(a.Value, ctx, out var arrElementType, out error))
                     return false;
-                ctx.ArrayElementTypes[a.Name] = elementType;
+                ctx.ArrayElementTypes[a.Name] = arrElementType;
                 break;
             case MetaAssignInstruction assign:
                 if (!ctx.Types.TryGetValue(assign.Name, out var targetType))
@@ -117,7 +116,7 @@ public sealed class MetaCompilerSystem : EntitySystem
                     error = $"Compilation Error: '{arrAssign.ArrayName}' is not ARR.";
                     return false;
                 }
-                if (!ctx.ArrayElementTypes.TryGetValue(arrAssign.ArrayName, out var elementType) || elementType != MetaValueType.Int)
+                if (!ctx.ArrayElementTypes.TryGetValue(arrAssign.ArrayName, out var assignedElementType) || assignedElementType != MetaValueType.Int)
                 {
                     error = $"Compilation Error: '{arrAssign.ArrayName}' does not support numeric assignment.";
                     return false;

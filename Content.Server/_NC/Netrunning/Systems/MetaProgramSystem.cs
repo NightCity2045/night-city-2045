@@ -16,6 +16,7 @@ using Robust.Server.GameObjects;
 using Robust.Shared.Prototypes;
 using Content.Shared._NC.Netrunning.Prototypes;
 using System.Linq;
+using Robust.Shared.Player;
 
 namespace Content.Server._NC.Netrunning.Systems;
 
@@ -409,8 +410,24 @@ public sealed class MetaProgramSystem : EntitySystem
     private bool TryGetDeckUser(EntityUid deckUid, out EntityUid user)
     {
         user = EntityUid.Invalid;
-        if (!TryComp<TransformComponent>(deckUid, out var xform) || xform.ParentUid == EntityUid.Invalid) return false;
-        user = xform.ParentUid;
-        return true;
+        if (!TryComp<TransformComponent>(deckUid, out var xform))
+            return false;
+
+        var current = xform.ParentUid;
+        while (current != EntityUid.Invalid && !Deleted(current))
+        {
+            if (HasComp<ActorComponent>(current))
+            {
+                user = current;
+                return true;
+            }
+
+            if (!TryComp<TransformComponent>(current, out var parentXform))
+                break;
+
+            current = parentXform.ParentUid;
+        }
+
+        return false;
     }
 }

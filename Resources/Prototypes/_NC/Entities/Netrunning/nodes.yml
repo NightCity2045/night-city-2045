@@ -10,7 +10,7 @@
   - type: NetDeviceNode
   - type: UserInterface
     interfaces:
-      - key: enum.Content.Shared._NC.Netrunning.Components.NetNodeUiKey.Key
+      enum.Content.Shared._NC.Netrunning.Components.NetNodeUiKey.Key:
         type: Content.Client._NC.Netrunning.UI.NetNodeBoundUserInterface
   - type: Transform
     anchored: true

@@ -52,7 +52,6 @@ public sealed class MetaDaemonSystem : EntitySystem
             return;
 
         component.Shard = foundShard;
-        Dirty(uid, component);
     }
 
     public void NotifyIntrusion(EntityUid protectedNode, EntityUid intruder)
