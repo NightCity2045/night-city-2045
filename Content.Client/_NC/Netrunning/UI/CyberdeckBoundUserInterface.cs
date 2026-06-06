@@ -1,18 +1,11 @@
 using Content.Shared._NC.Netrunning.Components;
-using JetBrains.Annotations;
 using Robust.Client.GameObjects;
-using Robust.Shared.IoC;
-using Robust.Shared.GameObjects;
-using System.Collections.Generic;
-using Robust.Client.UserInterface.CustomControls;
 
 namespace Content.Client._NC.Netrunning.UI;
 
-[UsedImplicitly]
 public sealed class CyberdeckBoundUserInterface : BoundUserInterface
 {
-    [ViewVariables]
-    private CyberdeckWindow? _window;
+    private CyberdeckTerminalWindow? _window;
 
     public CyberdeckBoundUserInterface(EntityUid owner, Enum uiKey) : base(owner, uiKey)
     {
@@ -21,10 +14,34 @@ public sealed class CyberdeckBoundUserInterface : BoundUserInterface
     protected override void Open()
     {
         base.Open();
-        _window = new CyberdeckWindow();
+
+        _window = new CyberdeckTerminalWindow();
         _window.OnClose += Close;
-        _window.OnProgramSelected += id => SendMessage(new CyberdeckProgramRequestMessage(id));
-        _window.OnTargetSelected += id => SendMessage(new CyberdeckSetTargetMessage(id)); // Added handler
+        _window.OnCompileRequested += (code, name, shard) =>
+        {
+            SendMessage(new CyberdeckCompileMessage(code, name, shard));
+        };
+
+        _window.OnEjectRequested += (shard) =>
+        {
+            SendMessage(new CyberdeckEjectMessage(shard));
+        };
+
+        _window.OnRunRequested += (shard) =>
+        {
+            SendMessage(new CyberdeckExecuteMessage(shard));
+        };
+
+        _window.OnHotSimRequested += () =>
+        {
+            SendMessage(new CyberdeckHotSimMessage());
+        };
+
+        _window.OnConstructRequested += (moduleId, anchor) =>
+        {
+            SendMessage(new CyberdeckConstructMessage(moduleId, anchor));
+        };
+
         _window.OpenCentered();
     }
 
@@ -32,29 +49,26 @@ public sealed class CyberdeckBoundUserInterface : BoundUserInterface
     {
         base.UpdateState(state);
 
-        if (state is not CyberdeckBoundUiState cast || _window == null)
+        if (state is not CyberdeckUiState deckState)
             return;
 
-        var entMan = IoCManager.Resolve<IEntityManager>();
-        var programs = new List<(string, NetEntity, NetProgramData)>();
+        _window?.UpdateState(deckState);
+    }
 
-        if (cast.Programs != null)
+    protected override void ReceiveMessage(BoundUserInterfaceMessage message)
+    {
+        base.ReceiveMessage(message);
+
+        if (message is CyberdeckLogMessage log)
         {
-            foreach (var (id, program) in cast.Programs)
-            {
-                var uid = entMan.GetEntity(id);
-                var name = entMan.GetComponent<MetaDataComponent>(uid).EntityName;
-                programs.Add((name, id, program));
-            }
+            _window?.AddLog(log.Text);
         }
-
-        _window.UpdateState(cast.CurrentRam, cast.MaxRam, programs, cast.TargetName, cast.NearbyDevices);
     }
 
     protected override void Dispose(bool disposing)
     {
         base.Dispose(disposing);
-        if (!disposing) return;
-        _window?.Dispose();
+        if (disposing)
+            _window?.Dispose();
     }
 }

@@ -1,13 +1,4 @@
 - type: Tag
-  id: NCIceBoard
-
-- type: Tag
-  id: NCProgramCartridge
-
-- type: Tag
-  id: NetVisor
-
-- type: Tag
   id: StreamCamNC
 
 - type: Tag

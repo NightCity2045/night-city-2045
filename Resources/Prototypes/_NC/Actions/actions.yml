@@ -10,10 +10,12 @@
     useDelay: 1.0
 
 - type: entity
-  id: ActionToggleInfraredVision
-  name: action-name-infrared-vision
-  description: action-desc-infrared-vision
+  id: ActionNetJackOut
+  name: action-name-net-jackout
+  description: action-desc-net-jackout
   components:
   - type: InstantAction
-    icon: { sprite: Clothing/Eyes/Goggles/nightvision.rsi, state: icon }
-    event: !type:ToggleNightVisionEvent
+    icon: { sprite: Interface/Actions/actions_ai.rsi, state: ghost_unpossess }
+    event: !type:JackOutActionEvent
+    checkCanInteract: false
+    useDelay: 5.0

@@ -1,71 +1,91 @@
 - type: entity
   parent: BaseItem
-  id: NCCyberdeck
-  name: кибердека
-  description: Высокотехнологичный портативный компьютер, используемый для нетраннинга. Требует батарею и обе руки для работы.
+  id: NCCyberdeckScrap
+  name: street-junk cyberdeck
+  description: A jury-rigged netrunning deck made of salvaged parts. It lacks proper cooling and safety fuses.
   components:
   - type: Sprite
-    sprite: Objects/Devices/pda.rsi # Placeholder, maybe use a laptop sprite if available
-    state: pda-bartender # Placeholder
-    layers:
-    - state: pda-bartender # Placeholder
+    sprite: Objects/Devices/pda.rsi
+    state: pda-bartender
   - type: Item
     size: Large
-  - type: Cyberdeck
-    maxRam: 100
-    recoverySpeed: 5
-    scanRadius: 20
-    range: 30
-  - type: Wieldable
-    autoWield: false
   - type: UserInterface
     interfaces:
-      enum.CyberdeckUiKey.Key:
-        type: CyberdeckBoundUserInterface
-      enum.HackingUiKey.Key:
-        type: HackingBoundUserInterface
-  - type: SpeedModifiedOnWield
-    walkModifier: 0.9
-    sprintModifier: 1
-  - type: ItemSlots
-    slots:
-      cell_slot:
-        name: power-cell-slot-component-slot-name-default
-        startingItem: PowerCellMedium
-        whitelist:
-          components:
-          - PowerCell
-      program_slot_1:
-        name: Слот программ 1
-        whitelist:
-          tags:
-          - NCProgramCartridge
-        insertOnInteract: false
-      program_slot_2:
-        name: Слот программ 2
-        whitelist:
-          tags:
-          - NCProgramCartridge
-        insertOnInteract: false
-      program_slot_3:
-        name: Слот программ 3
-        whitelist:
-          tags:
-          - NCProgramCartridge
-        insertOnInteract: false
-  - type: PowerCellSlot
-    cellSlotId: cell_slot
-  - type: ContainerContainer
-    containers:
-      cell_slot: !type:ContainerSlot
-      program_slot_1: !type:ContainerSlot
-      program_slot_2: !type:ContainerSlot
-      program_slot_3: !type:ContainerSlot
+      enum.Content.Shared._NC.Netrunning.Components.CyberdeckUiKey.Key:
+        type: Content.Client._NC.Netrunning.UI.CyberdeckBoundUserInterface
+  - type: Cyberdeck
+    maxShards: 2
+    maxRam: 15
+    currentRam: 15
+    recoverySpeed: 1
+    scanRadius: 6
+    range: 6
+    gasLimit: 1000
+    beamColor: "#FF4500"
+  - type: Battery
+    maxCharge: 500
+    startingCharge: 500
+  - type: BatterySelfRecharger
+    autoRecharge: true
+
+- type: entity
+  parent: BaseItem
+  id: NCCyberdeck
+  name: corporate cyberdeck
+  description: A professional-grade cyberdeck used by high-end mercs. Reliable and well-balanced.
+  components:
+  - type: Sprite
+    sprite: Objects/Devices/pda.rsi
+    state: pda-detective
+  - type: Item
+    size: Large
+  - type: UserInterface
+    interfaces:
+      enum.Content.Shared._NC.Netrunning.Components.CyberdeckUiKey.Key:
+        type: Content.Client._NC.Netrunning.UI.CyberdeckBoundUserInterface
+  - type: Cyberdeck
+    maxShards: 4
+    maxRam: 40
+    currentRam: 40
+    recoverySpeed: 3
+    scanRadius: 12
+    range: 12
+    gasLimit: 5000
+    beamColor: "#00BFFF"
   - type: Battery
     maxCharge: 1000
     startingCharge: 1000
-  - type: BatterySelfRecharger # Charges internal battery from cell if implemented, or we just rely on cell?
+  - type: BatterySelfRecharger
     autoRecharge: true
+    active: true
 
-#  L-Click: Open/Close Doors, Attack Mobs (with Deck).
-#  R-Click: Bolt Door
+- type: entity
+  parent: BaseItem
+  id: NCCyberdeckMilitary
+  name: Militech "Borg-Killer" cyberdeck
+  description: A state-of-the-art military cyberdeck. Features liquid cooling and enough processing power to flatline a small army.
+  components:
+  - type: Sprite
+    sprite: Objects/Devices/pda.rsi
+    state: pda-captain
+  - type: Item
+    size: Large
+  - type: UserInterface
+    interfaces:
+      enum.Content.Shared._NC.Netrunning.Components.CyberdeckUiKey.Key:
+        type: Content.Client._NC.Netrunning.UI.CyberdeckBoundUserInterface
+  - type: Cyberdeck
+    maxShards: 6
+    maxRam: 100
+    currentRam: 100
+    recoverySpeed: 10
+    scanRadius: 20
+    range: 20
+    gasLimit: 25000
+    beamColor: "#FF0000"
+  - type: Battery
+    maxCharge: 2500
+    startingCharge: 2500
+  - type: BatterySelfRecharger
+    autoRecharge: true
+    active: true
