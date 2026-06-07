@@ -1,6 +1,7 @@
 using Robust.Shared.GameStates;
 using Robust.Shared.Serialization;
 using Robust.Shared.Prototypes;
+using Content.Shared._NC.Netrunning.Meta;
 
 namespace Content.Shared._NC.Netrunning.Components;
 
@@ -167,21 +168,41 @@ public sealed class NetNodeUiState : BoundUserInterfaceState
     public readonly string DeviceName;
     public readonly NetDeviceNodeKind Kind;
     public readonly int DeviceCount;
+    public readonly bool HasLinkedDeck;
+    public readonly List<NetNodeShardInfo> AvailableShards;
 
-    public NetNodeUiState(NetEntity physicalDevice, string deviceName, NetDeviceNodeKind kind = NetDeviceNodeKind.Generic, int deviceCount = 1)
+    public NetNodeUiState(
+        NetEntity physicalDevice,
+        string deviceName,
+        NetDeviceNodeKind kind = NetDeviceNodeKind.Generic,
+        int deviceCount = 1,
+        bool hasLinkedDeck = false,
+        List<NetNodeShardInfo>? availableShards = null)
     {
         PhysicalDevice = physicalDevice;
         DeviceName = deviceName;
         Kind = kind;
         DeviceCount = deviceCount;
+        HasLinkedDeck = hasLinkedDeck;
+        AvailableShards = availableShards ?? new List<NetNodeShardInfo>();
     }
 }
+
+[Serializable, NetSerializable]
+public sealed record NetNodeShardInfo(NetEntity Uid, string Name, int RamCost, MetaProgramKind Kind);
 
 [Serializable, NetSerializable]
 public sealed class NetNodeControlMessage : BoundUserInterfaceMessage
 {
     public readonly string Action;
     public NetNodeControlMessage(string action) => Action = action;
+}
+
+[Serializable, NetSerializable]
+public sealed class NetNodeExecuteShardMessage : BoundUserInterfaceMessage
+{
+    public readonly NetEntity Shard;
+    public NetNodeExecuteShardMessage(NetEntity shard) => Shard = shard;
 }
 
 /// <summary>

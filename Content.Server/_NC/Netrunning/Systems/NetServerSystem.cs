@@ -68,6 +68,7 @@ public sealed class NetServerSystem : EntitySystem
         SubscribeLocalEvent<NetServerComponent, GetVerbsEvent<ActivationVerb>>(OnServerVerbs);
         SubscribeLocalEvent<NetDeviceNodeComponent, ActivateInWorldEvent>(OnNodeActivate);
         SubscribeLocalEvent<NetDeviceNodeComponent, NetNodeControlMessage>(OnControlMessage);
+        SubscribeLocalEvent<NetDeviceNodeComponent, NetNodeExecuteShardMessage>(OnExecuteShardMessage);
         SubscribeLocalEvent<NetDefenseComponent, GetVerbsEvent<UtilityVerb>>(OnDefenseMoveVerbs);
         SubscribeLocalEvent<DefensiveDaemonComponent, GetVerbsEvent<UtilityVerb>>(OnDaemonMoveVerbs);
     }
@@ -202,21 +203,52 @@ public sealed class NetServerSystem : EntitySystem
         var physical = component.PhysicalDevice;
         if (Deleted(physical)) return;
 
+        if (TryResolveActorDeck(args.User, out var deckUid, out var deck))
+        {
+            deck.ActiveTarget = physical;
+            Dirty(deckUid, deck);
+            _metaProgram.UpdateUi(deckUid, deck, args.User);
+        }
+
         // Ensure netrunner can "see" through the device
         var eyeComp = EnsureComp<EyeComponent>(physical);
         _eye.SetVisibilityMask(physical, 1, eyeComp); // Use int 1 for basic visibility
 
         _ui.OpenUi(uid, NetNodeUiKey.Key, args.User);
-        UpdateNodeUi(uid, component);
+        UpdateNodeUi(uid, component, args.User);
     }
 
-    private void UpdateNodeUi(EntityUid uid, NetDeviceNodeComponent component)
+    private void UpdateNodeUi(EntityUid uid, NetDeviceNodeComponent component, EntityUid? user = null)
     {
         var physical = component.PhysicalDevice;
         var deviceName = component.Kind == NetDeviceNodeKind.CameraGroup
-            ? $"Camera Control ({component.PhysicalDevices.Count})"
+            ? $"Управление камерами ({component.PhysicalDevices.Count})"
             : Name(physical);
-        var state = new NetNodeUiState(GetNetEntity(physical), deviceName, component.Kind, Math.Max(1, component.PhysicalDevices.Count));
+        var hasLinkedDeck = false;
+        var shards = new List<NetNodeShardInfo>();
+
+        if (user is { } actor && TryResolveActorDeck(actor, out var deckUid, out _))
+        {
+            hasLinkedDeck = true;
+            if (_containers.TryGetContainer(deckUid, CyberdeckComponent.ShardContainerId, out var shardContainer))
+            {
+                foreach (var shardUid in shardContainer.ContainedEntities)
+                {
+                    if (!TryComp<DataShardComponent>(shardUid, out var shard) || shard.ProgramKind == MetaProgramKind.DaemonDefensive)
+                        continue;
+
+                    shards.Add(new NetNodeShardInfo(GetNetEntity(shardUid), Name(shardUid), shard.RequiredRam, shard.ProgramKind));
+                }
+            }
+        }
+
+        var state = new NetNodeUiState(
+            GetNetEntity(physical),
+            deviceName,
+            component.Kind,
+            Math.Max(1, component.PhysicalDevices.Count),
+            hasLinkedDeck,
+            shards);
         _ui.SetUiState(uid, NetNodeUiKey.Key, state);
     }
 
@@ -343,6 +375,42 @@ public sealed class NetServerSystem : EntitySystem
         }
     }
 
+    private void OnExecuteShardMessage(EntityUid uid, NetDeviceNodeComponent component, NetNodeExecuteShardMessage args)
+    {
+        if (!args.Actor.Valid)
+            return;
+
+        if (!TryResolveActorDeck(args.Actor, out var deckUid, out var deck))
+        {
+            _popup.PopupEntity("ОШИБКА: дека нетраннера не найдена.", uid, args.Actor, PopupType.MediumCaution);
+            UpdateNodeUi(uid, component, args.Actor);
+            return;
+        }
+
+        deck.ActiveTarget = component.PhysicalDevice;
+        Dirty(deckUid, deck);
+
+        var shardUid = GetEntity(args.Shard);
+        if (!TryComp<DataShardComponent>(shardUid, out var shard))
+        {
+            _popup.PopupEntity("ОШИБКА: шард недоступен.", uid, args.Actor, PopupType.MediumCaution);
+            return;
+        }
+
+        if (shard.Bytecode == null && !_metaProgram.TryCompile(shardUid, shard, args.Actor, out var compileError))
+        {
+            _popup.PopupEntity($"ОШИБКА КОМПИЛЯЦИИ: {compileError}", uid, args.Actor, PopupType.MediumCaution);
+            return;
+        }
+
+        var result = _metaProgram.Execute(deckUid, deck, shardUid, shard);
+        if (result.FatalError != null)
+            _popup.PopupEntity(result.FatalError, uid, args.Actor, PopupType.MediumCaution);
+
+        _metaProgram.UpdateUi(deckUid, deck, args.Actor);
+        UpdateNodeUi(uid, component, args.Actor);
+    }
+
     private void TryMoveNode(EntityUid nodeUid, NetDeviceNodeComponent node, EntityUid actor, Vector2 offset)
     {
         if (node.Server is not { } serverUid || !TryHasNodeAdminAccess(actor, serverUid))
@@ -459,6 +527,44 @@ public sealed class NetServerSystem : EntitySystem
         while (enumerator.NextItem(out var item))
         {
             if (!TryComp<CyberdeckComponent>(item, out var invDeck) || invDeck.ActiveServer != serverUid)
+                continue;
+
+            deckUid = item;
+            deck = invDeck;
+            return true;
+        }
+
+        return false;
+    }
+
+    private bool TryResolveActorDeck(EntityUid actor, out EntityUid deckUid, out CyberdeckComponent deck)
+    {
+        deckUid = EntityUid.Invalid;
+        deck = default!;
+
+        if (TryComp<NetAvatarComponent>(actor, out var avatar) &&
+            avatar.Cyberdeck is { } avatarDeckUid &&
+            !Deleted(avatarDeckUid) &&
+            TryComp<CyberdeckComponent>(avatarDeckUid, out var avatarDeck))
+        {
+            deckUid = avatarDeckUid;
+            deck = avatarDeck;
+            return true;
+        }
+
+        if (TryComp<HandsComponent>(actor, out var hands) &&
+            hands.ActiveHandEntity is { } held &&
+            TryComp<CyberdeckComponent>(held, out var heldDeck))
+        {
+            deckUid = held;
+            deck = heldDeck;
+            return true;
+        }
+
+        var enumerator = _inventory.GetSlotEnumerator(actor);
+        while (enumerator.NextItem(out var item))
+        {
+            if (!TryComp<CyberdeckComponent>(item, out var invDeck))
                 continue;
 
             deckUid = item;

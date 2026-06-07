@@ -69,6 +69,7 @@ public sealed class MetaApiSystem : EntitySystem, IMetaRuntimeApi
         "DOOR_STATE",
         "DOOR_OPEN",
         "DOOR_BOLT",
+        "SHORT_CIRCUIT",
         "POWER_TOGGLE",
         "POWER",
         "APC_BREAKER",
@@ -208,6 +209,32 @@ public sealed class MetaApiSystem : EntitySystem, IMetaRuntimeApi
                     return false;
 
                 _doorSystem.SetBoltsDown((target, bolts), value != 0);
+                return true;
+
+            case "SHORT_CIRCUIT":
+                if (!TryComp<DoorComponent>(target, out _))
+                    return false;
+
+                if (TryComp<ApcPowerReceiverComponent>(target, out var shortReceiver) &&
+                    !shortReceiver.PowerDisabled)
+                {
+                    _powerReceiver.TogglePower(target, playSwitchSound: false, receiver: shortReceiver);
+                }
+
+                _audio.PlayPvs(new SoundPathSpecifier("/Audio/Effects/sparks4.ogg"), target);
+
+                var thermalDamage = new DamageSpecifier();
+                thermalDamage.DamageDict["Heat"] = Math.Max(5, value);
+
+                foreach (var uid in _lookup.GetEntitiesInRange(target, 1.25f, LookupFlags.Dynamic))
+                {
+                    if (uid == target || !TryComp<DamageableComponent>(uid, out _))
+                        continue;
+
+                    _damageable.TryChangeDamage(uid, thermalDamage, origin: target);
+                    SendNetrunningFeedback(uid, "SHORT CIRCUIT", "Electrical arc and heat burst erupt from the hacked door.", true);
+                }
+
                 return true;
 
             case "POWER_TOGGLE":
