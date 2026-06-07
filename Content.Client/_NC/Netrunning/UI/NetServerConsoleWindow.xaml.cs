@@ -16,6 +16,7 @@ public sealed partial class NetServerConsoleWindow : DefaultWindow
 {
     public event Action? OnRefreshRequested;
     public event Action<string, NetEntity>? OnConstructRequested;
+    public event Action? OnAdminRequested;
 
     private List<NetModuleInfo> _availableModules = new();
     private List<NetAnchorInfo> _availableAnchors = new();
@@ -31,6 +32,7 @@ public sealed partial class NetServerConsoleWindow : DefaultWindow
         RobustXamlLoader.Load(this);
 
         RefreshButton.OnPressed += _ => OnRefreshRequested?.Invoke();
+        AdminButton.OnPressed += _ => OnAdminRequested?.Invoke();
         ConstructButton.OnPressed += _ =>
         {
             var selectedModule = ModuleList.GetSelected().FirstOrDefault();
@@ -56,11 +58,20 @@ public sealed partial class NetServerConsoleWindow : DefaultWindow
     {
         ServerNameLabel.Text = state.ServerName;
         ProviderLabel.Text = state.ProviderLabel;
-        LoadLabel.Text = $"Load: {state.UsedLoad}/{state.MaxLoad}";
-        ModuleLabel.Text = $"Modules: {state.ModuleCount}/{state.ModuleLimit}";
-        DeviceCountLabel.Text = $"Devices: {state.ConnectedDeviceCount}";
-        DaemonLabel.Text = state.HasDaemonShard ? "Daemon: installed" : "Daemon: empty";
-        FooterLabel.Text = $"Topology locked to {state.ProviderLabel}. Fabrication consumes {state.UsedLoad}/{state.MaxLoad} server load.";
+        LoadLabel.Text = $"Нагрузка: {state.UsedLoad}/{state.MaxLoad}";
+        ModuleLabel.Text = $"Модули: {state.ModuleCount}/{state.ModuleLimit}";
+        DeviceCountLabel.Text = $"Узлы: {state.ConnectedDeviceCount}";
+        DaemonLabel.Text = state.HasDaemonShard ? "Демон: установлен" : "Демон: пусто";
+        AccessLabel.Text = state.AccessStatus;
+        FooterLabel.Text = state.CanRequestAdmin
+            ? "Подключенная дека обнаружена. Можно открыть локальный админ-сеанс."
+            : "Для админ-сеанса сначала подключи деку к этому серверу.";
+        AdminButton.Disabled = !state.CanRequestAdmin || state.HasAdminAccess;
+        AdminButton.Text = state.HasPersistentRoot
+            ? "Рут уже получен"
+            : state.HasAdminAccess
+                ? "Локальный доступ активен"
+                : "Получить права администратора";
 
         _loadRatio = state.MaxLoad > 0 ? (float) state.UsedLoad / state.MaxLoad : 0f;
         _moduleRatio = state.ModuleLimit > 0 ? (float) state.ModuleCount / state.ModuleLimit : 0f;
@@ -116,12 +127,15 @@ public sealed partial class NetServerConsoleWindow : DefaultWindow
             ? Color.FromHex("#ffcc70")
             : Color.FromHex("#8ed9ff");
         DeviceCountLabel.Modulate = Color.FromHex("#95ffaf");
+        AccessLabel.Modulate = AdminButton.Disabled
+            ? Color.FromHex("#9aa8ad")
+            : Color.FromHex("#ffcf73");
     }
 
     private void RefreshConstructState()
     {
         ConstructButton.Disabled = !ModuleList.GetSelected().Any() || !PortList.GetSelected().Any();
         if (ConstructButton.Disabled)
-            ModuleDesc.SetMessage("[color=#768692]Select a room package and an unoccupied port to begin fabrication.[/color]");
+            ModuleDesc.SetMessage("[color=#768692]Выбери пакет комнаты и свободный порт, чтобы начать сборку.[/color]");
     }
 }

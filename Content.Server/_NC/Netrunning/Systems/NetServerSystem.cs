@@ -26,6 +26,8 @@ using Content.Shared._NC.Netrunning.Meta;
 using Content.Shared._NC.Netrunning.Prototypes;
 using Content.Server.Light.Components;
 using Robust.Shared.Containers;
+using Content.Shared.Hands.Components;
+using Content.Shared.Inventory;
 
 namespace Content.Server._NC.Netrunning.Systems;
 
@@ -48,6 +50,8 @@ public sealed class NetServerSystem : EntitySystem
     [Dependency] private readonly SharedEyeSystem _eye = default!;
     [Dependency] private readonly SharedMapSystem _mapSystem = default!;
     [Dependency] private readonly SharedContainerSystem _containers = default!;
+    [Dependency] private readonly InventorySystem _inventory = default!;
+    [Dependency] private readonly MetaProgramSystem _metaProgram = default!;
 
     public override void Initialize()
     {
@@ -60,6 +64,7 @@ public sealed class NetServerSystem : EntitySystem
         SubscribeLocalEvent<NetServerComponent, InteractUsingEvent>(OnServerInteractUsing);
         SubscribeLocalEvent<NetServerComponent, NetServerScanMessage>(OnServerScanMessage);
         SubscribeLocalEvent<NetServerComponent, NetServerConstructMessage>(OnServerConstructMessage);
+        SubscribeLocalEvent<NetServerComponent, NetServerAdminMessage>(OnServerAdminMessage);
         SubscribeLocalEvent<NetServerComponent, GetVerbsEvent<ActivationVerb>>(OnServerVerbs);
         SubscribeLocalEvent<NetDeviceNodeComponent, ActivateInWorldEvent>(OnNodeActivate);
         SubscribeLocalEvent<NetDeviceNodeComponent, NetNodeControlMessage>(OnControlMessage);
@@ -100,14 +105,14 @@ public sealed class NetServerSystem : EntitySystem
 
         if (container.ContainedEntities.Count > 0)
         {
-            _popup.PopupEntity("Server daemon slot already occupied.", uid, args.User, PopupType.MediumCaution);
+            _popup.PopupEntity("Слот защитного демона уже занят.", uid, args.User, PopupType.MediumCaution);
             args.Handled = true;
             return;
         }
 
         if (_containers.Insert(args.Used, container))
         {
-            _popup.PopupEntity("Defensive META shard installed into server.", uid, args.User);
+            _popup.PopupEntity("Защитный META-шард установлен в сервер.", uid, args.User);
             UpdateServerUi(uid, component, args.User);
             args.Handled = true;
         }
@@ -120,7 +125,7 @@ public sealed class NetServerSystem : EntitySystem
 
         args.Verbs.Add(new ActivationVerb
         {
-            Text = "Open Server Console",
+            Text = "Открыть консоль сервера",
             Act = () => OpenServerUi(uid, component, args.User)
         });
 
@@ -131,12 +136,12 @@ public sealed class NetServerSystem : EntitySystem
         var installed = container.ContainedEntities[0];
         args.Verbs.Add(new ActivationVerb
         {
-            Text = "Eject Defensive Shard",
+            Text = "Извлечь защитный шард",
             Act = () =>
             {
                 if (_containers.Remove(installed, container))
                 {
-                    _popup.PopupEntity("Defensive META shard ejected.", uid, args.User);
+                    _popup.PopupEntity("Защитный META-шард извлечен.", uid, args.User);
                     UpdateServerUi(uid, component, args.User);
                 }
             }
@@ -153,6 +158,43 @@ public sealed class NetServerSystem : EntitySystem
     {
         if (TryConstructModule(uid, component, args.Actor, args.ModuleId, args.Anchor))
             UpdateServerUi(uid, component, args.Actor);
+    }
+
+    private void OnServerAdminMessage(EntityUid uid, NetServerComponent component, NetServerAdminMessage args)
+    {
+        if (!args.Actor.Valid)
+            return;
+
+        if (!TryResolveLinkedDeck(args.Actor, uid, out var deckUid, out var deck))
+        {
+            _popup.PopupEntity("Сначала свяжи свою деку с этим сервером.", uid, args.Actor, PopupType.MediumCaution);
+            UpdateServerUi(uid, component, args.Actor);
+            return;
+        }
+
+        if (deck.HackedNetworks.Contains(uid))
+        {
+            _popup.PopupEntity("Рут-доступ уже получен и сохранен в деке.", uid, args.Actor);
+            UpdateServerUi(uid, component, args.Actor);
+            _metaProgram.UpdateUi(deckUid, deck, args.Actor);
+            return;
+        }
+
+        if (deck.ActiveTarget == uid)
+        {
+            _popup.PopupEntity("Локальный админ-сеанс уже активен.", uid, args.Actor);
+            UpdateServerUi(uid, component, args.Actor);
+            _metaProgram.UpdateUi(deckUid, deck, args.Actor);
+            return;
+        }
+
+        deck.ActiveServer = uid;
+        deck.ActiveTarget = uid;
+        Dirty(deckUid, deck);
+
+        _popup.PopupEntity("Локальный админ-сеанс открыт. Топология разблокирована.", uid, args.Actor);
+        UpdateServerUi(uid, component, args.Actor);
+        _metaProgram.UpdateUi(deckUid, deck, args.Actor);
     }
 
     private void OnNodeActivate(EntityUid uid, NetDeviceNodeComponent component, ActivateInWorldEvent args)
@@ -216,14 +258,32 @@ public sealed class NetServerSystem : EntitySystem
             _containers.TryGetContainer(uid, NetServerComponent.DaemonShardContainerId, out var daemonContainer) &&
             daemonContainer.ContainedEntities.Count > 0;
 
-        var providerLabel = "Provider: none";
+        var providerLabel = "ЛКП: нет";
         if (TryComp<LogicPowerReceiverComponent>(uid, out var logicReceiver) && logicReceiver.Provider is { } providerUid && !Deleted(providerUid))
-            providerLabel = $"Provider: {Name(providerUid)}";
+            providerLabel = $"ЛКП: {Name(providerUid)}";
         else if (TryComp<LogicPowerProviderComponent>(uid, out _))
-            providerLabel = $"Provider: {Name(uid)}";
+            providerLabel = $"ЛКП: {Name(uid)}";
+
+        var hasAdminAccess = false;
+        var hasPersistentRoot = false;
+        var canRequestAdmin = false;
+        var accessStatus = "ДОСТУП: НЕТ СЕАНСА";
+
+        if (user is { } actor && TryResolveLinkedDeck(actor, uid, out _, out var deck))
+        {
+            canRequestAdmin = true;
+            hasPersistentRoot = deck.HackedNetworks.Contains(uid);
+            hasAdminAccess = deck.ActiveTarget == uid || hasPersistentRoot;
+
+            accessStatus = hasPersistentRoot
+                ? "ДОСТУП: ROOT / ПОСТОЯННЫЙ"
+                : deck.ActiveTarget == uid
+                    ? "ДОСТУП: ЛОКАЛЬНЫЙ АДМИН"
+                    : "ДОСТУП: ДЕКА СВЯЗАНА, СЕАНС НЕ ОТКРЫТ";
+        }
 
         var state = new NetServerUiState(
-            Name(uid),
+            $"СЕРВЕР://{Name(uid).ToUpperInvariant()}",
             providerLabel,
             component.UsedLoad,
             component.MaxLoad,
@@ -231,6 +291,10 @@ public sealed class NetServerSystem : EntitySystem
             component.MaxModules,
             devices.Count,
             hasDaemonShard,
+            hasAdminAccess,
+            hasPersistentRoot,
+            canRequestAdmin,
+            accessStatus,
             modules,
             anchors,
             devices);
@@ -376,11 +440,40 @@ public sealed class NetServerSystem : EntitySystem
         return deck.ActiveTarget == serverUid || deck.HackedNetworks.Contains(serverUid);
     }
 
+    private bool TryResolveLinkedDeck(EntityUid actor, EntityUid serverUid, out EntityUid deckUid, out CyberdeckComponent deck)
+    {
+        deckUid = EntityUid.Invalid;
+        deck = default!;
+
+        if (TryComp<HandsComponent>(actor, out var hands) &&
+            hands.ActiveHandEntity is { } held &&
+            TryComp<CyberdeckComponent>(held, out var heldDeck) &&
+            heldDeck.ActiveServer == serverUid)
+        {
+            deckUid = held;
+            deck = heldDeck;
+            return true;
+        }
+
+        var enumerator = _inventory.GetSlotEnumerator(actor);
+        while (enumerator.NextItem(out var item))
+        {
+            if (!TryComp<CyberdeckComponent>(item, out var invDeck) || invDeck.ActiveServer != serverUid)
+                continue;
+
+            deckUid = item;
+            deck = invDeck;
+            return true;
+        }
+
+        return false;
+    }
+
     private bool TryConstructModule(EntityUid uid, NetServerComponent component, EntityUid user, string moduleId, NetEntity anchorNet)
     {
         if (component.DigitalGrid == null)
         {
-            _popup.PopupEntity("ERROR: Server has no initialized digital grid.", uid, user, PopupType.MediumCaution);
+            _popup.PopupEntity("ОШИБКА: у сервера нет инициализированной цифровой решетки.", uid, user, PopupType.MediumCaution);
             return false;
         }
 
@@ -389,13 +482,13 @@ public sealed class NetServerSystem : EntitySystem
 
         if (component.SpawnedModules.Count >= component.MaxModules)
         {
-            _popup.PopupEntity($"ERROR: Server module limit reached ({component.MaxModules}).", uid, user, PopupType.MediumCaution);
+            _popup.PopupEntity($"ОШИБКА: достигнут лимит модулей сервера ({component.MaxModules}).", uid, user, PopupType.MediumCaution);
             return false;
         }
 
         if (component.UsedLoad + module.RamCost > component.MaxLoad)
         {
-            _popup.PopupEntity($"ERROR: Server load exceeded ({component.UsedLoad + module.RamCost}/{component.MaxLoad}).", uid, user, PopupType.MediumCaution);
+            _popup.PopupEntity($"ОШИБКА: перегрузка сервера ({component.UsedLoad + module.RamCost}/{component.MaxLoad}).", uid, user, PopupType.MediumCaution);
             return false;
         }
 
@@ -406,7 +499,7 @@ public sealed class NetServerSystem : EntitySystem
         var targetAnchorUid = GetEntity(anchorNet);
         if (!TryComp<NetAnchorComponent>(targetAnchorUid, out var targetAnchor) || targetAnchor.Connected)
         {
-            _popup.PopupEntity("ERROR: Expansion port is invalid or occupied.", uid, user, PopupType.MediumCaution);
+            _popup.PopupEntity("ОШИБКА: порт расширения недоступен или уже занят.", uid, user, PopupType.MediumCaution);
             return false;
         }
 
@@ -452,7 +545,7 @@ public sealed class NetServerSystem : EntitySystem
         component.SpawnedModules.Add(loadedGridUid);
         Dirty(uid, component);
 
-        _popup.PopupEntity($"{module.Name} docked to port.", uid, user);
+        _popup.PopupEntity($"{module.Name} пришит к порту.", uid, user);
         return true;
     }
 
@@ -471,21 +564,21 @@ public sealed class NetServerSystem : EntitySystem
     private string GetDeviceClass(EntityUid uid)
     {
         if (HasComp<DoorComponent>(uid))
-            return "DOOR";
+            return "ДВЕРЬ";
 
         if (HasComp<SurveillanceCameraComponent>(uid))
-            return "CAMERA";
+            return "КАМЕРА";
 
         if (HasComp<PoweredLightComponent>(uid))
-            return "LIGHT";
+            return "СВЕТ";
 
         if (HasComp<DeviceNetworkComponent>(uid))
-            return "DEVICE";
+            return "УСТРОЙСТВО";
 
         if (HasComp<ApcPowerReceiverComponent>(uid))
-            return "POWERED";
+            return "ПИТАНИЕ";
 
-        return "UNKNOWN";
+        return "НЕИЗВЕСТНО";
     }
 
     private void OnMapInit(EntityUid uid, NetServerComponent component, MapInitEvent args)
@@ -609,7 +702,7 @@ public sealed class NetServerSystem : EntitySystem
         var devices = CollectNetworkDevices(uid);
         if (devices.Count == 0)
         {
-            _popup.PopupEntity("SCAN ERROR: Server has no power link (LCP/APC).", uid, PopupType.MediumCaution);
+            _popup.PopupEntity("ОШИБКА СКАНА: сервер не видит прямой линии логического питания.", uid, PopupType.MediumCaution);
             return;
         }
 
@@ -645,11 +738,11 @@ public sealed class NetServerSystem : EntitySystem
 
         if (nodeCount > 0)
         {
-            _popup.PopupEntity($"SCAN COMPLETE: {nodeCount} devices mapped.", uid);
+            _popup.PopupEntity($"СКАН ЗАВЕРШЕН: отображено узлов: {nodeCount}.", uid);
         }
         else
         {
-            _popup.PopupEntity("SCAN COMPLETE: No network devices found in this LCP segment.", uid);
+            _popup.PopupEntity("СКАН ЗАВЕРШЕН: в этом сегменте ЛКП сетевые узлы не найдены.", uid);
         }
     }
 

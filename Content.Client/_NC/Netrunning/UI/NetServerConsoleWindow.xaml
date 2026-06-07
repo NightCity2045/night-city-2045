@@ -1,41 +1,43 @@
 <DefaultWindow xmlns="https://spacestation14.io"
                xmlns:ui="clr-namespace:Content.Client._NC.Netrunning.UI"
-               Title="NET Server Console"
-               MinWidth="860"
-               MinHeight="560">
+               Title="Консоль локальной сети"
+               MinWidth="920"
+               MinHeight="620">
     <BoxContainer Orientation="Vertical" Margin="8" SeparationOverride="8">
         <PanelContainer StyleClasses="NetTerminalHeader">
             <BoxContainer Orientation="Horizontal" Margin="10" SeparationOverride="10">
                 <BoxContainer Orientation="Vertical" HorizontalExpand="True" SeparationOverride="2">
                     <Label Name="ServerNameLabel"
-                           Text="SERVER://UNKNOWN"
-                           StyleClasses="NetTerminalTitle" />
-                    <Label Text="LOCAL NET ADMINISTRATOR CONSOLE"
-                           StyleClasses="NetTerminalSubtitle" />
+                           Text="СЕРВЕР://НЕИЗВЕСТЕН"
+                           StyleClasses="NetTerminalTitle"
+                           ClipText="True" />
+                    <Label Text="АДМИНИСТРАТИВНАЯ КОНСОЛЬ ЛОКАЛЬНОЙ СЕТИ"
+                           StyleClasses="NetTerminalSubtitle"
+                           ClipText="True" />
                     <BoxContainer Orientation="Horizontal" SeparationOverride="12" Margin="0 4 0 0">
                         <PanelContainer StyleClasses="NetTerminalBadge">
                             <Label Name="ProviderLabel"
-                                   Text="Provider: none"
+                                   Text="ЛКП: нет"
                                    StyleClasses="NetTerminalBadgeText" />
                         </PanelContainer>
                         <PanelContainer StyleClasses="NetTerminalBadge">
                             <Label Name="LoadLabel"
-                                   Text="Load: 0/0"
+                                   Text="Нагрузка: 0/0"
                                    StyleClasses="NetTerminalBadgeText" />
                         </PanelContainer>
                         <PanelContainer StyleClasses="NetTerminalBadge">
                             <Label Name="ModuleLabel"
-                                   Text="Modules: 0/0"
+                                   Text="Модули: 0/0"
                                    StyleClasses="NetTerminalBadgeText" />
                         </PanelContainer>
                         <PanelContainer StyleClasses="NetTerminalBadge">
                             <Label Name="DeviceCountLabel"
-                                   Text="Devices: 0"
+                                   Text="Узлы: 0"
                                    StyleClasses="NetTerminalBadgeText" />
                         </PanelContainer>
                         <PanelContainer Name="DaemonBadge" StyleClasses="NetTerminalBadge">
                             <Label Name="DaemonLabel"
-                                   Text="Daemon: empty"
+                                   Text="Демон: пусто"
                                    StyleClasses="NetTerminalBadgeText" />
                         </PanelContainer>
                     </BoxContainer>
@@ -55,12 +57,13 @@
             <PanelContainer StyleClasses="NetTerminalPanel" HorizontalExpand="True" VerticalExpand="True">
                 <BoxContainer Orientation="Vertical" Margin="6" SeparationOverride="4">
                     <BoxContainer Orientation="Horizontal">
-                        <Label Text="DIRECT LOGICPOWER DEVICES" StyleClasses="NetTerminalSectionTitle" />
+                        <Label Text="УСТРОЙСТВА СЕГМЕНТА ЛКП" StyleClasses="NetTerminalSectionTitle" />
                         <BoxContainer HorizontalExpand="True" />
-                        <Button Name="RefreshButton" Text="Refresh Topology" StyleClasses="NetTerminalButton" />
+                        <Button Name="RefreshButton" Text="Обновить топологию" StyleClasses="NetTerminalButton" />
                     </BoxContainer>
-                    <Label Text="Only devices on the same direct provider are projected into the local NET."
-                           StyleClasses="NetTerminalSectionText" />
+                    <Label Text="В локальную сеть выводятся только узлы, сидящие на том же прямом источнике логического питания."
+                           StyleClasses="NetTerminalSectionText"
+                           ClipText="True" />
                     <PanelContainer StyleClasses="NetTerminalInset" VerticalExpand="True">
                         <ItemList Name="DeviceList" VerticalExpand="True" />
                     </PanelContainer>
@@ -69,9 +72,10 @@
 
             <PanelContainer StyleClasses="NetTerminalPanel" HorizontalExpand="True" VerticalExpand="True">
                 <BoxContainer Orientation="Vertical" Margin="6" SeparationOverride="4">
-                    <Label Text="TOPOLOGY PORTS" StyleClasses="NetTerminalSectionTitle" />
-                    <Label Text="Free ports accept additional rooms and specialized network clusters."
-                           StyleClasses="NetTerminalSectionText" />
+                    <Label Text="ПОРТЫ ТОПОЛОГИИ" StyleClasses="NetTerminalSectionTitle" />
+                    <Label Text="Свободные порты принимают новые комнаты и профильные кластеры локальной сети."
+                           StyleClasses="NetTerminalSectionText"
+                           ClipText="True" />
                     <PanelContainer StyleClasses="NetTerminalInset" VerticalExpand="True">
                         <ItemList Name="PortList" VerticalExpand="True" />
                     </PanelContainer>
@@ -80,24 +84,38 @@
 
             <PanelContainer StyleClasses="NetTerminalPanel" HorizontalExpand="True" VerticalExpand="True">
                 <BoxContainer Orientation="Vertical" Margin="6" SeparationOverride="4">
-                    <Label Text="MODULE FABRICATION" StyleClasses="NetTerminalSectionTitle" />
-                    <Label Text="Select a room package and dock it into a compatible expansion port."
-                           StyleClasses="NetTerminalSectionText" />
+                    <Label Text="СБОРКА МОДУЛЯ" StyleClasses="NetTerminalSectionTitle" />
+                    <Label Text="Выбери пакет комнаты и вшей его в совместимый расширительный порт."
+                           StyleClasses="NetTerminalSectionText"
+                           ClipText="True" />
                     <PanelContainer StyleClasses="NetTerminalInset" MinHeight="150">
                         <ItemList Name="ModuleList" VerticalExpand="True" />
                     </PanelContainer>
                     <PanelContainer StyleClasses="NetTerminalInset" VerticalExpand="True">
                         <RichTextLabel Name="ModuleDesc" Margin="4" VerticalExpand="True" />
                     </PanelContainer>
-                    <Button Name="ConstructButton" Text="Construct Module" StyleClasses="NetTerminalActionButton" />
+                    <Button Name="ConstructButton" Text="Собрать модуль" StyleClasses="NetTerminalActionButton" />
                 </BoxContainer>
             </PanelContainer>
         </BoxContainer>
 
         <PanelContainer StyleClasses="NetTerminalFooter">
-            <Label Name="FooterLabel"
-                   Text="Topology locked to direct provider. Fabrication consumes server load and physical resources."
-                   StyleClasses="NetTerminalFooterText" />
+            <BoxContainer Orientation="Horizontal" Margin="8" SeparationOverride="8">
+                <BoxContainer Orientation="Vertical" HorizontalExpand="True" SeparationOverride="2">
+                    <Label Name="AccessLabel"
+                           Text="ДОСТУП: НЕТ СЕАНСА"
+                           StyleClasses="NetTerminalSectionTitle"
+                           ClipText="True" />
+                    <Label Name="FooterLabel"
+                           Text="Для админ-сеанса нужна дека, уже связанная с этим сервером."
+                           StyleClasses="NetTerminalFooterText"
+                           ClipText="True" />
+                </BoxContainer>
+                <Button Name="AdminButton"
+                        Text="Получить права администратора"
+                        MinWidth="250"
+                        StyleClasses="NetTerminalActionButton" />
+            </BoxContainer>
         </PanelContainer>
     </BoxContainer>
 </DefaultWindow>

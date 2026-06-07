@@ -102,6 +102,11 @@ public sealed class NetServerConstructMessage : BoundUserInterfaceMessage
 }
 
 [Serializable, NetSerializable]
+public sealed class NetServerAdminMessage : BoundUserInterfaceMessage
+{
+}
+
+[Serializable, NetSerializable]
 public sealed class NetServerUiState : BoundUserInterfaceState
 {
     public readonly string ServerName;
@@ -112,6 +117,10 @@ public sealed class NetServerUiState : BoundUserInterfaceState
     public readonly int ModuleLimit;
     public readonly int ConnectedDeviceCount;
     public readonly bool HasDaemonShard;
+    public readonly bool HasAdminAccess;
+    public readonly bool HasPersistentRoot;
+    public readonly bool CanRequestAdmin;
+    public readonly string AccessStatus;
     public readonly List<NetModuleInfo> AvailableModules;
     public readonly List<NetAnchorInfo> AvailableAnchors;
     public readonly List<NetServerDeviceInfo> ConnectedDevices;
@@ -125,6 +134,10 @@ public sealed class NetServerUiState : BoundUserInterfaceState
         int moduleLimit,
         int connectedDeviceCount,
         bool hasDaemonShard,
+        bool hasAdminAccess,
+        bool hasPersistentRoot,
+        bool canRequestAdmin,
+        string accessStatus,
         List<NetModuleInfo> availableModules,
         List<NetAnchorInfo> availableAnchors,
         List<NetServerDeviceInfo> connectedDevices)
@@ -137,6 +150,10 @@ public sealed class NetServerUiState : BoundUserInterfaceState
         ModuleLimit = moduleLimit;
         ConnectedDeviceCount = connectedDeviceCount;
         HasDaemonShard = hasDaemonShard;
+        HasAdminAccess = hasAdminAccess;
+        HasPersistentRoot = hasPersistentRoot;
+        CanRequestAdmin = canRequestAdmin;
+        AccessStatus = accessStatus;
         AvailableModules = availableModules;
         AvailableAnchors = availableAnchors;
         ConnectedDevices = connectedDevices;

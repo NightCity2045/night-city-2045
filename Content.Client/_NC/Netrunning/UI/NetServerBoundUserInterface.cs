@@ -20,6 +20,7 @@ public sealed class NetServerBoundUserInterface : BoundUserInterface
         _window.OnClose += Close;
         _window.OnRefreshRequested += () => SendMessage(new NetServerScanMessage());
         _window.OnConstructRequested += (moduleId, anchor) => SendMessage(new NetServerConstructMessage(moduleId, anchor));
+        _window.OnAdminRequested += () => SendMessage(new NetServerAdminMessage());
         _window.OpenCentered();
     }
 
