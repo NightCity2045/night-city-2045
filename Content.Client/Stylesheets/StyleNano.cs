@@ -70,6 +70,19 @@ namespace Content.Client.Stylesheets
         public const string StyleClassConsoleHeading = "ConsoleHeading";
         public const string StyleClassConsoleSubHeading = "ConsoleSubHeading";
         public const string StyleClassConsoleText = "ConsoleText";
+        public const string StyleClassNetTerminalHeader = "NetTerminalHeader";
+        public const string StyleClassNetTerminalPanel = "NetTerminalPanel";
+        public const string StyleClassNetTerminalInset = "NetTerminalInset";
+        public const string StyleClassNetTerminalFooter = "NetTerminalFooter";
+        public const string StyleClassNetTerminalTitle = "NetTerminalTitle";
+        public const string StyleClassNetTerminalSubtitle = "NetTerminalSubtitle";
+        public const string StyleClassNetTerminalSectionTitle = "NetTerminalSectionTitle";
+        public const string StyleClassNetTerminalSectionText = "NetTerminalSectionText";
+        public const string StyleClassNetTerminalBadge = "NetTerminalBadge";
+        public const string StyleClassNetTerminalBadgeText = "NetTerminalBadgeText";
+        public const string StyleClassNetTerminalFooterText = "NetTerminalFooterText";
+        public const string StyleClassNetTerminalButton = "NetTerminalButton";
+        public const string StyleClassNetTerminalActionButton = "NetTerminalActionButton";
 
         public const string StyleClassSliderRed = "Red";
         public const string StyleClassSliderGreen = "Green";
@@ -1266,6 +1279,114 @@ namespace Content.Client.Stylesheets
                 new StyleRule(new SelectorElement(typeof(Label), new[] {StyleClassConsoleHeading}, null, null), new[]
                 {
                     new StyleProperty(Label.StylePropertyFont, robotoMonoBold14)
+                }),
+
+                new StyleRule(new SelectorElement(typeof(PanelContainer), new[] {StyleClassNetTerminalHeader}, null, null), new[]
+                {
+                    new StyleProperty(PanelContainer.StylePropertyPanel, borderedWindowBackground),
+                    new StyleProperty(Control.StylePropertyModulateSelf, Color.FromHex("#0a151c")),
+                }),
+
+                new StyleRule(new SelectorElement(typeof(PanelContainer), new[] {StyleClassNetTerminalPanel}, null, null), new[]
+                {
+                    new StyleProperty(PanelContainer.StylePropertyPanel, borderedWindowBackground),
+                    new StyleProperty(Control.StylePropertyModulateSelf, Color.FromHex("#091117")),
+                }),
+
+                new StyleRule(new SelectorElement(typeof(PanelContainer), new[] {StyleClassNetTerminalInset}, null, null), new[]
+                {
+                    new StyleProperty(PanelContainer.StylePropertyPanel, windowBackground),
+                    new StyleProperty(Control.StylePropertyModulateSelf, Color.FromHex("#050c11")),
+                }),
+
+                new StyleRule(new SelectorElement(typeof(PanelContainer), new[] {StyleClassNetTerminalFooter}, null, null), new[]
+                {
+                    new StyleProperty(PanelContainer.StylePropertyPanel, windowBackground),
+                    new StyleProperty(Control.StylePropertyModulateSelf, Color.FromHex("#091117")),
+                }),
+
+                new StyleRule(new SelectorElement(typeof(PanelContainer), new[] {StyleClassNetTerminalBadge}, null, null), new[]
+                {
+                    new StyleProperty(PanelContainer.StylePropertyPanel, buttonRectActionMenuItem),
+                    new StyleProperty(Control.StylePropertyModulateSelf, Color.FromHex("#102630")),
+                }),
+
+                new StyleRule(new SelectorElement(typeof(Label), new[] {StyleClassNetTerminalTitle}, null, null), new[]
+                {
+                    new StyleProperty(Label.StylePropertyFont, robotoMonoBold14),
+                    new StyleProperty(Label.StylePropertyFontColor, Color.FromHex("#8ed9ff")),
+                }),
+
+                new StyleRule(new SelectorElement(typeof(Label), new[] {StyleClassNetTerminalSubtitle}, null, null), new[]
+                {
+                    new StyleProperty(Label.StylePropertyFont, robotoMonoBold11),
+                    new StyleProperty(Label.StylePropertyFontColor, Color.FromHex("#5f91a8")),
+                }),
+
+                new StyleRule(new SelectorElement(typeof(Label), new[] {StyleClassNetTerminalSectionTitle}, null, null), new[]
+                {
+                    new StyleProperty(Label.StylePropertyFont, robotoMonoBold12),
+                    new StyleProperty(Label.StylePropertyFontColor, Color.FromHex("#7fd3ff")),
+                }),
+
+                new StyleRule(new SelectorElement(typeof(Label), new[] {StyleClassNetTerminalSectionText}, null, null), new[]
+                {
+                    new StyleProperty(Label.StylePropertyFont, robotoMonoBold11),
+                    new StyleProperty(Label.StylePropertyFontColor, Color.FromHex("#68818c")),
+                }),
+
+                new StyleRule(new SelectorElement(typeof(Label), new[] {StyleClassNetTerminalBadgeText}, null, null), new[]
+                {
+                    new StyleProperty(Label.StylePropertyFont, robotoMonoBold11),
+                    new StyleProperty(Label.StylePropertyFontColor, Color.FromHex("#a8d7e7")),
+                }),
+
+                new StyleRule(new SelectorElement(typeof(Label), new[] {StyleClassNetTerminalFooterText}, null, null), new[]
+                {
+                    new StyleProperty(Label.StylePropertyFont, robotoMonoBold11),
+                    new StyleProperty(Label.StylePropertyFontColor, Color.FromHex("#56707c")),
+                }),
+
+                new StyleRule(new SelectorElement(typeof(Button), new[] {StyleClassNetTerminalButton}, null, null), new[]
+                {
+                    new StyleProperty(ContainerButton.StylePropertyStyleBox, buttonRectActionMenuItem),
+                    new StyleProperty(Control.StylePropertyModulateSelf, Color.FromHex("#19404d")),
+                }),
+
+                new StyleRule(new SelectorElement(typeof(Button), new[] {StyleClassNetTerminalButton}, ContainerButton.StylePseudoClassHover, null), new[]
+                {
+                    new StyleProperty(ContainerButton.StylePropertyStyleBox, buttonRectActionMenuItemHover),
+                    new StyleProperty(Control.StylePropertyModulateSelf, Color.FromHex("#255668")),
+                }),
+
+                new StyleRule(new SelectorElement(typeof(Button), new[] {StyleClassNetTerminalButton}, ContainerButton.StylePseudoClassPressed, null), new[]
+                {
+                    new StyleProperty(ContainerButton.StylePropertyStyleBox, buttonRectActionMenuItemPressed),
+                    new StyleProperty(Control.StylePropertyModulateSelf, Color.FromHex("#2d6d82")),
+                }),
+
+                new StyleRule(new SelectorElement(typeof(Button), new[] {StyleClassNetTerminalActionButton}, null, null), new[]
+                {
+                    new StyleProperty(ContainerButton.StylePropertyStyleBox, buttonRect),
+                    new StyleProperty(Control.StylePropertyModulateSelf, Color.FromHex("#6a4d1f")),
+                }),
+
+                new StyleRule(new SelectorElement(typeof(Button), new[] {StyleClassNetTerminalActionButton}, ContainerButton.StylePseudoClassHover, null), new[]
+                {
+                    new StyleProperty(ContainerButton.StylePropertyStyleBox, buttonRectHover),
+                    new StyleProperty(Control.StylePropertyModulateSelf, Color.FromHex("#99703a")),
+                }),
+
+                new StyleRule(new SelectorElement(typeof(Button), new[] {StyleClassNetTerminalActionButton}, ContainerButton.StylePseudoClassPressed, null), new[]
+                {
+                    new StyleProperty(ContainerButton.StylePropertyStyleBox, buttonRectPressed),
+                    new StyleProperty(Control.StylePropertyModulateSelf, Color.FromHex("#c4883d")),
+                }),
+
+                new StyleRule(new SelectorElement(typeof(Button), new[] {StyleClassNetTerminalActionButton}, ContainerButton.StylePseudoClassDisabled, null), new[]
+                {
+                    new StyleProperty(ContainerButton.StylePropertyStyleBox, buttonRectDisabled),
+                    new StyleProperty(Control.StylePropertyModulateSelf, Color.FromHex("#40362a")),
                 }),
 
                 // Big Button
