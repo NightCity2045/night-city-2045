@@ -23,6 +23,7 @@ using System.Numerics;
 
 using Content.Shared.StatusEffect;
 using Robust.Server.GameObjects;
+using Content.Shared.Interaction;
 
 namespace Content.Server._NC.Netrunning.Systems;
 
@@ -48,6 +49,7 @@ public sealed class HotSimSystem : EntitySystem
         SubscribeLocalEvent<CyberdeckComponent, CyberdeckConstructMessage>(OnConstruct);
         SubscribeLocalEvent<NetAvatarComponent, JackOutActionEvent>(OnJackOut);
         SubscribeLocalEvent<NetAvatarComponent, OpenLinkedCyberdeckActionEvent>(OnOpenLinkedCyberdeck);
+        SubscribeLocalEvent<NetAvatarComponent, AccessibleOverrideEvent>(OnAvatarAccessibleOverride);
         SubscribeLocalEvent<NetModuleComponent, ComponentShutdown>(OnModuleShutdown);
     }
 
@@ -270,6 +272,15 @@ public sealed class HotSimSystem : EntitySystem
         _ui.OpenUi(deckUid, CyberdeckUiKey.Key, uid);
         if (TryComp<CyberdeckComponent>(deckUid, out var deck))
             _metaProgram.UpdateUi(deckUid, deck, uid);
+    }
+
+    private void OnAvatarAccessibleOverride(EntityUid uid, NetAvatarComponent component, ref AccessibleOverrideEvent args)
+    {
+        if (args.User != uid || component.Cyberdeck is not { } deckUid || args.Target != deckUid)
+            return;
+
+        args.Handled = true;
+        args.Accessible = true;
     }
 
     private void OnJackOut(EntityUid uid, NetAvatarComponent component, JackOutActionEvent args)

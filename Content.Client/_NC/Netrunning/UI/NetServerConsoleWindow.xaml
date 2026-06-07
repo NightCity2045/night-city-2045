@@ -1,0 +1,46 @@
+<DefaultWindow xmlns="https://spacestation14.io"
+               Title="NET Server Console"
+               MinWidth="760"
+               MinHeight="480">
+    <BoxContainer Orientation="Vertical" Margin="6" SeparationOverride="6">
+        <PanelContainer StyleClasses="Inset">
+            <BoxContainer Orientation="Vertical" Margin="6" SeparationOverride="4">
+                <Label Name="ServerNameLabel" Text="SERVER://UNKNOWN" StyleClasses="LabelHeading" />
+                <BoxContainer Orientation="Horizontal" SeparationOverride="12">
+                    <Label Name="ProviderLabel" Text="Provider: none" />
+                    <Label Name="LoadLabel" Text="Load: 0/0" />
+                    <Label Name="ModuleLabel" Text="Modules: 0/0" />
+                    <Label Name="DeviceCountLabel" Text="Devices: 0" />
+                    <Label Name="DaemonLabel" Text="Daemon: empty" />
+                    <BoxContainer HorizontalExpand="True" />
+                    <Button Name="RefreshButton" Text="Refresh Topology" />
+                </BoxContainer>
+            </BoxContainer>
+        </PanelContainer>
+
+        <BoxContainer Orientation="Horizontal" SeparationOverride="6" VerticalExpand="True">
+            <PanelContainer StyleClasses="Inset" HorizontalExpand="True" VerticalExpand="True">
+                <BoxContainer Orientation="Vertical" Margin="6" SeparationOverride="4">
+                    <Label Text="Direct LogicPower Devices" StyleClasses="LabelSubText" />
+                    <ItemList Name="DeviceList" VerticalExpand="True" />
+                </BoxContainer>
+            </PanelContainer>
+
+            <PanelContainer StyleClasses="Inset" HorizontalExpand="True" VerticalExpand="True">
+                <BoxContainer Orientation="Vertical" Margin="6" SeparationOverride="4">
+                    <Label Text="Expansion Ports" StyleClasses="LabelSubText" />
+                    <ItemList Name="PortList" VerticalExpand="True" />
+                </BoxContainer>
+            </PanelContainer>
+
+            <PanelContainer StyleClasses="Inset" HorizontalExpand="True" VerticalExpand="True">
+                <BoxContainer Orientation="Vertical" Margin="6" SeparationOverride="4">
+                    <Label Text="Available Modules" StyleClasses="LabelSubText" />
+                    <ItemList Name="ModuleList" VerticalExpand="True" />
+                    <RichTextLabel Name="ModuleDesc" VerticalExpand="True" />
+                    <Button Name="ConstructButton" Text="Construct Module" />
+                </BoxContainer>
+            </PanelContainer>
+        </BoxContainer>
+    </BoxContainer>
+</DefaultWindow>

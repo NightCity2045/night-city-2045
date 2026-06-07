@@ -147,10 +147,9 @@ public sealed partial class CyberdeckTerminalWindow : DefaultWindow
             item.Disabled = port.Connected;
         }
 
-        ConstructButton.Disabled = state.ActiveServer == null || !state.HasServerAdminAccess;
-        ConstructButton.ToolTip = ConstructButton.Disabled
-            ? "Requires direct server maintenance link or rooted network access."
-            : null;
+        ConstructButton.Disabled = true;
+        ConstructButton.ToolTip = "Module construction moved to the physical server console.";
+        ModuleDesc.SetMessage("Module construction is now handled by the physical server console.");
 
         if (_selectedShard == null)
             DefensiveModeCheck.Pressed = false;

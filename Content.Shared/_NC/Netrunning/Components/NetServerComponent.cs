@@ -75,6 +75,75 @@ public enum NetNodeUiKey : byte
 }
 
 [Serializable, NetSerializable]
+public enum NetServerUiKey : byte
+{
+    Key
+}
+
+[Serializable, NetSerializable]
+public sealed record NetServerDeviceInfo(NetEntity Uid, string Name, string Class);
+
+[Serializable, NetSerializable]
+public sealed class NetServerScanMessage : BoundUserInterfaceMessage
+{
+}
+
+[Serializable, NetSerializable]
+public sealed class NetServerConstructMessage : BoundUserInterfaceMessage
+{
+    public readonly string ModuleId;
+    public readonly NetEntity Anchor;
+
+    public NetServerConstructMessage(string moduleId, NetEntity anchor)
+    {
+        ModuleId = moduleId;
+        Anchor = anchor;
+    }
+}
+
+[Serializable, NetSerializable]
+public sealed class NetServerUiState : BoundUserInterfaceState
+{
+    public readonly string ServerName;
+    public readonly string ProviderLabel;
+    public readonly int UsedLoad;
+    public readonly int MaxLoad;
+    public readonly int ModuleCount;
+    public readonly int ModuleLimit;
+    public readonly int ConnectedDeviceCount;
+    public readonly bool HasDaemonShard;
+    public readonly List<NetModuleInfo> AvailableModules;
+    public readonly List<NetAnchorInfo> AvailableAnchors;
+    public readonly List<NetServerDeviceInfo> ConnectedDevices;
+
+    public NetServerUiState(
+        string serverName,
+        string providerLabel,
+        int usedLoad,
+        int maxLoad,
+        int moduleCount,
+        int moduleLimit,
+        int connectedDeviceCount,
+        bool hasDaemonShard,
+        List<NetModuleInfo> availableModules,
+        List<NetAnchorInfo> availableAnchors,
+        List<NetServerDeviceInfo> connectedDevices)
+    {
+        ServerName = serverName;
+        ProviderLabel = providerLabel;
+        UsedLoad = usedLoad;
+        MaxLoad = maxLoad;
+        ModuleCount = moduleCount;
+        ModuleLimit = moduleLimit;
+        ConnectedDeviceCount = connectedDeviceCount;
+        HasDaemonShard = hasDaemonShard;
+        AvailableModules = availableModules;
+        AvailableAnchors = availableAnchors;
+        ConnectedDevices = connectedDevices;
+    }
+}
+
+[Serializable, NetSerializable]
 public sealed class NetNodeUiState : BoundUserInterfaceState
 {
     public readonly NetEntity PhysicalDevice;

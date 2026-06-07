@@ -61,8 +61,8 @@ public sealed class LogicPowerSystem : SharedLogicPowerSystem
 
         var target = args.Target.Value;
 
-        // Stage 1: Linking to APC
-        if (HasComp<ApcComponent>(target))
+        // Stage 1: Linking to a direct LogicPower provider (LCP/APC/provider node)
+        if (HasComp<LogicPowerProviderComponent>(target) || HasComp<ApcComponent>(target))
         {
             component.ActiveProvider = target;
             _popup.PopupEntity(Loc.GetString("wire-spool-linked-apc"), uid, args.User);

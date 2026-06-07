@@ -13,6 +13,7 @@
     interfaces:
       enum.Content.Shared._NC.Netrunning.Components.CyberdeckUiKey.Key:
         type: Content.Client._NC.Netrunning.UI.CyberdeckBoundUserInterface
+        interactionRange: 0
   - type: Cyberdeck
     maxShards: 2
     maxRam: 15
@@ -43,6 +44,7 @@
     interfaces:
       enum.Content.Shared._NC.Netrunning.Components.CyberdeckUiKey.Key:
         type: Content.Client._NC.Netrunning.UI.CyberdeckBoundUserInterface
+        interactionRange: 0
   - type: Cyberdeck
     maxShards: 4
     maxRam: 40
@@ -74,6 +76,7 @@
     interfaces:
       enum.Content.Shared._NC.Netrunning.Components.CyberdeckUiKey.Key:
         type: Content.Client._NC.Netrunning.UI.CyberdeckBoundUserInterface
+        interactionRange: 0
   - type: Cyberdeck
     maxShards: 6
     maxRam: 100

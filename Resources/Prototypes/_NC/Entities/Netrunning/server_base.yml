@@ -7,6 +7,10 @@
   - type: Sprite
     sprite: Structures/Machines/server.rsi
     state: server
+  - type: UserInterface
+    interfaces:
+      enum.Content.Shared._NC.Netrunning.Components.NetServerUiKey.Key:
+        type: Content.Client._NC.Netrunning.UI.NetServerBoundUserInterface
   - type: NetServer
     maxModules: 3
     maxLoad: 100

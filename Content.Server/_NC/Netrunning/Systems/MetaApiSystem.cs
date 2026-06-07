@@ -27,7 +27,9 @@ using Content.Shared.Damage.Prototypes;
 using Content.Server.Popups;
 using Content.Shared.Popups;
 using Robust.Shared.Audio.Systems;
+using Robust.Shared.Audio;
 using Robust.Shared.Prototypes;
+using Robust.Shared.Log;
 using Content.Shared.Access;
 using Content.Shared.Chat;
 using Robust.Shared.Player;
@@ -44,6 +46,8 @@ namespace Content.Server._NC.Netrunning.Systems;
 
 public sealed class MetaApiSystem : EntitySystem, IMetaRuntimeApi
 {
+    private readonly ISawmill _sawmill = Logger.GetSawmill("meta");
+
     [Dependency] private readonly DoorSystem _doorSystem = default!;
     [Dependency] private readonly PowerReceiverSystem _powerReceiver = default!;
     [Dependency] private readonly ApcSystem _apc = default!;
@@ -51,7 +55,6 @@ public sealed class MetaApiSystem : EntitySystem, IMetaRuntimeApi
     [Dependency] private readonly MetaDaemonSystem _daemon = default!;
     [Dependency] private readonly DamageableSystem _damageable = default!;
     [Dependency] private readonly SharedStunSystem _stun = default!;
-    [Dependency] private readonly MetaVirtualMachineSystem _vm = default!;
     [Dependency] private readonly TurretTargetSettingsSystem _turretAccess = default!;
     [Dependency] private readonly SharedAudioSystem _audio = default!;
     [Dependency] private readonly PopupSystem _popup = default!;
@@ -161,10 +164,8 @@ public sealed class MetaApiSystem : EntitySystem, IMetaRuntimeApi
         if (HasComp<VendingMachineComponent>(target))
             return "VENDING";
 
-        if (TryComp<MetaDataComponent>(target, out var meta))
-            return meta.EntityPrototype?.ID ?? meta.EntityName;
-
-        return string.Empty;
+        var meta = MetaData(target);
+        return meta.EntityPrototype?.ID ?? meta.EntityName;
     }
 
     public bool Inject(EntityUid attacker, EntityUid target, int damage)
@@ -314,7 +315,7 @@ public sealed class MetaApiSystem : EntitySystem, IMetaRuntimeApi
 
     public void Ping(EntityUid target)
     {
-        _audio.PlayPvs("/Audio/Effects/sparks4.ogg", target);
+        _audio.PlayPvs(new SoundPathSpecifier("/Audio/Effects/sparks4.ogg"), target);
         SendNetrunningFeedback(target, "PING", "Network pulse detected.", false);
     }
 
@@ -488,7 +489,8 @@ public sealed class MetaApiSystem : EntitySystem, IMetaRuntimeApi
 
     private EntityCoordinates GetDefenseSpawnCoordinates(EntityUid anchor, NetServerComponent server)
     {
-        if (TryComp<TransformComponent>(anchor, out var anchorXform) && anchorXform.GridUid != null)
+        var anchorXform = Transform(anchor);
+        if (anchorXform.GridUid != null)
             return anchorXform.Coordinates;
 
         var grid = server.DigitalGrid ?? EntityUid.Invalid;
@@ -663,7 +665,7 @@ public sealed class MetaApiSystem : EntitySystem, IMetaRuntimeApi
 
     public void MetaLog(EntityUid deckUid, string text)
     {
-        Logger.InfoS("meta", $"[{ToPrettyString(deckUid)}] {text}");
+        _sawmill.Info($"[{ToPrettyString(deckUid)}] {text}");
         
         _ui.ServerSendUiMessage(deckUid, CyberdeckUiKey.Key, new CyberdeckLogMessage(text));
 
@@ -695,9 +697,10 @@ public sealed class MetaApiSystem : EntitySystem, IMetaRuntimeApi
         cartridgeUid = EntityUid.Invalid;
         cartridge = default!;
 
-        if (TryComp<CitiNetCartridgeComponent>(target, out cartridge))
+        if (TryComp<CitiNetCartridgeComponent>(target, out CitiNetCartridgeComponent? directCartridge))
         {
             cartridgeUid = target;
+            cartridge = directCartridge;
             return true;
         }
 
@@ -705,18 +708,20 @@ public sealed class MetaApiSystem : EntitySystem, IMetaRuntimeApi
             return false;
 
         if (loader.ActiveProgram is { } activeProgram &&
-            TryComp<CitiNetCartridgeComponent>(activeProgram, out cartridge))
+            TryComp<CitiNetCartridgeComponent>(activeProgram, out CitiNetCartridgeComponent? activeCartridge))
         {
             cartridgeUid = activeProgram;
+            cartridge = activeCartridge;
             return true;
         }
 
         foreach (var programUid in loader.BackgroundPrograms)
         {
-            if (!TryComp<CitiNetCartridgeComponent>(programUid, out cartridge))
+            if (!TryComp<CitiNetCartridgeComponent>(programUid, out CitiNetCartridgeComponent? backgroundCartridge))
                 continue;
 
             cartridgeUid = programUid;
+            cartridge = backgroundCartridge;
             return true;
         }
 

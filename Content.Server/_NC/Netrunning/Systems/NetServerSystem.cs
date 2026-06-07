@@ -23,6 +23,7 @@ using System.Linq;
 using Content.Shared.Verbs;
 using Content.Shared.Interaction.Events;
 using Content.Shared._NC.Netrunning.Meta;
+using Content.Shared._NC.Netrunning.Prototypes;
 using Content.Server.Light.Components;
 using Robust.Shared.Containers;
 
@@ -34,8 +35,6 @@ namespace Content.Server._NC.Netrunning.Systems;
 /// </summary>
 public sealed class NetServerSystem : EntitySystem
 {
-    private const float FallbackSubnetRadius = 20f;
-
     [Dependency] private readonly IMapManager _mapManager = default!;
     [Dependency] private readonly MapLoaderSystem _mapLoader = default!;
     [Dependency] private readonly SharedTransformSystem _transform = default!;
@@ -55,12 +54,40 @@ public sealed class NetServerSystem : EntitySystem
         base.Initialize();
         SubscribeLocalEvent<NetServerComponent, MapInitEvent>(OnMapInit);
         SubscribeLocalEvent<NetServerComponent, ComponentShutdown>(OnShutdown);
+        SubscribeLocalEvent<NetServerComponent, BoundUIOpenedEvent>(OnServerUiOpened);
+        SubscribeLocalEvent<NetServerComponent, ActivateInWorldEvent>(OnServerActivate);
+        SubscribeLocalEvent<NetServerComponent, InteractHandEvent>(OnServerInteractHand);
         SubscribeLocalEvent<NetServerComponent, InteractUsingEvent>(OnServerInteractUsing);
+        SubscribeLocalEvent<NetServerComponent, NetServerScanMessage>(OnServerScanMessage);
+        SubscribeLocalEvent<NetServerComponent, NetServerConstructMessage>(OnServerConstructMessage);
         SubscribeLocalEvent<NetServerComponent, GetVerbsEvent<ActivationVerb>>(OnServerVerbs);
         SubscribeLocalEvent<NetDeviceNodeComponent, ActivateInWorldEvent>(OnNodeActivate);
         SubscribeLocalEvent<NetDeviceNodeComponent, NetNodeControlMessage>(OnControlMessage);
         SubscribeLocalEvent<NetDefenseComponent, GetVerbsEvent<UtilityVerb>>(OnDefenseMoveVerbs);
         SubscribeLocalEvent<DefensiveDaemonComponent, GetVerbsEvent<UtilityVerb>>(OnDaemonMoveVerbs);
+    }
+
+    private void OnServerActivate(EntityUid uid, NetServerComponent component, ActivateInWorldEvent args)
+    {
+        OpenServerUi(uid, component, args.User);
+        args.Handled = true;
+    }
+
+    private void OnServerInteractHand(EntityUid uid, NetServerComponent component, InteractHandEvent args)
+    {
+        OpenServerUi(uid, component, args.User);
+        args.Handled = true;
+    }
+
+    private void OpenServerUi(EntityUid uid, NetServerComponent component, EntityUid user)
+    {
+        _ui.OpenUi(uid, NetServerUiKey.Key, user);
+        UpdateServerUi(uid, component, user);
+    }
+
+    private void OnServerUiOpened(EntityUid uid, NetServerComponent component, BoundUIOpenedEvent args)
+    {
+        UpdateServerUi(uid, component, args.Actor);
     }
 
     private void OnServerInteractUsing(EntityUid uid, NetServerComponent component, InteractUsingEvent args)
@@ -81,6 +108,7 @@ public sealed class NetServerSystem : EntitySystem
         if (_containers.Insert(args.Used, container))
         {
             _popup.PopupEntity("Defensive META shard installed into server.", uid, args.User);
+            UpdateServerUi(uid, component, args.User);
             args.Handled = true;
         }
     }
@@ -89,6 +117,12 @@ public sealed class NetServerSystem : EntitySystem
     {
         if (!args.CanAccess || !args.CanInteract)
             return;
+
+        args.Verbs.Add(new ActivationVerb
+        {
+            Text = "Open Server Console",
+            Act = () => OpenServerUi(uid, component, args.User)
+        });
 
         if (!_containers.TryGetContainer(uid, NetServerComponent.DaemonShardContainerId, out var container) ||
             container.ContainedEntities.Count == 0)
@@ -101,9 +135,24 @@ public sealed class NetServerSystem : EntitySystem
             Act = () =>
             {
                 if (_containers.Remove(installed, container))
+                {
                     _popup.PopupEntity("Defensive META shard ejected.", uid, args.User);
+                    UpdateServerUi(uid, component, args.User);
+                }
             }
         });
+    }
+
+    private void OnServerScanMessage(EntityUid uid, NetServerComponent component, NetServerScanMessage args)
+    {
+        RefreshNetwork(uid, component);
+        UpdateServerUi(uid, component, args.Actor);
+    }
+
+    private void OnServerConstructMessage(EntityUid uid, NetServerComponent component, NetServerConstructMessage args)
+    {
+        if (TryConstructModule(uid, component, args.Actor, args.ModuleId, args.Anchor))
+            UpdateServerUi(uid, component, args.Actor);
     }
 
     private void OnNodeActivate(EntityUid uid, NetDeviceNodeComponent component, ActivateInWorldEvent args)
@@ -127,6 +176,66 @@ public sealed class NetServerSystem : EntitySystem
             : Name(physical);
         var state = new NetNodeUiState(GetNetEntity(physical), deviceName, component.Kind, Math.Max(1, component.PhysicalDevices.Count));
         _ui.SetUiState(uid, NetNodeUiKey.Key, state);
+    }
+
+    private void UpdateServerUi(EntityUid uid, NetServerComponent component, EntityUid? user = null)
+    {
+        var modules = new List<NetModuleInfo>();
+        foreach (var proto in _proto.EnumeratePrototypes<NetModulePrototype>())
+        {
+            modules.Add(new NetModuleInfo(proto.ID, proto.Name, proto.Description, proto.RamCost, proto.Price));
+        }
+
+        var anchors = new List<NetAnchorInfo>();
+        if (component.DigitalGrid is { } gridUid && !Deleted(gridUid))
+        {
+            var xformQuery = GetEntityQuery<TransformComponent>();
+            if (xformQuery.TryGetComponent(gridUid, out var gridXform))
+            {
+                var mapId = gridXform.MapID;
+                var gridPos = gridXform.WorldPosition;
+                var query = AllEntityQuery<NetAnchorComponent, TransformComponent>();
+                while (query.MoveNext(out var anchorUid, out var anchor, out var xform))
+                {
+                    if (xform.MapID == mapId && (xform.WorldPosition - gridPos).Length() < 150f)
+                        anchors.Add(new NetAnchorInfo(GetNetEntity(anchorUid), anchor.Direction, anchor.Connected));
+                }
+            }
+        }
+
+        var devices = new List<NetServerDeviceInfo>();
+        foreach (var deviceUid in CollectNetworkDevices(uid))
+        {
+            if (Deleted(deviceUid))
+                continue;
+
+            devices.Add(new NetServerDeviceInfo(GetNetEntity(deviceUid), Name(deviceUid), GetDeviceClass(deviceUid)));
+        }
+
+        var hasDaemonShard =
+            _containers.TryGetContainer(uid, NetServerComponent.DaemonShardContainerId, out var daemonContainer) &&
+            daemonContainer.ContainedEntities.Count > 0;
+
+        var providerLabel = "Provider: none";
+        if (TryComp<LogicPowerReceiverComponent>(uid, out var logicReceiver) && logicReceiver.Provider is { } providerUid && !Deleted(providerUid))
+            providerLabel = $"Provider: {Name(providerUid)}";
+        else if (TryComp<LogicPowerProviderComponent>(uid, out _))
+            providerLabel = $"Provider: {Name(uid)}";
+
+        var state = new NetServerUiState(
+            Name(uid),
+            providerLabel,
+            component.UsedLoad,
+            component.MaxLoad,
+            component.SpawnedModules.Count,
+            component.MaxModules,
+            devices.Count,
+            hasDaemonShard,
+            modules,
+            anchors,
+            devices);
+
+        _ui.SetUiState(uid, NetServerUiKey.Key, state);
     }
 
     private void OnControlMessage(EntityUid uid, NetDeviceNodeComponent component, NetNodeControlMessage args)
@@ -265,6 +374,118 @@ public sealed class NetServerSystem : EntitySystem
             return false;
 
         return deck.ActiveTarget == serverUid || deck.HackedNetworks.Contains(serverUid);
+    }
+
+    private bool TryConstructModule(EntityUid uid, NetServerComponent component, EntityUid user, string moduleId, NetEntity anchorNet)
+    {
+        if (component.DigitalGrid == null)
+        {
+            _popup.PopupEntity("ERROR: Server has no initialized digital grid.", uid, user, PopupType.MediumCaution);
+            return false;
+        }
+
+        if (!_proto.TryIndex<NetModulePrototype>(moduleId, out var module))
+            return false;
+
+        if (component.SpawnedModules.Count >= component.MaxModules)
+        {
+            _popup.PopupEntity($"ERROR: Server module limit reached ({component.MaxModules}).", uid, user, PopupType.MediumCaution);
+            return false;
+        }
+
+        if (component.UsedLoad + module.RamCost > component.MaxLoad)
+        {
+            _popup.PopupEntity($"ERROR: Server load exceeded ({component.UsedLoad + module.RamCost}/{component.MaxLoad}).", uid, user, PopupType.MediumCaution);
+            return false;
+        }
+
+        var gridUid = component.DigitalGrid.Value;
+        if (!HasComp<MapGridComponent>(gridUid))
+            return false;
+
+        var targetAnchorUid = GetEntity(anchorNet);
+        if (!TryComp<NetAnchorComponent>(targetAnchorUid, out var targetAnchor) || targetAnchor.Connected)
+        {
+            _popup.PopupEntity("ERROR: Expansion port is invalid or occupied.", uid, user, PopupType.MediumCaution);
+            return false;
+        }
+
+        var targetXform = Transform(targetAnchorUid);
+        if (!_mapLoader.TryLoadGrid(targetXform.MapID, new ResPath(module.TemplatePath), out var newModuleGrid))
+            return false;
+
+        var loadedGridUid = newModuleGrid.Value.Owner;
+        var oppositeDir = GetOppositeDirection(targetAnchor.Direction);
+        EntityUid? entryAnchorUid = null;
+
+        var anchorQuery = AllEntityQuery<NetAnchorComponent, TransformComponent>();
+        while (anchorQuery.MoveNext(out var aUid, out var anchor, out var xform))
+        {
+            if (xform.ParentUid == loadedGridUid && anchor.Direction == oppositeDir)
+            {
+                entryAnchorUid = aUid;
+                break;
+            }
+        }
+
+        var entryRelativePos = Vector2.Zero;
+        if (entryAnchorUid != null)
+            entryRelativePos = Transform(entryAnchorUid.Value).LocalPosition;
+
+        var targetWorldPos = targetXform.WorldPosition;
+        var spawnWorldPos = targetWorldPos - entryRelativePos;
+        Transform(loadedGridUid).WorldPosition = spawnWorldPos;
+
+        var modComp = EnsureComp<NetModuleComponent>(loadedGridUid);
+        modComp.PrototypeId = module.ID;
+        modComp.ReservedLoad = module.RamCost;
+        modComp.Server = uid;
+
+        targetAnchor.Connected = true;
+        if (entryAnchorUid != null)
+        {
+            var entryAnchor = Comp<NetAnchorComponent>(entryAnchorUid.Value);
+            entryAnchor.Connected = true;
+        }
+
+        component.UsedLoad += module.RamCost;
+        component.SpawnedModules.Add(loadedGridUid);
+        Dirty(uid, component);
+
+        _popup.PopupEntity($"{module.Name} docked to port.", uid, user);
+        return true;
+    }
+
+    private Direction GetOppositeDirection(Direction dir)
+    {
+        return dir switch
+        {
+            Direction.North => Direction.South,
+            Direction.South => Direction.North,
+            Direction.East => Direction.West,
+            Direction.West => Direction.East,
+            _ => Direction.Invalid
+        };
+    }
+
+    private string GetDeviceClass(EntityUid uid)
+    {
+        if (HasComp<DoorComponent>(uid))
+            return "DOOR";
+
+        if (HasComp<SurveillanceCameraComponent>(uid))
+            return "CAMERA";
+
+        if (HasComp<PoweredLightComponent>(uid))
+            return "LIGHT";
+
+        if (HasComp<DeviceNetworkComponent>(uid))
+            return "DEVICE";
+
+        if (HasComp<ApcPowerReceiverComponent>(uid))
+            return "POWERED";
+
+        return "UNKNOWN";
     }
 
     private void OnMapInit(EntityUid uid, NetServerComponent component, MapInitEvent args)
@@ -436,56 +657,12 @@ public sealed class NetServerSystem : EntitySystem
     {
         var devices = new HashSet<EntityUid>();
 
-        if (TryComp<ApcPowerReceiverComponent>(serverUid, out var receiver) && receiver.NetworkLoad.LinkedNetwork != default)
-        {
-            var powerNet = receiver.NetworkLoad.LinkedNetwork;
-            var apcQuery = AllEntityQuery<ApcPowerReceiverComponent, TransformComponent>();
-            while (apcQuery.MoveNext(out var uid, out var apcReceiver, out _))
-            {
-                if (uid != serverUid && apcReceiver.NetworkLoad.LinkedNetwork == powerNet)
-                    devices.Add(uid);
-            }
-        }
-
         if (TryComp<LogicPowerReceiverComponent>(serverUid, out var logicReceiver) && logicReceiver.Provider != null)
             CollectLogicPowerReceivers(serverUid, logicReceiver.Provider.Value, devices);
         else if (TryComp<LogicPowerProviderComponent>(serverUid, out var serverProvider))
             CollectLogicProviderList(serverUid, serverProvider, devices);
 
-        CollectSpatialFallbackDevices(serverUid, devices);
-
         return devices;
-    }
-
-    private void CollectSpatialFallbackDevices(EntityUid serverUid, HashSet<EntityUid> devices)
-    {
-        if (!TryComp<TransformComponent>(serverUid, out var serverXform) || serverXform.GridUid is not { } serverGrid)
-            return;
-
-        var serverPos = serverXform.WorldPosition;
-        var query = EntityQueryEnumerator<TransformComponent>();
-        while (query.MoveNext(out var uid, out var xform))
-        {
-            if (uid == serverUid || Deleted(uid) || xform.GridUid != serverGrid)
-                continue;
-
-            if ((xform.WorldPosition - serverPos).Length() > FallbackSubnetRadius)
-                continue;
-
-            if (!IsSupportedSubnetDevice(uid))
-                continue;
-
-            devices.Add(uid);
-        }
-    }
-
-    private bool IsSupportedSubnetDevice(EntityUid uid)
-    {
-        return HasComp<DoorComponent>(uid) ||
-               HasComp<SurveillanceCameraComponent>(uid) ||
-               HasComp<PoweredLightComponent>(uid) ||
-               HasComp<DeviceNetworkComponent>(uid) ||
-               HasComp<ApcPowerReceiverComponent>(uid);
     }
 
     private void CollectLogicPowerReceivers(EntityUid serverUid, EntityUid providerUid, HashSet<EntityUid> devices)
