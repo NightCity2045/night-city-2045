@@ -410,6 +410,30 @@ public sealed class MetaProgramSystem : EntitySystem
     private bool TryGetDeckUser(EntityUid deckUid, out EntityUid user)
     {
         user = EntityUid.Invalid;
+
+        // In HotSim the deck is linked to the netrunner via NetAvatarComponent,
+        // not necessarily through a direct transform parent chain.
+        var avatarQuery = EntityQueryEnumerator<NetAvatarComponent>();
+        while (avatarQuery.MoveNext(out var avatarUid, out var avatar))
+        {
+            if (avatar.Cyberdeck != deckUid)
+                continue;
+
+            if (HasComp<ActorComponent>(avatarUid))
+            {
+                user = avatarUid;
+                return true;
+            }
+
+            if (avatar.PhysicalBody is { } bodyUid &&
+                !Deleted(bodyUid) &&
+                HasComp<ActorComponent>(bodyUid))
+            {
+                user = bodyUid;
+                return true;
+            }
+        }
+
         if (!TryComp<TransformComponent>(deckUid, out var xform))
             return false;
 

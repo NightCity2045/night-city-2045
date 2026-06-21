@@ -17,19 +17,28 @@ public sealed partial class NetServerConsoleWindow : DefaultWindow
     public event Action? OnRefreshRequested;
     public event Action<string, NetEntity>? OnConstructRequested;
     public event Action? OnAdminRequested;
+    public event Action<NetEntity, Vector2i>? OnTopologyMoveRequested;
 
     private List<NetModuleInfo> _availableModules = new();
     private List<NetAnchorInfo> _availableAnchors = new();
+    private List<NetTopologyMapEntry> _topologyEntries = new();
+    private NetEntity? _selectedTopologyEntity;
+    private Vector2i _topologyMinTile = new(-4, -4);
+    private Vector2i _topologyMaxTile = new(4, 4);
     private float _constructGlow;
     private float _headerPulse;
     private float _loadRatio;
     private float _moduleRatio;
     private float _deviceRatio;
     private bool _hasDaemon;
+    private bool _hasTopologyAdminAccess;
 
     public NetServerConsoleWindow()
     {
         RobustXamlLoader.Load(this);
+
+        Tabs.SetTabTitle(0, "Обзор");
+        Tabs.SetTabTitle(1, "Топология");
 
         RefreshButton.OnPressed += _ => OnRefreshRequested?.Invoke();
         AdminButton.OnPressed += _ => OnAdminRequested?.Invoke();
@@ -46,12 +55,25 @@ public sealed partial class NetServerConsoleWindow : DefaultWindow
             var id = (string) args.ItemList[args.ItemIndex].Metadata!;
             var module = _availableModules.FirstOrDefault(m => m.Id == id);
             if (module != null)
-                ModuleDesc.SetMessage($"[color=#7fd3ff]{module.Name}[/color]\nLoad: {module.RamCost}\nPrice: {module.Price}\n\n{module.Description}");
+                ModuleDesc.SetMessage($"[color=#7fd3ff]{module.Name}[/color]\nНагрузка: {module.RamCost}\nЦена: {module.Price}\n\n{module.Description}");
 
             RefreshConstructState();
         };
 
         PortList.OnItemSelected += _ => RefreshConstructState();
+        TopologyList.OnItemSelected += args =>
+        {
+            _selectedTopologyEntity = (NetEntity) args.ItemList[args.ItemIndex].Metadata!;
+            RefreshTopologySelection();
+        };
+
+        TopologyMap.OnTilePressed += tile =>
+        {
+            if (!_hasTopologyAdminAccess || _selectedTopologyEntity is not { } selected)
+                return;
+
+            OnTopologyMoveRequested?.Invoke(selected, tile);
+        };
     }
 
     public void UpdateState(NetServerUiState state)
@@ -64,8 +86,8 @@ public sealed partial class NetServerConsoleWindow : DefaultWindow
         DaemonLabel.Text = state.HasDaemonShard ? "Демон: установлен" : "Демон: пусто";
         AccessLabel.Text = state.AccessStatus;
         FooterLabel.Text = state.CanRequestAdmin
-            ? "Подключенная дека обнаружена. Можно открыть локальный админ-сеанс."
-            : "Для админ-сеанса сначала подключи деку к этому серверу.";
+            ? "Подключенная дека обнаружена. Можно открыть локальный admin-сеанс."
+            : "Для admin-сеанса сначала подключи деку к этому серверу.";
         AdminButton.Disabled = !state.CanRequestAdmin || state.HasAdminAccess;
         AdminButton.Text = state.HasPersistentRoot
             ? "Рут уже получен"
@@ -77,6 +99,7 @@ public sealed partial class NetServerConsoleWindow : DefaultWindow
         _moduleRatio = state.ModuleLimit > 0 ? (float) state.ModuleCount / state.ModuleLimit : 0f;
         _deviceRatio = Math.Clamp(state.ConnectedDeviceCount / 16f, 0f, 1f);
         _hasDaemon = state.HasDaemonShard;
+        _hasTopologyAdminAccess = state.HasAdminAccess;
         TelemetryPanel.SetTelemetry(_loadRatio, _moduleRatio, _deviceRatio, _hasDaemon);
 
         DeviceList.Clear();
@@ -89,7 +112,7 @@ public sealed partial class NetServerConsoleWindow : DefaultWindow
         _availableAnchors = state.AvailableAnchors;
         foreach (var port in _availableAnchors)
         {
-            var text = port.Connected ? $"[Occupied] Port {port.Dir}" : $"Port {port.Dir}";
+            var text = port.Connected ? $"[Занят] Порт {port.Dir}" : $"Порт {port.Dir}";
             var item = PortList.AddItem(text, metadata: port.Uid);
             item.Disabled = port.Connected;
         }
@@ -101,7 +124,14 @@ public sealed partial class NetServerConsoleWindow : DefaultWindow
             ModuleList.AddItem(module.Name, metadata: module.Id);
         }
 
+        _topologyEntries = state.TopologyEntries.OrderBy(e => e.Class).ThenBy(e => e.Name).ToList();
+        _topologyMinTile = state.TopologyMinTile;
+        _topologyMaxTile = state.TopologyMaxTile;
+        RebuildTopologyList();
+
         RefreshConstructState();
+        RefreshTopologyStatus();
+        RefreshTopologySelection();
     }
 
     protected override void FrameUpdate(FrameEventArgs args)
@@ -132,10 +162,80 @@ public sealed partial class NetServerConsoleWindow : DefaultWindow
             : Color.FromHex("#ffcf73");
     }
 
+    private void RebuildTopologyList()
+    {
+        var previouslySelected = _selectedTopologyEntity;
+        TopologyList.Clear();
+
+        foreach (var entry in _topologyEntries)
+        {
+            var item = TopologyList.AddItem($"[{entry.Class}] {entry.Name}", metadata: entry.Uid);
+            if (previouslySelected is { } selected && entry.Uid == selected)
+                item.Selected = true;
+        }
+
+        if (_topologyEntries.Count == 0)
+        {
+            _selectedTopologyEntity = null;
+            return;
+        }
+
+        if (previouslySelected is { } selectedEntry && _topologyEntries.Any(entry => entry.Uid == selectedEntry))
+        {
+            _selectedTopologyEntity = selectedEntry;
+            return;
+        }
+
+        _selectedTopologyEntity = _topologyEntries[0].Uid;
+        TopologyList[0].Selected = true;
+    }
+
     private void RefreshConstructState()
     {
         ConstructButton.Disabled = !ModuleList.GetSelected().Any() || !PortList.GetSelected().Any();
         if (ConstructButton.Disabled)
             ModuleDesc.SetMessage("[color=#768692]Выбери пакет комнаты и свободный порт, чтобы начать сборку.[/color]");
+    }
+
+    private void RefreshTopologyStatus()
+    {
+        if (!_hasTopologyAdminAccess)
+        {
+            TopologyStatusLabel.Text = "Размещение заблокировано. Сначала открой локальный admin-сеанс или получи ROOT.";
+            return;
+        }
+
+        if (_topologyEntries.Count == 0)
+        {
+            TopologyStatusLabel.Text = "В этой локальной сети пока нет узлов, которые можно разместить вручную.";
+            return;
+        }
+
+        TopologyStatusLabel.Text = "Выбери узел в списке. Затем нажми свободный тайл на карте топологии.";
+    }
+
+    private void RefreshTopologySelection()
+    {
+        TopologyMap.SetTopology(_topologyMinTile, _topologyMaxTile, _topologyEntries, _selectedTopologyEntity);
+
+        if (_selectedTopologyEntity is not { } selected)
+        {
+            TopologySelectionLabel.SetMessage("[color=#768692]Узел не выбран.[/color]");
+            return;
+        }
+
+        var entry = _topologyEntries.FirstOrDefault(x => x.Uid == selected);
+        if (entry == null)
+        {
+            TopologySelectionLabel.SetMessage("[color=#768692]Узел не выбран.[/color]");
+            return;
+        }
+
+        var accessText = _hasTopologyAdminAccess ? "Размещение доступно" : "Размещение заблокировано";
+        TopologySelectionLabel.SetMessage(
+            $"[color=#ffd27a]Выбран:[/color] {entry.Name}\n" +
+            $"Класс: {entry.Class}\n" +
+            $"Позиция: {entry.Tile.X}, {entry.Tile.Y}\n" +
+            $"{accessText}");
     }
 }

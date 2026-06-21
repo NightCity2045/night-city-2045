@@ -53,51 +53,83 @@
             </BoxContainer>
         </PanelContainer>
 
-        <BoxContainer Orientation="Horizontal" SeparationOverride="8" VerticalExpand="True">
-            <PanelContainer StyleClasses="NetTerminalPanel" HorizontalExpand="True" VerticalExpand="True">
-                <BoxContainer Orientation="Vertical" Margin="6" SeparationOverride="4">
-                    <BoxContainer Orientation="Horizontal">
-                        <Label Text="УСТРОЙСТВА СЕГМЕНТА ЛКП" StyleClasses="NetTerminalSectionTitle" />
-                        <BoxContainer HorizontalExpand="True" />
-                        <Button Name="RefreshButton" Text="Обновить топологию" StyleClasses="NetTerminalButton" />
+        <TabContainer Name="Tabs" VerticalExpand="True">
+            <BoxContainer Name="OverviewTab" Orientation="Horizontal" SeparationOverride="8" VerticalExpand="True">
+                <PanelContainer StyleClasses="NetTerminalPanel" HorizontalExpand="True" VerticalExpand="True">
+                    <BoxContainer Orientation="Vertical" Margin="6" SeparationOverride="4">
+                        <BoxContainer Orientation="Horizontal">
+                            <Label Text="УСТРОЙСТВА СЕГМЕНТА ЛКП" StyleClasses="NetTerminalSectionTitle" />
+                            <BoxContainer HorizontalExpand="True" />
+                            <Button Name="RefreshButton" Text="Обновить топологию" StyleClasses="NetTerminalButton" />
+                        </BoxContainer>
+                        <Label Text="В локальную сеть выводятся только узлы, сидящие на том же прямом источнике логического питания."
+                               StyleClasses="NetTerminalSectionText"
+                               ClipText="True" />
+                        <PanelContainer StyleClasses="NetTerminalInset" VerticalExpand="True">
+                            <ItemList Name="DeviceList" VerticalExpand="True" />
+                        </PanelContainer>
                     </BoxContainer>
-                    <Label Text="В локальную сеть выводятся только узлы, сидящие на том же прямом источнике логического питания."
-                           StyleClasses="NetTerminalSectionText"
-                           ClipText="True" />
-                    <PanelContainer StyleClasses="NetTerminalInset" VerticalExpand="True">
-                        <ItemList Name="DeviceList" VerticalExpand="True" />
-                    </PanelContainer>
-                </BoxContainer>
-            </PanelContainer>
+                </PanelContainer>
 
-            <PanelContainer StyleClasses="NetTerminalPanel" HorizontalExpand="True" VerticalExpand="True">
-                <BoxContainer Orientation="Vertical" Margin="6" SeparationOverride="4">
-                    <Label Text="ПОРТЫ ТОПОЛОГИИ" StyleClasses="NetTerminalSectionTitle" />
-                    <Label Text="Свободные порты принимают новые комнаты и профильные кластеры локальной сети."
-                           StyleClasses="NetTerminalSectionText"
-                           ClipText="True" />
-                    <PanelContainer StyleClasses="NetTerminalInset" VerticalExpand="True">
-                        <ItemList Name="PortList" VerticalExpand="True" />
-                    </PanelContainer>
-                </BoxContainer>
-            </PanelContainer>
+                <PanelContainer StyleClasses="NetTerminalPanel" HorizontalExpand="True" VerticalExpand="True">
+                    <BoxContainer Orientation="Vertical" Margin="6" SeparationOverride="4">
+                        <Label Text="ПОРТЫ ТОПОЛОГИИ" StyleClasses="NetTerminalSectionTitle" />
+                        <Label Text="Свободные порты принимают новые комнаты и профильные кластеры локальной сети."
+                               StyleClasses="NetTerminalSectionText"
+                               ClipText="True" />
+                        <PanelContainer StyleClasses="NetTerminalInset" VerticalExpand="True">
+                            <ItemList Name="PortList" VerticalExpand="True" />
+                        </PanelContainer>
+                    </BoxContainer>
+                </PanelContainer>
 
-            <PanelContainer StyleClasses="NetTerminalPanel" HorizontalExpand="True" VerticalExpand="True">
-                <BoxContainer Orientation="Vertical" Margin="6" SeparationOverride="4">
-                    <Label Text="СБОРКА МОДУЛЯ" StyleClasses="NetTerminalSectionTitle" />
-                    <Label Text="Выбери пакет комнаты и вшей его в совместимый расширительный порт."
-                           StyleClasses="NetTerminalSectionText"
-                           ClipText="True" />
-                    <PanelContainer StyleClasses="NetTerminalInset" MinHeight="150">
-                        <ItemList Name="ModuleList" VerticalExpand="True" />
-                    </PanelContainer>
-                    <PanelContainer StyleClasses="NetTerminalInset" VerticalExpand="True">
-                        <RichTextLabel Name="ModuleDesc" Margin="4" VerticalExpand="True" />
-                    </PanelContainer>
-                    <Button Name="ConstructButton" Text="Собрать модуль" StyleClasses="NetTerminalActionButton" />
-                </BoxContainer>
-            </PanelContainer>
-        </BoxContainer>
+                <PanelContainer StyleClasses="NetTerminalPanel" HorizontalExpand="True" VerticalExpand="True">
+                    <BoxContainer Orientation="Vertical" Margin="6" SeparationOverride="4">
+                        <Label Text="СБОРКА МОДУЛЯ" StyleClasses="NetTerminalSectionTitle" />
+                        <Label Text="Выбери пакет комнаты и вшей его в совместимый расширительный порт."
+                               StyleClasses="NetTerminalSectionText"
+                               ClipText="True" />
+                        <PanelContainer StyleClasses="NetTerminalInset" MinHeight="150">
+                            <ItemList Name="ModuleList" VerticalExpand="True" />
+                        </PanelContainer>
+                        <PanelContainer StyleClasses="NetTerminalInset" VerticalExpand="True">
+                            <RichTextLabel Name="ModuleDesc" Margin="4" VerticalExpand="True" />
+                        </PanelContainer>
+                        <Button Name="ConstructButton" Text="Собрать модуль" StyleClasses="NetTerminalActionButton" />
+                    </BoxContainer>
+                </PanelContainer>
+            </BoxContainer>
+
+            <BoxContainer Name="TopologyTab" Orientation="Horizontal" SeparationOverride="8" VerticalExpand="True">
+                <PanelContainer StyleClasses="NetTerminalPanel" MinWidth="280" HorizontalExpand="True" VerticalExpand="True">
+                    <BoxContainer Orientation="Vertical" Margin="6" SeparationOverride="4">
+                        <Label Text="РАЗМЕЩЕНИЕ УЗЛОВ" StyleClasses="NetTerminalSectionTitle" />
+                        <Label Name="TopologyStatusLabel"
+                               Text="Выбери узел в списке. Затем нажми свободный тайл на карте топологии."
+                               StyleClasses="NetTerminalSectionText"
+                               ClipText="True" />
+                        <PanelContainer StyleClasses="NetTerminalInset" VerticalExpand="True">
+                            <ItemList Name="TopologyList" VerticalExpand="True" />
+                        </PanelContainer>
+                        <PanelContainer StyleClasses="NetTerminalInset" MinHeight="88">
+                            <RichTextLabel Name="TopologySelectionLabel" Margin="4" VerticalExpand="True" />
+                        </PanelContainer>
+                    </BoxContainer>
+                </PanelContainer>
+
+                <PanelContainer StyleClasses="NetTerminalPanel" HorizontalExpand="True" VerticalExpand="True">
+                    <BoxContainer Orientation="Vertical" Margin="6" SeparationOverride="4">
+                        <Label Text="КАРТА ТОПОЛОГИИ" StyleClasses="NetTerminalSectionTitle" />
+                        <Label Text="Клик по свободному тайлу мгновенно переносит выбранный узел. Требуется локальный admin или ROOT."
+                               StyleClasses="NetTerminalSectionText"
+                               ClipText="True" />
+                        <PanelContainer StyleClasses="NetTerminalInset" VerticalExpand="True">
+                            <ui:NetTopologyMapControl Name="TopologyMap" HorizontalExpand="True" VerticalExpand="True" />
+                        </PanelContainer>
+                    </BoxContainer>
+                </PanelContainer>
+            </BoxContainer>
+        </TabContainer>
 
         <PanelContainer StyleClasses="NetTerminalFooter">
             <BoxContainer Orientation="Horizontal" Margin="8" SeparationOverride="8">

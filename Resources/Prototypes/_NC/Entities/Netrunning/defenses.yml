@@ -16,9 +16,9 @@
     maxHealth: 100
     currentHealth: 100
   - type: Transform
-    anchored: true
+    anchored: false
   - type: Physics
-    bodyType: Static
+    bodyType: Dynamic
   - type: Fixtures
     fixtures:
       fix1:
@@ -72,4 +72,3 @@
         - MobMask
         layer:
         - MobLayer
-

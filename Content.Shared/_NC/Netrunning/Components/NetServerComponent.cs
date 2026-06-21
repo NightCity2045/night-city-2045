@@ -2,6 +2,7 @@ using Robust.Shared.GameStates;
 using Robust.Shared.Serialization;
 using Robust.Shared.Prototypes;
 using Content.Shared._NC.Netrunning.Meta;
+using Robust.Shared.Maths;
 
 namespace Content.Shared._NC.Netrunning.Components;
 
@@ -58,6 +59,11 @@ public sealed partial class NetServerComponent : Component
     ///     Persistent ICE, Black ICE, and demons hosted by this server.
     /// </summary>
     public List<EntityUid> SpawnedDefenses = new();
+
+    /// <summary>
+    ///     Runtime topology layout for device nodes, keyed by the physical device identity.
+    /// </summary>
+    public Dictionary<string, Vector2i> NodeLayout = new();
 }
 
 [Serializable, NetSerializable]
@@ -85,6 +91,9 @@ public enum NetServerUiKey : byte
 public sealed record NetServerDeviceInfo(NetEntity Uid, string Name, string Class);
 
 [Serializable, NetSerializable]
+public sealed record NetTopologyMapEntry(NetEntity Uid, string Name, string Class, Vector2i Tile);
+
+[Serializable, NetSerializable]
 public sealed class NetServerScanMessage : BoundUserInterfaceMessage
 {
 }
@@ -108,6 +117,19 @@ public sealed class NetServerAdminMessage : BoundUserInterfaceMessage
 }
 
 [Serializable, NetSerializable]
+public sealed class NetServerTopologyMoveMessage : BoundUserInterfaceMessage
+{
+    public readonly NetEntity Target;
+    public readonly Vector2i Tile;
+
+    public NetServerTopologyMoveMessage(NetEntity target, Vector2i tile)
+    {
+        Target = target;
+        Tile = tile;
+    }
+}
+
+[Serializable, NetSerializable]
 public sealed class NetServerUiState : BoundUserInterfaceState
 {
     public readonly string ServerName;
@@ -122,9 +144,12 @@ public sealed class NetServerUiState : BoundUserInterfaceState
     public readonly bool HasPersistentRoot;
     public readonly bool CanRequestAdmin;
     public readonly string AccessStatus;
+    public readonly Vector2i TopologyMinTile;
+    public readonly Vector2i TopologyMaxTile;
     public readonly List<NetModuleInfo> AvailableModules;
     public readonly List<NetAnchorInfo> AvailableAnchors;
     public readonly List<NetServerDeviceInfo> ConnectedDevices;
+    public readonly List<NetTopologyMapEntry> TopologyEntries;
 
     public NetServerUiState(
         string serverName,
@@ -139,9 +164,12 @@ public sealed class NetServerUiState : BoundUserInterfaceState
         bool hasPersistentRoot,
         bool canRequestAdmin,
         string accessStatus,
+        Vector2i topologyMinTile,
+        Vector2i topologyMaxTile,
         List<NetModuleInfo> availableModules,
         List<NetAnchorInfo> availableAnchors,
-        List<NetServerDeviceInfo> connectedDevices)
+        List<NetServerDeviceInfo> connectedDevices,
+        List<NetTopologyMapEntry> topologyEntries)
     {
         ServerName = serverName;
         ProviderLabel = providerLabel;
@@ -155,9 +183,12 @@ public sealed class NetServerUiState : BoundUserInterfaceState
         HasPersistentRoot = hasPersistentRoot;
         CanRequestAdmin = canRequestAdmin;
         AccessStatus = accessStatus;
+        TopologyMinTile = topologyMinTile;
+        TopologyMaxTile = topologyMaxTile;
         AvailableModules = availableModules;
         AvailableAnchors = availableAnchors;
         ConnectedDevices = connectedDevices;
+        TopologyEntries = topologyEntries;
     }
 }
 
@@ -223,4 +254,10 @@ public sealed partial class NetDeviceNodeComponent : Component
 
     [ViewVariables(VVAccess.ReadOnly), AutoNetworkedField, DataField]
     public EntityUid? Server;
+
+    /// <summary>
+    ///     Server-side bookkeeping for live viewers of this node's physical feed.
+    /// </summary>
+    [ViewVariables]
+    public HashSet<EntityUid> ActiveViewers = new();
 }

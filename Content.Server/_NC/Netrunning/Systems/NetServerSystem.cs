@@ -28,6 +28,12 @@ using Content.Server.Light.Components;
 using Robust.Shared.Containers;
 using Content.Shared.Hands.Components;
 using Content.Shared.Inventory;
+using Robust.Server.GameObjects;
+using Robust.Shared.Player;
+using Content.Server.SurveillanceCamera;
+using Content.Shared.Pulling.Events;
+using Content.Shared.Movement.Pulling.Components;
+using Content.Shared.Movement.Pulling.Events;
 
 namespace Content.Server._NC.Netrunning.Systems;
 
@@ -37,6 +43,8 @@ namespace Content.Server._NC.Netrunning.Systems;
 /// </summary>
 public sealed class NetServerSystem : EntitySystem
 {
+    private readonly Dictionary<EntityUid, EntityUid> _draggedTopologyByAvatar = new();
+
     [Dependency] private readonly IMapManager _mapManager = default!;
     [Dependency] private readonly MapLoaderSystem _mapLoader = default!;
     [Dependency] private readonly SharedTransformSystem _transform = default!;
@@ -52,6 +60,8 @@ public sealed class NetServerSystem : EntitySystem
     [Dependency] private readonly SharedContainerSystem _containers = default!;
     [Dependency] private readonly InventorySystem _inventory = default!;
     [Dependency] private readonly MetaProgramSystem _metaProgram = default!;
+    [Dependency] private readonly ViewSubscriberSystem _viewSubscribers = default!;
+    [Dependency] private readonly SurveillanceCameraSystem _surveillanceCameras = default!;
 
     public override void Initialize()
     {
@@ -65,10 +75,23 @@ public sealed class NetServerSystem : EntitySystem
         SubscribeLocalEvent<NetServerComponent, NetServerScanMessage>(OnServerScanMessage);
         SubscribeLocalEvent<NetServerComponent, NetServerConstructMessage>(OnServerConstructMessage);
         SubscribeLocalEvent<NetServerComponent, NetServerAdminMessage>(OnServerAdminMessage);
+        SubscribeLocalEvent<NetServerComponent, NetServerTopologyMoveMessage>(OnServerTopologyMoveMessage);
         SubscribeLocalEvent<NetServerComponent, GetVerbsEvent<ActivationVerb>>(OnServerVerbs);
+        SubscribeLocalEvent<NetAvatarComponent, MoveEvent>(OnAvatarMove);
+        SubscribeLocalEvent<NetAvatarComponent, StartPullAttemptEvent>(OnAvatarStartPullAttempt);
+        SubscribeLocalEvent<NetAvatarComponent, ComponentShutdown>(OnAvatarShutdown);
         SubscribeLocalEvent<NetDeviceNodeComponent, ActivateInWorldEvent>(OnNodeActivate);
+        SubscribeLocalEvent<NetDeviceNodeComponent, BoundUIOpenedEvent>(OnNodeUiOpened);
+        SubscribeLocalEvent<NetDeviceNodeComponent, BoundUIClosedEvent>(OnNodeUiClosed);
+        SubscribeLocalEvent<NetDeviceNodeComponent, ComponentShutdown>(OnNodeShutdown);
+        SubscribeLocalEvent<NetDeviceNodeComponent, BeingPulledAttemptEvent>(OnNodeBeingPulledAttempt);
+        SubscribeLocalEvent<NetDeviceNodeComponent, AttemptStopPullingEvent>(OnTopologyStopPullingAttempt);
         SubscribeLocalEvent<NetDeviceNodeComponent, NetNodeControlMessage>(OnControlMessage);
         SubscribeLocalEvent<NetDeviceNodeComponent, NetNodeExecuteShardMessage>(OnExecuteShardMessage);
+        SubscribeLocalEvent<NetDefenseComponent, BeingPulledAttemptEvent>(OnDefenseBeingPulledAttempt);
+        SubscribeLocalEvent<NetDefenseComponent, AttemptStopPullingEvent>(OnTopologyStopPullingAttempt);
+        SubscribeLocalEvent<NetDataGateComponent, BeingPulledAttemptEvent>(OnDataGateBeingPulledAttempt);
+        SubscribeLocalEvent<NetDataGateComponent, AttemptStopPullingEvent>(OnTopologyStopPullingAttempt);
         SubscribeLocalEvent<NetDefenseComponent, GetVerbsEvent<UtilityVerb>>(OnDefenseMoveVerbs);
         SubscribeLocalEvent<DefensiveDaemonComponent, GetVerbsEvent<UtilityVerb>>(OnDaemonMoveVerbs);
     }
@@ -198,6 +221,23 @@ public sealed class NetServerSystem : EntitySystem
         _metaProgram.UpdateUi(deckUid, deck, args.Actor);
     }
 
+    private void OnServerTopologyMoveMessage(EntityUid uid, NetServerComponent component, NetServerTopologyMoveMessage args)
+    {
+        if (!args.Actor.Valid)
+            return;
+
+        var targetUid = GetEntity(args.Target);
+        if (Deleted(targetUid) || ResolveTopologyServer(targetUid) != uid)
+        {
+            _popup.PopupEntity("ОШИБКА: выбранный узел больше не принадлежит этой локальной сети.", uid, args.Actor, PopupType.MediumCaution);
+            UpdateServerUi(uid, component, args.Actor);
+            return;
+        }
+
+        if (TryMoveTopologyEntityToTile(targetUid, uid, args.Actor, args.Tile))
+            UpdateServerUi(uid, component, args.Actor);
+    }
+
     private void OnNodeActivate(EntityUid uid, NetDeviceNodeComponent component, ActivateInWorldEvent args)
     {
         var physical = component.PhysicalDevice;
@@ -210,12 +250,109 @@ public sealed class NetServerSystem : EntitySystem
             _metaProgram.UpdateUi(deckUid, deck, args.User);
         }
 
-        // Ensure netrunner can "see" through the device
-        var eyeComp = EnsureComp<EyeComponent>(physical);
-        _eye.SetVisibilityMask(physical, 1, eyeComp); // Use int 1 for basic visibility
-
         _ui.OpenUi(uid, NetNodeUiKey.Key, args.User);
         UpdateNodeUi(uid, component, args.User);
+    }
+
+    private void OnNodeUiOpened(EntityUid uid, NetDeviceNodeComponent component, BoundUIOpenedEvent args)
+    {
+        SubscribeNodeViewer(uid, component, args.Actor);
+        UpdateNodeUi(uid, component, args.Actor);
+    }
+
+    private void OnNodeUiClosed(EntityUid uid, NetDeviceNodeComponent component, BoundUIClosedEvent args)
+    {
+        UnsubscribeNodeViewer(uid, component, args.Actor);
+    }
+
+    private void OnNodeShutdown(EntityUid uid, NetDeviceNodeComponent component, ComponentShutdown args)
+    {
+        ClearDraggedTopologyTarget(uid);
+
+        foreach (var viewer in component.ActiveViewers.ToArray())
+        {
+            UnsubscribeNodeViewer(uid, component, viewer);
+        }
+    }
+
+    private void OnAvatarShutdown(EntityUid uid, NetAvatarComponent component, ComponentShutdown args)
+    {
+        _draggedTopologyByAvatar.Remove(uid);
+    }
+
+    private void OnAvatarStartPullAttempt(EntityUid uid, NetAvatarComponent component, ref StartPullAttemptEvent args)
+    {
+        if (!TryGetTopologyPullServer(args.Pulled, out var serverUid) || !TryHasNodeAdminAccess(uid, serverUid))
+            return;
+
+        // Topology dragging uses the existing pull gesture, but movement is handled
+        // manually because digital nodes are intentionally pass-through entities.
+        if (_draggedTopologyByAvatar.TryGetValue(uid, out var currentlyDragged) && currentlyDragged == args.Pulled)
+        {
+            _draggedTopologyByAvatar.Remove(uid);
+            args.Cancel();
+            return;
+        }
+
+        _draggedTopologyByAvatar[uid] = args.Pulled;
+        args.Cancel();
+    }
+
+    private void OnAvatarMove(EntityUid uid, NetAvatarComponent component, ref MoveEvent args)
+    {
+        if (!_draggedTopologyByAvatar.TryGetValue(uid, out var pulledUid) ||
+            Deleted(pulledUid) ||
+            !TryGetTopologyPullServer(pulledUid, out var serverUid) ||
+            !TryHasNodeAdminAccess(uid, serverUid))
+        {
+            _draggedTopologyByAvatar.Remove(uid);
+            return;
+        }
+
+        // Keep dragged topology snapped to the avatar's previous tile so manual
+        // net-topology rearranging works on pass-through digital entities.
+        if (args.ParentChanged)
+            return;
+
+        var pulledXform = Transform(pulledUid);
+        if (pulledXform.MapID != args.OldPosition.ToMap(EntityManager, _transform).MapId)
+            return;
+
+        _transform.SetCoordinates(pulledUid, pulledXform, args.OldPosition);
+    }
+
+    private void OnTopologyStopPullingAttempt<TComponent>(EntityUid uid, TComponent component, ref AttemptStopPullingEvent args)
+        where TComponent : IComponent
+    {
+        if (args.User is not { } user)
+            return;
+
+        if (_draggedTopologyByAvatar.TryGetValue(user, out var dragged) && dragged == uid)
+            _draggedTopologyByAvatar.Remove(user);
+    }
+
+    private void OnNodeBeingPulledAttempt(EntityUid uid, NetDeviceNodeComponent component, BeingPulledAttemptEvent args)
+    {
+        // Digital topology may only be rearranged by a netrunner who currently holds
+        // admin/root authority over the owning local server.
+        if (component.Server is not { } serverUid || !TryHasNodeAdminAccess(args.Puller, serverUid))
+            args.Cancel();
+    }
+
+    private void OnDefenseBeingPulledAttempt(EntityUid uid, NetDefenseComponent component, BeingPulledAttemptEvent args)
+    {
+        if (component.Server is not { } serverUid || !TryHasNodeAdminAccess(args.Puller, serverUid))
+            args.Cancel();
+    }
+
+    private void OnDataGateBeingPulledAttempt(EntityUid uid, NetDataGateComponent component, BeingPulledAttemptEvent args)
+    {
+        if (!TryComp<NetDeviceNodeComponent>(uid, out var node) ||
+            node.Server is not { } serverUid ||
+            !TryHasNodeAdminAccess(args.Puller, serverUid))
+        {
+            args.Cancel();
+        }
     }
 
     private void UpdateNodeUi(EntityUid uid, NetDeviceNodeComponent component, EntityUid? user = null)
@@ -314,6 +451,8 @@ public sealed class NetServerSystem : EntitySystem
                     : "ДОСТУП: ДЕКА СВЯЗАНА, СЕАНС НЕ ОТКРЫТ";
         }
 
+        var topologyEntries = BuildTopologyEntries(uid, component, out var topologyMinTile, out var topologyMaxTile);
+
         var state = new NetServerUiState(
             $"СЕРВЕР://{Name(uid).ToUpperInvariant()}",
             providerLabel,
@@ -327,9 +466,12 @@ public sealed class NetServerSystem : EntitySystem
             hasPersistentRoot,
             canRequestAdmin,
             accessStatus,
+            topologyMinTile,
+            topologyMaxTile,
             modules,
             anchors,
-            devices);
+            devices,
+            topologyEntries);
 
         _ui.SetUiState(uid, NetServerUiKey.Key, state);
     }
@@ -411,16 +553,59 @@ public sealed class NetServerSystem : EntitySystem
         UpdateNodeUi(uid, component, args.Actor);
     }
 
+    private void SubscribeNodeViewer(EntityUid nodeUid, NetDeviceNodeComponent component, EntityUid viewer)
+    {
+        if (component.ActiveViewers.Contains(viewer))
+            return;
+
+        var physical = component.PhysicalDevice;
+        if (Deleted(physical) || !TryComp<ActorComponent>(viewer, out var actor))
+            return;
+
+        if (component.Kind == NetDeviceNodeKind.CameraGroup && TryComp<SurveillanceCameraComponent>(physical, out var cameraComp))
+        {
+            _surveillanceCameras.AddActiveViewer(physical, viewer, nodeUid, cameraComp, actor);
+        }
+        else
+        {
+            _viewSubscribers.AddViewSubscriber(physical, actor.PlayerSession);
+        }
+
+        component.ActiveViewers.Add(viewer);
+    }
+
+    private void UnsubscribeNodeViewer(EntityUid nodeUid, NetDeviceNodeComponent component, EntityUid viewer)
+    {
+        if (!component.ActiveViewers.Remove(viewer))
+            return;
+
+        var physical = component.PhysicalDevice;
+        if (Deleted(physical) || !TryComp<ActorComponent>(viewer, out var actor))
+            return;
+
+        if (component.Kind == NetDeviceNodeKind.CameraGroup && TryComp<SurveillanceCameraComponent>(physical, out var cameraComp))
+        {
+            _surveillanceCameras.RemoveActiveViewer(physical, viewer, nodeUid, cameraComp, actor);
+        }
+        else
+        {
+            _viewSubscribers.RemoveViewSubscriber(physical, actor.PlayerSession);
+        }
+    }
+
     private void TryMoveNode(EntityUid nodeUid, NetDeviceNodeComponent node, EntityUid actor, Vector2 offset)
     {
         if (node.Server is not { } serverUid || !TryHasNodeAdminAccess(actor, serverUid))
         {
-            _popup.PopupEntity("ERROR: Root/admin access required to move network nodes.", nodeUid, actor, PopupType.MediumCaution);
+            _popup.PopupEntity("ERROR: Root/admin access required to pull network nodes.", nodeUid, actor, PopupType.MediumCaution);
             return;
         }
 
-        var xform = Transform(nodeUid);
-        _transform.SetLocalPosition(nodeUid, xform.LocalPosition + offset, xform);
+        if (!TryGetTopologyTile(nodeUid, out _, out var tile))
+            return;
+
+        var delta = new Vector2i((int) offset.X, (int) offset.Y);
+        TryMoveTopologyEntityToTile(nodeUid, serverUid, actor, tile + delta);
     }
 
     private void OnDefenseMoveVerbs(EntityUid uid, NetDefenseComponent component, GetVerbsEvent<UtilityVerb> args)
@@ -445,10 +630,10 @@ public sealed class NetServerSystem : EntitySystem
 
     private void AddTopologyMoveVerbs(EntityUid uid, EntityUid serverUid, GetVerbsEvent<UtilityVerb> args)
     {
-        AddTopologyMoveVerb(uid, serverUid, args, "Move North", new Vector2(0, 1));
-        AddTopologyMoveVerb(uid, serverUid, args, "Move South", new Vector2(0, -1));
-        AddTopologyMoveVerb(uid, serverUid, args, "Move West", new Vector2(-1, 0));
-        AddTopologyMoveVerb(uid, serverUid, args, "Move East", new Vector2(1, 0));
+        AddTopologyMoveVerb(uid, serverUid, args, "Pull North", new Vector2(0, 1));
+        AddTopologyMoveVerb(uid, serverUid, args, "Pull South", new Vector2(0, -1));
+        AddTopologyMoveVerb(uid, serverUid, args, "Pull West", new Vector2(-1, 0));
+        AddTopologyMoveVerb(uid, serverUid, args, "Pull East", new Vector2(1, 0));
     }
 
     private void AddTopologyMoveVerb(EntityUid uid, EntityUid serverUid, GetVerbsEvent<UtilityVerb> args, string text, Vector2 offset)
@@ -465,12 +650,185 @@ public sealed class NetServerSystem : EntitySystem
     {
         if (!TryHasNodeAdminAccess(actor, serverUid))
         {
-            _popup.PopupEntity("ERROR: Root/admin access required to move topology.", uid, actor, PopupType.MediumCaution);
+            _popup.PopupEntity("ERROR: Root/admin access required to pull topology.", uid, actor, PopupType.MediumCaution);
             return;
         }
 
+        if (!TryGetTopologyTile(uid, out _, out var tile))
+            return;
+
+        var delta = new Vector2i((int) offset.X, (int) offset.Y);
+        TryMoveTopologyEntityToTile(uid, serverUid, actor, tile + delta);
+    }
+
+    private List<NetTopologyMapEntry> BuildTopologyEntries(EntityUid serverUid, NetServerComponent component, out Vector2i minTile, out Vector2i maxTile)
+    {
+        minTile = new Vector2i(-4, -4);
+        maxTile = new Vector2i(4, 4);
+
+        var entries = new List<NetTopologyMapEntry>();
+        var hadAny = false;
+
+        foreach (var nodeUid in component.SpawnedNodes)
+        {
+            if (Deleted(nodeUid) || !TryGetTopologyTile(nodeUid, out _, out var tile))
+                continue;
+
+            hadAny = true;
+            ExpandTopologyBounds(tile, ref minTile, ref maxTile);
+
+            var className = "УЗЕЛ";
+            if (TryComp<NetDeviceNodeComponent>(nodeUid, out var nodeComp))
+            {
+                className = nodeComp.Kind == NetDeviceNodeKind.CameraGroup
+                    ? "КАМЕРЫ"
+                    : GetDeviceClass(nodeComp.PhysicalDevice);
+            }
+
+            entries.Add(new NetTopologyMapEntry(GetNetEntity(nodeUid), Name(nodeUid), className, tile));
+        }
+
+        foreach (var defenseUid in component.SpawnedDefenses)
+        {
+            if (Deleted(defenseUid) || !TryGetTopologyTile(defenseUid, out _, out var tile))
+                continue;
+
+            hadAny = true;
+            ExpandTopologyBounds(tile, ref minTile, ref maxTile);
+            entries.Add(new NetTopologyMapEntry(GetNetEntity(defenseUid), Name(defenseUid), "ЛЁД", tile));
+        }
+
+        if (!hadAny)
+            return entries;
+
+        minTile -= new Vector2i(2, 2);
+        maxTile += new Vector2i(2, 2);
+        return entries;
+    }
+
+    private void ExpandTopologyBounds(Vector2i tile, ref Vector2i minTile, ref Vector2i maxTile)
+    {
+        minTile = new Vector2i(Math.Min(minTile.X, tile.X), Math.Min(minTile.Y, tile.Y));
+        maxTile = new Vector2i(Math.Max(maxTile.X, tile.X), Math.Max(maxTile.Y, tile.Y));
+    }
+
+    private bool TryGetTopologyTile(EntityUid uid, out EntityUid gridUid, out Vector2i tile)
+    {
+        gridUid = EntityUid.Invalid;
+        tile = default;
+
         var xform = Transform(uid);
-        _transform.SetLocalPosition(uid, xform.LocalPosition + offset, xform);
+        if (xform.GridUid is not { } entityGridUid || Deleted(entityGridUid) || !TryComp<MapGridComponent>(entityGridUid, out var grid))
+            return false;
+
+        gridUid = entityGridUid;
+        tile = _mapSystem.CoordinatesToTile(entityGridUid, grid, xform.Coordinates);
+        return true;
+    }
+
+    private bool TryMoveTopologyEntityToTile(EntityUid uid, EntityUid serverUid, EntityUid actor, Vector2i targetTile)
+    {
+        if (!TryHasNodeAdminAccess(actor, serverUid))
+        {
+            _popup.PopupEntity("ОШИБКА: для перестройки топологии нужен локальный admin или ROOT.", uid, actor, PopupType.MediumCaution);
+            return false;
+        }
+
+        if (!TryGetTopologyTile(uid, out var gridUid, out var currentTile) || !TryComp<MapGridComponent>(gridUid, out var grid))
+            return false;
+
+        if (currentTile == targetTile)
+            return true;
+
+        if (!grid.TryGetTileRef(targetTile, out var tileRef) || tileRef.Tile.IsEmpty)
+        {
+            _popup.PopupEntity("ОШИБКА: выбранный тайл находится вне развернутой карты локальной сети.", uid, actor, PopupType.MediumCaution);
+            return false;
+        }
+
+        if (!IsTopologyTileFree(serverUid, uid, gridUid, targetTile))
+        {
+            _popup.PopupEntity("ОШИБКА: тайл уже занят другим узлом или защитой.", uid, actor, PopupType.MediumCaution);
+            return false;
+        }
+
+        var targetCoords = _mapSystem.GridTileToLocal(gridUid, grid, targetTile);
+        _transform.SetCoordinates(uid, targetCoords);
+
+        if (TryComp<NetServerComponent>(serverUid, out var server) &&
+            TryComp<NetDeviceNodeComponent>(uid, out var nodeComp))
+        {
+            RememberNodeLayout(server, nodeComp, targetTile);
+        }
+
+        return true;
+    }
+
+    private bool IsTopologyTileFree(EntityUid serverUid, EntityUid movingUid, EntityUid gridUid, Vector2i targetTile)
+    {
+        if (!TryComp<NetServerComponent>(serverUid, out var server))
+            return false;
+
+        foreach (var nodeUid in server.SpawnedNodes)
+        {
+            if (nodeUid == movingUid || Deleted(nodeUid))
+                continue;
+
+            if (TryGetTopologyTile(nodeUid, out var otherGridUid, out var otherTile) &&
+                otherGridUid == gridUid &&
+                otherTile == targetTile)
+            {
+                return false;
+            }
+        }
+
+        foreach (var defenseUid in server.SpawnedDefenses)
+        {
+            if (defenseUid == movingUid || Deleted(defenseUid))
+                continue;
+
+            if (TryGetTopologyTile(defenseUid, out var otherGridUid, out var otherTile) &&
+                otherGridUid == gridUid &&
+                otherTile == targetTile)
+            {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    private void RememberNodeLayout(NetServerComponent server, NetDeviceNodeComponent node, Vector2i tile)
+    {
+        var key = GetNodeLayoutKey(node);
+        if (key != null)
+            server.NodeLayout[key] = tile;
+    }
+
+    private Vector2i GetDefaultNodeTile(int index)
+    {
+        var x = (index % 3) * 2 - 2;
+        var y = (index / 3) * 2 - 2;
+        return new Vector2i(x, y);
+    }
+
+    private Vector2i GetNodeSpawnTile(NetServerComponent server, string layoutKey, int index)
+    {
+        if (server.NodeLayout.TryGetValue(layoutKey, out var storedTile))
+            return storedTile;
+
+        return GetDefaultNodeTile(index);
+    }
+
+    private string? GetNodeLayoutKey(NetDeviceNodeComponent node)
+    {
+        if (node.Kind == NetDeviceNodeKind.CameraGroup)
+            return "camera_group";
+
+        if (!node.PhysicalDevice.Valid)
+            return null;
+
+        return $"device:{node.PhysicalDevice}";
     }
 
     private EntityUid? ResolveTopologyServer(EntityUid uid)
@@ -495,6 +853,30 @@ public sealed class NetServerSystem : EntitySystem
             return gridServer;
 
         return null;
+    }
+
+    private bool TryGetTopologyPullServer(EntityUid uid, out EntityUid serverUid)
+    {
+        serverUid = EntityUid.Invalid;
+
+        if (TryComp<DefensiveDaemonComponent>(uid, out _))
+            return false;
+
+        var resolved = ResolveTopologyServer(uid);
+        if (resolved == null)
+            return false;
+
+        serverUid = resolved.Value;
+        return true;
+    }
+
+    private void ClearDraggedTopologyTarget(EntityUid targetUid)
+    {
+        foreach (var (avatarUid, draggedUid) in _draggedTopologyByAvatar.ToArray())
+        {
+            if (draggedUid == targetUid)
+                _draggedTopologyByAvatar.Remove(avatarUid);
+        }
     }
 
     private bool TryHasNodeAdminAccess(EntityUid actor, EntityUid serverUid)
@@ -888,11 +1270,8 @@ public sealed class NetServerSystem : EntitySystem
 
     private void SpawnNodeForDevice(EntityUid serverUid, NetServerComponent server, EntityUid gridUid, EntityUid device, NetDeviceNodeKind kind, int index)
     {
-        // Spread nodes in a 3x3 pattern with 2-tile spacing
-        var x = (index % 3) * 2 - 2;
-        var y = (index / 3) * 2 - 2;
-        
-        var coords = new EntityCoordinates(gridUid, x, y);
+        var spawnTile = GetNodeSpawnTile(server, $"device:{device}", index);
+        var coords = _mapSystem.GridTileToLocal(gridUid, Comp<MapGridComponent>(gridUid), spawnTile);
         var nodeUid = Spawn("NetDeviceNode", coords); 
         
         var nodeComp = EnsureComp<NetDeviceNodeComponent>(nodeUid);
@@ -901,6 +1280,8 @@ public sealed class NetServerSystem : EntitySystem
         nodeComp.Server = serverUid;
         nodeComp.PhysicalDevices.Clear();
         nodeComp.PhysicalDevices.Add(device);
+
+        RememberNodeLayout(server, nodeComp, spawnTile);
         
         _metaData.SetEntityName(nodeUid, $"Node: {Name(device)}");
         
@@ -909,16 +1290,17 @@ public sealed class NetServerSystem : EntitySystem
 
     private void SpawnCameraGroupNode(EntityUid serverUid, NetServerComponent server, EntityUid gridUid, List<EntityUid> cameras, int index)
     {
-        var x = (index % 3) * 2 - 2;
-        var y = (index / 3) * 2 - 2;
-
-        var nodeUid = Spawn("NetDeviceNode", new EntityCoordinates(gridUid, x, y));
+        var spawnTile = GetNodeSpawnTile(server, "camera_group", index);
+        var coords = _mapSystem.GridTileToLocal(gridUid, Comp<MapGridComponent>(gridUid), spawnTile);
+        var nodeUid = Spawn("NetDeviceNode", coords);
         var nodeComp = EnsureComp<NetDeviceNodeComponent>(nodeUid);
         nodeComp.PhysicalDevice = cameras[0];
         nodeComp.Kind = NetDeviceNodeKind.CameraGroup;
         nodeComp.Server = serverUid;
         nodeComp.PhysicalDevices.Clear();
         nodeComp.PhysicalDevices.AddRange(cameras);
+
+        RememberNodeLayout(server, nodeComp, spawnTile);
 
         _metaData.SetEntityName(nodeUid, $"Node: Camera Control ({cameras.Count})");
         server.SpawnedNodes.Add(nodeUid);

@@ -1,4 +1,5 @@
 - type: entity
+  parent: BaseStructure
   id: NetDeviceNode
   name: device node
   description: A digital bridge to a physical device in the real world.
@@ -7,15 +8,15 @@
     sprite: Structures/Machines/server.rsi
     state: server
   - type: InteractionOutline
+  - type: Transform
+    anchored: false
+  - type: Physics
+    bodyType: Dynamic
   - type: NetDeviceNode
   - type: UserInterface
     interfaces:
       enum.Content.Shared._NC.Netrunning.Components.NetNodeUiKey.Key:
         type: Content.Client._NC.Netrunning.UI.NetNodeBoundUserInterface
-  - type: Transform
-    anchored: true
-  - type: Physics
-    bodyType: Static
   - type: Fixtures
     fixtures:
       fix1:

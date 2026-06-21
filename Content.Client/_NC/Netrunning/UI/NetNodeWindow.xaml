@@ -44,15 +44,6 @@
                         <Button Name="ToggleButton" Text="Переключить" StyleClasses="NetTerminalButton" HorizontalExpand="True" />
                         <Button Name="ScanButton" Text="Пересканировать" StyleClasses="NetTerminalButton" HorizontalExpand="True" />
                     </BoxContainer>
-                    <Label Text="Перемещение доступно только при админ-доступе к топологии." StyleClasses="NetTerminalSectionText" ClipText="True" />
-                    <BoxContainer Orientation="Vertical" HorizontalAlignment="Center" SeparationOverride="4">
-                        <Button Name="MoveNorthButton" Text="Сдвиг вверх" StyleClasses="NetTerminalButton" />
-                        <BoxContainer Orientation="Horizontal" SeparationOverride="4" HorizontalAlignment="Center">
-                            <Button Name="MoveWestButton" Text="Сдвиг влево" StyleClasses="NetTerminalButton" />
-                            <Button Name="MoveEastButton" Text="Сдвиг вправо" StyleClasses="NetTerminalButton" />
-                        </BoxContainer>
-                        <Button Name="MoveSouthButton" Text="Сдвиг вниз" StyleClasses="NetTerminalButton" />
-                    </BoxContainer>
                 </BoxContainer>
             </PanelContainer>
         </BoxContainer>
