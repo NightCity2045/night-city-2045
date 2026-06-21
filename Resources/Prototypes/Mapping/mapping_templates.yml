@@ -267,14 +267,93 @@
           id: RandomPottedPlantSpawner
     - !type:MappingTemplatePrototype
       id: Markers
-      children:
-      - !type:MappingTemplatePrototype
-        id: MarkerBase
-      - !type:MappingTemplatePrototype
-        id: Antags
         children:
-          - !type:MappingTemplatePrototype
-            id: WarpPointBombing
+        - !type:MappingTemplatePrototype
+          id: MarkerBase
+        - !type:MappingTemplatePrototype
+          id: DirectorSpawnPoint
+          children:
+            - !type:MappingTemplatePrototype
+              id: DirectorSpawnPointAlleyMeet
+            - !type:MappingTemplatePrototype
+              id: DirectorSpawnPointGangAEntry
+            - !type:MappingTemplatePrototype
+              id: DirectorSpawnPointGangBEntry
+            - !type:MappingTemplatePrototype
+              id: DirectorSpawnPointGangAExit
+            - !type:MappingTemplatePrototype
+              id: DirectorSpawnPointGangBExit
+            - !type:MappingTemplatePrototype
+              id: DirectorSpawnPointStreetMeet
+            - !type:MappingTemplatePrototype
+              id: DirectorSpawnPointMarketMeet
+            - !type:MappingTemplatePrototype
+              id: DirectorSpawnPointWarehouseMeet
+            - !type:MappingTemplatePrototype
+              id: DirectorSpawnPointTransitEntry
+            - !type:MappingTemplatePrototype
+              id: DirectorSpawnPointCheckpointEntry
+            - !type:MappingTemplatePrototype
+              id: DirectorSpawnPointHiddenEntry
+            - !type:MappingTemplatePrototype
+              id: DirectorSpawnPointBackalleyDealMeet
+            - !type:MappingTemplatePrototype
+              id: DirectorSpawnPointBackalleyDealGangAEntry
+            - !type:MappingTemplatePrototype
+              id: DirectorSpawnPointBackalleyDealGangBEntry
+            - !type:MappingTemplatePrototype
+              id: DirectorSpawnPointBackalleyDealGangAExit
+            - !type:MappingTemplatePrototype
+              id: DirectorSpawnPointBackalleyDealGangBExit
+            - !type:MappingTemplatePrototype
+              id: DirectorSpawnPointCheckpointShakedownMeet
+            - !type:MappingTemplatePrototype
+              id: DirectorSpawnPointCheckpointShakedownInspectorsEntry
+            - !type:MappingTemplatePrototype
+              id: DirectorSpawnPointCheckpointShakedownInspectorsExit
+            - !type:MappingTemplatePrototype
+              id: DirectorSpawnPointCorporateSweepMeet
+            - !type:MappingTemplatePrototype
+              id: DirectorSpawnPointCorporateSweepEntry
+            - !type:MappingTemplatePrototype
+              id: DirectorSpawnPointCorporateSweepExit
+            - !type:MappingTemplatePrototype
+              id: DirectorSpawnPointHijackedShipmentMeet
+            - !type:MappingTemplatePrototype
+              id: DirectorSpawnPointHijackedShipmentCouriersEntry
+            - !type:MappingTemplatePrototype
+              id: DirectorSpawnPointHijackedShipmentCouriersExit
+            - !type:MappingTemplatePrototype
+              id: DirectorSpawnPointHijackedShipmentHijackersEntry
+            - !type:MappingTemplatePrototype
+              id: DirectorSpawnPointHijackedShipmentHijackersExit
+            - !type:MappingTemplatePrototype
+              id: DirectorSpawnPointScavengerRushMeet
+            - !type:MappingTemplatePrototype
+              id: DirectorSpawnPointScavengerRushScavsAEntry
+            - !type:MappingTemplatePrototype
+              id: DirectorSpawnPointScavengerRushScavsAExit
+            - !type:MappingTemplatePrototype
+              id: DirectorSpawnPointScavengerRushScavsBEntry
+            - !type:MappingTemplatePrototype
+              id: DirectorSpawnPointScavengerRushScavsBExit
+            - !type:MappingTemplatePrototype
+              id: DirectorSpawnPointStreetTaxCollectionMeet
+            - !type:MappingTemplatePrototype
+              id: DirectorSpawnPointStreetTaxCollectionCollectorsEntry
+            - !type:MappingTemplatePrototype
+              id: DirectorSpawnPointStreetTaxCollectionCollectorsExit
+            - !type:MappingTemplatePrototype
+              id: DirectorSpawnPointTestLivingWorldEventMeet
+            - !type:MappingTemplatePrototype
+              id: DirectorSpawnPointTestLivingWorldEventBanditsEntry
+            - !type:MappingTemplatePrototype
+              id: DirectorSpawnPointTestLivingWorldEventBanditsExit
+        - !type:MappingTemplatePrototype
+          id: Antags
+          children:
+            - !type:MappingTemplatePrototype
+              id: WarpPointBombing
           - !type:MappingTemplatePrototype
             id: RendingRunePlacementMarker
       - !type:MappingTemplatePrototype

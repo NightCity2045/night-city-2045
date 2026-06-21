@@ -1,0 +1,62 @@
+- type: directorEvent
+  id: CorporateSweep
+  parent: NCBaseDirectorEvent
+  name: "Corporate Sweep"
+  weight: 12
+  minPlayers: 6
+  minRoundDuration: 600
+  cooldown: 1200
+  announcerId: "CitiNet"
+  announcementColor: "#8ed1ff"
+  startPhase: "Insertion"
+  phases:
+    Insertion:
+      name: "Insertion"
+      duration: 120
+      announcement: "corp-sweep-insertion"
+      meetLocationTags: ["CorporateSweepMeet"]
+      aiDomain: "DirectorGatherCompound"
+      spawns:
+        - prototype: MobNCMilitechAvengerUnlootable
+          groupTag: "Sweepers"
+          faction: "Passive"
+          entryLocationTags: ["CorporateSweepEntry"]
+          exitLocationTags: ["CorporateSweepExit"]
+          amount: 2
+        - prototype: MobNCMilitechSaratogaUnlootable
+          groupTag: "Sweepers"
+          faction: "Passive"
+          entryLocationTags: ["CorporateSweepEntry"]
+          exitLocationTags: ["CorporateSweepExit"]
+          amount: 1
+      nextPhases:
+        Pressure: 100
+
+    Pressure:
+      name: "Pressure"
+      duration: 90
+      announcement: "corp-sweep-pressure"
+      nextPhases:
+        Breach: 60
+        Withdrawal: 40
+
+    Breach:
+      name: "Breach"
+      duration: 210
+      announcement: "corp-sweep-breach"
+      aiDomain: "DirectorCombatCompound"
+      factionOverrides:
+        Sweepers: "NCMilitech"
+      triggers:
+        - type: MobKilled
+          targetGroup: "Sweepers"
+          count: 2
+      nextPhases:
+        Withdrawal: 100
+
+    Withdrawal:
+      name: "Withdrawal"
+      duration: 60
+      announcement: "corp-sweep-withdrawal"
+      aiDomain: "FleeToExtraction"
+      cleanup: true

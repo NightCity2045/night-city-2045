@@ -1,0 +1,66 @@
+- type: directorEvent
+  id: StreetTaxCollection
+  parent: NCBaseDirectorEvent
+  name: "Street Tax Collection"
+  weight: 16
+  announcerId: "CitiNet"
+  announcementColor: "#f5b942"
+  startPhase: "Arrival"
+  phases:
+    Arrival:
+      name: "Arrival"
+      duration: 120
+      announcement: "street-tax-arrival"
+      meetLocationTags: ["StreetTaxMeet"]
+      aiDomain: "DirectorGatherCompound"
+      spawns:
+        - prototype: MobNCBanditPistolUnlootable
+          groupTag: "Collectors"
+          faction: "Passive"
+          entryLocationTags: ["StreetTaxCollectorsEntry"]
+          exitLocationTags: ["StreetTaxCollectorsExit"]
+          amount: 2
+        - prototype: MobNCBanditMeleeSledgeUnlootable
+          groupTag: "Collectors"
+          faction: "Passive"
+          entryLocationTags: ["StreetTaxCollectorsEntry"]
+          exitLocationTags: ["StreetTaxCollectorsExit"]
+          amount: 1
+      nextPhases:
+        Shakedown: 100
+
+    Shakedown:
+      name: "Shakedown"
+      duration: 90
+      announcement: "street-tax-shakedown"
+      nextPhases:
+        Compliance: 55
+        Violence: 45
+
+    Compliance:
+      name: "Compliance"
+      duration: 60
+      announcement: "street-tax-compliance"
+      nextPhases:
+        Retreat: 100
+
+    Violence:
+      name: "Violence"
+      duration: 180
+      announcement: "street-tax-violence"
+      aiDomain: "DirectorCombatCompound"
+      factionOverrides:
+        Collectors: "NCBandit"
+      triggers:
+        - type: MobKilled
+          targetGroup: "Collectors"
+          count: 2
+      nextPhases:
+        Retreat: 100
+
+    Retreat:
+      name: "Retreat"
+      duration: 45
+      announcement: "street-tax-retreat"
+      aiDomain: "FleeToExtraction"
+      cleanup: true

@@ -2,56 +2,23 @@
   id: NightMarket_Weapons
   name: "Оружие"
   entries:
-  - proto: WeaponPistolHelloCutie
-    price: 60
-    count: 3
   - proto: WeaponPistolOverlord
     price: 80
-    count: 2
-  - proto: WeaponPistolStreetMaster
-    price: 120
-    count: 3
+    count: 1
   - proto: WeaponPistolFederalX9
     price: 150
-    count: 2
-  - proto: WeaponPistolCheesemaker
-    price: 180
-    count: 2
-  - proto: WeaponPistolAvenger
-    price: 350
-    count: 2
-  - proto: NCWeaponRevolverSternmeyerP35
-    price: 400
-    count: 2
+    count: 1
   - proto: WeaponPistolBoomerBuster
     price: 250
-    count: 2
-  - proto: WeaponPistolStukachTommy
-    price: 6000
     count: 1
   - proto: WeaponShotgunSvakha
     price: 120
     count: 7
-  - proto: WeaponRifleNomadGvozdemet
-    price: 800
-    count: 2
-  - proto: WeaponRifleNokotaD5Copperhead
-    price: 1000
-    count: 2
-  - proto: WeaponRifleArasakaNOWAKI
-    price: 1500
-    count: 2
-  - proto: WeaponSubMachineGunMilitechSaratoga
-    price: 700
-    count: 2
   - proto: WeaponSubMachineGunMilitechSaratogaNCPD
     price: 1600
     count: 1
   - proto: WeaponSubMachineGunMilitechSaratogaRED
     price: 1200
-    count: 2
-  - proto: WeaponSubMachineGunArasakaShingen
-    price: 1100
     count: 2
   - proto: WeaponShotgunMilitechCrusher
     price: 1400
@@ -196,10 +163,10 @@
   - proto: EmergencyRollerBedSpawnFolded
     price: 200
     count: 3
-  - proto: Brutepack
+  - proto: Brutepack10Lingering
     price: 30
     count: 20
-  - proto: Ointment
+  - proto: Ointment10Lingering
     price: 30
     count: 20
   - proto: Bloodpack
@@ -223,7 +190,7 @@
     price: 800
     count: 1
   - proto: HydroponicsTrayFlatpack
-    price: 300
+    price: 150
     count: 3
 
 - type: storeCategoryStructured
@@ -231,13 +198,13 @@
   name: "Пром. Оборудование"
   entries:
   - proto: WeaponWorkbenchFlatpack
-    price: 600
+    price: 500
     count: 2
   - proto: ConsoleCompilerFlatpack
     price: 500
     count: 2
   - proto: Civil3DPrinterFlatpack
-    price: 750
+    price: 450
     count: 2
   - proto: ChemDispenserFlatpack
     price: 1000
@@ -274,29 +241,6 @@
   - proto: UnstableMutagenChemistryBottle
     price: 150
     count: 3
-
-- type: storeCategoryStructured
-  id: NightMarket_Hacking
-  name: "Нетраннинг и Софт"
-  entries:
-  - proto: NCCyberdeck
-    price: 700
-    count: 3
-  - proto: NCProgramShock
-    price: 150
-    count: 3
-  - proto: NCProgramDrop
-    price: 100
-    count: 3
-  - proto: NCProgramBlind
-    price: 250
-    count: 3
-  - proto: NeuralLinkCable
-    price: 150
-    count: 3
-  - proto: BurnerChip
-    price: 100
-    count: 5
 
 - type: storeCategoryStructured
   id: NightMarket_TechGear

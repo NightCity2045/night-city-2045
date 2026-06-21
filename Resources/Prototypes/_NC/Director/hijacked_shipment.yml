@@ -1,0 +1,62 @@
+- type: directorEvent
+  id: HijackedShipment
+  parent: NCBaseDirectorEvent
+  name: "Hijacked Shipment"
+  weight: 14
+  announcerId: "CitiNet"
+  announcementColor: "#42c8f5"
+  startPhase: "Staging"
+  phases:
+    Staging:
+      name: "Staging"
+      duration: 120
+      announcement: "shipment-staging"
+      meetLocationTags: ["HijackedShipmentMeet"]
+      aiDomain: "DirectorGatherCompound"
+      spawns:
+        - prototype: MobNCMilitechAvengerUnlootable
+          groupTag: "Couriers"
+          faction: "Passive"
+          entryLocationTags: ["ShipmentCouriersEntry"]
+          exitLocationTags: ["ShipmentCouriersExit"]
+          amount: 2
+        - prototype: MobNCBanditRifleUnlootable
+          groupTag: "Hijackers"
+          faction: "Passive"
+          entryLocationTags: ["ShipmentHijackersEntry"]
+          exitLocationTags: ["ShipmentHijackersExit"]
+          amount: 2
+      nextPhases:
+        Intercept: 100
+
+    Intercept:
+      name: "Intercept"
+      duration: 180
+      announcement: "shipment-intercept"
+      aiDomain: "DirectorCombatCompound"
+      factionOverrides:
+        Couriers: "NCMilitech"
+        Hijackers: "NCBandit"
+      triggers:
+        - type: MobKilled
+          targetGroup: "Couriers"
+          count: 1
+        - type: MobKilled
+          targetGroup: "Hijackers"
+          count: 2
+      nextPhases:
+        Grab: 100
+
+    Grab:
+      name: "Grab"
+      duration: 90
+      announcement: "shipment-grab"
+      nextPhases:
+        Retreat: 100
+
+    Retreat:
+      name: "Retreat"
+      duration: 60
+      announcement: "shipment-retreat"
+      aiDomain: "FleeToExtraction"
+      cleanup: true

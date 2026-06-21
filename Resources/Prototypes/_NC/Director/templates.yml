@@ -1,0 +1,10 @@
+- type: directorEvent
+  id: NCBaseDirectorEvent
+  abstract: true
+  enabled: true
+  weight: 10
+  minPlayers: 4
+  minRoundDuration: 300
+  cooldown: 900
+  maxSimultaneous: 1
+  cleanupOnEnd: true

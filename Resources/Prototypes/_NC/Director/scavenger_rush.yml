@@ -1,0 +1,73 @@
+- type: directorEvent
+  id: ScavengerRush
+  parent: NCBaseDirectorEvent
+  name: "Scavenger Rush"
+  weight: 10
+  minPlayers: 5
+  minRoundDuration: 420
+  cooldown: 900
+  announcerId: "Director"
+  announcementColor: "#9cff57"
+  startPhase: "Convergence"
+  phases:
+    Convergence:
+      name: "Convergence"
+      duration: 120
+      announcement: "scavenger-convergence"
+      meetLocationTags: ["ScavengerRushMeet"]
+      aiDomain: "DirectorGatherCompound"
+      spawns:
+        - prototype: MobNCBiotechnicaAvengerLootable
+          groupTag: "ScavsA"
+          faction: "Passive"
+          entryLocationTags: ["ScavengerRushScavsAEntry"]
+          exitLocationTags: ["ScavengerRushScavsAExit"]
+          amount: 2
+        - prototype: MobNCBanditPistolUnlootable
+          groupTag: "ScavsB"
+          faction: "Passive"
+          entryLocationTags: ["ScavengerRushScavsBEntry"]
+          exitLocationTags: ["ScavengerRushScavsBExit"]
+          amount: 2
+      nextPhases:
+        Dispute: 100
+
+    Dispute:
+      name: "Dispute"
+      duration: 120
+      announcement: "scavenger-dispute"
+      nextPhases:
+        Scramble: 65
+        Split: 35
+
+    Scramble:
+      name: "Scramble"
+      duration: 180
+      announcement: "scavenger-scramble"
+      aiDomain: "DirectorCombatCompound"
+      factionOverrides:
+        ScavsA: "NCBiotechnica"
+        ScavsB: "NCBandit"
+      triggers:
+        - type: MobKilled
+          targetGroup: "ScavsA"
+          count: 1
+        - type: MobKilled
+          targetGroup: "ScavsB"
+          count: 1
+      nextPhases:
+        Fade: 100
+
+    Split:
+      name: "Split"
+      duration: 60
+      announcement: "scavenger-split"
+      nextPhases:
+        Fade: 100
+
+    Fade:
+      name: "Fade"
+      duration: 45
+      announcement: "scavenger-fade"
+      aiDomain: "FleeToExtraction"
+      cleanup: true

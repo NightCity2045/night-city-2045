@@ -16,6 +16,8 @@
   - type: HTN
     rootTask:
       task: NCBanditRootCompound
+  - type: NPCRetaliation
+    attackMemoryLength: 10
   - type: NPCAutoReload
   - type: InputMover
   - type: MobMover

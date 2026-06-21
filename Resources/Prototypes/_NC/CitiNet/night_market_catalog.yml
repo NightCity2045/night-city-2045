@@ -2,24 +2,27 @@
   id: NightMarket_Weapons
   name: "Оружие"
   entries:
-  - proto: WeaponPistolHelloCutie
-    price: 60
-    count: 3
   - proto: WeaponPistolOverlord
     price: 80
-    count: 2
-  - proto: WeaponPistolStreetMaster
+    count: 1
+  - proto: WeaponPistolFederalX9
+    price: 150
+    count: 1
+  - proto: WeaponPistolBoomerBuster
+    price: 250
+    count: 1
+  - proto: WeaponShotgunSvakha
     price: 120
-    count: 3
-  - proto: NCWeaponRevolverSternmeyerP35
-    price: 400
+    count: 7
+  - proto: WeaponSubMachineGunMilitechSaratogaNCPD
+    price: 1600
+    count: 1
+  - proto: WeaponSubMachineGunMilitechSaratogaRED
+    price: 1200
     count: 2
-  - proto: WeaponRifleArasakaNOWAKI
-    price: 1500
-    count: 2
-  - proto: WeaponSubMachineGunMilitechSaratoga
-    price: 700
-    count: 2
+  - proto: WeaponShotgunMilitechCrusher
+    price: 1400
+    count: 1
 
 - type: citiNetStoreCategory
   id: NightMarket_Armor
@@ -31,37 +34,343 @@
   - proto: ClothingOuterVestWebMerc
     price: 250
     count: 3
+  - proto: ClothingOuterVestDetective
+    price: 200
+    count: 3
+  - proto: ClothingOuterArmorRiot
+    price: 400
+    count: 2
+  - proto: ClothingOuterArmorBulletproof
+    price: 600
+    count: 2
   - proto: ClothingHeadHelmetBasic
     price: 80
     count: 5
+  - proto: ClothingHeadHelmetMerc
+    price: 150
+    count: 3
+  - proto: ClothingHeadHelmetRiot
+    price: 250
+    count: 2
 
 - type: citiNetStoreCategory
   id: NightMarket_Ammo
   name: "Боеприпасы"
   entries:
+  - proto: MagazinePistolHelloCutie
+    price: 20
+    count: 15
+  - proto: MagazinePistolOverlord
+    price: 25
+    count: 15
+  - proto: MagazinePistolStreetMaster
+    price: 30
+    count: 10
+  - proto: MagazinePistolMarkIII
+    price: 30
+    count: 10
+  - proto: MagazinePistolFederalX9
+    price: 35
+    count: 10
+  - proto: MagazinePistolCheesemaker
+    price: 40
+    count: 10
+  - proto: MagazinePistolAvenger
+    price: 45
+    count: 10
+  - proto: MagazinePistolBoomerBuster
+    price: 50
+    count: 10
+  - proto: MagazinePistolStukach
+    price: 60
+    count: 5
+  - proto: MagazineRifleNowaki
+    price: 90
+    count: 8
+  - proto: MagazineRifleNokota
+    price: 75
+    count: 8
+  - proto: MagazineRifleNomad
+    price: 60
+    count: 8
+  - proto: MagazineRifleM04
+    price: 90
+    count: 5
+  - proto: CartridgeArasakaRailgun
+    price: 50
+    count: 20
   - proto: AmmoBox9x19
     price: 100
     count: 5
   - proto: AmmoBox11x20
     price: 150
     count: 5
-  - proto: MagazineRifleNowaki
-    price: 90
-    count: 8
+  - proto: AmmoBox13x23
+    price: 200
+    count: 3
+  - proto: AmmoBox556x45CL
+    price: 250
+    count: 2
+  - proto: AmmoBox152mm
+    price: 300
+    count: 2
+  - proto: AmmoBoxNomadSpike
+    price: 100
+    count: 5
+  - proto: BoxShotgunSlug
+    price: 60
+    count: 4
+  - proto: MagazinePistolSubMachineGunSaratoga
+    price: 50
+    count: 10
+  - proto: MagazinePistolSubMachineGunShingen
+    price: 60
+    count: 10
+  - proto: MagazineShotgunMilitechCrusher
+    price: 75
+    count: 5
 
 - type: citiNetStoreCategory
   id: NightMarket_Cyberware
   name: "Кибер-Импланты"
   entries:
+  - proto: CyberwareImplantAntiglare
+    price: 150
+    count: 5
+  - proto: CyberwareImplantInfraredVision
+    price: 150
+    count: 4
+  - proto: CyberwareImplantMicroVideo
+    price: 40
+    count: 6
+  - proto: CyberwareImplantMicroOptics
+    price: 200
+    count: 4
   - proto: CyberwareNeuroKerenzikovMk1
     price: 350
+    count: 4
+  - proto: CyberwareNeuroKerenzikovMk2
+    price: 500
+    count: 3
+  - proto: CyberwareNeuroKerenzikovMk3
+    price: 700
+    count: 2
+  - proto: CyberwareNeuroBioInhibitorStoic
+    price: 180
+    count: 5
+  - proto: CyberwareNeuroBlockerAegis
+    price: 300
+    count: 6
+  - proto: CyberwareNeuroTacticalSpartan
+    price: 1200
     count: 4
   - proto: CyberwareNeuroSandevistanMk1
     price: 800
     count: 3
+  - proto: CyberwareInternalPolymerSkeleton
+    price: 250
+    count: 5
+  - proto: CyberwareInternalTitaniumReinforcement
+    price: 800
+    count: 3
+  - proto: CyberwareInternalArmyEndoskeleton
+    price: 1800
+    count: 2
+  - proto: CyberwareInternalNasalFilters
+    price: 120
+    count: 7
+  - proto: CyberwareInternalEnhancedAntibodies
+    price: 350
+    count: 5
   - proto: CyberwareExternalKevlarSublayer
     price: 200
     count: 8
+  - proto: CyberwareExternalThermoplasticArmor
+    price: 600
+    count: 4
+  - proto: CyberwareExternalReactiveSublayer
+    price: 1400
+    count: 2
+
+- type: citiNetStoreCategory
+  id: NightMarket_Medical
+  name: "Медицина"
+  entries:
+  - proto: HandheldHealthAnalyzer
+    price: 150
+    count: 6
+  - proto: EmergencyRollerBedSpawnFolded
+    price: 200
+    count: 3
+  - proto: Brutepack
+    price: 120
+    count: 20
+  - proto: Ointment
+    price: 100
+    count: 20
+  - proto: Bloodpack
+    price: 60
+    count: 10
+  - proto: Defibrillator
+    price: 400
+    count: 2
+  - proto: EpinephrineChemistryBottle
+    price: 100
+    count: 6
+  - proto: Syringe
+    price: 10
+    count: 3
+
+
+- type: citiNetStoreCategory
+  id: NightMarket_BotanyEquipment
+  name: "Бот. Оборудование"
+  entries:
+  - proto: SeedExtractorFlatpack
+    price: 800
+    count: 1
+  - proto: HydroponicsTrayFlatpack
+    price: 150
+    count: 3
+
+- type: citiNetStoreCategory
+  id: NightMarket_IndustrialEquipment
+  name: "Пром. Оборудование"
+  entries:
+  - proto: WeaponWorkbenchFlatpack
+    price: 500
+    count: 2
+  - proto: ConsoleCompilerFlatpack
+    price: 500
+    count: 2
+  - proto: Civil3DPrinterFlatpack
+    price: 450
+    count: 2
+  - proto: ChemDispenserFlatpack
+    price: 1000
+    count: 2
+  - proto: ReagentGrinderFlatpack
+    price: 300
+    count: 2
+
+- type: citiNetStoreCategory
+  id: NightMarket_Chemistry
+  name: "Химия"
+  entries:
+  - proto: PrimeTimeChemistryBottle
+    price: 150
+    count: 5
+  - proto: NitroPolymerChemistryBottle
+    price: 200
+    count: 3
+  - proto: SixGunChemistryBottle
+    price: 120
+    count: 4
+  - proto: OmnizineChemistryBottle
+    price: 500
+    count: 1
+  - proto: EphedrineChemistryBottle
+    price: 80
+    count: 5
+  - proto: MorphineChemistryBottle
+    price: 100
+    count: 4
+  - proto: NocturineChemistryBottle
+    price: 150
+    count: 3
+  - proto: UnstableMutagenChemistryBottle
+    price: 150
+    count: 3
+
+
+- type: citiNetStoreCategory
+  id: NightMarket_Seeds
+  name: "Семена"
+  entries:
+  - proto: AloeSeeds
+    price: 300
+    count: 5
+  - proto: AmbrosiaVulgarisSeeds
+    price: 800
+    count: 5
+  - proto: ChiliSeeds
+    price: 350
+    count: 3
+  - proto: CocoaSeeds
+    price: 800
+    count: 1
+  - proto: CornSeeds
+    price: 150
+    count: 5
+  - proto: GarlicSeeds
+    price: 300
+    count: 4
+  - proto: OnionSeeds
+    price: 250
+    count: 4
+  - proto: OnionRedSeeds
+    price: 300
+    count: 3
+  - proto: PoppySeeds
+    price: 800
+    count: 2
+  - proto: PotatoSeeds
+    price: 150
+    count: 5
+  - proto: RiceSeeds
+    price: 150
+    count: 5
+  - proto: SoybeanSeeds
+    price: 150
+    count: 5
+  - proto: TeaPlantSeeds
+    price: 600
+    count: 1
+  - proto: TomatoSeeds
+    price: 350
+    count: 4
+  - proto: WheatSeeds
+    price: 150
+    count: 5
+
+
+- type: citiNetStoreCategory
+  id: NightMarket_Tools
+  name: "Инструменты"
+  entries:
+  - proto: Dropper
+    price: 15
+    count: 5
+  - proto: PlantAnalyzer
+    price: 400
+    count: 2
+  - proto: HydroponicsToolHatchet
+    price: 80
+    count: 2
+  - proto: HydroponicsToolClippers
+    price: 60
+    count: 3
+  - proto: HydroponicsToolScythe
+    price: 120
+    count: 2
+  - proto: HydroponicsToolSpade
+    price: 50
+    count: 3
+  - proto: HydroponicsToolMiniHoe
+    price: 50
+    count: 3
+  - proto: Bucket
+    price: 30
+    count: 5
+  - proto: BucketBig
+    price: 200
+    count: 2
+  - proto: BoxMouthSwab
+    price: 200
+    count: 2
+  - proto: PlantBag
+    price: 100
+    count: 2
 
 - type: citiNetStorePreset
   id: NightMarketMarket
@@ -71,3 +380,9 @@
   - NightMarket_Armor
   - NightMarket_Ammo
   - NightMarket_Cyberware
+  - NightMarket_Medical
+  - NightMarket_BotanyEquipment
+  - NightMarket_IndustrialEquipment
+  - NightMarket_Chemistry
+  - NightMarket_Seeds
+  - NightMarket_Tools

@@ -766,6 +766,49 @@ namespace Content.Server.Database.Migrations.Postgres
                     b.ToTable("loadout", (string)null);
                 });
 
+            modelBuilder.Entity("Content.Server.Database.NCCharacterNote", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasColumnName("id");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<byte>("ColorTag")
+                        .HasColumnType("smallint")
+                        .HasColumnName("color_tag");
+
+                    b.Property<string>("CustomName")
+                        .IsRequired()
+                        .HasColumnType("text")
+                        .HasColumnName("custom_name");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("text")
+                        .HasColumnName("description");
+
+                    b.Property<int>("OwnerProfileId")
+                        .HasColumnType("integer")
+                        .HasColumnName("owner_profile_id");
+
+                    b.Property<int>("TargetProfileId")
+                        .HasColumnType("integer")
+                        .HasColumnName("target_profile_id");
+
+                    b.HasKey("Id")
+                        .HasName("PK_nc_character_notes");
+
+                    b.HasIndex("TargetProfileId")
+                        .HasDatabaseName("IX_nc_character_notes_target_profile_id");
+
+                    b.HasIndex("OwnerProfileId", "TargetProfileId")
+                        .IsUnique();
+
+                    b.ToTable("nc_character_notes", (string)null);
+                });
+
             modelBuilder.Entity("Content.Server.Database.PlayTime", b =>
                 {
                     b.Property<int>("Id")
@@ -1824,6 +1867,27 @@ namespace Content.Server.Database.Migrations.Postgres
                         .HasConstraintName("FK_loadout_profile_profile_id");
 
                     b.Navigation("Profile");
+                });
+
+            modelBuilder.Entity("Content.Server.Database.NCCharacterNote", b =>
+                {
+                    b.HasOne("Content.Server.Database.Profile", "OwnerProfile")
+                        .WithMany()
+                        .HasForeignKey("OwnerProfileId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired()
+                        .HasConstraintName("FK_nc_character_notes_profile_owner_profile_id");
+
+                    b.HasOne("Content.Server.Database.Profile", "TargetProfile")
+                        .WithMany()
+                        .HasForeignKey("TargetProfileId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired()
+                        .HasConstraintName("FK_nc_character_notes_profile_target_profile_id");
+
+                    b.Navigation("OwnerProfile");
+
+                    b.Navigation("TargetProfile");
                 });
 
             modelBuilder.Entity("Content.Server.Database.Player", b =>

@@ -1,0 +1,134 @@
+NIGHT CITY 2045 CONTENT LICENSE v1.0
+
+Effective date: 15 June 2026
+
+Copyright © Yascherke and the Night City 2045 Project contributors.
+All rights reserved except as expressly granted in this license.
+
+IMPORTANT NOTICE
+
+This license applies only to original Night City 2045 non-software content created specifically for the Night City 2045 Project, including but not limited to original maps, written texts, documentation, sprites, icons, textures, images, sounds, music, UI visuals, designs, localization text, character concepts, worldbuilding materials, server-specific setting materials, and other original creative content.
+
+This license does not apply to upstream Space Station 14 assets, WWhiteDreamProject materials, third-party assets, Creative Commons materials, R. Talsorian Games intellectual property, Cyberpunk intellectual property, Night City intellectual property, or any other files or materials that are governed by their own licenses, permissions, policies, or notices. Such materials remain under their original terms.
+
+Nothing in this license grants ownership of, or rights to sublicense, any third-party intellectual property.
+
+1. Definitions
+
+"Project" means the Night City 2045 Project.
+
+"Licensor" means Yascherke and/or the Night City 2045 Project rights holders.
+
+"Content" means the original Night City 2045 non-software materials covered by this license.
+
+"Original Night City 2045 Content" includes original maps, sprites, icons, textures, sounds, music, UI visuals, original written texts, documentation, localization text, original server-specific worldbuilding materials, original project-specific designs, and other creative works created specifically for the Project.
+
+"Original Project Branding" means logos, visual identity elements, server identity materials, project-specific names, icons, marks, and presentation materials created specifically by or for the Night City 2045 Project, excluding any trademarks, names, settings, lore, terminology, or intellectual property owned by R. Talsorian Games or any other third party.
+
+"Use" means copying, modifying, adapting, publishing, distributing, hosting, displaying, sublicensing, selling, or creating derivative works based on the Content.
+
+"Public Server" means any game server, network service, or multiplayer service that is accessible to people outside your private local development environment.
+
+2. Limited Permission
+
+You may:
+
+a) View and read the Content.
+
+b) Download or clone the repository for private review.
+
+c) Use the Content locally for private testing, debugging, or personal educational purposes.
+
+d) Submit contributions to the Project, subject to the Night City 2045 Individual Contributor License Agreement and the Project contribution rules.
+
+3. Prohibited Uses
+
+Without prior written permission from the Licensor, you may not:
+
+a) Copy, reuse, extract, rip, redistribute, publish, mirror, sell, sublicense, or reupload the Content.
+
+b) Use the Content in another game, server, fork, repository, mod, project, website, video game, commercial product, or public build.
+
+c) Operate, host, or help operate a Public Server using the Content or any substantial part of it.
+
+d) Modify, adapt, recolor, edit, remix, translate, convert, or create derivative works based on the Content for public use or redistribution.
+
+e) Use the Content for commercial purposes.
+
+f) Use the Content to create a competing public game server or derivative public build.
+
+g) Remove, alter, or obscure copyright notices, license notices, attribution notices, metadata, or project identifiers.
+
+h) Use the names "Night City 2045", "NC2045", project logos, Original Project Branding, distinctive visual identity, server identity, or confusingly similar project-specific names without written permission, except where such use is required only to identify the original Project in a lawful attribution or reference.
+
+4. Maps and Server-Specific Content
+
+Original Night City 2045 maps, layouts, room designs, station or city layouts, area concepts, prototypes, and server-specific content are protected Content under this license.
+
+You may not copy, host, adapt, rebuild, convert, or use these materials on another public server or in another public project without written permission.
+
+5. Lore, Text, and Localization
+
+Original Night City 2045 written descriptions, rules text, roleplay materials, character concepts, faction descriptions, setting documents, localization files, translated project-specific text, and server-specific worldbuilding materials are protected Content under this license.
+
+You may not copy, translate, adapt, republish, or use these materials in another project without written permission.
+
+This section applies only to original text and original server-specific materials created for the Project. It does not claim ownership of Cyberpunk, Cyberpunk RED, Night City, or other third-party setting materials owned by R. Talsorian Games or any other rights holder.
+
+6. Third-Party and Upstream Materials
+
+This repository may contain assets, text, sounds, images, names, setting references, terminology, or other materials from upstream or third-party sources.
+
+Such materials are not relicensed by this license. They remain subject to their original licenses, permissions, policies, and notices.
+
+If there is a conflict between this license and the license, policy, permission, or notice of an upstream or third-party material, the upstream or third-party terms control for that material.
+
+7. Third-Party Intellectual Property Notice
+
+The Project may reference names, settings, concepts, terminology, and other intellectual property owned by R. Talsorian Games and/or other rights holders.
+
+Such third-party intellectual property is not owned by the Project and is not licensed under this license.
+
+Nothing in this license grants any rights to use, copy, sublicense, commercialize, claim ownership of, or create derivative works based on any R. Talsorian Games intellectual property, Cyberpunk intellectual property, Night City intellectual property, or any other third-party intellectual property.
+
+The Project's use of such material is intended to be unofficial, non-commercial, and subject to the applicable permission, fan content policy, homebrew content policy, or written authorization from the relevant rights holder.
+
+8. Contributions
+
+Contributions to the Project are accepted only under the Night City 2045 Individual Contributor License Agreement, unless the Project maintainers explicitly agree otherwise in writing.
+
+By submitting a contribution, you represent that you have the legal right to submit it and that your contribution does not violate any third-party rights, including but not limited to the rights of R. Talsorian Games, upstream Space Station 14 contributors, WWhiteDreamProject contributors, third-party asset creators, or any other rights holder.
+
+9. No Trademark License
+
+This license does not grant any rights to use the names, logos, trademarks, service marks, visual identity, server identity, Original Project Branding, or branding of the Night City 2045 Project.
+
+This license also does not grant any rights to use trademarks, service marks, names, settings, logos, branding, or intellectual property owned by R. Talsorian Games or any other third party.
+
+10. Termination
+
+Any rights granted under this license terminate automatically if you violate its terms.
+
+Upon termination, you must stop using the Content and delete or remove all unauthorized copies, forks, mirrors, deployments, and derivative works under your control.
+
+11. No Warranty
+
+The Content is provided "as is", with all faults, defects, and errors.
+
+To the maximum extent permitted by law, the Licensor provides no warranties, express or implied, including but not limited to warranties of merchantability, fitness for a particular purpose, non-infringement, availability, quality, or compatibility.
+
+12. Limitation of Liability
+
+To the maximum extent permitted by law, the Licensor shall not be liable for any direct, indirect, incidental, special, consequential, exemplary, or punitive damages arising from the Content or this license, even if advised of the possibility of such damages.
+
+13. Written Permission
+
+Additional rights may be granted only by explicit written permission from the Licensor.
+
+Silence, lack of enforcement, repository visibility, access to files, or non-commercial status shall not be interpreted as permission to use the Content beyond the rights expressly granted in this license.
+
+14. Governing Language
+
+The English version of this license is the legally binding version.
+
+Any translation is provided for convenience only. In case of conflict between translations, the English version controls.

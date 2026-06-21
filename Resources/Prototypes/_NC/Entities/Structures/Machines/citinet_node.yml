@@ -13,8 +13,8 @@
       shader: unshaded
       color: "#00FF00" # Зеленый по умолчанию (Idle)
   - type: CitiNetNode
-    downloadDuration: 120
-    cooldownDuration: 60
+    downloadDuration: 30
+    cooldownDuration: 15
     idlePower: 100
     activePower: 500
 
@@ -44,8 +44,8 @@
       NCTechPistolStukachTommy: 5
       NCTechPistolSternmeyerP35: 5
       NCTechRifleM04: 3
-      NCTechRifleNokota: 10
-      NCTechRifleNowaki: 6
+      NCTechRifleNokota: 3
+      NCTechRifleNowaki: 3
       NCTechSMGShingen: 4
       NCTechSMGSaratoga: 4
       NCTechShotgunSvakha: 8

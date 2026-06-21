@@ -54,8 +54,6 @@
   suffix: vendor, normal
   components:
   - type: NcStore
-    buyPresets:
-    - TradeCity_Buy
     sellPresets:
     - TradeCity_Sell
 
@@ -99,10 +97,10 @@
   - proto: MedkitFilled
     price: 100
     count: 2
-  - proto: Brutepack
+  - proto: Brutepack10Lingering
     price: 40
     count: 8
-  - proto: Ointment
+  - proto: Ointment10Lingering
     price: 40
     count: 8
   - proto: Syringe

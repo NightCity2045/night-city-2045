@@ -1,0 +1,112 @@
+NIGHT CITY 2045 SOURCE-AVAILABLE LICENSE v1.0
+
+Effective date: 15 June 2026
+
+Copyright © Yascherke and the Night City 2045 Project contributors.
+All rights reserved except as expressly granted in this license.
+
+IMPORTANT NOTICE
+
+This license applies only to original Night City 2045 software materials, including but not limited to original C# systems, YAML prototypes, configuration files, UI styles, localization systems, server-specific mechanics, tools, scripts, and other original software files created specifically for the Night City 2045 Project.
+
+This license does not apply to upstream Space Station 14 code, RobustToolbox code, third-party libraries, or any other files that are governed by their own licenses. Such materials remain under their original licenses.
+
+1. Definitions
+
+"Project" means the Night City 2045 Project.
+
+"Licensor" means Yascherke and/or the Night City 2045 Project rights holders.
+
+"Software" means the original Night City 2045 software materials covered by this license.
+
+"Original Night City 2045 Software" includes original code, systems, prototypes, configuration files, user interface styles, localization files, tools, scripts, and server-specific software modifications created for the Project.
+
+"Use" means copying, modifying, compiling, running, hosting, distributing, publishing, sublicensing, or creating derivative works based on the Software.
+
+"Public Server" means any game server, network service, or multiplayer service that is accessible to people outside your private local development environment.
+
+2. Source Availability
+
+The source code covered by this license may be made publicly visible for transparency, review, education, security research, and community feedback.
+
+Public visibility of the source code does not grant permission to copy, reuse, host, redistribute, publish, sublicense, or create derivative public projects based on the Software, except as expressly allowed by this license.
+
+3. Permitted Uses
+
+You may:
+
+a) View and read the Software.
+
+b) Study the Software for educational and reference purposes.
+
+c) Download or clone the repository for private review.
+
+d) Run the Software locally for private testing, debugging, or personal educational purposes, provided that such use is not public, commercial, or used to operate a public game server.
+
+e) Submit contributions to the Project, subject to the Night City 2045 Individual Contributor License Agreement and the Project contribution rules.
+
+4. Prohibited Uses
+
+Without prior written permission from the Licensor, you may not:
+
+a) Copy or reuse the Software in another project, server, fork, game, repository, or commercial product.
+
+b) Operate, host, or help operate a Public Server using the Software or any substantial part of it.
+
+c) Distribute, publish, mirror, sublicense, sell, rent, lease, or otherwise provide copies of the Software to third parties.
+
+d) Create or distribute derivative works based on the Software.
+
+e) Remove, alter, or obscure copyright notices, license notices, attribution notices, or project identifiers.
+
+f) Use the Software to create a competing public game server or derivative public build.
+
+g) Use the names "Night City 2045", "NC2045", project branding, logos, distinctive server identity, or confusingly similar names without written permission.
+
+h) Use the Software for commercial purposes without written permission.
+
+5. Contributions
+
+Contributions to the Project are accepted only under the Night City 2045 Individual Contributor License Agreement, unless the Project maintainers explicitly agree otherwise in writing.
+
+By submitting a contribution, you represent that you have the legal right to submit it and that your contribution does not violate any third-party rights.
+
+6. Third-Party and Upstream Materials
+
+This repository may contain code, assets, libraries, tools, or other materials from upstream or third-party sources.
+
+Such materials are not relicensed by this license. They remain subject to their original licenses and notices.
+
+If there is a conflict between this license and the license of an upstream or third-party file, the upstream or third-party license controls for that file.
+
+7. No Trademark License
+
+This license does not grant any rights to use the names, logos, trademarks, service marks, visual identity, server identity, lore identity, or branding of the Night City 2045 Project.
+
+8. Termination
+
+Any rights granted under this license terminate automatically if you violate its terms.
+
+Upon termination, you must stop using the Software and delete or remove all unauthorized copies, forks, mirrors, deployments, and derivative works under your control.
+
+9. No Warranty
+
+The Software is provided "as is", with all faults, defects, and errors.
+
+To the maximum extent permitted by law, the Licensor provides no warranties, express or implied, including but not limited to warranties of merchantability, fitness for a particular purpose, non-infringement, availability, security, or compatibility.
+
+10. Limitation of Liability
+
+To the maximum extent permitted by law, the Licensor shall not be liable for any direct, indirect, incidental, special, consequential, exemplary, or punitive damages arising from the Software or this license, even if advised of the possibility of such damages.
+
+11. Written Permission
+
+Additional rights may be granted only by explicit written permission from the Licensor.
+
+Silence, lack of enforcement, repository visibility, or access to source code shall not be interpreted as permission to use the Software beyond the rights expressly granted in this license.
+
+12. Governing Language
+
+The English version of this license is the legally binding version.
+
+Any translation is provided for convenience only. In case of conflict between translations, the English version controls.

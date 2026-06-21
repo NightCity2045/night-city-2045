@@ -50,7 +50,10 @@ public sealed class SpawnPointSystem : EntitySystem
                 }
             }
 
-            if (_gameTicker.RunLevel == GameRunLevel.InRound && spawnPoint.SpawnType == SpawnPointType.LateJoin)
+            // Keep late-join spawn selection constrained to the matching role when a role-specific marker is used.
+            if (_gameTicker.RunLevel == GameRunLevel.InRound &&
+                spawnPoint.SpawnType == SpawnPointType.LateJoin &&
+                (args.Job == null || spawnPoint.Job == args.Job))
             {
                 possiblePositions.Add(xform.Coordinates);
             }

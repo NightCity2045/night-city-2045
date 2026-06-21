@@ -1,15 +1,8 @@
 // Content.Server/_NC/NPC/Systems/NPCAutoReloadSystem.cs
-// System that automatically reloads ballistic weapons for NPCs
-// when their magazine runs empty, searching pockets for spare mags.
+// Abstract reload support for NPC firearms.
 
 using Content.Shared._NC.NPC;
-using Content.Shared._NC.Weapons.Ranged.NCWeapon;
-using Content.Shared.Containers.ItemSlots;
-using Content.Shared.DoAfter;
 using Content.Shared.Hands.Components;
-using Content.Shared.Interaction.Events;
-using Content.Shared.Inventory;
-using Content.Shared.Popups;
 using Content.Shared.Weapons.Ranged;
 using Content.Shared.Weapons.Ranged.Components;
 using Content.Shared.Weapons.Ranged.Events;
@@ -19,22 +12,16 @@ using Robust.Shared.Containers;
 namespace Content.Server._NC.NPC.Systems;
 
 /// <summary>
-///     Periodically checks if an NPC's held gun is empty and attempts
-///     to reload it from inventory (pockets). Works with magazine-fed weapons
-///     (MagazineAmmoProvider / ChamberMagazineAmmoProvider).
+/// NPCs do not need physical spare magazines. When a held gun runs dry,
+/// they wait for a short reload delay and then restore the currently loaded
+/// ammo provider into a combat-ready state.
 /// </summary>
 public sealed class NPCAutoReloadSystem : EntitySystem
 {
-    [Dependency] private readonly ItemSlotsSystem _itemSlots = default!;
-    [Dependency] private readonly InventorySystem _inventory = default!;
     [Dependency] private readonly SharedContainerSystem _container = default!;
-    [Dependency] private readonly SharedGunSystem _gunSystem = default!;
-    [Dependency] private readonly SharedPopupSystem _popups = default!;
-    [Dependency] private readonly SharedDoAfterSystem _doAfter = default!;
+    [Dependency] private readonly SharedGunSystem _gun = default!;
 
-    // Slot IDs used by ballistic weapons in SS14.
     private const string MagazineSlot = "gun_magazine";
-    private const string ChamberSlot = "gun_chamber";
 
     public override void Update(float frameTime)
     {
@@ -44,75 +31,104 @@ public sealed class NPCAutoReloadSystem : EntitySystem
 
         while (query.MoveNext(out var uid, out var reload, out var hands))
         {
-            // 1. Get whatever the NPC is holding in its active hand.
             if (hands.ActiveHandEntity is not { } heldEntity)
+            {
+                ResetReloadState(reload);
                 continue;
+            }
 
-            // 2. Periodic Reload Check (Inventory search is expensive)
             reload.Accumulator += frameTime;
             if (reload.Accumulator < reload.CheckInterval)
                 continue;
 
             reload.Accumulator = 0f;
 
-            // 3. Check if the held item is a gun with a magazine slot.
-            if (!HasComp<MagazineAmmoProviderComponent>(heldEntity) &&
-                !HasComp<ChamberMagazineAmmoProviderComponent>(heldEntity))
-                continue;
-
-            // 4. Check current ammo count — if not empty, skip.
-            var ammoEv = new GetAmmoCountEvent();
-            RaiseLocalEvent(heldEntity, ref ammoEv);
-
-            if (ammoEv.Count > 0)
-                continue;
-
-            // 5. Gun is empty. Try to eject the current (empty) magazine first.
-            if (_container.TryGetContainer(heldEntity, MagazineSlot, out var magSlotContainer) &&
-                magSlotContainer is ContainerSlot { ContainedEntity: not null })
+            if (!TryGetAmmoCount(heldEntity, out var ammoCount) || ammoCount > 0)
             {
-                _itemSlots.TryEject(heldEntity, MagazineSlot, uid, out _, excludeUserAudio: true);
+                ResetReloadState(reload);
+                continue;
             }
 
-            // 6. Search the NPC's inventory for a spare magazine.
-            var newMag = FindMagazineInInventory(uid, heldEntity);
-            if (newMag == null)
+            if (reload.ReloadWeapon != heldEntity)
+            {
+                reload.ReloadWeapon = heldEntity;
+                reload.ReloadRemaining = reload.ReloadDelay;
+                continue;
+            }
+
+            reload.ReloadRemaining -= reload.CheckInterval;
+            if (reload.ReloadRemaining > 0f)
                 continue;
 
-            // 7. Insert the new magazine.
-            if (_itemSlots.TryInsert(heldEntity, MagazineSlot, newMag.Value, uid, excludeUserAudio: true))
-            {
-                break; 
-            }
+            TryAbstractReload(heldEntity);
+            ResetReloadState(reload);
         }
     }
 
-    /// <summary>
-    ///     Checks if the weapon's chamber slot is empty.
-    /// </summary>
-    private bool IsChamberEmpty(EntityUid gun)
+    private bool TryGetAmmoCount(EntityUid gun, out int ammoCount)
     {
-        return _container.TryGetContainer(gun, ChamberSlot, out var container) &&
-               container is ContainerSlot slot &&
-               slot.ContainedEntity == null;
-    }
-
-    private EntityUid? FindMagazineInInventory(EntityUid npc, EntityUid gun)
-    {
-        if (!_itemSlots.TryGetSlot(gun, MagazineSlot, out var itemSlot))
-            return null;
-
-        var enumerator = _inventory.GetHandOrInventoryEntities(npc);
-
-        foreach (var item in enumerator)
+        if (!HasComp<BallisticAmmoProviderComponent>(gun) &&
+            !HasComp<ChamberMagazineAmmoProviderComponent>(gun) &&
+            !HasComp<MagazineAmmoProviderComponent>(gun))
         {
-            if (item == gun)
-                continue;
-
-            if (_itemSlots.CanInsert(gun, item, null, itemSlot))
-                return item;
+            ammoCount = 0;
+            return false;
         }
 
-        return null;
+        var ammoEv = new GetAmmoCountEvent();
+        RaiseLocalEvent(gun, ref ammoEv);
+        ammoCount = ammoEv.Count;
+        return true;
+    }
+
+    private void TryAbstractReload(EntityUid gun)
+    {
+        if (TryComp<ChamberMagazineAmmoProviderComponent>(gun, out var chamberMagazine))
+        {
+            ReloadChamberMagazineWeapon(gun, chamberMagazine);
+            return;
+        }
+
+        if (TryComp<BallisticAmmoProviderComponent>(gun, out var ballistic))
+        {
+            ReloadBallisticWeapon(gun, ballistic);
+        }
+    }
+
+    private void ReloadChamberMagazineWeapon(EntityUid gun, ChamberMagazineAmmoProviderComponent chamberMagazine)
+    {
+        var magEntity = GetMagazineEntity(gun);
+        if (magEntity == null || !TryComp<BallisticAmmoProviderComponent>(magEntity.Value, out var magBallistic))
+            return;
+
+        _gun.SetBallisticUnspawned((magEntity.Value, magBallistic), magBallistic.Capacity);
+
+        // Force one full chambering pass so the weapon becomes immediately usable again.
+        if (chamberMagazine.BoltClosed == true)
+            _gun.SetBoltClosed(gun, chamberMagazine, false);
+
+        _gun.SetBoltClosed(gun, chamberMagazine, true);
+    }
+
+    private void ReloadBallisticWeapon(EntityUid gun, BallisticAmmoProviderComponent ballistic)
+    {
+        _gun.SetBallisticUnspawned((gun, ballistic), ballistic.Capacity);
+    }
+
+    private EntityUid? GetMagazineEntity(EntityUid gun)
+    {
+        if (!_container.TryGetContainer(gun, MagazineSlot, out var container) ||
+            container is not ContainerSlot slot)
+        {
+            return null;
+        }
+
+        return slot.ContainedEntity;
+    }
+
+    private static void ResetReloadState(NPCAutoReloadComponent reload)
+    {
+        reload.ReloadWeapon = null;
+        reload.ReloadRemaining = 0f;
     }
 }

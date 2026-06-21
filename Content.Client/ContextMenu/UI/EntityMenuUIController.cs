@@ -1,5 +1,6 @@
 using System.Linq;
 using System.Numerics;
+using Content.Client._NC.CharacterNotes;
 using Content.Client.CombatMode;
 using Content.Client.Examine;
 using Content.Client.Gameplay;
@@ -93,9 +94,11 @@ namespace Content.Client.ContextMenu.UI
 
             var entitySpriteStates = GroupEntities(entities);
             var orderedStates = entitySpriteStates.ToList();
+            var notes = _entityManager.System<NCCharacterNotesSystem>();
+            var player = _playerManager.LocalEntity;
             orderedStates.Sort((x, y) => string.Compare(
-                Identity.Name(x.First(), _entityManager),
-                Identity.Name(y.First(), _entityManager),
+                player == null ? Identity.Name(x.First(), _entityManager) : notes.GetDisplayName(x.First(), player.Value),
+                player == null ? Identity.Name(y.First(), _entityManager) : notes.GetDisplayName(y.First(), player.Value),
                 StringComparison.CurrentCulture));
             Elements.Clear();
             AddToUI(orderedStates);

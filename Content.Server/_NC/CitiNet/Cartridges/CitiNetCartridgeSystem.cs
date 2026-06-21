@@ -442,6 +442,9 @@ public sealed class CitiNetCartridgeSystem : EntitySystem
         {
             var targetEnt = new Entity<CitiNetCartridgeComponent>(targetUid, targetComp);
             AddP2PMessage(targetEnt, ent.Owner, message);
+            DispatchCitiNetServerMessage(targetEnt, Loc.GetString("citinet-p2p-game-chat",
+                ("sender", senderName),
+                ("message", content)));
 
             // NC — Звук сообщения для получателя
             var targetHolder = GetPdaHolderUid(targetEnt);
@@ -452,6 +455,9 @@ public sealed class CitiNetCartridgeSystem : EntitySystem
         }
 
         // Обновляем UI отправителя
+        DispatchCitiNetServerMessage(ent, Loc.GetString("citinet-p2p-game-chat",
+            ("sender", senderName),
+            ("message", content)));
         UpdateUIForCartridge(ent);
     }
 
@@ -619,13 +625,17 @@ public sealed class CitiNetCartridgeSystem : EntitySystem
         // NC — Звук сообщения для всех участников (кроме отправителя)
         foreach (var memberUid in ent.Comp.GroupMembers)
         {
-            if (memberUid == ent.Owner)
-                continue;
-
             if (!TryComp<CitiNetCartridgeComponent>(memberUid, out var memberComp))
                 continue;
 
             var memberEnt = new Entity<CitiNetCartridgeComponent>(memberUid, memberComp);
+            DispatchCitiNetServerMessage(memberEnt, Loc.GetString("citinet-group-game-chat",
+                ("sender", senderName),
+                ("message", content)));
+
+            if (memberUid == ent.Owner)
+                continue;
+
             var holder = GetPdaHolderUid(memberEnt);
             if (holder != null)
                 _audio.PlayPvs(new SoundPathSpecifier("/Audio/Machines/chime.ogg"), holder.Value);
@@ -908,18 +918,14 @@ public sealed class CitiNetCartridgeSystem : EntitySystem
 
             // Обновляем UI получателя
             UpdateUIForCartridge((uid, comp));
+            DispatchCitiNetServerMessage((uid, comp), Loc.GetString("citinet-bbs-game-chat",
+                ("channel", channel.LocalizedName),
+                ("sender", senderName),
+                ("message", content)));
 
             if (comp.CurrentChannel == ent.Comp.CurrentChannel)
             {
                 var holder = GetPdaHolderUid((uid, comp));
-                if (holder != null && _playerManager.TryGetSessionByEntity(holder.Value, out var session))
-                {
-                    _chatManager.DispatchServerMessage(session, Loc.GetString("citinet-bbs-game-chat",
-                        ("channel", channel.LocalizedName),
-                        ("sender", senderName),
-                        ("message", content)));
-                }
-
                 if (holder != null)
                 {
                     _audio.PlayPvs(new SoundPathSpecifier("/Audio/Machines/chime.ogg"), holder.Value);
@@ -1041,6 +1047,18 @@ public sealed class CitiNetCartridgeSystem : EntitySystem
         }
 
         return Loc.GetString("generic-unknown-title");
+    }
+
+    /// <summary>
+    /// NC: отправляет серверное CitiNet-уведомление владельцу PDA, если у него есть активная сессия.
+    /// </summary>
+    private void DispatchCitiNetServerMessage(Entity<CitiNetCartridgeComponent> ent, string message)
+    {
+        var holder = GetPdaHolderUid(ent);
+        if (holder == null || !_playerManager.TryGetSessionByEntity(holder.Value, out var session))
+            return;
+
+        _chatManager.DispatchServerMessage(session, message);
     }
 
     /// <summary>

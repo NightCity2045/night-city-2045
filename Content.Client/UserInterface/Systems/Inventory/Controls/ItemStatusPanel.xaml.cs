@@ -1,3 +1,4 @@
+using Content.Client._NC.CharacterNotes;
 using Content.Client.Items;
 using Content.Shared.Hands.Components;
 using Content.Shared.IdentityManagement;
@@ -137,11 +138,11 @@ public sealed partial class ItemStatusPanel : Control
             && _entityManager.EntityExists(virtualItem.BlockingEntity))
         {
             // Uses identity because we can be blocked by pulling someone
-            ItemNameLabel.Text = Identity.Name(virtualItem.BlockingEntity, _entityManager);
+            ItemNameLabel.Text = _entityManager.System<NCCharacterNotesSystem>().GetLocalDisplayName(virtualItem.BlockingEntity);
         }
         else
         {
-            ItemNameLabel.Text = Identity.Name(_entity.Value, _entityManager);
+            ItemNameLabel.Text = _entityManager.System<NCCharacterNotesSystem>().GetLocalDisplayName(_entity.Value);
         }
     }
 

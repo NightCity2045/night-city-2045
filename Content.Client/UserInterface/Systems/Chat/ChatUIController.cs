@@ -2,6 +2,7 @@ using System.Globalization;
 using System.Linq;
 using System.Numerics;
 using Content.Client.Administration.Managers;
+using Content.Client._NC.CharacterNotes;
 using Content.Client.Chat;
 using Content.Client.Chat.Managers;
 using Content.Client.Chat.TypingIndicator;
@@ -66,6 +67,7 @@ public sealed class ChatUIController : UIController
     [UISystemDependency] private readonly TransformSystem? _transform = default;
     [UISystemDependency] private readonly MindSystem? _mindSystem = default!;
     [UISystemDependency] private readonly RoleCodewordSystem? _roleCodewordSystem = default!;
+    [UISystemDependency] private readonly NCCharacterNotesSystem _ncCharacterNotes = default!;
 
     [ValidatePrototypeId<ColorPalettePrototype>]
     // private const string ChatNamePalette = "ChatNames"; // WWDP EDIT - DEFUNCT - Moved to SharedChatSystem
@@ -824,7 +826,11 @@ public sealed class ChatUIController : UIController
             var grammar = _ent.GetComponentOrNull<GrammarComponent>(_ent.GetEntity(msg.SenderEntity));
             if (grammar != null && grammar.ProperNoun == true)
             { // WWDP EDIT START
-                string hex = SharedChatSystem.GetNameColor(SharedChatSystem.GetStringInsideTag(msg, "Name"));
+                var chatName = SharedChatSystem.GetStringInsideTag(msg, "Name");
+                var sender = _ent.GetEntity(msg.SenderEntity);
+                string hex = _ent.EntityExists(sender)
+                    ? _ncCharacterNotes.GetLocalChatNameColor(sender, chatName)
+                    : SharedChatSystem.GetNameColor(chatName);
                 msg.WrappedMessage = SharedChatSystem.InjectTagAroundTag(msg, "Name", "color", hex);
             } // WWDP EDIT END
         }

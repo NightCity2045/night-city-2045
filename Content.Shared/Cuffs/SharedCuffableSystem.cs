@@ -481,14 +481,17 @@ namespace Content.Shared.Cuffs
             if (TryComp<HandsComponent>(target, out var hands) && hands.Count <= component.CuffedHandCount)
                 return false;
 
-            // Shitmed Change Start
+            // Only mark the cuffs as used after they are actually attached to the target.
             EnsureComp<HandcuffComponent>(handcuff, out var handcuffsComp);
+
+            if (!_hands.TryDrop(user, handcuff))
+                return false;
+
+            if (!_container.Insert(handcuff, component.Container))
+                return false;
+
             handcuffsComp.Used = true;
             Dirty(handcuff, handcuffsComp);
-            // Success!
-            _hands.TryDrop(user, handcuff);
-            var result = _container.Insert(handcuff, component.Container);
-            // Shitmed Change End
 
             UpdateHeldItems(target, handcuff, component);
             return true;

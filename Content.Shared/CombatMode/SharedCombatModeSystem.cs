@@ -54,12 +54,6 @@ public abstract class SharedCombatModeSystem : EntitySystem
 
         args.Handled = true;
         SetInCombatMode(uid, !component.IsInCombatMode, component);
-
-        if (!_netMan.IsClient || !Timing.IsFirstTimePredicted)
-            return;
-
-        var msg = component.IsInCombatMode ? "action-popup-combat-enabled" : "action-popup-combat-disabled";
-        _popup.PopupEntity(Loc.GetString(msg), args.Performer, args.Performer);
     }
 
     private void OnToggleCombatModeRequest(ToggleCombatModeRequestEvent msg, EntitySessionEventArgs args)

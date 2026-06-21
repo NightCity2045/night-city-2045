@@ -2449,6 +2449,50 @@
   weather: true
 
 - type: tile
+  id: NCFloora6
+  name: асфальтобетон поворот вправо вниз
+  sprite: /Textures/_NC/Tiles/alze1/a6.png
+  baseTurf: FloorDirt
+  isSubfloor: false
+  footstepSounds:
+    collection: FootstepTile
+  heatCapacity: 10000
+  weather: true
+
+- type: tile
+  id: NCFloora7
+  name: асфальтобетон поворот влево вниз
+  sprite: /Textures/_NC/Tiles/alze1/a7.png
+  baseTurf: FloorDirt
+  isSubfloor: false
+  footstepSounds:
+    collection: FootstepTile
+  heatCapacity: 10000
+  weather: true
+
+- type: tile
+  id: NCFloora8
+  name: асфальтобетон поворот вправо ввверх
+  sprite: /Textures/_NC/Tiles/alze1/a8.png
+  baseTurf: FloorDirt
+  isSubfloor: false
+  footstepSounds:
+    collection: FootstepTile
+  heatCapacity: 10000
+  weather: true
+
+- type: tile
+  id: NCFloora9
+  name: асфальтобетон поворот влево ввверх
+  sprite: /Textures/_NC/Tiles/alze1/a9.png
+  baseTurf: FloorDirt
+  isSubfloor: false
+  footstepSounds:
+    collection: FootstepTile
+  heatCapacity: 10000
+  weather: true
+
+- type: tile
   id: NCFloorap1
   name: асфальтобетон поворот вниз вправо
   sprite: /Textures/_NC/Tiles/alze1/ap1.png
@@ -2889,6 +2933,17 @@
   weather: true
 
 - type: tile
+  id: NCfloorasf9
+  name: дорожный бордюр сплошняком
+  sprite: /Textures/_NC/Tiles/alze2/asf9.png
+  baseTurf: FloorDirt
+  isSubfloor: false
+  footstepSounds:
+    collection: FootstepTile
+  heatCapacity: 10000
+  weather: true
+
+- type: tile
   id: NCfloorpl1
   name: тротуарная плитка влево
   sprite: /Textures/_NC/Tiles/alze2/pl1.png
@@ -3156,6 +3211,50 @@
   id: NCfloorpa20
   name: плитка c отступом для дороги влево
   sprite: /Textures/_NC/Tiles/alze3/pa20.png
+  baseTurf: FloorDirt
+  isSubfloor: false
+  footstepSounds:
+    collection: FootstepTile
+  heatCapacity: 10000
+  weather: true
+
+- type: tile
+  id: NCkaf1
+  name: плитка зелёная светлая
+  sprite: /Textures/_NC/Tiles/alze4/kaf1.png
+  baseTurf: FloorDirt
+  isSubfloor: false
+  footstepSounds:
+    collection: FootstepTile
+  heatCapacity: 10000
+  weather: true
+
+- type: tile
+  id: NCkaf2
+  name: плитка зелёная потемнее
+  sprite: /Textures/_NC/Tiles/alze4/kaf2.png
+  baseTurf: FloorDirt
+  isSubfloor: false
+  footstepSounds:
+    collection: FootstepTile
+  heatCapacity: 10000
+  weather: true
+
+- type: tile
+  id: NCkaf3
+  name: плитка белая посветлее
+  sprite: /Textures/_NC/Tiles/alze4/kaf3.png
+  baseTurf: FloorDirt
+  isSubfloor: false
+  footstepSounds:
+    collection: FootstepTile
+  heatCapacity: 10000
+  weather: true
+
+- type: tile
+  id: NCkaf4
+  name: плитка белая потемнее
+  sprite: /Textures/_NC/Tiles/alze4/kaf4.png
   baseTurf: FloorDirt
   isSubfloor: false
   footstepSounds:

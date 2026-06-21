@@ -4,6 +4,7 @@ using System.Text;
 using Content.Server._White.Animations.Systems;
 using Content.Server._White.Hearing;
 using Content.Server._White.TTS;
+using Content.Server._NC.CharacterNotes.Systems;
 using Content.Server.Administration.Logs;
 using Content.Server.Administration.Managers;
 using Content.Server.Chat.Managers;
@@ -80,6 +81,7 @@ public sealed partial class ChatSystem : SharedChatSystem
     [Dependency] private readonly ExamineSystemShared _examineSystem = default!;
     [Dependency] private readonly HearingSystem _hearing = default!; // WD EDIT
     [Dependency] private readonly WhiteAnimationPlayerSystem _whiteAnimationPlayer = default!; // WD EDIT
+    [Dependency] private readonly NCCharacterNotesSystem _ncCharacterNotes = default!;
 
     public const int VoiceRange = 10; // how far voice goes in world units
     public const int WhisperClearRange = 2; // how far whisper goes while still being understandable, in world units
@@ -495,7 +497,21 @@ public sealed partial class ChatSystem : SharedChatSystem
         // The language-obfuscated message wrapped in a "x says y" string
         var wrappedObfuscated = WrapPublicMessage(source, name, obfuscated, speech, language: language); // WD EDIT
 
-        SendInVoiceRange(ChatChannel.Local, name, message, wrappedMessage, obfuscated, wrappedObfuscated, source, range, languageOverride: language);
+        SendInVoiceRange(
+            ChatChannel.Local,
+            name,
+            message,
+            wrappedMessage,
+            obfuscated,
+            wrappedObfuscated,
+            source,
+            range,
+            languageOverride: language,
+            wrapForListener: (listener, content) =>
+            {
+                var displayName = FormattedMessage.EscapeText(_ncCharacterNotes.GetDisplayNameForViewer(source, listener, name));
+                return WrapPublicMessage(source, displayName, content, speech, language: language);
+            });
 
         var ev = new EntitySpokeEvent(source, message, null, false, language);
         RaiseLocalEvent(source, ev, true);
@@ -542,23 +558,25 @@ public sealed partial class ChatSystem : SharedChatSystem
             return;
 
         // get the entity's name by visual identity (if no override provided).
-        string nameIdentity = FormattedMessage.EscapeText(nameOverride ?? Identity.Name(source, EntityManager));
+        var rawNameIdentity = nameOverride ?? Identity.Name(source, EntityManager);
+        string nameIdentity = FormattedMessage.EscapeText(rawNameIdentity);
         // get the entity's name by voice (if no override provided).
 
         // WD EDIT START
         var nameEv = new TransformSpeakerNameEvent(source, Name(source));
         RaiseLocalEvent(source, nameEv);
 
-        var name = nameEv.VoiceName;
+        var rawName = nameEv.VoiceName;
 
         var speech = GetSpeechVerb(source, message);
         if (nameEv.SpeechVerb != null && _prototypeManager.TryIndex(nameEv.SpeechVerb, out var proto))
             speech = proto;
 
         if (nameOverride != null)
-            name = nameOverride;
+            rawName = nameOverride;
         // WD EDIT END
 
+        var name = rawName;
         name = FormattedMessage.EscapeText(name);
 
         var languageObfuscatedMessage = SanitizeInGameICMessage(source, _language.ObfuscateSpeech(message, language), out var emoteStr, true, _configurationManager.GetCVar(CCVars.ChatPunctuation), (!CultureInfo.CurrentCulture.IsNeutralCulture && CultureInfo.CurrentCulture.Parent.Name == "en") || (CultureInfo.CurrentCulture.IsNeutralCulture && CultureInfo.CurrentCulture.Name == "en"));
@@ -587,18 +605,21 @@ public sealed partial class ChatSystem : SharedChatSystem
             // Result is the intermediate message derived from the perceived one via obfuscation
             // Wrapped message is the result wrapped in an "x says y" string
             string result, wrappedMessage;
+            var viewerName = FormattedMessage.EscapeText(_ncCharacterNotes.GetDisplayNameForViewer(source, listener, rawName));
+            var viewerNameIdentity = FormattedMessage.EscapeText(_ncCharacterNotes.GetDisplayNameForViewer(source, listener, rawNameIdentity));
+
             //If listener is too far and has no line of sight, they can't identify the whisperer's identity
             if (data.Range <= (TryComp<ChatModifierComponent>(listener, out var modifier) ? modifier.WhisperListeningRange : WhisperClearRange)) // WWDP-Edit
             {
                 // Scenario 1: the listener can clearly understand the message
                 result = perceivedMessage;
-                wrappedMessage = WrapWhisperMessage(source, "chat-manager-entity-whisper-wrap-message", name, result, speech, language); // WD EDIT
+                wrappedMessage = WrapWhisperMessage(source, "chat-manager-entity-whisper-wrap-message", viewerName, result, speech, language); // WD EDIT
             }
             else if (_examineSystem.InRangeUnOccluded(source, listener, WhisperMuffledRange))
             {
                 // Scenario 2: if the listener is too far, they only hear fragments of the message
                 result = ObfuscateMessageReadability(perceivedMessage);
-                wrappedMessage = WrapWhisperMessage(source, "chat-manager-entity-whisper-wrap-message", nameIdentity, result, speech, language); // WD EDIT
+                wrappedMessage = WrapWhisperMessage(source, "chat-manager-entity-whisper-wrap-message", viewerNameIdentity, result, speech, language); // WD EDIT
             }
             else
             {
@@ -661,7 +682,24 @@ public sealed partial class ChatSystem : SharedChatSystem
 
         if (checkEmote)
             TryEmoteChatInput(source, action);
-        SendInVoiceRange(ChatChannel.Emotes, name, action, wrappedMessage, obfuscated: "", obfuscatedWrappedMessage: "", source, range, author);
+        SendInVoiceRange(
+            ChatChannel.Emotes,
+            name,
+            action,
+            wrappedMessage,
+            obfuscated: "",
+            obfuscatedWrappedMessage: "",
+            source,
+            range,
+            author,
+            wrapForListener: (listener, content) =>
+            {
+                var displayName = FormattedMessage.EscapeText(_ncCharacterNotes.GetDisplayNameForViewer(source, listener, name));
+                return Loc.GetString("chat-manager-entity-me-wrap-message",
+                    ("entityName", displayName),
+                    ("entity", ent),
+                    ("message", FormattedMessage.RemoveMarkupPermissive(content)));
+            });
         if (!hideLog)
             if (name != Name(source))
                 _adminLogger.Add(LogType.Chat, LogImpact.Low, $"Emote from {ToPrettyString(source):user} as {name}: {action}");
@@ -694,7 +732,14 @@ public sealed partial class ChatSystem : SharedChatSystem
             source,
             hideChat ? ChatTransmitRange.HideChat : ChatTransmitRange.Normal,
             player.UserId,
-            languageOverride: LanguageSystem.Universal);
+            languageOverride: LanguageSystem.Universal,
+            wrapForListener: (listener, content) =>
+            {
+                var displayName = FormattedMessage.EscapeText(_ncCharacterNotes.GetDisplayNameForViewer(source, listener, name));
+                return Loc.GetString("chat-manager-entity-looc-wrap-message",
+                    ("entityName", displayName),
+                    ("message", FormattedMessage.EscapeText(content)));
+            });
         _adminLogger.Add(LogType.Chat, LogImpact.Low, $"LOOC from {player:Player}: {message}");
     }
 
@@ -775,7 +820,7 @@ public sealed partial class ChatSystem : SharedChatSystem
     /// <summary>
     ///     Sends a chat message to the given players in range of the source entity.
     /// </summary>
-    private void SendInVoiceRange(ChatChannel channel, string name, string message, string wrappedMessage, string obfuscated, string obfuscatedWrappedMessage, EntityUid source, ChatTransmitRange range, NetUserId? author = null, LanguagePrototype? languageOverride = null)
+    private void SendInVoiceRange(ChatChannel channel, string name, string message, string wrappedMessage, string obfuscated, string obfuscatedWrappedMessage, EntityUid source, ChatTransmitRange range, NetUserId? author = null, LanguagePrototype? languageOverride = null, Func<EntityUid, string, string>? wrapForListener = null)
     {
         var language = languageOverride ?? _language.GetLanguage(source);
         foreach (var (session, data) in GetRecipients(source, Transform(source).GridUid == null ? 0.3f : VoiceRange))
@@ -803,11 +848,13 @@ public sealed partial class ChatSystem : SharedChatSystem
             // If the channel does not support languages, or the entity can understand the message, send the original message, otherwise send the obfuscated version
             if (channel == ChatChannel.LOOC || channel == ChatChannel.Emotes || _language.CanUnderstand(listener, language.ID))
             {
-                _chatManager.ChatMessageToOne(channel, message, wrappedMessage, source, entHideChat, session.Channel, author: author);
+                var viewerWrappedMessage = wrapForListener?.Invoke(listener, message) ?? wrappedMessage;
+                _chatManager.ChatMessageToOne(channel, message, viewerWrappedMessage, source, entHideChat, session.Channel, author: author);
             }
             else
             {
-                _chatManager.ChatMessageToOne(channel, obfuscated, obfuscatedWrappedMessage, source, entHideChat, session.Channel, author: author);
+                var viewerObfuscatedWrappedMessage = wrapForListener?.Invoke(listener, obfuscated) ?? obfuscatedWrappedMessage;
+                _chatManager.ChatMessageToOne(channel, obfuscated, viewerObfuscatedWrappedMessage, source, entHideChat, session.Channel, author: author);
             }
         }
 

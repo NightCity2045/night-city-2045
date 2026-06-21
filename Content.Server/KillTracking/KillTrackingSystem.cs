@@ -71,13 +71,22 @@ public sealed class KillTrackingSystem : EntitySystem
             // no assist is given to environmental kills
             if (largestSource is not KillEnvironmentSource)
             {
+                var largestDamage = largestSource != null
+                    ? component.LifetimeDamage.GetValueOrDefault(largestSource)
+                    : FixedPoint2.Zero;
+                var killDamage = killSource != null
+                    ? component.LifetimeDamage.GetValueOrDefault(killSource)
+                    : FixedPoint2.Zero;
+
                 // you have to do at least 50% of largest source's damage to get the assist.
-                if (component.LifetimeDamage[largestSource] >= component.LifetimeDamage[killSource] / 2)
+                if (largestDamage >= killDamage / 2)
                 {
                     assistSource = largestSource;
                 }
             }
         }
+
+        killSource ??= new KillEnvironmentSource();
 
         // it's a suicide if:
         // - you caused your own death

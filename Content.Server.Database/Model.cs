@@ -8,6 +8,7 @@ using System.Linq;
 using System.Net;
 using System.Text.Json;
 using Content.Shared._EE.Contractors.Prototypes;
+using Content.Shared._NC.CharacterNotes;
 using Content.Shared.Database;
 using Microsoft.EntityFrameworkCore;
 using NpgsqlTypes;
@@ -51,6 +52,7 @@ namespace Content.Server.Database
         public DbSet<BanTemplate> BanTemplate { get; set; } = null!;
         public DbSet<IPIntelCache> IPIntelCache { get; set; } = null!;
         public DbSet<FactionBankBalance> FactionBankBalances { get; set; } = null!;
+        public DbSet<NCCharacterNote> NCCharacterNotes { get; set; } = null!;
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -98,6 +100,49 @@ namespace Content.Server.Database
             modelBuilder.Entity<Profile>()
                 .Property(p => p.EmployedDepartment)
                 .HasColumnName("employed_department");
+
+            modelBuilder.Entity<NCCharacterNote>()
+                .ToTable("nc_character_notes");
+
+            modelBuilder.Entity<NCCharacterNote>()
+                .HasIndex(n => new { n.OwnerProfileId, n.TargetProfileId })
+                .IsUnique();
+
+            modelBuilder.Entity<NCCharacterNote>()
+                .Property(n => n.Id)
+                .HasColumnName("id");
+
+            modelBuilder.Entity<NCCharacterNote>()
+                .Property(n => n.OwnerProfileId)
+                .HasColumnName("owner_profile_id");
+
+            modelBuilder.Entity<NCCharacterNote>()
+                .Property(n => n.TargetProfileId)
+                .HasColumnName("target_profile_id");
+
+            modelBuilder.Entity<NCCharacterNote>()
+                .Property(n => n.CustomName)
+                .HasColumnName("custom_name");
+
+            modelBuilder.Entity<NCCharacterNote>()
+                .Property(n => n.ColorTag)
+                .HasColumnName("color_tag");
+
+            modelBuilder.Entity<NCCharacterNote>()
+                .Property(n => n.Description)
+                .HasColumnName("description");
+
+            modelBuilder.Entity<NCCharacterNote>()
+                .HasOne(n => n.OwnerProfile)
+                .WithMany()
+                .HasForeignKey(n => n.OwnerProfileId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            modelBuilder.Entity<NCCharacterNote>()
+                .HasOne(n => n.TargetProfile)
+                .WithMany()
+                .HasForeignKey(n => n.TargetProfileId)
+                .OnDelete(DeleteBehavior.Cascade);
             // NC EDIT END
 
             modelBuilder.Entity<AssignedUserId>()
@@ -451,6 +496,18 @@ namespace Content.Server.Database
 
         public int PreferenceId { get; set; }
         public Preference Preference { get; set; } = null!;
+    }
+
+    public class NCCharacterNote
+    {
+        public int Id { get; set; }
+        public int OwnerProfileId { get; set; }
+        public Profile OwnerProfile { get; set; } = null!;
+        public int TargetProfileId { get; set; }
+        public Profile TargetProfile { get; set; } = null!;
+        public string CustomName { get; set; } = string.Empty;
+        public NCCharacterNoteColorTag ColorTag { get; set; } = NCCharacterNoteColorTag.Neutral;
+        public string Description { get; set; } = string.Empty;
     }
 
     public class Job

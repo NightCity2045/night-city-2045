@@ -116,6 +116,8 @@
       reagents:
       - ReagentId: Omnizine
         Quantity: 1
+  - type: CyberwareConditionalSolutionRegeneration
+    minimumTotalDamage: 1
 
 # --- ENHANCED ANTIBODIES TIER 3 ---
 - type: entity
@@ -134,3 +136,5 @@
       reagents:
       - ReagentId: Omnizine
         Quantity: 5
+  - type: CyberwareConditionalSolutionRegeneration
+    minimumTotalDamage: 1

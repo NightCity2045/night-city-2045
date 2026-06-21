@@ -58,6 +58,8 @@ citinet-bbs-no-relay = [color=red]Channel unavailable — CitiNet offline[/color
 citinet-bbs-anonymous = Anonymous
 citinet-bbs-invite-received = >> You have been granted access to {$channel} by {$inviter}
 citinet-bbs-invite-sent = >> Agent {$target} has been invited to {$channel}
+citinet-p2p-game-chat = [CitiNet/Direct] {$sender}: {$message}
+citinet-group-game-chat = [CitiNet/Bridge] {$sender}: {$message}
 citinet-bbs-game-chat = [CitiNet/{$channel}] {$sender}: {$message}
 
 # BurnerChip

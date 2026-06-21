@@ -1,4 +1,5 @@
 using System.Numerics;
+using Content.Client._NC.CharacterNotes;
 using Content.Shared._White.CCVar;
 using Content.Shared.CCVar;
 using Content.Shared.Chat;
@@ -70,7 +71,11 @@ namespace Content.Client.Chat.UI
             // WWDP EDIT START
             Color? color = null;
             if(IoCManager.Resolve<IConfigurationManager>().GetCVar(WhiteCVars.ColoredBubbleChat))
-                color = Color.FromHex(SharedChatSystem.GetNameColor(SharedChatSystem.GetStringInsideTag(message, "Name")));
+            {
+                var notes = IoCManager.Resolve<IEntityManager>().System<NCCharacterNotesSystem>();
+                var chatName = SharedChatSystem.GetStringInsideTag(message, "Name");
+                color = Color.FromHex(notes.GetLocalChatNameColor(senderEntity, chatName));
+            }
             // WWDP EDIT END
             switch (type)
             {

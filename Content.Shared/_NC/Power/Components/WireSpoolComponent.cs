@@ -19,7 +19,7 @@ public sealed partial class WireSpoolComponent : Component
     /// Maximum distance for a logical link.
     /// </summary>
     [ViewVariables(VVAccess.ReadWrite), DataField("maxDistance")]
-    public float MaxDistance = 15f;
+    public float MaxDistance = 30f;
 }
 
 [Serializable, NetSerializable]

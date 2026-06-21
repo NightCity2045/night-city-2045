@@ -1,4 +1,23 @@
 - type: htnCompound
+  id: NCRangedCombatCompound
+  branches:
+    - preconditions:
+        - !type:GunAmmoPrecondition
+          minPercent: 0.001
+      tasks:
+        - !type:HTNCompoundTask
+          task: GunCombatCompound
+
+    - preconditions:
+        - !type:ActiveHandComponentPrecondition
+          components:
+            - type: Gun
+          invert: true
+      tasks:
+        - !type:HTNCompoundTask
+          task: PickupGunCompound
+
+- type: htnCompound
   id: NCBanditRootCompound
   branches:
     # Priority 1: Retreat if low HP
@@ -47,7 +66,7 @@
     # Coordination: Help ally
     - tasks:
         - !type:HTNCompoundTask
-          task: RangedCombatCompound
+          task: NCRangedCombatCompound
       preconditions:
         - !type:KeyNotExistsPrecondition
           key: Target
@@ -108,12 +127,6 @@
       tasks:
         - !type:HTNCompoundTask
           task: NCTacticalCombatCompound
-    - preconditions:
-        - !type:GunAmmoPrecondition
-          maxPercent: 0.001
-      tasks:
-        - !type:HTNCompoundTask
-          task: PickupAmmoCompound
     - tasks:
         - !type:HTNCompoundTask
           task: SimpleHumanoidHostileCompound
@@ -149,15 +162,9 @@
       tasks:
         - !type:HTNCompoundTask
           task: NCTacticalCombatCompound
-    - preconditions:
-        - !type:GunAmmoPrecondition
-          maxPercent: 0.001
-      tasks:
-        - !type:HTNCompoundTask
-          task: PickupAmmoCompound
     - tasks:
         - !type:HTNCompoundTask
-          task: RangedCombatCompound
+          task: NCRangedCombatCompound
     - tasks:
         - !type:HTNCompoundTask
           task: MeleeCombatCompound

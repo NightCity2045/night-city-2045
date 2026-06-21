@@ -1,4 +1,5 @@
 using System.Numerics;
+using Content.Client._NC.CharacterNotes;
 using Content.Client.Items.Systems;
 using Content.Shared.Item;
 using Content.Shared.Storage;
@@ -73,7 +74,7 @@ public sealed class ItemGridPiece : Control, IEntityControl
 
         return new Tooltip
         {
-            Text = _entityManager.GetComponent<MetaDataComponent>(Entity).EntityName
+            Text = _entityManager.System<NCCharacterNotesSystem>().GetLocalDisplayName(Entity)
         };
     }
 

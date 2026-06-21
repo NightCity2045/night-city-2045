@@ -1,0 +1,64 @@
+- type: directorEvent
+  id: BackalleyDeal
+  parent: NCBaseDirectorEvent
+  name: "The Backalley Deal"
+  weight: 18
+  announcerId: "CitiNet"
+  announcementColor: "#51f542"
+  startPhase: "Gathering"
+  phases:
+    Gathering:
+      name: "Gathering"
+      duration: 180
+      announcement: "backalley-deal-gathering"
+      meetLocationTags: ["AlleyMeet"]
+      aiDomain: "DirectorGatherCompound"
+      externalAggressionPhase: "Skirmish"
+      spawns:
+        - prototype: MobNCBanditPistolUnlootable
+          groupTag: "GangA"
+          faction: "Passive"
+          exitLocationTags: ["GangA"]
+          entryLocationTags: ["GangAEntry"]
+          amount: 2
+        - prototype: MobNCMilitechAvengerUnlootable
+          groupTag: "GangB"
+          faction: "Passive"
+          exitLocationTags: ["GangB"]
+          entryLocationTags: ["GangBEntry"]
+          amount: 2
+      nextPhases:
+        Peace: 70
+        Skirmish: 30
+
+    Peace:
+      name: "Peaceful Resolution"
+      duration: 60
+      announcement: "backalley-deal-peace"
+      nextPhases:
+        Retreat: 100
+
+    Skirmish:
+      name: "The Skirmish"
+      duration: 600
+      announcement: "backalley-deal-skirmish"
+      aiDomain: "DirectorCombatCompound"
+      factionOverrides:
+        GangA: "NCBandit"
+        GangB: "NCMilitech"
+      triggers:
+        - type: MobKilled
+          targetGroup: "GangA"
+          count: 2
+        - type: MobKilled
+          targetGroup: "GangB"
+          count: 2
+      nextPhases:
+        Retreat: 100
+
+    Retreat:
+      name: "Retreat"
+      duration: 60
+      announcement: "backalley-deal-retreat"
+      aiDomain: "FleeToExtraction"
+      cleanup: true

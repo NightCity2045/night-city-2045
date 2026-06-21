@@ -6,8 +6,6 @@
   suffix: botany, normal
   components:
   - type: NcStore
-    buyPresets:
-    - TradeBotany_Buy
     sellPresets:
     - TradeBotany_Sell
   - type: AccessReader

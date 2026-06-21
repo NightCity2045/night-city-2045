@@ -1,0 +1,64 @@
+- type: htnCompound
+  id: DirectorGatherCompound
+  branches:
+    - preconditions:
+        - !type:KeyExistsPrecondition
+          key: FollowTarget
+      tasks:
+        - !type:HTNCompoundTask
+          task: FollowCompound
+    - tasks:
+        - !type:HTNCompoundTask
+          task: IdleCompound
+
+- type: htnCompound
+  id: DirectorCombatCompound
+  branches:
+    - preconditions:
+        - !type:HealthPrecondition
+          maxThreshold: 0.3
+      tasks:
+        - !type:HTNCompoundTask
+          task: NCRetreatCompound
+
+    - preconditions:
+        - !type:NCWeaponMaintenancePrecondition
+      tasks:
+        - !type:HTNCompoundTask
+          task: RackGunCompound
+
+    - preconditions:
+        - !type:ActiveHandComponentPrecondition
+          components:
+            - type: Gun
+      tasks:
+        - !type:HTNCompoundTask
+          task: NCTacticalCombatCompound
+
+    - tasks:
+        - !type:HTNCompoundTask
+          task: RangedCombatCompound
+
+    - tasks:
+        - !type:HTNCompoundTask
+          task: MeleeCombatCompound
+
+- type: htnCompound
+  id: FleeToExtraction
+  branches:
+    - preconditions:
+        - !type:KeyExistsPrecondition
+          key: RetreatCoordinates
+        - !type:CoordinatesNotInRangePrecondition
+          targetKey: RetreatCoordinates
+          rangeKey: FollowCloseRange
+      tasks:
+        - !type:HTNPrimitiveTask
+          operator: !type:MoveToOperator
+            targetKey: RetreatCoordinates
+            pathfindInPlanning: true
+            removeKeyOnFinish: false
+            rangeKey: FollowCloseRange
+    - tasks:
+        - !type:HTNCompoundTask
+          task: IdleCompound

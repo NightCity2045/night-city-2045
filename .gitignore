@@ -309,3 +309,5 @@ Resources/MapImages
 
 # Changelog package lock
 package-lock.json
+
+.docs/

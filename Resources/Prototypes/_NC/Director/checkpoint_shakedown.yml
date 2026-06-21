@@ -1,0 +1,68 @@
+- type: directorEvent
+  id: CheckpointShakedown
+  parent: NCBaseDirectorEvent
+  name: "Checkpoint Shakedown"
+  weight: 11
+  minPlayers: 5
+  minRoundDuration: 480
+  announcerId: "CitiNet"
+  announcementColor: "#d1d5db"
+  startPhase: "Setup"
+  phases:
+    Setup:
+      name: "Setup"
+      duration: 90
+      announcement: "checkpoint-setup"
+      meetLocationTags: ["CheckpointMeet"]
+      aiDomain: "DirectorGatherCompound"
+      spawns:
+        - prototype: MobNCMilitechBoomerUnlootable
+          groupTag: "Inspectors"
+          faction: "Passive"
+          entryLocationTags: ["CheckpointInspectorsEntry"]
+          exitLocationTags: ["CheckpointInspectorsExit"]
+          amount: 1
+        - prototype: MobNCMilitechAvengerUnlootable
+          groupTag: "Inspectors"
+          faction: "Passive"
+          entryLocationTags: ["CheckpointInspectorsEntry"]
+          exitLocationTags: ["CheckpointInspectorsExit"]
+          amount: 2
+      nextPhases:
+        Hold: 100
+
+    Hold:
+      name: "Hold"
+      duration: 120
+      announcement: "checkpoint-hold"
+      nextPhases:
+        Raid: 50
+        StandDown: 50
+
+    Raid:
+      name: "Raid"
+      duration: 180
+      announcement: "checkpoint-raid"
+      aiDomain: "DirectorCombatCompound"
+      factionOverrides:
+        Inspectors: "NCMilitech"
+      triggers:
+        - type: MobKilled
+          targetGroup: "Inspectors"
+          count: 2
+      nextPhases:
+        Exit: 100
+
+    StandDown:
+      name: "Stand Down"
+      duration: 60
+      announcement: "checkpoint-standdown"
+      nextPhases:
+        Exit: 100
+
+    Exit:
+      name: "Exit"
+      duration: 45
+      announcement: "checkpoint-exit"
+      aiDomain: "FleeToExtraction"
+      cleanup: true

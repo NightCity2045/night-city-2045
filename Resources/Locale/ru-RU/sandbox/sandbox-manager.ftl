@@ -10,6 +10,7 @@ sandbox-window-toggle-lights-button = Переключить освещение
 sandbox-window-toggle-fov-button = Переключить FOV
 sandbox-window-toggle-shadows-button = Переключить тени
 sandbox-window-toggle-subfloor-button = Переключить пол
+sandbox-window-show-logic-power-button = Показать логическую проводку
 sandbox-window-toggle-suicide-button = Самоубийство
 sandbox-window-show-spawns-button = Показать спавны
 sandbox-window-show-bb-button = Показать BB

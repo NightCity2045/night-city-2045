@@ -1,0 +1,55 @@
+- type: directorEvent
+  id: TestLivingWorldEvent
+  parent: NCBaseDirectorEvent
+  name: "Director Validation Incident"
+  enabled: false
+  weight: 0
+  cooldown: 0
+  startPhase: "Gathering"
+  phases:
+    Gathering:
+      name: "The Gathering"
+      duration: 90
+      announcement: "director-test-event-gathering"
+      meetLocationTags: ["TestLivingWorldMeet"]
+      aiDomain: "DirectorGatherCompound"
+      spawns:
+        - prototype: MobNCBanditPistolUnlootable
+          groupTag: "Bandits"
+          entryLocationTags: ["TestLivingWorldBanditsEntry"]
+          exitLocationTags: ["TestLivingWorldBanditsExit"]
+          amount: 2
+      nextPhases:
+        Skirmish: 70
+        CorpoSweep: 30
+
+    Skirmish:
+      name: "The Conflict"
+      duration: 180
+      announcement: "director-test-event-conflict"
+      aiDomain: "DirectorCombatCompound"
+      factionOverrides:
+        Bandits: "NCBandit"
+      triggers:
+        - type: MobKilled
+          count: 2
+      nextPhases:
+        Cleanup: 100
+
+    CorpoSweep:
+      name: "Corporate Sweep"
+      duration: 120
+      announcement: "director-test-event-corpo-sweep"
+      spawns:
+        - prototype: MobNCMilitechSaratogaUnlootable
+          faction: NCMilitech
+          amount: 1
+      nextPhases:
+        Cleanup: 100
+
+    Cleanup:
+      name: "The Cleanup"
+      duration: 60
+      announcement: "director-test-event-cleanup"
+      aiDomain: "FleeToExtraction"
+      cleanup: true

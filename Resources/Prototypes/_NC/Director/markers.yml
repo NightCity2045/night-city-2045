@@ -1,0 +1,391 @@
+- type: entity
+  id: DirectorSpawnPoint
+  parent: MarkerBase
+  name: director spawn point
+  suffix: Director
+  components:
+  - type: Sprite
+    layers:
+    - state: red
+      shader: unshaded
+  - type: DirectorSpawnPoint
+
+- type: entity
+  id: DirectorSpawnPointAlleyMeet
+  parent: DirectorSpawnPoint
+  name: director alley meet point
+  suffix: Director, Alley Meet
+  components:
+  - type: DirectorSpawnPoint
+    locationTags:
+    - AlleyMeet
+
+- type: entity
+  id: DirectorSpawnPointGangAEntry
+  parent: DirectorSpawnPoint
+  name: director gang A entry point
+  suffix: Director, Gang A Entry
+  components:
+  - type: DirectorSpawnPoint
+    locationTags:
+    - GangAEntry
+
+- type: entity
+  id: DirectorSpawnPointGangBEntry
+  parent: DirectorSpawnPoint
+  name: director gang B entry point
+  suffix: Director, Gang B Entry
+  components:
+  - type: DirectorSpawnPoint
+    locationTags:
+    - GangBEntry
+
+- type: entity
+  id: DirectorSpawnPointGangAExit
+  parent: DirectorSpawnPoint
+  name: director gang A exit point
+  suffix: Director, Gang A Exit
+  components:
+  - type: DirectorSpawnPoint
+    locationTags:
+    - GangA
+
+- type: entity
+  id: DirectorSpawnPointGangBExit
+  parent: DirectorSpawnPoint
+  name: director gang B exit point
+  suffix: Director, Gang B Exit
+  components:
+  - type: DirectorSpawnPoint
+    locationTags:
+    - GangB
+
+- type: entity
+  id: DirectorSpawnPointStreetMeet
+  parent: DirectorSpawnPoint
+  name: director street meet point
+  suffix: Director, Street Meet
+  components:
+  - type: DirectorSpawnPoint
+    locationTags:
+    - StreetMeet
+
+- type: entity
+  id: DirectorSpawnPointMarketMeet
+  parent: DirectorSpawnPoint
+  name: director market meet point
+  suffix: Director, Market Meet
+  components:
+  - type: DirectorSpawnPoint
+    locationTags:
+    - MarketMeet
+
+- type: entity
+  id: DirectorSpawnPointWarehouseMeet
+  parent: DirectorSpawnPoint
+  name: director warehouse meet point
+  suffix: Director, Warehouse Meet
+  components:
+  - type: DirectorSpawnPoint
+    locationTags:
+    - WarehouseMeet
+
+- type: entity
+  id: DirectorSpawnPointTransitEntry
+  parent: DirectorSpawnPoint
+  name: director transit entry point
+  suffix: Director, Transit Entry
+  components:
+  - type: DirectorSpawnPoint
+    locationTags:
+    - TransitEntry
+
+- type: entity
+  id: DirectorSpawnPointCheckpointEntry
+  parent: DirectorSpawnPoint
+  name: director checkpoint entry point
+  suffix: Director, Checkpoint Entry
+  components:
+  - type: DirectorSpawnPoint
+    locationTags:
+    - CheckpointEntry
+
+- type: entity
+  id: DirectorSpawnPointHiddenEntry
+  parent: DirectorSpawnPoint
+  name: director hidden entry point
+  suffix: Director, Hidden Entry
+  components:
+  - type: DirectorSpawnPoint
+    locationTags:
+    - HiddenEntry
+
+- type: entity
+  id: DirectorSpawnPointBackalleyDealMeet
+  parent: DirectorSpawnPoint
+  name: backalley deal meet point
+  suffix: Director, Backalley Deal
+  components:
+  - type: DirectorSpawnPoint
+    locationTags:
+    - AlleyMeet
+
+- type: entity
+  id: DirectorSpawnPointBackalleyDealGangAEntry
+  parent: DirectorSpawnPoint
+  name: backalley deal gang A entry point
+  suffix: Director, Backalley Deal
+  components:
+  - type: DirectorSpawnPoint
+    locationTags:
+    - GangAEntry
+
+- type: entity
+  id: DirectorSpawnPointBackalleyDealGangBEntry
+  parent: DirectorSpawnPoint
+  name: backalley deal gang B entry point
+  suffix: Director, Backalley Deal
+  components:
+  - type: DirectorSpawnPoint
+    locationTags:
+    - GangBEntry
+
+- type: entity
+  id: DirectorSpawnPointBackalleyDealGangAExit
+  parent: DirectorSpawnPoint
+  name: backalley deal gang A exit point
+  suffix: Director, Backalley Deal
+  components:
+  - type: DirectorSpawnPoint
+    locationTags:
+    - GangA
+
+- type: entity
+  id: DirectorSpawnPointBackalleyDealGangBExit
+  parent: DirectorSpawnPoint
+  name: backalley deal gang B exit point
+  suffix: Director, Backalley Deal
+  components:
+  - type: DirectorSpawnPoint
+    locationTags:
+    - GangB
+
+- type: entity
+  id: DirectorSpawnPointCheckpointShakedownMeet
+  parent: DirectorSpawnPoint
+  name: checkpoint shakedown meet point
+  suffix: Director, Checkpoint Shakedown
+  components:
+  - type: DirectorSpawnPoint
+    locationTags:
+    - CheckpointMeet
+
+- type: entity
+  id: DirectorSpawnPointCheckpointShakedownInspectorsEntry
+  parent: DirectorSpawnPoint
+  name: checkpoint shakedown inspectors entry point
+  suffix: Director, Checkpoint Shakedown
+  components:
+  - type: DirectorSpawnPoint
+    locationTags:
+    - CheckpointInspectorsEntry
+
+- type: entity
+  id: DirectorSpawnPointCheckpointShakedownInspectorsExit
+  parent: DirectorSpawnPoint
+  name: checkpoint shakedown inspectors exit point
+  suffix: Director, Checkpoint Shakedown
+  components:
+  - type: DirectorSpawnPoint
+    locationTags:
+    - CheckpointInspectorsExit
+
+- type: entity
+  id: DirectorSpawnPointCorporateSweepMeet
+  parent: DirectorSpawnPoint
+  name: corporate sweep meet point
+  suffix: Director, Corporate Sweep
+  components:
+  - type: DirectorSpawnPoint
+    locationTags:
+    - CorporateSweepMeet
+
+- type: entity
+  id: DirectorSpawnPointCorporateSweepEntry
+  parent: DirectorSpawnPoint
+  name: corporate sweep entry point
+  suffix: Director, Corporate Sweep
+  components:
+  - type: DirectorSpawnPoint
+    locationTags:
+    - CorporateSweepEntry
+
+- type: entity
+  id: DirectorSpawnPointCorporateSweepExit
+  parent: DirectorSpawnPoint
+  name: corporate sweep exit point
+  suffix: Director, Corporate Sweep
+  components:
+  - type: DirectorSpawnPoint
+    locationTags:
+    - CorporateSweepExit
+
+- type: entity
+  id: DirectorSpawnPointHijackedShipmentMeet
+  parent: DirectorSpawnPoint
+  name: hijacked shipment meet point
+  suffix: Director, Hijacked Shipment
+  components:
+  - type: DirectorSpawnPoint
+    locationTags:
+    - HijackedShipmentMeet
+
+- type: entity
+  id: DirectorSpawnPointHijackedShipmentCouriersEntry
+  parent: DirectorSpawnPoint
+  name: hijacked shipment couriers entry point
+  suffix: Director, Hijacked Shipment
+  components:
+  - type: DirectorSpawnPoint
+    locationTags:
+    - ShipmentCouriersEntry
+
+- type: entity
+  id: DirectorSpawnPointHijackedShipmentCouriersExit
+  parent: DirectorSpawnPoint
+  name: hijacked shipment couriers exit point
+  suffix: Director, Hijacked Shipment
+  components:
+  - type: DirectorSpawnPoint
+    locationTags:
+    - ShipmentCouriersExit
+
+- type: entity
+  id: DirectorSpawnPointHijackedShipmentHijackersEntry
+  parent: DirectorSpawnPoint
+  name: hijacked shipment hijackers entry point
+  suffix: Director, Hijacked Shipment
+  components:
+  - type: DirectorSpawnPoint
+    locationTags:
+    - ShipmentHijackersEntry
+
+- type: entity
+  id: DirectorSpawnPointHijackedShipmentHijackersExit
+  parent: DirectorSpawnPoint
+  name: hijacked shipment hijackers exit point
+  suffix: Director, Hijacked Shipment
+  components:
+  - type: DirectorSpawnPoint
+    locationTags:
+    - ShipmentHijackersExit
+
+- type: entity
+  id: DirectorSpawnPointScavengerRushMeet
+  parent: DirectorSpawnPoint
+  name: scavenger rush meet point
+  suffix: Director, Scavenger Rush
+  components:
+  - type: DirectorSpawnPoint
+    locationTags:
+    - ScavengerRushMeet
+
+- type: entity
+  id: DirectorSpawnPointScavengerRushScavsAEntry
+  parent: DirectorSpawnPoint
+  name: scavenger rush Scavs A entry point
+  suffix: Director, Scavenger Rush
+  components:
+  - type: DirectorSpawnPoint
+    locationTags:
+    - ScavengerRushScavsAEntry
+
+- type: entity
+  id: DirectorSpawnPointScavengerRushScavsAExit
+  parent: DirectorSpawnPoint
+  name: scavenger rush Scavs A exit point
+  suffix: Director, Scavenger Rush
+  components:
+  - type: DirectorSpawnPoint
+    locationTags:
+    - ScavengerRushScavsAExit
+
+- type: entity
+  id: DirectorSpawnPointScavengerRushScavsBEntry
+  parent: DirectorSpawnPoint
+  name: scavenger rush Scavs B entry point
+  suffix: Director, Scavenger Rush
+  components:
+  - type: DirectorSpawnPoint
+    locationTags:
+    - ScavengerRushScavsBEntry
+
+- type: entity
+  id: DirectorSpawnPointScavengerRushScavsBExit
+  parent: DirectorSpawnPoint
+  name: scavenger rush Scavs B exit point
+  suffix: Director, Scavenger Rush
+  components:
+  - type: DirectorSpawnPoint
+    locationTags:
+    - ScavengerRushScavsBExit
+
+- type: entity
+  id: DirectorSpawnPointStreetTaxCollectionMeet
+  parent: DirectorSpawnPoint
+  name: street tax collection meet point
+  suffix: Director, Street Tax
+  components:
+  - type: DirectorSpawnPoint
+    locationTags:
+    - StreetTaxMeet
+
+- type: entity
+  id: DirectorSpawnPointStreetTaxCollectionCollectorsEntry
+  parent: DirectorSpawnPoint
+  name: street tax collection collectors entry point
+  suffix: Director, Street Tax
+  components:
+  - type: DirectorSpawnPoint
+    locationTags:
+    - StreetTaxCollectorsEntry
+
+- type: entity
+  id: DirectorSpawnPointStreetTaxCollectionCollectorsExit
+  parent: DirectorSpawnPoint
+  name: street tax collection collectors exit point
+  suffix: Director, Street Tax
+  components:
+  - type: DirectorSpawnPoint
+    locationTags:
+    - StreetTaxCollectorsExit
+
+- type: entity
+  id: DirectorSpawnPointTestLivingWorldEventMeet
+  parent: DirectorSpawnPoint
+  name: test living world event meet point
+  suffix: Director, Test Event
+  components:
+  - type: DirectorSpawnPoint
+    locationTags:
+    - TestLivingWorldMeet
+
+- type: entity
+  id: DirectorSpawnPointTestLivingWorldEventBanditsEntry
+  parent: DirectorSpawnPoint
+  name: test living world event bandits entry point
+  suffix: Director, Test Event
+  components:
+  - type: DirectorSpawnPoint
+    locationTags:
+    - TestLivingWorldBanditsEntry
+
+- type: entity
+  id: DirectorSpawnPointTestLivingWorldEventBanditsExit
+  parent: DirectorSpawnPoint
+  name: test living world event bandits exit point
+  suffix: Director, Test Event
+  components:
+  - type: DirectorSpawnPoint
+    locationTags:
+    - TestLivingWorldBanditsExit

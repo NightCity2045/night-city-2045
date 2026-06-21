@@ -8,3 +8,4 @@
   supportedMaps: NCMapPool
   rules:
   - NightCityRoundDuration
+  - GlobalDirector

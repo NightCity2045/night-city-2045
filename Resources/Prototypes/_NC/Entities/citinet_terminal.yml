@@ -43,7 +43,7 @@
   components:
   - type: Sprite
     sprite: Objects/Devices/cartridge.rsi
-    state: cart-red
+    state: cart-sec
   - type: DataChip
     unlockedSiteId: NcpdForensics
 

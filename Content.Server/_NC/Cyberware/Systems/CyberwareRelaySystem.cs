@@ -5,6 +5,7 @@ using Content.Shared._NC.Cyberware.Components;
 using Content.Shared._Shitmed.Body.Components;
 using Content.Shared.Chemistry.Components;
 using Content.Shared.Chemistry.EntitySystems;
+using Content.Shared.Damage;
 using Content.Shared.FixedPoint;
 using Content.Shared.Mobs;
 using Content.Shared.Mobs.Systems;
@@ -53,6 +54,11 @@ public sealed class CyberwareRelaySystem : EntitySystem
 
                 regen.NextRegenTime = _timing.CurTime + regen.Duration;
 
+                // Cyberware may use SolutionRegeneration as a healing injector. Gate those
+                // implants so healthy hosts do not get their blood filled with medicine.
+                if (!CanRegenerateSolution(uid, implantUid))
+                    continue;
+
                 if (_solutionContainer.TryGetInjectableSolution(uid, out var solution, out _) && solution.HasValue)
                 {
                     var amount = FixedPoint2.Min(solution.Value.Comp.Solution.AvailableVolume, regen.Generated.Volume);
@@ -73,6 +79,17 @@ public sealed class CyberwareRelaySystem : EntitySystem
                 }
             }
         }
+    }
+
+    private bool CanRegenerateSolution(EntityUid host, EntityUid implant)
+    {
+        if (!TryComp<CyberwareConditionalSolutionRegenerationComponent>(implant, out var conditional))
+            return true;
+
+        if (!TryComp<DamageableComponent>(host, out var damageable))
+            return false;
+
+        return damageable.TotalDamage >= conditional.MinimumTotalDamage;
     }
 
     public void RefreshCyberwareStats(EntityUid uid, CyberwareComponent? component = null)
