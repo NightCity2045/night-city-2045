@@ -63,13 +63,6 @@ Night City 2045 форк билда WWDP в мире настольной вер
 Содержимое, добавленное в этот репозиторий после коммита aa760f196d8e6dfc65136ece0dbbf51b92645ea8 (`28 January 2026 20:00:00 UTC`), распространяется по двойной лицензии GNU Affero General Public License версии 3.0 и WILDCARD WHITE DREAM PROJECT INDIVIDUAL CONTRIBUTOR LICENSE AGREEMENT, если не указано иное.
 См. [LICENSE-ICLA-EN](./LICENSE-ICLA-EN.txt).
 
-Оригинальные материалы Night City 2045, добавленные в этот репозиторий после коммита deb3b219142e6d54dc9ef67a3f05d3b09bdd9b81 (`19 March 2026 20:00:00 UTC`), распространяются по лицензиям Night City 2045 Source-Available License и Night City 2045 Content License, если для конкретного файла, директории, metadata-файла или уведомления не указано иное.
-
-См. [NIGHTCITY-SOURCE-AVAILABLE-LICENSE](./NIGHTCITY-SOURCE-AVAILABLE-LICENSE.txt).
-См. [NIGHTCITY-CONTENT-LICENSE](./NIGHTCITY-CONTENT-LICENSE.txt).
-
-Это уведомление применяется только к оригинальным материалам Night City 2045 и не изменяет лицензии upstream Space Station 14, WWhiteDreamProject, сторонних библиотек, сторонних ассетов или иных материалов, регулируемых собственными лицензиями.
-
 
 Большинство ресурсов лицензировано под [CC-BY-SA 3.0](https://creativecommons.org/licenses/by-sa/3.0/), если не указано иное. Лицензия и авторские права на ресурсах указаны в файле метаданных.
 [Example](./Resources/Textures/Objects/Tools/crowbar.rsi/meta.json).
