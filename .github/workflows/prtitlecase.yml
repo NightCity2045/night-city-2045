@@ -1,7 +1,7 @@
 name: PR Title Case
 on:
   pull_request_target:
-    types: [opened, edited, synchronize]
+    types: []  # [opened, edited, synchronize]  # Unskip when the token is fixed
 
 env:
   GITHUB_TOKEN: ${{ secrets.BOT_TOKEN }}
@@ -10,25 +10,25 @@ env:
 jobs:
   prtitlecase:
     runs-on: ubuntu-latest
-    steps:
-      - name: Checkout Master
-        uses: actions/checkout@v3
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
+    steps: [] # Unskip when the token is fixed
+      # - name: Checkout Master
+      #   uses: actions/checkout@v3
+      #   with:
+      #     token: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Setup Node
-        uses: actions/setup-node@v3
-        with:
-          node-version: 18.x
+      # - name: Setup Node
+      #   uses: actions/setup-node@v3
+      #   with:
+      #     node-version: 18.x
 
-      - name: Install Dependencies
-        run: |
-          cd "Tools/prtitlecase"
-          npm install
-        shell: bash
+      # - name: Install Dependencies
+      #   run: |
+      #     cd "Tools/prtitlecase"
+      #     npm install
+      #   shell: bash
 
-      - name: Change Title
-        run: |
-          cd "Tools/prtitlecase"
-          node index.js
-        shell: bash
+      # - name: Change Title
+      #   run: |
+      #     cd "Tools/prtitlecase"
+      #     node index.js
+      #   shell: bash

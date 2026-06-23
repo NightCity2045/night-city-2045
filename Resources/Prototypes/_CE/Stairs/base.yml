@@ -14,7 +14,7 @@
     key: walls
   - type: Occluder
     boundingBox: "-0.5,0.25,0.5,0.5"
-    drawdepth: Mobs
+    # drawdepth: Mobs  # Fix YAML checks: Field "drawdepth" not found in "Robust.Shared.GameObjects.OccluderComponent".
   - type: Transform
     anchored: True
   - type: Clickable

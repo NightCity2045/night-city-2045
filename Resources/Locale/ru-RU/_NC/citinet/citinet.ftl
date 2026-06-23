@@ -25,6 +25,8 @@ citinet-bbs-channel-trauma-comms = Корп. связь Trauma
 citinet-cartridge-name = CitiNet
 citinet-cartridge-description = Терминал городской сети связи Найт-Сити.
 
+citinet-delivery-cartridge-name = "QuickPath Navi"
+
 citinet-tab-calls = Звонки
 citinet-tab-group = Тактика
 citinet-tab-bbs = BBS

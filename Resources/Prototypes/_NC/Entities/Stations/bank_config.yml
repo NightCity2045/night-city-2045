@@ -7,16 +7,16 @@
     accounts:
       CityAdmin:
         balance: 0
-        increasePerSecond: 0
+        # increasePerSecond: 0  # This parameter is not used in StationBank, only in StationBankAccount
       TraumaTeam:
         balance: 10000
-        increasePerSecond: 5
+        # increasePerSecond: 5  # This parameter is not used in StationBank, only in StationBankAccount
       Militech:
         balance: 25000
-        increasePerSecond: 8
+        # increasePerSecond: 8  # This parameter is not used in StationBank, only in StationBankAccount
       Biotechnica:
         balance: 15000
-        increasePerSecond: 6
+        # increasePerSecond: 6  # This parameter is not used in StationBank, only in StationBankAccount
       Ncpd:
         balance: 10000
-        increasePerSecond: 0
+        # increasePerSecond: 0  # This parameter is not used in StationBank, only in StationBankAccount

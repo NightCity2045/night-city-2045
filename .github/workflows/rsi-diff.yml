@@ -2,8 +2,8 @@ name: Diff RSIs
 
 on:
   pull_request_target:
-    paths:
-      - '**.rsi/**.png'
+    paths: []
+      # - '**.rsi/**.png'  # Unskip when the token is fixed
 
 jobs:
   diff:
@@ -18,7 +18,7 @@ jobs:
         uses: Ana06/get-changed-files@v2.3.0
         with:
           format: 'space-delimited'
-          filter: | 
+          filter: |
             **.rsi
             **.png
 

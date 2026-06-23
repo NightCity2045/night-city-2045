@@ -30,10 +30,10 @@
   - CEZLevelLadderBase
   - CEZLevelsLadder
   id: CEZLevelLadder
-  components:
-  - type: Construction
-    graph: CEZLevelLadder
-    node: CEZLevelLadder
+  # components:  # Fix YAML checks: there's no construction graph called CEZLevelLadder.
+  # - type: Construction
+  #   graph: CEZLevelLadder
+  #   node: CEZLevelLadder
 
 #- type: entity
   #parent:

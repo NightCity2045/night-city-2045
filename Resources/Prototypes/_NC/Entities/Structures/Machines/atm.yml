@@ -22,9 +22,9 @@
   - type: InteractionOutline
   - type: Clickable
   - type: ApcPowerReceiver
+    needsPower: true
   - type: LogicPowerReceiver
     powerLoad: 100
-    needsPower: true
   - type: Appearance
   - type: Sprite
     netsync: false

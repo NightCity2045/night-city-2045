@@ -229,7 +229,7 @@
     - coillv-20
     - coillv-30
   - type: CablePlacer
-    enabled: false # Explicitly disable inherited placer
+    # enabled: false # Explicitly disable inherited placer # No, that's not how this works.
   - type: WireSpool
   - type: Appearance
   - type: Extractable

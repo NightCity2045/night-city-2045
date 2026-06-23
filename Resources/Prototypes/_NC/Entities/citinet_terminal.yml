@@ -91,7 +91,7 @@
   description: "Одноразовый чип с координатами вашей посылки. Вставьте в КПК для активации GPS-метки."
   components:
   - type: Cartridge
-    programName: "QuickPath Navi"
+    programName: citinet-delivery-cartridge-name
   - type: Sprite
     sprite: Objects/Devices/encryption_keys.rsi
     layers:

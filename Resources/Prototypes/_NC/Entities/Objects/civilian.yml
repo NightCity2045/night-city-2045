@@ -95,7 +95,7 @@
       Steel: 125
       Plastic: 125
       Plasma: 50
-      BSCrystal: 12
+      Bluespace: 12
   - type: ReverseEngineering
     difficulty: 5
     recipes:
@@ -123,8 +123,8 @@
     - Stir
   - type: ExaminableSolution
     heldOnly: false
-    examinableWhileClosed: true
-    exactVolume: true
+    # examinableWhileClosed: true
+    # exactVolume: true
   - type: Sprite
     sprite: _NC/Objects/Consumable/Drinks/shaker.rsi
     layers:
@@ -177,8 +177,8 @@
     solution: drink
   - type: ExaminableSolution
     heldOnly: false
-    examinableWhileClosed: true
-    exactVolume: true
+    # examinableWhileClosed: true
+    # exactVolume: true
   - type: Sprite
     sprite: _NC/Objects/Consumable/Drinks/kettle.rsi
     layers:
@@ -254,7 +254,7 @@
       Steel: 25
       Plastic: 125
       Plasma: 37
-      BSCrystal: 12
+      Bluespace: 12
   - type: ReverseEngineering
     difficulty: 4
     recipes:

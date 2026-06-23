@@ -39,6 +39,14 @@
     Cloth: 100
 
 - type: latheRecipe
+  id: BucketBig
+  result: BucketBig
+  completetime: 2
+  materials:
+    Steel: 100
+    Plastic: 300
+
+- type: latheRecipe
   id: BluespaceBucket
   result: BluespaceBucket
   completetime: 3
@@ -46,7 +54,7 @@
     Steel: 100
     Plastic: 500
     Plasma: 150
-    BSCrystal: 50
+    Bluespace: 50
 
 - type: latheRecipe
   id: WateringCan
@@ -64,7 +72,7 @@
     Steel: 500
     Plastic: 500
     Plasma: 250
-    BSCrystal: 50
+    Bluespace: 50
 
 - type: latheRecipe
   id: WateringCanExperimental
@@ -98,7 +106,7 @@
     Plastic: 500
     Glass: 50
     Plasma: 50
-    BSCrystal: 50
+    Bluespace: 50
 
 - type: latheRecipe
   parent: BluespaceDrinkShakerAdvanced

@@ -25,6 +25,8 @@ citinet-bbs-channel-trauma-comms = Corporate Comms
 citinet-cartridge-name = CitiNet
 citinet-cartridge-description = Night City communication network terminal.
 
+citinet-delivery-cartridge-name = "QuickPath Navi"
+
 citinet-tab-calls = Calls
 citinet-tab-group = Tactical
 citinet-tab-bbs = BBS

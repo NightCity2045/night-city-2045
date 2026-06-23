@@ -36,7 +36,7 @@ public sealed class CEZLevelDamageSystem : EntitySystem
     public float BaseFallingOtherStunTime { get; private set; }
 
     private static readonly ProtoId<DamageTypePrototype> BluntDamageType = "Blunt";
-    private static readonly EntProtoId FallVFX = "CEDustEffect";
+    private static readonly EntProtoId FallVFX = "EffectFlashBluespace";  // NC edit: Original CEDustEffect is missing
 
     public override void Initialize()
     {

@@ -10,7 +10,7 @@
   - type: Clothing
     sprite: *botanical_goggles_sprite
     equipSound:
-      path: /Audio/_Goobstation/Items/handling/generic_equip2.ogg
+      path: /Audio/_White/Equip/clothingrustle4.ogg
       params:
         volume: -4
   - type: Armor
