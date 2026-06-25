@@ -37,6 +37,13 @@
         blacklist:
           tags:
           - Book
+    # NC edit start: Orchid's Garden - Tidy Kitchen
+    # Can be recycled
+    - type: PhysicalComposition
+      materialComposition:
+        Cloth: 5
+        Wood: 5
+    # NC edit end: Orchid's Garden - Tidy Kitchen
 
 - type: entity
   parent: SeedBase

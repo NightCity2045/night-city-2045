@@ -17,6 +17,12 @@
   - type: Appearance
   - type: Extractable
     grindableSolutionName: food
+  # NC edit start: Orchid's Garden - Tidy Kitchen
+  # Can be recycled
+  - type: PhysicalComposition
+    materialComposition:
+      Biomass: 1
+  # NC edit end: Orchid's Garden - Tidy Kitchen
 
 # For produce that can be immediately eaten
 
@@ -254,7 +260,7 @@
   name: death nettle
   description: This nettle's out for blood.
   id: DeathNettle
-  parent: ProduceBase
+  parent: [ProduceBase, BaseMajorContraband]
   components:
   - type: Sprite
     sprite: Objects/Specific/Hydroponics/death_nettle.rsi
@@ -265,24 +271,62 @@
   - type: MeleeWeapon
     damage:
       types:
-        Heat: 8.5
-        Caustic: 8.5
+        Heat: 8  # NC edit: Orchid's Garden - Tidy Kitchen
+        Caustic: 8  # NC edit: Orchid's Garden - Tidy Kitchen
   - type: SolutionContainerManager
     solutions:
       food:
         reagents:
         - ReagentId: SulfuricAcid
-          Quantity: 3
+          Quantity: 15  # NC edit: Orchid's Garden - Tidy Kitchen
         - ReagentId: FluorosulfuricAcid
-          Quantity: 3
+          Quantity: 15  # NC edit: Orchid's Garden - Tidy Kitchen
   - type: Produce
     seedId: deathNettle
   - type: MeleeChemicalInjector
-    transferAmount: 2
+    transferAmount: 5  # NC edit: Orchid's Garden - Tidy Kitchen
     solution: food
-    pierceArmor: false
+    pierceArmor: true  # NC edit: Orchid's Garden - Tidy Kitchen
   - type: Extractable
     grindableSolutionName: food
+  # NC edit start: Orchid's Garden - Tidy Kitchen
+  - type: DamageOnInteract
+    damage:
+      types:
+        Heat: 4
+        Caustic: 4
+    ignoreResistances: false
+    popupText: powered-light-component-burn-hand
+    interactSound: /Audio/Effects/lightburn.ogg
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Heat: 8
+        Caustic: 8
+    soundHit:
+      path: /Audio/Effects/lightburn.ogg
+    stunChance: 0.10
+    stunSeconds: 1.5
+  - type: Damageable
+    damageContainer: Inorganic
+  - type: Destructible
+    thresholds:
+    - trigger:
+        !type:DamageTrigger
+        damage: 25
+      behaviors:
+      - !type:PlaySoundBehavior
+        sound:
+          path: /Audio/Voice/Diona/diona_salute.ogg
+          params:
+            volume: -5
+      - !type:DoActsBehavior
+        acts: [ "Destruction" ]
+  - type: DamageOnHit
+    damage:
+      types:
+        Blunt: 5 # The nettle will "wilt" after 5 hits.
+  # NC edit end: Orchid's Garden - Tidy Kitchen
 
 - type: entity
   name: banana
@@ -322,6 +366,16 @@
     entries:
       Burger: Banana
       Taco: Banana
+  # NC edit start: Orchid's Garden - Tidy Kitchen
+  # Can be turned into a tiiiiny piece of bananium in Recycler
+  - type: PhysicalComposition
+    materialComposition:
+      RawBananium: 2
+  # Can be sliced
+  - type: SliceableFood
+    count: 4
+    slice: FoodBananaSlice
+  # NC edit end: Orchid's Garden - Tidy Kitchen
 
 - type: entity
   name: mimana
@@ -363,6 +417,16 @@
     entries:
       Burger: Mimana
       Taco: Mimana
+  # NC edit start: Orchid's Garden - Tidy Kitchen
+  # Can be turned into a tiiiiny piece of bananium in Recycler
+  - type: PhysicalComposition
+    materialComposition:
+      RawBananium: 3
+  # Can be sliced
+  - type: SliceableFood
+    count: 4
+    slice: FoodMimanaSlice
+  # NC edit end: Orchid's Garden - Tidy Kitchen
 
 - type: entity
   name: banana peel
@@ -417,6 +481,23 @@
   - type: Extractable
     grindableSolutionName: food
   - type: SpaceGarbage
+  # NC edit start: Orchid's Garden - Tidy Kitchen
+  # Can be turned into a tiiiiny piece of bananium in Recycler
+  - type: PhysicalComposition
+    materialComposition:
+      RawBananium: 1
+  # Can be grilled
+  - type: AtmosExposed
+  - type: Temperature
+    currentTemperature: 290
+  - type: InternalTemperature
+    conductivity: 5.0
+    thickness: 0.5
+    area: 1.0
+  - type: Construction
+    graph: RecipeTrashBakedBananaPeelAlt
+    node: start
+  # NC edit end: Orchid's Garden - Tidy Kitchen
 
 - type: entity
   name: baked banana peel
@@ -439,6 +520,11 @@
           Quantity: 1
         - ReagentId: Carbon
           Quantity: 2
+  # NC edit start: Orchid's Garden - Tidy Kitchen
+  # Can't be grilled
+  - type: Construction
+    node: end
+  # NC edit end: Orchid's Garden - Tidy Kitchen
 
 - type: entity
   name: mimana peel
@@ -512,6 +598,13 @@
     entries:
       Burger: CarrotBurger
       Taco: Carrot
+      Skewer: Carrot  # NC edit: Orchid's Garden - Tidy Kitchen
+  # NC edit start: Orchid's Garden - Tidy Kitchen
+  # Can be sliced
+  - type: SliceableFood
+    count: 3
+    slice: FoodCarrotSlice
+  # NC edit end: Orchid's Garden - Tidy Kitchen
 
 - type: entity
   name: cabbage
@@ -542,6 +635,13 @@
     entries:
       Burger: CabbageBurger
       Taco: Cabbage
+      Skewer: Cabbage  # NC edit: Orchid's Garden - Tidy Kitchen
+  # NC edit start: Orchid's Garden - Tidy Kitchen
+  # Can be sliced
+  - type: SliceableFood
+    count: 5
+    slice: FoodCabbageSlice
+  # NC edit end: Orchid's Garden - Tidy Kitchen
 
 - type: entity
   name: garlic
@@ -574,6 +674,13 @@
     entries:
       Burger: GarlicBurger
       Taco: Garlic
+      Skewer: Garlic  # NC edit: Orchid's Garden - Tidy Kitchen
+  # NC edit start: Orchid's Garden - Tidy Kitchen
+  # Can be sliced
+  - type: SliceableFood
+    count: 2
+    slice: FoodGarlicSlice
+  # NC edit end: Orchid's Garden - Tidy Kitchen
 
 - type: entity
   name: lemon
@@ -610,6 +717,13 @@
     entries:
       Burger: Lemon
       Taco: Lemon
+      Skewer: Lemon  # NC edit: Orchid's Garden - Tidy Kitchen
+  # NC edit start: Orchid's Garden - Tidy Kitchen
+  # Can be sliced
+  - type: SliceableFood
+    count: 4
+    slice: FoodLemonSlice
+  # NC edit end: Orchid's Garden - Tidy Kitchen
 
 - type: entity
   name: lemoon
@@ -645,6 +759,13 @@
     entries:
       Burger: Lemoon
       Taco: Lemoon
+      Skewer: Lemoon  # NC edit: Orchid's Garden - Tidy Kitchen
+  # NC edit start: Orchid's Garden - Tidy Kitchen
+  # Can be sliced
+  - type: SliceableFood
+    count: 4
+    slice: FoodLemoonSlice
+  # NC edit end: Orchid's Garden - Tidy Kitchen
 
 - type: entity
   name: lime
@@ -672,6 +793,13 @@
     entries:
       Burger: Lime
       Taco: Lime
+      Skewer: Lime  # NC edit: Orchid's Garden - Tidy Kitchen
+  # NC edit start: Orchid's Garden - Tidy Kitchen
+  # Can be sliced
+  - type: SliceableFood
+    count: 4
+    slice: FoodLimeSlice
+  # NC edit end: Orchid's Garden - Tidy Kitchen
 
 - type: entity
   name: orange
@@ -698,6 +826,13 @@
     entries:
       Burger: Orange
       Taco: Orange
+      Skewer: Orange  # NC edit: Orchid's Garden - Tidy Kitchen
+  # NC edit start: Orchid's Garden - Tidy Kitchen
+  # Can be sliced
+  - type: SliceableFood
+    count: 4
+    slice: FoodOrangeSlice
+  # NC edit end: Orchid's Garden - Tidy Kitchen
 
 - type: entity
   name: extradimensional orange
@@ -739,6 +874,7 @@
     entries:
       Burger: ExtradimensionalOrangeBurger
       Taco: ExtradimensionalOrange
+      Skewer: ExtradimensionalOrange  # NC edit: Orchid's Garden - Tidy Kitchen
 
 - type: entity
   name: pineapple
@@ -811,9 +947,16 @@
     entries:
       Burger: Potato
       Taco: Potato
+      Skewer: Potato  # NC edit: Orchid's Garden - Tidy Kitchen
   - type: Construction # WWDP quick crafts
     graph: PowerCellPotato
     node: potato
+  # NC edit start: Orchid's Garden - Tidy Kitchen
+  # Can be sliced
+  - type: SliceableFood
+    count: 3
+    slice: FoodPotatoSlice
+  # NC edit end: Orchid's Garden - Tidy Kitchen
 
 
 - type: entity
@@ -875,6 +1018,12 @@
       Skewer: TomatoSkewer
       Burger: Tomato
       Taco: Tomato
+  # NC edit start: Orchid's Garden - Tidy Kitchen
+  # Can be sliced
+  - type: SliceableFood
+    count: 3
+    slice: FoodTomatoSlice
+  # NC edit end: Orchid's Garden - Tidy Kitchen
 
 - type: entity
   name: blue tomato
@@ -924,6 +1073,13 @@
     entries:
       Burger: BlueTomato
       Taco: BlueTomato
+      Skewer: BlueTomato  # NC edit: Orchid's Garden - Tidy Kitchen
+  # NC edit start: Orchid's Garden - Tidy Kitchen
+  # Can be sliced
+  - type: SliceableFood
+    count: 3
+    slice: FoodBlueTomatoSlice
+  # NC edit end: Orchid's Garden - Tidy Kitchen
 
 - type: entity
   name: blood tomato
@@ -972,6 +1128,12 @@
       Skewer: TomatoSkewer
       Burger: BloodTomato
       Taco: BloodTomato
+  # NC edit start: Orchid's Garden - Tidy Kitchen
+  # Can be sliced
+  - type: SliceableFood
+    count: 3
+    slice: FoodBloodTomatoSlice
+  # NC edit end: Orchid's Garden - Tidy Kitchen
 
 - type: entity
   name: eggplant
@@ -999,6 +1161,12 @@
     tags:
     - Fruit
     - Vegetable
+  # NC edit start: Orchid's Garden - Tidy Kitchen
+  # Can be sliced
+  - type: SliceableFood
+    count: 3
+    slice: FoodEggplantSlice
+  # NC edit end: Orchid's Garden - Tidy Kitchen
 
 - type: entity
   name: apple
@@ -1034,6 +1202,13 @@
     entries:
       Burger: Apple
       Taco: Apple
+      Skewer: Apple  # NC edit: Orchid's Garden - Tidy Kitchen
+  # NC edit start: Orchid's Garden - Tidy Kitchen
+  # Can be sliced
+  - type: SliceableFood
+    count: 4
+    slice: FoodAppleSlice
+  # NC edit end: Orchid's Garden - Tidy Kitchen
 
 - type: entity
   name: golden apple
@@ -1074,6 +1249,13 @@
     entries:
       Burger: GoldenApple
       Taco: GoldenApple
+      Skewer: GoldenApple  # NC edit: Orchid's Garden - Tidy Kitchen
+  # NC edit start: Orchid's Garden - Tidy Kitchen
+  # Can be sliced
+  - type: SliceableFood
+    count: 4
+    slice: FoodGoldenAppleSlice
+  # NC edit end: Orchid's Garden - Tidy Kitchen
 
 - type: entity
   name: cocoa pod
@@ -1148,6 +1330,12 @@
       Burger: Corn
       Taco: Corn
       Skewer: CornSkewer
+  # NC edit start: Orchid's Garden - Tidy Kitchen
+  # Can be sliced
+  - type: SliceableFood
+    count: 3
+    slice: FoodCornSlice
+  # NC edit end: Orchid's Garden - Tidy Kitchen
 
 - type: entity
   name: corn cob
@@ -1170,6 +1358,12 @@
         reagents:
         - ReagentId: Cornmeal
           Quantity: 10
+  # NC edit start: Orchid's Garden - Tidy Kitchen
+  # Can be recycled
+  - type: PhysicalComposition
+    materialComposition:
+      Biomass: 1
+  # NC edit end: Orchid's Garden - Tidy Kitchen
 
 - type: entity
   name: onion
@@ -1299,6 +1493,7 @@
     entries:
       Burger: PineappleSliceBurger
       Taco: PineappleSlice
+      Skewer: OnionRedSlice  # NC edit: Orchid's Garden - Tidy Kitchen
 
 - type: entity
   name: onion slice
@@ -1330,6 +1525,7 @@
     entries:
       Burger: OnionSliceBurger
       Taco: OnionSlice
+      Skewer: OnionRedSlice  # NC edit: Orchid's Garden - Tidy Kitchen
 
 - type: entity
   name: red onion slice
@@ -1361,6 +1557,7 @@
     entries:
       Burger: OnionRedSliceBurger
       Taco: OnionRedSlice
+      Skewer: OnionRedSlice  # NC edit: Orchid's Garden - Tidy Kitchen
 
 - type: entity
   name: chili pepper
@@ -1457,6 +1654,7 @@
     entries:
       Taco: Aloe
       Burger: Aloe
+      Skewer: Aloe  # NC edit: Orchid's Garden - Tidy Kitchen
 
 - type: entity
   name: poppy
@@ -1493,6 +1691,7 @@
     entries:
       Taco: Poppy
       Burger: Poppy
+      Skewer: Poppy  # NC edit: Orchid's Garden - Tidy Kitchen
 
 - type: entity
   name: hairflower
@@ -1533,6 +1732,7 @@
     entries:
       Taco: Lily
       Burger: Lily
+      Skewer: Lily  # NC edit: Orchid's Garden - Tidy Kitchen
 
 - type: entity
   name: lingzhi
@@ -1563,6 +1763,7 @@
     entries:
       Taco: Lingzhi
       Burger: Lingzhi
+      Skewer: Lingzhi  # NC edit: Orchid's Garden - Tidy Kitchen
 
 - type: entity
   name: ambrosia vulgaris
@@ -1606,6 +1807,7 @@
     entries:
       Taco: AmbrosiaVulgaris
       Burger: AmbrosiaVulgarisBurger
+      Skewer: AmbrosiaVulgaris  # NC edit: Orchid's Garden - Tidy Kitchen
   # WWDP quick crafts
   - type: Construction
     graph: flowerwreath
@@ -1651,6 +1853,7 @@
     entries:
       Taco: AmbrosiaDeus
       Burger: AmbrosiaDeusBurger
+      Skewer: AmbrosiaDeus  # NC edit: Orchid's Garden - Tidy Kitchen
 
 - type: entity
   name: galaxythistle
@@ -1682,6 +1885,7 @@
     entries:
       Taco: Galaxythistle
       Burger: GalaxythistleBurger
+      Skewer: Galaxythistle  # NC edit: Orchid's Garden - Tidy Kitchen
 
 - type: entity
   name: glasstle
@@ -1750,6 +1954,7 @@
     entries:
       Taco: Glasstle
       Burger: GlasstleBurger
+      Skewer: Glasstle  # NC edit: Orchid's Garden - Tidy Kitchen
 
 - type: entity
   name: fly amanita
@@ -1780,6 +1985,7 @@
     entries:
       Taco: FlyAmanita
       Burger: FlyAmanita
+      Skewer: FlyAmanita  # NC edit: Orchid's Garden - Tidy Kitchen
 
 - type: entity
   name: gatfruit
@@ -1813,6 +2019,7 @@
     entries:
       Taco: Gatfruit
       Burger: GatfruitBurger
+      Skewer: Gatfruit  # NC edit: Orchid's Garden - Tidy Kitchen
 
 - type: entity
   name: capfruit
@@ -1846,6 +2053,7 @@
     entries:
       Taco: Capfruit
       Burger: CapfruitBurger
+      Skewer: Capfruit  # NC edit: Orchid's Garden - Tidy Kitchen
 
 - type: entity
   name: capfruit
@@ -1937,6 +2145,7 @@
     entries:
       Taco: SpacemansTrumpet
       Burger: SpacemansTrumpetBurger
+      Skewer: SpacemansTrumpet  # NC edit: Orchid's Garden - Tidy Kitchen
 
 - type: entity
   name: koibean
@@ -2277,6 +2486,7 @@
     entries:
       Taco: Bungo
       Burger: Bungo
+      Skewer: Bungo  # NC edit: Orchid's Garden - Tidy Kitchen
 
 - type: entity
   name: bungo pit
@@ -2331,6 +2541,12 @@
   - type: Tag
     tags:
     - Vegetable
+  # NC edit start: Orchid's Garden - Tidy Kitchen
+  - type: FoodSequenceElement
+    entries:
+      Taco: Pea
+      Burger: Pea
+  # NC edit end: Orchid's Garden - Tidy Kitchen
 
 - type: entity
   parent: FoodProduceBase
@@ -2361,8 +2577,8 @@
     - Vegetable
   - type: FoodSequenceElement
     entries:
-      Taco: Pea
-      Burger: Pea
+      Taco: WorldPea  # NC edit: Orchid's Garden - Tidy Kitchen
+      Burger: WorldPeaBurger  # NC edit: Orchid's Garden - Tidy Kitchen
 
 - type: entity
   name: pumpkin
@@ -2412,6 +2628,12 @@
     tags:
     - Fruit
     - Vegetable
+  # NC edit start: Orchid's Garden - Tidy Kitchen
+  # Can be sliced
+  - type: SliceableFood
+    count: 4
+    slice: FoodPumpkinSlice
+  # NC edit end: Orchid's Garden - Tidy Kitchen
 
 - type: entity
   name: blue pumpkin
@@ -2462,6 +2684,12 @@
   - type: Tag
     tags:
     - Fruit
+  # NC edit start: Orchid's Garden - Tidy Kitchen
+  # Can be sliced
+  - type: SliceableFood
+    count: 4
+    slice: FoodBluePumpkinSlice
+  # NC edit end: Orchid's Garden - Tidy Kitchen
 
 - type: entity
   name: cotton boll
@@ -2555,6 +2783,10 @@
       reagents:
       - ReagentId: JuiceCherry
         Quantity: 5
+  # NC edit start: Orchid's Garden - Tidy Kitchen
+  - type: Item
+    size: Tiny
+  # NC edit end: Orchid's Garden - Tidy Kitchen
   - type: Tag
     tags:
     - Fruit
@@ -2574,6 +2806,7 @@
   - type: Item
     sprite: Objects/Specific/Hydroponics/cherry.rsi
     heldPrefix: pit
+    size: Tiny  # NC edit: Orchid's Garden - Tidy Kitchen
   - type: Tag
     tags:
     - Recyclable
