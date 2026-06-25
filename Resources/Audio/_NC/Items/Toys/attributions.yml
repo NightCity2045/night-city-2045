@@ -1,4 +1,12 @@
+- files: ["ara.ogg"]
+  license: "CC0-1.0"
+  copyright: "Downloaded from Myinstants."
+  source: "https://www.myinstants.com/en/instant/ara-ara-12667/"
 - files: ["arf.ogg"]
   license: "CC0-1.0"
   copyright: "Created by Orsoniks, from the game Casualties Unknown"
   source: "https://orsonik.itch.io/scav-prototype"
+- files: ["bosh_tet.ogg"]
+  license: "CC0-1.0"
+  copyright: "Taken from the game Mass Effect."
+  source: "https://store.steampowered.com/app/17460/Mass_Effect_2007/"

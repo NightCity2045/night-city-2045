@@ -1,0 +1,42 @@
+- type: entity
+  parent: BasePlushie
+  id: PlushieTrupozarka
+  name: плюшевая Трупожарка
+  description: АРАРАР.
+  components:
+  - type: Sprite
+    sprite: &PlushieSprite _NC/Objects/Fun/Plushies/ud.rsi
+    state: icon
+  - type: Item
+    sprite: *PlushieSprite
+    inhandVisuals:
+      left:
+      - state: inhand-left
+        shader: shaded
+      right:
+      - state: inhand-right
+        shader: shaded
+  - type: Clothing
+    clothingVisuals:
+      head:
+      - state: equipped-HELMET
+        shader: shaded
+    quickEquip: false
+    sprite: *PlushieSprite
+    slots:
+    - HEAD
+  - type: EmitSoundOnUse
+    sound: &PlushieSound
+      path: /Audio/Items/Toys/rawr.ogg
+  - type: EmitSoundOnLand
+    sound: *PlushieSound
+  - type: EmitSoundOnActivate
+    sound: *PlushieSound
+  - type: EmitSoundOnTrigger
+    sound: *PlushieSound
+  - type: EmitSoundOnCollide
+    sound: *PlushieSound
+  - type: Food
+    useSound: *PlushieSound
+  - type: MeleeWeapon
+    soundHit: *PlushieSound

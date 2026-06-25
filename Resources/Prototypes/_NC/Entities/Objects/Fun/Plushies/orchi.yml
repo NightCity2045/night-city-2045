@@ -1,0 +1,37 @@
+- type: entity
+  parent: PlushieTrupozarka
+  id: PlushieOrchiDea
+  name: плюшевая Орхи
+  description: Великая мать трудолюбивых цветочков НайтСити. От нее пахнет освежающим коктейлем...
+  suffix: Звёздная Орхидея, Ботаник
+  components:
+  - type: Sprite
+    sprite: &PlushieSprite _NC/Objects/Fun/Plushies/orchi.rsi
+  - type: Item
+    sprite: *PlushieSprite
+  - type: Clothing
+    sprite: *PlushieSprite
+  - type: EmitSoundOnUse
+    sound: &PlushieSound
+      path: /Audio/_NC/Items/Toys/ara.ogg
+  - type: EmitSoundOnLand
+    sound: *PlushieSound
+  - type: EmitSoundOnActivate
+    sound: *PlushieSound
+  - type: EmitSoundOnTrigger
+    sound: *PlushieSound
+  - type: EmitSoundOnCollide
+    sound: *PlushieSound
+  - type: Food
+    useSound: *PlushieSound
+  - type: MeleeWeapon
+    soundHit: *PlushieSound
+  - type: SolutionContainerManager
+    solutions:
+      food:
+        maxVol: 30
+        reagents:
+        - ReagentId: Fiber
+          Quantity: 10
+        - ReagentId: Orchito
+          Quantity: 20
