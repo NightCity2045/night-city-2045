@@ -1,7 +1,7 @@
 - type: job
   id: TraumaTeamOperative
-  name: Оперативник Trauma Team
-  description: Охраняет парамедика Trauma Team
+  name: job-name-trauma-team-operative
+  description: job-description-trauma-team-operative
   playTimeTracker: JobTraumaTeamOperative
   weight: 60
   salary: 400

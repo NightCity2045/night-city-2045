@@ -1,7 +1,7 @@
 - type: job
   id: BiotechnicaTech
-  name: Техник Biotechnica
-  description: 'Научный персонал. Производит снаряжение и импланты, занимается тех. обслуживанием объекта.'
+  name: job-name-biotechnica-tech
+  description: job-description-biotechnica-tech
   playTimeTracker: JobBiotechnicaTech
   weight: 50
   salary: 200

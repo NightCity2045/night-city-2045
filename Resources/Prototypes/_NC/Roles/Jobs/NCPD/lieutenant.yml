@@ -1,7 +1,7 @@
 - type: job
   id: NCPDLieutenant
-  name: Лейтенант
-  description: Стандартный младший руководитель сил NCPD. Относится к старшему офицерскому составу
+  name: job-name-ncpd-lieutenant
+  description: job-description-ncpd-lieutenant
   playTimeTracker: JobNCPDLieutenant
   weight: 85
   salary: 220

@@ -1,7 +1,7 @@
 - type: job
   id: TraumaTeamIntern
-  name: Интерн Trauma Team
-  description: Вы — начальное звено пищевой цепочки Травмы. Ваша работа — быть человеком на побегушках, подчиняться старшим, выносить утки, слушать жалобы пациентов на ресепшене и учиться, как быть хорошим корпоративным врачём. Подчиняйтесь.
+  name: job-name-trauma-team-intern
+  description: job-description-trauma-team-intern
   playTimeTracker: JobTraumaTeamIntern
   weight: 20
   salary: 170

@@ -7,6 +7,7 @@ using Content.Client.ReadyManifest;
 using Content.Client.UserInterface.Systems.Chat;
 using Content.Client.Voting;
 using Content.Shared.CCVar;
+using Content.Shared.GameTicking;
 using Robust.Client;
 using Robust.Client.Console;
 using Robust.Client.ResourceManagement;
@@ -106,6 +107,23 @@ namespace Content.Client.Lobby
         {
             // Yeah I hate this but LobbyState contains all the badness for now
             Lobby?.SwitchState(state);
+        }
+
+        public void RefreshLocalization()
+        {
+            if (Lobby is null)
+                return;
+
+            var lobbyNameCvar = _cfg.GetCVar(CCVars.ServerLobbyName);
+            var serverName = _baseClient.GameInfo?.ServerName ?? string.Empty;
+
+            Lobby.ServerName.Text = string.IsNullOrEmpty(lobbyNameCvar)
+                ? Loc.GetString("ui-lobby-title", ("serverName", serverName))
+                : lobbyNameCvar;
+
+            Lobby.Relocalize();
+            UpdateLobbyUi();
+            UpdateLobbyBackground();
         }
 
         private void OnSetupPressed(BaseButton.ButtonEventArgs args)
@@ -209,8 +227,8 @@ namespace Content.Client.Lobby
                 Lobby!.ObserveButton.Disabled = true;
             }
 
-            if (_gameTicker.ServerInfoBlob != null)
-                Lobby!.ServerInfo.SetInfoBlob(_gameTicker.ServerInfoBlob);
+            if (_gameTicker.ServerInfo != null)
+                Lobby!.ServerInfo.SetInfoBlob(BuildServerInfoMarkup(_gameTicker.ServerInfo));
 
             //Lobby!.LabelName.SetMarkup("[font=\"Bedstead\" size=20] Night City [/font]"); // WD EDIT
             //Lobby!.ChangelogLabel.SetMarkup(Loc.GetString("ui-lobby-changelog")); // WD EDIT
@@ -277,6 +295,33 @@ namespace Content.Client.Lobby
                 return;
 
             _consoleHost.ExecuteCommand($"toggleready {newReady}");
+        }
+
+        private string BuildServerInfoMarkup(TickerLobbyInfoEvent info)
+        {
+            var gmTitle = ResolveLocalizedOrRaw(info.GameModeTitle);
+            var description = ResolveLocalizedOrRaw(info.GameModeDescription);
+
+            return Loc.GetString(
+                _gameTicker.IsGameStarted
+                    ? "game-ticker-get-info-text"
+                    : "game-ticker-get-info-preround-text",
+                ("roundId", info.RoundId),
+                ("playerCount", info.PlayerCount),
+                ("readyCount", info.ReadyCount),
+                ("mapName", info.MapName),
+                ("gmTitle", gmTitle),
+                ("desc", description));
+        }
+
+        private static string ResolveLocalizedOrRaw(string? value)
+        {
+            if (string.IsNullOrWhiteSpace(value))
+                return string.Empty;
+
+            return Loc.TryGetString(value, out var localized)
+                ? localized
+                : value;
         }
         // Removed some function for icon. If needed then get it from git version
         // WD EDIT END

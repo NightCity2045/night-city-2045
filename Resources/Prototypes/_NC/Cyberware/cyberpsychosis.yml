@@ -34,9 +34,9 @@
 
 - type: antag
   id: Cyberpsycho
-  name: Киберпсих
+  name: role-cyberpsycho-name
   antagonist: true
-  objective: Убить всех. Плоть слаба.
+  objective: role-cyberpsycho-objective
 
 - type: entity
   parent: BaseMindRoleAntag

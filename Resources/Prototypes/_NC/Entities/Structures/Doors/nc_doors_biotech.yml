@@ -4,7 +4,7 @@
 - type: entity
   id: BiotechDirectorAirlock
   parent: BaseNCAirlock
-  name: шлюз руководителя Биотехника
+  name: ent-NCDoorBiotechnicaChief
   components:
   - type: AccessReader
     access: [["Biotech_Director"]]
@@ -13,7 +13,7 @@
 - type: entity
   id: BiotechMedTechAirlock
   parent: BaseNCAirlock
-  name: шлюз МедТех Биотехника
+  name: ent-NCDoorBiotechnicaMedtech
   components:
   - type: AccessReader
     access: [["Biotech_MedTech"], ["Biotech_Tech"]]
@@ -22,7 +22,7 @@
 - type: entity
   id: BiotechOperativeAirlock
   parent: BaseNCAirlock
-  name: шлюз оперативников Биотехника
+  name: ent-NCDoorBiotechnicaOperative
   components:
   - type: AccessReader
     access: [["Biotech_Operative"]]
@@ -31,7 +31,7 @@
 - type: entity
   id: BiotechStaffAirlock
   parent: BaseNCAirlock
-  name: шлюз персонала Биотехника
+  name: ent-NCDoorBiotechnicaStaff
   components:
   - type: AccessReader
     access: [["Biotech_Staff"]]
@@ -40,7 +40,7 @@
 - type: entity
   id: BiotechGeneralAirlock
   parent: BaseNCAirlock
-  name: шлюз Биотехника общий
+  name: ent-NCDoorBiotechnicaGeneral
   components:
   - type: AccessReader
     access: [["Biotech_General"]]

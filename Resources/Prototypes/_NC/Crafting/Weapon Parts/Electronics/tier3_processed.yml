@@ -1,7 +1,7 @@
 - type: entity
   id: NCProcessedElectronicsT3
-  name: смарт-модуль наведения (Т3) (Электроника для оружия. Т3.)
-  description: Электроника для оружия. Т3.
+  name: ent-NCProcessedElectronicsT3
+  description: ent-NCProcessedElectronics-desc
   parent: BaseItem
   components:
     - type: Sprite

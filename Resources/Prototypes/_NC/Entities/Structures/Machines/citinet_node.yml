@@ -1,8 +1,8 @@
 - type: entity
   id: NCCitiNetNode
   parent: BaseMachinePowered
-  name: Магистральный узел CitiNet
-  description: "Огромный серверный кластер с бэкдором в зашифрованные корпоративные архивы. Требует 50кВт для работы в режиме извлечения данных."
+  name: ent-NCCitiNetNode
+  description: ent-NCCitiNetNode-desc
   components:
   - type: Sprite
     sprite: Structures/Machines/server.rsi

@@ -3,8 +3,8 @@
 - type: entity
   parent: ClothingOuterHardsuitBase
   id: ClothingOuterHardsuitTraumaTeamMedic
-  name: бронекостюм медика Trauma Team
-  description: Специализированный бронекостюм для сотрудников Trauma Team, обеспечивающий защиту в опасных зонах при оказании медицинской помощи.
+  name: ent-ClothingOuterHardsuitTraumaMedic
+  description: ent-ClothingOuterHardsuitTraumaMedic-desc
   components:
   - type: Sprite
     sprite: _NC/Clothing/OuterClothing/Hardsuits/trauma_med_hardsuit.rsi
@@ -36,8 +36,8 @@
 - type: entity
   parent: ClothingOuterHardsuitBaseMedium
   id: ClothingOuterHardsuitTraumaTeamOperative
-  name: штурмовой бронекостюм Trauma Team
-  description: Усиленный бронекостюм для оперативников Trauma Team, предназначенный для работы в условиях активных боевых действий.
+  name: ent-ClothingOuterHardsuitTraumaAssault
+  description: ent-ClothingOuterHardsuitTraumaAssault-desc
   components:
   - type: Sprite
     sprite: _NC/Clothing/OuterClothing/Hardsuits/trauma_armored_hardsuit.rsi

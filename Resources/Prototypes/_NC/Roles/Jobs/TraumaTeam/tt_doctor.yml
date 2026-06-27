@@ -1,7 +1,7 @@
 - type: job
   id: TraumaTeamDoctor
-  name: Медтех Trauma Team
-  description: Вы — элита операционной, способная заменить почку на хромированный фильтр. Ваша работа — установка имплантов и сложные операции. Если клиент хочет стать быстрее звука или просто дожить до завтра — это ваша забота.
+  name: job-name-trauma-team-doctor
+  description: job-description-trauma-team-doctor
   playTimeTracker: JobTraumaTeamDoctor
   weight: 50
   salary: 300

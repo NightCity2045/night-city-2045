@@ -1,6 +1,6 @@
 - type: job
   id: MaxTacCommander
-  name: Штурм командир Max-Tac
+  name: job-name-maxtac-commander
   description: job-description-maxtac-commander
   playTimeTracker: JobMaxTacCommander
   weight: 95

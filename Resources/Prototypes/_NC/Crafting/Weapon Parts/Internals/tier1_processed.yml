@@ -1,7 +1,7 @@
 - type: entity
   id: NCProcessedInternalsT1
-  name: примитивный УСМ (Т1) (УСМ для оружия. Т1.)
-  description: УСМ для оружия. Т1.
+  name: ent-NCProcessedInternalsT1
+  description: ent-NCProcessedInternals-desc
   parent: BaseItem
   components:
     - type: Sprite

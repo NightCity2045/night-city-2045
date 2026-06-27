@@ -1,7 +1,7 @@
 - type: job
   id: Reaper
-  name: Риппер
-  description: Частный врач, работает как в своей клинике так и в паре с наемниками
+  name: job-name-ripper
+  description: job-description-ripper
   playTimeTracker: JobReaper
   icon: "JobIconCivilRipper"
   salary: 40

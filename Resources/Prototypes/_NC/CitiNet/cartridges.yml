@@ -1,8 +1,8 @@
 - type: entity
   parent: BaseItem
   id: CitiNetMapCartridge
-  name: CitiNet Map cartridge
-  description: A program for layered tactical map visualization.
+  name: ent-CitiNetMapCartridge
+  description: ent-CitiNetMapCartridge-desc
   components:
   - type: Sprite
     sprite: Objects/Devices/cartridge.rsi

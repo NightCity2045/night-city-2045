@@ -117,7 +117,7 @@ ui-options-hud-layout = Тип HUD:
 
 ui-options-binds-reset-all = Сбросить ВСЕ привязки
 ui-options-binds-explanation = ЛКМ — изменить кнопку, ПКМ — убрать кнопку
-ui-options-binds-search = Search
+ui-options-binds-search = Поиск
 ui-options-unbound = Пусто
 ui-options-bind-reset = Сбросить
 ui-options-key-prompt = Нажмите кнопку...

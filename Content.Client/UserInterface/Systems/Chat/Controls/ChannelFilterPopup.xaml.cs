@@ -95,4 +95,12 @@ public sealed partial class ChannelFilterPopup : Popup
         if (_filterStates.TryGetValue(channel, out var checkbox))
             checkbox.UpdateUnreadCount(unread);
     }
+
+    public void RefreshLocalization()
+    {
+        foreach (var checkbox in _filterStates.Values)
+        {
+            checkbox.RefreshLocalization();
+        }
+    }
 }

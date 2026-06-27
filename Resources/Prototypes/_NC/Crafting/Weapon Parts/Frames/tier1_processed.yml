@@ -1,7 +1,7 @@
 - type: entity
   id: NCProcessedFrameT1
-  name: рамка кустарного оружия (Т1) (Каркас для оружия. Т1.)
-  description: Каркас для оружия. Т1.
+  name: ent-NCProcessedFrameT1
+  description: ent-NCProcessedFrame-desc
   parent: BaseItem
   components:
     - type: Sprite

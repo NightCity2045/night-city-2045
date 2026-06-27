@@ -1,7 +1,7 @@
 - type: job
   id: TraumaTeamCoroner
-  name: Коронер Trauma Team
-  description: Вскрывает трупы и помогает копам из NCPD понять, почему этот парень стал трупом. Ваше кредо, мертвые не болтают, но их потроха могут рассказать чертовски много
+  name: job-name-trauma-team-coroner
+  description: job-description-trauma-team-coroner
   playTimeTracker: JobTraumaTeamCoroner
   weight: 90
   salary: 280

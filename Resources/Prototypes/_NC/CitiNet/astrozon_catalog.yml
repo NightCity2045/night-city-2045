@@ -3,7 +3,7 @@
 
 - type: citiNetStoreCategory
   id: AstrozonTools
-  name: "Инструменты"
+  name: citinet-store-category-tools
   entries:
   - proto: Wrench
     price: 60
@@ -23,7 +23,7 @@
 
 - type: citiNetStoreCategory
   id: AstrozonMed
-  name: "Медицинские принадлежности"
+  name: citinet-store-category-medical
   entries:
   - proto: Ointment
     price: 75
@@ -35,18 +35,18 @@
     price: 15
     count: 10
   - proto: PillCanisterBicaridine
-    name: бикаридин
-    description: 10 таблеток по 10 унций.
+    name: reagent-name-Bicaridine
+    description: citinet-pill-canister-desc
     price: 180
     count: 5
   - proto: PillCanisterKelotane
-    name: Келотан
-    description: 10 таблеток по 10 унций.
+    name: reagent-name-Kelotane
+    description: citinet-pill-canister-desc
     price: 180
     count: 5
   - proto: PillCanisterTricordrazine
-    name: Трикордразин
-    description: 10 таблеток по 10 унций.
+    name: reagent-name-Tricordrazine
+    description: citinet-pill-canister-desc
     price: 350
     count: 5
   - proto: Beaker
@@ -60,11 +60,11 @@
 
 - type: citiNetStoreCategory
   id: AstrozonEquipment
-  name: "Оборудование"
+  name: citinet-store-category-equipment
   entries:
   - proto: StreamCamNC
-    name: Бодикамера
-    description: Нательная камера для прямых трансляций в сеть!
+    name: stream-cam-nc-name
+    description: stream-cam-nc-description
     price: 300
     count: 10
 
@@ -72,7 +72,7 @@
 
 - type: citiNetStoreCategory
   id: AstrozonClothing
-  name: "Стиль и Мода"
+  name: citinet-store-category-style
   entries:
   - proto: ClothingUniformJumpsuitSuitAristocratic
     price: 400
@@ -156,7 +156,7 @@
 
 - type: citiNetStoreCategory
   id: AstrozonBotanyEquipment
-  name: "Ботаника"
+  name: citinet-store-category-botany
   entries:
   - proto: SeedExtractorFlatpack
     price: 800
@@ -275,7 +275,7 @@
 
 - type: citiNetStoreCategory
   id: AstrozonWorkwear
-  name: "Спецодежда"
+  name: citinet-store-category-workwear
   entries:
   - proto: ClothingBeltPlant
     price: 120

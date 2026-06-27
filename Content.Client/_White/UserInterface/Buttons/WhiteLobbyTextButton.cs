@@ -17,7 +17,15 @@ public class WhiteLobbyTextButton : TextureButton
 
     public string ButtonText
     {
-        set => _buttonText = value;
+        set
+        {
+            if (_buttonText == value)
+                return;
+
+            _buttonText = value;
+            InvalidateMeasure();
+            InvalidateArrange();
+        }
     }
 
     public WhiteLobbyTextButton()

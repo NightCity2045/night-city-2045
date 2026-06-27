@@ -170,6 +170,11 @@ public sealed class SandboxUIController : UIController, IOnStateChanged<Gameplay
         SandboxButton.Visible = _sandbox.SandboxAllowed;
     }
 
+    public void RefreshLocalization()
+    {
+        _window?.Relocalize();
+    }
+
     public void OnStateExited(GameplayState state)
     {
         if (_window != null)

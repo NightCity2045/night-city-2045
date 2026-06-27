@@ -1,7 +1,7 @@
 - type: job
   id: NCPDSergeant
-  name: Старший патрульный
-  description: Опытный патрульный, который повидал многое на улицах Найт-Сити. Знает, как обращаться с бандитами и как не попасть в передрягу
+  name: job-name-ncpd-sergeant
+  description: job-description-ncpd-sergeant
   playTimeTracker: JobNCPDSergeant
   weight: 45
   salary: 160

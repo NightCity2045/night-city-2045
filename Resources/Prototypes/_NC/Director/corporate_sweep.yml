@@ -1,7 +1,7 @@
 - type: directorEvent
   id: CorporateSweep
   parent: NCBaseDirectorEvent
-  name: "Corporate Sweep"
+  name: director-event-corporate-sweep
   weight: 12
   minPlayers: 6
   minRoundDuration: 600
@@ -11,7 +11,7 @@
   startPhase: "Insertion"
   phases:
     Insertion:
-      name: "Insertion"
+      name: director-event-corporate-sweep-phase-insertion
       duration: 120
       announcement: "corp-sweep-insertion"
       meetLocationTags: ["CorporateSweepMeet"]
@@ -33,7 +33,7 @@
         Pressure: 100
 
     Pressure:
-      name: "Pressure"
+      name: director-event-corporate-sweep-phase-pressure
       duration: 90
       announcement: "corp-sweep-pressure"
       nextPhases:
@@ -41,7 +41,7 @@
         Withdrawal: 40
 
     Breach:
-      name: "Breach"
+      name: director-event-corporate-sweep-phase-breach
       duration: 210
       announcement: "corp-sweep-breach"
       aiDomain: "DirectorCombatCompound"
@@ -55,7 +55,7 @@
         Withdrawal: 100
 
     Withdrawal:
-      name: "Withdrawal"
+      name: director-event-corporate-sweep-phase-withdrawal
       duration: 60
       announcement: "corp-sweep-withdrawal"
       aiDomain: "FleeToExtraction"

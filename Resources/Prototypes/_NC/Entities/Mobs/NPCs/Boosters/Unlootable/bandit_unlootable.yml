@@ -3,10 +3,10 @@
 # --- Bandit Variations ---
 
 - type: entity
-  name: бандит
+  name: ent-MobNCBandit
   parent: BaseMobHuman
   id: MobNCBanditUnlootable
-  description: Обычный уличный бандит, вооружившийся корпо-снаряжением с черного рынка.
+  description: ent-MobNCBandit-desc
   abstract: true
   IdleRange: !type:Single 6
   components:

@@ -1,7 +1,7 @@
 - type: directorEvent
   id: CheckpointShakedown
   parent: NCBaseDirectorEvent
-  name: "Checkpoint Shakedown"
+  name: director-event-checkpoint-shakedown
   weight: 11
   minPlayers: 5
   minRoundDuration: 480
@@ -10,7 +10,7 @@
   startPhase: "Setup"
   phases:
     Setup:
-      name: "Setup"
+      name: director-event-checkpoint-shakedown-phase-setup
       duration: 90
       announcement: "checkpoint-setup"
       meetLocationTags: ["CheckpointMeet"]
@@ -32,7 +32,7 @@
         Hold: 100
 
     Hold:
-      name: "Hold"
+      name: director-event-checkpoint-shakedown-phase-hold
       duration: 120
       announcement: "checkpoint-hold"
       nextPhases:
@@ -40,7 +40,7 @@
         StandDown: 50
 
     Raid:
-      name: "Raid"
+      name: director-event-checkpoint-shakedown-phase-raid
       duration: 180
       announcement: "checkpoint-raid"
       aiDomain: "DirectorCombatCompound"
@@ -54,14 +54,14 @@
         Exit: 100
 
     StandDown:
-      name: "Stand Down"
+      name: director-event-checkpoint-shakedown-phase-stand-down
       duration: 60
       announcement: "checkpoint-standdown"
       nextPhases:
         Exit: 100
 
     Exit:
-      name: "Exit"
+      name: director-event-checkpoint-shakedown-phase-exit
       duration: 45
       announcement: "checkpoint-exit"
       aiDomain: "FleeToExtraction"

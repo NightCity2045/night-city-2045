@@ -1,7 +1,7 @@
 - type: directorEvent
   id: ScavengerRush
   parent: NCBaseDirectorEvent
-  name: "Scavenger Rush"
+  name: director-event-scavenger-rush
   weight: 10
   minPlayers: 5
   minRoundDuration: 420
@@ -11,7 +11,7 @@
   startPhase: "Convergence"
   phases:
     Convergence:
-      name: "Convergence"
+      name: director-event-scavenger-rush-phase-convergence
       duration: 120
       announcement: "scavenger-convergence"
       meetLocationTags: ["ScavengerRushMeet"]
@@ -33,7 +33,7 @@
         Dispute: 100
 
     Dispute:
-      name: "Dispute"
+      name: director-event-scavenger-rush-phase-dispute
       duration: 120
       announcement: "scavenger-dispute"
       nextPhases:
@@ -41,7 +41,7 @@
         Split: 35
 
     Scramble:
-      name: "Scramble"
+      name: director-event-scavenger-rush-phase-scramble
       duration: 180
       announcement: "scavenger-scramble"
       aiDomain: "DirectorCombatCompound"
@@ -59,14 +59,14 @@
         Fade: 100
 
     Split:
-      name: "Split"
+      name: director-event-scavenger-rush-phase-split
       duration: 60
       announcement: "scavenger-split"
       nextPhases:
         Fade: 100
 
     Fade:
-      name: "Fade"
+      name: director-event-scavenger-rush-phase-fade
       duration: 45
       announcement: "scavenger-fade"
       aiDomain: "FleeToExtraction"

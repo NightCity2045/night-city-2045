@@ -103,6 +103,14 @@ public sealed class ChannelSelectorPopup : Popup
         }
     }
 
+    public void RefreshLocalization()
+    {
+        foreach (var selector in _selectorStates.Values)
+        {
+            selector.RefreshLocalization();
+        }
+    }
+
     private void OnSelectorPressed(ButtonEventArgs args)
     {
         var button = (ChannelSelectorItemButton) args.Button;

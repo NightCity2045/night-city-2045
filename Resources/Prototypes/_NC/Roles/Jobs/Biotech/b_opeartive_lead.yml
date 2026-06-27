@@ -1,7 +1,7 @@
 - type: job
   id: BiotechnicaOperativeLead
-  name: Офицер Biotechnica
-  description: 'Относится к Офицерскому составу корпорации Биотехника. Руководит оперативниками, парамедиками и нетраннерами.'
+  name: job-name-biotechnica-operative-lead
+  description: job-description-biotechnica-operative-lead
   playTimeTracker: JobBiotechnicaOperativeLead
   weight: 80
   salary: 350

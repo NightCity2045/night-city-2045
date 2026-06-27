@@ -1,8 +1,8 @@
 - type: entity
   parent: BaseItem
   id: NCWeaponScrap
-  name: бракованная деталь
-  description: Изуродованный кусок металла и пластика. Результат неудачной работы на ЧПУ-станке.
+  name: nc-weapon-scrap-name
+  description: nc-weapon-scrap-desc
   suffix: NC
   components:
   - type: Sprite

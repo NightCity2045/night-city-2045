@@ -7,7 +7,7 @@
 
 - type: material
   id: NCBulletTipMat
-  name: пуля
+  name: nc-bullet-tip-name
   stackEntity: NCMaterialBulletTip
   unit: materials-unit-piece
   icon: { sprite: /Textures/Objects/Weapons/Guns/Ammunition/Casings/ammo_casing.rsi, state: tip }
@@ -16,7 +16,7 @@
 
 - type: material
   id: NCCasingMat
-  name: гильза
+  name: nc-casing-name
   stackEntity: NCMaterialCasing
   unit: materials-unit-piece
   icon: { sprite: /Textures/Objects/Weapons/Guns/Ammunition/Casings/ammo_casing.rsi, state: base }
@@ -29,14 +29,14 @@
 
 - type: stack
   id: NCBulletTip
-  name: пуля
+  name: nc-bullet-tip-name
   icon: { sprite: /Textures/Objects/Weapons/Guns/Ammunition/Casings/ammo_casing.rsi, state: tip }
   spawn: NCMaterialBulletTip
   maxCount: 30
 
 - type: stack
   id: NCCasing
-  name: гильза
+  name: nc-casing-name
   icon: { sprite: /Textures/Objects/Weapons/Guns/Ammunition/Casings/ammo_casing.rsi, state: base }
   spawn: NCMaterialCasing
   maxCount: 30
@@ -48,8 +48,8 @@
 - type: entity
   parent: MaterialBase
   id: NCMaterialBulletTip
-  name: пуля
-  description: Стальной наконечник для снаряжения патронов.
+  name: nc-bullet-tip-name
+  description: nc-bullet-tip-desc
   components:
   - type: Material
   - type: Stack
@@ -70,8 +70,8 @@
 - type: entity
   parent: MaterialBase
   id: NCMaterialCasing
-  name: гильза
-  description: Стальная гильза для снаряжения патронов.
+  name: nc-casing-name
+  description: nc-casing-desc
   components:
   - type: Material
   - type: Stack

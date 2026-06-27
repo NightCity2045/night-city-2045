@@ -1,7 +1,7 @@
 - type: job
   id: TraumaTeamTech
-  name: Техник Trauma Team
-  description: Вы — инженерный специалист. Вы следите за тем, чтобы лампочки горели, оборудование не сбоило, а техника Травмы работала, как часы. Чините механизмы, а не людей.
+  name: job-name-trauma-team-tech
+  description: job-description-trauma-team-tech
   playTimeTracker: JobTraumaTeamTech
   weight: 40
   salary: 250

@@ -1,8 +1,8 @@
 ﻿- type: entity
   id: NcpdForensicsConsole
-  name: Flatline консоль NCPD
+  name: ent-NcpdForensicsConsole
   parent: BaseMachinePowered
-  description: Lists flatline alerts across the station.
+  description: ent-NcpdForensicsConsole-desc
   components:
   - type: Sprite
     sprite: Structures/Machines/server.rsi # stub sprite

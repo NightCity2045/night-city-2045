@@ -3,8 +3,8 @@
 - type: entity
   id: CyberwareNeuroSandevistanMk1
   parent: BaseCyberwareImplant
-  name: "Zetatech Sandevistan Mk.1"
-  description: "Нейронный ускоритель базового уровня. Умеренно ускоряет, но быстро сжигает стамину."
+  name: ent-CyberwareNeuroSandevistanMk1
+  description: ent-CyberwareNeuroSandevistanMk1-desc
   components:
   - type: CyberwareImplant
     category: Neuroport
@@ -29,8 +29,8 @@
 - type: entity
   id: CyberwareNeuroSandevistanApogee
   parent: BaseCyberwareImplant
-  name: "Militech 'Apogee' Sandevistan"
-  description: "Легендарный ускоритель. Позволяет двигаться быстрее молнии ценой колоссальной нагрузки на разум."
+  name: ent-CyberwareNeuroSandevistanApogee
+  description: ent-CyberwareNeuroSandevistanApogee-desc
   components:
   - type: CyberwareImplant
     category: Neuroport
@@ -55,8 +55,8 @@
 - type: entity
   id: CyberwareNeuroSandevistanMaxTac
   parent: BaseCyberwareImplant
-  name: "Militech 'Max-Tac' Sandevistan"
-  description: "Ускоритель для элитного отряда. Позволяет двигаться быстрее молнии ценой колоссальной нагрузки на разум."
+  name: ent-CyberwareNeuroSandevistanMaxTac
+  description: ent-CyberwareNeuroSandevistanMaxTac-desc
   components:
   - type: CyberwareImplant
     category: Neuroport

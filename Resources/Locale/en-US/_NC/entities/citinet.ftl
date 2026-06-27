@@ -1,0 +1,12 @@
+ent-CitiNetTerminal = CitiNet Terminal
+    .desc = A bulky desktop terminal with a flickering CRT monitor.
+ent-CitiNetDataChipNCPD = NCPD Access Chip
+    .desc = A small chip containing encrypted access keys for the NCPD database.
+ent-CitiNetDataChipNCPDForensics = NCPD Forensics Access Chip
+    .desc = A small chip containing encrypted access keys for the NCPD forensics database.
+ent-CitiNetCorporateDropBox = "Vendit" Dropbox
+    .desc = A secure corporate terminal for receiving packages. PIN required.
+ent-CitiNetStreetDeadDrop = Old Trash Can
+    .desc = A dirty bin stuffed with old newspapers. Looks like something's hidden here.
+ent-CitiNetDeliveryChip = 'QuickPath' Navi Chip
+    .desc = A disposable chip with your package coordinates. Insert into PDA to activate GPS marker.

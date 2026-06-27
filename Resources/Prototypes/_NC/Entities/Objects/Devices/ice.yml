@@ -17,8 +17,8 @@
 - type: entity
   parent: NCIceBase
   id: NCIceGate
-  name: Врата
-  description: Базовая плата защиты паролем. Блокирует доступ до ввода правильного пароля.
+  name: ent-NCIceGate
+  description: ent-NCIceGate-desc
   components:
   - type: NetIce
     iceType: Gate
@@ -33,8 +33,8 @@
 - type: entity
   parent: NCIceBase
   id: NCIceSentry
-  name: Страж
-  description: Система активной защиты, отслеживающая нарушителей. Может заблокировать вам доступ к сети.
+  name: ent-NCIceSentry
+  description: ent-NCIceSentry-desc
   components:
   - type: NetIce
     iceType: WhiteICE
@@ -49,8 +49,8 @@
 - type: entity
   parent: NCIceBase
   id: NCIceKiller
-  name: Убийца
-  description: Летальная система защиты. Выжигает нейроинтерфейсы без жалости.
+  name: ent-NCIceKiller
+  description: ent-NCIceKiller-desc
   components:
   - type: NetIce
     iceType: BlackICE

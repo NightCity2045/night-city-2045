@@ -1,7 +1,7 @@
 - type: job
   id: BiotechnicaBotanist
-  name: Ботаник Biotechnica
-  description: 'Научный персонал. Растит и перегоняет овощи в пищу, выводит новые сорта растений.'
+  name: job-name-biotechnica-botanist
+  description: job-description-biotechnica-botanist
   playTimeTracker: JobBiotechnicaBotanist
   weight: 10
   salary: 150

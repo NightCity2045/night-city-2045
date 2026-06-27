@@ -87,3 +87,36 @@ citinet-bbs-game-chat = [CitiNet/{$channel}] {$sender}: {$message}
 
 # Delivery
 nc-delivery-map-marker = Посылка: { $location }
+
+# Store Categories
+citinet-store-category-tools = Инструменты
+citinet-store-category-medical = Медицинские принадлежности
+citinet-store-category-equipment = Оборудование
+citinet-store-category-style = Стиль и Мода
+citinet-store-category-botany = Ботаника
+citinet-store-category-workwear = Спецодежда
+citinet-store-category-weapons = Оружие
+citinet-store-category-armor = Защита
+citinet-store-category-ammo = Боеприпасы
+citinet-store-category-cyberware = Кибер-Импланты
+citinet-store-category-industrial = Пром. Оборудование
+citinet-store-category-chemistry = Химия
+citinet-store-category-seeds = Семена
+
+# Store Items
+citinet-pill-canister-desc = 10 таблеток по 10 унций.
+
+# NetSites
+citinet-site-name-home = CitiNet Home
+citinet-site-name-comm = CitiNet Comm
+citinet-site-name-flatline = База данных Flatline
+citinet-site-name-astrozon = Astrozon
+citinet-site-name-night-market = Ночной рынок
+citinet-site-name-ncpd-records = NCPD Central Database
+citinet-site-name-trauma-monitor = Trauma Care Monitor
+
+# Map
+citinet-map-beacon-default = Новый POI
+citinet-map-sector-default = Новый сектор
+ent-CitiNetMapCartridge = картридж карты CitiNet
+ent-CitiNetMapCartridge-desc = Программа для визуализации слоев тактической карты.

@@ -1,8 +1,8 @@
 - type: entity
   parent: BaseItem
   id: NCTechSMGShingen
-  name: Технология (Arasaka TKI20 Shingen)
-  description: Технология для создания модуля "Arasaka TKI20 Shingen". Т3.
+  name: ent-NCTechSMGShingen
+  description: ent-NCTechSMG-desc
   components:
   - type: Sprite
     sprite: Objects/Misc/module.rsi
@@ -20,8 +20,8 @@
 - type: entity
   parent: BaseItem
   id: NCTechSMGSaratoga
-  name: Технология (Militech Saratoga)
-  description: Технология для создания модуля "Militech Saratoga". Т2.
+  name: ent-NCTechSMGSaratoga
+  description: ent-NCTechSMG-desc
   components:
   - type: Sprite
     sprite: Objects/Misc/module.rsi

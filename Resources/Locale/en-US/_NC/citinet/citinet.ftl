@@ -80,3 +80,37 @@ citinet-sender-system = SYSTEM
 citinet-sender-flatline = FLATLINE
 citinet-call-busy = >> TARGET LINE BUSY. TRY AGAIN LATER.
 citinet-call-connection-lost = >> CONNECTION LOST. RELAY SIGNAL DROPPED.
+
+# Store Categories
+citinet-store-category-tools = Tools
+citinet-store-category-medical = Medical Supplies
+citinet-store-category-equipment = Equipment
+citinet-store-category-style = Style & Fashion
+citinet-store-category-botany = Botany
+citinet-store-category-workwear = Workwear
+citinet-store-category-weapons = Weapons
+citinet-store-category-armor = Protection
+citinet-store-category-ammo = Ammunition
+citinet-store-category-cyberware = Cyberware
+citinet-store-category-industrial = Industrial Equipment
+citinet-store-category-chemistry = Chemistry
+citinet-store-category-seeds = Seeds
+
+# Store Items
+citinet-pill-canister-desc = 10 pills, 10 units each.
+
+# NetSites
+citinet-site-name-home = CitiNet Home
+citinet-site-name-comm = CitiNet Comm
+citinet-site-name-flatline = Flatline Database
+citinet-site-name-astrozon = Astrozon
+citinet-site-name-night-market = Night Market
+citinet-site-name-ncpd-records = NCPD Central Database
+citinet-site-name-trauma-monitor = Trauma Care Monitor
+
+# Map
+citinet-map-beacon-default = New POI
+citinet-map-sector-default = New Sector
+ent-CitiNetMapCartridge = CitiNet Map cartridge
+ent-CitiNetMapCartridge-desc = A program for layered tactical map visualization.
+map-program-name = City Map

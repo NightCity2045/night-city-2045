@@ -1,7 +1,7 @@
 - type: entity
   parent: BaseStructure
   id: NCServerBase
-  name: сетевой сервер
+  name: ent-NCServerBase
   abstract: true
   components:
   - type: Sprite
@@ -52,8 +52,8 @@
 - type: entity
   parent: NCServerBase
   id: NCMicroServer
-  name: микро-сервер
-  description: Бюджетная серверная стойка с 3 уровнями ЛЬДА.
+  name: ent-NCMicroServer
+  description: ent-NCMicroServer-desc
   components:
   - type: Sprite
     sprite: Structures/Machines/server.rsi
@@ -78,8 +78,8 @@
 - type: entity
   parent: NCServerBase
   id: NCMainframe
-  name: мэйнфрейм
-  description: Стандартная серверная стойка с 6 уровнями ЛЬДА.
+  name: ent-NCMainframe
+  description: ent-NCMainframe-desc
   components:
   - type: Sprite
     sprite: Structures/Machines/server.rsi
@@ -118,8 +118,8 @@
 - type: entity
   parent: NCServerBase
   id: NCCitadelServer
-  name: сервер Цитадель
-  description: Сервер крепостного класса с 9 уровнями ЛЬДА.
+  name: ent-NCCitadelServer
+  description: ent-NCCitadelServer-desc
   components:
   - type: Sprite
     sprite: Structures/Machines/server.rsi

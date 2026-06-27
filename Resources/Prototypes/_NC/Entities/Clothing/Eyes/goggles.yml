@@ -1,8 +1,8 @@
 - type: entity
   parent: ClothingEyesBase
   id: ClothingEyesGogglesBotany
-  name: ботанические защитные очки
-  description: Продвинутые очки, которые защищают ваши глаза от шипов и колючек.
+  name: ent-ClothingEyesGogglesBotany
+  description: ent-ClothingEyesGogglesBotany-desc
   suffix: Гидропоника, Ботаника
   components:
   - type: Sprite

@@ -2,8 +2,8 @@
 - type: entity
   id: CyberwareExternalKevlarSublayer
   parent: BaseCyberwareImplant
-  name: "Moore Tech 'Carapace'"
-  description: "The cheapest street protection. Layers of ballistic kevlar are implanted under the skin to absorb small caliber impacts."
+  name: ent-CyberwareExternalKevlarSublayer
+  description: ent-CyberwareExternalKevlarSublayer-desc
   components:
   - type: CyberwareImplant
     category: External
@@ -19,8 +19,8 @@
 - type: entity
   id: CyberwareExternalThermoplasticArmor
   parent: BaseCyberwareImplant
-  name: "Arasaka 'Skinweave'"
-  description: "High-tech thermal protection. Polymer plates react to heat, hardening instantly upon impact."
+  name: ent-CyberwareExternalThermoplasticArmor
+  description: ent-CyberwareExternalThermoplasticArmor-desc
   components:
   - type: CyberwareImplant
     category: External
@@ -37,8 +37,8 @@
 - type: entity
   id: CyberwareExternalReactiveSublayer
   parent: BaseCyberwareImplant
-  name: "Militech 'Subdermal'"
-  description: "Military-grade subdermal armor. Not quite human, but feels like a concrete wall."
+  name: ent-CyberwareExternalReactiveSublayer
+  description: ent-CyberwareExternalReactiveSublayer-desc
   components:
   - type: CyberwareImplant
     category: External

@@ -1,8 +1,8 @@
 - type: entity
   parent: BaseMachinePowered
   id: NcpdCaptainConsole
-  name: Главный терминал начальника NCPD
-  description: Массивный сервер, обрабатывающий транзакции департамента. Только для высшего руководства.
+  name: ent-NcpdCaptainConsole
+  description: ent-NcpdCaptainConsole-desc
   components:
   - type: Sprite
     sprite: Structures/Machines/server.rsi # Временный спрайт

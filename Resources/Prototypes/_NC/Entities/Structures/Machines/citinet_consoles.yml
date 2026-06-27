@@ -1,8 +1,8 @@
 - type: entity
   id: CitiNetConsoleNCPD
   parent: BaseComputer
-  name: тактическая консоль NCPD
-  description: Терминал сети Overwatch для координации оперативных групп.
+  name: ent-CitiNetConsoleNCPD
+  description: ent-CitiNetConsoleNCPD-desc
   components:
   - type: Sprite
     layers:
@@ -32,8 +32,8 @@
 - type: entity
   id: CitiNetConsoleTrauma
   parent: BaseComputer
-  name: консоль мониторинга Trauma Team
-  description: Отображает жизненные показатели и местоположение клиентов платиновой подписки.
+  name: ent-CitiNetConsoleTrauma
+  description: ent-CitiNetConsoleTrauma-desc
   components:
   - type: Sprite
     layers:
@@ -60,8 +60,8 @@
 - type: entity
   id: CitiNetConsoleBiotechnica
   parent: BaseComputer
-  name: терминал активов Biotechnica
-  description: Консоль для отслеживания полевого персонала и имущества корпорации.
+  name: ent-CitiNetConsoleBiotechnica
+  description: ent-CitiNetConsoleBiotechnica-desc
   components:
   - type: Sprite
     layers:

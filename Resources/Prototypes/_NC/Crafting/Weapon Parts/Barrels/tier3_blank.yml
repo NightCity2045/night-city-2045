@@ -1,7 +1,7 @@
 - type: entity
   id: NCBlankBarrelTungsten
-  name: вольфрамовый стержень (стволы заготовка Т3)
-  description: стволы заготовка Т3
+  name: ent-NCBlankBarrelTungsten
+  description: ent-NCBlankBarrelTungsten-desc
   parent: BaseItem
   components:
     - type: Sprite

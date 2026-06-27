@@ -1,7 +1,7 @@
 - type: entity
   id: NCBlankInternalsEM
-  name: электромагнитный компенсатор (УСМ заготовка Т3)
-  description: УСМ заготовка Т3
+  name: ent-NCBlankInternalsEM
+  description: ent-NCBlankInternals-desc
   parent: BaseItem
   components:
     - type: Sprite

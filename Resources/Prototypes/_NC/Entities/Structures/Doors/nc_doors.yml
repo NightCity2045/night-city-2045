@@ -2,7 +2,7 @@
   id: BaseNCAirlock
   parent: Airlock
   abstract: true
-  name: дверь
+  name: ent-BaseNCDoor
   components:
   - type: Sprite
     sprite: _NC/Structures/Doors/Door.rsi
@@ -28,12 +28,12 @@
 - type: entity
   id: NCAirlockGeneral
   parent: BaseNCAirlock
-  name: дверь
+  name: ent-BaseNCDoor
 
 - type: entity
   id: NCAirlock
   parent: BaseNCAirlock
-  name: дверь
+  name: ent-BaseNCDoor
   suffix: "квартира"
   components:
   - type: UserInterface
@@ -47,7 +47,7 @@
 - type: entity
   id: NCAirlock1000
   parent: BaseNCAirlock
-  name: дверь
+  name: ent-BaseNCDoor
   suffix: "квартира люкс класса 1000"
   components:
   - type: UserInterface
@@ -61,7 +61,7 @@
 - type: entity
   id: NCAirlock300
   parent: BaseNCAirlock
-  name: дверь
+  name: ent-BaseNCDoor
   suffix: "квартира 300"
   components:
   - type: UserInterface
@@ -75,7 +75,7 @@
 - type: entity
   id: NCAirlock500
   parent: BaseNCAirlock
-  name: дверь
+  name: ent-BaseNCDoor
   suffix: "квартира 500"
   components:
   - type: UserInterface
@@ -89,7 +89,7 @@
 - type: entity
   id: NCAirlock700
   parent: BaseNCAirlock
-  name: дверь
+  name: ent-BaseNCDoor
   suffix: "квартира 700"
   components:
   - type: UserInterface
@@ -105,7 +105,7 @@
 - type: entity
   parent: BaseNCAirlock
   id: RipperAirlock
-  name: шлюз риппера
+  name: ent-NCDoorReaper
   components:
   - type: AccessReader
     access: [["Ripper"]]
@@ -113,7 +113,7 @@
 - type: entity
   parent: BaseNCAirlock
   id: CafeAirlock
-  name: шлюз кафе
+  name: ent-NCDoorCafe
   components:
   - type: AccessReader
     access: [["Cafe"]]
@@ -121,7 +121,7 @@
 - type: entity
   parent: BaseNCAirlock
   id: RestaurantAirlock
-  name: шлюз ресторана
+  name: ent-NCDoorRestaurant
   components:
   - type: AccessReader
     access: [["Restaurant"]]

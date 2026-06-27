@@ -1,7 +1,7 @@
 - type: entity
   id: NCATM
-  name: банкомат
-  description: Терминал для операций с валютой. Взимает налог 10%. Требуется ID карта.
+  name: ent-NCATM
+  description: ent-NCATM-desc
   parent: BaseMachinePowered
   components:
   - type: Transform

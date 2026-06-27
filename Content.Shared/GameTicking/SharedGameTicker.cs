@@ -117,11 +117,27 @@ namespace Content.Shared.GameTicking
     [Serializable, NetSerializable]
     public sealed class TickerLobbyInfoEvent : EntityEventArgs
     {
-        public string TextBlob { get; }
+        public int RoundId { get; }
+        public int PlayerCount { get; }
+        public int ReadyCount { get; }
+        public string MapName { get; }
+        public string? GameModeTitle { get; }
+        public string? GameModeDescription { get; }
 
-        public TickerLobbyInfoEvent(string textBlob)
+        public TickerLobbyInfoEvent(
+            int roundId,
+            int playerCount,
+            int readyCount,
+            string mapName,
+            string? gameModeTitle,
+            string? gameModeDescription)
         {
-            TextBlob = textBlob;
+            RoundId = roundId;
+            PlayerCount = playerCount;
+            ReadyCount = readyCount;
+            MapName = mapName;
+            GameModeTitle = gameModeTitle;
+            GameModeDescription = gameModeDescription;
         }
     }
 

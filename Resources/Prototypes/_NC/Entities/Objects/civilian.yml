@@ -3,8 +3,8 @@
 - type: entity
   parent: DrinkBase
   id: WateringCan
-  name: лейка
-  description: Обычная лейка для полива растений. Вмещает чуть больше воды чем ведро и не проливает ее.
+  name: ent-WateringCan
+  description: ent-WateringCan-desc
   components:
   - type: Clickable
   - type: Sprite
@@ -53,8 +53,8 @@
 - type: entity
   parent: WateringCan
   id: WateringCanExperimental
-  name: продвинутая лейка
-  description: Экспериментальная лейка, которая медленно пополняется сама.
+  name: ent-WateringCanAdvanced
+  description: ent-WateringCanAdvanced-desc
   components:
   - type: Sprite
     sprite: _NC/Objects/Tools/watering_can_experimental.rsi
@@ -81,8 +81,8 @@
 - type: entity
   parent: WateringCanExperimental
   id: BluespaceWateringCanExperimental
-  name: вместительная продвинутая лейка
-  description: Улучшенная экспериментальная самовосполняющаяся лейка, расширенная в три раза.
+  name: ent-WateringCanAdvancedLarge
+  description: ent-WateringCanAdvancedLarge-desc
   components:
   - type: Sprite
     state: icon_bluespace
@@ -106,8 +106,8 @@
 - type: entity
   parent: DrinkShaker
   id: DrinkShakerAdvanced
-  name: продвинутый шейкер
-  description: Этот прозрачный мерный шейкер имеет авто-размешиватель внутри, позволяя одновременно встряхивать и размешивать жидкости. А еще он немного больше обычного.
+  name: ent-DrinkShakerAdvanced
+  description: ent-DrinkShakerAdvanced-desc
   components:
   - type: SolutionContainerManager
     solutions:
@@ -141,8 +141,8 @@
 - type: entity
   parent: DrinkShakerAdvanced
   id: BluespaceDrinkShakerAdvanced
-  name: вместительный продвинутый шейкер
-  description: Этот продвинутый шейкер способен вместить гораздо больше жидкости.
+  name: ent-DrinkShakerAdvancedLarge
+  description: ent-DrinkShakerAdvancedLarge-desc
   components:
   - type: SolutionContainerManager
     solutions:
@@ -161,8 +161,8 @@
 - type: entity
   parent: Pitcher
   id: DrinkKettleAdvanced
-  name: продвинутый чайник
-  description: Этот прозрачный мерный чайник имеет авто-нагреватель внутри, позволяя нагревать напиток на ходу до 400 градусов. И он немного больше обычных чайников.
+  name: ent-DrinkKettleAdvanced
+  description: ent-DrinkKettleAdvanced-desc
   components:
   - type: SolutionContainerManager
     solutions:
@@ -195,8 +195,8 @@
 - type: entity
   parent: DrinkKettleAdvanced
   id: BluespaceDrinkKettleAdvanced
-  name: вместительный продвинутый чайник
-  description: Этот продвинутый чайник способен вместить гораздо больше жидкости.
+  name: ent-DrinkKettleAdvancedLarge
+  description: ent-DrinkKettleAdvancedLarge-desc
   components:
   - type: SolutionContainerManager
     solutions:
@@ -215,8 +215,8 @@
 - type: entity
   parent: Bucket
   id: BucketBig
-  name: строительное ведро
-  description: Большое ведро, обычно используещеся для стройматериалов. Но в НайтСити "народные умельцы" находят ему другое применение...
+  name: ent-BucketConstruction
+  description: ent-BucketConstruction-desc
   components:
   - type: Sprite
     sprite: &bucket_big_sprite _NC/Objects/Tools/bucket_big.rsi
@@ -238,8 +238,8 @@
 - type: entity
   parent: Bucket
   id: BluespaceBucket
-  name: продвинутое ведро
-  description: Технологичное ведро, способное вместить гораздо больше жидкости.
+  name: ent-BucketAdvanced
+  description: ent-BucketAdvanced-desc
   components:
   - type: Sprite
     sprite: &bluespace_bucket_sprite _NC/Objects/Tools/Biotechnica/Botany/bluespace_bucket.rsi

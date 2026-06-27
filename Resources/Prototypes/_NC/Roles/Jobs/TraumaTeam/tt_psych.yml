@@ -1,7 +1,7 @@
 - type: job
   id: TraumaTeamPsych
-  name: КиберПсихолог Trauma Team
-  description: Вы — высококвалифицированный специалист с высшим образованием и дипломом психолога...или так всем кажется. Лечите от киберпсихоза при помощи терапии, прописывайте шизам лекарства, а так же утверждайте, что синие человечки - это нормально.
+  name: job-name-trauma-team-psych
+  description: job-description-trauma-team-psych
   playTimeTracker: JobTraumaTeamPsych
   weight: 80
   salary: 320

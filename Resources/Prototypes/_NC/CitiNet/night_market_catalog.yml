@@ -1,6 +1,6 @@
 - type: citiNetStoreCategory
   id: NightMarket_Weapons
-  name: "Оружие"
+  name: citinet-store-category-weapons
   entries:
   - proto: WeaponPistolOverlord
     price: 80
@@ -26,7 +26,7 @@
 
 - type: citiNetStoreCategory
   id: NightMarket_Armor
-  name: "Защита"
+  name: citinet-store-category-armor
   entries:
   - proto: ClothingOuterArmorBasic
     price: 150
@@ -55,7 +55,7 @@
 
 - type: citiNetStoreCategory
   id: NightMarket_Ammo
-  name: "Боеприпасы"
+  name: citinet-store-category-ammo
   entries:
   - proto: MagazinePistolHelloCutie
     price: 20
@@ -132,7 +132,7 @@
 
 - type: citiNetStoreCategory
   id: NightMarket_Cyberware
-  name: "Кибер-Импланты"
+  name: citinet-store-category-cyberware
   entries:
   - proto: CyberwareImplantAntiglare
     price: 150
@@ -194,7 +194,7 @@
 
 - type: citiNetStoreCategory
   id: NightMarket_Medical
-  name: "Медицина"
+  name: citinet-store-category-medical
   entries:
   - proto: HandheldHealthAnalyzer
     price: 150
@@ -224,7 +224,7 @@
 
 - type: citiNetStoreCategory
   id: NightMarket_BotanyEquipment
-  name: "Бот. Оборудование"
+  name: citinet-store-category-botany
   entries:
   - proto: SeedExtractorFlatpack
     price: 800
@@ -235,7 +235,7 @@
 
 - type: citiNetStoreCategory
   id: NightMarket_IndustrialEquipment
-  name: "Пром. Оборудование"
+  name: citinet-store-category-industrial
   entries:
   - proto: WeaponWorkbenchFlatpack
     price: 500
@@ -255,7 +255,7 @@
 
 - type: citiNetStoreCategory
   id: NightMarket_Chemistry
-  name: "Химия"
+  name: citinet-store-category-chemistry
   entries:
   - proto: PrimeTimeChemistryBottle
     price: 150
@@ -285,7 +285,7 @@
 
 - type: citiNetStoreCategory
   id: NightMarket_Seeds
-  name: "Семена"
+  name: citinet-store-category-seeds
   entries:
   - proto: AloeSeeds
     price: 300
@@ -336,7 +336,7 @@
 
 - type: citiNetStoreCategory
   id: NightMarket_Tools
-  name: "Инструменты"
+  name: citinet-store-category-tools
   entries:
   - proto: Dropper
     price: 15

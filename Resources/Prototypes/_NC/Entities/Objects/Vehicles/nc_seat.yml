@@ -1,6 +1,6 @@
 - type: entity
   id: NCVehicleSeat
-  name: passenger seat
+  name: ent-VehiclePassengerSeat
   components:
   - type: Strap
     position: Stand

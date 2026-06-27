@@ -16,5 +16,11 @@ public sealed partial class AdminOptionsTab : Control
 
         Control.Initialize();
     }
+
+    public void Relocalize()
+    {
+        EnableClassicOverlayCheckBox.Text = Loc.GetString("ui-options-enable-classic-overlay");
+        Control.RefreshLocalization();
+    }
 }
 

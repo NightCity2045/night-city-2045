@@ -4,7 +4,7 @@
 - type: entity
   id: MaxTacStaffAirlock
   parent: BaseNCAirlock
-  name: шлюз Макстак для персонала
+  name: ent-NCDoorMaxTacStaff
   components:
   - type: AccessReader
     access: [["MaxTac_General"]]
@@ -13,7 +13,7 @@
 - type: entity
   id: MaxTacCommandAirlock
   parent: BaseNCAirlock
-  name: шлюз командира отряда Макстак
+  name: ent-NCDoorMaxTacCommander
   components:
   - type: AccessReader
     access: [["MaxTac_Command"]]
@@ -22,7 +22,7 @@
 - type: entity
   id: MaxTacNetrunnerAirlock
   parent: BaseNCAirlock
-  name: шлюз нетраннера Макстак
+  name: ent-NCDoorMaxTacNetrunner
   components:
   - type: AccessReader
     access: [["MaxTac_Armory"]]

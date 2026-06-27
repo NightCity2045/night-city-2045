@@ -3,9 +3,9 @@
 - type: entity
   parent: ClothingOuterStorageFoldableBase
   id: ClothingOuterNWNArmorVest
-  name: Сейф-Тейк М2
+  name: ent-ClothingOuterArmorNWN
   suffix: NC; Night City; Trupozarka
-  description:  Облегченный бронежилет класса IV с логотипом NET-Watch-News. ПРЕССА! Один лишь косой взгляд на неё это военное преступление.
+  description:  ent-ClothingOuterArmorNWN-desc
   components:
     - type: Sprite
       sprite: _NC/Clothing/OuterClothing/Armor/nwn-armorvest.rsi
@@ -22,5 +22,5 @@
 - type: entity
   parent: [ClothingOuterStorageFoldableBaseOpened, ClothingOuterNWNArmorVest]
   id: ClothingOuterNWNArmorVestOpened
-  name: Сейф-Тейк М2
+  name: ent-ClothingOuterArmorNWN
   suffix: NC; Night City; Trupozarka

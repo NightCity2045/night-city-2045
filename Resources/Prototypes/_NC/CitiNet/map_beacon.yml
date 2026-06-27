@@ -16,7 +16,7 @@
   - type: Sprite
     state: green # Зеленый крестик для маяков
   - type: MapBeacon
-    label: "New POI"
+    label: citinet-map-beacon-default
     color: "#00ffff"
     icon: /Textures/Interface/VerbIcons/information.svg.192dpi.png
     visibleInWorld: true

@@ -15,8 +15,8 @@
   parent: BaseItem
   id: BaseVendingMachineRestockPartial
   abstract: true
-  name: частичный набор пополнения торгового автомата
-  description: Наполняет торговые автоматы определенными предметами.
+  name: ent-BaseVendingMachineRestockPartial
+  description: ent-BaseVendingMachineRestockPartial-desc
   components:
   - type: VendingMachineRestockPartial
   - type: Sprite
@@ -67,8 +67,8 @@
 - type: entity
   parent: [VendingMachineBiotechnica, VendingMachineNutri]
   id: VendingMachineBiotechnicaBotany
-  name: Интрументы Biotechnica
-  description: Корпоративный автомат, содержащий средства и инструменты для работы с растениями.
+  name: ent-VendingMachineBiotechnicaBotany
+  description: ent-VendingMachineBiotechnicaBotany-desc
   suffix: Гидропоника, Ботаника
   components:
   - type: VendingMachine
@@ -81,8 +81,8 @@
 - type: entity
   parent: [VendingMachineBiotechnica, VendingMachineHydrobe]
   id: VendingMachineBiotechnicaBotanyDrobe
-  name: БотаШкаф Biotechnica
-  description: Корпоративный автомат, содержащий экипировку для работы с растениями.
+  name: ent-VendingMachineBiotechnicaBotanyDrobe
+  description: ent-VendingMachineBiotechnicaBotanyDrobe-desc
   suffix: Гидропоника, Ботаника
   components:
   - type: VendingMachine
@@ -95,8 +95,8 @@
 - type: entity
   parent: [VendingMachineBiotechnica, VendingMachineSeeds]
   id: VendingMachineBiotechnicaSeeds
-  name: Семена Biotechnica
-  description: Корпоративный раздатчик эксклюзивных семян Biotechnica.
+  name: ent-VendingMachineBiotechnicaSeeds
+  description: ent-VendingMachineBiotechnicaSeeds-desc
   suffix: Гидропоника, Ботаника
   components:
   - type: VendingMachine
@@ -111,8 +111,8 @@
 - type: entity
   parent: [VendingMachineBiotechnica, VendingMachineNutri]
   id: VendingMachineBiotechnicaMedTech
-  name: Лабораторная Biotechnica
-  description: Корпоративный автомат, содержащий средства и инструменты для научных исследований.
+  name: ent-VendingMachineBiotechnicaMedTech
+  description: ent-VendingMachineBiotechnicaMedTech-desc
   suffix: МедТех
   components:
   - type: VendingMachine
@@ -125,8 +125,8 @@
 - type: entity
   parent: [VendingMachineBiotechnica, VendingMachineChemDrobe]
   id: VendingMachineBiotechnicaMedTechDrobe
-  name: МедТехШкаф Biotechnica
-  description: Корпоративный автомат, содержащий экипировку для научных исследований.
+  name: ent-VendingMachineBiotechnicaMedTechDrobe
+  description: ent-VendingMachineBiotechnicaMedTechDrobe-desc
   suffix: МедТех
   components:
   - type: VendingMachine
@@ -139,8 +139,8 @@
 - type: entity
   parent: DVSmartFridge
   id: BiotechnicaSmartFridge
-  name: умный холодильник
-  description: Охлаждающий шкаф для химикатов с умным поиском и системой доступа.
+  name: ent-BiotechnicaSmartFridge
+  description: ent-BiotechnicaSmartFridge-desc
   suffix: Biotechnica, МедТех
   components:
   - type: AccessReader
@@ -151,8 +151,8 @@
 - type: entity
   parent: [VendingMachineBiotechnica, VendingMachineNutri]
   id: VendingMachineBiotechnicaTech
-  name: Инвентарь Biotechnica
-  description: Корпоративный автомат, содержащий средства и инструменты для научных исследований.
+  name: ent-VendingMachineBiotechnicaTech
+  description: ent-VendingMachineBiotechnicaTech-desc
   suffix: Тех
   components:
   - type: VendingMachine
@@ -165,8 +165,8 @@
 - type: entity
   parent: [VendingMachineBiotechnica, VendingMachineChemDrobe]
   id: VendingMachineBiotechnicaTechDrobe
-  name: ТехШкаф Biotechnica
-  description: Корпоративный автомат, содержащий экипировку для научных исследований.
+  name: ent-VendingMachineBiotechnicaTechDrobe
+  description: ent-VendingMachineBiotechnicaTechDrobe-desc
   suffix: Тех
   components:
   - type: VendingMachine
@@ -181,8 +181,8 @@
 - type: entity
   parent: VendingMachineCart
   id: VendingMachineBiotechnicaPDA
-  name: ПДАмат Biotechnica
-  description: Вендомат, выдающий заготовленные ПДА Biotechnica.
+  name: ent-VendingMachineBiotechnicaPDA
+  description: ent-VendingMachineBiotechnicaPDA-desc
   suffix: Глава
   components:
   - type: VendingMachine
@@ -197,8 +197,8 @@
 - type: entity
   parent: [VendingMachineBiotechnica, VendingMachineNutri]
   id: VendingMachineBiotechnicaDrinks
-  name: Напитки Biotechnica
-  description: Вкуснейшие, научно передовые напитки от Biotechnica.
+  name: ent-VendingMachineBiotechnicaDrinks
+  description: ent-VendingMachineBiotechnicaDrinks-desc
   components:
   - type: MoneyCollector
     bankAccount: Biotechnica
@@ -213,8 +213,8 @@
 - type: entity
   parent: VendingMachineBiotechnicaDrinks
   id: VendingMachineBiotechnicaDrinksCafe
-  name: Напитки Biotechnica
-  description: Вкуснейшие, научно передовые напитки от Biotechnica. 20% от выручки идет на счет кафе.
+  name: ent-VendingMachineBiotechnicaDrinksCafe
+  description: ent-VendingMachineBiotechnicaDrinksCafe-desc
   suffix: Кафе, 20% профита
   components:
   - type: MoneyCollector
@@ -225,8 +225,8 @@
 - type: entity
   parent: VendingMachineBiotechnicaDrinks
   id: VendingMachineBiotechnicaDrinksRestaurant
-  name: Напитки Biotechnica
-  description: Вкуснейшие, научно передовые напитки от Biotechnica. 20% от выручки идет на счет ресторана.
+  name: ent-VendingMachineBiotechnicaDrinksRestaurant
+  description: ent-VendingMachineBiotechnicaDrinksRestaurant-desc
   suffix: Ресторан, 20% профита
   components:
   - type: MoneyCollector
@@ -237,8 +237,8 @@
 - type: entity
   parent: BaseVendingMachineRestock
   id: BiotechnicaVendingRestock
-  name: набор пополнения Biotechnica
-  description: Коробка с полным запасом для торговых автоматов с напитками Biotechnica.
+  name: ent-BiotechnicaVendingRestock
+  description: ent-BiotechnicaVendingRestock-desc
   components:
   - type: VendingMachineRestock
     canRestock:
@@ -253,8 +253,8 @@
 - type: entity
   parent: BaseVendingMachineRestockPartial
   id: BiotechnicaVendingRestockPartial
-  name: набор пополнения Biotechnica
-  description: Коробка с запасом супов для торговых автоматов с напитками Biotechnica.
+  name: ent-BiotechnicaVendingRestockPartial
+  description: ent-BiotechnicaVendingRestockPartial-desc
   suffix: Супы
   components:
   - type: VendingMachineRestockPartial
@@ -281,8 +281,8 @@
 - type: entity
   parent: [VendingMachineBiotechnica, VendingMachineNutri]
   id: VendingMachineBiotechnicaBotanyChemicals
-  name: Фермеромат Biotechnica
-  description: Лучшие хим. удобрения для вашего сада!
+  name: ent-VendingMachineBiotechnicaBotanyChemicals
+  description: ent-VendingMachineBiotechnicaBotanyChemicals-desc
   components:
   - type: MoneyCollector
     bankAccount: Biotechnica

@@ -61,10 +61,10 @@
 # --- Biotechnica Variations ---
 
 - type: entity
-  name: Biotechnica operative
+  name: ent-MobNCBiotechnica
   parent: BaseMobHuman
   id: MobNCBiotechnicaLootable
-  description: Наёмник Biotechnica, сочетает броню и компактное вооружение для городской работы.
+  description: ent-MobNCBiotechnica-desc
   abstract: true
   IdleRange: !type:Single 8
   components:

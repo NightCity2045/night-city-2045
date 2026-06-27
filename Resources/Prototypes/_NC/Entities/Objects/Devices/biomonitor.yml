@@ -1,8 +1,8 @@
 - type: entity
   id: NCBiomonitor
   parent: BaseItem
-  name: биомонитор
-  description: Ручной нейро-сканер. Подключается к пациенту и слушает его окружение для терапии киберпсихоза.
+  name: ent-NCBiomonitor
+  description: ent-NCBiomonitor-desc
   components:
   - type: Sprite
     sprite: Objects/Specific/Medical/healthanalyzer.rsi

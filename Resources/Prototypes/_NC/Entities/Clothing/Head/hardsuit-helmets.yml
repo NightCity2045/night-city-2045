@@ -3,8 +3,8 @@
 - type: entity
   parent: [ ClothingHeadHardsuitBase, ClothingHeadSuitWithLightBase ]
   id: ClothingHeadHelmetHardsuitTraumaTeamMedic
-  name: шлем хардсьюта медика Trauma Team
-  description: Шлем со встроенным фонарем и защитой от давления, стандарт для медиков Trauma Team.
+  name: ent-ClothingHeadHelmetHardsuitTraumaMedic
+  description: ent-ClothingHeadHelmetHardsuitTraumaMedic-desc
   components:
   - type: Sprite
     sprite: _NC/Clothing/Head/Hardsuits/trauma_med_helmet.rsi
@@ -37,8 +37,8 @@
 - type: entity
   parent: [ ClothingHeadHardsuitBase, ClothingHeadSuitWithLightBase ]
   id: ClothingHeadHelmetHardsuitTraumaTeamOperative
-  name: шлем штурмового хардсьюта Trauma Team
-  description: Усиленный шлем для оперативников Trauma Team, обеспечивающий отличную защиту и видимость в темных зонах.
+  name: ent-ClothingHeadHelmetHardsuitTraumaAssault
+  description: ent-ClothingHeadHelmetHardsuitTraumaAssault-desc
   components:
   - type: Sprite
     sprite: _NC/Clothing/Head/Hardsuits/trauma_armored_helmet.rsi

@@ -1,8 +1,8 @@
 - type: entity
   id: CyberwareImplantAntiglare
   parent: BaseCyberwareImplant
-  name: antiglare
-  description: Reduces glare from sudden flashes, protecting vision without additional effects.
+  name: ent-CyberwareImplantAntiglare
+  description: ent-CyberwareImplantAntiglare-desc
   components:
   - type: CyberwareImplant
     category: Optics
@@ -12,8 +12,8 @@
 - type: entity
   id: CyberwareImplantInfraredVision
   parent: BaseCyberwareImplant
-  name: infrared vision implant
-  description: Cybernetic implant that provides infrared vision, allowing you to see in complete darkness. Can be toggled on and off.
+  name: ent-CyberwareImplantInfraredVision
+  description: ent-CyberwareImplantInfraredVision-desc
   components:
   - type: CyberwareImplant
     category: Optics
@@ -23,8 +23,8 @@
 - type: entity
   id: CyberwareImplantMicroVideo
   parent: [ SurveillanceWirelessCameraBase, BaseCyberwareImplant ]
-  name: microvideo implant
-  description: A camera embedded in the eye. Records video and audio, useful for reporters and streamers.
+  name: ent-CyberwareImplantMicroVideo
+  description: ent-CyberwareImplantMicroVideo-desc
   components:
   - type: CyberwareImplant
     category: Optics
@@ -42,8 +42,8 @@
 - type: entity
   id: CyberwareImplantMicroOptics
   parent: BaseCyberwareImplant
-  name: microoptics implant
-  description: Cybernetic implant with optical zoom capability. Allows you to zoom in on distant objects.
+  name: ent-CyberwareImplantMicroOptics
+  description: ent-CyberwareImplantMicroOptics-desc
   components:
   - type: CyberwareImplant
     category: Optics

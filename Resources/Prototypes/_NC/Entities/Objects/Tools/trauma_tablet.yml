@@ -1,8 +1,8 @@
 - type: entity
   parent: BaseItem
   id: TraumaTablet
-  name: планшет Trauma Team
-  description: Устройство для получения экстренных вызовов о пациентах с платиновой страховкой.
+  name: ent-TraumaTablet
+  description: ent-TraumaTablet-desc
   components:
   - type: Sprite
     sprite: Objects/Devices/pda.rsi # Placeholder

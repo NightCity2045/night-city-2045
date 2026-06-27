@@ -3,8 +3,8 @@
 - type: entity
   parent: DrinkBaseCup
   id: NCDrinkCup
-  name: кружка
-  description: Тёмная прочная кружка.
+  name: ent-NCDrinkCup
+  description: ent-NCDrinkCup-desc
   suffix: кружка
   components:
   - type: SolutionContainerManager
@@ -32,8 +32,8 @@
 - type: entity
   parent: NCDrinkCup
   id: NCDrinkEggCooked
-  name: яичный суп
-  description: Горячие сваренные яйца в кружке. Просто и дешево.
+  name: ent-NCDrinkEggCooked
+  description: ent-NCDrinkEggCooked-desc
   components:
   - type: SolutionContainerManager
     solutions:
@@ -47,8 +47,8 @@
 - type: entity
   parent: NCDrinkCup
   id: NCDrinkHotRamen
-  name: рамэн
-  description: Горячая лапша в кружке. Просто и дешево.
+  name: ent-NCDrinkHotRamen
+  description: ent-NCDrinkHotRamen-desc
   components:
   - type: SolutionContainerManager
     solutions:
@@ -62,8 +62,8 @@
 - type: entity
   parent: NCDrinkCup
   id: NCDrinkMisoSoup
-  name: мисо суп
-  description: Полноценный обед в маленькой кружке. Вкусно, но ты хочешь больше!
+  name: ent-NCDrinkMisoSoup
+  description: ent-NCDrinkMisoSoup-desc
   components:
   - type: SolutionContainerManager
     solutions:
@@ -83,8 +83,8 @@
 - type: entity
   parent: NCDrinkCup
   id: NCDrinkTomYamSoup
-  name: том ям суп
-  description: Полноценный обед в маленькой кружке. Острый, но ты хочешь больше!
+  name: ent-NCDrinkTomYamSoup
+  description: ent-NCDrinkTomYamSoup-desc
   components:
   - type: SolutionContainerManager
     solutions:
@@ -102,8 +102,8 @@
 - type: entity
   parent: NCDrinkCup
   id: NCDrinkPumpkinSoup
-  name: тыквенный суп
-  description: Полноценный обед в маленькой кружке. Жуткий, но ты хочешь больше!
+  name: ent-NCDrinkPumpkinSoup
+  description: ent-NCDrinkPumpkinSoup-desc
   components:
   - type: SolutionContainerManager
     solutions:
@@ -123,8 +123,8 @@
 - type: entity
   parent: NCDrinkCup
   id: NCDrinkGarlicSoup
-  name: чесночный суп
-  description: Полноценный обед в маленькой кружке. Горький, но ты хочешь больше!
+  name: ent-NCDrinkGarlicSoup
+  description: ent-NCDrinkGarlicSoup-desc
   components:
   - type: SolutionContainerManager
     solutions:
@@ -146,8 +146,8 @@
 - type: entity
   parent: NCDrinkCup
   id: NCDrinkPumpkinSpiceLatte
-  name: тыквенный пряный латте
-  description: Вкусно - просто не перехайпи его.
+  name: ent-NCDrinkPumpkinSpiceLatte
+  description: ent-NCDrinkPumpkinSpiceLatte-desc
   components:
   - type: SolutionContainerManager
     solutions:
@@ -163,8 +163,8 @@
 - type: entity
   parent: NCDrinkCup
   id: NCDrinkLatte
-  name: латте
-  description: Горячий кофе с молоком и молочной пеной.
+  name: ent-NCDrinkLatte
+  description: ent-NCDrinkLatte-desc
   components:
   - type: SolutionContainerManager
     solutions:
@@ -178,8 +178,8 @@
 - type: entity
   parent: NCDrinkCup
   id: NCDrinkHotCocoa
-  name: горячий шоколад
-  description: Горячий шоколад. Вкусно!
+  name: ent-NCDrinkHotCocoa
+  description: ent-NCDrinkHotCocoa-desc
   components:
   - type: SolutionContainerManager
     solutions:
@@ -193,8 +193,8 @@
 - type: entity
   parent: NCDrinkCup
   id: NCDrinkCoffee
-  name: кофе
-  description: Горячий кофе. Вкусно!
+  name: ent-NCDrinkCoffee
+  description: ent-NCDrinkCoffee-desc
   components:
   - type: SolutionContainerManager
     solutions:
@@ -208,8 +208,8 @@
 - type: entity
   parent: NCDrinkCup
   id: NCDrinkTea
-  name: чай
-  description: Горячий чай. Вкусно!
+  name: ent-NCDrinkTea
+  description: ent-NCDrinkTea-desc
   components:
   - type: SolutionContainerManager
     solutions:
@@ -223,8 +223,8 @@
 - type: entity
   parent: NCDrinkCup
   id: NCDrinkGreenTea
-  name: зеленый чай
-  description: Горячий зеленый чай. Вкусно!
+  name: ent-NCDrinkGreenTea
+  description: ent-NCDrinkGreenTea-desc
   components:
   - type: SolutionContainerManager
     solutions:
@@ -238,8 +238,8 @@
 - type: entity
   parent: NCDrinkCup
   id: NCDrinkLean
-  name: лин
-  description: Горячий лин. Вкусно!
+  name: ent-NCDrinkLean
+  description: ent-NCDrinkLean-desc
   components:
   - type: SolutionContainerManager
     solutions:
@@ -253,8 +253,8 @@
 - type: entity
   parent: NCDrinkCup
   id: NCDrinkSoyLatte
-  name: соевый латте
-  description: Горячий соевый латте. Вкусно!
+  name: ent-NCDrinkSoyLatte
+  description: ent-NCDrinkSoyLatte-desc
   components:
   - type: SolutionContainerManager
     solutions:
@@ -268,8 +268,8 @@
 - type: entity
   parent: NCDrinkCup
   id: NCDrinkCreamOfCoconut
-  name: кокосовые сливки
-  description: Горячие кокосовые сливки. Вкусно!
+  name: ent-NCDrinkCreamOfCoconut
+  description: ent-NCDrinkCreamOfCoconut-desc
   components:
   - type: SolutionContainerManager
     solutions:
@@ -283,8 +283,8 @@
 - type: entity
   parent: NCDrinkCup
   id: NCDrinkCream
-  name: сливки
-  description: Горячие сливки. Вкусно!
+  name: ent-NCDrinkCream
+  description: ent-NCDrinkCream-desc
   components:
   - type: SolutionContainerManager
     solutions:
@@ -298,8 +298,8 @@
 - type: entity
   parent: NCDrinkCup
   id: NCDrinkMilkChoco
-  name: шоколадное молоко
-  description: Горячее шоколадное молоко. Вкусно!
+  name: ent-NCDrinkMilkChoco
+  description: ent-NCDrinkMilkChoco-desc
   components:
   - type: SolutionContainerManager
     solutions:
@@ -313,8 +313,8 @@
 - type: entity
   parent: NCDrinkCup
   id: NCDrinkCreamCoffee
-  name: сливочный кофе
-  description: Горячий сливочный кофе. Вкусно!
+  name: ent-NCDrinkCreamCoffee
+  description: ent-NCDrinkCreamCoffee-desc
   components:
   - type: SolutionContainerManager
     solutions:
@@ -334,8 +334,8 @@
 - type: entity
   parent: MarkerBase
   id: NCDrinkCupSpawner
-  name: случайный напиток
-  description: Спавнер случайного напитка.
+  name: ent-NCDrinkCupSpawner
+  description: ent-NCDrinkCupSpawner-desc
   suffix: кружка
   placement:
     mode: PlaceFree
@@ -398,8 +398,8 @@
 - type: entity
   parent: VendingMachineCoffee
   id: VendingMachineSoups
-  name: Лучшие горячие супы НайтСити
-  description: Подаются кипящими, чтобы оставались горячими весь день!
+  name: ent-VendingMachineSoups
+  description: ent-VendingMachineSoups-desc
   suffix: профит Кафе
   components:
   - type: VendingMachine

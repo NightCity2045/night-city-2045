@@ -1,14 +1,14 @@
 - type: directorEvent
   id: StreetTaxCollection
   parent: NCBaseDirectorEvent
-  name: "Street Tax Collection"
+  name: director-event-street-tax
   weight: 16
   announcerId: "CitiNet"
   announcementColor: "#f5b942"
   startPhase: "Arrival"
   phases:
     Arrival:
-      name: "Arrival"
+      name: director-event-street-tax-phase-arrival
       duration: 120
       announcement: "street-tax-arrival"
       meetLocationTags: ["StreetTaxMeet"]
@@ -30,7 +30,7 @@
         Shakedown: 100
 
     Shakedown:
-      name: "Shakedown"
+      name: director-event-street-tax-phase-shakedown
       duration: 90
       announcement: "street-tax-shakedown"
       nextPhases:
@@ -38,14 +38,14 @@
         Violence: 45
 
     Compliance:
-      name: "Compliance"
+      name: director-event-street-tax-phase-compliance
       duration: 60
       announcement: "street-tax-compliance"
       nextPhases:
         Retreat: 100
 
     Violence:
-      name: "Violence"
+      name: director-event-street-tax-phase-violence
       duration: 180
       announcement: "street-tax-violence"
       aiDomain: "DirectorCombatCompound"

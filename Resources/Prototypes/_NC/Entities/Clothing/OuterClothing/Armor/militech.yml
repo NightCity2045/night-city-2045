@@ -1,8 +1,8 @@
 - type: entity
   parent: ClothingOuterArmorBase
   id: ClothingOuterArmorMilitechBulletproof
-  name: пуленепробиваемый бронежилет Militech
-  description: Тяжелый бронежилет производства Militech. Стандарт качества для частных военных компаний.
+  name: ent-ClothingOuterArmorMilitech
+  description: ent-ClothingOuterArmorMilitech-desc
   components:
   - type: Sprite
     sprite: _NC/Clothing/OuterClothing/Armor/militech_bulletproof.rsi

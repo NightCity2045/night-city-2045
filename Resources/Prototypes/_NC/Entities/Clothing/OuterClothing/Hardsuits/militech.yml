@@ -2,8 +2,8 @@
 - type: entity
   parent: ClothingOuterHardsuitBaseMedium
   id: ClothingOuterHardsuitMilitech
-  name: тактический хардсьют Militech
-  description: Массивный боевой хардсьют производства Militech. Сочетает в себе передовую защиту и системы жизнеобеспечения.
+  name: ent-ClothingOuterHardsuitMilitech
+  description: ent-ClothingOuterHardsuitMilitech-desc
   components:
   - type: Sprite
     sprite: _NC/Clothing/OuterClothing/Hardsuits/militech_hardsuit.rsi

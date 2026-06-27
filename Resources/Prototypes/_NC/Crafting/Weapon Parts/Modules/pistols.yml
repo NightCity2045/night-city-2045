@@ -5,7 +5,7 @@
 # Hello Cutie (Tier 1)
 - type: entity
   id: NCBlueprintHelloCutie
-  name: модуль "Hello Cutie"
+  name: ent-NCBlueprint
   description: Модуль для сборки оружия. Т1.
   parent: BaseItem
   components:
@@ -33,7 +33,7 @@
 # Overlord (Tier 1)
 - type: entity
   id: NCBlueprintOverlord
-  name: модуль "Overlord"
+  name: ent-NCBlueprint
   description: Модуль для сборки оружия. Т1.
   parent: BaseItem
   components:
@@ -61,7 +61,7 @@
 # Стукач Томми (Tier 2)
 - type: entity
   id: NCBlueprintStukachTommy
-  name: модуль "Стукач Томми"
+  name: ent-NCBlueprint
   description: Модуль для сборки оружия. Т2.
   parent: BaseItem
   components:
@@ -92,7 +92,7 @@
 # Dai Lung StreetMaster (Tier 1)
 - type: entity
   id: NCBlueprintStreetMaster
-  name: модуль "Dai Lung StreetMaster"
+  name: ent-NCBlueprint
   description: Модуль для сборки оружия. Т1.
   parent: BaseItem
   components:
@@ -120,7 +120,7 @@
 # Militech Avenger (Tier 2)
 - type: entity
   id: NCBlueprintAvenger
-  name: модуль "Militech Avenger"
+  name: ent-NCBlueprint
   description: Модуль для сборки оружия. Т2.
   parent: BaseItem
   components:
@@ -151,7 +151,7 @@
 # FedArms "Cheesemaker" (Tier 1)
 - type: entity
   id: NCBlueprintCheesemaker
-  name: модуль "Cheesemaker"
+  name: ent-NCBlueprint
   description: Модуль для сборки оружия. Т1.
   parent: BaseItem
   components:
@@ -179,7 +179,7 @@
 # Federal Arms X9 (Tier 1)
 - type: entity
   id: NCBlueprintFederalX9
-  name: модуль "Federal Arms X9"
+  name: ent-NCBlueprint
   description: Модуль для сборки оружия. Т1.
   parent: BaseItem
   components:
@@ -207,7 +207,7 @@
 # Militech "Boomer Buster" (Tier 1)
 - type: entity
   id: NCBlueprintBoomerBuster
-  name: модуль "Boomer Buster"
+  name: ent-NCBlueprint
   description: Модуль для сборки оружия. Т1.
   parent: BaseItem
   components:
@@ -235,7 +235,7 @@
 # Mustang Arms Mark III (Tier 1)
 - type: entity
   id: NCBlueprintMarkIII
-  name: модуль "Mustang Arms Mark III"
+  name: ent-NCBlueprint
   description: Модуль для сборки оружия. Т1.
   parent: BaseItem
   components:
@@ -263,7 +263,7 @@
 # Sternmeyer P35 (Tier 2)
 - type: entity
   id: NCBlueprintSternmeyerP35
-  name: модуль "Sternmeyer P35"
+  name: ent-NCBlueprint
   description: Модуль для сборки оружия. Т2.
   parent: BaseItem
   components:

@@ -73,8 +73,8 @@
 - type: entity
   id: NCAmmoPackerMachine
   parent: [BaseLatheLube, BaseMaterialSiloUtilizer]
-  name: упаковщик патронов
-  description: Станок для снаряжения патронов из гильз, пуль и пороха.
+  name: ent-NCAmmoPackerMachine
+  description: ent-NCAmmoPackerMachine-desc
   components:
   - type: Sprite
     sprite: Structures/Machines/protolathe.rsi

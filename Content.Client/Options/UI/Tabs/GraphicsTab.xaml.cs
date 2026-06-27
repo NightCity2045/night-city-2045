@@ -90,6 +90,32 @@ public sealed partial class GraphicsTab : Control
         UpdateViewportSettingsVisibility();
     }
 
+    public void Relocalize()
+    {
+        VSyncCheckBox.Text = Loc.GetString("ui-options-vsync");
+        FullscreenCheckBox.Text = Loc.GetString("ui-options-fullscreen");
+        DropDownLightingQuality.Title = Loc.GetString("ui-options-lighting-label");
+        ViewportLowResCheckBox.Text = Loc.GetString("ui-options-vp-low-res");
+        ParallaxLowQualityCheckBox.Text = Loc.GetString("ui-options-parallax-low-quality");
+        LightingShaderCheckBox.Text = Loc.GetString("ui-options-lighting-shader");
+        FilmGrainCheckBox.Text = Loc.GetString("ui-options-film-grain");
+        BloomCheckBox.Text = Loc.GetString("ui-options-bloom");
+        BloomIntensitySlider.Title = Loc.GetString("ui-options-bloom-intensity");
+        VignetteCheckBox.Text = Loc.GetString("ui-options-vignette");
+        DropDownUIScale.Title = Loc.GetString("ui-options-scale-label");
+        ViewportStretchCheckBox.Text = Loc.GetString("ui-options-vp-stretch");
+        ViewportScaleSlider.Title = Loc.GetString("ui-options-vp-scale");
+        ViewportWidthSlider.Title = Loc.GetString("ui-options-vp-width");
+        IntegerScalingCheckBox.Text = Loc.GetString("ui-options-vp-integer-scaling");
+        IntegerScalingCheckBox.ToolTip = Loc.GetString("ui-options-vp-integer-scaling-tooltip");
+        ViewportVerticalFitCheckBox.Text = Loc.GetString("ui-options-vp-vertical-fit");
+        ViewportVerticalFitCheckBox.ToolTip = Loc.GetString("ui-options-vp-vertical-fit-tooltip");
+        FpsCounterCheckBox.Text = Loc.GetString("ui-options-fps-counter");
+        MoodVisualEffectsCheckBox.Text = Loc.GetString("ui-options-mood-visual-effects");
+        PixelSnapCameraCheckBox.Text = Loc.GetString("ui-options-pixel-snap-camera-experimental");
+        Control.RefreshLocalization();
+    }
+
     private void UpdateViewportSettingsVisibility()
     {
         ViewportScaleSlider.Visible = !ViewportStretchCheckBox.Pressed;
@@ -123,12 +149,21 @@ public sealed partial class GraphicsTab : Control
         {
             _cfg = cfg;
             _dropDown = dropDown;
+            RefreshLocalization();
             var button = dropDown.Button;
+            button.OnItemSelected += OnOptionSelected;
+        }
+
+        public override void RefreshLocalization()
+        {
+            var selected = _dropDown.Button.SelectedId;
+            var button = _dropDown.Button;
+            button.Clear();
             button.AddItem(Loc.GetString("ui-options-lighting-very-low"), QualityVeryLow);
             button.AddItem(Loc.GetString("ui-options-lighting-low"), QualityLow);
             button.AddItem(Loc.GetString("ui-options-lighting-medium"), QualityMedium);
             button.AddItem(Loc.GetString("ui-options-lighting-high"), QualityHigh);
-            button.OnItemSelected += OnOptionSelected;
+            button.SelectId(selected);
         }
 
         private void OnOptionSelected(OptionButton.ItemSelectedEventArgs obj)

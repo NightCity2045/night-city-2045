@@ -1,8 +1,8 @@
 - type: entity
   parent: BaseItem
   id: NCTechRifleM04
-  name: Технология (Rifle Steinmeyer M-04)
-  description: Технология для создания модуля "Штейнмейер М-04". Т3.
+  name: ent-NCTechRifleM04
+  description: ent-NCTechRifle-desc
   components:
   - type: Sprite
     sprite: Objects/Misc/module.rsi
@@ -20,8 +20,8 @@
 - type: entity
   parent: BaseItem
   id: NCTechRifleArasakaProto
-  name: Технология (Rifle Arasaka Proto)
-  description: Технология для создания модуля "Прототип Арасака". Т3.
+  name: ent-NCTechRifleArasakaProto
+  description: ent-NCTechRifle-desc
   components:
   - type: Sprite
     sprite: Objects/Misc/module.rsi
@@ -39,8 +39,8 @@
 - type: entity
   parent: BaseItem
   id: NCTechRifleNowaki
-  name: Технология (Rifle Arasaka NOWAKI)
-  description: Технология для создания модуля "Arasaka NOWAKI". Т3.
+  name: ent-NCTechRifleNowaki
+  description: ent-NCTechRifle-desc
   components:
   - type: Sprite
     sprite: Objects/Misc/module.rsi
@@ -58,8 +58,8 @@
 - type: entity
   parent: BaseItem
   id: NCTechRifleNokota
-  name: Технология (Rifle Nokota D5 Copperhead)
-  description: Технология для создания модуля "Nokota D5 Copperhead". Т2.
+  name: ent-NCTechRifleNokota
+  description: ent-NCTechRifle-desc
   components:
   - type: Sprite
     sprite: Objects/Misc/module.rsi

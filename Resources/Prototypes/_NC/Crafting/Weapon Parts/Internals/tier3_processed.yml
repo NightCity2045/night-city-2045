@@ -1,7 +1,7 @@
 - type: entity
   id: NCProcessedInternalsT3
-  name: микрогидравлическая система отдачи (Т3) (УСМ для оружия. Т3.)
-  description: УСМ для оружия. Т3.
+  name: ent-NCProcessedInternalsT3
+  description: ent-NCProcessedInternals-desc
   parent: BaseItem
   components:
     - type: Sprite

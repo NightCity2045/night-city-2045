@@ -1,8 +1,8 @@
 - type: entity
   id: RealEstateConsole
   parent: BaseComputer
-  name: терминал недвижимости
-  description: Консоль для просмотра и покупки доступной недвижимости.
+  name: ent-RealEstateConsole
+  description: ent-RealEstateConsole-desc
   components:
   - type: DoorPurchaseConsole
   - type: UserInterface

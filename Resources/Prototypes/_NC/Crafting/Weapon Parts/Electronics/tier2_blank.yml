@@ -3,8 +3,8 @@
 # ==========================================
 - type: entity
   id: NCBlankElectronicsCircuit
-  name: базовая текстолитовая плата (электроника заготовка Т2)
-  description: электроника заготовка Т2
+  name: ent-NCBlankElectronicsCircuit
+  description: ent-NCBlankElectronics-desc
   parent: BaseItem
   components:
     - type: Sprite

@@ -1,8 +1,8 @@
 - type: entity
   id: VehicleAmeriCar
   parent: BaseVehicle
-  name: AmeriCar
-  description: Классический американский маслкар. Вмещает 3 человек и имеет просторный багажник.
+  name: ent-VehicleAmericar
+  description: ent-VehicleAmericar-desc
   components:
   - type: Sprite
     sprite: _NC/Objects/Vehicle/americar.rsi

@@ -1,8 +1,8 @@
 - type: entity
   id: NC3dPrinterBiotechnica
   parent: [Protolathe, BaseMaterialSiloUtilizer]
-  name: 3д принтер Биотехники
-  description: Конвертирует сырье в продвинутые предметы.
+  name: ent-NC3dPrinterBiotechnica
+  description: ent-NC3dPrinterBiotechnica-desc
   components:
   - type: Sprite
     sprite: _NC/Structures/Machines/biotech_protolathe.rsi

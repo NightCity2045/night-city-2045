@@ -1,7 +1,7 @@
 - type: job
   id: BiotechnicaParamedic
-  name: Парамедик Biotechnica
-  description: 'Относится к рядовому составу, стоит на ровне с Оперативниками в иерархии.'
+  name: job-name-biotechnica-paramedic
+  description: job-description-biotechnica-paramedic
   playTimeTracker: JobBiotechnicaParamedic
   weight: 60
   salary: 150

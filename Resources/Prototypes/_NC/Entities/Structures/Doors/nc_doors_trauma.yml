@@ -4,7 +4,7 @@
 - type: entity
   id: TraumaMedicalAirlock
   parent: BaseNCAirlock
-  name: шлюз Траума медицинский
+  name: ent-NCDoorTraumaMedical
   components:
   - type: AccessReader
     access: [["Trauma_Medical"]]
@@ -13,7 +13,7 @@
 - type: entity
   id: TraumaMorgueAirlock
   parent: BaseNCAirlock
-  name: шлюз морга Траума
+  name: ent-NCDoorTraumaMorgue
   components:
   - type: AccessReader
     access: [["Trauma_Morgue"]]
@@ -22,7 +22,7 @@
 - type: entity
   id: TraumaHangarAirlock
   parent: BaseNCAirlock
-  name: шлюз ангара Траума
+  name: ent-NCDoorTraumaHangar
   components:
   - type: AccessReader
     access: [["Trauma_Hangar"]]
@@ -31,7 +31,7 @@
 - type: entity
   id: TraumaCommandAirlock
   parent: BaseNCAirlock
-  name: шлюз командования Траума
+  name: ent-NCDoorTraumaCommand
   components:
   - type: AccessReader
     access: [["Trauma_Command"]]
@@ -40,7 +40,7 @@
 - type: entity
   id: TraumaOperativeAirlock
   parent: BaseNCAirlock
-  name: шлюз оперативников Траума
+  name: ent-NCDoorTraumaOperatives
   components:
   - type: AccessReader
     access: [["Trauma_Operative"]]

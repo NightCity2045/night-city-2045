@@ -1,7 +1,7 @@
 - type: entity
   id: NCBlankFrameCarbon
-  name: карбон-полимерная матрица (каркас заготовка Т3)
-  description: каркас заготовка Т3
+  name: ent-NCBlankFrameCarbon
+  description: ent-NCBlankFrame-desc
   parent: BaseItem
   components:
     - type: Sprite

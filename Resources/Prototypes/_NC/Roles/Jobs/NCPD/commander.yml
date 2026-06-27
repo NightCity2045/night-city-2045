@@ -1,7 +1,7 @@
 - type: job
   id: NCPDCommander
-  name: Коммандер
-  description: Заместитель шефа полиции. Относится к младшему командному составу.
+  name: job-name-ncpd-commander
+  description: job-description-ncpd-commander
   playTimeTracker: JobNCPDCommander
   weight: 90
   salary: 300

@@ -1,7 +1,7 @@
 - type: entity
   parent: BaseChemistryBottleFilled
   id: YeastChemistryBottle
-  name: бутылочка
+  name: ent-NCChemistryBottle
   suffix: дрожжи
   components:
   - type: Label
@@ -16,7 +16,7 @@
 - type: entity
   parent: BaseChemistryBottleFilled
   id: CornSmoothieChemistryBottle
-  name: бутылочка
+  name: ent-NCChemistryBottle
   suffix: кукурузный смузи
   components:
   - type: Label
@@ -31,7 +31,7 @@
 - type: entity
   parent: BaseChemistryBottleFilled
   id: WheatSmoothieChemistryBottle
-  name: бутылочка
+  name: ent-NCChemistryBottle
   suffix: пшеничный смузи
   components:
   - type: Label
@@ -46,7 +46,7 @@
 - type: entity
   parent: BaseChemistryBottleFilled
   id: WhiteMatterChemistryBottle
-  name: бутылочка
+  name: ent-NCChemistryBottle
   suffix: белое вещество
   components:
   - type: Label
@@ -61,7 +61,7 @@
 - type: entity
   parent: BaseChemistryBottleFilled
   id: NeuroStimChemistryBottle
-  name: бутылочка
+  name: ent-NCChemistryBottle
   suffix: нейростим
   components:
   - type: Label
@@ -76,7 +76,7 @@
 - type: entity
   parent: BaseChemistryBottleFilled
   id: PrimeTimeChemistryBottle
-  name: бутылочка
+  name: ent-NCChemistryBottle
   suffix: прайм тайм
   components:
   - type: Label
@@ -91,7 +91,7 @@
 - type: entity
   parent: BaseChemistryBottleFilled
   id: SixGunChemistryBottle
-  name: бутылочка
+  name: ent-NCChemistryBottle
   suffix: шестистволка
   components:
   - type: Label
@@ -106,7 +106,7 @@
 - type: entity
   parent: BaseChemistryBottleFilled
   id: NitroPolymerChemistryBottle
-  name: бутылочка
+  name: ent-NCChemistryBottle
   suffix: нитро-полимер
   components:
   - type: Label
@@ -121,7 +121,7 @@
 - type: entity
   parent: BaseChemistryBottleFilled
   id: BioEthanolChemistryBottle
-  name: бутылочка
+  name: ent-NCChemistryBottle
   suffix: био-этанол
   components:
   - type: Label

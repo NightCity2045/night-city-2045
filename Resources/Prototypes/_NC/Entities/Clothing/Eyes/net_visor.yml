@@ -1,8 +1,8 @@
 - type: entity
   parent: ClothingEyesGlasses
   id: ClothingEyesNetVisor
-  name: NetVisor
-  description: Specialized eyewear that visualizes network data traffic and hacking attempts.
+  name: ent-ClothingEyesNetVisor
+  description: ent-ClothingEyesNetVisor-desc
   components:
   - type: Sprite
     sprite: _NF/Clothing/Eyes/Glasses/punk_glasses.rsi

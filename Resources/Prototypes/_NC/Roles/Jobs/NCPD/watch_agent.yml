@@ -1,7 +1,7 @@
 - type: job
   id: NCPDWatchAgent
-  name: Агент Дозора
-  description: Нетраннер при НСПД
+  name: job-name-ncpd-watch-agent
+  description: job-description-ncpd-watch-agent
   playTimeTracker: JobNCPDWatchAgent
   weight: 50
   salary: 200

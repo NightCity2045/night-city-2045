@@ -1,5 +1,7 @@
+using System.Globalization;
 using System.Linq;
 using Content.Client.UserInterface.Screens;
+using Content.Shared._NC.Chat.Translation;
 using Content.Shared._White.CCVar;
 using Content.Shared._White.UserInterface;
 using Content.Shared.CCVar;
@@ -9,6 +11,7 @@ using Robust.Client.Player;
 using Robust.Client.UserInterface;
 using Robust.Client.UserInterface.XAML;
 using Robust.Shared;
+using Robust.Shared.Configuration;
 using Robust.Shared.Prototypes;
 
 namespace Content.Client.Options.UI.Tabs;
@@ -16,8 +19,14 @@ namespace Content.Client.Options.UI.Tabs;
 [GenerateTypedNameReferences]
 public sealed partial class MiscTab : Control
 {
+    [Dependency] private readonly IConfigurationManager _cfg = default!;
+    [Dependency] private readonly ILocalizationManager _localization = default!;
     [Dependency] private readonly IPlayerManager _playerManager = default!;
     [Dependency] private readonly IPrototypeManager _prototypeManager = default!;
+
+    private readonly OptionDropDownCVar<string> _languageOption;
+    private readonly OptionCheckboxCVar _chatTranslationEnabledOption;
+    private readonly OptionDropDownCVar<string> _chatTranslationLanguageOption;
 
     public MiscTab()
     {
@@ -50,15 +59,20 @@ public sealed partial class MiscTab : Control
 
         Control.AddOptionDropDown(CVars.InterfaceTheme, DropDownHudTheme, themeEntries);
         Control.AddOptionDropDown(CCVars.UILayout, DropDownHudLayout, layoutEntries);
-        // WD EDIT START
         Control.AddOptionDropDown(
             WhiteCVars.EmotesMenuStyle,
             DropDownEmotesMenuType,
             [
-            new (EmotesMenuType.Window, nameof(EmotesMenuType.Window)),
-            new (EmotesMenuType.Radial, nameof(EmotesMenuType.Window))
-        ]);
-        // WD EDIT END
+                new(EmotesMenuType.Window, nameof(EmotesMenuType.Window)),
+                new(EmotesMenuType.Radial, nameof(EmotesMenuType.Window))
+            ]);
+
+        _languageOption = Control.AddOptionDropDown(CVars.LocCultureName, DropDownLanguage, BuildLanguageEntries());
+        _chatTranslationEnabledOption = Control.AddOptionCheckBox(CCVars.NCChatTranslationPreferenceEnabled, ChatTranslationEnabledCheckBox);
+        _chatTranslationLanguageOption = Control.AddOptionDropDown(
+            CCVars.NCChatTranslationPreferenceLanguage,
+            DropDownChatTranslationLanguage,
+            BuildChatTranslationLanguageEntries());
 
         Control.AddOptionCheckBox(CVars.DiscordEnabled, DiscordRich);
         Control.AddOptionCheckBox(CCVars.ShowOocPatronColor, ShowOocPatronColor);
@@ -68,16 +82,127 @@ public sealed partial class MiscTab : Control
         Control.AddOptionCheckBox(CCVars.OpaqueStorageWindow, OpaqueStorageWindowCheckBox);
         Control.AddOptionCheckBox(CCVars.ChatEnableFancyBubbles, FancySpeechBubblesCheckBox);
         Control.AddOptionCheckBox(CCVars.ChatFancyNameBackground, FancyNameBackgroundsCheckBox);
-        // WD EDIT START
         Control.AddOptionCheckBox(WhiteCVars.ColoredBubbleChat, EnableColorBubbleChatCheckBox);
         Control.AddOptionCheckBox(WhiteCVars.ChatFancyFont, EnableChatFancyFontCheckBox);
-        // WD EDIT END
         Control.AddOptionDropDown(CCVars.ChatStackLastLines, ChatStackOption, chatStackEntries);
-        Control.AddOptionCheckBox(WhiteCVars.LogInChat, LogInChatCheckBox); // WD EDIT
+        Control.AddOptionCheckBox(WhiteCVars.LogInChat, LogInChatCheckBox);
         Control.AddOptionCheckBox(CCVars.StaticStorageUI, StaticStorageUI);
         Control.AddOptionCheckBox(CCVars.NoVisionFilters, DisableFiltersCheckBox);
         Control.AddOptionCheckBox(CCVars.ModernProgressBar, ModernProgressBar);
 
+        _chatTranslationEnabledOption.ImmediateValueChanged += UpdateChatTranslationLanguageSelectorState;
+
         Control.Initialize();
+        UpdateChatTranslationLanguageSelectorState(_cfg.GetCVar(CCVars.NCChatTranslationPreferenceEnabled));
+    }
+
+    protected override void EnteredTree()
+    {
+        base.EnteredTree();
+        _cfg.OnValueChanged(CVars.LocCultureName, OnLanguageChanged);
+        Relocalize();
+    }
+
+    protected override void ExitedTree()
+    {
+        base.ExitedTree();
+        _cfg.UnsubValueChanged(CVars.LocCultureName, OnLanguageChanged);
+    }
+
+    private IReadOnlyCollection<OptionDropDownCVar<string>.ValueOption> BuildLanguageEntries()
+    {
+        var cultures = _localization.GetFoundCultures();
+        cultures.Sort((a, b) => string.Compare(a.NativeName, b.NativeName, StringComparison.CurrentCultureIgnoreCase));
+
+        var entries = new List<OptionDropDownCVar<string>.ValueOption>(cultures.Count);
+        foreach (var culture in cultures)
+        {
+            entries.Add(new OptionDropDownCVar<string>.ValueOption(culture.Name, FormatCultureLabel(culture)));
+        }
+
+        return entries;
+    }
+
+    private static IReadOnlyCollection<OptionDropDownCVar<string>.ValueOption> BuildChatTranslationLanguageEntries()
+    {
+        return
+        [
+            new OptionDropDownCVar<string>.ValueOption(string.Empty, Loc.GetString("ui-options-chat-translation-language-auto")),
+            new OptionDropDownCVar<string>.ValueOption(
+                NCChatTranslationMarkup.EnglishLanguageCode,
+                FormatCultureLabel(CultureInfo.GetCultureInfo("en-US"))),
+            new OptionDropDownCVar<string>.ValueOption(
+                NCChatTranslationMarkup.RussianLanguageCode,
+                FormatCultureLabel(CultureInfo.GetCultureInfo("ru-RU"))),
+        ];
+    }
+
+    private void UpdateChatTranslationLanguageSelectorState(bool enabled)
+    {
+        DropDownChatTranslationLanguage.Visible = enabled;
+    }
+
+    private void OnLanguageChanged(string _)
+    {
+        Relocalize();
+    }
+
+    public void Relocalize()
+    {
+        UiStyleHeaderLabel.Text = Loc.GetString("ui-options-general-ui-style");
+        LanguageHeaderLabel.Text = Loc.GetString("ui-options-general-language-translation");
+        DiscordHeaderLabel.Text = Loc.GetString("ui-options-general-discord");
+        SpeechHeaderLabel.Text = Loc.GetString("ui-options-general-speech");
+        CursorHeaderLabel.Text = Loc.GetString("ui-options-general-cursor");
+        StorageHeaderLabel.Text = Loc.GetString("ui-options-general-storage");
+        OtherHeaderLabel.Text = Loc.GetString("ui-options-general-other");
+
+        DropDownHudTheme.Title = Loc.GetString("ui-options-hud-theme");
+        DropDownHudLayout.Title = Loc.GetString("ui-options-hud-layout");
+        DropDownLanguage.Title = Loc.GetString("ui-options-language");
+        DropDownChatTranslationLanguage.Title = Loc.GetString("ui-options-chat-translation-language");
+
+        ChatTranslationEnabledCheckBox.Text = Loc.GetString("ui-options-chat-translation-enabled");
+        DiscordRich.Text = Loc.GetString("ui-options-discordrich");
+        ShowOocPatronColor.Text = Loc.GetString("ui-options-show-ooc-patron-color");
+        ShowLoocAboveHeadCheckBox.Text = Loc.GetString("ui-options-show-looc-on-head");
+        FancySpeechBubblesCheckBox.Text = Loc.GetString("ui-options-fancy-speech");
+        FancyNameBackgroundsCheckBox.Text = Loc.GetString("ui-options-fancy-name-background");
+        ShowHeldItemCheckBox.Text = Loc.GetString("ui-options-show-held-item");
+        ShowCombatModeIndicatorsCheckBox.Text = Loc.GetString("ui-options-show-combat-mode-indicators");
+        ShowOfferModeIndicatorsCheckBox.Text = Loc.GetString("ui-options-show-offer-mode-indicators");
+        OpaqueStorageWindowCheckBox.Text = Loc.GetString("ui-options-opaque-storage-window");
+        StaticStorageUI.Text = Loc.GetString("ui-options-static-storage-ui");
+        DisableFiltersCheckBox.Text = Loc.GetString("ui-options-no-filters");
+        ModernProgressBar.Text = Loc.GetString("ui-options-modern-progress-bar");
+        EnableColorBubbleChatCheckBox.Text = Loc.GetString("ui-options-enable-color-in-bubble-chat");
+        EnableChatFancyFontCheckBox.Text = Loc.GetString("ui-options-enable-chat-fancy-font");
+        ChatStackOption.Title = Loc.GetString("ui-options-chatstack");
+        LogInChatCheckBox.Text = Loc.GetString("ui-options-log-in-chat");
+        DropDownEmotesMenuType.Title = Loc.GetString("ui-options-emotes-menu");
+
+        _languageOption.ReloadOptions(BuildLanguageEntries());
+        _chatTranslationLanguageOption.ReloadOptions(BuildChatTranslationLanguageEntries());
+        _languageOption.LoadValue();
+        _chatTranslationLanguageOption.LoadValue();
+        Control.RefreshLocalization();
+    }
+
+    private static string FormatCultureLabel(CultureInfo culture)
+    {
+        var label = !string.IsNullOrWhiteSpace(culture.NativeName)
+            ? culture.NativeName
+            : !string.IsNullOrWhiteSpace(culture.DisplayName)
+                ? culture.DisplayName
+                : culture.Name;
+
+        if (!string.IsNullOrWhiteSpace(label))
+        {
+            var chars = label.ToCharArray();
+            chars[0] = char.ToUpper(chars[0], culture);
+            label = new string(chars);
+        }
+
+        return string.Concat(label, " [", culture.Name, "]");
     }
 }

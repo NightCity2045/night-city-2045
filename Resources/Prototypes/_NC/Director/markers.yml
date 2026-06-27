@@ -1,7 +1,7 @@
 - type: entity
   id: DirectorSpawnPoint
   parent: MarkerBase
-  name: director spawn point
+  name: ent-DirectorSpawnPoint
   suffix: Director
   components:
   - type: Sprite
@@ -13,7 +13,7 @@
 - type: entity
   id: DirectorSpawnPointAlleyMeet
   parent: DirectorSpawnPoint
-  name: director alley meet point
+  name: ent-DirectorAlleyMeetPoint
   suffix: Director, Alley Meet
   components:
   - type: DirectorSpawnPoint
@@ -23,7 +23,7 @@
 - type: entity
   id: DirectorSpawnPointGangAEntry
   parent: DirectorSpawnPoint
-  name: director gang A entry point
+  name: ent-DirectorGangAEntryPoint
   suffix: Director, Gang A Entry
   components:
   - type: DirectorSpawnPoint
@@ -33,7 +33,7 @@
 - type: entity
   id: DirectorSpawnPointGangBEntry
   parent: DirectorSpawnPoint
-  name: director gang B entry point
+  name: ent-DirectorGangBEntryPoint
   suffix: Director, Gang B Entry
   components:
   - type: DirectorSpawnPoint
@@ -43,7 +43,7 @@
 - type: entity
   id: DirectorSpawnPointGangAExit
   parent: DirectorSpawnPoint
-  name: director gang A exit point
+  name: ent-DirectorGangAExitPoint
   suffix: Director, Gang A Exit
   components:
   - type: DirectorSpawnPoint
@@ -53,7 +53,7 @@
 - type: entity
   id: DirectorSpawnPointGangBExit
   parent: DirectorSpawnPoint
-  name: director gang B exit point
+  name: ent-DirectorGangBExitPoint
   suffix: Director, Gang B Exit
   components:
   - type: DirectorSpawnPoint
@@ -63,7 +63,7 @@
 - type: entity
   id: DirectorSpawnPointStreetMeet
   parent: DirectorSpawnPoint
-  name: director street meet point
+  name: ent-DirectorStreetMeetPoint
   suffix: Director, Street Meet
   components:
   - type: DirectorSpawnPoint
@@ -73,7 +73,7 @@
 - type: entity
   id: DirectorSpawnPointMarketMeet
   parent: DirectorSpawnPoint
-  name: director market meet point
+  name: ent-DirectorMarketMeetPoint
   suffix: Director, Market Meet
   components:
   - type: DirectorSpawnPoint
@@ -83,7 +83,7 @@
 - type: entity
   id: DirectorSpawnPointWarehouseMeet
   parent: DirectorSpawnPoint
-  name: director warehouse meet point
+  name: ent-DirectorWarehouseMeetPoint
   suffix: Director, Warehouse Meet
   components:
   - type: DirectorSpawnPoint
@@ -93,7 +93,7 @@
 - type: entity
   id: DirectorSpawnPointTransitEntry
   parent: DirectorSpawnPoint
-  name: director transit entry point
+  name: ent-DirectorTransitEntryPoint
   suffix: Director, Transit Entry
   components:
   - type: DirectorSpawnPoint
@@ -103,7 +103,7 @@
 - type: entity
   id: DirectorSpawnPointCheckpointEntry
   parent: DirectorSpawnPoint
-  name: director checkpoint entry point
+  name: ent-DirectorCheckpointEntryPoint
   suffix: Director, Checkpoint Entry
   components:
   - type: DirectorSpawnPoint
@@ -113,7 +113,7 @@
 - type: entity
   id: DirectorSpawnPointHiddenEntry
   parent: DirectorSpawnPoint
-  name: director hidden entry point
+  name: ent-DirectorHiddenEntryPoint
   suffix: Director, Hidden Entry
   components:
   - type: DirectorSpawnPoint
@@ -123,7 +123,7 @@
 - type: entity
   id: DirectorSpawnPointBackalleyDealMeet
   parent: DirectorSpawnPoint
-  name: backalley deal meet point
+  name: ent-BackalleyDealMeetPoint
   suffix: Director, Backalley Deal
   components:
   - type: DirectorSpawnPoint
@@ -133,7 +133,7 @@
 - type: entity
   id: DirectorSpawnPointBackalleyDealGangAEntry
   parent: DirectorSpawnPoint
-  name: backalley deal gang A entry point
+  name: ent-BackalleyDealGangAEntryPoint
   suffix: Director, Backalley Deal
   components:
   - type: DirectorSpawnPoint
@@ -143,7 +143,7 @@
 - type: entity
   id: DirectorSpawnPointBackalleyDealGangBEntry
   parent: DirectorSpawnPoint
-  name: backalley deal gang B entry point
+  name: ent-BackalleyDealGangBEntryPoint
   suffix: Director, Backalley Deal
   components:
   - type: DirectorSpawnPoint
@@ -153,7 +153,7 @@
 - type: entity
   id: DirectorSpawnPointBackalleyDealGangAExit
   parent: DirectorSpawnPoint
-  name: backalley deal gang A exit point
+  name: ent-BackalleyDealGangAExitPoint
   suffix: Director, Backalley Deal
   components:
   - type: DirectorSpawnPoint
@@ -163,7 +163,7 @@
 - type: entity
   id: DirectorSpawnPointBackalleyDealGangBExit
   parent: DirectorSpawnPoint
-  name: backalley deal gang B exit point
+  name: ent-BackalleyDealGangBExitPoint
   suffix: Director, Backalley Deal
   components:
   - type: DirectorSpawnPoint
@@ -173,7 +173,7 @@
 - type: entity
   id: DirectorSpawnPointCheckpointShakedownMeet
   parent: DirectorSpawnPoint
-  name: checkpoint shakedown meet point
+  name: ent-CheckpointShakedownMeetPoint
   suffix: Director, Checkpoint Shakedown
   components:
   - type: DirectorSpawnPoint
@@ -183,7 +183,7 @@
 - type: entity
   id: DirectorSpawnPointCheckpointShakedownInspectorsEntry
   parent: DirectorSpawnPoint
-  name: checkpoint shakedown inspectors entry point
+  name: ent-CheckpointShakedownInspectorsEntryPoint
   suffix: Director, Checkpoint Shakedown
   components:
   - type: DirectorSpawnPoint
@@ -193,7 +193,7 @@
 - type: entity
   id: DirectorSpawnPointCheckpointShakedownInspectorsExit
   parent: DirectorSpawnPoint
-  name: checkpoint shakedown inspectors exit point
+  name: ent-CheckpointShakedownInspectorsExitPoint
   suffix: Director, Checkpoint Shakedown
   components:
   - type: DirectorSpawnPoint
@@ -203,7 +203,7 @@
 - type: entity
   id: DirectorSpawnPointCorporateSweepMeet
   parent: DirectorSpawnPoint
-  name: corporate sweep meet point
+  name: ent-CorporateSweepMeetPoint
   suffix: Director, Corporate Sweep
   components:
   - type: DirectorSpawnPoint
@@ -213,7 +213,7 @@
 - type: entity
   id: DirectorSpawnPointCorporateSweepEntry
   parent: DirectorSpawnPoint
-  name: corporate sweep entry point
+  name: ent-CorporateSweepEntryPoint
   suffix: Director, Corporate Sweep
   components:
   - type: DirectorSpawnPoint
@@ -223,7 +223,7 @@
 - type: entity
   id: DirectorSpawnPointCorporateSweepExit
   parent: DirectorSpawnPoint
-  name: corporate sweep exit point
+  name: ent-CorporateSweepExitPoint
   suffix: Director, Corporate Sweep
   components:
   - type: DirectorSpawnPoint
@@ -233,7 +233,7 @@
 - type: entity
   id: DirectorSpawnPointHijackedShipmentMeet
   parent: DirectorSpawnPoint
-  name: hijacked shipment meet point
+  name: ent-HijackedShipmentMeetPoint
   suffix: Director, Hijacked Shipment
   components:
   - type: DirectorSpawnPoint
@@ -243,7 +243,7 @@
 - type: entity
   id: DirectorSpawnPointHijackedShipmentCouriersEntry
   parent: DirectorSpawnPoint
-  name: hijacked shipment couriers entry point
+  name: ent-HijackedShipmentCouriersEntryPoint
   suffix: Director, Hijacked Shipment
   components:
   - type: DirectorSpawnPoint
@@ -253,7 +253,7 @@
 - type: entity
   id: DirectorSpawnPointHijackedShipmentCouriersExit
   parent: DirectorSpawnPoint
-  name: hijacked shipment couriers exit point
+  name: ent-HijackedShipmentCouriersExitPoint
   suffix: Director, Hijacked Shipment
   components:
   - type: DirectorSpawnPoint
@@ -263,7 +263,7 @@
 - type: entity
   id: DirectorSpawnPointHijackedShipmentHijackersEntry
   parent: DirectorSpawnPoint
-  name: hijacked shipment hijackers entry point
+  name: ent-HijackedShipmentHijackersEntryPoint
   suffix: Director, Hijacked Shipment
   components:
   - type: DirectorSpawnPoint
@@ -273,7 +273,7 @@
 - type: entity
   id: DirectorSpawnPointHijackedShipmentHijackersExit
   parent: DirectorSpawnPoint
-  name: hijacked shipment hijackers exit point
+  name: ent-HijackedShipmentHijackersExitPoint
   suffix: Director, Hijacked Shipment
   components:
   - type: DirectorSpawnPoint
@@ -283,7 +283,7 @@
 - type: entity
   id: DirectorSpawnPointScavengerRushMeet
   parent: DirectorSpawnPoint
-  name: scavenger rush meet point
+  name: ent-ScavengerRushMeetPoint
   suffix: Director, Scavenger Rush
   components:
   - type: DirectorSpawnPoint
@@ -293,7 +293,7 @@
 - type: entity
   id: DirectorSpawnPointScavengerRushScavsAEntry
   parent: DirectorSpawnPoint
-  name: scavenger rush Scavs A entry point
+  name: ent-ScavengerRushScavsAEntryPoint
   suffix: Director, Scavenger Rush
   components:
   - type: DirectorSpawnPoint
@@ -303,7 +303,7 @@
 - type: entity
   id: DirectorSpawnPointScavengerRushScavsAExit
   parent: DirectorSpawnPoint
-  name: scavenger rush Scavs A exit point
+  name: ent-ScavengerRushScavsAExitPoint
   suffix: Director, Scavenger Rush
   components:
   - type: DirectorSpawnPoint
@@ -313,7 +313,7 @@
 - type: entity
   id: DirectorSpawnPointScavengerRushScavsBEntry
   parent: DirectorSpawnPoint
-  name: scavenger rush Scavs B entry point
+  name: ent-ScavengerRushScavsBEntryPoint
   suffix: Director, Scavenger Rush
   components:
   - type: DirectorSpawnPoint
@@ -323,7 +323,7 @@
 - type: entity
   id: DirectorSpawnPointScavengerRushScavsBExit
   parent: DirectorSpawnPoint
-  name: scavenger rush Scavs B exit point
+  name: ent-ScavengerRushScavsBExitPoint
   suffix: Director, Scavenger Rush
   components:
   - type: DirectorSpawnPoint
@@ -333,7 +333,7 @@
 - type: entity
   id: DirectorSpawnPointStreetTaxCollectionMeet
   parent: DirectorSpawnPoint
-  name: street tax collection meet point
+  name: ent-StreetTaxCollectionMeetPoint
   suffix: Director, Street Tax
   components:
   - type: DirectorSpawnPoint
@@ -343,7 +343,7 @@
 - type: entity
   id: DirectorSpawnPointStreetTaxCollectionCollectorsEntry
   parent: DirectorSpawnPoint
-  name: street tax collection collectors entry point
+  name: ent-StreetTaxCollectionCollectorsEntryPoint
   suffix: Director, Street Tax
   components:
   - type: DirectorSpawnPoint
@@ -353,7 +353,7 @@
 - type: entity
   id: DirectorSpawnPointStreetTaxCollectionCollectorsExit
   parent: DirectorSpawnPoint
-  name: street tax collection collectors exit point
+  name: ent-StreetTaxCollectionCollectorsExitPoint
   suffix: Director, Street Tax
   components:
   - type: DirectorSpawnPoint
@@ -363,7 +363,7 @@
 - type: entity
   id: DirectorSpawnPointTestLivingWorldEventMeet
   parent: DirectorSpawnPoint
-  name: test living world event meet point
+  name: ent-TestEventMeetPoint
   suffix: Director, Test Event
   components:
   - type: DirectorSpawnPoint
@@ -373,7 +373,7 @@
 - type: entity
   id: DirectorSpawnPointTestLivingWorldEventBanditsEntry
   parent: DirectorSpawnPoint
-  name: test living world event bandits entry point
+  name: ent-TestEventBanditsEntryPoint
   suffix: Director, Test Event
   components:
   - type: DirectorSpawnPoint
@@ -383,7 +383,7 @@
 - type: entity
   id: DirectorSpawnPointTestLivingWorldEventBanditsExit
   parent: DirectorSpawnPoint
-  name: test living world event bandits exit point
+  name: ent-TestEventBanditsExitPoint
   suffix: Director, Test Event
   components:
   - type: DirectorSpawnPoint

@@ -4,7 +4,7 @@
 - type: entity
   id: NCPDGeneralAirlock
   parent: BaseNCAirlock
-  name: шлюз НСПД общий
+  name: ent-NCDoorNCPDGeneral
   components:
   - type: AccessReader
     access: [["NCPD_Patrol"]]
@@ -13,7 +13,7 @@
 - type: entity
   id: NCPDStaffAirlock
   parent: BaseNCAirlock
-  name: шлюз НСПД для персонала
+  name: ent-NCDoorNCPDStaff
   components:
   - type: AccessReader
     access: [["NCPD_Patrol"]]
@@ -22,7 +22,7 @@
 - type: entity
   id: NCPDArmoryAirlock
   parent: BaseNCAirlock
-  name: шлюз арсенала НСПД
+  name: ent-NCDoorNCPDArmory
   components:
   - type: AccessReader
     access: [["NCPD_Armory"]]
@@ -31,7 +31,7 @@
 - type: entity
   id: NCPDCommandAirlock
   parent: BaseNCAirlock
-  name: шлюз начальника департамента НСПД
+  name: ent-NCDoorNCPDChief
   components:
   - type: AccessReader
     access: [["NCPD_Command"]]

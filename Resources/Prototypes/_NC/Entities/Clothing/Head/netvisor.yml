@@ -1,8 +1,8 @@
 - type: entity
   parent: ClothingEyesBase
   id: NCNetVisor
-  name: net-visor
-  description: Augmented reality glasses that highlight network nodes.
+  name: ent-ClothingHeadNetVisor
+  description: ent-ClothingHeadNetVisor-desc
   components:
   - type: Sprite
     sprite: Clothing/Eyes/Glasses/3d.rsi

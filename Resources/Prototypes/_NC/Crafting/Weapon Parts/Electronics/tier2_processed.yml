@@ -1,7 +1,7 @@
 - type: entity
   id: NCProcessedElectronicsT2
-  name: контроллер боепитания (Т2) (Электроника для оружия. Т2.)
-  description: Электроника для оружия. Т2.
+  name: ent-NCProcessedElectronicsT2
+  description: ent-NCProcessedElectronics-desc
   parent: BaseItem
   components:
     - type: Sprite

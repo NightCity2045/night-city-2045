@@ -1,14 +1,14 @@
 - type: directorEvent
   id: BackalleyDeal
   parent: NCBaseDirectorEvent
-  name: "The Backalley Deal"
+  name: director-event-backalley-deal
   weight: 18
   announcerId: "CitiNet"
   announcementColor: "#51f542"
   startPhase: "Gathering"
   phases:
     Gathering:
-      name: "Gathering"
+      name: director-event-backalley-deal-phase-gathering
       duration: 180
       announcement: "backalley-deal-gathering"
       meetLocationTags: ["AlleyMeet"]
@@ -32,14 +32,14 @@
         Skirmish: 30
 
     Peace:
-      name: "Peaceful Resolution"
+      name: director-event-backalley-deal-phase-peaceful
       duration: 60
       announcement: "backalley-deal-peace"
       nextPhases:
         Retreat: 100
 
     Skirmish:
-      name: "The Skirmish"
+      name: director-event-backalley-deal-phase-skirmish
       duration: 600
       announcement: "backalley-deal-skirmish"
       aiDomain: "DirectorCombatCompound"
@@ -57,7 +57,7 @@
         Retreat: 100
 
     Retreat:
-      name: "Retreat"
+      name: director-event-backalley-deal-phase-retreat
       duration: 60
       announcement: "backalley-deal-retreat"
       aiDomain: "FleeToExtraction"

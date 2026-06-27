@@ -2,8 +2,8 @@
   id: City
   alias:
   - aldente
-  name: Путь в никуда
-  description: Режим для ролевой игры. Без антагонистов и случайных событий.
+  name: game-rule-name-city
+  description: game-rule-description-city
   showInVote: true
   supportedMaps: NCMapPool
   rules:

@@ -1,14 +1,14 @@
 - type: directorEvent
   id: HijackedShipment
   parent: NCBaseDirectorEvent
-  name: "Hijacked Shipment"
+  name: director-event-hijacked-shipment
   weight: 14
   announcerId: "CitiNet"
   announcementColor: "#42c8f5"
   startPhase: "Staging"
   phases:
     Staging:
-      name: "Staging"
+      name: director-event-hijacked-shipment-phase-staging
       duration: 120
       announcement: "shipment-staging"
       meetLocationTags: ["HijackedShipmentMeet"]
@@ -30,7 +30,7 @@
         Intercept: 100
 
     Intercept:
-      name: "Intercept"
+      name: director-event-hijacked-shipment-phase-intercept
       duration: 180
       announcement: "shipment-intercept"
       aiDomain: "DirectorCombatCompound"
@@ -48,7 +48,7 @@
         Grab: 100
 
     Grab:
-      name: "Grab"
+      name: director-event-hijacked-shipment-phase-grab
       duration: 90
       announcement: "shipment-grab"
       nextPhases:

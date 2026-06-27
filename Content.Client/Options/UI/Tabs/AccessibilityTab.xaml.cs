@@ -25,5 +25,19 @@ public sealed partial class AccessibilityTab : Control
 
         Control.Initialize();
     }
+
+    public void Relocalize()
+    {
+        EnableColorNameCheckBox.Text = Loc.GetString("ui-options-enable-color-name");
+        ColorblindFriendlyCheckBox.Text = Loc.GetString("ui-options-colorblind-friendly");
+        ReducedMotionCheckBox.Text = Loc.GetString("ui-options-reduced-motion");
+        ScreenShakeIntensitySlider.Title = Loc.GetString("ui-options-screen-shake-intensity");
+        ChatWindowOpacitySlider.Title = Loc.GetString("ui-options-chat-window-opacity");
+        SpeechBubbleTextOpacitySlider.Title = Loc.GetString("ui-options-speech-bubble-text-opacity");
+        SpeechBubbleSpeakerOpacitySlider.Title = Loc.GetString("ui-options-speech-bubble-speaker-opacity");
+        SpeechBubbleBackgroundOpacitySlider.Title = Loc.GetString("ui-options-speech-bubble-background-opacity");
+        CensorNudityCheckBox.Text = Loc.GetString("ui-options-censor-nudity");
+        Control.RefreshLocalization();
+    }
 }
 

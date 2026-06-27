@@ -311,3 +311,5 @@ Resources/MapImages
 package-lock.json
 
 .docs/
+.translate/
+Tools/TranslationService/.env

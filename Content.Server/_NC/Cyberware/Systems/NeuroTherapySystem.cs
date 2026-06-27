@@ -218,7 +218,7 @@ public sealed class NeuroTherapySystem : EntitySystem
             return;
 
         var line = _random.Pick(emotes.Lines);
-        _chat.TrySendInGameICMessage(patient, line, InGameICChatType.Emote, hideChat: false);
+        _chat.TrySendInGameICMessage(patient, Loc.GetString(line), InGameICChatType.Emote, hideChat: false);
     }
 
     public void AssignWords(EntityUid patient, int healingCount, int traumaCount)
@@ -231,7 +231,7 @@ public sealed class NeuroTherapySystem : EntitySystem
             return;
 
         var allWords = pool.Words
-            .Select(w => w.Trim().ToLower(CultureInfo.InvariantCulture))
+            .Select(w => Loc.GetString(w.Trim()).ToLower(CultureInfo.InvariantCulture))
             .Where(w => !string.IsNullOrWhiteSpace(w))
             .Distinct()
             .ToList();

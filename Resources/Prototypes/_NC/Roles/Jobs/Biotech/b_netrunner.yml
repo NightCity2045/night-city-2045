@@ -1,7 +1,7 @@
 - type: job
   id: BiotechnicaNetrunner
-  name: Нетраннер Biotechnica
-  description: 'Относится к рядовому составу, в иерархии стоит на ровне с Оперативниками. Может быть как пауком так и оказывать поддержку Оперативникам.'
+  name: job-name-biotechnica-netrunner
+  description: job-description-biotechnica-netrunner
   playTimeTracker: JobBiotechnicaNetrunner
   weight: 60
   salary: 400

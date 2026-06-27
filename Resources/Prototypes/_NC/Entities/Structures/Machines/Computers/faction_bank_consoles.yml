@@ -1,7 +1,7 @@
 - type: entity
   id: NCBaseFactionBankConsole
   parent: BaseComputer
-  name: corporate bank console
+  name: ent-NCBaseFactionBankConsole
   abstract: true
   components:
   - type: FactionBankConsole
@@ -38,7 +38,7 @@
 - type: entity
   id: NCConsoleTraumaTeam
   parent: NCBaseFactionBankConsole
-  name: Консоль бюджета Trauma Team
+  name: ent-NCConsoleTraumaTeam
   components:
   - type: FactionBankConsole
     bankAccount: TraumaTeam
@@ -58,7 +58,7 @@
 - type: entity
   id: NCConsoleMilitech
   parent: NCBaseFactionBankConsole
-  name: Консоль бюджета Militech
+  name: ent-NCConsoleMilitech
   components:
   - type: FactionBankConsole
     bankAccount: Militech
@@ -78,7 +78,7 @@
 - type: entity
   id: NCConsoleBiotechnica
   parent: NCBaseFactionBankConsole
-  name: Консоль бюджета Biotechnica
+  name: ent-NCConsoleBiotechnica
   components:
   - type: FactionBankConsole
     bankAccount: Biotechnica

@@ -19,12 +19,17 @@ ui-options-value-percent = { TOSTRING($value, "P0") }
 
 ui-options-discordrich = Enable Discord Rich Presence
 ui-options-general-ui-style = UI Style
+ui-options-general-language-translation = Language & translation
 ui-options-general-discord = Discord
 ui-options-general-cursor = Cursor
 ui-options-general-speech = Speech
 ui-options-general-storage = Storage
 ui-options-general-other = Other
 ui-options-general-accessibility = Accessibility
+ui-options-language = Game language:
+ui-options-chat-translation-enabled = Enable chat translation
+ui-options-chat-translation-language = Chat translation language:
+ui-options-chat-translation-language-auto = Follow game language
 ui-options-chatstack = Automatically merge identical chat messages
 ui-options-chatstack-0 = Off
 ui-options-chatstack-1 = Only last message

@@ -1,8 +1,8 @@
 - type: entity
   id: NCBlankDrive
   parent: BaseItem
-  name: Пустой носитель
-  description: "Массивный накопитель для извлечения данных из CitiNet. Перед использованием убедитесь в наличии стабильного питания."
+  name: ent-CitinetDriveEmpty
+  description: ent-CitinetDriveEmpty-desc
   components:
   - type: Sprite
     sprite: Objects/Misc/module.rsi

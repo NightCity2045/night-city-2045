@@ -39,6 +39,12 @@ namespace Content.Client.Options.UI.Tabs
 
         private string _searchText = "";
 
+        public void Relocalize()
+        {
+            ResetAllButton.Text = Loc.GetString("ui-options-binds-reset-all");
+            PopulateOptions();
+        }
+
         private void HandleToggleUSQWERTYCheckbox(BaseButton.ButtonToggledEventArgs args)
         {
             _cfg.SetCVar(CVars.DisplayUSQWERTYHotkeys, args.Pressed);

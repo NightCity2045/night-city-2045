@@ -1,7 +1,7 @@
 - type: job
   id: CafeOwner
-  name: Владелец кафе
-  description: Управляйте своим уютным заведением, подавайте лучший кофе в городе и следите за тем, чтобы клиенты уходили довольными.
+  name: job-name-cafe-owner
+  description: job-description-cafe-owner
   playTimeTracker: JobCafeOwner
   icon: "JobIconCivilCitizen"
   salary: 70
@@ -12,8 +12,8 @@
 
 - type: job
   id: RestaurantOwner
-  name: Владелец ресторана
-  description: Вы - лицо высокой кухни в Найт-Сити. Обеспечьте изысканный сервис, качественную еду и процветание вашего ресторана.
+  name: job-name-restaurant-owner
+  description: job-description-restaurant-owner
   playTimeTracker: JobRestaurantOwner
   icon: "JobIconCivilCitizen"
   salary: 100

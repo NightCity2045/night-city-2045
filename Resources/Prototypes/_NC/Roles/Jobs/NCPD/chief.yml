@@ -1,7 +1,7 @@
 - type: job
   id: NCPDChief
-  name: Начальник департамента полиции
-  description: Глава NCPD. Отвечает за поддержание порядка в Найт-Сити и координацию действий всех подразделений полиции
+  name: job-name-ncpd-chief
+  description: job-description-ncpd-chief
   playTimeTracker: JobNCPDChief
   weight: 100
   salary: 450

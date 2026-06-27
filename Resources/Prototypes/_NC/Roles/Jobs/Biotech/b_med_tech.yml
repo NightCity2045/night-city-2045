@@ -1,7 +1,7 @@
 - type: job
   id: BiotechnicaMedTech
-  name: МедТех Biotechnica
-  description: 'Научный персонал. Выполняет медицинские операции, варит химикаты и производит медикаменты.'
+  name: job-name-biotechnica-med-tech
+  description: job-description-biotechnica-med-tech
   playTimeTracker: JobBiotechnicaMedTech
   weight: 55
   salary: 200

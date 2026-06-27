@@ -1,7 +1,7 @@
 - type: entity
   id: NCBlankBarrelPipe
-  name: трубная заготовка (стволы заготовка Т1)
-  description: стволы заготовка Т1
+  name: ent-NCBlankBarrelPipe
+  description: ent-NCBlankBarrelPipe-desc
   parent: BaseItem
   components:
     - type: Sprite

@@ -17,6 +17,7 @@ using Content.Server.JoinQueue;
 using Content.Server.Mapping;
 using Content.Server.Maps;
 using Content.Server.MoMMI;
+using Content.Server._NC.Chat.Translation;
 using Content.Server.NodeContainer.NodeGroups;
 using Content.Server.Objectives;
 using Content.Server.Players;
@@ -85,6 +86,7 @@ namespace Content.Server.IoC
             IoCManager.Register<MultiServerKickManager>();
             IoCManager.Register<CVarControlManager>();
             IoCManager.Register<TTSManager>(); // WD EDIT
+            IoCManager.Register<INCChatTranslationService, NCChatTranslationService>();
         }
     }
 }

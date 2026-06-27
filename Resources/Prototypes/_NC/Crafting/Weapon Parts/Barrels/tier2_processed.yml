@@ -1,7 +1,7 @@
 - type: entity
   id: NCProcessedBarrelT2
-  name: стандартный нарезной ствол (Т2) (Ствол для оружия. Т2.)
-  description: Ствол для оружия. Т2.
+  name: ent-NCProcessedBarrelT2
+  description: ent-NCProcessedBarrel-desc
   parent: BaseItem
   components:
     - type: Sprite

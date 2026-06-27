@@ -1,7 +1,7 @@
 - type: entity
   id: NCBlankFrameMilled
-  name: фрезерованный блок (каркас заготовка Т2)
-  description: каркас заготовка Т2
+  name: ent-NCBlankFrameMilled
+  description: ent-NCBlankFrame-desc
   parent: BaseItem
   components:
     - type: Sprite

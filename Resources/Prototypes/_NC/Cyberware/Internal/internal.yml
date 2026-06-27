@@ -2,8 +2,8 @@
 - type: entity
   id: CyberwareInternalVampireFangs
   parent: BaseCyberwareImplant
-  name: "Vampire Fangs Implant"
-  description: "Dental implant that functions like a combat mode. Activates via action button to bite and drain blood."
+  name: ent-CyberwareInternalVampireFangs
+  description: ent-CyberwareInternalVampireFangs-desc
   components:
   - type: CyberwareImplant
     category: Internal
@@ -15,8 +15,8 @@
 - type: entity
   id: CyberwareInternalVampireFangsBasic
   parent: BaseCyberwareImplant
-  name: "Basic Vampire Fangs"
-  description: "Simple dental implant for biting. No toxin injection capability."
+  name: ent-CyberwareInternalVampireFangsBasic
+  description: ent-CyberwareInternalVampireFangsBasic-desc
   components:
   - type: CyberwareImplant
     category: Internal
@@ -28,8 +28,8 @@
 - type: entity
   id: CyberwareInternalPolymerSkeleton
   parent: BaseCyberwareImplant
-  name: "Dynalar 'Frame'"
-  description: "Budget bone reinforcement with impact-resistant plastic. Originally developed for miners and orbital station workers to minimize injuries from falling beams."
+  name: ent-CyberwareInternalPolymerSkeleton
+  description: ent-CyberwareInternalPolymerSkeleton-desc
   components:
   - type: CyberwareImplant
     category: Internal
@@ -45,8 +45,8 @@
 - type: entity
   id: CyberwareInternalTitaniumReinforcement
   parent: BaseCyberwareImplant
-  name: "Kiroshi 'Phalanx'"
-  description: "Police riot control standard. Bones are coated with a layer of titanium, significantly increasing the owner's body mass."
+  name: ent-CyberwareInternalTitaniumReinforcement
+  description: ent-CyberwareInternalTitaniumReinforcement-desc
   components:
   - type: CyberwareImplant
     category: Internal
@@ -63,8 +63,8 @@
 - type: entity
   id: CyberwareInternalArmyEndoskeleton
   parent: BaseCyberwareImplant
-  name: "Militech 'Monolith'"
-  description: "Extreme modification level. Natural bones are almost completely replaced with carbon-titanium alloys. The owner weighs one and a half times more than a normal human."
+  name: ent-CyberwareInternalArmyEndoskeleton
+  description: ent-CyberwareInternalArmyEndoskeleton-desc
   components:
   - type: CyberwareImplant
     category: Internal
@@ -90,8 +90,8 @@
 - type: entity
   id: CyberwareInternalNasalFilters
   parent: BaseCyberwareImplant
-  name: "Nasal Filters"
-  description: "Implanted filtration system that provides immunity to airborne gases and toxins."
+  name: ent-CyberwareInternalNasalFilters
+  description: ent-CyberwareInternalNasalFilters-desc
   components:
   - type: CyberwareImplant
     category: Internal
@@ -103,8 +103,8 @@
 - type: entity
   id: CyberwareInternalEnhancedAntibodies
   parent: BaseCyberwareImplant
-  name: "Enhanced Antibodies"
-  description: "Genetically enhanced immune system that accelerates natural regeneration processes."
+  name: ent-CyberwareInternalEnhancedAntibodies
+  description: ent-CyberwareInternalEnhancedAntibodies-desc
   components:
   - type: CyberwareImplant
     category: Internal
@@ -123,8 +123,8 @@
 - type: entity
   id: CyberwareInternalEnhancedAntibodiesTier3
   parent: BaseCyberwareImplant
-  name: "Enhanced Antibodies"
-  description: "Genetically enhanced immune system that accelerates natural regeneration processes."
+  name: ent-CyberwareInternalEnhancedAntibodiesTier3
+  description: ent-CyberwareInternalEnhancedAntibodiesTier3-desc
   components:
   - type: CyberwareImplant
     category: Internal

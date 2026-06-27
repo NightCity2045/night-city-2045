@@ -10,6 +10,9 @@ ent-CyberwareNeuroSandevistanMk1-desc = Нейронный ускоритель 
 ent-CyberwareNeuroSandevistanApogee = Militech 'Apogee' Sandevistan
 ent-CyberwareNeuroSandevistanApogee-desc = Легендарный ускоритель. Позволяет двигаться быстрее молнии ценой колоссальной нагрузки на разум.
 
+ent-CyberwareNeuroSandevistanMaxTac = Militech «Max-Tac» Sandevistan
+ent-CyberwareNeuroSandevistanMaxTac-desc = Ускоритель для элитного отряда. Позволяет двигаться быстрее молнии ценой колоссальной нагрузки на разум.
+
 ent-CyberwareImplantAntiglare = Антиблик
 ent-CyberwareImplantAntiglare-desc = Снижает блики от внезапных вспышек, защищая зрение без дополнительных эффектов.
 
@@ -38,6 +41,9 @@ ent-CyberwareNeuroKerenzikovMk2-desc = Продвинутый ускорител
 
 ent-CyberwareNeuroKerenzikovMk3 = Militech «Керезников»
 ent-CyberwareNeuroKerenzikovMk3-desc = Легендарный ускоритель рефлексов. Максимальная скорость передвижения и превосходное уклонение.
+
+ent-CyberwareNeuroKerenzikovMaxTac = Militech «Max-Tac»
+ent-CyberwareNeuroKerenzikovMaxTac-desc = Экстремальный ускоритель рефлексов. Максимальная скорость передвижения и превосходное уклонение. Только для оперативного состава.
 
 # Био-ингибитор
 ent-CyberwareNeuroBioInhibitorStoic = Био-ингибитор Biotechnica «Стоик»
@@ -78,6 +84,9 @@ ent-CyberwareInternalNasalFilters-desc = Имплантированная сис
 ent-CyberwareInternalEnhancedAntibodies = Усиленные антитела
 ent-CyberwareInternalEnhancedAntibodies-desc = Генетически улучшенная иммунная система, ускоряющая естественные процессы регенерации.
 
+ent-CyberwareInternalEnhancedAntibodiesTier3 = Усиленные антитела (Тир 3)
+ent-CyberwareInternalEnhancedAntibodiesTier3-desc = Генетически улучшенная иммунная система высшего уровня, максимально ускоряющая процессы регенерации.
+
 # Кевларовая подложка
 ent-CyberwareExternalKevlarSublayer = Кевларовая подложка Moore Tech «Панцирь»
 ent-CyberwareExternalKevlarSublayer-desc = Самая дешевая уличная защита. Под кожу вшиваются слои баллистического кевлара. Спасает от шальных пуль уличных банд и заточек, но кожа в местах установки становится грубой и теряет чувствительность, а тело плохо дышит.
@@ -89,3 +98,50 @@ ent-CyberwareExternalThermoplasticArmor-desc = Стандарт для дете�
 # Реактивный субдермальный слой
 ent-CyberwareExternalReactiveSublayer = Реактивный субдермальный слой Militech «Драконья Чешуя»
 ent-CyberwareExternalReactiveSublayer-desc = Элитная военная разработка. Микрочешуйки из карбида бора и графена, соединенные эластичной нано-сеткой. Броня настолько прочная, что способна остановить пулю из штурмовой винтовки в упор. Выглядит как человек, но на ощупь — как бетонная стена.
+
+# Autodoc
+ent-AutodocConsole = Терминал Автодока
+    .desc = Медицинская машина для безопасной интеграции киберимплантов. Требует пристегнутого пациента.
+
+# Roles
+role-cyberpsycho-name = Киберпсих
+role-cyberpsycho-objective = Убить всех. Плоть слаба.
+
+# Therapy Words (Cyberpsychosis)
+therapy-word-machine = машина
+therapy-word-metal = металл
+therapy-word-glass = стекло
+therapy-word-void = пустота
+therapy-word-cold = холод
+therapy-word-alien = чужой
+therapy-word-wall = стена
+therapy-word-artificial = искусственный
+therapy-word-plastic = пластик
+therapy-word-mechanism = механизм
+therapy-word-blood = кровь
+therapy-word-knife = нож
+therapy-word-flesh = плоть
+therapy-word-scream = крик
+therapy-word-shot = выстрел
+therapy-word-bone = кость
+therapy-word-tear = разрыв
+therapy-word-death = смерть
+therapy-word-pain = боль
+therapy-word-meat = мясо
+therapy-word-shadow = тень
+therapy-word-footsteps = шаги
+therapy-word-whisper = шепот
+therapy-word-time = время
+therapy-word-surveillance = слежка
+therapy-word-eyes = глаза
+therapy-word-fast = быстро
+therapy-word-timer = таймер
+therapy-word-clock = часы
+therapy-word-pulse = пульс
+
+# Therapy Emotes
+therapy-emote-click = кажется, что-то щёлкнуло внутри
+therapy-emote-twitch = лицо дёргается от непонятного чувства
+therapy-emote-breathe = глаза расширяются, дыхание сбивается
+therapy-emote-exhale = выдыхает, пытаясь взять себя в руки
+therapy-emote-freeze = на секунду замирает, зрачки расширены

@@ -1,8 +1,8 @@
 - type: entity
   parent: BaseComputer
   id: CitiNetTerminal
-  name: CitiNet Terminal
-  description: A bulky desktop terminal with a flickering CRT monitor.
+  name: ent-CitiNetTerminal
+  description: ent-CitiNetTerminal-desc
   components:
   - type: Sprite
     sprite: Structures/Machines/computers.rsi
@@ -26,8 +26,8 @@
 - type: entity
   parent: BaseItem
   id: CitiNetDataChipNCPD
-  name: NCPD Access Chip
-  description: A small chip containing encrypted access keys for the NCPD database.
+  name: ent-CitiNetDataChipNCPD
+  description: ent-CitiNetDataChipNCPD-desc
   components:
   - type: Sprite
     sprite: Objects/Devices/cartridge.rsi
@@ -38,8 +38,8 @@
 - type: entity
   parent: BaseItem
   id: CitiNetDataChipNCPDForensics
-  name: NCPD Forensics Access Chip
-  description: A small chip containing encrypted access keys for the NCPD forensics database.
+  name: ent-CitiNetDataChipNCPDForensics
+  description: ent-CitiNetDataChipNCPDForensics-desc
   components:
   - type: Sprite
     sprite: Objects/Devices/cartridge.rsi
@@ -50,8 +50,8 @@
 - type: entity
   parent: CrateBaseSecure
   id: CitiNetCorporateDropBox
-  name: Почтомат "Vendit"
-  description: Защищенный корпоративный терминал для получения посылок. Требуется PIN-код.
+  name: ent-CitiNetCorporateDropBox
+  description: ent-CitiNetCorporateDropBox-desc
   components:
   - type: Transform
     anchored: true
@@ -75,8 +75,8 @@
 - type: entity
   parent: Trashbin
   id: CitiNetStreetDeadDrop
-  name: Старая мусорка
-  description: Грязный бак, забитый старыми газетами. Кажется, тут что-то припрятано.
+  name: ent-CitiNetStreetDeadDrop
+  description: ent-CitiNetStreetDeadDrop-desc
   components:
   - type: Transform
     anchored: true
@@ -87,8 +87,8 @@
 - type: entity
   parent: BaseItem
   id: CitiNetDeliveryChip
-  name: "Навигационный чип 'QuickPath'"
-  description: "Одноразовый чип с координатами вашей посылки. Вставьте в КПК для активации GPS-метки."
+  name: ent-CitiNetDeliveryChip
+  description: ent-CitiNetDeliveryChip-desc
   components:
   - type: Cartridge
     programName: citinet-delivery-cartridge-name

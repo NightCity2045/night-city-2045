@@ -2,8 +2,8 @@
   parent: Paper
   id: NCRecipePaperBase
   abstract: true
-  name: технический рецепт
-  description: Лист технической бумаги с закодированными инструкциями по сборке.
+  name: ent-NCRecipePaperBase
+  description: ent-NCRecipePaperBase-desc
   components:
   - type: Sprite
     sprite: Objects/Misc/bureaucracy.rsi
@@ -20,7 +20,7 @@
 - type: entity
   parent: NCRecipePaperBase
   id: NCRecipePaperHelloCutie
-  name: рецепт (Hello Cutie) (Т1)
+  name: ent-NCRecipePaper
   description: Рецепт для сборки оружия. Т1.
   components:
   - type: Paper
@@ -37,7 +37,7 @@
 - type: entity
   parent: NCRecipePaperBase
   id: NCRecipePaperOverlord
-  name: рецепт (Overlord) (Т1)
+  name: ent-NCRecipePaper
   description: Рецепт для сборки оружия. Т1.
   components:
   - type: Paper
@@ -54,7 +54,7 @@
 - type: entity
   parent: NCRecipePaperBase
   id: NCRecipePaperStreetMaster
-  name: рецепт (Dai Lung StreetMaster) (Т1)
+  name: ent-NCRecipePaper
   description: Рецепт для сборки оружия. Т1.
   components:
   - type: Paper
@@ -71,7 +71,7 @@
 - type: entity
   parent: NCRecipePaperBase
   id: NCRecipePaperStukachTommy
-  name: рецепт (Стукач Томми) (Т2)
+  name: ent-NCRecipePaper
   description: Рецепт для сборки оружия. Т2.
   components:
   - type: Paper
@@ -89,7 +89,7 @@
 - type: entity
   parent: NCRecipePaperBase
   id: NCRecipePaperAvenger
-  name: рецепт (Militech Avenger) (Т2)
+  name: ent-NCRecipePaper
   description: Рецепт для сборки оружия. Т2.
   components:
   - type: Paper
@@ -107,7 +107,7 @@
 - type: entity
   parent: NCRecipePaperBase
   id: NCRecipePaperCheesemaker
-  name: рецепт (FedArms Cheesemaker) (Т1)
+  name: ent-NCRecipePaper
   description: Рецепт для сборки оружия. Т1.
   components:
   - type: Paper
@@ -124,7 +124,7 @@
 - type: entity
   parent: NCRecipePaperBase
   id: NCRecipePaperFederalX9
-  name: рецепт (Federal Arms X9) (Т1)
+  name: ent-NCRecipePaper
   description: Рецепт для сборки оружия. Т1.
   components:
   - type: Paper
@@ -141,7 +141,7 @@
 - type: entity
   parent: NCRecipePaperBase
   id: NCRecipePaperBoomerBuster
-  name: рецепт (Militech Boomer Buster) (Т1)
+  name: ent-NCRecipePaper
   description: Рецепт для сборки оружия. Т1.
   components:
   - type: Paper
@@ -158,7 +158,7 @@
 - type: entity
   parent: NCRecipePaperBase
   id: NCRecipePaperMarkIII
-  name: рецепт (Mustang Arms Mark III) (Т1)
+  name: ent-NCRecipePaper
   description: Рецепт для сборки оружия. Т1.
   components:
   - type: Paper
@@ -175,7 +175,7 @@
 - type: entity
   parent: NCRecipePaperBase
   id: NCRecipePaperSternmeyerP35
-  name: рецепт (Sternmeyer P35) (Т2)
+  name: ent-NCRecipePaper
   description: Рецепт для сборки оружия. Т2.
   components:
   - type: Paper
@@ -195,7 +195,7 @@
 - type: entity
   parent: NCRecipePaperBase
   id: NCRecipePaperM04
-  name: рецепт (Штейнмейер М-04) (Т3)
+  name: ent-NCRecipePaper
   description: Рецепт для сборки оружия. Т3.
   components:
   - type: Paper
@@ -212,7 +212,7 @@
 - type: entity
   parent: NCRecipePaperBase
   id: NCRecipePaperArasakaProto
-  name: рецепт (Прототип Арасака) (Т3)
+  name: ent-NCRecipePaper
   description: Рецепт для сборки оружия. Т3.
   components:
   - type: Paper
@@ -230,7 +230,7 @@
 - type: entity
   parent: NCRecipePaperBase
   id: NCRecipePaperNowaki
-  name: рецепт (Arasaka NOWAKI) (Т3)
+  name: ent-NCRecipePaper
   description: Рецепт для сборки оружия. Т3.
   components:
   - type: Paper
@@ -247,7 +247,7 @@
 - type: entity
   parent: NCRecipePaperBase
   id: NCRecipePaperNokota
-  name: рецепт (Nokota D5 Copperhead) (Т2)
+  name: ent-NCRecipePaper
   description: Рецепт для сборки оружия. Т2.
   components:
   - type: Paper
@@ -266,7 +266,7 @@
 - type: entity
   parent: NCRecipePaperBase
   id: NCRecipePaperSvakha
-  name: рецепт (Сваха) (Т1)
+  name: ent-NCRecipePaper
   description: Рецепт для сборки оружия. Т1.
   components:
   - type: Paper
@@ -283,7 +283,7 @@
 - type: entity
   parent: NCRecipePaperBase
   id: NCRecipePaperMilitechCrusher
-  name: рецепт (Militech Crusher) (Т2)
+  name: ent-NCRecipePaper
   description: Рецепт для сборки оружия. Т2.
   components:
   - type: Paper
@@ -303,7 +303,7 @@
 - type: entity
   parent: NCRecipePaperBase
   id: NCRecipePaperShingen
-  name: рецепт (Arasaka TKI20 Shingen) (Т3)
+  name: ent-NCRecipePaper
   description: Рецепт для сборки оружия. Т3.
   components:
   - type: Paper
@@ -321,7 +321,7 @@
 - type: entity
   parent: NCRecipePaperBase
   id: NCRecipePaperSaratoga
-  name: рецепт (Militech Saratoga) (Т2)
+  name: ent-NCRecipePaper
   description: Рецепт для сборки оружия. Т2.
   components:
   - type: Paper

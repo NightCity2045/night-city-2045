@@ -1,7 +1,7 @@
 - type: entity
   id: NCProcessedBarrelT1
-  name: гладкоствольная трубка (Т1) (Ствол для оружия. Т1.)
-  description: Ствол для оружия. Т1.
+  name: ent-NCProcessedBarrelT1
+  description: ent-NCProcessedBarrel-desc
   parent: BaseItem
   components:
     - type: Sprite

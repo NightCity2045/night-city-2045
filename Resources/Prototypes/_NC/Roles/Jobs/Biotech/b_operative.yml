@@ -1,7 +1,7 @@
 - type: job
   id: BiotechnicaOperative
-  name: Оперативник Biotechnica
-  description: 'Относится к рядовому составу. Стоит выше обычного патрульного в иерархии.'
+  name: job-name-biotechnica-operative
+  description: job-description-biotechnica-operative
   playTimeTracker: JobBiotechnicaOperative
   weight: 70
   salary: 250

@@ -1,8 +1,8 @@
 - type: therapyEmote
   id: default
   lines:
-    - "кажется, что-то щёлкнуло внутри"
-    - "лицо дёргается от непонятного чувства"
-    - "глаза расширяются, дыхание сбивается"
-    - "выдыхает, пытаясь взять себя в руки"
-    - "на секунду замирает, зрачки расширены"
+    - "therapy-emote-click"
+    - "therapy-emote-twitch"
+    - "therapy-emote-breathe"
+    - "therapy-emote-exhale"
+    - "therapy-emote-freeze"

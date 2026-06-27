@@ -1,8 +1,8 @@
 - type: entity
   parent: [ClothingUniformBase, ClothingUniformFoldableBase, BaseRestrictedContraband]
   id: ClothingUniformNSPDCoolWhite
-  name: Форма начальника департамента NCPD
-  description: Форма начальника департамента NCPD
+  name: ent-ClothingUniformNCPDChief
+  description: ent-ClothingUniformNCPDChief-desc
   components:
   - type: Sprite
     sprite: _NC/Clothing/Uniforms/Jumpsuits/nspd_cool_white.rsi

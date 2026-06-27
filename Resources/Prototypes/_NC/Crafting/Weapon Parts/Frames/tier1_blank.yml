@@ -3,8 +3,8 @@
 # ==========================================
 - type: entity
   id: NCBlankFramePlastic
-  name: штампованный полимер (каркас заготовка Т1)
-  description: каркас заготовка Т1
+  name: ent-NCBlankFramePlastic
+  description: ent-NCBlankFrame-desc
   parent: BaseItem
   components:
     - type: Sprite

@@ -1,8 +1,8 @@
 - type: entity
   parent: MedicalTechFab
   id: BiotechnicaTechFab
-  name: ТехФаб Biotechnica
-  description: Фабрикатор корпоративного оборудования Биотехники.
+  name: ent-BiotechnicaTechFab
+  description: ent-BiotechnicaTechFab-desc
   suffix: Biotechnica, Тех
   components:
   - type: Sprite
@@ -18,8 +18,8 @@
 - type: entity
   parent: MedicalTechFabCircuitboard
   id: BiotechnicaTechFabCircuitboard
-  name: ТехФаб Biotechnica (машинная плата)
-  description: Машинная плата для сборки ТехФаба Biotechnica.
+  name: ent-BiotechnicaTechFab (машинная плата)
+  description: ent-BiotechnicaTechFabCircuitboard-desc
   suffix: Biotechnica, Тех
   components:
   - type: MachineBoard

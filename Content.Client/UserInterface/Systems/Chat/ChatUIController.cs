@@ -154,8 +154,9 @@ public sealed class ChatUIController : UIController
     /// </summary>
     private readonly Dictionary<ChatChannel, int> _unreadMessages = new();
 
-    // TODO add a cap for this for non-replays
+    private const int MaxHistoryLength = 2048;
     public readonly List<(GameTick Tick, ChatMessage Msg)> History = new();
+    private readonly Dictionary<uint, int> _historyByServerMessageId = new();
 
     // Maintains which channels a client should be able to filter (for showing in the chatbox)
     // and select (for attempting to send on).
@@ -188,6 +189,7 @@ public sealed class ChatUIController : UIController
         _player.LocalPlayerDetached += OnAttachedChanged;
         _state.OnStateChanged += StateChanged;
         _net.RegisterNetMessage<MsgChatMessage>(OnChatMessage);
+        _net.RegisterNetMessage<MsgUpdateChatMessage>(OnUpdateChatMessage);
         _net.RegisterNetMessage<MsgDeleteChatMessagesBy>(OnDeleteChatMessagesBy);
         SubscribeNetworkEvent<DamageForceSayEvent>(OnDamageForceSay);
         _config.OnValueChanged(CCVars.ChatEnableColorName, (value) => { _chatNameColorsEnabled = value; });
@@ -261,6 +263,14 @@ public sealed class ChatUIController : UIController
     public void OnScreenUnload()
     {
         SetMainChat(false);
+    }
+
+    public void RefreshLocalization()
+    {
+        foreach (var chat in _chats)
+        {
+            chat.Relocalize();
+        }
     }
 
     private void OnChatWindowOpacityChanged(float opacity)
@@ -818,40 +828,55 @@ public sealed class ChatUIController : UIController
         }
     }
 
-    public void ProcessChatMessage(ChatMessage msg, bool speechBubble = true)
+    private void OnUpdateChatMessage(MsgUpdateChatMessage message)
     {
-        // color the name unless it's something like "the old man"
-        if ((msg.Channel == ChatChannel.Local || msg.Channel == ChatChannel.Whisper) && _chatNameColorsEnabled)
+        ApplyChatMessageUpdate(message.Message);
+    }
+
+    private void ApplyChatMessageUpdate(ChatMessage msg)
+    {
+        if (msg.ServerMessageId is not { } messageId)
+            return;
+
+        var decoratedMessage = CloneChatMessage(msg, msg.Read);
+        DecorateChatMessage(decoratedMessage);
+
+        var updatedHistory = false;
+        if (_historyByServerMessageId.TryGetValue(messageId, out var index) &&
+            index >= 0 &&
+            index < History.Count)
         {
-            var grammar = _ent.GetComponentOrNull<GrammarComponent>(_ent.GetEntity(msg.SenderEntity));
-            if (grammar != null && grammar.ProperNoun == true)
-            { // WWDP EDIT START
-                var chatName = SharedChatSystem.GetStringInsideTag(msg, "Name");
-                var sender = _ent.GetEntity(msg.SenderEntity);
-                string hex = _ent.EntityExists(sender)
-                    ? _ncCharacterNotes.GetLocalChatNameColor(sender, chatName)
-                    : SharedChatSystem.GetNameColor(chatName);
-                msg.WrappedMessage = SharedChatSystem.InjectTagAroundTag(msg, "Name", "color", hex);
-            } // WWDP EDIT END
+            var old = History[index];
+            updatedHistory = true;
+            History[index] = (old.Tick, CloneChatMessage(decoratedMessage, old.Msg.Read));
         }
 
-        // Color any codewords for minds that have roles that use them
-        if (_player.LocalUser != null && _mindSystem != null && _roleCodewordSystem != null)
-        {
-            if (_mindSystem.TryGetMind(_player.LocalUser.Value, out var mindId) && _ent.TryGetComponent(mindId, out RoleCodewordComponent? codewordComp))
-            {
-                foreach (var (_, codewordData) in codewordComp.RoleCodewords)
-                {
-                    foreach (string codeword in codewordData.Codewords)
-                        msg.WrappedMessage = SharedChatSystem.InjectTagAroundString(msg, codeword, "color", codewordData.Color.ToHex());
-                }
-            }
-        }
+        if (updatedHistory)
+            Repopulate();
+
+        var updatedQueue = UpdateQueuedSpeechBubbleMessages(decoratedMessage, messageId);
+        var updatedActive = UpdateActiveSpeechBubbleMessages(decoratedMessage, messageId);
+        if (!updatedHistory && !updatedQueue && !updatedActive)
+            return;
+    }
+
+    public void ProcessChatMessage(ChatMessage msg, bool speechBubble = true)
+    {
+        DecorateChatMessage(msg);
 
         // Log all incoming chat to repopulate when filter is un-toggled
         if (!msg.HideChat)
         {
+            if (msg.ServerMessageId is { } serverMessageId)
+                _historyByServerMessageId[serverMessageId] = History.Count;
+
             History.Add((_timing.CurTick, msg));
+            if (History.Count > MaxHistoryLength)
+            {
+                History.RemoveAt(0);
+                RebuildHistoryIndex();
+            }
+
             MessageAdded?.Invoke(msg);
 
             if (!msg.Read)
@@ -898,6 +923,37 @@ public sealed class ChatUIController : UIController
         }
     }
 
+    private void DecorateChatMessage(ChatMessage msg)
+    {
+        // color the name unless it's something like "the old man"
+        if ((msg.Channel == ChatChannel.Local || msg.Channel == ChatChannel.Whisper) && _chatNameColorsEnabled)
+        {
+            var grammar = _ent.GetComponentOrNull<GrammarComponent>(_ent.GetEntity(msg.SenderEntity));
+            if (grammar != null && grammar.ProperNoun == true)
+            { // WWDP EDIT START
+                var chatName = SharedChatSystem.GetStringInsideTag(msg, "Name");
+                var sender = _ent.GetEntity(msg.SenderEntity);
+                string hex = _ent.EntityExists(sender)
+                    ? _ncCharacterNotes.GetLocalChatNameColor(sender, chatName)
+                    : SharedChatSystem.GetNameColor(chatName);
+                msg.WrappedMessage = SharedChatSystem.InjectTagAroundTag(msg, "Name", "color", hex);
+            } // WWDP EDIT END
+        }
+
+        // Color any codewords for minds that have roles that use them
+        if (_player.LocalUser != null && _mindSystem != null && _roleCodewordSystem != null)
+        {
+            if (_mindSystem.TryGetMind(_player.LocalUser.Value, out var mindId) && _ent.TryGetComponent(mindId, out RoleCodewordComponent? codewordComp))
+            {
+                foreach (var (_, codewordData) in codewordComp.RoleCodewords)
+                {
+                    foreach (string codeword in codewordData.Codewords)
+                        msg.WrappedMessage = SharedChatSystem.InjectTagAroundString(msg, codeword, "color", codewordData.Color.ToHex());
+                }
+            }
+        }
+    }
+
     public void OnDeleteChatMessagesBy(MsgDeleteChatMessagesBy msg)
     {
         // This will delete messages from an entity even if different players were the author.
@@ -905,6 +961,7 @@ public sealed class ChatUIController : UIController
         // Otherwise the client would need to know that one entity has multiple author players,
         // or the server would need to track when and which entities a player sent messages as.
         History.RemoveAll(h => h.Msg.SenderKey == msg.Key || msg.Entities.Contains(h.Msg.SenderEntity));
+        RebuildHistoryIndex();
         Repopulate();
     }
 
@@ -934,6 +991,90 @@ public sealed class ChatUIController : UIController
         {
             chat.Repopulate();
         }
+    }
+
+    private void RebuildHistoryIndex()
+    {
+        _historyByServerMessageId.Clear();
+
+        for (var i = 0; i < History.Count; i++)
+        {
+            if (History[i].Msg.ServerMessageId is { } serverMessageId)
+                _historyByServerMessageId[serverMessageId] = i;
+        }
+    }
+
+    private bool UpdateQueuedSpeechBubbleMessages(ChatMessage msg, uint messageId)
+    {
+        var updated = false;
+        foreach (var queueData in _queuedSpeechBubbles.Values)
+        {
+            var queued = queueData.MessageQueue.ToArray();
+            for (var i = 0; i < queued.Length; i++)
+            {
+                if (queued[i].Message.ServerMessageId != messageId)
+                    continue;
+
+                queued[i] = new SpeechBubbleData(CloneChatMessage(msg, queued[i].Message.Read), queued[i].Type);
+                updated = true;
+            }
+
+            if (!updated)
+                continue;
+
+            queueData.MessageQueue.Clear();
+            foreach (var entry in queued)
+                queueData.MessageQueue.Enqueue(entry);
+        }
+
+        return updated;
+    }
+
+    private bool UpdateActiveSpeechBubbleMessages(ChatMessage msg, uint messageId)
+    {
+        var updated = false;
+        foreach (var (entity, bubbles) in _activeSpeechBubbles.ToArray())
+        {
+            for (var i = 0; i < bubbles.Count; i++)
+            {
+                var activeBubble = bubbles[i];
+                if (activeBubble.Message.ServerMessageId != messageId)
+                    continue;
+
+                var replacement = SpeechBubble.CreateSpeechBubble(activeBubble.BubbleType, CloneChatMessage(msg, read: true), entity);
+                replacement.OnDied += SpeechBubbleDied;
+                replacement.VerticalOffset = activeBubble.VerticalOffset;
+                replacement.Visible = activeBubble.Visible;
+
+                activeBubble.OnDied -= SpeechBubbleDied;
+                activeBubble.Orphan();
+
+                bubbles[i] = replacement;
+                _speechBubbleRoot.AddChild(replacement);
+                updated = true;
+            }
+        }
+
+        return updated;
+    }
+
+    private static ChatMessage CloneChatMessage(ChatMessage source, bool read)
+    {
+        return new ChatMessage(
+            source.Channel,
+            source.Message,
+            source.WrappedMessage,
+            source.SenderEntity,
+            source.SenderKey,
+            source.HideChat,
+            source.MessageColorOverride,
+            source.AudioPath,
+            source.AudioVolume,
+            source.IgnoreChatStack,
+            source.ServerMessageId)
+        {
+            Read = read,
+        };
     }
 
     /* WWDP EDIT - DEFUNCT

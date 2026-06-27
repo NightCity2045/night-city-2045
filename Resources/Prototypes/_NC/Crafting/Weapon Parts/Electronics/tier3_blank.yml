@@ -1,7 +1,7 @@
 - type: entity
   id: NCBlankElectronicsNeuro
-  name: чистая нейро-плата (электроника заготовка Т3)
-  description: электроника заготовка Т3
+  name: ent-NCBlankElectronicsNeuro
+  description: ent-NCBlankElectronics-desc
   parent: BaseItem
   components:
     - type: Sprite

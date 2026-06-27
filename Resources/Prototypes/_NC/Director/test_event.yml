@@ -1,14 +1,14 @@
 - type: directorEvent
   id: TestLivingWorldEvent
   parent: NCBaseDirectorEvent
-  name: "Director Validation Incident"
+  name: director-event-validation-incident
   enabled: false
   weight: 0
   cooldown: 0
   startPhase: "Gathering"
   phases:
     Gathering:
-      name: "The Gathering"
+      name: director-event-validation-incident-phase-gathering
       duration: 90
       announcement: "director-test-event-gathering"
       meetLocationTags: ["TestLivingWorldMeet"]
@@ -24,7 +24,7 @@
         CorpoSweep: 30
 
     Skirmish:
-      name: "The Conflict"
+      name: director-event-validation-incident-phase-conflict
       duration: 180
       announcement: "director-test-event-conflict"
       aiDomain: "DirectorCombatCompound"
@@ -37,7 +37,7 @@
         Cleanup: 100
 
     CorpoSweep:
-      name: "Corporate Sweep"
+      name: director-event-validation-incident-phase-corp-sweep
       duration: 120
       announcement: "director-test-event-corpo-sweep"
       spawns:
@@ -48,7 +48,7 @@
         Cleanup: 100
 
     Cleanup:
-      name: "The Cleanup"
+      name: director-event-validation-incident-phase-cleanup
       duration: 60
       announcement: "director-test-event-cleanup"
       aiDomain: "FleeToExtraction"

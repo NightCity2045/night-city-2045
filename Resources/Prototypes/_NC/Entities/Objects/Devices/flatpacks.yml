@@ -1,7 +1,7 @@
 - type: entity
   parent: BaseFlatpack
   id: HydroponicsTrayFlatpack
-  name: упаковка гидропонного лотка
+  name: ent-HydroponicsTrayFlatpack
   description: Набор деталей для сборки гидропонного лотка.
   components:
   - type: Flatpack
@@ -16,7 +16,7 @@
 - type: entity
   parent: BaseFlatpack
   id: SeedExtractorFlatpack
-  name: упаковка экстрактора семян
+  name: ent-SeedExtractorFlatpack
   description: Набор деталей для сборки экстрактора семян.
   components:
   - type: Flatpack
@@ -31,7 +31,7 @@
 - type: entity
   parent: BaseFlatpack
   id: WeaponWorkbenchFlatpack
-  name: упаковка ЧПУ-станка
+  name: ent-WeaponWorkbenchFlatpack
   description: Набор деталей для сборки высокотехнологичного оружейного верстака.
   components:
   - type: Flatpack
@@ -46,7 +46,7 @@
 - type: entity
   parent: BaseFlatpack
   id: ConsoleCompilerFlatpack
-  name: упаковка консоли-компилятора
+  name: ent-ConsoleCompilerFlatpack
   description: Набор деталей для сборки промышленного компилятора данных.
   components:
   - type: Flatpack
@@ -61,7 +61,7 @@
 - type: entity
   parent: BaseFlatpack
   id: Civil3DPrinterFlatpack
-  name: упаковка гражданского 3D-принтера
+  name: ent-Civil3DPrinterFlatpack
   description: Набор деталей для сборки 3D-принтера общего назначения.
   components:
   - type: Flatpack
@@ -76,7 +76,7 @@
 - type: entity
   parent: BaseFlatpack
   id: ChemDispenserFlatpack
-  name: упаковка раздатчика химикатов
+  name: ent-ChemDispenserFlatpack
   description: Набор деталей для сборки промышленного раздатчика химикатов.
   components:
   - type: Flatpack
@@ -91,7 +91,7 @@
 - type: entity
   parent: BaseFlatpack
   id: ReagentGrinderFlatpack
-  name: упаковка измельчителя химикатов
+  name: ent-ReagentGrinderFlatpack
   description: Набор деталей для сборки многофункционального измельчителя реагентов.
   components:
   - type: Flatpack

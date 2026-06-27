@@ -1,7 +1,7 @@
 - type: job
   id: TraumaTeamParamedic
-  name: Парамедик Trauma Team
-  description: Врач занимающийся спасением випов но не всегда успешно
+  name: job-name-trauma-team-paramedic
+  description: job-description-trauma-team-paramedic
   playTimeTracker: JobTraumaTeamParamedic
   weight: 70
   salary: 350

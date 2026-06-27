@@ -1,7 +1,7 @@
 - type: entity
   id: NCBlankInternalsBolt
-  name: неоткалиброванный затвор (УСМ заготовка Т2)
-  description: УСМ заготовка Т2
+  name: ent-NCBlankInternalsBolt
+  description: ent-NCBlankInternals-desc
   parent: BaseItem
   components:
     - type: Sprite

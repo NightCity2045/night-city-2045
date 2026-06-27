@@ -1,7 +1,7 @@
 - type: job
   id: MaxTacEraser
-  name: Оперативник Max-Tac
-  description: Стандартизированная ячейка ПсихОтряда и ваша персональная путевка в чистилище. Используя штатное снаряжение MAX-TAC, вы методично зачищаете последствия чужого цифрового безумия. Вы — последняя линия обороны, за которой только тишина и отчеты о летальных исходах
+  name: job-name-maxtac-eraser
+  description: job-description-maxtac-eraser
   playTimeTracker: JobMaxTacEraser
   weight: 60
   salary: 350

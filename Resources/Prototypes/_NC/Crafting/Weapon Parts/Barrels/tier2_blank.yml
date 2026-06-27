@@ -1,7 +1,7 @@
 - type: entity
   id: NCBlankBarrelAlloy
-  name: сплавная болванка (стволы заготовка Т2)
-  description: стволы заготовка Т2
+  name: ent-NCBlankBarrelAlloy
+  description: ent-NCBlankBarrelAlloy-desc
   parent: BaseItem
   components:
     - type: Sprite

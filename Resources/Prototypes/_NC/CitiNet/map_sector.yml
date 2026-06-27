@@ -16,7 +16,7 @@
   - type: Sprite
     state: pink
   - type: MapSector
-    name: "New Sector"
+    name: citinet-map-sector-default
     color: "#ff00ff44"
     bounds: "-10, -10, 10, 10"
     visibleInWorld: true

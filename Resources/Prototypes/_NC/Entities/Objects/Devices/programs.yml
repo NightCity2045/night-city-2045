@@ -22,8 +22,8 @@
 - type: entity
   parent: NCProgramBase
   id: NCProgramPing
-  name: Пинг 1.0
-  description: Раскрывает информацию о сетевой защите цели.
+  name: ent-NCProgramPing
+  description: ent-NCProgramPing-desc
   components:
   - type: NetProgram
     programType: Quickhack
@@ -34,8 +34,8 @@
 - type: entity
   parent: NCProgramBase
   id: NCProgramBlind
-  name: Перезапись оптики
-  description: Временно ослепляет цель.
+  name: ent-NCProgramBlind
+  description: ent-NCProgramBlind-desc
   components:
   - type: NetProgram
     programType: Quickhack
@@ -48,8 +48,8 @@
 - type: entity
   parent: NCProgramBase
   id: NCProgramDrop
-  name: Сбой оружия
-  description: Заставляет цель выбросить активный предмет из рук.
+  name: ent-NCProgramDrop
+  description: ent-NCProgramDrop-desc
   components:
   - type: NetProgram
     programType: Quickhack
@@ -61,8 +61,8 @@
 - type: entity
   parent: NCProgramBase
   id: NCProgramShock
-  name: Замыкание
-  description: Наносит электрический урон цели.
+  name: ent-NCProgramShock
+  description: ent-NCProgramShock-desc
   components:
   - type: NetProgram
     programType: Quickhack
@@ -76,8 +76,8 @@
 - type: entity
   parent: NCProgramBase
   id: NCProgramBreach
-  name: Взлом 1.0
-  description: Мгновенно взламывает пароли Gate.
+  name: ent-NCProgramBreach
+  description: ent-NCProgramBreach-desc
   components:
   - type: NetProgram
     programType: Network
@@ -88,8 +88,8 @@
 - type: entity
   parent: NCProgramBase
   id: NCProgramSword
-  name: Цифровой Меч
-  description: Боевая программа. Высокий урон против ICE.
+  name: ent-NCProgramSword
+  description: ent-NCProgramSword-desc
   components:
   - type: NetProgram
     programType: Network
@@ -113,8 +113,8 @@
 - type: entity
   parent: NCProgramBase
   id: NCProgramHighJack
-  name: Хайджек 1.0
-  description: Подключается к сетевой архитектуре цели, раскрывая все слои ICE.
+  name: ent-NCProgramHighJack
+  description: ent-NCProgramHighJack-desc
   components:
   - type: NetProgram
     programType: Quickhack
@@ -127,8 +127,8 @@
 - type: entity
   parent: NCProgramBase
   id: NCProgramBackdoor
-  name: Бэкдор 1.0
-  description: Создает безопасную точку выхода. Используйте при взломе для отключения без нейронного урона.
+  name: ent-NCProgramBackdoor
+  description: ent-NCProgramBackdoor-desc
   components:
   - type: NetProgram
     programType: Network

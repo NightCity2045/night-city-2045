@@ -5,7 +5,7 @@
 # Сваха (Tier 1)
 - type: entity
   id: NCBlueprintSvakha
-  name: модуль "Сваха"
+  name: ent-NCBlueprint
   description: Диск с инструкциями по сборке и физический каркас под детали для дробовика Сваха.
   parent: BaseItem
   components:
@@ -32,7 +32,7 @@
 
 - type: entity
   id: NCBlueprintMilitechCrusher
-  name: модуль "Militech Crusher"
+  name: ent-NCBlueprint
   description: Диск с инструкциями по сборке и физический каркас под детали для автоматического дробовика Militech Crusher. Т2.
   parent: BaseItem
   components:

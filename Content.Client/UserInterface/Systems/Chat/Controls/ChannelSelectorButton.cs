@@ -59,6 +59,12 @@ public sealed class ChannelSelectorButton : ChatPopupButton<ChannelSelectorPopup
         OnChannelSelect?.Invoke(channel);
     }
 
+    public void RefreshLocalization()
+    {
+        Popup.RefreshLocalization();
+        UpdateChannelSelectButton(SelectedChannel, null);
+    }
+
     public static string ChannelSelectorName(ChatSelectChannel channel)
     {
         return Loc.GetString($"hud-chatbox-select-channel-{channel}");

@@ -1,7 +1,7 @@
 - type: job
   id: ZhirafaEngeneer
-  name: Инженер
-  description: job-description-zhirafa_engeneer
+  name: job-name-zhirafa-engineer
+  description: job-description-zhirafa-engineer
   playTimeTracker: JobZhirafaEngeneer
   salary: 180
   icon: "JobIconCivilRipper"

@@ -2,8 +2,8 @@
 - type: entity
   id: CyberwareNeuroKerenzikovMk1
   parent: BaseCyberwareImplant
-  name: "Moore Tech Kerenzikov"
-  description: "Basic reflex booster. Slightly increases movement speed."
+  name: ent-CyberwareNeuroKerenzikovMk1
+  description: ent-CyberwareNeuroKerenzikovMk1-desc
   components:
   - type: CyberwareImplant
     category: Neuroport
@@ -17,8 +17,8 @@
 - type: entity
   id: CyberwareNeuroKerenzikovMk2
   parent: BaseCyberwareImplant
-  name: "Zetatech Kerenzikov"
-  description: "Advanced reflex booster. Increases movement speed and improves evasion."
+  name: ent-CyberwareNeuroKerenzikovMk2
+  description: ent-CyberwareNeuroKerenzikovMk2-desc
   components:
   - type: CyberwareImplant
     category: Neuroport
@@ -34,8 +34,8 @@
 - type: entity
   id: CyberwareNeuroKerenzikovMk3
   parent: BaseCyberwareImplant
-  name: "Militech Kerenzikov"
-  description: "Legendary reflex booster. Maximum movement speed and superior evasion."
+  name: ent-CyberwareNeuroKerenzikovMk3
+  description: ent-CyberwareNeuroKerenzikovMk3-desc
   components:
   - type: CyberwareImplant
     category: Neuroport
@@ -51,8 +51,8 @@
 - type: entity
   id: CyberwareNeuroKerenzikovMaxTac
   parent: BaseCyberwareImplant
-  name: "Militech Max-Tac"
-  description: "Legendary reflex booster. Maximum movement speed and superior evasion."
+  name: ent-CyberwareNeuroKerenzikovMaxTac
+  description: ent-CyberwareNeuroKerenzikovMaxTac-desc
   components:
   - type: CyberwareImplant
     category: Neuroport
@@ -69,8 +69,8 @@
 - type: entity
   id: CyberwareNeuroBioInhibitorStoic
   parent: BaseCyberwareImplant
-  name: "Biotechnica Stoic"
-  description: "Biotechnica specializes in biology and chemistry. Their pain suppressor is not just wires, but hardware embedded in the spinal cord that constantly injects a cocktail of synthetic endorphins and adrenaline into the bloodstream upon taking damage."
+  name: ent-CyberwareNeuroBioInhibitorStoic
+  description: ent-CyberwareNeuroBioInhibitorStoic-desc
   components:
   - type: CyberwareImplant
     category: Neuroport
@@ -83,8 +83,8 @@
 - type: entity
   id: CyberwareNeuroBlockerAegis
   parent: BaseCyberwareImplant
-  name: "Trauma Team Aegis"
-  description: "Expensive medical standard. Trauma Team installs these on their paramedics so they can extract clients from crossfire even if they themselves get hit by a stray bullet."
+  name: ent-CyberwareNeuroBlockerAegis
+  description: ent-CyberwareNeuroBlockerAegis-desc
   components:
   - type: CyberwareImplant
     category: Neuroport
@@ -96,8 +96,8 @@
 - type: entity
   id: CyberwareNeuroTacticalSpartan
   parent: BaseCyberwareImplant
-  name: "Militech Spartan"
-  description: "Strict army standard. Designed for corporate wars. It literally severs neural connections responsible for transmitting pain signals to the brain, leaving only dry information about damage."
+  name: ent-CyberwareNeuroTacticalSpartan
+  description: ent-CyberwareNeuroTacticalSpartan-desc
   components:
   - type: CyberwareImplant
     category: Neuroport

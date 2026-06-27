@@ -1,8 +1,8 @@
 # Тестовый верстак
 - type: entity
-  name: ЧПУ-станок
+  name: ent-NCWeaponWorkbench
   id: NCWeaponWorkbench
-  description: Высокотехнологичный станок для вытачивания деталей оружия.
+  description: ent-NCWeaponWorkbench-desc
   parent: BaseMachinePowered
   components:
     - type: Sprite

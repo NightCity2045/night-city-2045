@@ -61,6 +61,8 @@ namespace Content.Client.Chat.UI
         private float _verticalOffsetAchieved;
 
         public Vector2 ContentSize { get; private set; }
+        public ChatMessage Message { get; }
+        public SpeechType BubbleType { get; }
 
         // man down
         public event Action<EntityUid, SpeechBubble>? OnDied;
@@ -80,27 +82,29 @@ namespace Content.Client.Chat.UI
             switch (type)
             {
                 case SpeechType.Emote:
-                    return new TextSpeechBubble(message, senderEntity, "emoteBox", color); // WWDP EDIT
+                    return new TextSpeechBubble(type, message, senderEntity, "emoteBox", color); // WWDP EDIT
 
                 case SpeechType.Say:
-                    return new FancyTextSpeechBubble(message, senderEntity, "sayBox", color); // WWDP EDIT
+                    return new FancyTextSpeechBubble(type, message, senderEntity, "sayBox", color); // WWDP EDIT
 
                 case SpeechType.Whisper:
-                    return new FancyTextSpeechBubble(message, senderEntity, "whisperBox", color); // WWDP EDIT
+                    return new FancyTextSpeechBubble(type, message, senderEntity, "whisperBox", color); // WWDP EDIT
 
                 case SpeechType.Looc:
-                    return new TextSpeechBubble(message, senderEntity, "emoteBox", Color.FromHex("#48d1cc"));
+                    return new TextSpeechBubble(type, message, senderEntity, "emoteBox", Color.FromHex("#48d1cc"));
 
                 default:
                     throw new ArgumentOutOfRangeException();
             }
         }
 
-        public SpeechBubble(ChatMessage message, EntityUid senderEntity, string speechStyleClass, Color? fontColor = null)
+        public SpeechBubble(SpeechType type, ChatMessage message, EntityUid senderEntity, string speechStyleClass, Color? fontColor = null)
         {
             IoCManager.InjectDependencies(this);
             _senderEntity = senderEntity;
             _transformSystem = _entityManager.System<SharedTransformSystem>();
+            Message = message;
+            BubbleType = type;
 
             // Use text clipping so new messages don't overlap old ones being pushed up.
             RectClipContent = true;
@@ -231,8 +235,8 @@ namespace Content.Client.Chat.UI
 
     public sealed class TextSpeechBubble : SpeechBubble
     {
-        public TextSpeechBubble(ChatMessage message, EntityUid senderEntity, string speechStyleClass, Color? fontColor = null)
-            : base(message, senderEntity, speechStyleClass, fontColor)
+        public TextSpeechBubble(SpeechType type, ChatMessage message, EntityUid senderEntity, string speechStyleClass, Color? fontColor = null)
+            : base(type, message, senderEntity, speechStyleClass, fontColor)
         {
         }
 
@@ -259,8 +263,8 @@ namespace Content.Client.Chat.UI
     public sealed class FancyTextSpeechBubble : SpeechBubble
     {
 
-        public FancyTextSpeechBubble(ChatMessage message, EntityUid senderEntity, string speechStyleClass, Color? fontColor = null)
-            : base(message, senderEntity, speechStyleClass, fontColor)
+        public FancyTextSpeechBubble(SpeechType type, ChatMessage message, EntityUid senderEntity, string speechStyleClass, Color? fontColor = null)
+            : base(type, message, senderEntity, speechStyleClass, fontColor)
         {
         }
 

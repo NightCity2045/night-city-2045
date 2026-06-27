@@ -1,7 +1,7 @@
 - type: job
   id: Fixer
-  name: Фиксер
-  description: Посредник между заказчиками и исполнителями. Торговец.
+  name: job-name-fixer
+  description: job-description-fixer
   playTimeTracker: JobFixer
   icon: "JobIconCivilFixer"
   salary: 30

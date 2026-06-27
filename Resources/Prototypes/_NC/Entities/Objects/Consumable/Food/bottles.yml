@@ -3,8 +3,8 @@
 - type: entity
   parent: [DrinkBottleVisualsOpenable, DrinkBottleGlassBaseFull]
   id: NCDrinkBottle
-  name: бутылка
-  description: Надеюсь внутри нет микропластмассы.
+  name: ent-NCDrinkBottle
+  description: ent-NCDrinkBottle-desc
   suffix: бутылка
   components:
   - type: SolutionContainerManager
@@ -28,8 +28,8 @@
 - type: entity
   parent: NCDrinkBottle
   id: NCDrinkBottlePumpkin
-  name: бутылка Pumpkin Paradise
-  description: Бутылка с неподслащенной тыквенной мякотью.
+  name: ent-NCDrinkBottlePumpkin
+  description: ent-NCDrinkBottlePumpkin-desc
   components:
   - type: SolutionContainerManager
     solutions:
@@ -41,8 +41,8 @@
 - type: entity
   parent: NCDrinkBottle
   id: NCDrinkBottleBluemax
-  name: бутылка Bluemax
-  description: Бутылка с неподслащенным секретным соком Biotechnica.
+  name: ent-NCDrinkBottleBluemax
+  description: ent-NCDrinkBottleBluemax-desc
   components:
   - type: SolutionContainerManager
     solutions:
@@ -54,8 +54,8 @@
 - type: entity
   parent: NCDrinkBottle
   id: NCDrinkBottleMultifruit
-  name: бутылка Мультифрукта
-  description: Бутылка с здоровым вкусом фруктов, соединяющихся вместе.
+  name: ent-NCDrinkBottleMultifruit
+  description: ent-NCDrinkBottleMultifruit-desc
   components:
   - type: SolutionContainerManager
     solutions:
@@ -73,8 +73,8 @@
 - type: entity
   parent: NCDrinkBottle
   id: NCDrinkBottleLemonLimeStill
-  name: бутылка Sprime Still
-  description: Бутылка с негазированным напитком от Sprime!
+  name: ent-NCDrinkBottleLemonLimeStill
+  description: ent-NCDrinkBottleLemonLimeStill-desc
   components:
   - type: SolutionContainerManager
     solutions:
@@ -90,8 +90,8 @@
 - type: entity
   parent: NCDrinkBottle
   id: NCDrinkBottlePineapple
-  name: бутылка Желтого Бума
-  description: Бутылка с негазированной сладостью для тех, кто не любит пузырьки.
+  name: ent-NCDrinkBottlePineapple
+  description: ent-NCDrinkBottlePineapple-desc
   components:
   - type: SolutionContainerManager
     solutions:
@@ -105,8 +105,8 @@
 - type: entity
   parent: NCDrinkBottle
   id: NCDrinkBottleBluePumpkin
-  name: бутылка Синего Бума
-  description: Бутылка с негазированной сладостью для тех, кто любит загадки.
+  name: ent-NCDrinkBottleBluePumpkin
+  description: ent-NCDrinkBottleBluePumpkin-desc
   components:
   - type: SolutionContainerManager
     solutions:
@@ -120,8 +120,8 @@
 - type: entity
   parent: NCDrinkBottle
   id: NCDrinkBottlePoison
-  name: бутылка Ядовитого Бума
-  description: Бутылка с негазированной сладостью для тех, кто любит умирать.
+  name: ent-NCDrinkBottlePoison
+  description: ent-NCDrinkBottlePoison-desc
   components:
   - type: SolutionContainerManager
     solutions:
@@ -137,8 +137,8 @@
 - type: entity
   parent: NCDrinkBottle
   id: NCDrinkBottleSupermax
-  name: бутылка Supermax
-  description: Суперзаряженная синяя газированная сладость.
+  name: ent-NCDrinkBottleSupermax
+  description: ent-NCDrinkBottleSupermax-desc
   components:
   - type: SolutionContainerManager
     solutions:
@@ -156,8 +156,8 @@
 - type: entity
   parent: MarkerBase
   id: NCDrinkBottleSpawner
-  name: случайный напиток
-  description: Спавнер случайного напитка.
+  name: ent-NCDrinkBottleSpawner
+  description: ent-NCDrinkBottleSpawner-desc
   suffix: бутылка
   placement:
     mode: PlaceFree
@@ -230,8 +230,8 @@
 - type: entity
   parent: VendingMachineColaBlack
   id: NCVendingMachineBottles
-  name: Напитки БигСити
-  description: Автомат с напитками в больших упаковках большого города!
+  name: ent-NCVendingMachineBottles
+  description: ent-NCVendingMachineBottles-desc
   suffix: профит Кафе
   components:
   - type: VendingMachine

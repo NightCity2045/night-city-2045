@@ -1,7 +1,7 @@
 - type: entity
   id: NCProcessedInternalsT2
-  name: затворная группа военого стандарта (Т2) (УСМ для оружия. Т2.)
-  description: УСМ для оружия. Т2.
+  name: ent-NCProcessedInternalsT2
+  description: ent-NCProcessedInternals-desc
   parent: BaseItem
   components:
     - type: Sprite

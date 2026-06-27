@@ -5,8 +5,8 @@
 - type: entity
   parent: [ClothingBeltPlant, BiotechnicaContraband]
   id: ClothingBeltBiotechnicaBotany
-  name: ботанический пояс
-  description: Корпоративный ботанический пояс, подходящий для большинства соответственного снаряжения.
+  name: ent-ClothingBeltBotany
+  description: ent-ClothingBeltBotany-desc
   suffix: Biotechnica, Гидропоника, Ботаника
   components:
   - type: Sprite
@@ -17,8 +17,8 @@
 - type: entity
   parent: ClothingBeltBiotechnicaBotany
   id: ClothingBeltBiotechnicaBotanyFilled
-  name: ботанический пояс
-  description: Корпоративный ботанический пояс, подходящий для большинства соответственного снаряжения.
+  name: ent-ClothingBeltBotany
+  description: ent-ClothingBeltBotany-desc
   suffix: Заполненный, Biotechnica, Гидропоника, Ботаника
   components:
   - type: StorageFill
@@ -30,8 +30,8 @@
 - type: entity
   parent: ClothingBeltBiotechnicaBotany
   id: ClothingBeltBiotechnicaBotanyFilledFull
-  name: ботанический пояс
-  description: Корпоративный ботанический пояс, подходящий для большинства соответственного снаряжения.
+  name: ent-ClothingBeltBotany
+  description: ent-ClothingBeltBotany-desc
   suffix: Заполненный максимально, Biotechnica, Гидропоника, Ботаника
   components:
   - type: StorageFill
@@ -51,8 +51,8 @@
 - type: entity
   parent: [ClothingOuterApronBotanist, BiotechnicaContraband]
   id: ClothingOuterApronBiotechnicaBotany
-  name: ботанический фартук
-  description: Корпоративный фартук для защиты униформы от любых растительных неприятностей.
+  name: ent-ClothingOuterApronBiotechnicaBotany
+  description: ent-ClothingOuterApronBiotechnicaBotany-desc
   suffix: Biotechnica, Гидропоника, Ботаника
   components:
   - type: Sprite
@@ -69,8 +69,8 @@
 - type: entity
   parent: [ClothingUniformEnvirosuitHydroponics, BiotechnicaContraband]
   id: ClothingUniformEnvirosuitBiotechnicaBotany
-  name: ботанический эко-комбинезон
-  description: Часть сплошного экологического костюма для защиты от вредоносных газов.
+  name: ent-ClothingUniformEnvirosuitBiotechnicaBotany
+  description: ent-ClothingUniformEnvirosuitBiotechnicaBotany-desc
   suffix: Biotechnica, Гидропоника, Ботаника
   components:
   - type: Sprite
@@ -86,8 +86,8 @@
 - type: entity
   parent: [ClothingHeadEnvirohelmHydroponics, BiotechnicaContraband]
   id: ClothingHeadEnvirohelmBiotechnicaBotany
-  name: ботанический эко-шлем
-  description: Часть сплошного экологического костюма для защиты от вредоносных газов.
+  name: ent-ClothingHeadEnvirohelmBiotechnicaBotany
+  description: ent-ClothingUniformEnvirosuitBiotechnicaBotany-desc
   suffix: Biotechnica, Гидропоника, Ботаника
   components:
   - type: Sprite
@@ -103,8 +103,8 @@
 - type: entity
   parent: [ClothingHandsGlovesEnviroglovesLeather, BiotechnicaContraband]
   id: ClothingHandsGlovesEnviroglovesBiotechnicaBotany
-  name: ботанические эко-перчатки
-  description: Корпоративные агрономные перчатки для работы с растениями в стерильных условиях.
+  name: ent-ClothingHandsGlovesEnviroglovesBiotechnicaBotany
+  description: ent-ClothingHandsGlovesEnviroglovesBiotechnicaBotany-desc
   suffix: Biotechnica, Гидропоника, Ботаника
   components:
   - type: Sprite
@@ -139,8 +139,8 @@
 - type: entity
   parent: [ClothingShoesBase, BiotechnicaContraband]
   id: ClothingShoesEnviroshoesBiotechnicaBotany
-  name: ботанические эко-ботинки
-  description: Стерильная герметичная обувь для работы с растениями. Защищает от увечий и колючек.
+  name: ent-ClothingShoesEnviroshoesBiotechnicaBotany
+  description: ent-ClothingShoesEnviroshoesBiotechnicaBotany-desc
   suffix: Biotechnica, Ботаник
   components:
   - type: Sprite
@@ -158,8 +158,8 @@
 - type: entity
   parent: [ClothingMaskBreathMedical, BiotechnicaContraband]
   id: ClothingMaskBreathBiotechnicaBotany
-  name: ботаническая дыхательная маска
-  description: Эта прочная дыхательная маска также защищает лицо ботаника от особо колючих растений.
+  name: ent-ClothingMaskBreathBiotechnicaBotany
+  description: ent-ClothingMaskBreathBiotechnicaBotany-desc
   suffix: Biotechnica, Гидропоника, Ботаника
   components:
   - type: Sprite
@@ -176,8 +176,8 @@
 - type: entity
   parent: [ClothingEyesGogglesBotany, BiotechnicaContraband]
   id: ClothingEyesGogglesBiotechnicaBotany
-  name: ботанические защитные очки
-  description: Продвинутые очки, которые защищают ваши глаза от шипов и колючек.
+  name: ent-ClothingEyesGogglesBiotechnicaBotany
+  description: ent-ClothingEyesGogglesBiotechnicaBotany-desc
   suffix: Biotechnica, Гидропоника, Ботаника
   components:
   - type: Sprite
@@ -190,8 +190,8 @@
 - type: entity
   id: LockerBiotechnicaBotany
   parent: LockerBase
-  name: шкаф Biotechnica
-  description: Запертый шкаф для стдержания корпоративного снаряжения под защитой.
+  name: ent-LockerBiotechnica
+  description: ent-LockerBiotechnicaBotany-desc
   suffix: Biotechnica, Гидропоника, Ботаника
   components:
   - type: Appearance
@@ -209,8 +209,8 @@
 - type: entity
   parent: [ClothingBeltUtility, BiotechnicaContraband]
   id: ClothingBeltBiotechnicaTech
-  name: технический пояс
-  description: Корпоративный технический пояс, подходящий для большинства соответственного снаряжения.
+  name: ent-ClothingBeltBiotechnicaTech
+  description: ent-ClothingBeltBiotechnicaTech-desc
   suffix: Biotechnica, Тех
   components:
   - type: Sprite
@@ -221,8 +221,8 @@
 - type: entity
   parent: ClothingBeltBiotechnicaTech
   id: ClothingBeltBiotechnicaTechFilled
-  name: технический пояс
-  description: Корпоративный технический пояс, подходящий для большинства соответственного снаряжения.
+  name: ent-ClothingBeltBiotechnicaTech
+  description: ent-ClothingBeltBiotechnicaTech-desc
   suffix: Заполненный, Biotechnica, Тех
   components:
   - type: StorageFill
@@ -236,8 +236,8 @@
 - type: entity
   parent: ClothingBeltBiotechnicaTech
   id: ClothingBeltBiotechnicaTechFilledFull
-  name: технический пояс
-  description: Корпоративный технический пояс, подходящий для большинства соответственного снаряжения.
+  name: ent-ClothingBeltBiotechnicaTech
+  description: ent-ClothingBeltBiotechnicaTech-desc
   suffix: Заполненный максимально, Biotechnica, Тех
   components:
   - type: StorageFill
@@ -257,8 +257,8 @@
 - type: entity
   parent: [ClothingEyesGogglesBotany, BiotechnicaContraband]
   id: ClothingEyesGogglesBiotechnicaTech
-  name: технические защитные очки
-  description: Продвинутые очки, которые защищают ваши глаза от искр, вспышек и ожогов.
+  name: ent-ClothingEyesGogglesBiotechnicaTech
+  description: ent-ClothingEyesGogglesBiotechnicaTech-desc
   suffix: Biotechnica, Тех
   components:
   - type: Sprite
@@ -280,8 +280,8 @@
 - type: entity
   parent: [ClothingBeltMedical, BiotechnicaContraband]
   id: ClothingBeltBiotechnicaMedTech
-  name: медтех пояс
-  description: Корпоративный пояс МедТеха, подходящий для большинства соответственного снаряжения.
+  name: ent-ClothingBeltBiotechnicaMedTech
+  description: ent-ClothingBeltBiotechnicaMedTech-desc
   suffix: Biotechnica, МедТех
   components:
   - type: Sprite
@@ -292,8 +292,8 @@
 - type: entity
   parent: ClothingBeltBiotechnicaMedTech
   id: ClothingBeltBiotechnicaMedTechFilled
-  name: медтех пояс
-  description: Корпоративный пояс МедТеха, подходящий для большинства соответственного снаряжения.
+  name: ent-ClothingBeltBiotechnicaMedTech
+  description: ent-ClothingBeltBiotechnicaMedTech-desc
   suffix: Заполненный, Biotechnica, МедТех
   components:
   - type: StorageFill
@@ -306,8 +306,8 @@
 - type: entity
   parent: ClothingBeltBiotechnicaMedTech
   id: ClothingBeltBiotechnicaMedTechFilledFull
-  name: медтех пояс
-  description: Корпоративный пояс МедТеха, подходящий для большинства соответственного снаряжения.
+  name: ent-ClothingBeltBiotechnicaMedTech
+  description: ent-ClothingBeltBiotechnicaMedTech-desc
   suffix: Заполненный максимально, Biotechnica, МедТех
   components:
   - type: StorageFill
@@ -330,8 +330,8 @@
 - type: entity
   parent: [ClothingOuterStorageBase, BiotechnicaContraband]
   id: ClothingOuterApronBiotechnica
-  name: лабораторный фартук
-  description: Корпоративный фартук для легкой защиты униформы от химикатов.
+  name: ent-ClothingOuterApronBiotechnica
+  description: ent-ClothingOuterApronBiotechnica-desc
   suffix: Biotechnica, МедТех
   components:
   - type: Sprite
@@ -348,8 +348,8 @@
 - type: entity
   parent: [ClothingOuterStorageFoldableBase, BiotechnicaContraband]
   id: ClothingOuterCoatBiotechnica
-  name: хим-халат
-  description: Дает дополнительную защиту от пролитых химикатов.
+  name: ent-ClothingOuterCoatBiotechnica
+  description: ent-ClothingOuterCoatBiotechnica-desc
   suffix: Biotechnica, МедТех
   components:
   - type: Sprite
@@ -367,15 +367,15 @@
 - type: entity
   parent: [ClothingOuterStorageFoldableBaseOpened, ClothingOuterCoatBiotechnica]
   id: ClothingOuterCoatBiotechnicaOpened
-  name: хим-халат
-  description: Дает дополнительную защиту от пролитых химикатов.
+  name: ent-ClothingOuterCoatBiotechnica
+  description: ent-ClothingOuterCoatBiotechnica-desc
   suffix: Открытый, Biotechnica, МедТех
 
 - type: entity
   parent: [ClothingOuterStorageFoldableBase, BiotechnicaContraband]
   id: ClothingOuterCoatBiotechnicaRad
-  name: антирадиационный хим-халат
-  description: Дает дополнительную защиту от пролитых химикатов и радиационного фона.
+  name: ent-ClothingOuterCoatBiotechnicaRad
+  description: ent-ClothingOuterCoatBiotechnica-descи радиационного фона.
   suffix: Biotechnica, МедТех
   components:
   - type: Sprite
@@ -394,15 +394,15 @@
 - type: entity
   parent: [ClothingOuterStorageFoldableBaseOpened, ClothingOuterCoatBiotechnicaRad]
   id: ClothingOuterCoatBiotechnicaRadOpened
-  name: антирадиационный хим-халат
-  description: Дает дополнительную защиту от пролитых химикатов и радиационного фона.
+  name: ent-ClothingOuterCoatBiotechnicaRad
+  description: ent-ClothingOuterCoatBiotechnica-descи радиационного фона.
   suffix: Biotechnica, МедТех
 
 - type: entity
   parent: [ClothingOuterStorageFoldableBase, BiotechnicaContraband]
   id: ClothingOuterCoatBiotechnicaAdvanced
-  name: продвинутый хим-халат
-  description: Этот корпоративный халат сделан из специальных комбинаций, защищающих от химикатов, а также от слабых ожогов и порезов.
+  name: ent-ClothingOuterCoatBiotechnicaAdvanced
+  description: ent-ClothingOuterCoatBiotechnicaAdvanced-desc
   suffix: Biotechnica, МедТех
   components:
   - type: Sprite
@@ -422,8 +422,8 @@
 - type: entity
   parent: [ClothingOuterStorageFoldableBaseOpened, ClothingOuterCoatBiotechnicaAdvanced]
   id: ClothingOuterCoatBiotechnicaAdvancedOpened
-  name: продвинутый хим-халат
-  description: Этот корпоративный халат сделан из специальных комбинаций, защищающих от химикатов, а также от слабых ожогов и порезов.
+  name: ent-ClothingOuterCoatBiotechnicaAdvanced
+  description: ent-ClothingOuterCoatBiotechnicaAdvanced-desc
   suffix: Biotechnica, МедТех
 
 # Gloves
@@ -431,8 +431,8 @@
 - type: entity
   parent: [ClothingHandsBase, BiotechnicaContraband]
   id: ClothingHandsMittsBiotechnica
-  name: рукавицы
-  description: Теплые рукавицы для работы с химикатами и нагретыми вещами. Защищают от ожогов и перегрева.
+  name: ent-ClothingHandsMittsBiotechnica
+  description: ent-ClothingHandsMittsBiotechnica-desc
   suffix: Biotechnica, МедТех
   components:
   - type: Sprite
@@ -455,8 +455,8 @@
 - type: entity
   parent: [ClothingHeadBaseButcherable, BiotechnicaContraband]
   id: ClothingHeadHatBiotechnicaSterile
-  name: стерильная шапочка
-  description: Стерильная шапочка МедТеха для научных исследований.
+  name: ent-ClothingHeadHatBiotechnicaSterile
+  description: ent-ClothingHeadHatBiotechnicaSterile-desc
   suffix: Biotechnica, МедТех
   components:
   - type: Sprite
@@ -469,8 +469,8 @@
 - type: entity
   parent: [ClothingMaskBreathMedical, BiotechnicaContraband]
   id: ClothingMaskBreathBiotechnicaAdvanced
-  name: продвинутая дыхательная маска
-  description: Эта маска дополнительно защищает от попадания вредных химикатов.
+  name: ent-ClothingMaskBreathBiotechnicaAdvanced
+  description: ent-ClothingMaskBreathBiotechnicaAdvanced-desc
   suffix: Biotechnica, МедТех
   components:
   - type: Sprite
@@ -487,8 +487,8 @@
 - type: entity
   parent: [ClothingBackpackHydroponics, BiotechnicaContraband]
   id: ClothingBackpackBiotechnica
-  name: рюкзак работника Biotechnica
-  description: Простой рюкзак из натуральной ткани, выращенной Biotechnica.
+  name: ent-ClothingBackpackBiotechnica
+  description: ent-ClothingBackpackBiotechnica-desc
   suffix: Biotechnica
   components:
   - type: Sprite
@@ -497,8 +497,8 @@
 - type: entity
   parent: [ClothingBackpackSatchelHydroponics, BiotechnicaContraband]
   id: ClothingBackpackSatchelBiotechnica
-  name: сумка работника Biotechnica
-  description: Простая рабочая сумка из натуральной ткани, выращенной Biotechnica.
+  name: ent-ClothingBackpackSatchelBiotechnica
+  description: ent-ClothingBackpackSatchelBiotechnica-desc
   suffix: Biotechnica
   components:
   - type: Sprite
@@ -507,8 +507,8 @@
 - type: entity
   parent: [ClothingBackpackDuffelHydroponics, BiotechnicaContraband]
   id: ClothingBackpackDuffelBiotechnica
-  name: вещмешок работника Biotechnica
-  description: Большой вещмешок из натуральной ткани, выращенной Biotechnica.
+  name: ent-ClothingBackpackDuffelBiotechnica
+  description: ent-ClothingBackpackDuffelBiotechnica-desc
   suffix: Biotechnica
   components:
     - type: Sprite
@@ -519,8 +519,8 @@
 - type: entity
   parent: [ClothingUniformEnvirosuitHydroponics, BiotechnicaContraband]
   id: ClothingUniformEnvirosuitBiotechnica
-  name: эко-комбинезон
-  description: Часть сплошного экологического костюма для защиты от вредоносных химикатов.
+  name: ent-ClothingUniformEnvirosuitBiotechnica
+  description: ent-ClothingUniformEnvirosuitBiotechnica-desc
   suffix: Biotechnica, МедТех, Тех
   components:
   - type: Sprite
@@ -531,8 +531,8 @@
 - type: entity
   parent: [ClothingHeadEnvirohelmHydroponics, BiotechnicaContraband]
   id: ClothingHeadEnvirohelmBiotechnica
-  name: эко-шлем
-  description: Часть сплошного экологического костюма для защиты от вредоносных химикатов.
+  name: ent-ClothingHeadEnvirohelmBiotechnica
+  description: ent-ClothingUniformEnvirosuitBiotechnica-desc
   suffix: Biotechnica, МедТех, Тех
   components:
   - type: Sprite
@@ -543,8 +543,8 @@
 - type: entity
   parent: [ClothingHandsGlovesEnviroglovesLeather, BiotechnicaContraband]
   id: ClothingHandsGlovesEnviroglovesBiotechnica
-  name: эко-перчатки
-  description: Корпоративные защитные перчатки для работы в стерильных условиях.
+  name: ent-ClothingHandsGlovesEnviroglovesBiotechnica
+  description: ent-ClothingHandsGlovesEnviroglovesBiotechnica-desc
   suffix: Biotechnica, МедТех, Тех
   components:
   - type: Sprite
@@ -574,8 +574,8 @@
 - type: entity
   parent: [ClothingShoesBase, BiotechnicaContraband]
   id: ClothingShoesEnviroshoesBiotechnica
-  name: эко-ботинки
-  description: Стерильная герметичная обувь для работы с растениями. Защищает от увечий и колючек.
+  name: ent-ClothingShoesEnviroshoesBiotechnica
+  description: ent-ClothingShoesEnviroshoesBiotechnicaBotany-desc
   suffix: Biotechnica, Ботаник
   components:
   - type: Sprite
@@ -594,8 +594,8 @@
 - type: entity
   id: LockerBiotechnica
   parent: LockerBase
-  name: шкаф Biotechnica
-  description: Запертый шкаф для содержания корпоративного снаряжения под защитой.
+  name: ent-LockerBiotechnica
+  description: ent-LockerBiotechnica-desc
   suffix: Biotechnica, МедТех, Тех
   components:
   - type: Appearance
@@ -609,8 +609,8 @@
 - type: entity
   parent: LockerFreezer
   id: LockerBiotechnicaFreezer
-  name: холодильник
-  description: Запертый охлаждаемый шкаф для содержания корпоративных химикатов под защитой.
+  name: ent-LockerBiotechnicaFreezer
+  description: ent-LockerBiotechnicaFreezer-desc
   suffix: Biotechnica, МедТех
   components:
   - type: AccessReader

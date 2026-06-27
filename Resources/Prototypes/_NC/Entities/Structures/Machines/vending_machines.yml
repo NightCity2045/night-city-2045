@@ -1,8 +1,8 @@
 - type: entity
   parent: VendingMachine
   id: VendingMachineTraumaImplants
-  name: автомат с имплантами и органами Trauma Team
-  description: Высокотехнологичный вендинговый аппарат для оперативной выдачи кибернетических имплантов и донорских органов сотрудникам Trauma Team.
+  name: ent-VendingMachineTraumaImplants
+  description: ent-VendingMachineTraumaImplants-desc
   components:
   - type: VendingMachine
     pack: TraumaImplantVendorInventory

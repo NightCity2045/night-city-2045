@@ -5,7 +5,7 @@
 # Arasaka TKI20 Shingen (Tier 3)
 - type: entity
   id: NCBlueprintShingen
-  name: модуль "Arasaka TKI20 Shingen"
+  name: ent-NCBlueprint
   description: Диск с инструкциями по сборке и физический каркас под детали для ПП Arasaka TKI20 Shingen. Т3.
   parent: BaseItem
   components:
@@ -36,7 +36,7 @@
 # Militech Saratoga (Tier 2)
 - type: entity
   id: NCBlueprintSaratoga
-  name: модуль "Militech Saratoga"
+  name: ent-NCBlueprint
   description: Диск с инструкциями по сборке и физический каркас под детали для ПП Militech M-221 Saratoga. Т2.
   parent: BaseItem
   components:

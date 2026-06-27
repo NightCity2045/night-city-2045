@@ -1,8 +1,8 @@
 - type: entity
   id: AutodocConsole
   parent: BaseMachine
-  name: "Терминал Автодока"
-  description: "Медицинская машина для безопасной интеграции киберимплантов. Требует пристегнутого пациента."
+  name: ent-AutodocConsole
+  description: ent-AutodocConsole-desc
   components:
   - type: Sprite
     noRot: true

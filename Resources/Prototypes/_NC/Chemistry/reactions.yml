@@ -1,6 +1,6 @@
 - type: reaction
   id: GunpowderNC
-  name: Порох
+  name: reaction-name-GunpowderNC
   reactants:
     Potassium:
       amount: 1
@@ -13,7 +13,7 @@
 
 - type: reaction
   id: YeastNC
-  name: Дрожжи
+  name: reaction-name-YeastNC
   reactants:
     Sugar:
       amount: 1
@@ -27,7 +27,7 @@
 
 - type: reaction
   id: NeuroStimNC
-  name: НейроСтим
+  name: reaction-name-NeuroStimNC
   reactants:
     TranexamicAcid:
       amount: 1
@@ -42,7 +42,7 @@
 
 - type: reaction
   id: PrimeTimeNC
-  name: Прайм Тайм
+  name: reaction-name-PrimeTimeNC
   reactants:
     NeuroStim:
       amount: 1
@@ -53,7 +53,7 @@
 
 - type: reaction
   id: SixGunNC
-  name: Шестистволка
+  name: reaction-name-SixGunNC
   reactants:
     Potassium:
       amount: 1
@@ -66,7 +66,7 @@
 
 - type: reaction
   id: NitroPolymerNC
-  name: Нитро-полимер
+  name: reaction-name-NitroPolymerNC
   reactants:
     SulfuricAcid:
       amount: 1
@@ -81,7 +81,7 @@
 
 - type: reaction
   id: BioEthanolCornNC
-  name: Био-этанол (Кукурузный)
+  name: reaction-name-BioEthanolCornNC
   reactants:
     Yeast:
       amount: 1
@@ -92,7 +92,7 @@
 
 - type: reaction
   id: BioEthanolWheatNC
-  name: Био-этанол (Пшеничный)
+  name: reaction-name-BioEthanolWheatNC
   reactants:
     Yeast:
       amount: 1

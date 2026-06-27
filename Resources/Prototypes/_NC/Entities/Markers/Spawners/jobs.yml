@@ -1,7 +1,7 @@
 - type: entity
   id: SpawnPointNCCitizen
   parent: SpawnPointJobBase
-  name: nc citizen spawn point
+  name: ent-SpawnPointNCCitizen
   components:
   - type: SpawnPoint
     job_id: NCCitizen
@@ -12,7 +12,7 @@
 - type: entity
   id: SpawnPointEdgeRunnerSolo
   parent: SpawnPointJobBase
-  name: edgerunner spawn point
+  name: ent-SpawnPointEdgeRunnerSolo
   components:
   - type: SpawnPoint
     job_id: EdgeRunnerSolo
@@ -23,7 +23,7 @@
 - type: entity
   id: SpawnPointFixer
   parent: SpawnPointJobBase
-  name: fixer spawn point
+  name: ent-SpawnPointFixer
   components:
   - type: SpawnPoint
     job_id: Fixer
@@ -34,7 +34,7 @@
 - type: entity
   id: SpawnPointReaper
   parent: SpawnPointJobBase
-  name: reaper spawn point
+  name: ent-SpawnPointReaper
   components:
   - type: SpawnPoint
     job_id: Reaper
@@ -45,7 +45,7 @@
 - type: entity
   id: SpawnPointCafeOwner
   parent: SpawnPointJobBase
-  name: cafe owner spawn point
+  name: ent-SpawnPointCafeOwner
   components:
   - type: SpawnPoint
     job_id: CafeOwner
@@ -56,7 +56,7 @@
 - type: entity
   id: SpawnPointCafeOwnerLateJoin
   parent: SpawnPointJobBase
-  name: cafe owner latejoin spawn point
+  name: ent-SpawnPointCafeOwnerLateJoin
   components:
   - type: SpawnPoint
     job_id: CafeOwner
@@ -68,7 +68,7 @@
 - type: entity
   id: SpawnPointRestaurantOwner
   parent: SpawnPointJobBase
-  name: restaurant owner spawn point
+  name: ent-SpawnPointRestaurantOwner
   components:
   - type: SpawnPoint
     job_id: RestaurantOwner
@@ -79,7 +79,7 @@
 - type: entity
   id: SpawnPointRestaurantOwnerLateJoin
   parent: SpawnPointJobBase
-  name: restaurant owner latejoin spawn point
+  name: ent-SpawnPointRestaurantOwnerLateJoin
   components:
   - type: SpawnPoint
     job_id: RestaurantOwner
@@ -93,7 +93,7 @@
 - type: entity
   id: SpawnPointNCPDCadet
   parent: SpawnPointJobBase
-  name: ncpd cadet spawn point
+  name: ent-SpawnPointNCPDCadet
   suffix: DO NOT MAP
   components:
   - type: SpawnPoint
@@ -105,7 +105,7 @@
 - type: entity
   id: SpawnPointNCPDChief
   parent: SpawnPointJobBase
-  name: ncpd chief spawn point
+  name: ent-SpawnPointNCPDChief
   components:
   - type: SpawnPoint
     job_id: NCPDChief
@@ -116,7 +116,7 @@
 - type: entity
   id: SpawnPointNCPDOfficer
   parent: SpawnPointJobBase
-  name: ncpd officer spawn point
+  name: ent-SpawnPointNCPDOfficer
   components:
   - type: SpawnPoint
     job_id: NCPDOfficer
@@ -127,7 +127,7 @@
 - type: entity
   id: SpawnPointNCPDSergeant
   parent: SpawnPointJobBase
-  name: ncpd sergeant spawn point
+  name: ent-SpawnPointNCPDSergeant
   components:
   - type: SpawnPoint
     job_id: NCPDSergeant
@@ -138,7 +138,7 @@
 - type: entity
   id: SpawnPointNCPDWatchAgent
   parent: SpawnPointJobBase
-  name: ncpd watch agent spawn point
+  name: ent-SpawnPointNCPDWatchAgent
   components:
   - type: SpawnPoint
     job_id: NCPDWatchAgent
@@ -151,7 +151,7 @@
 - type: entity
   id: SpawnPointMaxTacCommander
   parent: SpawnPointJobBase
-  name: maxtac commander spawn point
+  name: ent-SpawnPointMaxTacCommander
   components:
   - type: SpawnPoint
     job_id: MaxTacCommander
@@ -162,7 +162,7 @@
 - type: entity
   id: SpawnPointMaxTacNetrunner
   parent: SpawnPointJobBase
-  name: maxtac netrunner spawn point
+  name: ent-SpawnPointMaxTacNetrunner
   components:
   - type: SpawnPoint
     job_id: MaxTacEraser
@@ -173,7 +173,7 @@
 - type: entity
   id: SpawnPointMaxTacOperative
   parent: SpawnPointJobBase
-  name: maxtac operative spawn point
+  name: ent-SpawnPointMaxTacOperative
   components:
   - type: SpawnPoint
     job_id: MaxTacEraser
@@ -186,7 +186,7 @@
 - type: entity
   id: SpawnPointTraumaTeamChief
   parent: SpawnPointJobBase
-  name: trauma team chief spawn point
+  name: ent-SpawnPointTraumaTeamChief
   components:
   - type: SpawnPoint
     job_id: TraumaTeamChief
@@ -197,7 +197,7 @@
 - type: entity
   id: SpawnPointTraumaTeamDoctor
   parent: SpawnPointJobBase
-  name: trauma team doctor spawn point
+  name: ent-SpawnPointTraumaTeamDoctor
   components:
   - type: SpawnPoint
     job_id: TraumaTeamDoctor
@@ -208,7 +208,7 @@
 - type: entity
   id: SpawnPointTraumaTeamParamedic
   parent: SpawnPointJobBase
-  name: trauma team paramedic spawn point
+  name: ent-SpawnPointTraumaTeamParamedic
   components:
   - type: SpawnPoint
     job_id: TraumaTeamParamedic
@@ -219,7 +219,7 @@
 - type: entity
   id: SpawnPointTraumaTeamTech
   parent: SpawnPointJobBase
-  name: trauma team tech spawn point
+  name: ent-SpawnPointTraumaTeamTech
   components:
   - type: SpawnPoint
     job_id: TraumaTeamTech
@@ -230,7 +230,7 @@
 - type: entity
   id: SpawnPointTraumaTeamCoroner
   parent: SpawnPointJobBase
-  name: trauma team coroner spawn point
+  name: ent-SpawnPointTraumaTeamCoroner
   components:
   - type: SpawnPoint
     job_id: TraumaTeamCoroner
@@ -241,7 +241,7 @@
 - type: entity
   id: SpawnPointTraumaTeamPsych
   parent: SpawnPointJobBase
-  name: trauma team psych spawn point
+  name: ent-SpawnPointTraumaTeamPsych
   components:
   - type: SpawnPoint
     job_id: TraumaTeamPsych
@@ -252,7 +252,7 @@
 - type: entity
   id: SpawnPointTraumaTeamOperative
   parent: SpawnPointJobBase
-  name: trauma team operative spawn point
+  name: ent-SpawnPointTraumaTeamOperative
   components:
   - type: SpawnPoint
     job_id: TraumaTeamOperative
@@ -265,7 +265,7 @@
 - type: entity
   id: SpawnPointBiotechnicaChief
   parent: SpawnPointJobBase
-  name: biotechnica chief spawn point
+  name: ent-SpawnPointBiotechnicaChief
   components:
   - type: SpawnPoint
     job_id: BiotechnicaChief
@@ -276,7 +276,7 @@
 - type: entity
   id: SpawnPointBiotechnicaOperativeLead
   parent: SpawnPointJobBase
-  name: biotechnica operative lead spawn point
+  name: ent-SpawnPointBiotechnicaOperativeLead
   components:
   - type: SpawnPoint
     job_id: BiotechnicaOperativeLead
@@ -287,7 +287,7 @@
 - type: entity
   id: SpawnPointBiotechnicaOperative
   parent: SpawnPointJobBase
-  name: biotechnica operative spawn point
+  name: ent-SpawnPointBiotechnicaOperative
   components:
   - type: SpawnPoint
     job_id: BiotechnicaOperative
@@ -298,7 +298,7 @@
 - type: entity
   id: SpawnPointBiotechnicaNetrunner
   parent: SpawnPointJobBase
-  name: biotechnica netrunner spawn point
+  name: ent-SpawnPointBiotechnicaNetrunner
   components:
   - type: SpawnPoint
     job_id: BiotechnicaNetrunner
@@ -309,7 +309,7 @@
 - type: entity
   id: SpawnPointBiotechnicaBotanist
   parent: SpawnPointJobBase
-  name: biotechnica botanist spawn point
+  name: ent-SpawnPointBiotechnicaBotanist
   components:
   - type: SpawnPoint
     job_id: BiotechnicaBotanist
@@ -320,7 +320,7 @@
 - type: entity
   id: SpawnPointBiotechnicaMedTech
   parent: SpawnPointJobBase
-  name: biotechnica medtech spawn point
+  name: ent-SpawnPointBiotechnicaMedTech
   components:
   - type: SpawnPoint
     job_id: BiotechnicaMedTech
@@ -330,7 +330,7 @@
 - type: entity
   id: SpawnPointBiotechnicaTech
   parent: SpawnPointJobBase
-  name: biotechnica tech spawn point
+  name: ent-SpawnPointBiotechnicaTech
   components:
   - type: SpawnPoint
     job_id: BiotechnicaTech
@@ -341,7 +341,7 @@
 - type: entity
   id: SpawnPointBiotechnicaParamedic
   parent: SpawnPointJobBase
-  name: biotechnica paramedic spawn point
+  name: ent-SpawnPointBiotechnicaParamedic
   components:
   - type: SpawnPoint
     job_id: BiotechnicaParamedic
@@ -353,7 +353,7 @@
 - type: entity
   id: SpawnPointNCLateJoin
   parent: SpawnPointJobBase
-  name: latejoin spawn point
+  name: ent-SpawnPointNCLateJoin
   components:
   - type: SpawnPoint
     spawn_type: LateJoin

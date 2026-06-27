@@ -449,6 +449,16 @@ public sealed class ActionUIController : UIController, IOnStateChanged<GameplayS
         }
     }
 
+    public void RefreshLocalization()
+    {
+        if (_window == null)
+            return;
+
+        _window.Relocalize();
+        UpdateFilterLabel();
+        QueueWindowUpdate();
+    }
+
     private bool MatchesFilter(BaseActionComponent action, Filters filter)
     {
         return filter switch

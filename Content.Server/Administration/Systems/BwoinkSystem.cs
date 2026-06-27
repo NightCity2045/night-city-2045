@@ -742,6 +742,17 @@ namespace Content.Server.Administration.Systems
 
             var admins = GetTargetAdmins();
 
+            if (_playerManager.TryGetSessionById(bwoinkParams.SenderId, out var senderSession) &&
+                TryDispatchTranslatedAHelp(
+                    msg,
+                    senderSession,
+                    bwoinkParams.SenderAdmin,
+                    admins,
+                    playSound))
+            {
+                return;
+            }
+
             // Notify all admins
             if (!bwoinkParams.UserOnly)
             {

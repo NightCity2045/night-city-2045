@@ -61,10 +61,10 @@
 # --- Militech Variations ---
 
 - type: entity
-  name: Militech operative
+  name: ent-MobNCMilitech
   parent: BaseMobHuman
   id: MobNCMilitechLootable
-  description: Опытный боец Militech, наёмник из частной армии корпорации.
+  description: ent-MobNCMilitech-desc
   abstract: true
   IdleRange: !type:Single 10
   components:

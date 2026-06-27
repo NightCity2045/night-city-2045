@@ -31,7 +31,7 @@ namespace Content.Client.GameTicking.Managers
         [ViewVariables] public ResolvedSoundSpecifier? RestartSound { get; private set; }
         [ViewVariables] public AnimatedLobbyScreenPrototype? AnimatedLobbyScreen { get; private set; } // WD EDIT
         [ViewVariables] public bool DisallowedLateJoin { get; private set; }
-        [ViewVariables] public string? ServerInfoBlob { get; private set; }
+        [ViewVariables] public TickerLobbyInfoEvent? ServerInfo { get; private set; }
         [ViewVariables] public TimeSpan StartTime { get; private set; }
         [ViewVariables] public new bool Paused { get; private set; }
 
@@ -133,7 +133,7 @@ namespace Content.Client.GameTicking.Managers
 
         private void LobbyInfo(TickerLobbyInfoEvent message)
         {
-            ServerInfoBlob = message.TextBlob;
+            ServerInfo = message;
 
             InfoBlobUpdated?.Invoke();
         }

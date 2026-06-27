@@ -235,6 +235,18 @@ public sealed class CharacterUIController : UIController, IOnStateEntered<Gamepl
         _window.RoleType.FontColorOverride = color;
     }
 
+    public void RefreshLocalization()
+    {
+        if (_window == null)
+            return;
+
+        _window.Relocalize();
+        UpdateRoleType();
+
+        if (_window.IsOpen)
+            _characterInfo.RequestCharacterInfo();
+    }
+
     private void CharacterDetached(EntityUid uid)
     {
         CloseWindow();

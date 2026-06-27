@@ -1,7 +1,7 @@
 - type: job
   id: NCPDInspector
-  name: Инспектор
-  description: Исполняет должность детектива
+  name: job-name-ncpd-inspector
+  description: job-description-ncpd-inspector
   playTimeTracker: JobNCPDInspector
   weight: 80
   salary: 200

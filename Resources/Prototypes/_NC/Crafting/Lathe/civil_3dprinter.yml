@@ -1,8 +1,8 @@
 - type: entity
   id: NC3dPrinterCivilian
   parent: [Protolathe, BaseMaterialSiloUtilizer]
-  name: 3д принтер общего назначения
-  description: Конвертирует сырье в продвинутые предметы.
+  name: ent-NC3dPrinterCivilian
+  description: ent-NC3dPrinterCivilian-desc
   components:
   - type: Sprite
     sprite: _NC/Structures/Machines/getto_protolathe.rsi

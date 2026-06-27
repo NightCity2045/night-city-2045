@@ -1,8 +1,8 @@
 - type: entity
   id: NCTraumaComputer
   parent: BaseComputer
-  name: консоль Trauma Team
-  description: Консоль для мониторинга клиентов платиновой подписки.
+  name: ent-NCTraumaComputer
+  description: ent-NCTraumaComputer-desc
   components:
   - type: TraumaComputer
   - type: CitiNetMap
@@ -17,8 +17,8 @@
 - type: entity
   parent: BaseComputerAiAccess
   id: ComputerOverwatch
-  name: диспетчерская консоль Overwatch
-  description: Консоль, используемая сетью Overwatch NCPD; отображает оповещения о выстрелах и взрывах.
+  name: ent-ComputerOverwatch
+  description: ent-ComputerOverwatch-desc
   components:
   - type: Sprite
     layers:

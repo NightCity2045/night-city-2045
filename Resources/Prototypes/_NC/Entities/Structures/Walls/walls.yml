@@ -2,7 +2,8 @@
 - type: entity
   parent: WallSolid
   id: NCWalMetals
-  name: металлическая c линиями
+  name: ent-NCWalMetals
+  description: ent-NCWalMetals-desc
   components:
   - type: Sprite
     sprite: _NC/Structures/Walls/metals.rsi
@@ -15,7 +16,8 @@
 - type: entity
   parent: WallSolid
   id: NCWalMetalsa
-  name: металлическая
+  name: ent-NCWalMetalsa
+  description: ent-NCWalMetalsa-desc
   components:
   - type: Sprite
     sprite: _NC/Structures/Walls/metalsa.rsi
@@ -28,7 +30,8 @@
 - type: entity
   parent: WallSolid
   id: NCWalbeton
-  name: бетонная сплошная
+  name: ent-NCWalbeton
+  description: ent-NCWalbeton-desc
   components:
   - type: Sprite
     sprite: _NC/Structures/Walls/beton.rsi

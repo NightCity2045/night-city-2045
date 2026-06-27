@@ -1,7 +1,7 @@
 - type: entity
   id: NCProcessedFrameT3
-  name: эргономичный смарт-каркас (Т3) (Каркас для оружия. Т3.)
-  description: Каркас для оружия. Т3.
+  name: ent-NCProcessedFrameT3
+  description: ent-NCProcessedFrame-desc
   parent: BaseItem
   components:
     - type: Sprite
