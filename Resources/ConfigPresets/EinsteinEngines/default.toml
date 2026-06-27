@@ -49,3 +49,6 @@ map_enabled = true
 
 #[worldgen]
 #enabled = true
+
+[whitelist]
+enabled = false

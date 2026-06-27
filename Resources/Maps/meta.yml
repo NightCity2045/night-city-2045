@@ -120157,7 +120157,7 @@ entities:
     - type: Transform
       pos: -34.462692,34.496433
       parent: 2
-- proto: HolofanProjectorEmpty
+- proto: HolofanProjector
   entities:
   - uid: 11436
     components:

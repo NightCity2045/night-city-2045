@@ -83,6 +83,7 @@ public sealed partial class ChatSystem : SharedChatSystem
     [Dependency] private readonly HearingSystem _hearing = default!; // WD EDIT
     [Dependency] private readonly WhiteAnimationPlayerSystem _whiteAnimationPlayer = default!; // WD EDIT
     [Dependency] private readonly NCCharacterNotesSystem _ncCharacterNotes = default!;
+    [Dependency] private readonly NCCharacterNotesSystem _ncCharacterNotes = default!;
 
     public const int VoiceRange = 10; // how far voice goes in world units
     public const int WhisperClearRange = 2; // how far whisper goes while still being understandable, in world units
@@ -564,12 +565,15 @@ public sealed partial class ChatSystem : SharedChatSystem
         // get the entity's name by visual identity (if no override provided).
         var rawNameIdentity = nameOverride ?? Identity.Name(source, EntityManager);
         string nameIdentity = FormattedMessage.EscapeText(rawNameIdentity);
+        var rawNameIdentity = nameOverride ?? Identity.Name(source, EntityManager);
+        string nameIdentity = FormattedMessage.EscapeText(rawNameIdentity);
         // get the entity's name by voice (if no override provided).
 
         // WD EDIT START
         var nameEv = new TransformSpeakerNameEvent(source, Name(source));
         RaiseLocalEvent(source, nameEv);
 
+        var rawName = nameEv.VoiceName;
         var rawName = nameEv.VoiceName;
 
         var speech = GetSpeechVerb(source, message);
@@ -578,8 +582,10 @@ public sealed partial class ChatSystem : SharedChatSystem
 
         if (nameOverride != null)
             rawName = nameOverride;
+        rawName = nameOverride;
         // WD EDIT END
 
+        var name = rawName;
         var name = rawName;
         name = FormattedMessage.EscapeText(name);
 
@@ -697,6 +703,24 @@ public sealed partial class ChatSystem : SharedChatSystem
 
         if (checkEmote)
             TryEmoteChatInput(source, action);
+        SendInVoiceRange(
+            ChatChannel.Emotes,
+            name,
+            action,
+            wrappedMessage,
+            obfuscated: "",
+            obfuscatedWrappedMessage: "",
+            source,
+            range,
+            author,
+            wrapForListener: (listener, content) =>
+            {
+                var displayName = FormattedMessage.EscapeText(_ncCharacterNotes.GetDisplayNameForViewer(source, listener, name));
+                return Loc.GetString("chat-manager-entity-me-wrap-message",
+                    ("entityName", displayName),
+                    ("entity", ent),
+                    ("message", FormattedMessage.RemoveMarkupPermissive(content)));
+            });
         SendInVoiceRange(
             ChatChannel.Emotes,
             name,
