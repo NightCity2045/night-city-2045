@@ -47121,8 +47121,6 @@ entities:
           - 5038
           - 5039
           - 5042
-          - invalid
-          - invalid
           - 5043
         paper_label: !type:ContainerSlot
           showEnts: False
@@ -59313,7 +59311,6 @@ entities:
           - 6820
           - 6819
           - 6818
-          - invalid
           - 6813
           - 6814
           - 6815
@@ -59340,7 +59337,6 @@ entities:
           - 6826
           - 6829
           - 6825
-          - invalid
           - 6824
           - 6823
           - 6830
@@ -59362,7 +59358,6 @@ entities:
           showEnts: False
           occludes: True
           ents:
-          - invalid
           - 6841
           - 6840
           - 6842
@@ -64524,10 +64519,6 @@ entities:
           - 8392
           - 8393
           - 8394
-          - invalid
-          - invalid
-          - invalid
-          - invalid
           - 8395
           - 8396
           - 8397
