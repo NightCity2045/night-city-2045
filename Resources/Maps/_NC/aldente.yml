@@ -236,6 +236,7 @@ entities:
       data: {}
     - type: LightCycle
     - type: SunShadow
+    - type: AlwaysPowered
     - type: MapAtmosphere
       space: False
       mixture:
