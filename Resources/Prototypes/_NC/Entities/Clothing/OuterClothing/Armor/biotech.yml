@@ -1,5 +1,5 @@
 - type: entity
-  parent: ClothingOuterArmorBase
+  parent: [ClothingOuterBaseMedium, AllowSuitStorageClothing]
   id: ClothingOuterArmorBiotechnicaBulletproof
   name: ent-ClothingOuterArmorBiotechnica
   description: ent-ClothingOuterArmorBiotechnica-desc
@@ -8,15 +8,21 @@
     sprite: _NC/Clothing/OuterClothing/Armor/biotech_bulletproof.rsi
   - type: Clothing
     sprite: _NC/Clothing/OuterClothing/Armor/biotech_bulletproof.rsi
-  - type: Armor
-    modifiers:
-      flatReductions:
-        Piercing: 6
-      coefficients:
-        Blunt: 0.85
-        Slash: 0.85
-        Piercing: 0.7 # 30% reduction. Combined with implants (e.g. 0.8), total is ~0.56.
-        Heat: 0.95
+  - type: NCLayeredArmor
+    softLayer:
+      armorClass: 0
+      maxDurability: 100
+      currentDurability: 100
+      coverage:
+      - Torso
+      - LeftArm
+      - RightArm
+    hardLayer:
+      armorClass: 4
+      maxDurability: 250
+      currentDurability: 250
+      coverage:
+      - Torso
   - type: ClothingSpeedModifier
     walkModifier: 0.9
     sprintModifier: 0.8

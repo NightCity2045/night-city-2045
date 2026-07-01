@@ -1,6 +1,7 @@
 using Content.Server.Administration.Logs;
 using Content.Server.Administration.Managers;
 using Content.Server._NC.CharacterNotes.Components;
+using Content.Shared._NC.Stats;
 using Content.Shared._NC.CharacterNotes;
 using Content.Shared._White.Bark;
 using Content.Shared._White.CustomGhostSystem;
@@ -293,6 +294,9 @@ namespace Content.Server.Database
                 profile.CyborgName,
                 profile.ClownName, // WD EDIT
                 profile.MimeName, // WD EDIT
+                profile.NCStats?.Deserialize<List<NCStatEntry>>() ?? new List<NCStatEntry>(),
+                profile.NCSkills?.Deserialize<List<NCSkillEntry>>() ?? new List<NCSkillEntry>(),
+                profile.StatsAndSkillsLocked,
                 new HumanoidCharacterAppearance(
                     profile.HairName,
                     Color.FromHex(profile.HairColor),
@@ -343,6 +347,9 @@ namespace Content.Server.Database
             profile.CyborgName = humanoid.CyborgName;
             profile.ClownName = humanoid.ClownName; // WD EDIT
             profile.MimeName = humanoid.MimeName; // WD EDIT
+            profile.NCStats = JsonSerializer.SerializeToDocument(humanoid.Stats);
+            profile.NCSkills = JsonSerializer.SerializeToDocument(humanoid.Skills);
+            profile.StatsAndSkillsLocked = humanoid.StatsAndSkillsLocked;
             profile.Height = humanoid.Height;
             profile.Width = humanoid.Width;
             profile.HairName = appearance.HairStyleId;

@@ -11,6 +11,10 @@
              <Label Text="Balance: " />
              <Label Name="LblBalance" Text="0" FontColorOverride="Green"/>
         </BoxContainer>
+        <BoxContainer Orientation="Horizontal" HorizontalAlignment="Center">
+             <Label Text="Data: " />
+             <Label Name="LblDataBalance" Text="0" FontColorOverride="Cyan"/>
+        </BoxContainer>
 
         <Control RectClipContent="true" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" MinHeight="10"/>
 

@@ -1,4 +1,5 @@
 using Content.Shared._NC.CitiNet.Delivery;
+using Content.Shared._NC.Bank;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Serialization;
 
@@ -17,6 +18,9 @@ public sealed class CitiNetStorePresetPrototype : IPrototype
 
     [DataField("defaultDelivery")]
     public DropType DefaultDelivery = DropType.Corporate;
+
+    [DataField("bankAccount")]
+    public SectorBankAccount BankAccount = SectorBankAccount.Invalid;
 }
 
 /// <summary>
@@ -46,6 +50,9 @@ public sealed partial class CitiNetStoreEntry
 
     [DataField("price")]
     public int Price { get; private set; } = 0;
+
+    [DataField("dataPrice")]
+    public int DataPrice { get; private set; } = 0;
 
     [DataField("count")]
     public int? InitialCount { get; private set; }

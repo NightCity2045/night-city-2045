@@ -62,6 +62,7 @@
   components:
   - type: FactionBankConsole
     bankAccount: Militech
+    acceptsRawData: true
   - type: Sprite
     layers:
     - map: ["computerLayerBody"]
@@ -72,8 +73,6 @@
       state: security
     - map: ["computerLayerKeys"]
       state: generic_keys
-  - type: AccessReader
-    access: [["Security"]]
 
 - type: entity
   id: NCConsoleBiotechnica
@@ -82,6 +81,7 @@
   components:
   - type: FactionBankConsole
     bankAccount: Biotechnica
+    acceptsRawData: true
   - type: Sprite
     layers:
     - map: ["computerLayerBody"]

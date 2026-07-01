@@ -101,6 +101,18 @@ namespace Content.Server.Database
                 .Property(p => p.EmployedDepartment)
                 .HasColumnName("employed_department");
 
+            modelBuilder.Entity<Profile>()
+                .Property(p => p.NCStats)
+                .HasColumnName("nc_stats");
+
+            modelBuilder.Entity<Profile>()
+                .Property(p => p.NCSkills)
+                .HasColumnName("nc_skills");
+
+            modelBuilder.Entity<Profile>()
+                .Property(p => p.StatsAndSkillsLocked)
+                .HasColumnName("stats_and_skills_locked");
+
             modelBuilder.Entity<NCCharacterNote>()
                 .ToTable("nc_character_notes");
 
@@ -476,6 +488,9 @@ namespace Content.Server.Database
         public string? CyborgName { get; set; }
         public string? ClownName { get; set; } // WD EDIT
         public string? MimeName { get; set; } // WD EDIT
+        [Column(TypeName = "jsonb")] public JsonDocument? NCStats { get; set; }
+        [Column(TypeName = "jsonb")] public JsonDocument? NCSkills { get; set; }
+        public bool StatsAndSkillsLocked { get; set; } // NC
         public string Species { get; set; } = null!;
         public float Height { get; set; } = 1f;
         public float Width { get; set; } = 1f;

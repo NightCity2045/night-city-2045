@@ -21,27 +21,13 @@
       icon: /Textures/Interface/VerbIcons/star-solid-yellow.svg.192dpi.png
       visibleInWorld: false
 
-
 - type: startingGear
   id: NCPDWatchAgentGear
   equipment:
     jumpsuit: ClothingUniformJumpsuitDetective
-    back: ClothingBackpackCyberdeckFilled
+    back: ClothingBackpackSatchelSecurity
     shoes: ClothingShoesColorBlack
     head: ClothingHeadHatFedoraBrown
     eyes: ClothingEyesGlassesSecurityVisor
     id: NCPDWatchAgentPDA
     outerClothing: ClothingOuterCoatDetective
-
-
-- type: entity
-  parent: ClothingBackpackSatchelSecurity
-  id: ClothingBackpackCyberdeckFilled
-  name: Рюкзак с декой
-  components:
-  - type: StorageFill
-    contents:
-    - id: NCCyberdeck
-    - id: NCProgramBlind
-    - id: NCProgramDrop
-    - id: NCProgramShock

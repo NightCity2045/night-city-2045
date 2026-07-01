@@ -1,5 +1,3 @@
-using System.Linq;
-using System.Numerics;
 using Content.Shared._Shitmed.Targeting;
 using Content.Shared._White.Penetrated;
 using Content.Shared._White.Projectile;
@@ -24,6 +22,8 @@ using Robust.Shared.Physics.Systems;
 using Robust.Shared.Serialization;
 using Robust.Shared.Timing;
 using Robust.Shared.Utility;
+using System.Linq;
+using System.Numerics;
 
 namespace Content.Shared.Projectiles;
 
@@ -135,7 +135,7 @@ public abstract partial class SharedProjectileSystem : EntitySystem
 
     private void OnEmbedProjectileHit(Entity<EmbeddableProjectileComponent> embeddable, ref ProjectileHitEvent args)
     {
-        EmbedAttach(embeddable, args.Target, args.Shooter, embeddable.Comp);
+        EmbedAttach(embeddable, args.Target, args.Shooter, embeddable.Comp, args.TargetPart);
 
         // Raise a specific event for projectiles.
         if (TryComp(embeddable, out ProjectileComponent? projectile))
@@ -356,7 +356,11 @@ public record struct ProjectileReflectAttemptEvent(EntityUid ProjUid, Projectile
 /// Raised when a projectile hits an entity
 /// </summary>
 [ByRefEvent]
-public record struct ProjectileHitEvent(DamageSpecifier Damage, EntityUid Target, EntityUid? Shooter = null);
+public record struct ProjectileHitEvent(
+    DamageSpecifier Damage,
+    EntityUid Target,
+    EntityUid? Shooter = null,
+    TargetBodyPart? TargetPart = null);
 
 /// <summary>
 /// Raised after a projectile has dealt it's damage.

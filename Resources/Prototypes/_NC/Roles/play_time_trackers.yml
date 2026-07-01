@@ -70,6 +70,24 @@
 - type: playTimeTracker
   id: JobBiotechnicaParamedic
 
+# Jobs Militech
+- type: playTimeTracker
+  id: JobMilitechChief
+- type: playTimeTracker
+  id: JobMilitechOperativeLead
+- type: playTimeTracker
+  id: JobMilitechOperative
+- type: playTimeTracker
+  id: JobMilitechNetrunner
+- type: playTimeTracker
+  id: JobMilitechSecuritySpecialist
+- type: playTimeTracker
+  id: JobMilitechCombatMedic
+- type: playTimeTracker
+  id: JobMilitechTech
+- type: playTimeTracker
+  id: JobMilitechQuartermaster
+
 # Jobs Zhirafa
 - type: playTimeTracker
   id: JobZhirafaEngeneer

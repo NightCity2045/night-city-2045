@@ -3,6 +3,7 @@ using System.Linq;
 using System.Numerics;
 using Content.Client.Administration.UI;
 using Content.Client.Humanoid;
+using Content.Client.Localization;
 using Content.Client.Message;
 using Content.Client.Players.PlayTimeTracking;
 using Content.Client.Roles;
@@ -10,6 +11,8 @@ using Content.Client.Sprite;
 using Content.Client.Stylesheets;
 using Content.Client.UserInterface.Controls;
 using Content.Client.UserInterface.Systems.Guidebook;
+using Content.Shared._NC.Stats;
+using Content.Shared._NC.Stats.Prototypes;
 using Content.Shared._White.CCVar;
 using Content.Shared._White.Humanoid.Prototypes;
 using Content.Shared.CCVar;
@@ -41,13 +44,14 @@ using Robust.Shared.Map;
 using Robust.Shared.Physics;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Random;
+using Robust.Shared.IoC;
 using Robust.Shared.Utility;
 using Direction = Robust.Shared.Maths.Direction;
 
 namespace Content.Client.Lobby.UI
 {
     [GenerateTypedNameReferences]
-    public sealed partial class HumanoidProfileEditor : BoxContainer
+    public sealed partial class HumanoidProfileEditor : BoxContainer, ILocalizedControl
     {
         private readonly IClientPreferencesManager _preferencesManager;
         private readonly IConfigurationManager _cfgManager;
@@ -140,7 +144,6 @@ namespace Content.Client.Lobby.UI
         private const string Uncategorized = "Uncategorized";
 
         private static readonly string[] CivilianDepartments = { "Civilian", "CivilianNC" }; // NC
-
         public SpriteView? CharacterSpriteView;
         // WD EDIT END
 
@@ -212,6 +215,10 @@ namespace Content.Client.Lobby.UI
 
             Appearance.Orphan();
             CTabContainer.AddTab(Appearance, Loc.GetString("humanoid-profile-editor-appearance-tab"));
+            StatsTab.Orphan();
+            CTabContainer.AddTab(StatsTab, Loc.GetString("nc-profile-editor-stats-header"));
+            SkillsTab.Orphan();
+            CTabContainer.AddTab(SkillsTab, Loc.GetString("nc-profile-editor-skills-header"));
 
             #region Sex
 
@@ -674,6 +681,36 @@ namespace Content.Client.Lobby.UI
                 SetSpecies(SharedHumanoidAppearanceSystem.DefaultSpecies);
         }
 
+        public void Relocalize()
+        {
+            PronounsButton.Clear();
+            PronounsButton.AddItem(Loc.GetString("humanoid-profile-editor-pronouns-male-text"), (int) Gender.Male);
+            PronounsButton.AddItem(Loc.GetString("humanoid-profile-editor-pronouns-female-text"), (int) Gender.Female);
+            PronounsButton.AddItem(Loc.GetString("humanoid-profile-editor-pronouns-epicene-text"), (int) Gender.Epicene);
+            PronounsButton.AddItem(Loc.GetString("humanoid-profile-editor-pronouns-neuter-text"), (int) Gender.Neuter);
+
+            RefreshSpecies();
+            RefreshJobs();
+            UpdateSexControls();
+            UpdateBodyTypes();
+            UpdateGenderControls();
+            UpdateDisplayPronounsControls();
+            UpdateStationAiControls();
+            UpdateCyborgControls();
+            UpdateClownControls();
+            UpdateMimeControls();
+            UpdateCustomSpecieNameEdit();
+            UpdateHeightWidthSliders();
+            UpdateWeight();
+            UpdateRpgEditors();
+
+            _traitPreferences.Clear();
+            UpdateTraits(showUnusable: TraitsShowUnusableButton.Pressed, reload: true);
+
+            UpdateLoadouts();
+            CheckpointLoadouts();
+        }
+
         // public void RefreshNationalities()
         // {
         //     NationalityButton.Clear();
@@ -926,6 +963,7 @@ namespace Content.Client.Lobby.UI
         public void SetProfile(HumanoidCharacterProfile? profile, int? slot)
         {
             Profile = profile?.Clone();
+            Profile?.EnsureValid(_playerManager.LocalSession!, IoCManager.Instance!);
             CharacterSlot = slot;
             IsDirty = false;
             JobOverride = null;
@@ -948,6 +986,7 @@ namespace Content.Client.Lobby.UI
             UpdateCustomSpecieNameEdit();
             UpdateAgeEdit();
             UpdateEyePickers();
+            UpdateRpgEditors();
             UpdateSaveButton();
             UpdateMarkings();
             UpdateLoadouts(); // WD EDIT
@@ -2007,6 +2046,244 @@ namespace Content.Client.Lobby.UI
 
             Markings.CurrentEyeColor = Profile.Appearance.EyeColor;
             EyeColorPicker.SetData(Profile.Appearance.EyeColor);
+        }
+
+        private void UpdateRpgEditors()
+        {
+            StatsList.DisposeAllChildren();
+            SkillsList.DisposeAllChildren();
+
+            if (Profile == null)
+            {
+                StatsBudgetLabel.Text = string.Empty;
+                StatsLockLabel.Text = string.Empty;
+                SkillsBudgetLabel.Text = string.Empty;
+                SkillsLockLabel.Text = string.Empty;
+                return;
+            }
+
+            var spentStats = Profile.GetSpentStatPoints();
+            var spentSkills = Profile.GetSpentSkillPoints(_prototypeManager);
+            var statsRemaining = HumanoidCharacterProfile.StartingStatPoints - spentStats;
+            var skillsRemaining = HumanoidCharacterProfile.StartingSkillPoints - spentSkills;
+            var lockedKey = Profile.StatsAndSkillsLocked
+                ? "nc-profile-editor-rpg-locked"
+                : "nc-profile-editor-rpg-unlocked";
+
+            StatsBudgetLabel.Text = Loc.GetString(
+                "nc-profile-editor-stats-budget",
+                ("spent", spentStats),
+                ("total", HumanoidCharacterProfile.StartingStatPoints),
+                ("remaining", statsRemaining));
+            StatsLockLabel.Text = Loc.GetString(lockedKey);
+            SkillsBudgetLabel.Text = Loc.GetString(
+                "nc-profile-editor-skills-budget",
+                ("spent", spentSkills),
+                ("total", HumanoidCharacterProfile.StartingSkillPoints),
+                ("remaining", skillsRemaining));
+            SkillsLockLabel.Text = Loc.GetString(lockedKey);
+
+            foreach (var stat in Profile.Stats.OrderBy(s => s.StatId))
+            {
+                if (!_prototypeManager.TryIndex<NCStatPrototype>(stat.StatId, out var proto))
+                    continue;
+
+                StatsList.AddChild(CreateStatRow(stat, proto, statsRemaining));
+            }
+
+            foreach (var category in _prototypeManager.EnumeratePrototypes<NCSkillPrototype>()
+                         .GroupBy(skill => skill.CategoryKey)
+                         .OrderBy(group => Loc.GetString(group.Key)))
+            {
+                SkillsList.AddChild(new Label
+                {
+                    Text = Loc.GetString(category.Key),
+                    StyleClasses = { StyleBase.StyleClassLabelHeading },
+                    Margin = new Thickness(0, 6, 0, 2),
+                });
+
+                foreach (var proto in category.OrderBy(skill => Loc.GetString(skill.NameKey)))
+                {
+                    var skill = Profile.Skills.FirstOrDefault(s => s.SkillId == proto.ID)
+                        ?? new NCSkillEntry(proto.ID, new NCTrackedValue(proto.DefaultBaseValue));
+                    SkillsList.AddChild(CreateSkillRow(skill, proto, skillsRemaining));
+                }
+            }
+        }
+
+        private Control CreateStatRow(NCStatEntry stat, NCStatPrototype proto, int remainingPoints)
+        {
+            var canDecrease = !Profile!.StatsAndSkillsLocked && stat.Value.BaseValue > proto.MinValue;
+            var canIncrease = !Profile.StatsAndSkillsLocked &&
+                              stat.Value.BaseValue < proto.MaxValue &&
+                              remainingPoints > 0;
+
+            var row = new BoxContainer
+            {
+                Orientation = LayoutOrientation.Horizontal,
+                HorizontalExpand = true,
+                Margin = new Thickness(0, 1, 0, 1),
+            };
+
+            row.AddChild(new Label
+            {
+                Text = Loc.GetString(proto.NameKey),
+                HorizontalExpand = true,
+            });
+
+            var minus = new Button
+            {
+                Text = "-",
+                Disabled = !canDecrease,
+                MinWidth = 30,
+            };
+            minus.OnPressed += _ => ChangeStatValue(stat.StatId, -1);
+            row.AddChild(minus);
+
+            row.AddChild(new Label
+            {
+                Text = stat.Value.BaseValue.ToString(),
+                MinWidth = 32,
+                HorizontalAlignment = HAlignment.Center,
+                Align = Label.AlignMode.Center,
+            });
+
+            var plus = new Button
+            {
+                Text = "+",
+                Disabled = !canIncrease,
+                MinWidth = 30,
+            };
+            plus.OnPressed += _ => ChangeStatValue(stat.StatId, 1);
+            row.AddChild(plus);
+
+            return row;
+        }
+
+        private Control CreateSkillRow(NCSkillEntry skill, NCSkillPrototype proto, int remainingPoints)
+        {
+            var skillCost = proto.CostMultiplier;
+            var canDecrease = !Profile!.StatsAndSkillsLocked && skill.Value.BaseValue > proto.MinValue;
+            var canIncrease = !Profile.StatsAndSkillsLocked &&
+                              skill.Value.BaseValue < proto.MaxValue &&
+                              remainingPoints >= skillCost;
+
+            var row = new BoxContainer
+            {
+                Orientation = LayoutOrientation.Horizontal,
+                HorizontalExpand = true,
+                Margin = new Thickness(0, 1, 0, 1),
+            };
+
+            var labelText = Loc.GetString(proto.NameKey);
+
+            if (proto.CostMultiplier > 1)
+                labelText = $"{labelText} {Loc.GetString("nc-profile-editor-skill-cost", ("cost", proto.CostMultiplier))}";
+
+            row.AddChild(new Label
+            {
+                Text = labelText,
+                HorizontalExpand = true,
+            });
+
+            var minus = new Button
+            {
+                Text = "-",
+                Disabled = !canDecrease,
+                MinWidth = 30,
+            };
+            minus.OnPressed += _ => ChangeSkillValue(skill.SkillId, -1);
+            row.AddChild(minus);
+
+            row.AddChild(new Label
+            {
+                Text = skill.Value.BaseValue.ToString(),
+                MinWidth = 32,
+                HorizontalAlignment = HAlignment.Center,
+                Align = Label.AlignMode.Center,
+            });
+
+            var plus = new Button
+            {
+                Text = "+",
+                Disabled = !canIncrease,
+                MinWidth = 30,
+            };
+            plus.OnPressed += _ => ChangeSkillValue(skill.SkillId, 1);
+            row.AddChild(plus);
+
+            return row;
+        }
+
+        private void ChangeStatValue(string statId, int delta)
+        {
+            if (Profile == null || Profile.StatsAndSkillsLocked)
+                return;
+
+            var stats = Profile.Stats.Select(stat => new NCStatEntry(stat.StatId, new NCTrackedValue
+            {
+                BaseValue = stat.Value.BaseValue,
+                ProgressionValue = stat.Value.ProgressionValue,
+                TemporaryValue = stat.Value.TemporaryValue,
+                FinalValue = stat.Value.FinalValue,
+            })).ToList();
+
+            var entry = stats.FirstOrDefault(stat => stat.StatId == statId);
+            if (entry == null || !_prototypeManager.TryIndex<NCStatPrototype>(statId, out var proto))
+                return;
+
+            var nextValue = entry.Value.BaseValue + delta;
+            if (nextValue < proto.MinValue || nextValue > proto.MaxValue)
+                return;
+
+            if (delta > 0 && Profile.GetSpentStatPoints() >= HumanoidCharacterProfile.StartingStatPoints)
+                return;
+
+            entry.Value.BaseValue = nextValue;
+            entry.Value.FinalValue = Math.Clamp(
+                entry.Value.BaseValue + entry.Value.ProgressionValue + entry.Value.TemporaryValue,
+                proto.MinValue,
+                proto.MaxValue);
+
+            Profile = Profile.WithStats(stats);
+            SetDirty();
+            UpdateRpgEditors();
+        }
+
+        private void ChangeSkillValue(string skillId, int delta)
+        {
+            if (Profile == null || Profile.StatsAndSkillsLocked || !_prototypeManager.TryIndex<NCSkillPrototype>(skillId, out var proto))
+                return;
+
+            var skills = Profile.Skills.Select(skill => new NCSkillEntry(skill.SkillId, new NCTrackedValue
+            {
+                BaseValue = skill.Value.BaseValue,
+                ProgressionValue = skill.Value.ProgressionValue,
+                TemporaryValue = skill.Value.TemporaryValue,
+                FinalValue = skill.Value.FinalValue,
+            })).ToList();
+
+            var entry = skills.FirstOrDefault(skill => skill.SkillId == skillId);
+
+            if (entry == null)
+                return;
+
+            var nextValue = entry.Value.BaseValue + delta;
+            if (nextValue < proto.MinValue || nextValue > proto.MaxValue)
+                return;
+
+            if (delta > 0 && Profile.GetSpentSkillPoints(_prototypeManager) + proto.CostMultiplier > HumanoidCharacterProfile.StartingSkillPoints)
+                return;
+
+            entry.Value.BaseValue = nextValue;
+            entry.Value.FinalValue = Math.Clamp(
+                entry.Value.BaseValue + entry.Value.ProgressionValue + entry.Value.TemporaryValue,
+                proto.MinValue,
+                proto.MaxValue);
+
+            Profile = Profile.WithSkills(skills);
+            SetDirty();
+            UpdateRpgEditors();
         }
 
         private void UpdateSaveButton()

@@ -13,12 +13,14 @@ namespace Content.Shared._NC.Bank.Consoles
     public sealed class FactionBankConsoleState : BoundUserInterfaceState
     {
         public int Balance;
+        public int DataBalance;
         public string Title;
         public List<BankTransaction> Logs;
 
-        public FactionBankConsoleState(int balance, string title, List<BankTransaction> logs)
+        public FactionBankConsoleState(int balance, int dataBalance, string title, List<BankTransaction> logs)
         {
             Balance = balance;
+            DataBalance = dataBalance;
             Title = title;
             Logs = logs;
         }

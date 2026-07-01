@@ -1054,6 +1054,14 @@ namespace Content.Server.Database.Migrations.Postgres
                         .HasColumnType("text")
                         .HasColumnName("mime_name");
 
+                    b.Property<JsonDocument>("NCSkills")
+                        .HasColumnType("jsonb")
+                        .HasColumnName("nc_skills");
+
+                    b.Property<JsonDocument>("NCStats")
+                        .HasColumnType("jsonb")
+                        .HasColumnName("nc_stats");
+
                     b.Property<string>("Nationality")
                         .IsRequired()
                         .HasColumnType("text")
@@ -1093,6 +1101,10 @@ namespace Content.Server.Database.Migrations.Postgres
                     b.Property<string>("StationAiName")
                         .HasColumnType("text")
                         .HasColumnName("station_ai_name");
+
+                    b.Property<bool>("StatsAndSkillsLocked")
+                        .HasColumnType("boolean")
+                        .HasColumnName("stats_and_skills_locked");
 
                     b.Property<string>("Voice")
                         .IsRequired()

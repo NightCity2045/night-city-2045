@@ -8,11 +8,15 @@ namespace Content.Shared._NC.CitiNet.Store;
 public sealed class CitiNetStoreUpdateState : BoundUserInterfaceState
 {
     public int Balance { get; }
+    public int DataBalance { get; }
+    public bool UsesCorporateAccount { get; }
     public List<CitiNetStoreCategoryData> Categories { get; }
 
-    public CitiNetStoreUpdateState(int balance, List<CitiNetStoreCategoryData> categories)
+    public CitiNetStoreUpdateState(int balance, int dataBalance, bool usesCorporateAccount, List<CitiNetStoreCategoryData> categories)
     {
         Balance = balance;
+        DataBalance = dataBalance;
+        UsesCorporateAccount = usesCorporateAccount;
         Categories = categories;
     }
 }
@@ -38,15 +42,17 @@ public sealed class CitiNetStoreEntryData
     public string Name { get; }
     public string Description { get; }
     public int Price { get; }
+    public int DataPrice { get; }
     public int? RemainingCount { get; }
 
-    public CitiNetStoreEntryData(string id, string protoId, string name, string description, int price, int? remainingCount)
+    public CitiNetStoreEntryData(string id, string protoId, string name, string description, int price, int dataPrice, int? remainingCount)
     {
         Id = id;
         ProtoId = protoId;
         Name = name;
         Description = description;
         Price = price;
+        DataPrice = dataPrice;
         RemainingCount = remainingCount;
     }
 }

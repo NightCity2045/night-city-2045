@@ -1,0 +1,25 @@
+- type: job
+  id: MilitechTech
+  name: job-name-militech-tech
+  description: job-description-militech-tech
+  playTimeTracker: JobMilitechTech
+  weight: 50
+  salary: 250
+  icon: "JobIconTraumaTech"
+  startingGear: MilitechTechGear
+  access:
+    - Militech_Tech
+    - Militech_Staff
+    - Militech_General
+    - NC_General
+
+- type: startingGear
+  id: MilitechTechGear
+  equipment:
+    jumpsuit: ClothingUniformJumpsuitMilitech
+    back: ClothingBackpack
+    shoes: ClothingShoesBootsCombat
+    eyes: ClothingEyesGlassesSunglasses
+    id: MilitechTechPDA
+    belt: ClothingBeltUtilityEngineering
+    outerClothing: ClothingOuterArmorMilitechBulletproof

@@ -1000,6 +1000,14 @@ namespace Content.Server.Database.Migrations.Sqlite
                         .HasColumnType("TEXT")
                         .HasColumnName("mime_name");
 
+                    b.Property<byte[]>("NCSkills")
+                        .HasColumnType("jsonb")
+                        .HasColumnName("nc_skills");
+
+                    b.Property<byte[]>("NCStats")
+                        .HasColumnType("jsonb")
+                        .HasColumnName("nc_stats");
+
                     b.Property<string>("Nationality")
                         .IsRequired()
                         .HasColumnType("TEXT")
@@ -1039,6 +1047,10 @@ namespace Content.Server.Database.Migrations.Sqlite
                     b.Property<string>("StationAiName")
                         .HasColumnType("TEXT")
                         .HasColumnName("station_ai_name");
+
+                    b.Property<bool>("StatsAndSkillsLocked")
+                        .HasColumnType("INTEGER")
+                        .HasColumnName("stats_and_skills_locked");
 
                     b.Property<string>("Voice")
                         .IsRequired()

@@ -46,5 +46,14 @@
           BiotechnicaMedTech: [2, 2]
           BiotechnicaTech: [2, 2]
           BiotechnicaBotanist: [1, 1]
+          # === Militech ===
+          MilitechChief: [1, 1]
+          MilitechOperativeLead: [1, 1]
+          MilitechOperative: [5, 5]
+          MilitechNetrunner: [1, 1]
+          MilitechSecuritySpecialist: [2, 2]
+          MilitechCombatMedic: [2, 2]
+          MilitechTech: [2, 2]
+          MilitechQuartermaster: [1, 1]
           # === Zhirafa ===
           ZhirafaJanitor: [3, 3]

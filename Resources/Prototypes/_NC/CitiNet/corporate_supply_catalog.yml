@@ -1,0 +1,119 @@
+- type: citiNetStoreCategory
+  id: CorporateMilitechWeapons
+  name: MILITECH ARMORY
+  entries:
+  - proto: WeaponSubMachineGunMilitechSaratoga
+    name: Militech Saratoga
+    description: Corporate-issue compact SMG released from restricted inventory.
+    price: 3500
+    dataPrice: 4
+    count: 2
+  - proto: AmmoBox556x45CL
+    name: 5.56 CL Ammunition Case
+    description: Sealed corporate ammunition shipment with logged chain of custody.
+    price: 900
+    dataPrice: 1
+    count: 4
+
+- type: citiNetStoreCategory
+  id: CorporateMilitechArmor
+  name: MILITECH PROTECTION
+  entries:
+  - proto: ClothingOuterArmorMilitechBulletproof
+    name: Militech Ballistic Vest
+    description: Restricted Militech composite armor for licensed corporate security teams.
+    price: 2800
+    dataPrice: 3
+    count: 2
+  - proto: ClothingOuterArmorBulletproof
+    name: Ballistic Vest Reserve
+    description: Older armored stock held for emergency replenishment orders.
+    price: 1800
+    dataPrice: 2
+    count: 3
+
+- type: citiNetStorePreset
+  id: CorporateMilitechSupply
+  defaultDelivery: Corporate
+  bankAccount: Militech
+  categories:
+  - CorporateMilitechWeapons
+  - CorporateMilitechArmor
+
+- type: citiNetStoreCategory
+  id: CorporateBiotechnicaMedical
+  name: BIOTECHNICA MEDICAL
+  entries:
+  - proto: MedkitAdvancedFilled
+    name: Advanced Trauma Kit
+    description: Biotechnica-grade emergency treatment pack routed from corporate stores.
+    price: 2400
+    dataPrice: 3
+    count: 3
+  - proto: Defibrillator
+    name: Defibrillator Unit
+    description: Corporate clinic resuscitation hardware with audited custody.
+    price: 3200
+    dataPrice: 4
+    count: 2
+  - proto: Bloodpack
+    name: Synthetic Blood Pack
+    description: Stabilized blood substitute for field medtech response.
+    price: 600
+    dataPrice: 1
+    count: 8
+
+- type: citiNetStoreCategory
+  id: CorporateBiotechnicaResearch
+  name: BIOTECHNICA RESEARCH
+  entries:
+  - proto: ChemDispenserFlatpack
+    name: Chemical Dispenser Flatpack
+    description: Restricted laboratory infrastructure shipped under Biotechnica authorization.
+    price: 5000
+    dataPrice: 7
+    count: 1
+  - proto: OmnizineChemistryBottle
+    name: Omnizine Sample Bottle
+    description: Controlled regenerative reagent sample released from central inventory.
+    price: 2600
+    dataPrice: 5
+    count: 2
+  - proto: EpinephrineChemistryBottle
+    name: Epinephrine Bottle
+    description: Emergency stimulant stock for licensed medical operations.
+    price: 900
+    dataPrice: 1
+    count: 4
+
+- type: citiNetStoreCategory
+  id: CorporateBiotechnicaFieldGear
+  name: BIOTECHNICA FIELD GEAR
+  entries:
+  - proto: ClothingOuterArmorBiotechnicaBulletproof
+    name: Biotechnica Ballistic Vest
+    description: Corporate field armor issued to Biotechnica security detachments.
+    price: 2800
+    dataPrice: 3
+    count: 2
+  - proto: BiotechnicaChemBagHolding
+    name: Biotechnica Chemical Satchel
+    description: Expanded field chemistry bag for sample recovery and containment.
+    price: 1400
+    dataPrice: 2
+    count: 2
+  - proto: BiotechnicaPlantAnalyzer
+    name: Biotechnica Plant Analyzer
+    description: Proprietary botany analyzer for bioasset triage.
+    price: 1000
+    dataPrice: 1
+    count: 3
+
+- type: citiNetStorePreset
+  id: CorporateBiotechnicaSupply
+  defaultDelivery: Corporate
+  bankAccount: Biotechnica
+  categories:
+  - CorporateBiotechnicaMedical
+  - CorporateBiotechnicaResearch
+  - CorporateBiotechnicaFieldGear

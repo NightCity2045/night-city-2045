@@ -1,0 +1,28 @@
+- type: job
+  id: MilitechChief
+  name: job-name-militech-chief
+  description: job-description-militech-chief
+  playTimeTracker: JobMilitechChief
+  weight: 100
+  salary: 650
+  icon: "JobIconNCPDChief"
+  startingGear: MilitechChiefGear
+  access:
+    - Militech_Command
+    - Militech_Operative
+    - Militech_Armory
+    - Militech_Tech
+    - Militech_Medical
+    - Militech_Staff
+    - Militech_General
+    - NC_General
+
+- type: startingGear
+  id: MilitechChiefGear
+  equipment:
+    jumpsuit: ClothingUniformJumpsuitArmoredBusinessSuit
+    back: ClothingBackpack
+    shoes: ClothingShoesBootsCombat
+    eyes: ClothingEyesGlassesSunglasses
+    id: MilitechChiefPDA
+    outerClothing: ClothingOuterArmorMilitechBulletproof

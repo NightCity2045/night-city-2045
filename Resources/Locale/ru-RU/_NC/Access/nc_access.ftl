@@ -19,3 +19,11 @@ access-level-ripper = Рипер
 access-level-cafe = Кафе
 access-level-restaurant = Ресторан
 
+access-level-militech-command = Командование Militech
+access-level-militech-operative = Оперативники Militech
+access-level-militech-armory = Оружейная Militech
+access-level-militech-tech = Технический отдел Militech
+access-level-militech-medical = Медицинский отдел Militech
+access-level-militech-staff = Персонал Militech
+access-level-militech-general = Militech
+

@@ -455,8 +455,6 @@
   id: Cat_City_Clothing_Extra_Sell
   name: "Скупка спецснаряжения"
   entries:
-  - proto: ClothingEyesNetVisor
-    price: 25
   - proto: ClothingHeadHatMilitechCap
     price: 10
   - proto: ClothingHeadHatBiotechnicaCap
@@ -521,32 +519,6 @@
     price: 15
   - proto: NeuralLinkCable
     price: 15
-  - proto: NCCyberdeck
-    price: 250
-  - proto: NCIceBase
-    price: 40
-  - proto: NCIceGate
-    price: 60
-  - proto: NCIceSentry
-    price: 60
-  - proto: NCIceKiller
-    price: 80
-  - proto: NCProgramPing
-    price: 30
-  - proto: NCProgramBlind
-    price: 40
-  - proto: NCProgramDrop
-    price: 40
-  - proto: NCProgramShock
-    price: 60
-  - proto: NCProgramBreach
-    price: 80
-  - proto: NCProgramSword
-    price: 100
-  - proto: NCProgramHighJack
-    price: 120
-  - proto: NCProgramBackdoor
-    price: 120
   - proto: HydroponicsTrayFlatpack
     price: 150
   - proto: SeedExtractorFlatpack

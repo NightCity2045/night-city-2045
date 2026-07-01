@@ -1,6 +1,8 @@
 using System.Linq;
 using System.Text.RegularExpressions;
 using Content.Shared._NC.Bank.Components;
+using Content.Shared._NC.Stats;
+using Content.Shared._NC.Stats.Prototypes;
 using Content.Shared._White.Bark;
 using Content.Shared._White.Bark.Systems;
 using Content.Shared._White.TTS;
@@ -35,6 +37,8 @@ public sealed partial class HumanoidCharacterProfile : ICharacterProfile
     public const int MaxNameLength = 64;
     public const int MaxDescLength = 1024;
     public const int MaxCustomContentLength = 524288; // WD EDIT
+    public const int StartingStatPoints = 62;
+    public const int StartingSkillPoints = 82;
 
     /// Job preferences for initial spawn
     [DataField]
@@ -140,6 +144,15 @@ public sealed partial class HumanoidCharacterProfile : ICharacterProfile
     public string? MimeName { get; set; }
     // WD EDIT END
 
+    [DataField]
+    public List<NCStatEntry> Stats { get; set; } = new();
+
+    [DataField]
+    public List<NCSkillEntry> Skills { get; set; } = new();
+
+    [DataField]
+    public bool StatsAndSkillsLocked { get; set; }
+
     /// <see cref="Appearance"/>
     public ICharacterAppearance CharacterAppearance => Appearance;
 
@@ -191,6 +204,9 @@ public sealed partial class HumanoidCharacterProfile : ICharacterProfile
         string? cyborgName,
         string? clownName, // WD EDIT
         string? mimeName, // WD EDIT
+        List<NCStatEntry> stats, // NC
+        List<NCSkillEntry> skills, // NC
+        bool statsAndSkillsLocked, // NC
         HumanoidCharacterAppearance appearance,
         SpawnPriorityPreference spawnPriority,
         Dictionary<ProtoId<JobPrototype>, JobPriority> jobPriorities,
@@ -226,6 +242,9 @@ public sealed partial class HumanoidCharacterProfile : ICharacterProfile
         CyborgName = cyborgName;
         ClownName = clownName; // WD EDIT
         MimeName = mimeName; // WD EDIT
+        Stats = CloneStats(stats);
+        Skills = CloneSkills(skills);
+        StatsAndSkillsLocked = statsAndSkillsLocked;
         Appearance = appearance;
         SpawnPriority = spawnPriority;
         _jobPriorities = jobPriorities;
@@ -277,6 +296,9 @@ public sealed partial class HumanoidCharacterProfile : ICharacterProfile
             other.CyborgName,
             other.ClownName, // WD EDIT
             other.MimeName, // WD EDIT
+            other.Stats,
+            other.Skills,
+            other.StatsAndSkillsLocked,
             other.Appearance.Clone(),
             other.SpawnPriority,
             new Dictionary<ProtoId<JobPrototype>, JobPriority>(other.JobPriorities),
@@ -418,6 +440,9 @@ public sealed partial class HumanoidCharacterProfile : ICharacterProfile
     public HumanoidCharacterProfile WithCyborgName(string? cyborgName) => new(this) { CyborgName = cyborgName };
     public HumanoidCharacterProfile WithClownName(string? clownName) => new(this) { ClownName = clownName }; // WD EDIT
     public HumanoidCharacterProfile WithMimeName(string? mimeName) => new(this) { MimeName = mimeName }; // WD EDIT
+    public HumanoidCharacterProfile WithStats(List<NCStatEntry> stats) => new(this) { Stats = CloneStats(stats) };
+    public HumanoidCharacterProfile WithSkills(List<NCSkillEntry> skills) => new(this) { Skills = CloneSkills(skills) };
+    public HumanoidCharacterProfile WithStatsAndSkillsLocked(bool locked) => new(this) { StatsAndSkillsLocked = locked };
     public HumanoidCharacterProfile WithSpecies(string species) => new(this) { Species = species };
     public HumanoidCharacterProfile WithCustomSpeciesName(string customspeciename) => new(this) { Customspeciename = customspeciename };
     public HumanoidCharacterProfile WithHeight(float height) => new(this) { Height = height };
@@ -545,6 +570,9 @@ public sealed partial class HumanoidCharacterProfile : ICharacterProfile
             && _antagPreferences.SequenceEqual(other._antagPreferences)
             && _traitPreferences.SequenceEqual(other._traitPreferences)
             && LoadoutPreferences.SequenceEqual(other.LoadoutPreferences)
+            && StatsEqual(Stats, other.Stats)
+            && SkillsEqual(Skills, other.Skills)
+            && StatsAndSkillsLocked == other.StatsAndSkillsLocked
             && Appearance.MemberwiseEquals(other.Appearance)
             && FlavorText == other.FlavorText;
     }
@@ -713,6 +741,9 @@ public sealed partial class HumanoidCharacterProfile : ICharacterProfile
             .Where(l => prototypeManager.HasIndex<LoadoutPrototype>(l.Key))
             .ToList();
 
+        var stats = FitStatsToBudget(EnsureStats(prototypeManager), prototypeManager);
+        var skills = FitSkillsToBudget(EnsureSkills(prototypeManager), prototypeManager);
+
         Name = name;
         Customspeciename = customspeciename;
         FlavorText = flavortext;
@@ -767,9 +798,12 @@ public sealed partial class HumanoidCharacterProfile : ICharacterProfile
                     loadout.CustomColorTint,
                     loadout.CustomHeirloom);
 
-            _loadoutPreferences[key] = truncatedLoadout;
+                _loadoutPreferences[key] = truncatedLoadout;
         }
         // WD EDIT END
+
+        Stats = stats;
+        Skills = skills;
     }
 
     // WD EDIT START
@@ -864,11 +898,279 @@ public sealed partial class HumanoidCharacterProfile : ICharacterProfile
         hashCode.Add((int) SpawnPriority);
         hashCode.Add((int) PreferenceUnavailable);
         hashCode.Add(Customspeciename);
+        hashCode.Add(StatsAndSkillsLocked);
+
+        foreach (var stat in Stats)
+        {
+            hashCode.Add(stat.StatId);
+            hashCode.Add(stat.Value.BaseValue);
+            hashCode.Add(stat.Value.ProgressionValue);
+            hashCode.Add(stat.Value.TemporaryValue);
+            hashCode.Add(stat.Value.FinalValue);
+        }
+
+        foreach (var skill in Skills)
+        {
+            hashCode.Add(skill.SkillId);
+            hashCode.Add(skill.Value.BaseValue);
+            hashCode.Add(skill.Value.ProgressionValue);
+            hashCode.Add(skill.Value.TemporaryValue);
+            hashCode.Add(skill.Value.FinalValue);
+        }
+
         return hashCode.ToHashCode();
     }
 
     public HumanoidCharacterProfile Clone()
     {
         return new HumanoidCharacterProfile(this);
+    }
+
+    public int GetSpentStatPoints()
+    {
+        return Stats.Sum(stat => Math.Max(0, stat.Value.BaseValue - 1));
+    }
+
+    public int GetSpentSkillPoints(IPrototypeManager prototypeManager)
+    {
+        var spent = 0;
+
+        foreach (var skill in Skills)
+        {
+            if (!prototypeManager.TryIndex<NCSkillPrototype>(skill.SkillId, out var proto))
+                continue;
+
+            spent += skill.Value.BaseValue * proto.CostMultiplier;
+        }
+
+        return spent;
+    }
+
+    private static List<NCStatEntry> CloneStats(IEnumerable<NCStatEntry> stats)
+    {
+        return stats
+            .Select(s => new NCStatEntry(s.StatId,
+                new NCTrackedValue
+                {
+                    BaseValue = s.Value.BaseValue,
+                    ProgressionValue = s.Value.ProgressionValue,
+                    TemporaryValue = s.Value.TemporaryValue,
+                    FinalValue = s.Value.FinalValue
+                }))
+            .ToList();
+    }
+
+    private static List<NCSkillEntry> CloneSkills(IEnumerable<NCSkillEntry> skills)
+    {
+        return skills
+            .Select(s => new NCSkillEntry(s.SkillId,
+                new NCTrackedValue
+                {
+                    BaseValue = s.Value.BaseValue,
+                    ProgressionValue = s.Value.ProgressionValue,
+                    TemporaryValue = s.Value.TemporaryValue,
+                    FinalValue = s.Value.FinalValue
+                },
+                s.Specialization))
+            .ToList();
+    }
+
+    private static bool StatsEqual(IReadOnlyList<NCStatEntry> left, IReadOnlyList<NCStatEntry> right)
+    {
+        if (left.Count != right.Count)
+            return false;
+
+        for (var i = 0; i < left.Count; i++)
+        {
+            var l = left[i];
+            var r = right[i];
+            if (l.StatId != r.StatId)
+                return false;
+
+            if (l.Value.BaseValue != r.Value.BaseValue ||
+                l.Value.ProgressionValue != r.Value.ProgressionValue ||
+                l.Value.TemporaryValue != r.Value.TemporaryValue ||
+                l.Value.FinalValue != r.Value.FinalValue)
+                return false;
+        }
+
+        return true;
+    }
+
+    private static bool SkillsEqual(IReadOnlyList<NCSkillEntry> left, IReadOnlyList<NCSkillEntry> right)
+    {
+        if (left.Count != right.Count)
+            return false;
+
+        for (var i = 0; i < left.Count; i++)
+        {
+            var l = left[i];
+            var r = right[i];
+            if (l.SkillId != r.SkillId)
+                return false;
+
+            if (l.Value.BaseValue != r.Value.BaseValue ||
+                l.Value.ProgressionValue != r.Value.ProgressionValue ||
+                l.Value.TemporaryValue != r.Value.TemporaryValue ||
+                l.Value.FinalValue != r.Value.FinalValue)
+                return false;
+        }
+
+        return true;
+    }
+
+    private List<NCStatEntry> EnsureStats(IPrototypeManager prototypeManager)
+    {
+        var existing = new List<NCStatEntry>();
+        var byId = new Dictionary<string, NCStatEntry>();
+
+        foreach (var stat in CloneStats(Stats))
+        {
+            if (!prototypeManager.TryIndex<NCStatPrototype>(stat.StatId, out var proto))
+                continue;
+
+            if (byId.ContainsKey(stat.StatId))
+                continue;
+
+            stat.Value.BaseValue = Math.Clamp(stat.Value.BaseValue, proto.MinValue, proto.MaxValue);
+            stat.Value.ProgressionValue = Math.Max(0, stat.Value.ProgressionValue);
+            stat.Value.FinalValue = Math.Clamp(
+                stat.Value.BaseValue + stat.Value.ProgressionValue + stat.Value.TemporaryValue,
+                proto.MinValue,
+                proto.MaxValue);
+
+            byId.Add(stat.StatId, stat);
+            existing.Add(stat);
+        }
+
+        foreach (var proto in prototypeManager.EnumeratePrototypes<NCStatPrototype>().OrderBy(p => p.ID))
+        {
+            if (!byId.TryGetValue(proto.ID, out var entry))
+            {
+                entry = new NCStatEntry(proto.ID, new NCTrackedValue(proto.MinValue));
+                byId[proto.ID] = entry;
+                existing.Add(entry);
+            }
+
+            entry.Value.BaseValue = Math.Clamp(entry.Value.BaseValue, proto.MinValue, proto.MaxValue);
+            entry.Value.ProgressionValue = Math.Max(0, entry.Value.ProgressionValue);
+            entry.Value.FinalValue = Math.Clamp(
+                entry.Value.BaseValue + entry.Value.ProgressionValue + entry.Value.TemporaryValue,
+                proto.MinValue,
+                proto.MaxValue);
+        }
+
+        return existing
+            .Where(s => prototypeManager.HasIndex<NCStatPrototype>(s.StatId))
+            .OrderBy(s => s.StatId)
+            .ToList();
+    }
+
+    private List<NCSkillEntry> EnsureSkills(IPrototypeManager prototypeManager)
+    {
+        var existing = new List<NCSkillEntry>();
+        var seen = new HashSet<string>();
+
+        foreach (var skill in CloneSkills(Skills))
+        {
+            if (!prototypeManager.TryIndex<NCSkillPrototype>(skill.SkillId, out var proto))
+                continue;
+
+            skill.Specialization = null;
+
+            if (!seen.Add(skill.SkillId))
+                continue;
+
+            skill.Value.BaseValue = Math.Clamp(skill.Value.BaseValue, proto.MinValue, proto.MaxValue);
+            skill.Value.ProgressionValue = Math.Max(0, skill.Value.ProgressionValue);
+            skill.Value.FinalValue = Math.Clamp(
+                skill.Value.BaseValue + skill.Value.ProgressionValue + skill.Value.TemporaryValue,
+                proto.MinValue,
+                proto.MaxValue);
+            existing.Add(skill);
+        }
+
+        foreach (var proto in prototypeManager.EnumeratePrototypes<NCSkillPrototype>().OrderBy(p => p.ID))
+        {
+            if (seen.Contains(proto.ID))
+                continue;
+
+            existing.Add(new NCSkillEntry(proto.ID, new NCTrackedValue(0)));
+        }
+
+        return existing
+            .OrderBy(s => s.SkillId)
+            .ToList();
+    }
+
+    private static List<NCStatEntry> FitStatsToBudget(List<NCStatEntry> stats, IPrototypeManager prototypeManager)
+    {
+        var spent = stats.Sum(stat => Math.Max(0, stat.Value.BaseValue - 1));
+        while (spent > StartingStatPoints)
+        {
+            var changed = false;
+            foreach (var stat in stats.OrderByDescending(s => s.Value.BaseValue).ThenBy(s => s.StatId))
+            {
+                var proto = prototypeManager.Index<NCStatPrototype>(stat.StatId);
+                if (stat.Value.BaseValue <= proto.MinValue)
+                    continue;
+
+                // Reduce overflow deterministically so an invalid client payload cannot exceed the creation budget.
+                stat.Value.BaseValue--;
+                stat.Value.FinalValue = Math.Clamp(
+                    stat.Value.BaseValue + stat.Value.ProgressionValue + stat.Value.TemporaryValue,
+                    proto.MinValue,
+                    proto.MaxValue);
+                spent--;
+                changed = true;
+
+                if (spent <= StartingStatPoints)
+                    break;
+            }
+
+            if (!changed)
+                break;
+        }
+
+        return stats;
+    }
+
+    private static List<NCSkillEntry> FitSkillsToBudget(List<NCSkillEntry> skills, IPrototypeManager prototypeManager)
+    {
+        var spent = skills.Sum(skill =>
+            prototypeManager.TryIndex<NCSkillPrototype>(skill.SkillId, out var proto)
+                ? skill.Value.BaseValue * proto.CostMultiplier
+                : 0);
+
+        while (spent > StartingSkillPoints)
+        {
+            var changed = false;
+            foreach (var skill in skills
+                         .OrderByDescending(s => s.Value.BaseValue)
+                         .ThenByDescending(s => prototypeManager.Index<NCSkillPrototype>(s.SkillId).CostMultiplier)
+                         .ThenBy(s => s.SkillId))
+            {
+                var proto = prototypeManager.Index<NCSkillPrototype>(skill.SkillId);
+                if (skill.Value.BaseValue <= proto.MinValue)
+                    continue;
+
+                // Skill costs can vary, so we refund budget using the prototype multiplier of the exact entry.
+                skill.Value.BaseValue--;
+                skill.Value.FinalValue = Math.Clamp(
+                    skill.Value.BaseValue + skill.Value.ProgressionValue + skill.Value.TemporaryValue,
+                    proto.MinValue,
+                    proto.MaxValue);
+                spent -= proto.CostMultiplier;
+                changed = true;
+
+                if (spent <= StartingSkillPoints)
+                    break;
+            }
+
+            if (!changed)
+                break;
+        }
+
+        return skills;
     }
 }

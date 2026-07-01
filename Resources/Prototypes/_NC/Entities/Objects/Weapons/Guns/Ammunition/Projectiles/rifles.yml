@@ -5,6 +5,8 @@
   parent: BaseBullet
   categories: [ HideSpawnMenu ]
   components:
+  - type: NCPenetration
+    penetration: 4
   - type: Projectile
     damage:
       types:
@@ -20,6 +22,8 @@
   parent: BaseBullet
   categories: [ HideSpawnMenu ]
   components:
+  - type: NCPenetration
+    penetration: 5
   - type: Projectile
     damage:
       types:
@@ -35,6 +39,8 @@
   parent: BaseBullet
   categories: [ HideSpawnMenu ]
   components:
+  - type: NCPenetration
+    penetration: 6
   - type: Projectile
     damage:
       types:
@@ -50,6 +56,8 @@
   parent: BaseBullet
   categories: [ HideSpawnMenu ]
   components:
+  - type: NCPenetration
+    penetration: 5
   - type: Projectile
     damage:
       types:
@@ -65,6 +73,8 @@
   parent: BaseBullet
   categories: [ HideSpawnMenu ]
   components:
+  - type: NCPenetration
+    penetration: 6
   - type: Projectile
     damage:
       types:
@@ -80,6 +90,8 @@
   parent: BaseBullet
   categories: [ HideSpawnMenu ]
   components:
+  - type: NCPenetration
+    penetration: 5
   - type: Projectile
     damage:
       types:
@@ -95,6 +107,8 @@
   parent: BaseBullet
   categories: [ HideSpawnMenu ]
   components:
+  - type: NCPenetration
+    penetration: 6
   - type: Projectile
     damage:
       types:

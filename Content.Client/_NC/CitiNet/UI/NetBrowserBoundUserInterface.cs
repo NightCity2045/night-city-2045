@@ -164,6 +164,7 @@ public sealed class NetBrowserBoundUserInterface : BoundUserInterface
             "CitiNetComm" => new CitiNetUi(),
             "NcpdForensics" => new Forensics.NcpdForensicsUIFragment(),
             "FixerMarket" => new FixerMarket.FixerMarketUIFragment(),
+            "CorporateSupply" => new CorporateSupply.CorporateSupplySiteUiFragment(),
             _ => null
         };
     }

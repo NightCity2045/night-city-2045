@@ -235,9 +235,6 @@
     id: ClothingOuterHardsuitMilitech
     weight: 1
   - type: Item
-    id: NCCyberdeck
-    weight: 2
-  - type: Item
     id: ClothingOuterArmorRiot
     weight: 2
   - type: Item

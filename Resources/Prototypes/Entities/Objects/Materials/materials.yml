@@ -163,6 +163,10 @@
     node: cloth
   - type: Item
     heldPrefix: cloth
+  - type: ArmorMaterial
+    layerType: Base
+    grantedArmorClass: 0
+    grantedDurability: 0
   # WD EDIT START - Short crafting
   - type: UserInterface
     interfaces:
@@ -280,6 +284,10 @@
       - RawMaterial
   - type: Item
     heldPrefix: durathread
+  - type: ArmorMaterial
+    layerType: Base
+    grantedArmorClass: 0
+    grantedDurability: 0
 
 - type: entity
   parent: MaterialDurathread
@@ -791,6 +799,10 @@
   - type: Stack
     count: 50
     stackType: WebSilk
+  - type: ArmorMaterial
+    layerType: Armor
+    grantedArmorClass: 0
+    grantedDurability: 180
   - type: Food
     requiresSpecialDigestion: true
   - type: FlavorProfile

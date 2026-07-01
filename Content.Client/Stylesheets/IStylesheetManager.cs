@@ -7,6 +7,7 @@ namespace Content.Client.Stylesheets
     {
         StylesheetReference SheetNano { get; } // WWDP EDIT
         StylesheetReference SheetSpace { get; } // WWDP EDIT
+        StylesheetReference SheetNightCity { get; }
 
         void Initialize();
     }

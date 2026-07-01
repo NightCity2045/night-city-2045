@@ -33,7 +33,7 @@ namespace Content.Client._NC.Bank.Consoles
 
             if (state is FactionBankConsoleState cast)
             {
-                _window?.UpdateState(cast.Balance, cast.Title, cast.Logs);
+                _window?.UpdateState(cast.Balance, cast.DataBalance, cast.Title, cast.Logs);
             }
         }
 

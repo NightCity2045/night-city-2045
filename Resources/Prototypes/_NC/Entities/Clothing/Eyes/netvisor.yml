@@ -1,13 +1,1 @@
-- type: entity
-  parent: ClothingEyesBase
-  id: NCCyEyesNetvisor
-  name: Netvisor AR glasses
-  description: High-end augmented reality glasses that overlay Net-space onto the user's vision. Required to interface with Cyberdecks.
-  components:
-  - type: Sprite
-    sprite: Clothing/Eyes/Glasses/sunglasses.rsi
-    state: icon
-  - type: Clothing
-    sprite: Clothing/Eyes/Glasses/sunglasses.rsi
-  - type: Netvisor
-    bonusRange: 10
+# Netrunning is disabled in this branch.

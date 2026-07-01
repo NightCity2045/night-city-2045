@@ -67,6 +67,9 @@ namespace Content.Client.Lobby
         public void UpdateCharacter(ICharacterProfile profile, int slot)
         {
             var collection = IoCManager.Instance!;
+            if (profile is HumanoidCharacterProfile humanoid)
+                profile = humanoid.WithStatsAndSkillsLocked(true);
+
             profile.EnsureValid(_playerManager.LocalSession!, collection);
             var characters = new Dictionary<int, ICharacterProfile>(Preferences.Characters) {[slot] = profile};
             Preferences = Preferences.WithCharacters(characters); // WWDP EDIT

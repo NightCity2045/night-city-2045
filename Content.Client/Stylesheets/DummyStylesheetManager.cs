@@ -8,6 +8,7 @@ public sealed class DummyStylesheetManager : IStylesheetManager
 {
     public StylesheetReference SheetNano { get; } = StylesheetReference.Empty;
     public StylesheetReference SheetSpace { get; } = StylesheetReference.Empty;
+    public StylesheetReference SheetNightCity { get; } = StylesheetReference.Empty;
 
     public DummyStylesheetManager()
     {

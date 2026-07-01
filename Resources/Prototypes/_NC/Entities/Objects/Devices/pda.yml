@@ -543,3 +543,133 @@
       borderColor: '#4682b4'
       accentHColor: '#00fa9a'
       accentVColor: '#00fa9a'
+
+# region Militech
+
+- type: entity
+  parent: BasePDA
+  id: MilitechChiefPDA
+  name: ent-PDAMilitechChief
+  description: ent-PDAMilitechChief-desc
+  components:
+    - type: Pda
+      id: MilitechChiefIDCard
+    - type: Sprite
+      sprite: _White/Objects/Devices/Pda/security.rsi
+      color: '#2f3437'
+    - type: PdaBorderColor
+      borderColor: '#111111'
+      accentHColor: '#b03030'
+      accentVColor: '#b03030'
+
+- type: entity
+  parent: BasePDA
+  id: MilitechOperativeLeadPDA
+  name: ent-PDAMilitechOperativeLead
+  description: ent-PDAMilitechOperativeLead-desc
+  components:
+    - type: Pda
+      id: MilitechOperativeLeadIDCard
+    - type: Sprite
+      sprite: _White/Objects/Devices/Pda/security.rsi
+      color: '#3d4245'
+    - type: PdaBorderColor
+      borderColor: '#111111'
+      accentHColor: '#b03030'
+      accentVColor: '#b03030'
+
+- type: entity
+  parent: BasePDA
+  id: MilitechOperativePDA
+  name: ent-PDAMilitechOperative
+  description: ent-PDAMilitechOperative-desc
+  components:
+    - type: Pda
+      id: MilitechOperativeIDCard
+    - type: Sprite
+      sprite: _White/Objects/Devices/Pda/security.rsi
+      color: '#3d4245'
+    - type: PdaBorderColor
+      borderColor: '#111111'
+      accentHColor: '#b03030'
+      accentVColor: '#b03030'
+
+- type: entity
+  parent: BasePDA
+  id: MilitechNetrunnerPDA
+  name: ent-PDAMilitechNetrunner
+  description: ent-PDAMilitechNetrunner-desc
+  components:
+    - type: Pda
+      id: MilitechNetrunnerIDCard
+    - type: Sprite
+      sprite: _White/Objects/Devices/Pda/pda.rsi
+      color: '#1a1a1a'
+    - type: PdaBorderColor
+      borderColor: '#b03030'
+      accentHColor: '#708090'
+      accentVColor: '#708090'
+
+- type: entity
+  parent: BasePDA
+  id: MilitechSecuritySpecialistPDA
+  name: ent-PDAMilitechSecuritySpecialist
+  description: ent-PDAMilitechSecuritySpecialist-desc
+  components:
+    - type: Pda
+      id: MilitechSecuritySpecialistIDCard
+    - type: Sprite
+      sprite: _White/Objects/Devices/Pda/security.rsi
+      color: '#4f5558'
+    - type: PdaBorderColor
+      borderColor: '#111111'
+      accentHColor: '#c0c0c0'
+      accentVColor: '#c0c0c0'
+
+- type: entity
+  parent: BaseMedicalPDA
+  id: MilitechCombatMedicPDA
+  name: ent-PDAMilitechCombatMedic
+  description: ent-PDAMilitechCombatMedic-desc
+  components:
+    - type: Pda
+      id: MilitechCombatMedicIDCard
+    - type: Sprite
+      sprite: _White/Objects/Devices/Pda/medical.rsi
+      color: '#3d4245'
+    - type: PdaBorderColor
+      borderColor: '#111111'
+      accentHColor: '#b03030'
+      accentVColor: '#b03030'
+
+- type: entity
+  parent: BasePDA
+  id: MilitechTechPDA
+  name: ent-PDAMilitechTech
+  description: ent-PDAMilitechTech-desc
+  components:
+    - type: Pda
+      id: MilitechTechIDCard
+    - type: Sprite
+      sprite: _White/Objects/Devices/Pda/pda.rsi
+      color: '#5f6a6a'
+    - type: PdaBorderColor
+      borderColor: '#111111'
+      accentHColor: '#b03030'
+      accentVColor: '#b03030'
+
+- type: entity
+  parent: BasePDA
+  id: MilitechQuartermasterPDA
+  name: ent-PDAMilitechQuartermaster
+  description: ent-PDAMilitechQuartermaster-desc
+  components:
+    - type: Pda
+      id: MilitechQuartermasterIDCard
+    - type: Sprite
+      sprite: _White/Objects/Devices/Pda/pda.rsi
+      color: '#6b5b3e'
+    - type: PdaBorderColor
+      borderColor: '#111111'
+      accentHColor: '#b03030'
+      accentVColor: '#b03030'

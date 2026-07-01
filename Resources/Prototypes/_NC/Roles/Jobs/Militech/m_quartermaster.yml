@@ -1,0 +1,27 @@
+- type: job
+  id: MilitechQuartermaster
+  name: job-name-militech-quartermaster
+  description: job-description-militech-quartermaster
+  playTimeTracker: JobMilitechQuartermaster
+  weight: 45
+  salary: 300
+  icon: "JobIconQuarterMaster"
+  startingGear: MilitechQuartermasterGear
+  access:
+    - Militech_Armory
+    - Militech_Tech
+    - Militech_Staff
+    - Militech_General
+    - NC_General
+
+- type: startingGear
+  id: MilitechQuartermasterGear
+  equipment:
+    jumpsuit: ClothingUniformJumpsuitMilitech
+    back: ClothingBackpack
+    shoes: ClothingShoesBootsCombat
+    head: ClothingHeadHatMilitechCap
+    eyes: ClothingEyesGlassesSunglasses
+    id: MilitechQuartermasterPDA
+    belt: ClothingBeltUtilityEngineering
+    outerClothing: ClothingOuterArmorMilitechBulletproof

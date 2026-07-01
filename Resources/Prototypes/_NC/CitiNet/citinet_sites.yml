@@ -35,6 +35,24 @@
   storePreset: NightMarketMarket
 
 - type: netSite
+  id: CorporateMilitechSupply
+  name: MILITECH SUPPLY
+  url: "militech.corp/supply"
+  uiKey: CorporateSupply
+  requiredAccess:
+  - Security
+  storePreset: CorporateMilitechSupply
+
+- type: netSite
+  id: CorporateBiotechnicaSupply
+  name: BIOTECHNICA SUPPLY
+  url: "biotechnica.corp/supply"
+  uiKey: CorporateSupply
+  requiredAccess:
+  - Biotech_Director
+  storePreset: CorporateBiotechnicaSupply
+
+- type: netSite
   id: NCPDDatabase
   name: citinet-site-name-ncpd-records
   url: ncpd.gov/records

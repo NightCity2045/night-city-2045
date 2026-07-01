@@ -13,11 +13,13 @@ namespace Content.Client.Stylesheets
 
         public StylesheetReference SheetNano { get; private set; } = default!; // WWDP EDIT
         public StylesheetReference SheetSpace { get; private set; } = default!; // WWDP EDIT
+        public StylesheetReference SheetNightCity { get; private set; } = default!;
 
         public void Initialize()
         {
             SheetNano = _contentStyleSheetManager.MergeStyles(new StyleNano(_resourceCache).Stylesheet, "nano"); // WWDP EDIT
             SheetSpace = _contentStyleSheetManager.MergeStyles(new StyleSpace(_resourceCache).Stylesheet, "space"); // WWDP EDIT
+            SheetNightCity = _contentStyleSheetManager.MergeStyles(new NightCityStylesheet(_resourceCache).Stylesheet, "nightcity");
 
             _userInterfaceManager.Stylesheet = SheetNano;
         }

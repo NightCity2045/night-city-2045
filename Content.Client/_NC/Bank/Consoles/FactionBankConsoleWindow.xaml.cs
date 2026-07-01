@@ -11,6 +11,7 @@ namespace Content.Client._NC.Bank.Consoles
         public event Action<int, string>? OnDeposit;
 
         private readonly Label _lblBalance;
+        private readonly Label _lblDataBalance;
         private readonly Label _lblTitle;
         private readonly LineEdit _leAmount;
         private readonly LineEdit _leDescription;
@@ -23,6 +24,7 @@ namespace Content.Client._NC.Bank.Consoles
             RobustXamlLoader.Load(this);
 
             _lblBalance = FindControl<Label>("LblBalance");
+            _lblDataBalance = FindControl<Label>("LblDataBalance");
             _lblTitle = FindControl<Label>("LblTitle");
             _leAmount = FindControl<LineEdit>("LeAmount");
             _leDescription = FindControl<LineEdit>("LeDescription");
@@ -45,9 +47,10 @@ namespace Content.Client._NC.Bank.Consoles
             };
         }
 
-        public void UpdateState(int balance, string title, List<BankTransaction> logs)
+        public void UpdateState(int balance, int dataBalance, string title, List<BankTransaction> logs)
         {
             _lblBalance.Text = $"{balance} $";
+            _lblDataBalance.Text = $"{dataBalance} DATA";
             _lblTitle.Text = title;
 
             _logList.Clear();

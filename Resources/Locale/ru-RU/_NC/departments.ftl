@@ -6,5 +6,7 @@ department-name-TraumaTeam = Отделение TraumaTeam
 department-desc-TraumaTeam = department-TraumaTeam-description
 department-name-Biotechnica = Отделение Biotechnica
 department-desc-Biotechnica = department-Biotechnica-description
+department-name-Militech = Отделение Militech
+department-desc-Militech = department-Militech-description
 department-name-Jiraff = Корпорация Zhirafa
 department-desc-Jiraff = department-Biotechnica-description

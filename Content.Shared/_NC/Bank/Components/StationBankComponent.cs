@@ -20,6 +20,9 @@ namespace Content.Shared._NC.Bank.Components
         [DataField("balance")]
         public int Balance;
 
+        [DataField("dataBalance")]
+        public int DataBalance;
+
         [DataField("logs")]
         public List<BankTransaction> Logs = new();
     }

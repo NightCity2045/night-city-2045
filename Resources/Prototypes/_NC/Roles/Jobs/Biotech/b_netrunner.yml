@@ -18,7 +18,7 @@
   id: BiotechnicaNetrunnerGear
   equipment:
     jumpsuit: ClothingUniformJumpsuitBiotechnica
-    back: ClothingBackpackCyberdeckFilled
+    back: ClothingBackpack
     shoes: ClothingShoesColorWhite
     head: ClothingHeadHatBeretSeniorPhysician
     eyes: ClothingEyesGlassesSunglasses

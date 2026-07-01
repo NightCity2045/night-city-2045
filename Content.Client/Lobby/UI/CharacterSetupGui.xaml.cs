@@ -1,5 +1,6 @@
 using Content.Client.Info;
 using Content.Client.Info.PlaytimeStats;
+using Content.Client.Localization;
 using Content.Client.Resources;
 using Content.Shared.CCVar;
 using Content.Shared.Preferences;
@@ -18,7 +19,7 @@ namespace Content.Client.Lobby.UI
     /// Holds the entire character setup GUI, from character picks to individual character editing.
     /// </summary>
     [GenerateTypedNameReferences]
-    public sealed partial class CharacterSetupGui : Control
+    public sealed partial class CharacterSetupGui : Control, ILocalizedControl
     {
         [Dependency] private readonly IClientPreferencesManager _preferencesManager = default!;
         [Dependency] private readonly IEntityManager _entManager = default!;
@@ -35,7 +36,6 @@ namespace Content.Client.Lobby.UI
         {
             RobustXamlLoader.Load(this);
             IoCManager.InjectDependencies(this);
-
             var panelTex = _resourceCache.GetTexture("/Textures/Interface/Nano/button.svg.96dpi.png");
             var back = new StyleBoxTexture
             {
@@ -76,6 +76,12 @@ namespace Content.Client.Lobby.UI
             //WWDP EDIT END
 
             _cfg.OnValueChanged(CCVars.SeeOwnNotes, p => AdminRemarksButton.Visible = p, true);
+        }
+
+        public void Relocalize()
+        {
+            _createNewCharacterButton.Text = Loc.GetString("character-setup-gui-create-new-character-button");
+            ReloadCharacterPickers();
         }
 
         /// <summary>

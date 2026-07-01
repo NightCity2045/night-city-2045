@@ -229,6 +229,32 @@
                         </BoxContainer>
                     </ScrollContainer>
                     </BoxContainer>
+                <BoxContainer Name="StatsTab" HorizontalExpand="True" Orientation="Vertical">
+                    <ScrollContainer HorizontalExpand="True" HScrollEnabled="True" VerticalExpand="True" VScrollEnabled="True">
+                        <PanelContainer Margin="6">
+                            <BoxContainer Orientation="Vertical" Margin="6">
+                                <Label Text="{Loc 'nc-profile-editor-stats-header'}" StyleClasses="LabelHeading" />
+                                <Label Name="StatsBudgetLabel" />
+                                <Label Name="StatsLockLabel" />
+                                <Control MinHeight="4" />
+                                <BoxContainer Name="StatsList" Orientation="Vertical" HorizontalExpand="True" />
+                            </BoxContainer>
+                        </PanelContainer>
+                    </ScrollContainer>
+                </BoxContainer>
+                <BoxContainer Name="SkillsTab" HorizontalExpand="True" Orientation="Vertical">
+                    <ScrollContainer HorizontalExpand="True" HScrollEnabled="True" VerticalExpand="True" VScrollEnabled="True">
+                        <PanelContainer Margin="6">
+                            <BoxContainer Orientation="Vertical" Margin="6">
+                                <Label Text="{Loc 'nc-profile-editor-skills-header'}" StyleClasses="LabelHeading" />
+                                <Label Name="SkillsBudgetLabel" />
+                                <Label Name="SkillsLockLabel" />
+                                <Control MinHeight="4" />
+                                <BoxContainer Name="SkillsList" Orientation="Vertical" HorizontalExpand="True" />
+                            </BoxContainer>
+                        </PanelContainer>
+                    </ScrollContainer>
+                </BoxContainer>
                 <!--
                 <BoxContainer Name="Antags" HorizontalExpand="True" Orientation="Vertical">
                     <ScrollContainer HorizontalExpand="True" HScrollEnabled="True" VerticalExpand="True" VScrollEnabled="True">

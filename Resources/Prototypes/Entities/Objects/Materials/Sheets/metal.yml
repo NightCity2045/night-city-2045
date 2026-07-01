@@ -84,6 +84,10 @@
     key: enum.RadialSelectorUiKey.Key
     inHandsOnly: true
     requireActiveHand: false
+  - type: ArmorMaterial
+    layerType: Armor
+    grantedArmorClass: 4
+    grantedDurability: 400
   - type: ShortConstruction
     entries:
     - prototype: Girder
@@ -439,6 +443,10 @@
     key: enum.RadialSelectorUiKey.Key
     inHandsOnly: true
     requireActiveHand: false
+  - type: ArmorMaterial
+    layerType: Armor
+    grantedArmorClass: 5
+    grantedDurability: 900
   - type: ShortConstruction
     entries:
     - prototype: ReinforcedWall

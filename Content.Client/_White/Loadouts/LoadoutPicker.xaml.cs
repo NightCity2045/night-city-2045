@@ -1,6 +1,7 @@
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using Content.Client._White.DatumContainer;
+using Content.Client.Localization;
 using Content.Shared.CCVar;
 using Content.Shared.Clothing.Loadouts.Prototypes;
 using Content.Shared.Clothing.Loadouts.Systems;
@@ -21,7 +22,7 @@ namespace Content.Client._White.Loadouts;
 
 
 [GenerateTypedNameReferences]
-public sealed partial class LoadoutPicker : Control
+public sealed partial class LoadoutPicker : Control, ILocalizedControl
 {
     [Dependency] private readonly IPrototypeManager _prototypeManager = default!;
     [Dependency] private readonly IConfigurationManager _configManager = default!;
@@ -449,6 +450,26 @@ public sealed partial class LoadoutPicker : Control
         if (_loadoutCache.TryGetValue(loadoutCategoryPrototype, out var loadouts))
             return loadouts;
         return [];
+    }
+
+    public void Relocalize()
+    {
+        LoadoutPoint = _loadoutPoints;
+        CacheRootCategories();
+
+        if (_selectedLoadoutCategory != null)
+        {
+            LoadCategoryButtons(_selectedLoadoutCategory.Value);
+            return;
+        }
+
+        var rootEntry = new LoadoutEntriesContainerMenuEntry("root");
+        foreach (var category in GetRootCategories())
+        {
+            rootEntry.AddChild(BuildMenuGroup(category.ID).Item1);
+        }
+
+        CurrentEntry = rootEntry;
     }
 }
 

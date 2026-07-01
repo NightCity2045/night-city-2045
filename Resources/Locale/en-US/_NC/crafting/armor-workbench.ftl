@@ -1,0 +1,30 @@
+armor-workbench-window-title = ARMORSMITH // STREET ASSEMBLY BENCH
+armor-workbench-window-blueprint-label = BLUEPRINT
+armor-workbench-window-blueprint-empty = NO BLUEPRINT
+armor-workbench-window-eject-blueprint = Eject blueprint
+armor-workbench-window-eject-recipe = Eject recipe
+armor-workbench-window-base-label = BASE MATERIAL // CARRIER
+armor-workbench-window-base-forecast = Base material loaded: { $name }
+armor-workbench-window-base-forecast-empty = Base material required
+armor-workbench-window-soft-label = SOFT LAYER // FOUNDATION
+armor-workbench-window-hard-label = HARD LAYER // PLATES
+armor-workbench-window-eject-materials = Eject materials
+armor-workbench-window-result-label = RESULT
+armor-workbench-window-result-empty = NO RESULT
+armor-workbench-window-soft-forecast = Forecast: { $durability } durability
+armor-workbench-window-soft-forecast-empty = Forecast: soft layer not selected
+armor-workbench-window-hard-forecast = Forecast: AC { $armorClass }, { $durability } durability
+armor-workbench-window-hard-forecast-empty = Forecast: hard layer not selected
+armor-workbench-window-assemble = [ START PRESS ]
+armor-workbench-window-assembling = [ ASSEMBLING { $seconds }S ]
+
+armor-workbench-status-waiting = Status: waiting for input
+armor-workbench-status-missing-blueprint = Status: blueprint required
+armor-workbench-status-missing-base = Status: base material required
+armor-workbench-status-missing-materials = Status: not enough material for the recipe
+armor-workbench-status-ready = Status: assembly contour ready
+armor-workbench-status-crafting = Status: press cycle active
+
+armor-workbench-popup-no-power = No power available.
+armor-workbench-popup-missing-materials = Not enough materials for the selected recipe.
+armor-workbench-verb-eject = Clear bench

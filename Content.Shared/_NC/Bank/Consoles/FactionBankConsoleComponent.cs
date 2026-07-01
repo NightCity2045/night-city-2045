@@ -8,5 +8,8 @@ namespace Content.Shared._NC.Bank.Consoles
     {
         [DataField("bankAccount")]
         public SectorBankAccount BankAccount = SectorBankAccount.Invalid;
+
+        [DataField("acceptsRawData")]
+        public bool AcceptsRawData;
     }
 }

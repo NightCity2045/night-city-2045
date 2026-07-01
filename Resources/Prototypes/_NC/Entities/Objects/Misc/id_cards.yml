@@ -737,3 +737,184 @@
         - Biotech_General
     - type: PresetIdCard
       job: BiotechnicaTech
+
+# region Militech
+
+- type: entity
+  parent: IDCardStandard
+  id: MilitechChiefIDCard
+  name: ent-MilitechChiefIDCard
+  components:
+    - type: Sprite
+      layers:
+        - state: default
+        - state: department
+          color: '#2f3437'
+        - state: subdepartment
+          color: '#b03030'
+    - type: Access
+      tags:
+        - NC_General
+        - Militech_Command
+        - Militech_Operative
+        - Militech_Armory
+        - Militech_Tech
+        - Militech_Medical
+        - Militech_Staff
+        - Militech_General
+    - type: PresetIdCard
+      job: MilitechChief
+
+- type: entity
+  parent: IDCardStandard
+  id: MilitechOperativeLeadIDCard
+  name: ent-MilitechOperativeLeadIDCard
+  components:
+    - type: Sprite
+      layers:
+        - state: default
+        - state: department
+          color: '#2f3437'
+        - state: subdepartment
+          color: '#b03030'
+    - type: Access
+      tags:
+        - NC_General
+        - Militech_Command
+        - Militech_Operative
+        - Militech_Armory
+        - Militech_Staff
+        - Militech_General
+    - type: PresetIdCard
+      job: MilitechOperativeLead
+
+- type: entity
+  parent: IDCardStandard
+  id: MilitechOperativeIDCard
+  name: ent-MilitechOperativeIDCard
+  components:
+    - type: Sprite
+      layers:
+        - state: default
+        - state: department
+          color: '#2f3437'
+        - state: subdepartment
+          color: '#b03030'
+    - type: Access
+      tags:
+        - NC_General
+        - Militech_Operative
+        - Militech_Staff
+        - Militech_General
+    - type: PresetIdCard
+      job: MilitechOperative
+
+- type: entity
+  parent: IDCardStandard
+  id: MilitechNetrunnerIDCard
+  name: ent-MilitechNetrunnerIDCard
+  components:
+    - type: Sprite
+      layers:
+        - state: default
+        - state: department
+          color: '#2f3437'
+        - state: subdepartment
+          color: '#b03030'
+    - type: Access
+      tags:
+        - NC_General
+        - Militech_Command
+        - Militech_Operative
+        - Militech_Tech
+        - Militech_Staff
+        - Militech_General
+    - type: PresetIdCard
+      job: MilitechNetrunner
+
+- type: entity
+  parent: IDCardStandard
+  id: MilitechSecuritySpecialistIDCard
+  name: ent-MilitechSecuritySpecialistIDCard
+  components:
+    - type: Sprite
+      layers:
+        - state: default
+        - state: department
+          color: '#2f3437'
+        - state: subdepartment
+          color: '#b03030'
+    - type: Access
+      tags:
+        - NC_General
+        - Militech_Operative
+        - Militech_Armory
+        - Militech_Staff
+        - Militech_General
+    - type: PresetIdCard
+      job: MilitechSecuritySpecialist
+
+- type: entity
+  parent: IDCardStandard
+  id: MilitechCombatMedicIDCard
+  name: ent-MilitechCombatMedicIDCard
+  components:
+    - type: Sprite
+      layers:
+        - state: default
+        - state: department
+          color: '#2f3437'
+        - state: subdepartment
+          color: '#b03030'
+    - type: Access
+      tags:
+        - NC_General
+        - Militech_Operative
+        - Militech_Medical
+        - Militech_Staff
+        - Militech_General
+    - type: PresetIdCard
+      job: MilitechCombatMedic
+
+- type: entity
+  parent: IDCardStandard
+  id: MilitechTechIDCard
+  name: ent-MilitechTechIDCard
+  components:
+    - type: Sprite
+      layers:
+        - state: default
+        - state: department
+          color: '#2f3437'
+        - state: subdepartment
+          color: '#b03030'
+    - type: Access
+      tags:
+        - NC_General
+        - Militech_Tech
+        - Militech_Staff
+        - Militech_General
+    - type: PresetIdCard
+      job: MilitechTech
+
+- type: entity
+  parent: IDCardStandard
+  id: MilitechQuartermasterIDCard
+  name: ent-MilitechQuartermasterIDCard
+  components:
+    - type: Sprite
+      layers:
+        - state: default
+        - state: department
+          color: '#2f3437'
+        - state: subdepartment
+          color: '#b03030'
+    - type: Access
+      tags:
+        - NC_General
+        - Militech_Armory
+        - Militech_Tech
+        - Militech_Staff
+        - Militech_General
+    - type: PresetIdCard
+      job: MilitechQuartermaster

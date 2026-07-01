@@ -55,6 +55,21 @@
     - BiotechnicaParamedic
 
 - type: department
+  id: Militech
+  name: department-name-Militech
+  description: department-desc-Militech
+  color: "#c0392b"
+  roles:
+    - MilitechChief
+    - MilitechOperativeLead
+    - MilitechOperative
+    - MilitechNetrunner
+    - MilitechSecuritySpecialist
+    - MilitechCombatMedic
+    - MilitechTech
+    - MilitechQuartermaster
+
+- type: department
   id: Jiraff
   name: department-name-Jiraff
   description: department-desc-Jiraff

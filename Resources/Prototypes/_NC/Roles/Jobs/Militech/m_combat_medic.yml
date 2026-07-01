@@ -1,0 +1,27 @@
+- type: job
+  id: MilitechCombatMedic
+  name: job-name-militech-combat-medic
+  description: job-description-militech-combat-medic
+  playTimeTracker: JobMilitechCombatMedic
+  weight: 60
+  salary: 250
+  icon: "JobIconBrigmedic"
+  startingGear: MilitechCombatMedicGear
+  access:
+    - Militech_Operative
+    - Militech_Medical
+    - Militech_Staff
+    - Militech_General
+    - NC_General
+
+- type: startingGear
+  id: MilitechCombatMedicGear
+  equipment:
+    jumpsuit: ClothingUniformJumpsuitMilitech
+    back: ClothingBackpack
+    shoes: ClothingShoesBootsCombat
+    head: ClothingHeadHatMilitechCap
+    gloves: ClothingHandsGlovesNitrile
+    id: MilitechCombatMedicPDA
+    belt: ClothingBeltMedicalFilled
+    outerClothing: ClothingOuterArmorMilitechBulletproof

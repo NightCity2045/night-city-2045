@@ -3,6 +3,7 @@ using Content.Server.Station.Systems;
 using Content.Shared._NC.Bank.Consoles;
 using Content.Shared._NC.Bank;
 using Content.Shared._NC.Bank.Components;
+using Content.Shared._NC.Decryption.Components;
 using Content.Shared.Access.Components;
 using Content.Shared.Access.Systems;
 using Content.Shared.Containers;
@@ -45,6 +46,16 @@ namespace Content.Server._NC.Bank.Consoles
 
         private void OnInteractUsing(EntityUid uid, FactionBankConsoleComponent component, InteractUsingEvent args)
         {
+            if (TryComp<RawDataComponent>(args.Used, out var rawData))
+            {
+                if (!component.AcceptsRawData)
+                    return;
+
+                DepositRawData(uid, component, args.Used, rawData, args.User);
+                args.Handled = true;
+                return;
+            }
+
             if (!TryComp<Content.Shared.Stacks.StackComponent>(args.Used, out var stack) ||
                stack.StackTypeId != "Credit") return;
 
@@ -62,6 +73,7 @@ namespace Content.Server._NC.Bank.Consoles
         {
             var station = GetStation(uid);
             var balance = 0;
+            var dataBalance = 0;
             var logs = new List<BankTransaction>();
 
             if (station != null && component.BankAccount != SectorBankAccount.Invalid)
@@ -70,12 +82,39 @@ namespace Content.Server._NC.Bank.Consoles
                 if (stationBank.Accounts.TryGetValue(component.BankAccount, out var info))
                 {
                     balance = info.Balance;
+                    dataBalance = info.DataBalance;
                     logs = info.Logs;
                 }
             }
 
             var title = component.BankAccount.ToString();
-            _uiSystem.SetUiState(uid, FactionBankConsoleUiKey.Key, new FactionBankConsoleState(balance, title, logs));
+            _uiSystem.SetUiState(uid, FactionBankConsoleUiKey.Key, new FactionBankConsoleState(balance, dataBalance, title, logs));
+        }
+
+        private void DepositRawData(EntityUid uid, FactionBankConsoleComponent component, EntityUid dataUid, RawDataComponent rawData, EntityUid user)
+        {
+            if (component.BankAccount == SectorBankAccount.Invalid)
+                return;
+
+            var amount = Math.Max(0, rawData.DataPoints);
+            if (amount <= 0)
+                return;
+
+            var station = GetStation(uid);
+            if (station == null)
+                return;
+
+            var stationBank = _bankSystem.EnsureStationBank(station.Value);
+            if (!stationBank.Accounts.TryGetValue(component.BankAccount, out var account))
+                return;
+
+            // RawData becomes a round-local data budget for this faction account.
+            account.DataBalance += amount;
+            Dirty(station.Value, stationBank);
+
+            QueueDel(dataUid);
+            _popupSystem.PopupEntity($"DATA внесены в бюджет фракции: +{amount}", uid, user);
+            UpdateUi(uid, component);
         }
 
         private void OnWithdraw(EntityUid uid, FactionBankConsoleComponent component, FactionBankWithdrawMessage args)

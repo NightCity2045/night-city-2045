@@ -1,8 +1,1 @@
-- type: entity
-  parent: WallSolid
-  id: NetFirewallWall
-  name: firewall segment
-  description: A heavily protected digital boundary. Identical to a standard wall, but impenetrable without a decrypter.
-  components:
-  - type: NetFirewall
-    difficulty: 20
+# Netrunning is disabled in this branch.
