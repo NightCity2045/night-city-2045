@@ -22,8 +22,7 @@
   - type: InstantAction
     useDelay: 1
     icon: { sprite: Objects/Fun/bikehorn.rsi, state: icon }
-#    event: !type:HornActionEvent
-
+    event: !type:HornActionEvent
 
 - type: entity
   id: ActionSiren
@@ -33,5 +32,4 @@
   - type: InstantAction
     useDelay: 1
     icon: { sprite: Objects/Fun/bikehorn.rsi, state: icon }
-#    event: !type:SirenActionEvent
-
+    event: !type:SirenActionEvent

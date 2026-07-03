@@ -79253,7 +79253,7 @@ entities:
     - type: Transform
       pos: 54.26853,30.798643
       parent: 2
-- proto: ClothingNeckHeadphones
+- proto: ClothingMultipleHeadphones
   entities:
   - uid: 11927
     components:

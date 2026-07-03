@@ -40,7 +40,6 @@ public sealed class HealthAnalyzerSystem : EntitySystem
     [Dependency] private readonly TransformSystem _transformSystem = default!;
     [Dependency] private readonly SharedPopupSystem _popupSystem = default!;
     [Dependency] private readonly ItemToggleSystem _toggle = default!;
-    [Dependency] private readonly SharedContainerSystem _containerSystem = default!;
 
     public override void Initialize()
     {
@@ -264,14 +263,6 @@ public sealed class HealthAnalyzerSystem : EntitySystem
             body = _bodySystem.GetBodyPartStatus(target);
         // Shitmed Change End
 
-        // NCPD Change Start
-        var hasStuckBullet = false;
-        if (part != null && _containerSystem.TryGetContainer(part.Value, "forensics_bullets", out var bulletContainer))
-        {
-            hasStuckBullet = bulletContainer.ContainedEntities.Count > 0;
-        }
-        // NCPD Change End
-
         _uiSystem.ServerSendUiMessage(healthAnalyzer, HealthAnalyzerUiKey.Key, new HealthAnalyzerScannedUserMessage(
             GetNetEntity(target),
             bodyTemperature,
@@ -280,8 +271,7 @@ public sealed class HealthAnalyzerSystem : EntitySystem
             bleeding,
             unrevivable,
             body, // Shitmed Change
-            part != null ? GetNetEntity(part) : null, // Shitmed Change
-            hasStuckBullet // NCPD Change
+            part != null ? GetNetEntity(part) : null // Shitmed Change
         ));
     }
 }

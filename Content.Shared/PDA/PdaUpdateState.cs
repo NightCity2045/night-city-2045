@@ -5,8 +5,8 @@ namespace Content.Shared.PDA
 {
     [Serializable, NetSerializable]
     public sealed class PdaUpdateState : CartridgeLoaderUiState // WTF is this. what. I ... fuck me I just want net entities to work
-                                                                // TODO purge this shit
-                                                                //AAAAAAAAAAAAAAAA
+        // TODO purge this shit
+        //AAAAAAAAAAAAAAAA
     {
         public bool FlashlightEnabled;
         public bool HasPen;
@@ -17,8 +17,6 @@ namespace Content.Shared.PDA
         public bool HasUplink;
         public bool CanPlayMusic;
         public string? Address;
-        public string? HousingName; // NC
-        public string? VehicleName; // NC
 
         public PdaUpdateState(
             List<NetEntity> programs,
@@ -31,9 +29,7 @@ namespace Content.Shared.PDA
             string? stationName,
             bool hasUplink = false,
             bool canPlayMusic = false,
-            string? address = null,
-            string? housingName = null, // NC
-            string? vehicleName = null) // NC
+            string? address = null)
             : base(programs, activeUI)
         {
             FlashlightEnabled = flashlightEnabled;
@@ -45,8 +41,6 @@ namespace Content.Shared.PDA
             CanPlayMusic = canPlayMusic;
             StationName = stationName;
             Address = address;
-            HousingName = housingName; // NC
-            VehicleName = vehicleName; // NC
         }
     }
 

@@ -99476,7 +99476,7 @@ entities:
     - type: Transform
       pos: 4.7256656,29.15224
       parent: 2
-- proto: ClothingNeckHeadphones
+- proto: ClothingMultipleHeadphones
   entities:
   - uid: 1530
     components:

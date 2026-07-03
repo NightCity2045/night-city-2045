@@ -7,7 +7,6 @@
   rules: NearMorgue
   priority: 4
 
- 
 - type: ambientMusic
   id: SpookyFog
   sound:
@@ -321,7 +320,7 @@
       components:
         - type: Morgue
       range: 3
-
+      
 - type: rules
   id: NearSpookyFog
   rules:

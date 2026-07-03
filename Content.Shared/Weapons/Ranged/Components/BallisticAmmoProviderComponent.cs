@@ -5,11 +5,9 @@ using Robust.Shared.Containers;
 using Robust.Shared.GameStates;
 using Robust.Shared.Prototypes;
 
-using Content.Shared._NC.Weapons.Ranged.DualAmmo;
-
 namespace Content.Shared.Weapons.Ranged.Components;
 
-[RegisterComponent, NetworkedComponent, AutoGenerateComponentState, Access(typeof(SharedGunSystem), typeof(DualAmmoProviderSystem), typeof(Content.Shared._NC.Weapons.Ranged.Systems.SharedNCWeaponSystem))]
+[RegisterComponent, NetworkedComponent, AutoGenerateComponentState, Access(typeof(SharedGunSystem))]
 public sealed partial class BallisticAmmoProviderComponent : Component
 {
     [ViewVariables(VVAccess.ReadWrite), DataField]

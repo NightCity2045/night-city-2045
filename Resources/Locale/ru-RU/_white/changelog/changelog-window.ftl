@@ -1,1 +1,1 @@
-changelog-tab-title-WhiteChangelog = Night City
+changelog-tab-title-WhiteChangelog = White Dream

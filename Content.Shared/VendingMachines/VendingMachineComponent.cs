@@ -210,15 +210,11 @@ namespace Content.Shared.VendingMachines
         public string ID;
         [ViewVariables(VVAccess.ReadWrite)]
         public uint Amount;
-        [ViewVariables(VVAccess.ReadWrite)]
-        public uint Price;
-
-        public VendingMachineInventoryEntry(InventoryType type, string id, uint amount, uint price)
+        public VendingMachineInventoryEntry(InventoryType type, string id, uint amount)
         {
             Type = type;
             ID = id;
             Amount = amount;
-            Price = price;
         }
 
         public VendingMachineInventoryEntry(VendingMachineInventoryEntry entry)
@@ -226,7 +222,6 @@ namespace Content.Shared.VendingMachines
             Type = entry.Type;
             ID = entry.ID;
             Amount = entry.Amount;
-            Price = entry.Price;
         }
     }
 

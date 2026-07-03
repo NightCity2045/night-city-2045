@@ -1,6 +1,5 @@
 using Robust.Shared.Serialization;
 using System.Text;
-
 namespace Content.Shared.Cargo
 {
     [DataDefinition, NetSerializable, Serializable]

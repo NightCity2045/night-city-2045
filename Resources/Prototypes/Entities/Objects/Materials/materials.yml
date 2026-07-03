@@ -977,10 +977,9 @@
 - type: entity
   parent: MaterialBase
   id: MaterialGunpowder
-  name: порох
-  description: Взрывчатая смесь.
+  name: gunpowder
+  description: An explosive compound.
   components:
-  - type: Material
   - type: Stack
     stackType: Gunpowder
     count: 1
