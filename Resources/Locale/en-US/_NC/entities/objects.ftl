@@ -52,6 +52,7 @@ ent-PDABiotechnicaMedTech = Biotechnica MedTech PDA
 ent-PDABiotechnicaNetrunner = Biotechnica Netrunner PDA
 ent-PDABiotechnicaOperativeLead = Biotechnica Operative Lead PDA
 ent-PDABiotechnicaOperative = Biotechnica Operative PDA
+ent-PDABiotechnicaRigger = Biotechnica Rigger PDA
 ent-PDABiotechnicaParamedic = Biotechnica Paramedic PDA
 ent-PDABiotechnicaTech = Biotechnica Tech PDA
 
@@ -75,6 +76,9 @@ ent-NCProgramBackdoor = Backdoor 1.0
 
 ent-NCBiomonitor = biomonitor
     .desc = A handheld neuro-scanner. Connects to the patient and listens to their environment for cyberpsychosis therapy.
+
+ent-NCRiggerEye = rigger eye
+    .desc = A remote operator viewpoint slaved to a Biotechnica rigger console.
 
 ent-NCIceGate = ICE: Gate
     .desc = Basic password protection board. Blocks access until the correct password is entered.
@@ -126,6 +130,7 @@ ent-PDABiotechnicaMedTech-desc = Medical PDA with an extensive bio-modification 
 ent-PDABiotechnicaNetrunner-desc = Optimized device for working within biotechnological node networks.
 ent-PDABiotechnicaOperativeLead-desc = Communication device for a Biotechnica security commander.
 ent-PDABiotechnicaOperative-desc = Standard security communication device for Biotechnica.
+ent-PDABiotechnicaRigger-desc = Field control PDA tuned for drones, remote sensors, and fragile corporate hardware.
 ent-PDABiotechnicaParamedic-desc = Mobile medical device for emergency response.
 ent-PDABiotechnicaTech-desc = PDA with a built-in voltmeter and diagnostic utilities.
 
@@ -177,8 +182,13 @@ ent-BiotechnicaMedTechIDCard = Biotechnica MedTech ID card
 ent-BiotechnicaNetrunnerIDCard = Biotechnica Netrunner ID card
 ent-BiotechnicaOperativeLeadIDCard = Biotechnica Security Lead ID card
 ent-BiotechnicaOperativeIDCard = Biotechnica Operative ID card
+ent-BiotechnicaRiggerIDCard = Biotechnica Rigger ID card
 ent-BiotechnicaParamedicIDCard = Biotechnica Paramedic ID card
 ent-BiotechnicaTechIDCard = Biotechnica Tech ID card
+
+ent-PDAMilitechRigger = Militech Rigger PDA
+ent-PDAMilitechRigger-desc = Hardened field PDA for drone control, telemetry, and live tactical routing.
+ent-MilitechRiggerIDCard = Militech Rigger ID card
 
 # Misc
 ent-CitinetDriveEmpty = Empty Media Drive

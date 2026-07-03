@@ -478,6 +478,7 @@
     BiotechnicaNetrunnerPDA: 2
     BiotechnicaOperativeLeadPDA: 1
     BiotechnicaOperativePDA: 4
+    BiotechnicaRiggerPDA: 2
     BiotechnicaParamedicPDA: 2
     BiotechnicaTechPDA: 2
     RubberStampApproved: 1
@@ -491,6 +492,7 @@
     BiotechnicaNetrunnerPDA: 50
     BiotechnicaOperativeLeadPDA: 80
     BiotechnicaOperativePDA: 50
+    BiotechnicaRiggerPDA: 50
     BiotechnicaParamedicPDA: 50
     BiotechnicaTechPDA: 50
     RubberStampApproved: 20

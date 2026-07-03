@@ -60,6 +60,8 @@
 - type: playTimeTracker
   id: JobBiotechnicaOperative
 - type: playTimeTracker
+  id: JobBiotechnicaRigger
+- type: playTimeTracker
   id: JobBiotechnicaNetrunner
 - type: playTimeTracker
   id: JobBiotechnicaBotanist
@@ -77,6 +79,8 @@
   id: JobMilitechOperativeLead
 - type: playTimeTracker
   id: JobMilitechOperative
+- type: playTimeTracker
+  id: JobMilitechRigger
 - type: playTimeTracker
   id: JobMilitechNetrunner
 - type: playTimeTracker

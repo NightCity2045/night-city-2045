@@ -10,3 +10,10 @@ department-name-Militech = Отделение Militech
 department-desc-Militech = department-Militech-description
 department-name-Jiraff = Корпорация Zhirafa
 department-desc-Jiraff = department-Biotechnica-description
+
+nc-rigger-console-no-drones = Нет доступных живых дронов риггера.
+nc-rigger-rts-enabled = RTS-режим включён.
+nc-rigger-rts-disabled = RTS-режим выключен.
+nc-rigger-drone-state-alive = в сети
+nc-rigger-drone-state-offline = отключён
+nc-rigger-drone-damage = урон: {$damage}

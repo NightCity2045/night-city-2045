@@ -137,11 +137,16 @@ JobTechnicalAssistant = Технический Ассистент
 JobMilitechChief = Начальник Militech
 JobMilitechOperativeLead = Лидер оперативников Militech
 JobMilitechOperative = Оперативник Militech
+JobMilitechRigger = Риггер Militech
 JobMilitechNetrunner = Нетраннер Militech
 JobMilitechSecuritySpecialist = Специалист безопасности Militech
 JobMilitechCombatMedic = Боевой медик Militech
 JobMilitechTech = Техник Militech
 JobMilitechQuartermaster = Квартирмейстер Militech
+JobBiotechnicaRigger = Риггер Biotechnica
 JobVisitor = Посетитель
 JobWarden = Смотритель
 JobZookeeper = Зоотехник
+
+job-name-militech-rigger = Риггер Militech
+job-name-biotechnica-rigger = Риггер Biotechnica

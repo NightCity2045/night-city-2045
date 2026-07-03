@@ -70,7 +70,18 @@
   components:
   - type: NpcFactionMember
     factions:
-    - NCBiotechnica
+    - NanoTrasen
+  - type: FactionException
+  - type: NPCRetaliation
+    attackMemoryLength: 15
+  - type: RTSAggressionMode
+    currentMode: Normal
+    peacefulFactions:
+    - Passive
+    normalFactions:
+    - NanoTrasen
+  - type: RiggerDrone
+  - type: RTSControllable
   - type: HTN
     rootTask:
       task: NCBanditTier2RootCompound

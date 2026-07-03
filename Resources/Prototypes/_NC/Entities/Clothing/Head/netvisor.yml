@@ -1,11 +1,1 @@
-- type: entity
-  parent: ClothingEyesBase
-  id: NCNetVisor
-  name: ent-ClothingHeadNetVisor
-  description: ent-ClothingHeadNetVisor-desc
-  components:
-  - type: Sprite
-    sprite: Clothing/Eyes/Glasses/3d.rsi
-  - type: Clothing
-    sprite: Clothing/Eyes/Glasses/3d.rsi
-  - type: NetVisor
+﻿# Netrunning is disabled in this branch.

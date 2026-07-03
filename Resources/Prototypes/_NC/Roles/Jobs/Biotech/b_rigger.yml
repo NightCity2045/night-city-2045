@@ -1,0 +1,26 @@
+- type: job
+  id: BiotechnicaRigger
+  name: job-name-biotechnica-rigger
+  description: job-description-biotechnica-rigger
+  playTimeTracker: JobBiotechnicaRigger
+  weight: 55
+  salary: 300
+  icon: "JobIconBiotechTechnician"
+  startingGear: BiotechnicaRiggerGear
+  access:
+    - Biotech_Tech
+    - Biotech_Operative
+    - Biotech_Staff
+    - Biotech_General
+    - NC_General
+
+- type: startingGear
+  id: BiotechnicaRiggerGear
+  equipment:
+    jumpsuit: ClothingUniformJumpsuitBiotechnica
+    back: ClothingBackpackBiotechnica
+    shoes: ClothingShoesColorWhite
+    eyes: ClothingEyesGlassesSunglasses
+    id: BiotechnicaRiggerPDA
+    belt: ClothingBeltBiotechnicaTechFilled
+    outerClothing: ClothingOuterCoatLabCmo

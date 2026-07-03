@@ -556,6 +556,9 @@ binds:
 - function: OpenAbilitiesMenu
   type: State
   key: K
+- function: RTSHoldPosition
+  type: State
+  key: J
 - function: Hotbar0
   type: State
   key: Num0

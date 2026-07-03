@@ -2,6 +2,7 @@
 // Abstract reload support for NPC firearms.
 
 using Content.Shared._NC.NPC;
+using Content.Server.NPC.Components;
 using Content.Shared.Hands.Components;
 using Content.Shared.Weapons.Ranged;
 using Content.Shared.Weapons.Ranged.Components;
@@ -60,7 +61,9 @@ public sealed class NPCAutoReloadSystem : EntitySystem
             if (reload.ReloadRemaining > 0f)
                 continue;
 
-            TryAbstractReload(heldEntity);
+            if (TryAbstractReload(heldEntity))
+                ReactivateRangedCombat(uid);
+
             ResetReloadState(reload);
         }
     }
@@ -81,25 +84,27 @@ public sealed class NPCAutoReloadSystem : EntitySystem
         return true;
     }
 
-    private void TryAbstractReload(EntityUid gun)
+    private bool TryAbstractReload(EntityUid gun)
     {
         if (TryComp<ChamberMagazineAmmoProviderComponent>(gun, out var chamberMagazine))
         {
-            ReloadChamberMagazineWeapon(gun, chamberMagazine);
-            return;
+            return ReloadChamberMagazineWeapon(gun, chamberMagazine);
         }
 
         if (TryComp<BallisticAmmoProviderComponent>(gun, out var ballistic))
         {
             ReloadBallisticWeapon(gun, ballistic);
+            return true;
         }
+
+        return false;
     }
 
-    private void ReloadChamberMagazineWeapon(EntityUid gun, ChamberMagazineAmmoProviderComponent chamberMagazine)
+    private bool ReloadChamberMagazineWeapon(EntityUid gun, ChamberMagazineAmmoProviderComponent chamberMagazine)
     {
         var magEntity = GetMagazineEntity(gun);
         if (magEntity == null || !TryComp<BallisticAmmoProviderComponent>(magEntity.Value, out var magBallistic))
-            return;
+            return false;
 
         _gun.SetBallisticUnspawned((magEntity.Value, magBallistic), magBallistic.Capacity);
 
@@ -108,6 +113,7 @@ public sealed class NPCAutoReloadSystem : EntitySystem
             _gun.SetBoltClosed(gun, chamberMagazine, false);
 
         _gun.SetBoltClosed(gun, chamberMagazine, true);
+        return true;
     }
 
     private void ReloadBallisticWeapon(EntityUid gun, BallisticAmmoProviderComponent ballistic)
@@ -124,6 +130,19 @@ public sealed class NPCAutoReloadSystem : EntitySystem
         }
 
         return slot.ContainedEntity;
+    }
+
+    private void ReactivateRangedCombat(EntityUid uid)
+    {
+        if (!TryComp<NPCRangedCombatComponent>(uid, out var ranged))
+            return;
+
+        // Vanilla ranged combat parks itself as Unspecified on dry ammo.
+        // After our abstract reload succeeds, revive the existing target state.
+        ranged.Status = CombatStatus.Normal;
+        ranged.ShootAccumulator = 0f;
+        ranged.LOSAccumulator = 0f;
+        ranged.TargetInLOS = false;
     }
 
     private static void ResetReloadState(NPCAutoReloadComponent reload)

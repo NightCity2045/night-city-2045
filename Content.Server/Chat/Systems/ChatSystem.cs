@@ -1,4 +1,4 @@
-using System.Globalization;
+﻿using System.Globalization;
 using System.Linq;
 using System.Text;
 using Content.Server._White.Animations.Systems;
@@ -82,7 +82,6 @@ public sealed partial class ChatSystem : SharedChatSystem
     [Dependency] private readonly ExamineSystemShared _examineSystem = default!;
     [Dependency] private readonly HearingSystem _hearing = default!; // WD EDIT
     [Dependency] private readonly WhiteAnimationPlayerSystem _whiteAnimationPlayer = default!; // WD EDIT
-    [Dependency] private readonly NCCharacterNotesSystem _ncCharacterNotes = default!;
     [Dependency] private readonly NCCharacterNotesSystem _ncCharacterNotes = default!;
 
     public const int VoiceRange = 10; // how far voice goes in world units
@@ -565,15 +564,12 @@ public sealed partial class ChatSystem : SharedChatSystem
         // get the entity's name by visual identity (if no override provided).
         var rawNameIdentity = nameOverride ?? Identity.Name(source, EntityManager);
         string nameIdentity = FormattedMessage.EscapeText(rawNameIdentity);
-        var rawNameIdentity = nameOverride ?? Identity.Name(source, EntityManager);
-        string nameIdentity = FormattedMessage.EscapeText(rawNameIdentity);
         // get the entity's name by voice (if no override provided).
 
         // WD EDIT START
         var nameEv = new TransformSpeakerNameEvent(source, Name(source));
         RaiseLocalEvent(source, nameEv);
 
-        var rawName = nameEv.VoiceName;
         var rawName = nameEv.VoiceName;
 
         var speech = GetSpeechVerb(source, message);
@@ -582,12 +578,9 @@ public sealed partial class ChatSystem : SharedChatSystem
 
         if (nameOverride != null)
             rawName = nameOverride;
-        rawName = nameOverride;
         // WD EDIT END
 
-        var name = rawName;
-        var name = rawName;
-        name = FormattedMessage.EscapeText(name);
+        var name = FormattedMessage.EscapeText(rawName);
 
         var languageObfuscatedMessage = SanitizeInGameICMessage(source, _language.ObfuscateSpeech(message, language), out var emoteStr, true, _configurationManager.GetCVar(CCVars.ChatPunctuation), (!CultureInfo.CurrentCulture.IsNeutralCulture && CultureInfo.CurrentCulture.Parent.Name == "en") || (CultureInfo.CurrentCulture.IsNeutralCulture && CultureInfo.CurrentCulture.Name == "en"));
         var translatedWhisper = TryDispatchTranslatedEntityWhisper(

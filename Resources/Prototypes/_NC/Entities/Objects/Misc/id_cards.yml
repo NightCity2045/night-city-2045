@@ -697,6 +697,28 @@
 
 - type: entity
   parent: IDCardStandard
+  id: BiotechnicaRiggerIDCard
+  name: ent-BiotechnicaRiggerIDCard
+  components:
+    - type: Sprite
+      layers:
+        - state: default
+        - state: department
+          color: '#5b97bc'
+        - state: subdepartment
+          color: '#aaffcc'
+    - type: Access
+      tags:
+        - NC_General
+        - Biotech_Tech
+        - Biotech_Operative
+        - Biotech_Staff
+        - Biotech_General
+    - type: PresetIdCard
+      job: BiotechnicaRigger
+
+- type: entity
+  parent: IDCardStandard
   id: BiotechnicaParamedicIDCard
   name: ent-BiotechnicaParamedicIDCard
   components:
@@ -808,6 +830,28 @@
         - Militech_General
     - type: PresetIdCard
       job: MilitechOperative
+
+- type: entity
+  parent: IDCardStandard
+  id: MilitechRiggerIDCard
+  name: ent-MilitechRiggerIDCard
+  components:
+    - type: Sprite
+      layers:
+        - state: default
+        - state: department
+          color: '#2f3437'
+        - state: subdepartment
+          color: '#b03030'
+    - type: Access
+      tags:
+        - NC_General
+        - Militech_Operative
+        - Militech_Tech
+        - Militech_Staff
+        - Militech_General
+    - type: PresetIdCard
+      job: MilitechRigger
 
 - type: entity
   parent: IDCardStandard

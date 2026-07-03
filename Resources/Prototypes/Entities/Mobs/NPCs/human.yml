@@ -1,9 +1,10 @@
-- type: entity
+﻿- type: entity
   name: civilian
   parent: BaseMobHuman
   id: MobCivilian
   description: A miserable pile of secrets.
   components:
+  - type: RTSControllable
   - type: InputMover
   - type: MobMover
   - type: Loadout
@@ -17,6 +18,7 @@
   parent: BaseMobHuman
   id: MobSalvager
   components:
+    - type: RTSControllable
     - type: NpcFactionMember
       factions:
         - Syndicate
@@ -35,6 +37,7 @@
   id: MobSpirate
   description: Yarr!
   components:
+  - type: RTSControllable
   - type: NpcFactionMember
     factions:
       - Syndicate
@@ -52,6 +55,7 @@
   parent: BaseMobHuman
   id: MobSyndicateFootsoldier
   components:
+    - type: RTSControllable
     - type: NpcFactionMember
       factions:
         - Syndicate

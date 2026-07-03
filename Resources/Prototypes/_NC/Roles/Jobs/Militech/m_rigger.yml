@@ -1,0 +1,27 @@
+- type: job
+  id: MilitechRigger
+  name: job-name-militech-rigger
+  description: job-description-militech-rigger
+  playTimeTracker: JobMilitechRigger
+  weight: 55
+  salary: 350
+  icon: "JobIconTraumaTech"
+  startingGear: MilitechRiggerGear
+  access:
+    - Militech_Operative
+    - Militech_Tech
+    - Militech_Staff
+    - Militech_General
+    - NC_General
+
+- type: startingGear
+  id: MilitechRiggerGear
+  equipment:
+    jumpsuit: ClothingUniformJumpsuitMilitech
+    back: ClothingBackpack
+    shoes: ClothingShoesBootsCombat
+    head: ClothingHeadHatMilitechCap
+    eyes: ClothingEyesGlassesSunglasses
+    id: MilitechRiggerPDA
+    belt: ClothingBeltUtilityEngineering
+    outerClothing: ClothingOuterArmorMilitechBulletproof

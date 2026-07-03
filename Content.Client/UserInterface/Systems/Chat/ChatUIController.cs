@@ -1,8 +1,7 @@
-using System.Globalization;
+﻿using System.Globalization;
 using System.Linq;
 using System.Numerics;
 using Content.Client.Administration.Managers;
-using Content.Client._NC.CharacterNotes;
 using Content.Client._NC.CharacterNotes;
 using Content.Client.Chat;
 using Content.Client.Chat.Managers;
@@ -68,7 +67,6 @@ public sealed class ChatUIController : UIController
     [UISystemDependency] private readonly TransformSystem? _transform = default;
     [UISystemDependency] private readonly MindSystem? _mindSystem = default!;
     [UISystemDependency] private readonly RoleCodewordSystem? _roleCodewordSystem = default!;
-    [UISystemDependency] private readonly NCCharacterNotesSystem _ncCharacterNotes = default!;
     [UISystemDependency] private readonly NCCharacterNotesSystem _ncCharacterNotes = default!;
 
     [ValidatePrototypeId<ColorPalettePrototype>]

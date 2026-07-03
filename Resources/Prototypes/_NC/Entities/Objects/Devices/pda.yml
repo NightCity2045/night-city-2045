@@ -513,6 +513,22 @@
       accentVColor: '#adff2f'
 
 - type: entity
+  parent: BasePDA
+  id: BiotechnicaRiggerPDA
+  name: ent-PDABiotechnicaRigger
+  description: ent-PDABiotechnicaRigger-desc
+  components:
+    - type: Pda
+      id: BiotechnicaRiggerIDCard
+    - type: Sprite
+      sprite: _White/Objects/Devices/Pda/pda.rsi
+      color: '#8fbf9f'
+    - type: PdaBorderColor
+      borderColor: '#2f5f3f'
+      accentHColor: '#aaffcc'
+      accentVColor: '#aaffcc'
+
+- type: entity
   parent: BaseMedicalPDA
   id: BiotechnicaParamedicPDA
   name: ent-PDABiotechnicaParamedic
@@ -593,6 +609,22 @@
       borderColor: '#111111'
       accentHColor: '#b03030'
       accentVColor: '#b03030'
+
+- type: entity
+  parent: BasePDA
+  id: MilitechRiggerPDA
+  name: ent-PDAMilitechRigger
+  description: ent-PDAMilitechRigger-desc
+  components:
+    - type: Pda
+      id: MilitechRiggerIDCard
+    - type: Sprite
+      sprite: _White/Objects/Devices/Pda/pda.rsi
+      color: '#444b50'
+    - type: PdaBorderColor
+      borderColor: '#111111'
+      accentHColor: '#b03030'
+      accentVColor: '#708090'
 
 - type: entity
   parent: BasePDA

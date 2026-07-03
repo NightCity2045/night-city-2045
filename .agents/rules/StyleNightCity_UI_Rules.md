@@ -74,39 +74,6 @@ Never use `StyleNano` as:
 
 If existing code already uses `StyleNano`, treat it as legacy code. Do not expand it.
 
-For new UI, always use `StyleNightCity` and Night City style classes.
-
-## 4. Required Style Class Naming
-
-Use clear Night City style class names.
-
-Recommended style classes:
-
-```text
-NightCityWindow
-NightCityPanel
-NightCityPanelDark
-NightCityPanelInset
-NightCityTerminalPanel
-NightCityTerminalHeader
-NightCityTerminalBody
-NightCityTerminalFooter
-NightCityButton
-NightCityButtonDanger
-NightCityButtonGhost
-NightCityButtonSmall
-NightCityInput
-NightCityDivider
-NightCityGlowText
-NightCityMutedText
-NightCityStatusGood
-NightCityStatusWarning
-NightCityStatusDanger
-NightCityScanlineOverlay
-NightCityDataRow
-NightCityDataCell
-```
-
 Do not use Nano-themed names for new UI.
 
 Bad:
@@ -121,9 +88,9 @@ StyleNanoButton
 Good:
 
 ```text
-NightCityButton
-NightCityTerminalPanel
-NightCityStatusDanger
+NCButton
+NCTerminalPanel
+NCStatusDanger
 ```
 
 ## 5. Forbidden XAML Concepts
@@ -489,23 +456,23 @@ namespace Content.Client.Stylesheets;
 
 public static class StyleNightCity
 {
-    public const string Window = "NightCityWindow";
-    public const string Panel = "NightCityPanel";
-    public const string PanelDark = "NightCityPanelDark";
-    public const string TerminalPanel = "NightCityTerminalPanel";
-    public const string TerminalHeader = "NightCityTerminalHeader";
-    public const string TerminalBody = "NightCityTerminalBody";
-    public const string TerminalFooter = "NightCityTerminalFooter";
-    public const string Button = "NightCityButton";
-    public const string ButtonDanger = "NightCityButtonDanger";
-    public const string ButtonGhost = "NightCityButtonGhost";
-    public const string Input = "NightCityInput";
-    public const string Divider = "NightCityDivider";
-    public const string GlowText = "NightCityGlowText";
-    public const string MutedText = "NightCityMutedText";
-    public const string StatusGood = "NightCityStatusGood";
-    public const string StatusWarning = "NightCityStatusWarning";
-    public const string StatusDanger = "NightCityStatusDanger";
+    public const string Window = "NCWindow";
+    public const string Panel = "NCPanel";
+    public const string PanelDark = "NCPanelDark";
+    public const string TerminalPanel = "NCTerminalPanel";
+    public const string TerminalHeader = "NCTerminalHeader";
+    public const string TerminalBody = "NCTerminalBody";
+    public const string TerminalFooter = "NCTerminalFooter";
+    public const string Button = "NCButton";
+    public const string ButtonDanger = "NCButtonDanger";
+    public const string ButtonGhost = "NCButtonGhost";
+    public const string Input = "NCInput";
+    public const string Divider = "NCDivider";
+    public const string GlowText = "NCGlowText";
+    public const string MutedText = "NCMutedText";
+    public const string StatusGood = "NCStatusGood";
+    public const string StatusWarning = "NCStatusWarning";
+    public const string StatusDanger = "NCStatusDanger";
 }
 ```
 

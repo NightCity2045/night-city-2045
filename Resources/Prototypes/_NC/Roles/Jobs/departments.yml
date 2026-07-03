@@ -49,6 +49,7 @@
     - BiotechnicaChief
     - BiotechnicaOperativeLead
     - BiotechnicaOperative
+    - BiotechnicaRigger
     - BiotechnicaBotanist
     - BiotechnicaMedTech
     - BiotechnicaTech
@@ -63,6 +64,7 @@
     - MilitechChief
     - MilitechOperativeLead
     - MilitechOperative
+    - MilitechRigger
     - MilitechNetrunner
     - MilitechSecuritySpecialist
     - MilitechCombatMedic

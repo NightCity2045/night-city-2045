@@ -15,6 +15,60 @@
         type: TraumaComputerBoundUserInterface
 
 - type: entity
+  parent: BaseComputer
+  id: NCRiggerConsole
+  name: ent-NCRiggerConsole
+  description: ent-NCRiggerConsole-desc
+  components:
+  - type: RiggerConsole
+  - type: Sprite
+    layers:
+    - map: ["computerLayerBody"]
+      state: computer
+    - map: ["computerLayerKeyboard"]
+      state: generic_keyboard
+    - map: ["computerLayerScreen"]
+      state: security
+    - map: ["computerLayerKeys"]
+      state: generic_keys
+  - type: PointLight
+    radius: 1.5
+    energy: 1.6
+    color: "#2ecc71"
+  - type: Computer
+    board: StationRecordsComputerCircuitboard
+  - type: AccessReader
+    access:
+      - ["Biotech_Tech"]
+      - ["Biotech_Operative"]
+
+- type: entity
+  parent:
+  - Incorporeal
+  - BaseMob
+  id: NCRiggerEye
+  name: ent-NCRiggerEye
+  description: ent-NCRiggerEye-desc
+  categories: [ HideSpawnMenu, DoNotMap ]
+  components:
+  - type: Sprite
+    sprite: Mobs/Silicon/station_ai.rsi
+    layers:
+    - state: ai_camera
+      shader: unshaded
+      map: ["base"]
+  - type: Input
+    context: "human"
+  - type: Eye
+    drawFov: false
+    pvsScale: 1.5
+  - type: UserInterface
+    interfaces:
+      enum.ListViewSelectorUiKey.Key:
+        type: ListViewSelectorBUI
+  - type: RiggerConsoleUser
+
+- type: entity
   parent: BaseComputerAiAccess
   id: ComputerOverwatch
   name: ent-ComputerOverwatch

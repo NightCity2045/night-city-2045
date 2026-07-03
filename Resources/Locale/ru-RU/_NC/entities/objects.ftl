@@ -52,6 +52,7 @@ ent-PDABiotechnicaMedTech = КПК медтеха Biotechnica
 ent-PDABiotechnicaNetrunner = КПК нетраннера Biotechnica
 ent-PDABiotechnicaOperativeLead = КПК лидера оперативников Biotechnica
 ent-PDABiotechnicaOperative = КПК оперативника Biotechnica
+ent-PDABiotechnicaRigger = КПК риггера Biotechnica
 ent-PDABiotechnicaParamedic = КПК парамедика Biotechnica
 ent-PDABiotechnicaTech = КПК техника Biotechnica
 
@@ -75,6 +76,9 @@ ent-NCProgramBackdoor = Бэкдор 1.0
 
 ent-NCBiomonitor = биомонитор
     .desc = Ручной нейро-сканер. Подключается к пациенту и слушает его окружение для терапии киберпсихоза.
+
+ent-NCRiggerEye = глаз риггера
+    .desc = Удалённая точка обзора, привязанная к консоли риггера Biotechnica.
 
 ent-NCIceGate = ICE: Врата
     .desc = Базовая плата защиты паролем. Блокирует доступ до ввода правильного пароля.
@@ -126,6 +130,7 @@ ent-PDABiotechnicaMedTech-desc = Медицинский КПК с расшире
 ent-PDABiotechnicaNetrunner-desc = Оптимизированное устройство для работы в сетях биотехнологических узлов.
 ent-PDABiotechnicaOperativeLead-desc = Устройство связи командира службы безопасности Biotechnica.
 ent-PDABiotechnicaOperative-desc = Стандартное устройство связи службы безопасности Biotechnica.
+ent-PDABiotechnicaRigger-desc = Полевой КПК для управления дронами, удалёнными датчиками и хрупким корпоративным оборудованием.
 ent-PDABiotechnicaParamedic-desc = Мобильное медицинское устройство для экстренного реагирования.
 ent-PDABiotechnicaTech-desc = КПК со встроенным вольтметром и диагностическими утилитами.
 
@@ -177,8 +182,13 @@ ent-BiotechnicaMedTechIDCard = идентификационная карта м�
 ent-BiotechnicaNetrunnerIDCard = идентификационная карта нетранера Биотехники
 ent-BiotechnicaOperativeLeadIDCard = идентификационная карта начальника охраны Биотехники
 ent-BiotechnicaOperativeIDCard = идентификационная карта оперативника Биотехники
+ent-BiotechnicaRiggerIDCard = идентификационная карта риггера Биотехники
 ent-BiotechnicaParamedicIDCard = идентификационная карта парамедика Биотехники
 ent-BiotechnicaTechIDCard = идентификационная карта техника Биотехники
+
+ent-PDAMilitechRigger = КПК риггера Militech
+ent-PDAMilitechRigger-desc = Укреплённый полевой КПК для управления дронами, телеметрией и тактической маршрутизацией в реальном времени.
+ent-MilitechRiggerIDCard = идентификационная карта риггера Militech
 
 # Misc
 ent-CitinetDriveEmpty = Пустой носитель

@@ -129,11 +129,16 @@ JobTechnicalAssistant = Technical Assistant
 JobMilitechChief = Militech Chief
 JobMilitechOperativeLead = Militech Operative Lead
 JobMilitechOperative = Militech Operative
+JobMilitechRigger = Militech Rigger
 JobMilitechNetrunner = Militech Netrunner
 JobMilitechSecuritySpecialist = Militech Security Specialist
 JobMilitechCombatMedic = Militech Combat Medic
 JobMilitechTech = Militech Tech
 JobMilitechQuartermaster = Militech Quartermaster
+JobBiotechnicaRigger = Biotechnica Rigger
 JobVisitor = Visitor
 JobWarden = Warden
 JobZookeeper = Zookeeper
+
+job-name-militech-rigger = Militech Rigger
+job-name-biotechnica-rigger = Biotechnica Rigger
