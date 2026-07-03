@@ -16,12 +16,16 @@ public sealed partial class DollyMixtureComponent : Component
     [DataField]
     public string StatePrefix = "dollymix";
 
+    // Crutch for customghosts, since i can't modify an existing spritecomponent through a ComponentRegistry. Or, at best, i don't know how.
+    [DataField]
+    public string? DefaultShader = null;
+
     // 0 to disable
     [DataField]
     public int DirectionCount = 0;
 
     [DataField]
-    public float LayerHeight = 0.75f;
+    public Vector2 LayerOffset = new(0, 1);
 
     [DataField]
     public Vector2 Offset;

@@ -61,6 +61,12 @@
   - type: Tag
     tags:
     - Wheat
+  - type: Extractable
+    grindableSolutionName: food
+    juiceSolution:
+      reagents:
+      - ReagentId: WheatSmoothie
+        Quantity: 7
   # WWDP quick crafts
   - type: UserInterface
     interfaces:
@@ -1317,10 +1323,8 @@
     grindableSolutionName: food
     juiceSolution:
       reagents:
-      - ReagentId: Cornoil
-        Quantity: 3
-      - ReagentId: Enzyme
-        Quantity: 2
+      - ReagentId: CornSmoothie
+        Quantity: 8
   - type: FoodSequenceElement
     entries:
       Burger: Corn

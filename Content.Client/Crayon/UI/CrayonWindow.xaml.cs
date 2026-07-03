@@ -108,15 +108,7 @@ namespace Content.Client.Crayon.UI
             foreach (var categoryName in names)
             {
                 var locName = Loc.GetString("crayon-category-" + categoryName);
-                // WWDP EDIT START (loc)
-                var category = _decals[categoryName].Where(d =>
-                {
-                    var dLocName = Loc.TryGetString($"crayon-decal-{d.Name}", out var loc) ? loc : d.Name;
-                    return locName.Contains(filter, StringComparison.OrdinalIgnoreCase)
-                        || d.Name.Contains(filter, StringComparison.OrdinalIgnoreCase)
-                        || dLocName.Contains(filter, StringComparison.OrdinalIgnoreCase);
-                }).ToList();
-                // WWDP EDIT END
+                var category = _decals[categoryName].Where(d => locName.Contains(filter) || d.Name.Contains(filter)).ToList(); // WWDP EDIT
 
                 if (category.Count == 0)
                     continue;
@@ -138,11 +130,10 @@ namespace Content.Client.Crayon.UI
                 foreach (var (name, texture) in category)
                 {
                     // WWDP EDIT START
-                    var displayName = Loc.TryGetString($"crayon-decal-{name}", out var decalLocName) ? decalLocName : name; // loc add
                     var button = new ContainerButton()
                     {
                         Name = name,
-                        ToolTip = decalLocName // loc add
+                        ToolTip = name
                     };
                     button.OnPressed += ButtonOnPressed;
 
@@ -156,7 +147,7 @@ namespace Content.Client.Crayon.UI
                     {
                         Texture = texture,
                         Name = name,
-                        ToolTip = decalLocName, // loc add
+                        ToolTip = name,
                         Modulate = _color,
                         HorizontalAlignment = HAlignment.Center,
                         VerticalAlignment = VAlignment.Center,
@@ -165,7 +156,7 @@ namespace Content.Client.Crayon.UI
 
                     var buttonlabel = new Label
                     {
-                        Text = decalLocName, // loc add
+                        Text = name,
                         HorizontalAlignment = HAlignment.Center,
                         Align = Label.AlignMode.Center,
                         FontOverride = new VectorFont(_cache.GetResource<FontResource>(_proto.Index<FontPrototype>("Default").Path), 8),

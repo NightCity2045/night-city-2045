@@ -9,21 +9,21 @@ namespace Content.Shared._White.DollyMixture;
 
 public abstract class SharedDollyMixtureSystem : EntitySystem
 {
-    public virtual void Apply3D(Entity<DollyMixtureComponent?> entity, string rsiPath, string? statePrefix = null, Vector2? layerOffset = null)
+    public virtual void Apply3D(EntityUid uid, string RsiPath, string? statePrefix = null, Vector2? layerOffset = null, DollyMixtureComponent? comp = null)
     {
-        entity.Comp ??= EnsureComp<DollyMixtureComponent>(entity);
+        comp ??= EnsureComp<DollyMixtureComponent>(uid);
 
-        entity.Comp.RSIPath = rsiPath;
-        Dirty(entity);
+        comp.RSIPath = RsiPath;
+        Dirty(uid, comp);
     }
 
-    public virtual void Remove3D(Entity<DollyMixtureComponent?> entity)
+    public virtual void Remove3D(EntityUid uid, DollyMixtureComponent? comp = null)
     {
-        if (!Resolve(entity, ref entity.Comp))
+        if (!Resolve(uid, ref comp))
             return;
 
-        entity.Comp.RSIPath = null;
-        Dirty(entity);
+        comp.RSIPath = null;
+        Dirty(uid, comp);
     }
 }
 

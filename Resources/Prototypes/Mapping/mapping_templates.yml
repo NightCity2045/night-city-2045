@@ -3062,7 +3062,7 @@
         - !type:MappingTemplatePrototype
           id: CrateTrainingBombs # WWDP edit
         - !type:MappingTemplatePrototype
-          id: ClothingMultipleHeadphones # WWDP edit
+          id: ClothingNeckHeadphones # WWDP edit
 # WWDP edit start
 - type: mappingTemplate
   id: Justice

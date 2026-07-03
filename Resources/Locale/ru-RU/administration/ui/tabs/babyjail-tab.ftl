@@ -13,4 +13,4 @@ admin-ui-baby-jail-max-overall-minutes = Макс. общее время игр�
 admin-ui-baby-jail-is-enabled = [font size=20][bold]Детсад в настоящее время включён.[/bold][/font]
 
 admin-ui-baby-jail-enabled-admin-alert = Детсад был включён.
-admin-ui-baby-jail-disableMinutesd-admin-alert = Детсад был отключён.
+admin-ui-baby-jail-disableMinutesd-admin-alert = The baby jail has been disabled.

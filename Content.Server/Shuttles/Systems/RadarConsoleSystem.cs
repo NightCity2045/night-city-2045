@@ -36,7 +36,7 @@ public sealed class RadarConsoleSystem : SharedRadarConsoleSystem
         if (component.FollowEntity)
         {
             coordinates = new EntityCoordinates(uid, Vector2.Zero);
-            angle = 0;
+            angle = Math.PI; // WWDP EDIT 0->Pi - Flips handheld mass scanners around so that they're less annoying to use
         }
 
         if (_uiSystem.HasUi(uid, RadarConsoleUiKey.Key))
@@ -53,7 +53,7 @@ public sealed class RadarConsoleSystem : SharedRadarConsoleSystem
                 state = _console.GetNavState(uid, docks);
             }
 
-            state.RotateWithEntity = component.RotateWithEntity; // WD EDIT
+            state.RotateWithEntity = !component.FollowEntity;
 
             _uiSystem.SetUiState(uid, RadarConsoleUiKey.Key, new NavBoundUserInterfaceState(state));
         }

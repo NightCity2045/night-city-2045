@@ -8,5 +8,3 @@ humanoid-profile-editor-bark-voice-label = Bark settings
 humanoid-profile-editor-bark-pitch-label = Pitch
 humanoid-profile-editor-bark-pitch-variance-label = Pitch variation
 humanoid-profile-editor-bark-pause-label = Pause between letters
-
-marking-slot-number = Slot {$number}

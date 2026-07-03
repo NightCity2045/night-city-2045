@@ -719,7 +719,7 @@ namespace Content.Server.Database.Migrations.Postgres
                     b.ToTable("job", (string)null);
                 });
 
-            modelBuilder.Entity("Content.Server.Database.Loadout", b =>
+            modelBuilder.Entity("Content.Server.Database.LoadoutItem", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -940,6 +940,10 @@ namespace Content.Server.Database.Migrations.Postgres
                     b.Property<int>("Age")
                         .HasColumnType("integer")
                         .HasColumnName("age");
+
+                    b.Property<int>("BankBalance")
+                        .HasColumnType("integer")
+                        .HasColumnName("bank_balance");
 
                     b.Property<byte>("BarkPause")
                         .HasColumnType("smallint")
@@ -1865,7 +1869,7 @@ namespace Content.Server.Database.Migrations.Postgres
                     b.Navigation("Profile");
                 });
 
-            modelBuilder.Entity("Content.Server.Database.Loadout", b =>
+            modelBuilder.Entity("Content.Server.Database.LoadoutItem", b =>
                 {
                     b.HasOne("Content.Server.Database.Profile", "Profile")
                         .WithMany("Loadouts")

@@ -1,7 +1,7 @@
 - type: quickPhrase
   id: BaseAnimalSpeciesPhrase
   parent: BaseSpeciesPhrase
-  group: aac-group-wildlife
+  group: Wildlife
   abstract: true
 
 - type: quickPhrase

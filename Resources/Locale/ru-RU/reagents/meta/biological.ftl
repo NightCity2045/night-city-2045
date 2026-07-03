@@ -30,9 +30,8 @@ reagent-desc-vomit = Вы можете увидеть в ней нескольк
 
 reagent-name-grey-matter = серое вещество
 reagent-desc-grey-matter = Сок мыслей, вытекающий из ваших ушей.
+reagent-name-black-blood = black blood
+reagent-desc-black-blood = This is definitely not ketchup.
 
-reagent-name-black-blood = чёрная кров
-reagent-desc-black-blood = Это определённо не кетчуп.
-
-reagent-name-ipc-coolant = охлаждающая жидкость
-reagent-desc-ipc-coolant = кользкая смесь воды, эмульгатора, масла и множества отвратительных на вкус химических веществ.
+reagent-name-ipc-coolant = coolant
+reagent-desc-ipc-coolant = A slick mixture of water, emulsifier, oil, and a host of vile tasting chemicals.

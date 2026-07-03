@@ -200,7 +200,7 @@ psionic-familiar-despawn-text = {CAPITALIZE($entity)} уходит туда, о�
 assay-begin = Воздух вокруг {CAPITALIZE($entity)} начинает мерцать.
 assay-self = Я — ЕСМЬ.
 no-powers = {CAPITALIZE($entity)} так и не пробудится от сна в этой жизни.
-assay-body = «Я взываю к сущности {CAPITALIZE($entity)}: Усиление — {$amplification}, Подавление — {$dampening}, Потенция — {$potentia}.»
+assay-body = "Я взываю к сущности {CAPITALIZE($entity)}: Усиление — {$amplification}, Подавление — {$dampening}, Потенция — {$potentia}."
 assay-power-initialization-feedback =
     Я вновь погружаюсь в свет снов и жадно пью из чаши знания. Прикосновение ноосферы к другим становится для меня явным,
     я способен прозреть их суть, накладывая волю на их души.
@@ -237,5 +237,5 @@ anomaly-flora-feedback = Музыкальные ноты вьются в воз�
 anomaly-liquid-feedback = Мир из зыбких течений. Его спокойствие — лишь маска. Внутренние глаза голодно наблюдают.
 anomaly-shadow-feedback = В конце времён, когда погаснут все солнца, среди пустоты встанет памятник грехам прошлого.
 
-anomaly-tech-feedback = Симфония микросхем, наполненная неслыханными мелодиями. В ее основе мерцают и гаснут тысячи вариантов будущего, а цифровой оракул шепчет пророчества Хрома.
-anomaly-santa-feedback = Каскад мерцающего звездного света, в воздухе витает аромат корицы и сосны. Изнутри доносится радостный смех, обещающий подарки и забытые мечты.
+anomaly-tech-feedback = A symphony of circuits, humming with unheard melodies. Within its core, a thousand futures flicker and fade, a digital oracle whispers prophecies of chrome.
+anomaly-santa-feedback = A cascade of shimmering starlight, the scent of cinnamon and pine hangs heavy in the air. Joyful laughter echoes from within, promising gifts and forgotten dreams.

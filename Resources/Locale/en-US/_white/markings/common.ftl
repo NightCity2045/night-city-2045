@@ -1,1 +1,0 @@
-marking-color-label = {$name} color:

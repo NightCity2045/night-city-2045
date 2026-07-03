@@ -1,7 +1,7 @@
 - type: quickPhrase
   id: BaseNounsPhrase
   parent: BaseCommonPhrase
-  group: aac-group-nouns-and-pronouns
+  group: Nouns and Pronouns
   abstract: true
 
 - type: quickPhrase

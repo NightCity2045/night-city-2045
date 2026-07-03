@@ -65,6 +65,3 @@ ent-ClothingMaskPlague = маска чумного доктора
 ent-ClothingMaskCluwne = маска клувна с волосами
     .desc = Проклятая маска...
     .suffix = { "Неснимаемая" }
-
-ent-ClothingMaskBlushingMime = сексуальная маска мима
-    .desc = Эти румяные щеки так и хотят, чтобы их потерли.

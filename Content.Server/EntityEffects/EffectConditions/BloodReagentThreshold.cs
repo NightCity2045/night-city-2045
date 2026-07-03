@@ -65,14 +65,8 @@ public sealed partial class BloodReagentThreshold : EntityEffectCondition
         if (Reagent is not null)
             prototype.TryIndex(Reagent, out reagentProto);
 
-        // WWDP EDIT START
-        var reagentName = reagentProto?.LocalizedName;
-        var isThisReagent = reagentName is null;
-        reagentName ??= CurrentReagentName ?? Loc.GetString("reagent-effect-condition-guidebook-this-reagent");
-        // WWDP EDIT END
         return Loc.GetString("reagent-effect-condition-guidebook-blood-reagent-threshold",
-            ("reagent", reagentName), // WWDP EDIT
-            ("isThisReagent", isThisReagent), // WWDP EDIT
+            ("reagent", reagentProto?.LocalizedName ?? Loc.GetString("reagent-effect-condition-guidebook-this-reagent")),
             ("max", Max == FixedPoint2.MaxValue ? (float) int.MaxValue : Max.Float()),
             ("min", Min.Float()));
     }

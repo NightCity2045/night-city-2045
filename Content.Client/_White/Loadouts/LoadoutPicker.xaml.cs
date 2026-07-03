@@ -14,7 +14,6 @@ using Robust.Client.UserInterface;
 using Robust.Client.UserInterface.Controls;
 using Robust.Client.UserInterface.XAML;
 using Robust.Shared.Configuration;
-using Robust.Shared.Map;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Utility;
 
@@ -27,7 +26,6 @@ public sealed partial class LoadoutPicker : Control, ILocalizedControl
 {
     [Dependency] private readonly IPrototypeManager _prototypeManager = default!;
     [Dependency] private readonly IConfigurationManager _configManager = default!;
-    [Dependency] private readonly IEntityManager _entityManager = default!;
 
     private readonly Dictionary<string, Loadout> _selectedLoadouts = [];
     private readonly List<LoadoutEntry> _loadoutEntries = new();
@@ -50,7 +48,6 @@ public sealed partial class LoadoutPicker : Control, ILocalizedControl
     public CharacterRequirementsArgs CharacterRequirementsArgs = default!;
     private ProtoId<LoadoutCategoryPrototype>? _selectedLoadoutCategory;
     private Dictionary<ProtoId<LoadoutCategoryPrototype>, List<LoadoutPrototype>> _loadoutCache = [];
-    private Dictionary<string, string> _loadoutDisplayNames = new();
 
     public int LoadoutPoint
     {
@@ -88,8 +85,6 @@ public sealed partial class LoadoutPicker : Control, ILocalizedControl
     {
         CacheRootCategories();
         _loadoutCache.Clear();
-        _loadoutDisplayNames.Clear();
-
         foreach (var loadoutPrototype in _prototypeManager.EnumeratePrototypes<LoadoutPrototype>())
         {
             if (!_loadoutCache.TryGetValue(loadoutPrototype.Category, out var loadoutList))
@@ -99,15 +94,6 @@ public sealed partial class LoadoutPicker : Control, ILocalizedControl
             }
 
             loadoutList.Add(loadoutPrototype);
-
-            var displayName = Loc.GetString($"loadout-name-{loadoutPrototype.ID}");
-            if (displayName == $"loadout-name-{loadoutPrototype.ID}" && loadoutPrototype.Items.Any())
-            {
-                var tempEntity = _entityManager.SpawnEntity(loadoutPrototype.Items.First(), MapCoordinates.Nullspace);
-                displayName = _entityManager.GetComponent<MetaDataComponent>(tempEntity).EntityName;
-                _entityManager.DeleteEntity(tempEntity);
-            }
-            _loadoutDisplayNames[loadoutPrototype.ID] = displayName;
         }
     }
 
@@ -117,73 +103,15 @@ public sealed partial class LoadoutPicker : Control, ILocalizedControl
             InitializeCache();
     }
 
-    private void Populate(string searchText)
+    private void Populate(string _)
     {
-        if (string.IsNullOrEmpty(searchText))
-        {
-            EntryBackButton.Visible = CurrentEntry.Parent != null;
-
-            if (_selectedLoadoutCategory != null)
-                LoadCategoryButtons(_selectedLoadoutCategory.Value);
-            else
-            {
-                ClearLoadoutCategoryButtons();
-                CurrentEntry = CurrentEntry;
-            }
-
-            return;
-        }
-
-        ClearLoadoutCategoryButtons();
-        ClearupEdit();
-
-        EntryBackButton.Visible = true;
-
-        foreach (var (categoryId, loadouts) in _loadoutCache)
-        {
-            foreach (var loadoutPrototype in loadouts)
-            {
-                var displayName = _loadoutDisplayNames.GetValueOrDefault(loadoutPrototype.ID, loadoutPrototype.ID);
-
-                if (!loadoutPrototype.ID.Contains(searchText, StringComparison.OrdinalIgnoreCase) &&
-                    !displayName.Contains(searchText, StringComparison.OrdinalIgnoreCase))
-                    continue;
-
-                var loadoutEntry = new LoadoutEntry();
-
-                if (_selectedLoadouts.TryGetValue(loadoutPrototype.ID, out var loadout))
-                {
-                    loadoutEntry.SetLoadout(loadout);
-                    loadoutEntry.Selected = true;
-                }
-                else
-                {
-                    var newLoadout = new Loadout(
-                        loadoutPrototype.ID,
-                        loadoutPrototype.CustomName ? _customName.GetValueOrDefault(loadoutPrototype.ID) : null,
-                        loadoutPrototype.CustomDescription ? _customDescription.GetValueOrDefault(loadoutPrototype.ID) : null,
-                        loadoutPrototype.CustomContent ? _customContent.GetValueOrDefault(loadoutPrototype.ID) : null,
-                        loadoutPrototype.CustomColorTint ? _customColorTints.GetValueOrDefault(loadoutPrototype.ID) : null,
-                        loadoutPrototype.CanBeHeirloom ? _customHeirloom.GetValueOrDefault(loadoutPrototype.ID) : null
-                    );
-                    loadoutEntry.SetLoadout(newLoadout);
-                }
-
-                loadoutEntry.OnEditLoadoutRequired += OnEntryEditLoadoutRequired;
-                loadoutEntry.OnLoadoutDirty += OnEntryLoadoutDirty;
-                loadoutEntry.EnsureIsWearable(CharacterRequirementsArgs, LoadoutPoint);
-                loadoutEntry.ShowUnusable = _showUnusable;
-
-                _loadoutEntries.Add(loadoutEntry);
-            }
-        }
-
-        SortAndPasteEntries();
+        if (_selectedLoadoutCategory != null)
+            LoadCategoryButtons(_selectedLoadoutCategory.Value);
     }
 
     private void ResetButtonPressed(BaseButton.ButtonEventArgs obj)
     {
-        if (_checkpointRequirements is null)
+        if(_checkpointRequirements is null)
             return;
 
         SetData(_checkpointLoadouts, _checkpointRequirements);
@@ -201,9 +129,6 @@ public sealed partial class LoadoutPicker : Control, ILocalizedControl
     {
         ClearLoadouts();
         ClearupEdit();
-
-        var currentSearchText = LoadoutSearch.Text;
-
         LoadoutSearch.Clear();
 
         CharacterRequirementsArgs = characterRequirements;
@@ -212,24 +137,22 @@ public sealed partial class LoadoutPicker : Control, ILocalizedControl
         {
             if (!_prototypeManager.TryIndex<LoadoutPrototype>(preference.LoadoutName, out var proto))
             {
-                // Remove this if not needed
                 Logger.Error($"Cannot add loadout to selected loadouts: prototype {preference.LoadoutName} not found");
                 continue;
             }
 
             var loadoutEntry = CreateEntry(preference.LoadoutName);
 
-            loadoutEntry.Selected = true;
-            _selectedLoadouts.Add(preference.LoadoutName, loadoutEntry.Loadout);
+            if (!TrySelectLoadout(loadoutEntry))
+            {
+                Logger.Warning($"Removing loadout {preference.LoadoutName} from selected list.");
+                continue;
+            }
 
-            loadoutEntry.EnsureIsWearable(CharacterRequirementsArgs, LoadoutPoint);
-
-            if (loadoutEntry.CanWear)
-                LoadoutPoint -= loadoutEntry.Cost;
+            LoadoutPoint -= loadoutEntry.Cost;
 
             if (proto.CustomContent && loadoutEntry.Loadout.CustomContent != preference.CustomContent)
             {
-                // Remove this if not needed
                 Logger.Warning("CustomContent mismatch, syncing...");
                 loadoutEntry.Loadout.CustomContent = preference.CustomContent;
                 _customContent.SetValue(preference.LoadoutName, preference.CustomContent);
@@ -237,27 +160,24 @@ public sealed partial class LoadoutPicker : Control, ILocalizedControl
 
             if (proto.CustomName && loadoutEntry.Loadout.CustomName != preference.CustomName)
             {
-                // Remove this if not needed
                 Logger.Warning("CustomName mismatch, syncing...");
                 loadoutEntry.Loadout.CustomName = preference.CustomName;
                 _customName.SetValue(preference.LoadoutName, preference.CustomName);
             }
 
-            if (proto.CustomDescription && loadoutEntry.Loadout.CustomDescription != preference.CustomDescription)
+            if (proto.CustomDescription &&  loadoutEntry.Loadout.CustomDescription != preference.CustomDescription)
             {
-                // Remove this if not needed
                 Logger.Warning("CustomDescription mismatch, syncing...");
                 loadoutEntry.Loadout.CustomDescription = preference.CustomDescription;
                 _customDescription.SetValue(preference.LoadoutName, preference.CustomDescription);
             }
 
-            if (proto.CanBeHeirloom && loadoutEntry.Loadout.CustomHeirloom != preference.CustomHeirloom)
+            if (proto.CanBeHeirloom &&  loadoutEntry.Loadout.CustomHeirloom != preference.CustomHeirloom)
             {
-                // Remove this if not needed
                 Logger.Warning("CustomHeirloom mismatch, syncing...");
                 loadoutEntry.Loadout.CustomHeirloom = preference.CustomHeirloom;
 
-                if (preference.CustomHeirloom is null)
+                if( preference.CustomHeirloom is null)
                     _customHeirloom.RemoveValue(preference.LoadoutName);
                 else
                     _customHeirloom.SetValue(preference.LoadoutName, preference.CustomHeirloom.Value);
@@ -265,7 +185,6 @@ public sealed partial class LoadoutPicker : Control, ILocalizedControl
 
             if (proto.CustomColorTint && loadoutEntry.Loadout.CustomColorTint != preference.CustomColorTint)
             {
-                // Remove this if not needed
                 Logger.Warning("CustomColorTint mismatch, syncing...");
                 loadoutEntry.Loadout.CustomColorTint = preference.CustomColorTint;
                 _customColorTints.SetValue(preference.LoadoutName, preference.CustomColorTint);
@@ -273,8 +192,6 @@ public sealed partial class LoadoutPicker : Control, ILocalizedControl
         }
 
         CurrentEntry = CurrentEntry;
-        if (!string.IsNullOrEmpty(currentSearchText))
-            LoadoutSearch.Text = currentSearchText;
     }
 
     public bool LoadCategoryButtons(ProtoId<LoadoutCategoryPrototype> loadoutCategoryPrototype)
@@ -288,18 +205,9 @@ public sealed partial class LoadoutPicker : Control, ILocalizedControl
 
         foreach (var loadoutPrototype in loadoutPrototypes)
         {
-            if (!string.IsNullOrEmpty(LoadoutSearch.Text))
-            {
-                var displayName = _loadoutDisplayNames.GetValueOrDefault(loadoutPrototype.ID, loadoutPrototype.ID);
-
-                if (!loadoutPrototype.ID.Contains(LoadoutSearch.Text, StringComparison.OrdinalIgnoreCase) &&
-                    !displayName.Contains(LoadoutSearch.Text, StringComparison.OrdinalIgnoreCase))
-                    continue;
-            }
-
             var loadoutEntry = new LoadoutEntry();
 
-            if (_selectedLoadouts.TryGetValue(loadoutPrototype.ID, out var loadout))
+            if(_selectedLoadouts.TryGetValue(loadoutPrototype.ID, out var loadout))
             {
                 loadoutEntry.SetLoadout(loadout);
                 loadoutEntry.Selected = true;
@@ -313,14 +221,16 @@ public sealed partial class LoadoutPicker : Control, ILocalizedControl
                     loadoutPrototype.CustomContent ? _customContent.GetValueOrDefault(loadoutPrototype.ID) : null,
                     loadoutPrototype.CustomColorTint ? _customColorTints.GetValueOrDefault(loadoutPrototype.ID) : null,
                     loadoutPrototype.CanBeHeirloom ? _customHeirloom.GetValueOrDefault(loadoutPrototype.ID) : null
-                );
+                    );
                 loadoutEntry.SetLoadout(newLoadout);
             }
+
+            if (!string.IsNullOrEmpty(LoadoutSearch.Text) && !loadoutEntry.LoadoutName.Contains(LoadoutSearch.Text))
+                continue;
 
             loadoutEntry.OnEditLoadoutRequired += OnEntryEditLoadoutRequired;
             loadoutEntry.OnLoadoutDirty += OnEntryLoadoutDirty;
             loadoutEntry.EnsureIsWearable(CharacterRequirementsArgs, LoadoutPoint);
-            loadoutEntry.ShowUnusable = _showUnusable;
 
             _loadoutEntries.Add(loadoutEntry);
         }
@@ -359,7 +269,7 @@ public sealed partial class LoadoutPicker : Control, ILocalizedControl
 
     private void SpecialColorTintTogglePressed(BaseButton.ButtonEventArgs obj)
     {
-        if (_currPrototype == null || !_currPrototype.CustomColorTint)
+        if(_currPrototype == null || !_currPrototype.CustomColorTint)
             return;
 
         ColorEdit.Visible = SpecialColorTintToggle.Pressed;
@@ -394,28 +304,10 @@ public sealed partial class LoadoutPicker : Control, ILocalizedControl
         if (!_selectedLoadouts.Remove(loadout.LoadoutName, out _))
             return false;
 
-        if (_prototypeManager.TryIndex<LoadoutPrototype>(loadout.LoadoutName, out var prototype))
+        if(_prototypeManager.TryIndex<LoadoutPrototype>(loadout.LoadoutName, out var prototype))
             LoadoutPoint += prototype.Cost;
 
         return true;
-    }
-
-    private bool _showUnusable;
-    public bool ShowUnusable
-    {
-        get => _showUnusable;
-        set
-        {
-            _showUnusable = value;
-            foreach (var entry in _loadoutEntries)
-                entry.ShowUnusable = value;
-            UpdateCategoriesVisibility();
-        }
-    }
-
-    public bool IsCategoryVisiblePublic(ProtoId<LoadoutCategoryPrototype> categoryId)
-    {
-        return IsCategoryVisible(categoryId);
     }
 
     private void OnEntryEditLoadoutRequired(LoadoutEntry entry)
@@ -436,35 +328,6 @@ public sealed partial class LoadoutPicker : Control, ILocalizedControl
             return;
         }
 
-        if (loadoutPrototype.CustomName)
-        {
-            NameEdit.Text = loadout.CustomName ?? "";
-            if (loadoutPrototype.Items.Any())
-            {
-                var tempEntity = _entityManager.SpawnEntity(loadoutPrototype.Items.First(), MapCoordinates.Nullspace);
-                var itemName = _entityManager.GetComponent<MetaDataComponent>(tempEntity).EntityName;
-                NameEdit.PlaceHolder = itemName;
-                _entityManager.DeleteEntity(tempEntity);
-            }
-        }
-
-        if (loadoutPrototype.CustomDescription)
-        {
-            DescriptionEdit.TextRope = new Rope.Leaf(loadout.CustomDescription ?? "");
-            if (loadoutPrototype.Items.Any())
-            {
-                var tempEntity = _entityManager.SpawnEntity(loadoutPrototype.Items.First(), MapCoordinates.Nullspace);
-                var itemDesc = _entityManager.GetComponent<MetaDataComponent>(tempEntity).EntityDescription;
-                DescriptionEdit.Placeholder = new Rope.Leaf(itemDesc);
-                _entityManager.DeleteEntity(tempEntity);
-            }
-        }
-
-        if (loadoutPrototype.CustomContent)
-        {
-            BookTextEdit.TextRope = new Rope.Leaf(loadout.CustomContent ?? "");
-            BookTextEdit.Placeholder = new Rope.Leaf(Loc.GetString("humanoid-profile-editor-loadouts-customize-book-text-placeholder"));
-        }
         LoadoutConfigContainer.Visible = true;
 
         SpecialName.Visible = loadoutPrototype.CustomName;
@@ -478,12 +341,12 @@ public sealed partial class LoadoutPicker : Control, ILocalizedControl
         if (loadoutPrototype.CustomDescription)
             DescriptionEdit.TextRope = new Rope.Leaf(loadout.CustomDescription ?? "");
 
-        if (loadoutPrototype.CustomContent)
+        if(loadoutPrototype.CustomContent)
             BookTextEdit.TextRope = new Rope.Leaf(loadout.CustomContent ?? "");
 
-        if (loadoutPrototype.CustomColorTint)
+        if (loadoutPrototype.CustomColorTint )
         {
-            if (loadout.CustomColorTint is not null)
+            if(loadout.CustomColorTint is not null)
             {
                 SpecialColorTintToggle.Pressed = true;
                 ColorEdit.Color = Color.FromHex(loadout.CustomColorTint);
@@ -498,15 +361,6 @@ public sealed partial class LoadoutPicker : Control, ILocalizedControl
 
         _currEdit = loadoutEntry;
         _currPrototype = loadoutPrototype;
-    }
-
-    public void ClearCustomValues()
-    {
-        _customName.Clear();
-        _customDescription.Clear();
-        _customContent.Clear();
-        _customColorTints.Clear();
-        _customHeirloom.Clear();
     }
 
     private void ClearLoadoutCategoryButtons()
@@ -533,7 +387,7 @@ public sealed partial class LoadoutPicker : Control, ILocalizedControl
 
     private void SaveButtonPressed(BaseButton.ButtonEventArgs obj)
     {
-        if (_currEdit == null)
+        if(_currEdit == null)
             return;
 
         var oldValue = _currEdit.Loadout;
@@ -544,13 +398,13 @@ public sealed partial class LoadoutPicker : Control, ILocalizedControl
             ? ColorEdit.Color.ToHex()
             : null;
 
-        if (oldValue.CustomName != null) _customName.SetValue(oldValue.LoadoutName, oldValue.CustomName);
+        if(oldValue.CustomName != null) _customName.SetValue(oldValue.LoadoutName, oldValue.CustomName);
         else _customName.RemoveValue(oldValue.LoadoutName);
-        if (oldValue.CustomContent != null) _customContent.SetValue(oldValue.LoadoutName, oldValue.CustomContent);
+        if(oldValue.CustomContent != null) _customContent.SetValue(oldValue.LoadoutName, oldValue.CustomContent);
         else _customContent.RemoveValue(oldValue.LoadoutName);
-        if (oldValue.CustomDescription != null) _customDescription.SetValue(oldValue.LoadoutName, oldValue.CustomDescription);
+        if(oldValue.CustomDescription != null) _customDescription.SetValue(oldValue.LoadoutName, oldValue.CustomDescription);
         else _customDescription.RemoveValue(oldValue.LoadoutName);
-        if (oldValue.CustomColorTint != null) _customColorTints.SetValue(oldValue.LoadoutName, oldValue.CustomColorTint);
+        if(oldValue.CustomColorTint != null) _customColorTints.SetValue(oldValue.LoadoutName, oldValue.CustomColorTint);
         else _customColorTints.RemoveValue(oldValue.LoadoutName);
 
         ClearupEdit();
@@ -636,7 +490,7 @@ public sealed class CharacterRequirementsArgs(
     public MindComponent? Mind { get; set; } = mind;
     public IDependencyCollection? Dependencies { get; set; } = dependencies;
 
-    public bool IsValid(CharacterRequirement requirement, IPrototype prototype, [NotNullWhen(false)] out string? reason)
+    public bool IsValid(CharacterRequirement requirement, IPrototype prototype,[NotNullWhen(false)] out string? reason)
     {
         Dependencies ??= IoCManager.Instance!;
         var valid = requirement.IsValid(

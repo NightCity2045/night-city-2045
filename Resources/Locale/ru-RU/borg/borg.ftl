@@ -1,4 +1,4 @@
-borg-player-not-allowed = Мозг не помещается!
+﻿borg-player-not-allowed = Мозг не помещается!
 borg-player-not-allowed-eject = Мозг был извлечен из корпуса!
 
 borg-panel-not-open = Панель киборга не открыта...
@@ -26,38 +26,38 @@ borg-transponder-destroying-popup = Система самоуничтожени�
 borg-transponder-emagged-disabled-popup = Огни вашего транспондера погасли!
 borg-transponder-emagged-destroyed-popup = Предохранитель вашего транспондера перегорел!
 ## Borg type selection UI.
-borg-select-type-menu-title = Выберите тип шасси
-borg-select-type-menu-bottom-text = Выбор шасси необратим
-borg-select-type-menu-available = Доступные типы
-borg-select-type-menu-information = Информация
-borg-select-type-menu-select-type = Выберите тип для просмотра информации
-borg-select-type-menu-confirm = Подтвердить выбор
-borg-select-type-menu-guidebook = Гайдбук
+borg-select-type-menu-title = Select Chassis Type
+borg-select-type-menu-bottom-text = Chassis selection is irreversible
+borg-select-type-menu-available = Available types
+borg-select-type-menu-information = Information
+borg-select-type-menu-select-type = Select type to view information
+borg-select-type-menu-confirm = Confirm selection
+borg-select-type-menu-guidebook = Guidebook
 
 ## Borg type information
 
-borg-type-generic-name = Базовый
-borg-type-generic-desc = Мастер на все руки, мастер ни в чем. Выполняйте различные случайные задания на станции или, возможно, помогайте научному отделу, который вас создал.
-borg-type-generic-transponder = универсальный борг
+borg-type-generic-name = Generic
+borg-type-generic-desc = Jack of all trades, master of none. Do various random station tasks, or maybe help out the science department that built you.
+borg-type-generic-transponder = generic cyborg
 
-borg-type-engineering-name = Инженер
-borg-type-engineering-desc = Помогайте команде инженеров в строительстве станции, устранении повреждений или устранении электрических и атмосферных неполадок.
-borg-type-engineering-transponder = инженерный борг
+borg-type-engineering-name = Engineering
+borg-type-engineering-desc = Assist the engineering team in station construction, repairing damage, or fixing electrical and atmospheric issues.
+borg-type-engineering-transponder = engineering cyborg
 
-borg-type-mining-name = Утилизатор
-borg-type-mining-desc = Присоединяйтесь к утилизаторам и помогайте им добывать материалы, собирать обломки и бороться с враждебной дикой природой.
-borg-type-mining-transponder = борг карго
+borg-type-mining-name = Salvage
+borg-type-mining-desc = Join salvage and help them mine for materials, scavenge wrecks, and fight off hostile wildlife.
+borg-type-mining-transponder = salvage cyborg
 
-borg-type-janitor-name = Уборщик
-borg-type-janitor-desc = Поддерживайте чистоту на станции, убирайте разливы, собирайте и надлежащим образом утилизируйте мусор, оставленный ленивыми членами экипажа.
-borg-type-janitor-transponder = борг-уборщик
+borg-type-janitor-name = Janitor
+borg-type-janitor-desc = Keep the station nice and tidy, clean up spills, collect and properly dispose of trash left around by lazy crewmembers.
+borg-type-janitor-transponder = janitor cyborg
 
-borg-type-medical-name = Медик
-borg-type-medical-desc = Оказывайте медицинскую помощь экипажу, который в ней нуждается, либо в медицинском отсеке, либо в опасных зонах, куда обычные парамедики не могут добраться.
-borg-type-medical-transponder = медицинский борг
+borg-type-medical-name = Medical
+borg-type-medical-desc = Provide medical attention to crew who need it, either in medbay or in hazardous areas conventional paramedics cannot reach.
+borg-type-medical-transponder = medical cyborg
 
-borg-type-service-name = Сервисник
-borg-type-service-desc = Помогите экипажу с широким спектром услуг, начиная от подачи закусок и напитков, заканчивая ботаникой и развлечениями.
-borg-type-service-transponder = сервисный борг
+borg-type-service-name = Service
+borg-type-service-desc = Help out with a wide range of crew services, ranging from serving snacks and drinks to botany to entertainment.
+borg-type-service-transponder = service cyborg
 
 

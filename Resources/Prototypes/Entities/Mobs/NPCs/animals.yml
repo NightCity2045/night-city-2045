@@ -2060,16 +2060,13 @@
   # TODO: Remove CombatMode when Prototype Composition is added
   - type: CombatMode
   - type: MeleeWeapon
-    altDisarm: false # WWDP EDIT — no disarm for snale and mouse!
-    canHeavyAttack: false # WWDP EDIT
     soundHit:
       path: /Audio/Effects/bite.ogg
     angle: 0
     animation: WeaponArcBite
     damage:
       types:
-        Piercing: 2 # WD EDIT: 0 > 2
-        Blunt: 1 # WD ADD
+        Piercing: 0
   - type: Bloodstream
     bloodMaxVolume: 50
   - type: CanEscapeInventory

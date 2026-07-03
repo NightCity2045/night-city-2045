@@ -171,12 +171,12 @@ public abstract partial class SharedMartialArtsSystem : EntitySystem
         var targetName = Identity.Entity(target, EntityManager);
         _popupSystem.PopupEntity(Loc.GetString("martial-arts-action-sender",
             ("name", targetName),
-            ("move", Loc.GetString($"martial-arts-combo-name-{comboName}"))), // WWDP EDIT (loc)
+            ("move", comboName)),
             user,
             user);
         _popupSystem.PopupEntity(Loc.GetString("martial-arts-action-receiver",
             ("name", userName),
-            ("move", Loc.GetString($"martial-arts-combo-name-{comboName}"))), // WWDP EDIT (loc)
+            ("move", comboName)),
             target,
             target);
     }
@@ -203,7 +203,7 @@ public abstract partial class SharedMartialArtsSystem : EntitySystem
             var pullerComponent = EnsureComp<PullerComponent>(user);
             if (!_proto.TryIndex<MartialArtPrototype>(comp.MartialArtsForm.ToString(), out var martialArtsPrototype))
                 return false;
-
+                
             martialArtsKnowledgeComponent.MartialArtsForm = martialArtsPrototype.MartialArtsForm;
             LoadCombos(martialArtsPrototype.RoundstartCombos, canPerformComboComponent);
             martialArtsKnowledgeComponent.Blocked = false;

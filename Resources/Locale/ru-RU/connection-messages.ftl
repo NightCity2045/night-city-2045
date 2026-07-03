@@ -11,19 +11,19 @@ cmd-whitelistremove-removed = Пользователь { $username } удалё�
 cmd-whitelistremove-not-found = Пользователь '{ $username }' не найден
 cmd-whitelistremove-arg-player = [player]
 
-cmd-kicknonwhitelisted-desc = Кикает всех игроков, не внесенных в белый список.
-cmd-kicknonwhitelisted-help = Ипользование: kicknonwhitelisted
+cmd-kicknonwhitelisted-desc = Kicks all non-whitelisted players from the server.
+cmd-kicknonwhitelisted-help = Usage: kicknonwhitelisted
 
 ban-banned-permanent = Этот бан можно только обжаловать.
 ban-banned-permanent-appeal = Этот бан можно только обжаловать. Для этого посетите наш форум: { $link }
 ban-expires = Вы получили бан на { $duration } минут, и он истечёт { $time } по UTC (для москосвкого времени добавьте 3 часа).
 ban-banned-1 = Вам, или другому пользователю этого компьютера или соединения, запрещено здесь играть.
-ban-banned-2 = Причина бана: «{ $reason }»
+ban-banned-2 = Причина бана: "{ $reason }"
 ban-banned-3 = Попытки обойти этот бан, такие как создание новой учетной записи, будут фиксироваться.
 
 soft-player-cap-full = Сервер заполнен!
-panic-bunker-account-denied = Этот сервер находится в режиме «Бункер». В данный момент новые подключения не принимаются. Повторите попытку позже
-panic-bunker-account-denied-reason = Этот сервер находится в режиме «Бункер», и вам было отказано в доступе. Причина: «{ $reason }»
+panic-bunker-account-denied = Этот сервер находится в режиме "Бункер". В данный момент новые подключения не принимаются. Повторите попытку позже
+panic-bunker-account-denied-reason = Этот сервер находится в режиме "Бункер", и вам было отказано в доступе. Причина: "{ $reason }"
 panic-bunker-account-reason-account = Ваш аккаунт должен быть старше { $minutes } минут
 panic-bunker-account-reason-overall =
     Необходимо минимальное отыгранное время — { $hours } { $hours ->
@@ -55,8 +55,8 @@ cmd-blacklistremove-removed = {$username} удален из черного сп�
 cmd-blacklistremove-not-found = Не удалось найти '{$username}'
 cmd-blacklistremove-arg-player = [игрок]
 
-baby-jail-account-denied = Этот сервер — сервер для новичков, предназначенный для новых игроков и тех, кто хочет им помочь. Новые подключения слишком старых или не внесенных в белый список аккаунтов не принимаются. Загляните на другие серверы и посмотрите все, что может предложить Space Station 14. Веселитесь!
-baby-jail-account-denied-reason = Этот сервер — сервер для новичков, предназначенный для новых игроков и тех, кто хочет им помочь. Новые подключения слишком старых или не внесенных в белый список аккаунтов не принимаются. Загляните на другие серверы и посмотрите все, что может предложить Space Station 14. Веселитесь! Причина: «{ $reason }»
+baby-jail-account-denied = Этот сервер - сервер для новичков, предназначенный для новых игроков и тех, кто хочет им помочь. Новые подключения слишком старых или не внесенных в белый список аккаунтов не принимаются. Загляните на другие серверы и посмотрите все, что может предложить Space Station 14. Веселитесь!
+baby-jail-account-denied-reason = Этот сервер - сервер для новичков, предназначенный для новых игроков и тех, кто хочет им помочь. Новые подключения слишком старых или не внесенных в белый список аккаунтов не принимаются. Загляните на другие серверы и посмотрите все, что может предложить Space Station 14. Веселитесь! Причина: "{ $reason }"
 baby-jail-account-reason-account = Ваш аккаунт Space Station 14 слишком старый. Он должен быть моложе { $hours } минут
 baby-jail-account-reason-overall =
     Наигранное Вами время на сервере должно быть больше { $hours } { $hours ->

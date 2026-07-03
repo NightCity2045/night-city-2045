@@ -1,7 +1,5 @@
-﻿ent-BaseBow = Лук
+﻿ent-BaseBow = лук
     .desc = Самый первый пример дерзай — налетай, целься и стреляй.
-    .suffix = debug
-
 
 ent-BowImprovised = { ent-BaseBow }
     .desc = { ent-BaseBow.desc }

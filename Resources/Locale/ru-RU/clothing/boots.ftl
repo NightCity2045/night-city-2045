@@ -1,1 +1,1 @@
-clothing-boots-sidearm = Табельное
+clothing-boots-sidearm = Sidearm

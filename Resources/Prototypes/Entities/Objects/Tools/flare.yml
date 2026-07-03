@@ -31,6 +31,8 @@
   - type: CartridgeAmmo
     proto: PelletShotgunFlare
     deleteOnSpawn: true
+
+
   - type: Sprite
     sprite: Objects/Misc/flare.rsi
     layers:

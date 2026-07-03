@@ -305,11 +305,7 @@ public sealed partial class StaminaSystem : EntitySystem
         RaiseLocalEvent(uid, ref ev);
         if (ev.Cancelled)
             return;
-        //WD EDIT START
-        if (component.Critical)
-            return;
 
-        //WD EDIT END
         // Have we already reached the point of max stamina damage?
         if (component.Critical && immediate)
         {

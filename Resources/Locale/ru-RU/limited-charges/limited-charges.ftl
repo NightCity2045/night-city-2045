@@ -7,7 +7,6 @@ limited-charges-charges-remaining =
 limited-charges-max-charges = Оно на [color=green]максимуме[/color] зарядов.
 limited-charges-recharging =
     { $seconds ->
-        [one] Осталась [color=yellow]{ $seconds }[/color] секунда до получения заряда.
-        [few] Осталось [color=yellow]{ $seconds }[/color] секунды до получения заряда.
+        [one] Осталось [color=yellow]{ $seconds }[/color] секунда до получения заряда.
        *[other] Осталось [color=yellow]{ $seconds }[/color] секунд до получения заряда.
     }

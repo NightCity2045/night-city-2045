@@ -99,7 +99,6 @@ public sealed class BloodCultSpellsSystem : EntitySystem
             Category = VerbCategory.BloodSpells,
             Text = Loc.GetString("blood-cult-select-spells-verb"),
             Priority = 1,
-            CloseMenu = true,
             Act = () => SelectBloodSpells(cultist)
         };
         var removeVerb = new ExamineVerb
@@ -107,7 +106,6 @@ public sealed class BloodCultSpellsSystem : EntitySystem
             Category = VerbCategory.BloodSpells,
             Text = Loc.GetString("blood-cult-remove-spells-verb"),
             Priority = 0,
-            CloseMenu = true,
             Act = () => RemoveBloodSpells(cultist)
         };
 

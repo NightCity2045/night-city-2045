@@ -4,6 +4,6 @@ gases-co2 = Диоксид углерода
 gases-plasma = Плазма
 gases-tritium = Тритий
 gases-water-vapor = Водяной пар
-gases-ammonia = Аммиак
+gases-ammonia = Ammonia
 gases-n2o = Оксид азота
 gases-frezon = Фрезон

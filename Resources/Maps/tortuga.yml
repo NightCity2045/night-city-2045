@@ -62498,7 +62498,7 @@ entities:
     - type: Transform
       pos: -50.546757,40.480946
       parent: 33
-- proto: ClothingMultipleHeadphones
+- proto: ClothingNeckHeadphones
   entities:
   - uid: 24440
     components:

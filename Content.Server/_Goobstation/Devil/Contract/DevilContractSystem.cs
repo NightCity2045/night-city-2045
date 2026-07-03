@@ -55,7 +55,6 @@ public sealed partial class DevilContractSystem : EntitySystem
     {
         base.Initialize();
         InitializeRegex();
-        InitializeClauseLookup(); // WWDP EDIT
         InitializeSpecialActions();
 
         SubscribeLocalEvent<DevilContractComponent, BeingSignedAttemptEvent>(OnContractSignAttempt);
@@ -84,19 +83,6 @@ public sealed partial class DevilContractSystem : EntitySystem
         _clauseRegex = new Regex($@"^\s*(?<target>{targetPattern})\s*:\s*(?<clause>.+?)\s*$",
             RegexOptions.IgnoreCase | RegexOptions.Compiled | RegexOptions.Multiline);
     }
-    // WWDP EDIT START
-    private Dictionary<string, DevilClausePrototype> _clauseLookup = new();
-    private void InitializeClauseLookup()
-    {
-        _clauseLookup.Clear();
-        foreach (var proto in _prototypeManager.EnumeratePrototypes<DevilClausePrototype>())
-        {
-            var locName = Loc.GetString($"clause-{proto.ID}");
-            var key = locName.Trim().ToLowerInvariant().Replace(" ", "");
-            _clauseLookup[key] = proto;
-        }
-    }
-    // WWDP EDIT END
     private void OnGetVerbs(Entity<DevilContractComponent> contract, ref GetVerbsEvent<AlternativeVerb> args)
     {
         if (!args.CanInteract
@@ -276,7 +262,7 @@ public sealed partial class DevilContractSystem : EntitySystem
 
             var clauseKey = match.Groups["clause"].Value.Trim().ToLowerInvariant().Replace(" ", "");
 
-            if (!_clauseLookup.TryGetValue(clauseKey, out var clauseProto) // WWDP EDIT
+            if (!_prototypeManager.TryIndex(clauseKey, out DevilClausePrototype? clauseProto)
                 || !contract.Comp.CurrentClauses.Add(clauseProto))
                 continue;
 
@@ -313,7 +299,7 @@ public sealed partial class DevilContractSystem : EntitySystem
                 continue;
             }
 
-            if (!_clauseLookup.TryGetValue(clauseKey, out DevilClausePrototype? clause)) // WWDP EDIT
+            if (!_prototypeManager.TryIndex(clauseKey, out DevilClausePrototype? clause))
             {
                 _sawmill.Warning($"Unknown contract clause: {clauseKey}");
                 continue;

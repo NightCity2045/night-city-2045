@@ -50,7 +50,7 @@ ent-WeaponCapacitorRechargerCircuitboard = машинная плата заря�
    .desc = Машинная печатная плата для зарядного устройства.
 
 ent-MaterialReclaimerMachineCircuitboard = машинная плата для утилизаторского обработчика
-   .desc = { "" }
+   .desc = ""
 
 ent-SheetifierMachineCircuitboard = машинная плата лист-мейстера 2000
-   .desc = { "" }
+   .desc = ""

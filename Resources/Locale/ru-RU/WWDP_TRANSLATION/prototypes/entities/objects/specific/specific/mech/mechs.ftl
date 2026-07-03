@@ -1,4 +1,4 @@
-ent-BaseMech = мех
+ent-BaseMech = { "" }
     .desc = { "" }
     .suffix = { "" }
 
@@ -7,5 +7,5 @@ ent-MechRipley = Рипли
     .suffix = { "" }
 
 ent-MechRipleyBattery = { ent-MechRipley }
-    .suffix = С батарейкой
+    .suffix = Батарея
     .desc = { ent-MechRipley.desc }

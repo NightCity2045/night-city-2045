@@ -4,37 +4,38 @@ anomaly-vessel-component-anomaly-assigned = Аномалия присвоена 
 anomaly-vessel-component-not-assigned = Этому сосуду не присвоена ни одна аномалия. Попробуйте использовать на нём сканер.
 anomaly-vessel-component-assigned = Этому сосуду уже присвоена аномалия.
 
-anomaly-vessel-component-upgrade-output = точечный выход
+anomaly-vessel-component-upgrade-output = point output
 
 anomaly-particles-delta = Дельта-частицы
 anomaly-particles-epsilon = Эпсилон-частицы
 anomaly-particles-zeta = Зета-частицы
 anomaly-particles-omega = Омега-частицы
-anomaly-particles-sigma = Сигма-частицы
+
+anomaly-particles-sigma = Sigma particles
 
 anomaly-scanner-component-scan-complete = Сканирование завершено!
 
-anomaly-scanner-scan-copied = Данные сканирования аномалий скопированы!
+anomaly-scanner-scan-copied = Copied anomaly scan data!
 
 anomaly-scanner-ui-title = сканер аномалий
 anomaly-scanner-no-anomaly = Нет просканированной аномалии.
 anomaly-scanner-severity-percentage = Текущая опасность: [color=gray]{ $percent }[/color]
-anomaly-scanner-severity-percentage-unknown = Текущая опасность: [color=red]ОШИБКА[/color]
+anomaly-scanner-severity-percentage-unknown = Current severity: [color=red]ERROR[/color]
 anomaly-scanner-stability-low = Текущее состояние аномалии: [color=gold]Распад[/color]
 anomaly-scanner-stability-medium = Текущее состояние аномалии: [color=forestgreen]Стабильное[/color]
 anomaly-scanner-stability-high = Текущее состояние аномалии: [color=crimson]Рост[/color]
-anomaly-scanner-stability-unknown = Текущее состояние аномалии: [color=red]ОШИБКА[/color]
+anomaly-scanner-stability-unknown = Current anomaly state: [color=red]ERROR[/color]
 anomaly-scanner-point-output = Пассивная генерация очков: [color=gray]{ $point }[/color]
-anomaly-scanner-point-output-unknown = Пассивная генерация очков: [color=red]ОШИБКА[/color]
+anomaly-scanner-point-output-unknown = Point output: [color=red]ERROR[/color]
 anomaly-scanner-particle-readout = Анализ реакции на частицы:
 anomaly-scanner-particle-danger = - [color=crimson]Опасный тип:[/color] { $type }
 anomaly-scanner-particle-unstable = - [color=plum]Нестабильный тип:[/color] { $type }
 anomaly-scanner-particle-containment = - [color=goldenrod]Сдерживающий тип:[/color] { $type }
-anomaly-scanner-particle-transformation = - [color=#6b75fa]Трансформирующий тип:[/color] { $type }
-anomaly-scanner-particle-danger-unknown = - [color=crimson]Опасный тип:[/color] [color=red]ОШИБКА[/color]
-anomaly-scanner-particle-unstable-unknown = - [color=plum]Нестабильный тип:[/color] [color=red]ОШИБКА[/color]
-anomaly-scanner-particle-containment-unknown = - [color=goldenrod]Сдерживающий тип:[/color] [color=red]ОШИБКА[/color]
-anomaly-scanner-particle-transformation-unknown = - [color=#6b75fa]Трансформирующий тип:[/color] [color=red]ОШИБКА[/color]
+anomaly-scanner-particle-transformation = - [color=#6b75fa]Transformation type:[/color] {$type}
+anomaly-scanner-particle-danger-unknown = - [color=crimson]Danger type:[/color] [color=red]ERROR[/color]
+anomaly-scanner-particle-unstable-unknown = - [color=plum]Unstable type:[/color] [color=red]ERROR[/color]
+anomaly-scanner-particle-containment-unknown = - [color=goldenrod]Containment type:[/color] [color=red]ERROR[/color]
+anomaly-scanner-particle-transformation-unknown = - [color=#6b75fa]Transformation type:[/color] [color=red]ERROR[/color]
 anomaly-scanner-pulse-timer = Время до следующего импульса: [color=gray]{ $time }[/color]
 
 anomaly-gorilla-core-slot-name = Ядро аномалии
@@ -71,8 +72,7 @@ anomaly-generator-generate = Создать Аномалию
 anomaly-generator-charges =
     { $charges ->
         [one] { $charges } заряд
-        [few] { $charges } заряда
-       *[other] { $charges } зарядов
+       *[other] { $charges } заряды
     }
 
 anomaly-generator-announcement = Была сгенерирована аномалия!
@@ -84,22 +84,22 @@ anomaly-command-supercritical = Доводит аномалию до супер�
 # Flavor text on the footer
 anomaly-generator-flavor-left = Аномалия может возникнуть внутри пользователя.
 anomaly-generator-flavor-right = v1.1
-anomaly-behavior-unknown = [color=red]ОШИБКА. Не может быть прочтено.[/color]
+anomaly-behavior-unknown = [color=red]ERROR. Cannot be read.[/color]
 
-anomaly-behavior-title = анализ отклонений в поведении:
-anomaly-behavior-point =[color=gold]Аномалия приносит { $mod }% очков[/color]
+anomaly-behavior-title = behavior deviation analysis:
+anomaly-behavior-point =[color=gold]Anomaly produces {$mod}% of the points[/color]
 
-anomaly-behavior-safe = [color=forestgreen]Аномалия чрезвычайно стабильна. Пульсации крайне редки.[/color]
-anomaly-behavior-slow = [color=forestgreen]Частота пульсаций значительно снизилась.[/color]
-anomaly-behavior-light = [color=forestgreen]Мощность пульсации значительно снижается.[/color]
-anomaly-behavior-balanced = Отклонений в поведении не обнаружено.
-anomaly-behavior-delayed-force = Частота пульсаций значительно снижается, но их мощность увеличивается.
-anomaly-behavior-rapid = Частота пульсации намного выше, но ее сила ослаблена.
-anomaly-behavior-reflect = Было обнаружено защитное покрытие.
-anomaly-behavior-nonsensivity = Была обнаружена слабая реакция на частицы.
-anomaly-behavior-sensivity = Была обнаружена усиленная реакция на частицы.
-anomaly-behavior-secret = Обнаружены помехи. Некоторые данные не могут быть считаны
-anomaly-behavior-inconstancy = [color=crimson]Обнаружено непостоянство. Типы частиц могут меняться со временем.[/color]
-anomaly-behavior-fast = [color=crimson]Частота пульсаций сильно увеличивается.[/color]
-anomaly-behavior-strenght = [color=crimson]Мощность пульсации значительно увеличивается.[/color]
-anomaly-behavior-moving = [color=crimson]Была обнаружена нестабильность координат.[/color]
+anomaly-behavior-safe = [color=forestgreen]The anomaly is extremely stable. Extremely rare pulsations.[/color]
+anomaly-behavior-slow = [color=forestgreen]The frequency of pulsations is much less frequent.[/color]
+anomaly-behavior-light = [color=forestgreen]Pulsation power is significantly reduced.[/color]
+anomaly-behavior-balanced = No behavior deviations detected.
+anomaly-behavior-delayed-force = The frequency of pulsations is greatly reduced, but their power is increased.
+anomaly-behavior-rapid = The frequency of the pulsation is much higher, but its strength is attenuated.
+anomaly-behavior-reflect = A protective coating was detected.
+anomaly-behavior-nonsensivity = A weak reaction to particles was detected.
+anomaly-behavior-sensivity = Amplified reaction to particles was detected.
+anomaly-behavior-secret = Interference detected. Some data cannot be read
+anomaly-behavior-inconstancy = [color=crimson]Impermanence has been detected. Particle types can change over time.[/color]
+anomaly-behavior-fast = [color=crimson]The pulsation frequency is strongly increased.[/color]
+anomaly-behavior-strenght = [color=crimson]The pulsation power is significantly increased.[/color]
+anomaly-behavior-moving = [color=crimson]Coordinate instability was detected.[/color]

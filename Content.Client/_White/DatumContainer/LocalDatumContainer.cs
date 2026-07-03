@@ -96,10 +96,4 @@ public sealed class LocalDatumContainer<T> where T : notnull
     }
 
     public T? GetValueOrDefault(string key) => _data.GetValueOrDefault(key);
-
-    public void Clear()
-    {
-        _data.Clear();
-        Dirty();
-    }
 }

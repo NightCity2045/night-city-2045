@@ -4,4 +4,4 @@ shuttle-curse-shuttle-arrived = Шаттл уже прибыл. Его нель�
 shuttle-curse-shuttle-not-called = Шаттл ещё не вызван.
 
 shuttle-curse-system-failure = СИСТЕМНЫЙ СБОЙ
-shuttle-curse-success-global = {LOC($message)} Прилет шаттла задержан на {$time} {RU-PLURAL($time, "минуту", "минуты", "минут")}.
+shuttle-curse-success-global = {$message} Прилет шаттла задержан на {$time} минут.

@@ -4,8 +4,4 @@ construction-system-construct-cannot-start-another-construction = Сейчас �
 construction-system-construct-no-materials = Недостаточно материалов для создания!
 construction-system-already-building = Вы уже строите это!
 construction-system-inside-container = Вы не можете строить, пока находитесь там!
-construction-system-cannot-start = Вы не можете это собрать!
-
-## Rped
-
-rped-container-empty = РПЗД пуст!
+construction-system-cannot-start = You cannot craft this!

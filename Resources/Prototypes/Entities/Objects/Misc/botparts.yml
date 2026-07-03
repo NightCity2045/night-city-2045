@@ -34,7 +34,7 @@
     - prototype: jonkbot
     - prototype: mimebot
     - prototype: minebot
-    - prototype: plantbot # WWDP fix
+    - prototype: PlantBot
     - prototype: supplybot
     - prototype: weldbot
 

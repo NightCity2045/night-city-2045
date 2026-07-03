@@ -12,7 +12,9 @@ cmd-jobwhitelistget-desc = Показывает список должносте�
 cmd-jobwhitelistget-help = Использование: jobwhitelistget <имя игрока>
 cmd-jobwhitelistget-whitelisted-none = У игрока {$player} нет доступа ни к одной должности.
 cmd-jobwhitelistget-whitelisted-for = У игрока {$player} есть доступ к следующим должностям:
-    {$jobs}
+{$jobs}
+
+{$jobs}"
 
 cmd-jobwhitelistremove-desc = Удаляет у игрока доступ к определённой должности.
 cmd-jobwhitelistremove-help = Использование: jobwhitelistremove <имя игрока> <должность>

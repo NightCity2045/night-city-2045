@@ -5,14 +5,11 @@
     !type:SyllableObfuscation
     minSyllables: 1
     maxSyllables: 2
-    localized: true # WWDP EDIT
     replacement:
-    # WWDP EDIT START
-    - lang-obfuscation-cat-1
-    - lang-obfuscation-cat-2
-    - lang-obfuscation-cat-3
-    - lang-obfuscation-cat-4
-    # WWDP EDIT END
+    - murr
+    - meow
+    - purr
+    - mrow
 
 - type: language
   id: Dog
@@ -20,16 +17,13 @@
     !type:SyllableObfuscation
     minSyllables: 1
     maxSyllables: 2
-    localized: true # WWDP EDIT
     replacement:
-    # WWDP EDIT START
-    - lang-obfuscation-dog-1
-    - lang-obfuscation-dog-2
-    - lang-obfuscation-dog-3
-    - lang-obfuscation-dog-4
-    - lang-obfuscation-dog-5
-    - lang-obfuscation-dog-6
-    # WWDP EDIT END
+    - woof
+    - bark
+    - ruff
+    - bork
+    - raff
+    - garr
 
 - type: language
   id: Fox
@@ -37,16 +31,13 @@
     !type:SyllableObfuscation
     minSyllables: 1
     maxSyllables: 2
-    localized: true # WWDP EDIT
     replacement:
-    # WWDP EDIT START
-    - lang-obfuscation-fox-1
-    - lang-obfuscation-fox-2
-    - lang-obfuscation-fox-3
-    - lang-obfuscation-fox-4
-    - lang-obfuscation-fox-5
-    - lang-obfuscation-fox-6
-    # WWDP EDIT END
+    - ruff
+    - raff
+    - garr
+    - yip
+    - yap
+    - myah
 
 - type: language
   id: Xeno
@@ -54,12 +45,9 @@
     !type:SyllableObfuscation
     minSyllables: 1
     maxSyllables: 8 # I was crazy once
-    localized: true # WWDP EDIT
     replacement:
-    # WWDP EDIT START
-    - lang-obfuscation-xeno-1
-    - lang-obfuscation-xeno-2
-    # WWDP EDIT END
+    - s
+    - S
 
 - type: language
   id: Monkey
@@ -67,12 +55,9 @@
     !type:SyllableObfuscation
     minSyllables: 1
     maxSyllables: 8 # They locked me in a room...
-    localized: true # WWDP EDIT
     replacement:
-    # WWDP EDIT START
-    - lang-obfuscation-monkey-1
-    - lang-obfuscation-monkey-2
-    # WWDP EDIT END
+    - o
+    - k
 
 - type: language
   id: Mouse
@@ -80,18 +65,15 @@
     !type:SyllableObfuscation
     minSyllables: 2
     maxSyllables: 3
-    localized: true # WWDP EDIT
     replacement:
-    # WWDP EDIT START
-    - lang-obfuscation-mouse-1
-    - lang-obfuscation-mouse-2
-    - lang-obfuscation-mouse-3
-    - lang-obfuscation-mouse-4
-    - lang-obfuscation-mouse-5
-    - lang-obfuscation-mouse-6
-    - lang-obfuscation-mouse-7
-    - lang-obfuscation-mouse-8
-    # WWDP EDIT END
+    - squ
+    - eak
+    - pi
+    - ep
+    - chuu
+    - ee
+    - fwi
+    - he
 
 - type: language
   id: Chicken
@@ -99,13 +81,10 @@
     !type:SyllableObfuscation
     minSyllables: 1
     maxSyllables: 3
-    localized: true # WWDP EDIT
     replacement:
-    # WWDP EDIT START
-    - lang-obfuscation-chicken-1
-    - lang-obfuscation-chicken-2
-    - lang-obfuscation-chicken-3
-    # WWDP EDIT END
+    - co
+    - coo
+    - ot
 
 - type: language
   id: Duck
@@ -113,13 +92,10 @@
     !type:SyllableObfuscation
     minSyllables: 1
     maxSyllables: 3
-    localized: true # WWDP EDIT
     replacement:
-    # WWDP EDIT START
-    - lang-obfuscation-duck-1
-    - lang-obfuscation-duck-2
-    - lang-obfuscation-duck-3
-    # WWDP EDIT END
+    - qu
+    - ack
+    - quack
 
 - type: language
   id: Cow
@@ -127,12 +103,9 @@
     !type:SyllableObfuscation
     minSyllables: 1
     maxSyllables: 3
-    localized: true # WWDP EDIT
     replacement:
-    # WWDP EDIT START
-    - lang-obfuscation-cow-1
-    - lang-obfuscation-cow-2
-    # WWDP EDIT END
+    - moo
+    - mooo
 
 - type: language
   id: Sheep
@@ -140,13 +113,10 @@
     !type:SyllableObfuscation
     minSyllables: 1
     maxSyllables: 3
-    localized: true # WWDP EDIT
     replacement:
-    # WWDP EDIT START
-    - lang-obfuscation-sheep-1
-    - lang-obfuscation-sheep-2
-    - lang-obfuscation-sheep-3
-    # WWDP EDIT END
+    - ba
+    - baa
+    - aa
 
 - type: language
   id: Kangaroo
@@ -154,14 +124,11 @@
     !type:SyllableObfuscation
     minSyllables: 1
     maxSyllables: 3
-    localized: true # WWDP EDIT
     replacement:
-    # WWDP EDIT START
-    - lang-obfuscation-kangaroo-1
-    - lang-obfuscation-kangaroo-2
-    - lang-obfuscation-kangaroo-3
-    - lang-obfuscation-kangaroo-4
-    # WWDP EDIT END
+    - shre
+    - ack
+    - chuu
+    - choo
 
 - type: language
   id: Pig
@@ -169,13 +136,8 @@
     !type:SyllableObfuscation
     minSyllables: 1
     maxSyllables: 3
-    localized: true # WWDP EDIT
     replacement:
-    # WWDP EDIT START
-    #- oink # Please someone come up with something better # no
-    - lang-obfuscation-pig-1
-    - lang-obfuscation-pig-2
-    # WWDP EDIT END
+    - oink # Please someone come up with something better
 
 - type: language
   id: Crab
@@ -183,17 +145,14 @@
     !type:SyllableObfuscation
     minSyllables: 1
     maxSyllables: 3
-    localized: true # WWDP EDIT
     replacement:
-    # WWDP EDIT START
-    - lang-obfuscation-crab-1
-    - lang-obfuscation-crab-2
-    - lang-obfuscation-crab-3
-    - lang-obfuscation-crab-4
-    - lang-obfuscation-crab-5
-    - lang-obfuscation-crab-6
-    - lang-obfuscation-crab-7
-    # WWDP EDIT END
+    - click
+    - clack
+    - ti
+    - pi
+    - tap
+    - cli
+    - ick
 
 - type: language
   id: Kobold
@@ -201,21 +160,18 @@
     !type:SyllableObfuscation
     minSyllables: 2
     maxSyllables: 4
-    localized: true # WWDP EDIT
     replacement:
-    # WWDP EDIT START
-    - lang-obfuscation-kobold-1
-    - lang-obfuscation-kobold-2
-    - lang-obfuscation-kobold-3
-    - lang-obfuscation-kobold-4
-    - lang-obfuscation-kobold-5
-    - lang-obfuscation-kobold-6
-    - lang-obfuscation-kobold-7
-    - lang-obfuscation-kobold-8
-    - lang-obfuscation-kobold-9
-    - lang-obfuscation-kobold-10
-    - lang-obfuscation-kobold-11
-    # WWDP EDIT END
+    - yip
+    - yap
+    - gar
+    - grr
+    - ar
+    - scre
+    - et
+    - gronk
+    - hiss
+    - ss
+    - ee
 
 - type: language
   id: Hissing
@@ -223,14 +179,11 @@
     !type:SyllableObfuscation
     minSyllables: 2
     maxSyllables: 4
-    localized: true # WWDP EDIT
     replacement:
-    # WWDP EDIT START
-    - lang-obfuscation-hissing-1
-    - lang-obfuscation-hissing-2
-    - lang-obfuscation-hissing-3
-    - lang-obfuscation-hissing-4
-    # WWDP EDIT END
+    - hss
+    - iss
+    - ss
+    - is
 
 - type: language
   id: Penguin
@@ -238,12 +191,9 @@
     !type:SyllableObfuscation
     minSyllables: 2
     maxSyllables: 3
-    localized: true # WWDP EDIT
     replacement: # I'm out of ideas
-    # WWDP EDIT START
-    - lang-obfuscation-penguin-1
-    - lang-obfuscation-penguin-2
-    - lang-obfuscation-penguin-3
-    - lang-obfuscation-penguin-4
-    - lang-obfuscation-penguin-5
-    # WWDP EDIT END
+    - pen
+    - peng
+    - won
+    - wonk
+    - wong

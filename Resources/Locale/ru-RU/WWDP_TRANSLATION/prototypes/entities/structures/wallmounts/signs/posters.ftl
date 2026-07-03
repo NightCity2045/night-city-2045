@@ -67,7 +67,7 @@ ent-PosterContrabandPower = Сила
     .suffix = { "" }
 
 ent-PosterContrabandSpaceCube = Космический куб
-    .desc = Не подчиняющийся законам природы, шестигранный Космический Куб. Космонавты глупы, приручённая сингулярность — глупа и зла.
+    .desc = Не подчиняющийся законам природы, шестигранный Космический Куб. Космонавты глупы, приручённая сингулярность - глупа и зла.
     .suffix = { "" }
 
 ent-PosterContrabandCommunistState = Коммунистическое государство
@@ -94,8 +94,8 @@ ent-PosterContrabandRebelsUnite = Мятежники объединяйтесь
     .desc = Плакат, призывающий читателя восстать против Nanotrasen.
     .suffix = { "" }
 
-ent-PosterContrabandC20r = «C-20r»!
-    .desc = Плакат, рекламирующий «C-20r» от Scarborough Arms.
+ent-PosterContrabandC20r = C-20r
+    .desc = Плакат, рекламирующий C-20r от Scarborough Arms.
     .suffix = { "" }
 
 ent-PosterContrabandHaveaPuff = Пыхни
@@ -103,7 +103,7 @@ ent-PosterContrabandHaveaPuff = Пыхни
     .suffix = { "" }
 
 ent-PosterContrabandRevolver = Револьвер
-    .desc = Потому что семь выстрелов — это все, что вам нужно.
+    .desc = Потому что семь выстрелов - это все, что вам нужно.
     .suffix = { "" }
 
 ent-PosterContrabandDDayPromo = Реклама D-Day
@@ -111,7 +111,7 @@ ent-PosterContrabandDDayPromo = Реклама D-Day
     .suffix = { "" }
 
 ent-PosterContrabandSyndicatePistol = Пистолеты Синдиката
-    .desc = Плакат, рекламирующий пистолеты Синдиката как «чертовски классные». Он покрыт выцветшими тэгами банд.
+    .desc = Плакат, рекламирующий пистолеты Синдиката как "чертовски классные". Он покрыт выцветшими тэгами банд.
     .suffix = { "" }
 
 ent-PosterContrabandEnergySwords = Энергетические мечи
@@ -183,7 +183,7 @@ ent-PosterContrabandFreeSyndicateEncryptionKey = Бесплатный ключ �
     .suffix = { "" }
 
 ent-PosterContrabandBountyHunters = Охотники за головами
-    .desc = Плакат, рекламирующий услуги охотников за головами. «Я слышал, у вас проблемы».
+    .desc = Плакат, рекламирующий услуги охотников за головами. "Я слышал, у вас проблемы".
     .suffix = { "" }
 
 ent-PosterContrabandTheBigGasTruth = Правда о газовом гиганте
@@ -191,15 +191,15 @@ ent-PosterContrabandTheBigGasTruth = Правда о газовом гигант
     .suffix = { "" }
 
 ent-PosterContrabandGotWood = Есть древесина?
-    .desc = Мрачная реклама старой компании по производству пиломатериалов. В углу нацарапано «Я — твой хороший друг».
+    .desc = Мрачная реклама старой компании по производству пиломатериалов. В углу нацарапано "Я — твой хороший друг".
     .suffix = { "" }
 
-ent-PosterContrabandWehWatches = Часы Вех
+ent-PosterContrabandWehWatches = Часы Weh
     .desc = Плакат с изображением очаровательной зеленой ящерицы.
     .suffix = { "" }
 
-ent-PosterContrabandVoteWeh = Голосуйте за Вех
-    .desc = Стильный, яркий и хорошо иллюстрированный плакат нового замВЕХчательного прогрессивного кандидата, который появится в этом избирательном сезоне.
+ent-PosterContrabandVoteWeh = Голосуйте за Weh
+    .desc = Стильный, яркий и хорошо иллюстрированный плакат нового зам"Вех"чательного" прогрессивного кандидата, который появится в этом избирательном сезоне.
     .suffix = { "" }
 
 ent-PosterContrabandBeachStarYamamoto = Пляжная звезда Ямамото!
@@ -267,11 +267,11 @@ ent-PosterLegitStateLaws = Соблюдайте законы
     .suffix = { "" }
 
 ent-PosterLegitLoveIan = Любовь к Иану
-    .desc = Иан — любовь, Иан — это жизнь.
+    .desc = Иан - любовь, Иан - это жизнь.
     .suffix = { "" }
 
 ent-PosterLegitSpaceCops = Космические копы
-    .desc = Плакат, рекламирующий телешоу «Космические копы».
+    .desc = Плакат, рекламирующий телешоу "Космические копы".
     .suffix = { "" }
 
 ent-PosterLegitUeNo = Ue No
@@ -338,7 +338,7 @@ ent-PosterLegitEnlist = Вступай!
     .desc = Запишитесь в резерв эскадрона смерти Nanotrasen сегодня!
     .suffix = { "" }
 
-ent-PosterLegitNanomichiAd = Реклама Наномичи
+ent-PosterLegitNanomichiAd = Реклама Nanomichi
     .desc = Плакат, рекламирующий аудиокассеты бренда Nanomichi.
     .suffix = { "" }
 
@@ -354,8 +354,8 @@ ent-PosterLegitTheOwl = Сова
     .desc = Сова сделает все возможное, чтобы защитить станцию. А вы?
     .suffix = { "" }
 
-ent-PosterLegitNoERP = Скажи «нет» ЕРП!
-    .desc = Этот плакат напоминает экипажу, что эротика и порнография запрещены на станциях НаноТрейзен.
+ent-PosterLegitNoERP = Скажи "нет" ERP!
+    .desc = Этот плакат напоминает экипажу, что эротика и порнография запрещены на станциях "Nanotrasen".
     .suffix = { "" }
 
 ent-PosterLegitCarbonDioxide = Углекислый газ

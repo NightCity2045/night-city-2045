@@ -1,6 +1,4 @@
 ui-options-emotes-menu = Emotes menu type:
-ui-options-emotes-menu-window = Window
-ui-options-emotes-menu-radial = Radial
 
 ui-options-log-in-chat = Log actions in the chat
 

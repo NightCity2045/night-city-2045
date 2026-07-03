@@ -18,10 +18,8 @@ gun-flux-core-unsafe = Предохранитель не даёт вести с�
 gun-flux-integrated-core-unsafe = Предохранитель не даёт вести стрельбу без ядра!
 gun-flux-missing-core = Оружие неспособно вести стрельбу без ядра!
 
-gun-malfunction-flash = Индикаторная лампа внезапно вспыхивает, ослепляя меня!
+gun-malfunction-flash = Индикаторная лампа внезапно вспыхивает, ослепляя меня! 
 gun-malfunction-firefailure = Элемент питания оружия уходит в защиту из-за перегрева!
 gun-malfunction-eject = Фиксирующий механизм даёт сбой и ядро вылетает из моего оружия!
 gun-malfunction-explosion-gun = Оружие разрывается у меня в руках!
-gun-malfunction-explosion-core = Ядро внутри моего оружия взрывается, осыпая меня осколками!
-
-flux-core-examine-levels = Текущий нагрев: [color=yellow]{NATURALFIXED($current, 2)}[/color] / [color=yellow]{$max}[/color].
+gun-malfunction-explosion-core = Ядро внутри моего оружия взрывается, осыпая меня осколками! 
