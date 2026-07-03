@@ -1,4 +1,4 @@
-using Robust.Shared.Input;
+﻿using Robust.Shared.Input;
 
 namespace Content.Shared.Input
 {
@@ -66,6 +66,7 @@ namespace Content.Shared.Input
         public static readonly BoundKeyFunction ZoomOut = "ZoomOut";
         public static readonly BoundKeyFunction ZoomIn = "ZoomIn";
         public static readonly BoundKeyFunction ResetZoom = "ResetZoom";
+        public static readonly BoundKeyFunction RTSHoldPosition = "RTSHoldPosition";
         public static readonly BoundKeyFunction OfferItem = "OfferItem";
         public static readonly BoundKeyFunction ToggleStanding = "ToggleStanding";
         public static readonly BoundKeyFunction ToggleCrawlingUnder = "ToggleCrawlingUnder";

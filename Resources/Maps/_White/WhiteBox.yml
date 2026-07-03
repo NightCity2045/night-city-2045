@@ -81903,7 +81903,7 @@ entities:
     - type: Transform
       pos: 5.4949827,-12.34338
       parent: 2
-- proto: ClothingMultipleHeadphones
+- proto: ClothingNeckHeadphones
   entities:
   - uid: 11461
     components:
@@ -82835,26 +82835,6 @@ entities:
     - type: MetaData
       desc: A form-fitting, hydrodynamic blue swimsuit.
       name: white swimsuit
-    - type: Transform
-      parent: 11109
-    - type: Physics
-      angularDamping: 0
-      linearDamping: 0
-      canCollide: False
-    - type: InsideEntityStorage
-- proto: ClothingUniformSwimsuitBlue
-  entities:
-  - uid: 11124
-    components:
-    - type: Transform
-      parent: 11109
-    - type: Physics
-      angularDamping: 0
-      linearDamping: 0
-      canCollide: False
-    - type: InsideEntityStorage
-  - uid: 11125
-    components:
     - type: Transform
       parent: 11109
     - type: Physics

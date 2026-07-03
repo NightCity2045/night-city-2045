@@ -115,9 +115,9 @@
     solutions:
       drink:
         reagents:
-        - ReagentId: HotCocoa
-          Quantity: 10
-        - ReagentId: Milk # The milk of chocolate milk
-          Quantity: 10
+        # NC edit start: NightCity FastFood
+        - ReagentId: MilkChoco
+          Quantity: 20
+        # NC edit end: NightCity FastFood
   - type: Sprite
     sprite: DeltaV/Objects/Consumable/Drinks/juiceboxchocolate.rsi

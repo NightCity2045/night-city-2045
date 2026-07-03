@@ -1,0 +1,433 @@
+# region Abstract
+
+- type: entity
+  parent: BaseItem
+  id: NCBaseFoodSnackWrapped
+  abstract: true
+  suffix: завернутый перекус
+  components:
+  - type: Sprite
+    state: icon_sealed
+  - type: Tag
+    tags:
+      - FoodSnack
+  - type: SpawnItemsOnUse
+    items:
+      - id: NCBaseFoodSnackTrash
+    sound:
+      path: /Audio/Effects/unwrap.ogg
+
+- type: entity
+  parent: [FoodSnackBase, FoodInjectableBase]
+  id: NCBaseFoodSnack
+  abstract: true
+  suffix: открытый перекус
+  components:
+  - type: Sprite
+    state: icon
+  - type: Food
+    transferAmount: 3
+  - type: Tag
+    tags:
+      - FoodSnack
+
+- type: entity
+  parent: FoodPacketTrash
+  id: NCBaseFoodSnackTrash
+  abstract: true
+  suffix: оболочка от перекуса
+  components:
+  - type: Sprite
+    state: icon_empty
+
+# region Taco
+
+- type: entity
+  parent: NCBaseFoodSnackWrapped
+  id: FoodSnackTacoWrapped
+  name: тако
+  description: Дешевый тако в упаковке с прикрепленным соусом для вкуса.
+  components:
+  - type: Sprite
+    sprite: _NC/Objects/Consumable/Food/Vending/taco.rsi
+  - type: SpawnItemsOnUse
+    items:
+      - id: FoodSnackTacoTrash
+      - id: NCCondimentPacketKetchup
+      - id: FoodSnackTaco
+
+- type: entity
+  parent: NCBaseFoodSnack
+  id: FoodSnackTaco
+  name: тако
+  description: Простой бобовый тако.
+  components:
+  - type: Sprite
+    sprite: _NC/Objects/Consumable/Food/Vending/taco.rsi
+  - type: SolutionContainerManager
+    solutions:
+      food:
+        maxVol: 15
+        reagents:
+        - ReagentId: Nutriment
+          Quantity: 10
+
+- type: entity
+  parent: NCBaseFoodSnackTrash
+  id: FoodSnackTacoTrash
+  name: упаковка от тако
+  description: Оболочка от тако.
+  components:
+  - type: Sprite
+    sprite: _NC/Objects/Consumable/Food/Vending/taco.rsi
+
+# region Burrito
+
+- type: entity
+  parent: NCBaseFoodSnackWrapped
+  id: FoodSnackBurritoWrapped
+  name: буррито
+  description: Дешевое буррито в упаковке с прикрепленным соусом для вкуса.
+  components:
+  - type: Sprite
+    sprite: _NC/Objects/Consumable/Food/Vending/burrito.rsi
+  - type: SpawnItemsOnUse
+    items:
+      - id: FoodSnackBurritoTrash
+      - id: NCCondimentPacketHotSauce
+      - id: FoodSnackBurrito
+
+- type: entity
+  parent: NCBaseFoodSnack
+  id: FoodSnackBurrito
+  name: буррито
+  description: Дешевое буррито.
+  components:
+  - type: Sprite
+    sprite: _NC/Objects/Consumable/Food/Vending/burrito.rsi
+  - type: SolutionContainerManager
+    solutions:
+      food:
+        maxVol: 20
+        reagents:
+        - ReagentId: Nutriment
+          Quantity: 15
+
+- type: entity
+  parent: NCBaseFoodSnackTrash
+  id: FoodSnackBurritoTrash
+  name: упаковка от буррито
+  description: Оболочка от буррито.
+  components:
+  - type: Sprite
+    sprite: _NC/Objects/Consumable/Food/Vending/burrito.rsi
+
+# region Khachapuri
+
+- type: entity
+  parent: NCBaseFoodSnackWrapped
+  id: FoodSnackKhachapuriWrapped
+  name: хачапури
+  description: Дешевая хачапури в упаковке.
+  components:
+  - type: Sprite
+    sprite: _NC/Objects/Consumable/Food/Vending/khachapuri.rsi
+  - type: SpawnItemsOnUse
+    items:
+      - id: FoodSnackKhachapuriTrash
+      - id: FoodSnackKhachapuri
+
+- type: entity
+  parent: NCBaseFoodSnack
+  id: FoodSnackKhachapuri
+  name: хачапури
+  description: Дешевая хачапури.
+  components:
+  - type: Sprite
+    sprite: _NC/Objects/Consumable/Food/Vending/khachapuri.rsi
+  - type: SolutionContainerManager
+    solutions:
+      food:
+        maxVol: 20
+        reagents:
+        - ReagentId: Nutriment
+          Quantity: 15
+
+- type: entity
+  parent: NCBaseFoodSnackTrash
+  id: FoodSnackKhachapuriTrash
+  name: упаковка от хачапури
+  description: Оболочка от хачапури.
+  components:
+  - type: Sprite
+    sprite: _NC/Objects/Consumable/Food/Vending/khachapuri.rsi
+
+# region Shawarma
+
+- type: entity
+  parent: NCBaseFoodSnackWrapped
+  id: FoodSnackShawarmaWrapped
+  name: шаурма
+  description: Дешевая шаурма в упаковке.
+  components:
+  - type: Sprite
+    sprite: _NC/Objects/Consumable/Food/Vending/shawarma.rsi
+  - type: SpawnItemsOnUse
+    items:
+      - id: FoodSnackShawarmaTrash
+      - id: FoodSnackShawarma
+
+- type: entity
+  parent: NCBaseFoodSnack
+  id: FoodSnackShawarma
+  name: шаурма
+  description: Дешевая шаурма.
+  components:
+  - type: Sprite
+    sprite: _NC/Objects/Consumable/Food/Vending/shawarma.rsi
+  - type: SolutionContainerManager
+    solutions:
+      food:
+        maxVol: 20
+        reagents:
+        - ReagentId: Nutriment
+          Quantity: 15
+
+- type: entity
+  parent: NCBaseFoodSnackTrash
+  id: FoodSnackShawarmaTrash
+  name: упаковка от шаурмы
+  description: Оболочка от шаурмы.
+  components:
+  - type: Sprite
+    sprite: _NC/Objects/Consumable/Food/Vending/shawarma.rsi
+
+# region Burger
+
+- type: entity
+  parent: NCBaseFoodSnackWrapped
+  id: FoodSnackBurgerWrapped
+  name: бургер
+  description: Дешевый бургер в упаковке.
+  components:
+  - type: Sprite
+    sprite: _NC/Objects/Consumable/Food/Vending/burger.rsi
+  - type: SpawnItemsOnUse
+    items:
+      - id: FoodSnackBurgerTrash
+      - id: FoodSnackBurger
+
+- type: entity
+  parent: NCBaseFoodSnack
+  id: FoodSnackBurger
+  name: бургер
+  description: Дешевый бургер.
+  components:
+  - type: Sprite
+    sprite: _NC/Objects/Consumable/Food/Vending/burger.rsi
+  - type: SolutionContainerManager
+    solutions:
+      food:
+        maxVol: 20
+        reagents:
+        - ReagentId: Nutriment
+          Quantity: 15
+
+- type: entity
+  parent: NCBaseFoodSnackTrash
+  id: FoodSnackBurgerTrash
+  name: упаковка от бургера
+  description: Оболочка от бургера.
+  components:
+  - type: Sprite
+    sprite: _NC/Objects/Consumable/Food/Vending/burger.rsi
+
+# region Cheeseburger
+
+- type: entity
+  parent: NCBaseFoodSnackWrapped
+  id: FoodSnackCheeseburgerWrapped
+  name: чизбургер
+  description: Дешевый чизбургер в упаковке.
+  components:
+  - type: Sprite
+    sprite: _NC/Objects/Consumable/Food/Vending/cheeseburger.rsi
+  - type: SpawnItemsOnUse
+    items:
+      - id: FoodSnackCheeseburgerTrash
+      - id: FoodSnackCheeseburger
+
+- type: entity
+  parent: NCBaseFoodSnack
+  id: FoodSnackCheeseburger
+  name: чизбургер
+  description: Дешевый чизбургер.
+  components:
+  - type: Sprite
+    sprite: _NC/Objects/Consumable/Food/Vending/cheeseburger.rsi
+  - type: SolutionContainerManager
+    solutions:
+      food:
+        maxVol: 20
+        reagents:
+        - ReagentId: Nutriment
+          Quantity: 15
+
+- type: entity
+  parent: NCBaseFoodSnackTrash
+  id: FoodSnackCheeseburgerTrash
+  name: упаковка от чизбургера
+  description: Оболочка от чизбургера.
+  components:
+  - type: Sprite
+    sprite: _NC/Objects/Consumable/Food/Vending/cheeseburger.rsi
+
+# region Random Spawner
+
+- type: entity
+  parent: MarkerBase
+  id: NCFoodSnackSpawnerWrapped
+  name: случайный перекус в упаковке
+  description: Спавнер случайного перекуса в упаковке.
+  suffix: завернутый перекус
+  placement:
+    mode: PlaceFree
+  components:
+  - type: Transform
+    anchored: false
+  - type: RandomSpawner
+    prototypes:
+    - FoodSnackTacoWrapped
+    - FoodSnackBurritoWrapped
+    - FoodSnackKhachapuriWrapped
+    - FoodSnackShawarmaWrapped
+    - FoodSnackCheeseburgerWrapped
+    - FoodSnackBurgerWrapped
+  - type: Sprite
+    sprite: _NC/Objects/Consumable/Food/Vending/taco.rsi
+    state: icon_sealed
+
+- type: entity
+  parent: MarkerBase
+  id: NCFoodSnackSpawner
+  name: случайный перекус
+  description: Спавнер случайного перекуса.
+  suffix: открытый перекус
+  placement:
+    mode: PlaceFree
+  components:
+  - type: Transform
+    anchored: false
+  - type: RandomSpawner
+    prototypes:
+    - FoodSnackTaco
+    - FoodSnackBurrito
+    - FoodSnackKhachapuri
+    - FoodSnackShawarma
+    - FoodSnackCheeseburger
+    - FoodSnackBurger
+  - type: Sprite
+    sprite: _NC/Objects/Consumable/Food/Vending/taco.rsi
+    state: icon
+
+- type: entity
+  parent: MarkerBase
+  id: NCFoodSnackSpawnerTrash
+  name: случайная упаковка от перекуса
+  description: Спавнер случайной упаковки от перекуса.
+  suffix: оболочка от перекуса
+  placement:
+    mode: PlaceFree
+  components:
+  - type: Transform
+    anchored: false
+  - type: RandomSpawner
+    prototypes:
+    - FoodSnackTacoTrash
+    - FoodSnackBurritoTrash
+    - FoodSnackKhachapuriTrash
+    - FoodSnackShawarmaTrash
+    - FoodSnackCheeseburgerTrash
+    - FoodSnackBurgerTrash
+  - type: Sprite
+    sprite: _NC/Objects/Consumable/Food/Vending/taco.rsi
+    state: icon_empty
+
+# region Vending Inventories
+
+- type: vendingMachineInventory
+  id: NCSnackInventory
+  startingInventory:
+    FoodSnackTaco: 5
+    FoodSnackBurrito: 5
+    FoodSnackKhachapuri: 5
+    FoodSnackShawarma: 5
+    FoodSnackCheeseburger: 5
+    FoodSnackBurger: 5
+  startingItemPrices:
+    FoodSnackTaco: 50
+    FoodSnackBurrito: 50
+    FoodSnackKhachapuri: 50
+    FoodSnackShawarma: 50
+    FoodSnackCheeseburger: 50
+    FoodSnackBurger: 50
+
+- type: vendingMachineInventory
+  id: NCIceCreamInventory
+  startingInventory:
+    DrinkIceCreamGlass: 5
+    DoubleIceCreamGlass: 5
+    FoodFrozenSandwich: 5
+    FoodFrozenSandwichStrawberry: 5
+    FoodFrozenFreezy: 5
+    FoodFrozenSundae: 5
+    FoodFrozenCornuto: 5
+    FoodFrozenPopsicleOrange: 5
+    FoodFrozenPopsicleBerry: 5
+    FoodFrozenPopsicleJumbo: 5
+    FoodFrozenSnowconeBase: 5
+    FoodFrozenSnowcone: 5
+    FoodFrozenSnowconeBerry: 5
+    FoodFrozenSnowconeFruit: 5
+    FoodFrozenSnowconeClown: 5
+    FoodFrozenSnowconeMime: 5
+    FoodFrozenSnowconeRainbow: 5
+  startingItemPrices:
+    DrinkIceCreamGlass: 28
+    DoubleIceCreamGlass: 36
+    FoodFrozenSandwich: 32
+    FoodFrozenSandwichStrawberry: 32
+    FoodFrozenFreezy: 32
+    FoodFrozenSundae: 32
+    FoodFrozenCornuto: 32
+    FoodFrozenPopsicleOrange: 32
+    FoodFrozenPopsicleBerry: 32
+    FoodFrozenPopsicleJumbo: 32
+    FoodFrozenSnowconeBase: 32
+    FoodFrozenSnowcone: 32
+    FoodFrozenSnowconeBerry: 32
+    FoodFrozenSnowconeFruit: 32
+    FoodFrozenSnowconeClown: 48
+    FoodFrozenSnowconeMime: 48
+    FoodFrozenSnowconeRainbow: 48
+
+- type: entity
+  parent: VendingMachineColaBlack
+  id: NCVendingMachineSnacks
+  name: ОллФудс СнекБар
+  description: Автомат с дешевезными перекусами!
+  components:
+  - type: VendingMachine
+    pack: NCSnackInventory
+
+- type: entity
+  parent: VendingMachineColaBlack
+  id: NCVendingMachineIceCream
+  name: Мороженый Рай
+  description: Автомат с холоднейшим мороженым!
+  suffix: профит Кафе
+  components:
+  - type: VendingMachine
+    pack: NCIceCreamInventory
+  - type: MoneyCollector
+    access: [ [ "Cafe" ] ]

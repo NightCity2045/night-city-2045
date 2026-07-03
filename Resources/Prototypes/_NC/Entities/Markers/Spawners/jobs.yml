@@ -1,0 +1,459 @@
+- type: entity
+  id: SpawnPointNCCitizen
+  parent: SpawnPointJobBase
+  name: ent-SpawnPointNCCitizen
+  components:
+  - type: SpawnPoint
+    job_id: NCCitizen
+  - type: Sprite
+    layers:
+      - state: green
+
+- type: entity
+  id: SpawnPointEdgeRunnerSolo
+  parent: SpawnPointJobBase
+  name: ent-SpawnPointEdgeRunnerSolo
+  components:
+  - type: SpawnPoint
+    job_id: EdgeRunnerSolo
+  - type: Sprite
+    layers:
+      - state: green
+
+- type: entity
+  id: SpawnPointFixer
+  parent: SpawnPointJobBase
+  name: ent-SpawnPointFixer
+  components:
+  - type: SpawnPoint
+    job_id: Fixer
+  - type: Sprite
+    layers:
+      - state: green
+
+- type: entity
+  id: SpawnPointReaper
+  parent: SpawnPointJobBase
+  name: ent-SpawnPointReaper
+  components:
+  - type: SpawnPoint
+    job_id: Reaper
+  - type: Sprite
+    layers:
+      - state: green
+
+- type: entity
+  id: SpawnPointCafeOwner
+  parent: SpawnPointJobBase
+  name: ent-SpawnPointCafeOwner
+  components:
+  - type: SpawnPoint
+    job_id: CafeOwner
+  - type: Sprite
+    layers:
+      - state: green
+
+- type: entity
+  id: SpawnPointCafeOwnerLateJoin
+  parent: SpawnPointJobBase
+  name: ent-SpawnPointCafeOwnerLateJoin
+  components:
+  - type: SpawnPoint
+    job_id: CafeOwner
+    spawn_type: LateJoin
+  - type: Sprite
+    layers:
+      - state: green
+
+- type: entity
+  id: SpawnPointRestaurantOwner
+  parent: SpawnPointJobBase
+  name: ent-SpawnPointRestaurantOwner
+  components:
+  - type: SpawnPoint
+    job_id: RestaurantOwner
+  - type: Sprite
+    layers:
+      - state: green
+
+- type: entity
+  id: SpawnPointRestaurantOwnerLateJoin
+  parent: SpawnPointJobBase
+  name: ent-SpawnPointRestaurantOwnerLateJoin
+  components:
+  - type: SpawnPoint
+    job_id: RestaurantOwner
+    spawn_type: LateJoin
+  - type: Sprite
+    layers:
+      - state: green
+
+# NCPD
+
+- type: entity
+  id: SpawnPointNCPDCadet
+  parent: SpawnPointJobBase
+  name: ent-SpawnPointNCPDCadet
+  suffix: DO NOT MAP
+  components:
+  - type: SpawnPoint
+    job_id: NCPDOfficer
+  - type: Sprite
+    layers:
+      - state: green
+
+- type: entity
+  id: SpawnPointNCPDChief
+  parent: SpawnPointJobBase
+  name: ent-SpawnPointNCPDChief
+  components:
+  - type: SpawnPoint
+    job_id: NCPDChief
+  - type: Sprite
+    layers:
+      - state: green
+
+- type: entity
+  id: SpawnPointNCPDOfficer
+  parent: SpawnPointJobBase
+  name: ent-SpawnPointNCPDOfficer
+  components:
+  - type: SpawnPoint
+    job_id: NCPDOfficer
+  - type: Sprite
+    layers:
+      - state: green
+
+- type: entity
+  id: SpawnPointNCPDSergeant
+  parent: SpawnPointJobBase
+  name: ent-SpawnPointNCPDSergeant
+  components:
+  - type: SpawnPoint
+    job_id: NCPDSergeant
+  - type: Sprite
+    layers:
+      - state: green
+
+- type: entity
+  id: SpawnPointNCPDWatchAgent
+  parent: SpawnPointJobBase
+  name: ent-SpawnPointNCPDWatchAgent
+  components:
+  - type: SpawnPoint
+    job_id: NCPDWatchAgent
+  - type: Sprite
+    layers:
+      - state: green
+
+# MaxTac
+
+- type: entity
+  id: SpawnPointMaxTacCommander
+  parent: SpawnPointJobBase
+  name: ent-SpawnPointMaxTacCommander
+  components:
+  - type: SpawnPoint
+    job_id: MaxTacCommander
+  - type: Sprite
+    layers:
+      - state: green
+
+- type: entity
+  id: SpawnPointMaxTacNetrunner
+  parent: SpawnPointJobBase
+  name: ent-SpawnPointMaxTacNetrunner
+  components:
+  - type: SpawnPoint
+    job_id: MaxTacEraser
+  - type: Sprite
+    layers:
+      - state: green
+
+- type: entity
+  id: SpawnPointMaxTacOperative
+  parent: SpawnPointJobBase
+  name: ent-SpawnPointMaxTacOperative
+  components:
+  - type: SpawnPoint
+    job_id: MaxTacEraser
+  - type: Sprite
+    layers:
+      - state: green
+
+# Trauma Team
+
+- type: entity
+  id: SpawnPointTraumaTeamChief
+  parent: SpawnPointJobBase
+  name: ent-SpawnPointTraumaTeamChief
+  components:
+  - type: SpawnPoint
+    job_id: TraumaTeamChief
+  - type: Sprite
+    layers:
+      - state: green
+
+- type: entity
+  id: SpawnPointTraumaTeamDoctor
+  parent: SpawnPointJobBase
+  name: ent-SpawnPointTraumaTeamDoctor
+  components:
+  - type: SpawnPoint
+    job_id: TraumaTeamDoctor
+  - type: Sprite
+    layers:
+      - state: green
+
+- type: entity
+  id: SpawnPointTraumaTeamParamedic
+  parent: SpawnPointJobBase
+  name: ent-SpawnPointTraumaTeamParamedic
+  components:
+  - type: SpawnPoint
+    job_id: TraumaTeamParamedic
+  - type: Sprite
+    layers:
+      - state: green
+
+- type: entity
+  id: SpawnPointTraumaTeamTech
+  parent: SpawnPointJobBase
+  name: ent-SpawnPointTraumaTeamTech
+  components:
+  - type: SpawnPoint
+    job_id: TraumaTeamTech
+  - type: Sprite
+    layers:
+      - state: green
+
+- type: entity
+  id: SpawnPointTraumaTeamCoroner
+  parent: SpawnPointJobBase
+  name: ent-SpawnPointTraumaTeamCoroner
+  components:
+  - type: SpawnPoint
+    job_id: TraumaTeamCoroner
+  - type: Sprite
+    layers:
+      - state: green
+
+- type: entity
+  id: SpawnPointTraumaTeamPsych
+  parent: SpawnPointJobBase
+  name: ent-SpawnPointTraumaTeamPsych
+  components:
+  - type: SpawnPoint
+    job_id: TraumaTeamPsych
+  - type: Sprite
+    layers:
+      - state: green
+
+- type: entity
+  id: SpawnPointTraumaTeamOperative
+  parent: SpawnPointJobBase
+  name: ent-SpawnPointTraumaTeamOperative
+  components:
+  - type: SpawnPoint
+    job_id: TraumaTeamOperative
+  - type: Sprite
+    layers:
+      - state: green
+
+# Biotechnica
+
+- type: entity
+  id: SpawnPointBiotechnicaChief
+  parent: SpawnPointJobBase
+  name: ent-SpawnPointBiotechnicaChief
+  components:
+  - type: SpawnPoint
+    job_id: BiotechnicaChief
+  - type: Sprite
+    layers:
+      - state: green
+
+- type: entity
+  id: SpawnPointBiotechnicaOperativeLead
+  parent: SpawnPointJobBase
+  name: ent-SpawnPointBiotechnicaOperativeLead
+  components:
+  - type: SpawnPoint
+    job_id: BiotechnicaOperativeLead
+  - type: Sprite
+    layers:
+      - state: green
+
+- type: entity
+  id: SpawnPointBiotechnicaOperative
+  parent: SpawnPointJobBase
+  name: ent-SpawnPointBiotechnicaOperative
+  components:
+  - type: SpawnPoint
+    job_id: BiotechnicaOperative
+  - type: Sprite
+    layers:
+      - state: green
+
+- type: entity
+  id: SpawnPointBiotechnicaNetrunner
+  parent: SpawnPointJobBase
+  name: ent-SpawnPointBiotechnicaNetrunner
+  components:
+  - type: SpawnPoint
+    job_id: BiotechnicaNetrunner
+  - type: Sprite
+    layers:
+      - state: green
+
+- type: entity
+  id: SpawnPointBiotechnicaBotanist
+  parent: SpawnPointJobBase
+  name: ent-SpawnPointBiotechnicaBotanist
+  components:
+  - type: SpawnPoint
+    job_id: BiotechnicaBotanist
+  - type: Sprite
+    layers:
+      - state: green
+
+- type: entity
+  id: SpawnPointBiotechnicaMedTech
+  parent: SpawnPointJobBase
+  name: ent-SpawnPointBiotechnicaMedTech
+  components:
+  - type: SpawnPoint
+    job_id: BiotechnicaMedTech
+  - type: Sprite
+    layers:
+      - state: green
+- type: entity
+  id: SpawnPointBiotechnicaTech
+  parent: SpawnPointJobBase
+  name: ent-SpawnPointBiotechnicaTech
+  components:
+  - type: SpawnPoint
+    job_id: BiotechnicaTech
+  - type: Sprite
+    layers:
+      - state: green
+
+- type: entity
+  id: SpawnPointBiotechnicaParamedic
+  parent: SpawnPointJobBase
+  name: ent-SpawnPointBiotechnicaParamedic
+  components:
+  - type: SpawnPoint
+    job_id: BiotechnicaParamedic
+  - type: Sprite
+    layers:
+      - state: green
+
+- type: entity
+  id: SpawnPointMilitechChiefLateJoin
+  parent: SpawnPointJobBase
+  name: ent-SpawnPointMilitechChiefLateJoin
+  components:
+  - type: SpawnPoint
+    job_id: MilitechChief
+    spawn_type: LateJoin
+  - type: Sprite
+    layers:
+      - state: green
+
+- type: entity
+  id: SpawnPointMilitechOperativeLeadLateJoin
+  parent: SpawnPointJobBase
+  name: ent-SpawnPointMilitechOperativeLeadLateJoin
+  components:
+  - type: SpawnPoint
+    job_id: MilitechOperativeLead
+    spawn_type: LateJoin
+  - type: Sprite
+    layers:
+      - state: green
+
+- type: entity
+  id: SpawnPointMilitechOperativeLateJoin
+  parent: SpawnPointJobBase
+  name: ent-SpawnPointMilitechOperativeLateJoin
+  components:
+  - type: SpawnPoint
+    job_id: MilitechOperative
+    spawn_type: LateJoin
+  - type: Sprite
+    layers:
+      - state: green
+
+- type: entity
+  id: SpawnPointMilitechNetrunnerLateJoin
+  parent: SpawnPointJobBase
+  name: ent-SpawnPointMilitechNetrunnerLateJoin
+  components:
+  - type: SpawnPoint
+    job_id: MilitechNetrunner
+    spawn_type: LateJoin
+  - type: Sprite
+    layers:
+      - state: green
+
+- type: entity
+  id: SpawnPointMilitechSecuritySpecialistLateJoin
+  parent: SpawnPointJobBase
+  name: ent-SpawnPointMilitechSecuritySpecialistLateJoin
+  components:
+  - type: SpawnPoint
+    job_id: MilitechSecuritySpecialist
+    spawn_type: LateJoin
+  - type: Sprite
+    layers:
+      - state: green
+
+- type: entity
+  id: SpawnPointMilitechCombatMedicLateJoin
+  parent: SpawnPointJobBase
+  name: ent-SpawnPointMilitechCombatMedicLateJoin
+  components:
+  - type: SpawnPoint
+    job_id: MilitechCombatMedic
+    spawn_type: LateJoin
+  - type: Sprite
+    layers:
+      - state: green
+
+- type: entity
+  id: SpawnPointMilitechTechLateJoin
+  parent: SpawnPointJobBase
+  name: ent-SpawnPointMilitechTechLateJoin
+  components:
+  - type: SpawnPoint
+    job_id: MilitechTech
+    spawn_type: LateJoin
+  - type: Sprite
+    layers:
+      - state: green
+
+- type: entity
+  id: SpawnPointMilitechQuartermasterLateJoin
+  parent: SpawnPointJobBase
+  name: ent-SpawnPointMilitechQuartermasterLateJoin
+  components:
+  - type: SpawnPoint
+    job_id: MilitechQuartermaster
+    spawn_type: LateJoin
+  - type: Sprite
+    layers:
+      - state: green
+
+# Late Join
+- type: entity
+  id: SpawnPointNCLateJoin
+  parent: SpawnPointJobBase
+  name: ent-SpawnPointNCLateJoin
+  components:
+  - type: SpawnPoint
+    spawn_type: LateJoin
+  - type: Sprite
+    layers:
+      - state: green
+

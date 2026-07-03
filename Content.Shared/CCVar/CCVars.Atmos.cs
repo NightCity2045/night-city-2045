@@ -1,4 +1,4 @@
-﻿using Robust.Shared.Configuration;
+using Robust.Shared.Configuration;
 
 namespace Content.Shared.CCVar;
 
@@ -47,6 +47,21 @@ public sealed partial class CCVars
     /// </summary>
     public static readonly CVarDef<bool> MonstermosEqualization =
         CVarDef.Create("atmos.monstermos_equalization", true, CVar.SERVERONLY);
+
+    /// <summary>
+    ///     Controls Monstermos pressure equalization independently.
+    ///     Must be true for planetary maps so tiles initialize with breathable air.
+    ///     Once equalized, Monstermos naturally stops processing (zero cost at equilibrium).
+    /// </summary>
+    public static readonly CVarDef<bool> AtmosTileEqualize =
+        CVarDef.Create("atmos.tile_equalize", true, CVar.REPLICATED);
+
+    /// <summary>
+    ///     Controls visual gas updates on tiles.
+    ///     False = no gas overlay rendering (perf gain, no visible plasma/CO2 clouds).
+    /// </summary>
+    public static readonly CVarDef<bool> AtmosGasOverlayUpdate =
+        CVarDef.Create("atmos.gas_overlay_update", false, CVar.REPLICATED);
 
     /// <summary>
     ///     Whether monstermos explosive depressurization is enabled.

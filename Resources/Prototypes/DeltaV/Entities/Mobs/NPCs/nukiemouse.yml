@@ -161,8 +161,8 @@
     channels:
     - Syndicate
   # make the player a traitor once its taken
-  - type: AutoTraitor
-    profile: TraitorReinforcement
+  # - type: AutoTraitor
+  #   profile: TraitorReinforcement
   - type: InteractionPopup
     successChance: 0.6
     interactSuccessString: petting-success-nukie-mouse

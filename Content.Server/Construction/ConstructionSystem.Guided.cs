@@ -85,17 +85,13 @@ namespace Content.Server.Construction
                 {
                     if (target.Name == component.DeconstructionNode)
                     {
-                        args.PushMarkup(Loc.GetString("deconstruction-header-text")); // WWDP EDIT
+                        args.PushMarkup(Loc.GetString("deconstruction-header-text") + "\n");
                     }
                     else
                     {
                         args.PushMarkup(Loc.GetString(
                             "construction-component-to-create-header",
-                            // WWDP EDIT START
-                            ("targetName", target.Entity.GetId(uid, null, new(EntityManager)) is {} id
-                            ? Loc.TryGetString($"ent-{id}", out var locName) ? locName : target.Name
-                            : Loc.TryGetString($"construction-node-{target.Name}", out var nodeName) ? nodeName : target.Name)));
-                            // WWDP EDIT ENT
+                            ("targetName", target.Name)) + "\n");
                     }
                 }
 

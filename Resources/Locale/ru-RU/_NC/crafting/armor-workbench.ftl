@@ -1,0 +1,30 @@
+armor-workbench-window-title = ARMORSMITH // STREET ASSEMBLY BENCH
+armor-workbench-window-blueprint-label = ЧЕРТЁЖ
+armor-workbench-window-blueprint-empty = НЕТ ЧЕРТЕЖА
+armor-workbench-window-eject-blueprint = Выгрузить чертёж
+armor-workbench-window-eject-recipe = Выгрузить рецепт
+armor-workbench-window-base-label = БАЗА // НОСИТЕЛЬ
+armor-workbench-window-base-forecast = Загружена база: { $name }
+armor-workbench-window-base-forecast-empty = Нужен базовый материал
+armor-workbench-window-soft-label = SOFT LAYER // ОСНОВА
+armor-workbench-window-hard-label = HARD LAYER // ПЛИТЫ
+armor-workbench-window-eject-materials = Выгрузить материалы
+armor-workbench-window-result-label = РЕЗУЛЬТАТ
+armor-workbench-window-result-empty = НЕТ РЕЗУЛЬТАТА
+armor-workbench-window-soft-forecast = Прогноз: { $durability } прочности
+armor-workbench-window-soft-forecast-empty = Прогноз: soft-слой не выбран
+armor-workbench-window-hard-forecast = Прогноз: AC { $armorClass }, { $durability } прочности
+armor-workbench-window-hard-forecast-empty = Прогноз: hard-слой не выбран
+armor-workbench-window-assemble = [ ЗАПУСК ПРЕССА ]
+armor-workbench-window-assembling = [ СБОРКА { $seconds }С ]
+
+armor-workbench-status-waiting = Статус: ожидание ввода
+armor-workbench-status-missing-blueprint = Статус: нужен чертёж
+armor-workbench-status-missing-base = Статус: нужен базовый материал
+armor-workbench-status-missing-materials = Статус: не хватает материалов для рецепта
+armor-workbench-status-ready = Статус: контур готов к сборке
+armor-workbench-status-crafting = Статус: идёт прессовка
+
+armor-workbench-popup-no-power = Нет электропитания.
+armor-workbench-popup-missing-materials = Не хватает материалов для выбранного рецепта.
+armor-workbench-verb-eject = Очистить стол

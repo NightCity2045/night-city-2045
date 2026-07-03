@@ -32,7 +32,6 @@
       range: 10000 # Mega range for Listening Post
     - type: ApcPowerReceiver
       powerLoad: 200
-    - type: ExtensionCableReceiver
     - type: Destructible
       thresholds:
         - trigger:

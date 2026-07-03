@@ -6,6 +6,7 @@
   - type: Item
     size: Small
   - type: Animateable
+  - type: CEZPhysics # CrystallEdge: used for z-levels, required for mobs to be able to move through z-levels and have proper collisions.
   - type: Clickable
   - type: InteractionOutline
   - type: MovedByPressure
@@ -49,6 +50,7 @@
   abstract: true
   components:
   - type: Storage
+    openDelay: 1.5
   - type: UserInterface
     interfaces:
       enum.StorageUiKey.Key:

@@ -8,10 +8,10 @@ mail-desc-priority = На замке активирована [color=yellow]жё
 mail-desc-priority-inactive = На замке видна [color=#886600]жёлтая лента приоритета[/color], но она не активна.
 mail-unlocked = Защитный замок снят.
 mail-unlocked-by-emag = Защитный замок *БZZТ*.
-mail-unlocked-reward = Защитный замок снят. На счёт логистики начислено {$bounty} спецо.
-mail-penalty-lock = ЗАЩИТНЫЙ ЗАМОК ВСКРЫТ. ШТРАФ: {$credits} спецо списано со счёта логистики.
-mail-penalty-fragile = ХРУПКИЙ ГРУЗ ПОВРЕЖДЁН. ШТРАФ: {$credits} спецо.
-mail-penalty-expired = ПРОСРОЧЕННАЯ ДОСТАВКА. ШТРАФ: {$credits} спецо списано со счёта логистики.
+mail-unlocked-reward = Защитный замок снят. На счёт логистики начислено {$bounty} евродолларов.
+mail-penalty-lock = ЗАЩИТНЫЙ ЗАМОК ВСКРЫТ. ШТРАФ: {$credits} евродолларов списано со счёта логистики.
+mail-penalty-fragile = ХРУПКИЙ ГРУЗ ПОВРЕЖДЁН. ШТРАФ: {$credits} евродолларов.
+mail-penalty-expired = ПРОСРОЧЕННАЯ ДОСТАВКА. ШТРАФ: {$credits} евродолларов списано со счёта логистики.
 mail-item-name-unaddressed = почта
 mail-item-name-addressed = почта (для {$recipient})
 

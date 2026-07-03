@@ -1,0 +1,39 @@
+- type: entity
+  parent: BaseItem
+  id: TraumaTablet
+  name: ent-TraumaTablet
+  description: ent-TraumaTablet-desc
+  components:
+  - type: Sprite
+    sprite: Objects/Devices/pda.rsi # Placeholder
+    state: pda-bartender # Placeholder
+    layers:
+    - state: pda-bartender # Placeholder
+    - sprite: Objects/Devices/pinpointer.rsi
+      state: pinondirect
+      map: [ "arrow" ]
+      visible: false
+  - type: GenericVisualizer
+    visuals:
+      enum.PinpointerVisuals.IsActive:
+        arrow:
+          enum.PinpointerState.Active:
+            state: pinondirect
+            visible: true
+          enum.PinpointerState.Inactive:
+            visible: false
+  - type: Item
+    size: Small
+  - type: TraumaTablet
+  - type: StationMap
+  - type: ActivatableUI
+    key: enum.TraumaTabletUiKey.Key
+  - type: UserInterface
+    interfaces:
+      enum.TraumaTabletUiKey.Key:
+        type: TraumaTabletBoundUserInterface
+      enum.StationMapUiKey.Key:
+        type: StationMapBoundUserInterface
+  - type: Tag
+    tags:
+    - Tablet

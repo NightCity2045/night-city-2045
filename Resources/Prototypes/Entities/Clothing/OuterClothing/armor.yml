@@ -20,6 +20,10 @@
         Slash: 0.70
         Piercing: 0.70 #Can save you, but bullets will still hurt. Will take about 10 shots from a Viper before critting, as opposed to 7 while unarmored and 16~ with a bulletproof vest.
         Heat: 0.80
+        Shock: 1.1
+  - type: ClothingSpeedModifier
+    walkModifier: 0.95
+    sprintModifier: 0.9
   - type: ExplosionResistance
     damageCoefficient: 0.90
   - type: Fixtures
@@ -70,6 +74,10 @@
         Piercing: 0.7
         Heat: 0.9
         Caustic: 0.9
+        Shock: 1.2
+  - type: ClothingSpeedModifier
+    walkModifier: 0.9
+    sprintModifier: 0.75
   - type: ExplosionResistance
     damageCoefficient: 0.9
   - type: GroupExamine
@@ -96,11 +104,13 @@
         Heat: 0.85
         Radiation: 0.75
         Caustic: 0.85
+        Shock: 1.3
+  - type: ClothingSpeedModifier
+    walkModifier: 0.85
+    sprintModifier: 0.65
+
   - type: ExplosionResistance
     damageCoefficient: 0.50
-  - type: ClothingSpeedModifier # Burdensome for running, but perfect for speedy gliding, even though running is still probably better
-    walkModifier: 0.9
-    sprintModifier: 0.7
   - type: GroupExamine
 
 - type: entity
@@ -116,12 +126,16 @@
   - type: Armor
     modifiers:
       flatReductions:
-        Piercing: 4
+        Piercing: 5
       coefficients:
         Blunt: 0.95
         Slash: 0.95
-        Piercing: 0.5
+        Piercing: 0.45
         Heat: 0.95
+        Shock: 1.1
+  - type: ClothingSpeedModifier
+    walkModifier: 0.9
+    sprintModifier: 0.8
 
 - type: entity
   parent: ClothingOuterArmorBase
@@ -142,6 +156,11 @@
         Slash: 0.9
         Piercing: 0.9
         Heat: 0.7
+        Shock: 1.5 # Electronic shielding is sensitive to overloads
+  - type: ClothingSpeedModifier
+    walkModifier: 0.95
+    sprintModifier: 0.9
+
   - type: Reflect
     reflectProb: 0.65 # WD EDIT: 0.33 -> 0.65
     innate: true # armor grants a passive shield that does not require concentration to maintain
@@ -261,6 +280,10 @@
         Heat: 0.5
         Radiation: 0
         Caustic: 0.75
+        Shock: 2.0
+  - type: ClothingSpeedModifier
+    walkModifier: 0.7
+    sprintModifier: 0.5
   - type: GroupExamine
   - type: ProtectedFromStepTriggers
     slots: WITHOUT_POCKET

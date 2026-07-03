@@ -1,0 +1,27 @@
+- type: job
+  id: BiotechnicaOperative
+  name: job-name-biotechnica-operative
+  description: job-description-biotechnica-operative
+  playTimeTracker: JobBiotechnicaOperative
+  weight: 70
+  salary: 250
+  icon: "JobIconBiotechOfficer"
+  startingGear: BiotechnicaOperativeGear
+  access:
+    - Biotech_Operative
+    - Biotech_Staff
+    # - Biotech_Security
+    - Biotech_General
+    - NC_General
+
+- type: startingGear
+  id: BiotechnicaOperativeGear
+  equipment:
+    jumpsuit: ClothingUniformJumpsuitBiotechnica
+    back: ClothingBackpackBiotechnica
+    shoes: ClothingShoesColorWhite
+    head: ClothingHeadHatBeretSeniorPhysician
+    eyes: ClothingEyesGlassesSunglasses
+    id: BiotechnicaOperativePDA
+    belt: ClothingBeltMedicalFilled
+    outerClothing: ClothingOuterCoatLabCmo

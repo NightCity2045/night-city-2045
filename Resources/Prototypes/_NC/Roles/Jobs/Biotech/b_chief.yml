@@ -1,0 +1,36 @@
+- type: job
+  id: BiotechnicaChief
+  name: job-name-biotechnica-chief
+  description: job-description-biotechnica-chief
+  playTimeTracker: JobBiotechnicaChief
+  weight: 100
+  salary: 600
+  icon: "JobIconBiotechChief"
+  startingGear: BiotechnicaChiefGear
+  access:
+    - Biotech_Director
+    - Biotech_HeadOfDepartment
+    - Biotech_Botany
+    - Biotech_MedTech
+    - Biotech_Tech
+    - Biotech_Operative
+    - Biotech_Staff
+    - Biotech_General
+    # - Biotech_Lab
+    # - Biotech_Security
+    # - Biotech_Command
+    - NC_General
+  special:
+  - !type:AddComponentSpecial
+    components:
+    - type: TraumaSubscriber
+      tier: Platinum
+
+- type: startingGear
+  id: BiotechnicaChiefGear
+  equipment:
+    jumpsuit: ClothingUniformJumpsuitArmoredBusinessSuit
+    back: ClothingBackpackBiotechnica
+    shoes: ClothingShoesColorWhite
+    eyes: ClothingEyesGlassesSunglasses
+    id: BiotechnicaChiefPDA

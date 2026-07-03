@@ -1,0 +1,109 @@
+# --- KERENZIKOV TIER 1 ---
+- type: entity
+  id: CyberwareNeuroKerenzikovMk1
+  parent: BaseCyberwareImplant
+  name: ent-CyberwareNeuroKerenzikovMk1
+  description: ent-CyberwareNeuroKerenzikovMk1-desc
+  components:
+  - type: CyberwareImplant
+    category: Neuroport
+    humanityCost: 3
+    cyberFamily: Neuroport
+  - type: MovementSpeedModifier
+    baseWalkSpeed: 1.1
+    baseSprintSpeed: 2
+
+# --- KERENZIKOV TIER 2 ---
+- type: entity
+  id: CyberwareNeuroKerenzikovMk2
+  parent: BaseCyberwareImplant
+  name: ent-CyberwareNeuroKerenzikovMk2
+  description: ent-CyberwareNeuroKerenzikovMk2-desc
+  components:
+  - type: CyberwareImplant
+    category: Neuroport
+    humanityCost: 7
+    cyberFamily: Neuroport
+  - type: MovementSpeedModifier
+    baseWalkSpeed: 1.15
+    baseSprintSpeed: 2.3
+  - type: CyberwareDodge
+    chance: 0.15
+
+# --- KERENZIKOV TIER 3 ---
+- type: entity
+  id: CyberwareNeuroKerenzikovMk3
+  parent: BaseCyberwareImplant
+  name: ent-CyberwareNeuroKerenzikovMk3
+  description: ent-CyberwareNeuroKerenzikovMk3-desc
+  components:
+  - type: CyberwareImplant
+    category: Neuroport
+    humanityCost: 14
+    cyberFamily: Neuroport
+  - type: MovementSpeedModifier
+    baseWalkSpeed: 1.25
+    baseSprintSpeed: 2.5
+  - type: CyberwareDodge
+    chance: 0.25
+
+# --- KERENZIKOV TIER MAX-TAC ---
+- type: entity
+  id: CyberwareNeuroKerenzikovMaxTac
+  parent: BaseCyberwareImplant
+  name: ent-CyberwareNeuroKerenzikovMaxTac
+  description: ent-CyberwareNeuroKerenzikovMaxTac-desc
+  components:
+  - type: CyberwareImplant
+    category: Neuroport
+    humanityCost: 3
+    cyberFamily: Neuroport
+  - type: MovementSpeedModifier
+    baseWalkSpeed: 1.5
+    baseSprintSpeed: 3
+  - type: CyberwareDodge
+    chance: 0.80
+
+
+# --- BIO-INHIBITOR TIER 1 ---
+- type: entity
+  id: CyberwareNeuroBioInhibitorStoic
+  parent: BaseCyberwareImplant
+  name: ent-CyberwareNeuroBioInhibitorStoic
+  description: ent-CyberwareNeuroBioInhibitorStoic-desc
+  components:
+  - type: CyberwareImplant
+    category: Neuroport
+    humanityCost: 7
+    cyberFamily: Neuroport
+  - type: StaminaDamageResistance
+    coefficient: 0.6
+
+# --- NEURO-BLOCKER TIER 2 ---
+- type: entity
+  id: CyberwareNeuroBlockerAegis
+  parent: BaseCyberwareImplant
+  name: ent-CyberwareNeuroBlockerAegis
+  description: ent-CyberwareNeuroBlockerAegis-desc
+  components:
+  - type: CyberwareImplant
+    category: Neuroport
+    humanityCost: 10
+    cyberFamily: Neuroport
+  - type: CyberwareSlowImmunity
+
+# --- TACTICAL SUPPRESSOR TIER 3 ---
+- type: entity
+  id: CyberwareNeuroTacticalSpartan
+  parent: BaseCyberwareImplant
+  name: ent-CyberwareNeuroTacticalSpartan
+  description: ent-CyberwareNeuroTacticalSpartan-desc
+  components:
+  - type: CyberwareImplant
+    category: Neuroport
+    humanityCost: 14
+    cyberFamily: NeuroportSecond
+  - type: CyberwareAntiGlare
+  - type: CritModifier
+    critThresholdModifier: 100
+    deadThresholdModifier: 0

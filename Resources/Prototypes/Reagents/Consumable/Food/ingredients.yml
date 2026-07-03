@@ -86,7 +86,7 @@
   desc: reagent-desc-egg
   physicalDesc: reagent-physical-desc-fluffy
   flavor: egg
-  color: white
+  color: "#F8F0DA"  # NC edit: NightCity FastFood
   recognizable: true
   metabolisms:
     Food:

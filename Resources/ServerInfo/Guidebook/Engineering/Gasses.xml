@@ -1,12 +1,12 @@
 ﻿<Document>
-  # Газы
-  Газы являются критически важной частью работы станции.
-  Возможно, вы знаете их как то, чем вы дышите, но они также используются во многих других целях.
+  # Gasses
+  Gasses are a critical part of the station's operation.
+  You may know them as the stuff you breathe, but they are also used in many other ways.
 
-  Газы обладают определенными свойствами, которые делают их полезными для разных задач.
-  Атмосферика также может синтезировать экзотические газы из других газов, которые можно использовать для специальных целей.
+  Gasses have certain properties that make them useful for different tasks.
+  Atmospherics can also synthesize exotic gasses from other gasses, which can be used for special purposes.
 
-  ## Кислород
+  ## Oxygen
   <Box>
     <GuideEntityEmbed Entity="OxygenCanister" Caption=""/>
     <GuideEntityEmbed Entity="OxygenTank" Caption=""/>
@@ -15,12 +15,12 @@
     <GuideEntityEmbed Entity="EmergencyOxygenTank" Caption=""/>
   </Box>
 
-  Распространенный газ, используемый большинством видов на станции для дыхания.
+  A common gas, used by most species on the station to breathe.
 
-  Кислород является окислителем, что означает, что он поддерживает горение.
-  Это делает его полезным при слиянии газов в камере сгорания и опасным при смешивании с горючими газами.
+  Oxygen is an oxidizer, which means it supports combustion.
+  This makes it both useful when fusing gasses in a burn chamber, and dangerous when mixed with flammable gasses.
 
-  ## Азот
+  ## Nitrogen
   <Box>
     <GuideEntityEmbed Entity="NitrogenCanister" Caption=""/>
     <GuideEntityEmbed Entity="NitrogenTank" Caption=""/>
@@ -29,94 +29,94 @@
     <GuideEntityEmbed Entity="EmergencyNitrogenTank" Caption=""/>
   </Box>
 
-  Инертный газ, используемый вместе с кислородом для создания пригодной для дыхания атмосферы.
+  An inert gas, used in part with oxygen to create a breathable atmosphere.
 
-  Азот очень стабилен и составляет большую часть стандартной дыхательной атмосферы.
+  Nitrogen is very stable and comprises most of a standard breathable atmosphere.
 
-  Некоторые виды, такие как Слаймы, дышат азотом, а вид Вокс требует для дыхания исключительно азот.
+  Some species like Slimes breathe nitrogen, with the Vox species requiring strictly nitrogen to breathe.
 
-  ## Воздушная смесь
+  ## Air Mix
   <Box>
     <GuideEntityEmbed Entity="AirCanister" Caption=""/>
     <GuideEntityEmbed Entity="AirTank" Caption=""/>
   </Box>
 
-  Смесь газов, пригодная для дыхания большинства видов на станции.
-  Состоит из 21% кислорода и 79% азота.
+  A mixture of gasses that is breathable to most species on the station.
+  It consists of 21% oxygen and 79% nitrogen.
 
 
-  ## Углекислый газ
+  ## Carbon Dioxide
   <Box>
     <GuideEntityEmbed Entity="CarbonDioxideCanister" Caption=""/>
   </Box>
 
-  Отработанный газ, производимый большинством видов на станции. Распространенный побочный продукт горения.
+  A waste gas produced by most species on the station. A common byproduct of combustion.
 
-  Несмотря на кажущуюся бесполезность, некоторые отделы используют его в своей работе.
+  Despite seeming useless, some departments use it in their line of work.
 
-  ## Водяной пар
+  ## Water Vapor
   <Box>
     <GuideEntityEmbed Entity="WaterVaporCanister" Caption=""/>
   </Box>
-  Распространенный газ, образующийся при сгорании плазмы и других процессах.
+  A common gas, produced by the burning of plasma and other processes.
 
-  Водяной пар имеет хорошую удельную теплоемкость по сравнению с другими газами, что делает его полезным для перемещения тепла.
+  Water vapor has a good specific heat capacity compared to other gasses, making it useful for moving heat around.
 
-  ## Плазма
+  ## Plasma
   <Box>
     <GuideEntityEmbed Entity="PlasmaCanister" Caption=""/>
   </Box>
-  Легковоспламеняющийся газ, используемый во многих процессах на станции.
+  A highly flammable gas that is used in many processes on the station.
 
-  Инженерия использует этот газ для выработки энергии и создания экзотических газов.
+  Engineering uses this gas to generate power and create exotic gasses.
 
-  При сжигании выделяется много тепла, а также газообразные побочные продукты, такие как углекислый газ, водяной пар и тритий, в зависимости от эффективности сжигания.
+  Burning it generates a lot of heat, as well as gas byproducts such as carbon dioxide, water vapor, and tritium, depending on the efficiency of the burn.
 
-  Плазма также имеет хорошую удельную теплоемкость, что делает ее полезной для перемещения тепла.
+  Plasma gas also has a good specific heat capacity, making it useful for moving heat around.
 
-  ## Тритий
+  ## Tritium
   <Box>
     <GuideEntityEmbed Entity="TritiumCanister" Caption=""/>
   </Box>
-  Чрезвычайно легковоспламеняющийся радиоактивный газ, используемый для создания фрезона.
+  An extremely flammable radioactive gas that is used in the creation of frezon.
 
-  Тритий образуется при сжигании плазмы в камере сгорания и может использоваться для создания газа фрезона в сложном процессе смешивания.
+  Tritium is produced when burning plasma in a burn chamber, and can be used to create frezon gas in a complicated mixing process.
 
-  Эффективность синтеза трития зависит от различных факторов, таких как насыщенность горения и температура.
+  The efficiency of tritium fusion depends on various factors such as burn richness and temperature.
 
-  ## Фрезон
+  ## Frezon
   <Box>
     <GuideEntityEmbed Entity="FrezonCanister" Caption=""/>
   </Box>
 
-  Высоко востребованный газ из-за сложности его создания и множества свойств.
+  A highly sought after gas, due to the difficulty in creating it and its many properties.
 
-  Он обладает чрезвычайно высокой удельной теплоемкостью, что делает его отличным для перемещения больших количеств тепла.
+  It has an extremely high specific heat capacity, making it excellent for moving large amounts of heat around.
 
-  Фрезон может соединяться в воздухе с азотом, образуя закись азота, а также значительно охлаждая воздух до температуры ниже нуля.
+  Frezon can combine in the air with nitrogen to create nitrous oxide, alongside cooling down the air significantly to below freezing temperatures.
 
-  Фрезон очень сложен в создании, требует смеси трития, кислорода и азота, точно настроенной для создания газа.
-  Если вы хотите создать этот газ самостоятельно, вот что вам нужно знать:
-  - Фрезон производится путем соединения кислорода, трития и азота.
-  - Тритий и кислород смешиваются в соотношении примерно 1:8.
-  - Азот требуется в качестве катализатора реакции. Количество потребляемого азота зависит от эффективности реакции.
-  - Реакция фрезона происходит только при криогенных температурах, ниже 73,15 K. Эффективность реакции (сколько фрезона производится) зависит от температуры. Чем ближе к 73,15 K, тем больше фрезона производится и тем меньше азота потребляется.
+  Frezon is very complicated to create, requiring a mix of tritium, oxygen, and nitrogen, all tuned precisely to create the gas.
+  If you're looking to create this gas yourself, here's what you need to know:
+  - Frezon is produced by the combination of oxygen, tritium, and nitrogen.
+  - Tritium and oxygen are mixed at a ratio of around 1:8.
+  - Nitrogen is required as a catalyst for the reaction. The amount of nitrogen consumed is dependent on the efficiency of the reaction.
+  - The frezon reaction only occurs at cryogenic temperatures, below 73.15 K. The efficency of the reaction (how much frezon is produced) is dependent on the temperature. The closer to 73.15 K, the more frezon is produced, and the less nitrogen is consumed.
 
-  Помните, атмосферика — это экспериментирование и оптимизация процессов. Пробуйте, пока не получится!
+  Remember, atmospherics is all about experimentation and process optimization. Try it until you get it right!
 
-  ## Закись азота
+  ## Nitrous Oxide
   <Box>
     <GuideEntityEmbed Entity="NitrousOxideCanister" Caption=""/>
     <GuideEntityEmbed Entity="EmergencyFunnyOxygenTank" Caption=""/>
   </Box>
-  Рекреационный и отработанный газ, производимый слаймами и при соединении фрезона с азотом.
+  A recreational and waste gas, produced by slimes and the combination of frezon and nitrogen.
 
-  ## Аммиак
+  ## Ammonia
   <Box>
     <GuideEntityEmbed Entity="AmmoniaCanister" Caption=""/>
   </Box>
-  Газ, образующийся при разложении тел.
+  A gas produced by the decomposition of bodies.
 
-  Может быть сконденсирован для получения аммиака, который можно использовать для изготовления космического очистителя.
+  Can be condensed to create ammonia, which can be used to make space cleaner.
 
 </Document>

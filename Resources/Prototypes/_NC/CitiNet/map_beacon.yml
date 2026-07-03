@@ -1,0 +1,22 @@
+- type: entity
+  id: MapBeaconAnchor
+  parent: MarkerBase
+  name: Map POI Anchor
+  suffix: CitiNet
+  components:
+  - type: Physics
+    bodyType: Static
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape:
+          !type:PhysShapeAabb
+          bounds: "-0.25,-0.25,0.25,0.25"
+        hard: false
+  - type: Sprite
+    state: green # Зеленый крестик для маяков
+  - type: MapBeacon
+    label: citinet-map-beacon-default
+    color: "#00ffff"
+    icon: /Textures/Interface/VerbIcons/information.svg.192dpi.png
+    visibleInWorld: true

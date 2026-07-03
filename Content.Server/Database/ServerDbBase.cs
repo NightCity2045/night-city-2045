@@ -1,5 +1,8 @@
 using Content.Server.Administration.Logs;
 using Content.Server.Administration.Managers;
+using Content.Server._NC.CharacterNotes.Components;
+using Content.Shared._NC.Stats;
+using Content.Shared._NC.CharacterNotes;
 using Content.Shared._White.Bark;
 using Content.Shared._White.CustomGhostSystem;
 using Content.Shared.Administration.Logs;
@@ -28,7 +31,7 @@ namespace Content.Server.Database
 {
     public abstract class ServerDbBase
     {
-        private readonly ISawmill _opsLog;
+        protected readonly ISawmill _opsLog;
 
         public event Action<DatabaseNotification>? OnNotificationReceived;
 
@@ -51,6 +54,7 @@ namespace Content.Server.Database
                 .Include(p => p.Profiles).ThenInclude(h => h.Antags)
                 .Include(p => p.Profiles).ThenInclude(h => h.Traits)
                 .Include(p => p.Profiles).ThenInclude(h => h.Loadouts)
+                .Include(p => p.Profiles).ThenInclude(h => h.QuittedDepartments) // NC
                 .AsSingleQuery()
                 .SingleOrDefaultAsync(p => p.UserId == userId.UserId, cancel);
 
@@ -65,6 +69,12 @@ namespace Content.Server.Database
             }
 
             return new PlayerPreferences(profiles, prefs.SelectedCharacterSlot, Color.FromHex(prefs.AdminOOCColor), prefs.GhostId); // WWDP EDIT
+        }
+
+        public async Task ResetAllBankBalances(int startingBalance)
+        {
+            await using var db = await GetDb();
+            await db.DbContext.Profile.ExecuteUpdateAsync(s => s.SetProperty(p => p.BankBalance, startingBalance));
         }
 
         public async Task SaveSelectedCharacterIndexAsync(NetUserId userId, int index)
@@ -100,6 +110,7 @@ namespace Content.Server.Database
                 .Include(p => p.Antags)
                 .Include(p => p.Traits)
                 .Include(p => p.Loadouts)
+                .Include(p => p.QuittedDepartments) // NC
                 .AsSplitQuery()
                 .SingleOrDefault(h => h.Slot == slot);
 
@@ -249,6 +260,8 @@ namespace Content.Server.Database
                 }
             }
 
+            var quittedDepts = profile.QuittedDepartments.ToDictionary(q => q.DepartmentId, q => q.QuitTime);
+
             return new HumanoidCharacterProfile(
                 profile.CharacterName,
                 profile.FlavorText,
@@ -261,6 +274,8 @@ namespace Content.Server.Database
                 profile.Width,
                 profile.Age,
                 sex,
+                profile.BankBalance, // NC
+                profile.EmployedDepartment, // NC
                 voice, // WD EDIT
                 profile.BarkVoice, // WD EDIT
                                    // WD EDIT START
@@ -279,6 +294,9 @@ namespace Content.Server.Database
                 profile.CyborgName,
                 profile.ClownName, // WD EDIT
                 profile.MimeName, // WD EDIT
+                profile.NCStats?.Deserialize<List<NCStatEntry>>() ?? new List<NCStatEntry>(),
+                profile.NCSkills?.Deserialize<List<NCSkillEntry>>() ?? new List<NCSkillEntry>(),
+                profile.StatsAndSkillsLocked,
                 new HumanoidCharacterAppearance(
                     profile.HairName,
                     Color.FromHex(profile.HairColor),
@@ -293,7 +311,8 @@ namespace Content.Server.Database
                 (PreferenceUnavailableMode) profile.PreferenceUnavailable,
                 antags.ToHashSet(),
                 traits.ToHashSet(),
-                loadouts.ToDictionary(p => p.LoadoutName) // WWDP EDIT
+                loadouts.ToDictionary(p => p.LoadoutName, p => new Loadout(p.LoadoutName, p.CustomName, p.CustomDescription, p.CustomContent, p.CustomColorTint, p.CustomHeirloom)), // WWDP EDIT
+                quittedDepts // NC
             );
         }
 
@@ -316,6 +335,8 @@ namespace Content.Server.Database
             profile.Employer = humanoid.Employer;
             profile.Lifepath = humanoid.Lifepath;
             profile.Age = humanoid.Age;
+            profile.BankBalance = humanoid.BankBalance; // NC
+            profile.EmployedDepartment = humanoid.EmployedDepartment; // NC
             profile.Sex = humanoid.Sex.ToString();
             profile.Voice = humanoid.Voice; // WD EDIT
             profile.BarkVoice = humanoid.BarkVoice; // WD EDIT
@@ -326,6 +347,9 @@ namespace Content.Server.Database
             profile.CyborgName = humanoid.CyborgName;
             profile.ClownName = humanoid.ClownName; // WD EDIT
             profile.MimeName = humanoid.MimeName; // WD EDIT
+            profile.NCStats = JsonSerializer.SerializeToDocument(humanoid.Stats);
+            profile.NCSkills = JsonSerializer.SerializeToDocument(humanoid.Skills);
+            profile.StatsAndSkillsLocked = humanoid.StatsAndSkillsLocked;
             profile.Height = humanoid.Height;
             profile.Width = humanoid.Width;
             profile.HairName = appearance.HairStyleId;
@@ -358,6 +382,12 @@ namespace Content.Server.Database
                     .Select(t => new Trait { TraitName = t })
             );
 
+            profile.QuittedDepartments.Clear();
+            profile.QuittedDepartments.AddRange(
+                humanoid.QuittedDepartments
+                    .Select(q => new QuittedDepartment { DepartmentId = q.Key, QuitTime = q.Value })
+            );
+
             profile.Loadouts.Clear();
             profile.Loadouts.AddRange(humanoid.LoadoutPreferencesList
                 .Select(l => new LoadoutItem(l.LoadoutName, l.CustomName, l.CustomDescription, l.CustomContent, l.CustomColorTint, l.CustomHeirloom))); // WD EDIT
@@ -371,6 +401,93 @@ namespace Content.Server.Database
 
             return profile;
         }
+
+        #region Faction Bank
+        public async Task<Dictionary<int, int>> GetFactionBankBalancesAsync()
+        {
+            await using var db = await GetDb();
+            return await db.DbContext.FactionBankBalances.ToDictionaryAsync(f => f.FactionId, f => f.Balance);
+        }
+
+        public async Task SaveFactionBankBalanceAsync(int factionId, int balance)
+        {
+            await using var db = await GetDb();
+            var existing = await db.DbContext.FactionBankBalances.SingleOrDefaultAsync(f => f.FactionId == factionId);
+            if (existing == null)
+            {
+                db.DbContext.FactionBankBalances.Add(new FactionBankBalance
+                {
+                    FactionId = factionId,
+                    Balance = balance
+                });
+            }
+            else
+            {
+                existing.Balance = balance;
+            }
+            await db.DbContext.SaveChangesAsync();
+        }
+
+        public async Task<int?> GetProfileIdForSlotAsync(NetUserId userId, int slot)
+        {
+            await using var db = await GetDb();
+
+            return await db.DbContext.Profile
+                .Where(p => p.Preference.UserId == userId.UserId && p.Slot == slot)
+                .Select(p => (int?) p.Id)
+                .SingleOrDefaultAsync();
+        }
+
+        public async Task<Dictionary<int, NCCharacterNoteEntry>> GetNCCharacterNotesAsync(int ownerProfileId)
+        {
+            await using var db = await GetDb();
+
+            return await db.DbContext.NCCharacterNotes
+                .Where(n => n.OwnerProfileId == ownerProfileId)
+                .ToDictionaryAsync(
+                    n => n.TargetProfileId,
+                    n => new NCCharacterNoteEntry
+                    {
+                        CustomName = n.CustomName,
+                        ColorTag = n.ColorTag,
+                        Description = n.Description,
+                    });
+        }
+
+        public async Task SaveNCCharacterNoteAsync(
+            int ownerProfileId,
+            int targetProfileId,
+            string customName,
+            NCCharacterNoteColorTag colorTag,
+            string description)
+        {
+            await using var db = await GetDb();
+
+            var existing = await db.DbContext.NCCharacterNotes
+                .SingleOrDefaultAsync(n => n.OwnerProfileId == ownerProfileId && n.TargetProfileId == targetProfileId);
+
+            if (existing == null)
+            {
+                db.DbContext.NCCharacterNotes.Add(new NCCharacterNote
+                {
+                    OwnerProfileId = ownerProfileId,
+                    TargetProfileId = targetProfileId,
+                    CustomName = customName,
+                    ColorTag = colorTag,
+                    Description = description,
+                });
+            }
+            else
+            {
+                existing.CustomName = customName;
+                existing.ColorTag = colorTag;
+                existing.Description = description;
+            }
+
+            await db.DbContext.SaveChangesAsync();
+        }
+        #endregion
+
         #endregion
 
         #region User Ids

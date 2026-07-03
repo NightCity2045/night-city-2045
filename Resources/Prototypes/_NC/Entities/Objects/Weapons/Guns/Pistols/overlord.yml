@@ -1,0 +1,69 @@
+- type: entity
+  name: Ручная пушка Оверлорд
+  parent: [BaseWeaponPistol, NCBrandGunMart]
+  id: WeaponPistolOverlord
+  description: "Решение ГанМарт для ультрадешевого запугивания. Выглядит как револьвер, но барабан декоративный. Использует встроенный магазин в рукоятке. Тяжелый, ненадежный и медленный."
+  components:
+  - type: Sprite
+    sprite: _NC/Objects/Weapons/Guns/Pistol/overlord.rsi
+    layers:
+    - state: base
+      map: [ "enum.GunVisualLayers.Base" ]
+  - type: Clothing
+    sprite: _NC/Objects/Weapons/Guns/Pistol/overlord.rsi
+    slots:
+    - Belt
+
+  - type: Item
+    size: Normal
+
+  - type: Tag
+    tags:
+    - Sidearm
+
+  - type: Gun
+    fireRate: 2
+    selectedMode: SemiAuto
+    availableModes:
+    - SemiAuto
+    soundGunshot:
+      path: /Audio/Weapons/Guns/Gunshots/mateba.ogg
+
+  - type: MagazineAmmoProvider
+  - type: ItemSlots
+    slots:
+      gun_magazine:
+        name: Magazine
+        startingItem: MagazinePistolOverlord
+        insertSound: /Audio/Weapons/Guns/MagIn/pistol_magin.ogg
+        ejectSound: /Audio/Weapons/Guns/MagOut/pistol_magout.ogg
+        whitelist:
+          tags:
+          - MagazinePistolOverlord
+  - type: ContainerContainer
+    containers:
+      gun_magazine: !type:ContainerSlot
+
+  - type: AmmoCounter
+
+  - type: StaticPrice
+    price: 1500
+
+
+# Пустой вариант
+- type: entity
+  name: Ручная пушка Оверлорд
+  parent: WeaponPistolOverlord
+  id: WeaponPistolOverlordEmpty
+  suffix: Empty
+  components:
+  - type: ItemSlots
+    slots:
+      gun_magazine:
+        name: Magazine
+        startingItem: null
+        insertSound: /Audio/Weapons/Guns/MagIn/pistol_magin.ogg
+        ejectSound: /Audio/Weapons/Guns/MagOut/pistol_magout.ogg
+        whitelist:
+          tags:
+          - MagazinePistolOverlord

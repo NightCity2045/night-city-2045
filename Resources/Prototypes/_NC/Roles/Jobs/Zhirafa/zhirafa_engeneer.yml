@@ -1,0 +1,18 @@
+- type: job
+  id: ZhirafaEngeneer
+  name: job-name-zhirafa-engineer
+  description: job-description-zhirafa-engineer
+  playTimeTracker: JobZhirafaEngeneer
+  salary: 180
+  icon: "JobIconCivilRipper"
+  access:
+    - NC_General
+  startingGear: ZhirafaEngeneerGear
+
+- type: startingGear
+  id: ZhirafaEngeneerGear
+  equipment:
+    jumpsuit: ClothingUniformJumpsuitMedicalDoctor
+    back: ClothingBackpackSatchelMedical
+    shoes: ClothingShoesColorWhite
+    id: CitizenPDA

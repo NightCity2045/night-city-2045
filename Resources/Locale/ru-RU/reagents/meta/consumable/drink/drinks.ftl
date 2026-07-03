@@ -3,21 +3,21 @@ reagent-desc-coffee = Напиток, приготовленный из зава
 reagent-name-cream = сливки
 reagent-desc-cream = Жирная, но еще жидкая часть молока. Почему бы вам не смешать это с виски, а?
 reagent-name-coconut-water = кокосовая вода
-reagent-desc-coconut-water = Любимец выживших на необитаемых островах.
+reagent-desc-coconut-water = Любимый напиток выживших з безлюдных островов.
 
-reagent-name-cream-of-coconut = кокосовый крем
-reagent-desc-cream-of-coconut = Сладкая, сиропообразная версия кокосовых сливок с добавлением сахара.
+reagent-name-cream-of-coconut = кокосовые сливки
+reagent-desc-cream-of-coconut = Сладкая, тягучая версия обычных кокосовых сливок с добавлением сахара.
 
 reagent-name-cafe-latte = кофе латте
 reagent-desc-cafe-latte = Приятный, крепкий и вкусный напиток на время чтения.
-reagent-name-tea-powder = чайный порошок
-reagent-desc-tea-powder = Мелко молотые чайные листья, используемые для заваривания чая.
+reagent-name-tea-powder = чайная заварка
+reagent-desc-tea-powder = Измельченные чайные листья, используются для заварки чая.
 
 reagent-name-green-tea = зелёный чай
 reagent-desc-green-tea = Вкусный зелёный чай.
 reagent-name-grenadine = сироп гренадин
 reagent-desc-grenadine = Не с вишневым вкусом!
-reagent-name-iced-coffee = айс-кофе
+reagent-name-iced-coffee = кофе со льдом
 reagent-desc-iced-coffee = Кофе со льдом, бодрящий и прохладный.
 reagent-name-iced-green-tea = зелёный чай со льдом
 reagent-desc-iced-green-tea = Холодный зеленый чай.
@@ -26,7 +26,7 @@ reagent-desc-iced-tea = Он же айс-ти. Не имеет отношени�
 reagent-name-lemonade = лимонад
 reagent-desc-lemonade = Напиток из лимонного сока, воды и подсластителя, например, тростникового сахара или меда.
 reagent-name-arnold-palmer = арнольд палмер
-reagent-desc-arnold-palmer = А теперь смотри на этот удар.
+reagent-desc-arnold-palmer = Посмотри на этот драйв.
 
 reagent-name-milk = молоко
 reagent-desc-milk = Непрозрачная белая жидкость, вырабатываемая молочными железами млекопитающих.
@@ -42,8 +42,8 @@ reagent-name-nothing = ничего
 reagent-desc-nothing = Абсолютно ничего.
 reagent-name-nuclear-cola = ядерная кола
 reagent-desc-nuclear-cola = Кола, кола никогда не меняется.
-reagent-name-hot-cocoa = какао
-reagent-desc-hot-cocoa = Пахнет праздниками!
+reagent-name-hot-cocoa = горячее какао
+reagent-desc-hot-cocoa = Пахнет как праздники!
 
 reagent-name-soda-water = газировка
 reagent-desc-soda-water = Газированная вода. Почему бы не сделать виски с газировкой?
@@ -69,5 +69,5 @@ reagent-name-the-martinez = мартинез
 reagent-desc-the-martinez = Легенда о киберпанке. Запомненный выпивкой, забытый пьяницей.
 reagent-name-white-gilgamesh = белый гильгамеш
 reagent-desc-white-gilgamesh = Отвратительная смесь молока и пива. Заставляет вас чувствовать, что вы сделаны из дерева.
-reagent-name-mopwata = швабровода
-reagent-desc-mopwata = Грязная, застоявшаяся вода из швабры.
+reagent-name-mopwata = швабода
+reagent-desc-mopwata = Грязная, застоявшаяся вода со швабры.

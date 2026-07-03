@@ -1,0 +1,46 @@
+# Траума (Trauma Team) - Шлюзы
+
+# Общий медицинский шлюз
+- type: entity
+  id: TraumaMedicalAirlock
+  parent: BaseNCAirlock
+  name: ent-NCDoorTraumaMedical
+  components:
+  - type: AccessReader
+    access: [["Trauma_Medical"]]
+
+# Шлюз морга Траума
+- type: entity
+  id: TraumaMorgueAirlock
+  parent: BaseNCAirlock
+  name: ent-NCDoorTraumaMorgue
+  components:
+  - type: AccessReader
+    access: [["Trauma_Morgue"]]
+
+# Шлюз ангаре Траума
+- type: entity
+  id: TraumaHangarAirlock
+  parent: BaseNCAirlock
+  name: ent-NCDoorTraumaHangar
+  components:
+  - type: AccessReader
+    access: [["Trauma_Hangar"]]
+
+# Шлюз командования Траума
+- type: entity
+  id: TraumaCommandAirlock
+  parent: BaseNCAirlock
+  name: ent-NCDoorTraumaCommand
+  components:
+  - type: AccessReader
+    access: [["Trauma_Command"]]
+
+# Шлюз оперативников Траума
+- type: entity
+  id: TraumaOperativeAirlock
+  parent: BaseNCAirlock
+  name: ent-NCDoorTraumaOperatives
+  components:
+  - type: AccessReader
+    access: [["Trauma_Operative"]]

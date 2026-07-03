@@ -1,0 +1,28 @@
+- type: entity
+  id: NcpdTablet
+  parent: BaseItem
+  name: ent-NcpdTablet
+  description: ent-NcpdTablet-desc
+  components:
+  - type: Sprite
+    sprite: Objects/Devices/pda.rsi
+    state: pda-security
+    layers:
+    - state: pda-security
+  - type: Item
+    size: Small
+  - type: NcpdTablet
+  - type: CitiNetMap
+    visibleGroups: ["Public", "NCPD"]
+  - type: ActivatableUI
+    key: enum.NcpdTabletUiKey.Key
+  - type: UserInterface
+    interfaces:
+      enum.NcpdTabletUiKey.Key:
+        type: NcpdTabletBoundUserInterface
+  - type: AccessReader
+    access:
+      - ["NCPD_Patrol"]
+      - ["NCPD_Armory"]
+      - ["NCPD_Detective"]
+      - ["NCPD_Command"]

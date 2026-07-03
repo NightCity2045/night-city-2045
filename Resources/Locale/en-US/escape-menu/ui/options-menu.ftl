@@ -19,12 +19,17 @@ ui-options-value-percent = { TOSTRING($value, "P0") }
 
 ui-options-discordrich = Enable Discord Rich Presence
 ui-options-general-ui-style = UI Style
+ui-options-general-language-translation = Language & translation
 ui-options-general-discord = Discord
 ui-options-general-cursor = Cursor
 ui-options-general-speech = Speech
 ui-options-general-storage = Storage
 ui-options-general-other = Other
 ui-options-general-accessibility = Accessibility
+ui-options-language = Game language:
+ui-options-chat-translation-enabled = Enable chat translation
+ui-options-chat-translation-language = Chat translation language:
+ui-options-chat-translation-language-auto = Follow game language
 ui-options-chatstack = Automatically merge identical chat messages
 ui-options-chatstack-0 = Off
 ui-options-chatstack-1 = Only last message
@@ -90,7 +95,7 @@ ui-options-hud-theme-clockwork = Clockwork
 ui-options-hud-theme-retro = Retro
 ui-options-hud-theme-minimalist = Minimalist
 ui-options-hud-theme-ashen = Ashen
-ui-options-hud-layout-overlay = Default
+ui-options-hud-layout-default = Default
 ui-options-hud-layout-separated = Separated
 ui-options-vp-stretch = Stretch viewport to fit game window
 ui-options-vp-scale = Fixed viewport scale:
@@ -139,6 +144,7 @@ ui-options-header-text-chat = Chat
 ui-options-header-text-other = Text input other
 
 ui-options-hotkey-keymap = Use US QWERTY Keys
+ui-options-combat-mode-action = Vanilla Combat Mode (key 1)
 ui-options-hotkey-toggle-walk = Toggle Speed
 ui-options-hotkey-default-walk = Walk by default
 

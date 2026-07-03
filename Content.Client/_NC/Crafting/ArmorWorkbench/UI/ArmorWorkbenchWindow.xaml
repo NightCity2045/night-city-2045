@@ -1,0 +1,89 @@
+<DefaultWindow xmlns="https://spacestation14.io"
+               xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+               x:Class="Content.Client._NC.Crafting.ArmorWorkbench.UI.ArmorWorkbenchWindow"
+               Title="{Loc 'armor-workbench-window-title'}"
+               MinSize="420 470"
+               SetSize="460 540">
+    <PanelContainer StyleClasses="NightCityTerminalPanel">
+        <BoxContainer Orientation="Vertical" SeparationOverride="8">
+            <Label Name="StatusLabel"
+                   Text="{Loc 'armor-workbench-status-waiting'}"
+                   StyleClasses="NightCityStatusWarning" />
+
+            <PanelContainer StyleClasses="NightCityPanel">
+                <BoxContainer Orientation="Vertical" SeparationOverride="4">
+                    <Label Text="{Loc 'armor-workbench-window-blueprint-label'}"
+                           StyleClasses="NightCityMutedText" />
+                    <Label Name="BlueprintLabel"
+                           Text="{Loc 'armor-workbench-window-blueprint-empty'}"
+                           StyleClasses="NightCityGlowText" />
+                    <Button Name="EjectRecipeButton"
+                            Text="{Loc 'armor-workbench-window-eject-blueprint'}"
+                            StyleClasses="NightCityButton"
+                            HorizontalAlignment="Left" />
+                </BoxContainer>
+            </PanelContainer>
+
+            <PanelContainer StyleClasses="NightCityPanelDark">
+                <BoxContainer Orientation="Vertical" SeparationOverride="6">
+                    <Label Text="{Loc 'armor-workbench-window-base-label'}"
+                           StyleClasses="NightCityGlowText" />
+                    <OptionButton Name="BaseMaterialButton" HorizontalExpand="True" />
+                    <Label Name="BaseForecastLabel"
+                           Text="{Loc 'armor-workbench-window-base-forecast-empty'}"
+                           StyleClasses="NightCityMutedText" />
+                </BoxContainer>
+            </PanelContainer>
+
+            <PanelContainer StyleClasses="NightCityPanelDark">
+                <BoxContainer Orientation="Vertical" SeparationOverride="6">
+                    <Label Text="{Loc 'armor-workbench-window-soft-label'}"
+                           StyleClasses="NightCityGlowText" />
+                    <OptionButton Name="SoftMaterialButton" HorizontalExpand="True" />
+                    <Label Name="SoftForecastLabel"
+                           Text="{Loc 'armor-workbench-window-soft-forecast-empty'}"
+                           StyleClasses="NightCityMutedText" />
+                </BoxContainer>
+            </PanelContainer>
+
+            <PanelContainer StyleClasses="NightCityPanelDark">
+                <BoxContainer Orientation="Vertical" SeparationOverride="6">
+                    <Label Text="{Loc 'armor-workbench-window-hard-label'}"
+                           StyleClasses="NightCityGlowText" />
+                    <OptionButton Name="HardMaterialButton" HorizontalExpand="True" />
+                    <Label Name="HardForecastLabel"
+                           Text="{Loc 'armor-workbench-window-hard-forecast-empty'}"
+                           StyleClasses="NightCityMutedText" />
+                </BoxContainer>
+            </PanelContainer>
+
+            <PanelContainer StyleClasses="NightCityPanelInset">
+                <BoxContainer Orientation="Vertical" SeparationOverride="4">
+                    <Label Text="{Loc 'armor-workbench-window-result-label'}"
+                           StyleClasses="NightCityMutedText" />
+                    <Label Name="ResultLabel"
+                           Text="{Loc 'armor-workbench-window-result-empty'}"
+                           StyleClasses="NightCityGlowText" />
+                </BoxContainer>
+            </PanelContainer>
+
+            <Control VerticalExpand="True" />
+
+            <BoxContainer Orientation="Horizontal" SeparationOverride="8">
+                <Button Name="EjectMaterialsButton"
+                        Text="{Loc 'armor-workbench-window-eject-materials'}"
+                        HorizontalExpand="True"
+                        StyleClasses="NightCityButton" />
+                <Button Name="EjectRecipeBottomButton"
+                        Text="{Loc 'armor-workbench-window-eject-recipe'}"
+                        HorizontalExpand="True"
+                        StyleClasses="NightCityButton" />
+            </BoxContainer>
+
+            <Button Name="AssembleButton"
+                    Text="{Loc 'armor-workbench-window-assemble'}"
+                    MinHeight="42"
+                    StyleClasses="NightCityButtonDanger" />
+        </BoxContainer>
+    </PanelContainer>
+</DefaultWindow>

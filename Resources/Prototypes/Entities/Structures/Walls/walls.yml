@@ -46,6 +46,10 @@
         density: 1000
   - type: Occluder
   - type: Airtight
+  - type: RCDDeconstructable
+    cost: 6
+    delay: 8
+    fx: EffectRCDDeconstruct8
   - type: StaticPrice
     price: 75
   - type: RadiationBlocker
@@ -62,10 +66,6 @@
     sprite: Structures/Walls/brick.rsi
   - type: Icon
     sprite: Structures/Walls/brick.rsi
-  - type: RCDDeconstructable
-    cost: 6
-    delay: 8
-    fx: EffectRCDDeconstruct8
   - type: Destructible
     thresholds:
     - trigger:
@@ -131,10 +131,6 @@
   - type: Construction
     graph: Girder
     node: bananiumWall
-  - type: RCDDeconstructable
-    cost: 6
-    delay: 8
-    fx: EffectRCDDeconstruct8
   - type: Destructible
     thresholds:
     - trigger:
@@ -259,10 +255,6 @@
     sprite: Structures/Walls/diamond.rsi
   - type: Icon
     sprite: Structures/Walls/diamond.rsi
-  - type: RCDDeconstructable
-    cost: 6
-    delay: 8
-    fx: EffectRCDDeconstruct8
   - type: Destructible
     thresholds:
     - trigger:
@@ -295,10 +287,6 @@
   - type: Construction
     graph: Girder
     node: goldWall
-  - type: RCDDeconstructable
-    cost: 6
-    delay: 8
-    fx: EffectRCDDeconstruct8
   - type: Destructible
     thresholds:
     - trigger:
@@ -369,10 +357,6 @@
   - type: Construction
     graph: Girder
     node: plasmaWall
-  - type: RCDDeconstructable
-    cost: 6
-    delay: 8
-    fx: EffectRCDDeconstruct8
   - type: Destructible
     thresholds:
     - trigger:
@@ -416,10 +400,6 @@
   - type: Construction
     graph: Girder
     node: plasticWall
-  - type: RCDDeconstructable
-    cost: 6
-    delay: 8
-    fx: EffectRCDDeconstruct8
   - type: Destructible
     thresholds:
     - trigger:
@@ -476,7 +456,7 @@
     thresholds:
     - trigger:
         !type:DamageTrigger
-        damage: 1000
+        damage: 6000
       behaviors:
       - !type:SpawnEntitiesBehavior
         spawn:
@@ -511,7 +491,7 @@
     thresholds:
     - trigger:
         !type:DamageTrigger
-        damage: 2000
+        damage: 3000
       behaviors:
       - !type:DoActsBehavior
         acts: [ "Destruction" ]
@@ -599,7 +579,7 @@
     thresholds:
     - trigger:
         !type:DamageTrigger
-        damage: 600
+        damage: 3000
       behaviors:
       - !type:DoActsBehavior
         acts: ["Destruction"]
@@ -608,7 +588,7 @@
           collection: MetalSlam
     - trigger:
         !type:DamageTrigger
-        damage: 400
+        damage: 1500
       behaviors:
       - !type:PlaySoundBehavior
         sound:
@@ -658,7 +638,7 @@
     thresholds:
     - trigger:
         !type:DamageTrigger
-        damage: 500
+        damage: 1000
       behaviors:
       - !type:DoActsBehavior
         acts: ["Destruction"]
@@ -750,10 +730,6 @@
     sprite: Structures/Walls/sandstone.rsi
   - type: Icon
     sprite: Structures/Walls/sandstone.rsi
-  - type: RCDDeconstructable
-    cost: 6
-    delay: 8
-    fx: EffectRCDDeconstruct8
   - type: Destructible
     thresholds:
     - trigger:
@@ -786,10 +762,6 @@
   - type: Construction
     graph: Girder
     node: silverWall
-  - type: RCDDeconstructable
-    cost: 6
-    delay: 8
-    fx: EffectRCDDeconstruct8
   - type: Destructible
     thresholds:
     - trigger:
@@ -969,15 +941,11 @@
     node: wall
   - type: Icon
     sprite: Structures/Walls/solid.rsi
-  - type: RCDDeconstructable
-    cost: 6
-    delay: 8
-    fx: EffectRCDDeconstruct8
   - type: Destructible
     thresholds:
     - trigger:
         !type:DamageTrigger
-        damage: 400
+        damage: 3000
       behaviors:
       - !type:DoActsBehavior
         acts: ["Destruction"]
@@ -986,7 +954,7 @@
           collection: MetalSlam
     - trigger:
         !type:DamageTrigger
-        damage: 200
+        damage: 1500
       behaviors:
       - !type:PlaySoundBehavior
         sound:
@@ -1378,10 +1346,6 @@
     sprite: Structures/Walls/cobblebrick.rsi
   - type: Icon
     sprite: Structures/Walls/cobblebrick.rsi
-  - type: RCDDeconstructable
-    cost: 6
-    delay: 8
-    fx: EffectRCDDeconstruct8
   - type: Destructible
     thresholds:
     - trigger:
@@ -1472,3 +1436,4 @@
   - type: IconSmooth
     key: cobblebricks
     base: cobblebrick
+

@@ -1,0 +1,21 @@
+- type: entity
+  parent: BaseItem
+  id: NcpdCitationTerminal
+  name: ent-NCCitationTerminal
+  description: ent-NCCitationTerminal-desc
+  components:
+  - type: Sprite
+    sprite: Objects/Devices/pda.rsi # Временный спрайт, 
+    state: pda
+  - type: Item
+    size: Small
+  - type: CitationDevice
+    captainLimit: 1000
+    detectiveLimit: 1000
+    patrolLimit: 1000
+  - type: ActivatableUI
+    key: enum.CitationDeviceUiKey.Key
+  - type: UserInterface
+    interfaces:
+      enum.CitationDeviceUiKey.Key:
+        type: CitationDeviceBoundUserInterface

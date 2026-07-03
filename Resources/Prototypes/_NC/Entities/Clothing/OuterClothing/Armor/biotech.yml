@@ -1,0 +1,28 @@
+- type: entity
+  parent: [ClothingOuterBaseMedium, AllowSuitStorageClothing]
+  id: ClothingOuterArmorBiotechnicaBulletproof
+  name: ent-ClothingOuterArmorBiotechnica
+  description: ent-ClothingOuterArmorBiotechnica-desc
+  components:
+  - type: Sprite
+    sprite: _NC/Clothing/OuterClothing/Armor/biotech_bulletproof.rsi
+  - type: Clothing
+    sprite: _NC/Clothing/OuterClothing/Armor/biotech_bulletproof.rsi
+  - type: NCLayeredArmor
+    softLayer:
+      armorClass: 0
+      maxDurability: 100
+      currentDurability: 100
+      coverage:
+      - Torso
+      - LeftArm
+      - RightArm
+    hardLayer:
+      armorClass: 4
+      maxDurability: 250
+      currentDurability: 250
+      coverage:
+      - Torso
+  - type: ClothingSpeedModifier
+    walkModifier: 0.9
+    sprintModifier: 0.8

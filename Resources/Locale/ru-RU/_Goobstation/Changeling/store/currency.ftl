@@ -1,1 +1,1 @@
-store-currency-display-evolutionpoints = Очков эволюции
+store-currency-display-evolutionpoints = Очки Эволюции

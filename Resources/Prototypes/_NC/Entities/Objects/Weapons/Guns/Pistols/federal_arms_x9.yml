@@ -1,0 +1,64 @@
+- type: entity
+  name: Federal Arms X9
+  parent: [BaseWeaponPistol, NCBrandFederatedArms]
+  id: WeaponPistolFederalX9
+  description: 'Компактный и надежный пистолет от Federal Arms. Пользуется популярностью среди охранных структур.'
+  components:
+  - type: Sprite
+    sprite: _NC/Objects/Weapons/Guns/Pistol/federal_hand_x9.rsi
+    layers:
+    - state: base
+      map: ["enum.GunVisualLayers.Base"]
+    - state: mag-0
+      map: ["enum.GunVisualLayers.Mag"]
+  - type: Clothing
+    sprite: _NC/Objects/Weapons/Guns/Pistol/federal_hand_x9.rsi
+  - type: ItemSlots
+    slots:
+      gun_magazine:
+        name: Magazine
+        startingItem: MagazinePistolFederalX9
+        insertSound: /Audio/Weapons/Guns/MagIn/pistol_magin.ogg
+        ejectSound: /Audio/Weapons/Guns/MagOut/pistol_magout.ogg
+        priority: 2
+        whitelist:
+          tags:
+            - MagazinePistolFederalX9
+        whitelistFailPopup: gun-magazine-whitelist-fail
+      gun_chamber:
+        name: Chamber
+        startingItem: Cartridge9x19
+        priority: 1
+        whitelist:
+          tags:
+            - Cartridge9x19
+  - type: ContainerContainer
+    containers:
+      gun_magazine: !type:ContainerSlot
+      gun_chamber: !type:ContainerSlot
+  - type: Gun
+    fireRate: 4
+    selectedMode: SemiAuto
+    availableModes:
+    - SemiAuto
+    soundGunshot:
+      path: /Audio/Weapons/Guns/Gunshots/pistol.ogg
+    fireOnDropChance: 0.2
+
+# Пустой вариант для лута
+- type: entity
+  name: Federal Hand X9 (пустой)
+  parent: WeaponPistolFederalX9
+  id: WeaponPistolFederalX9Empty
+  suffix: Empty
+  components:
+  - type: ItemSlots
+    slots:
+      gun_magazine:
+        name: Magazine
+        startingItem: null
+        insertSound: /Audio/Weapons/Guns/MagIn/pistol_magin.ogg
+        ejectSound: /Audio/Weapons/Guns/MagOut/pistol_magout.ogg
+        whitelist:
+          tags:
+          - MagazinePistolFederalX9

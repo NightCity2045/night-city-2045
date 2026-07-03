@@ -1,0 +1,25 @@
+- type: job
+  id: MilitechOperative
+  name: job-name-militech-operative
+  description: job-description-militech-operative
+  playTimeTracker: JobMilitechOperative
+  weight: 70
+  salary: 300
+  icon: "JobIconNCPDPolice"
+  startingGear: MilitechOperativeGear
+  access:
+    - Militech_Operative
+    - Militech_Staff
+    - Militech_General
+    - NC_General
+
+- type: startingGear
+  id: MilitechOperativeGear
+  equipment:
+    jumpsuit: ClothingUniformJumpsuitMilitech
+    back: ClothingBackpack
+    shoes: ClothingShoesBootsCombat
+    head: ClothingHeadHatMilitechCap
+    id: MilitechOperativePDA
+    belt: ClothingBeltSecurityFilled
+    outerClothing: ClothingOuterArmorMilitechBulletproof

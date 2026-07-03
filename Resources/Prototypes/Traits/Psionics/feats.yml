@@ -1,75 +1,71 @@
-- type: trait
-  id: HighPotential
-  category: Psionics
-  points: -10
-  requirements:
-    - !type:CharacterLogicOrRequirement
-      requirements:
-        - !type:CharacterTraitRequirement
-          traits:
-            - LatentPsychic
-            - PsychoHistorian
-            - Infernal #wwdp edit
-            - Shadowkin #wwdp edit
-            - Telekineticist #wwdp edit
-            - Priest #wwdp edit
-        - !type:CharacterJobRequirement
-          jobs:
-            - ResearchDirector
-            - ForensicMantis
-            - Chaplain
-            - Librarian
-    - !type:CharacterLogicOrRequirement
-      requirements:
-        - !type:CharacterSpeciesRequirement
-          inverted: true
-          species:
-            - IPC
-        - !type:CharacterTraitRequirement
-          traits:
-            - AnomalousPositronics
-    - !type:CharacterSpeciesRequirement
-      inverted: true
-      species:
-        - Oni
-        - Shadowkin
-  functions:
-    - !type:TraitReplaceComponent
-      components:
-        - type: PotentiaModifier
-          potentiaMultiplier: 1.5
-
-- type: trait
-  id: PowerOverwhelming
-  category: Psionics
-  points: -10
-  requirements:
-    - !type:CharacterLogicOrRequirement
-      requirements:
-        - !type:CharacterTraitRequirement
-          traits:
-            - LatentPsychic
-            - PsychoHistorian
-            - Infernal #wwdp edit
-            - Shadowkin #wwdp edit
-            - Telekineticist #wwdp edit
-            - Priest #wwdp edit
-        - !type:CharacterJobRequirement
-          jobs:
-            - ResearchDirector
-            - ForensicMantis
-            - Chaplain
-            - Librarian
-    - !type:CharacterLogicOrRequirement
-      requirements:
-        - !type:CharacterSpeciesRequirement
-          inverted: true
-          species:
-            - IPC
-        - !type:CharacterTraitRequirement
-          traits:
-            - AnomalousPositronics
-  functions:
-    - !type:TraitAddPsionics
-      psionicPowers:
-        - PowerOverwhelming
+# - type: trait
+#   id: HighPotential
+#   category: Psionics
+#   points: -10
+#   requirements:
+#     - !type:CharacterLogicOrRequirement
+#       requirements:
+#         - !type:CharacterTraitRequirement
+#           traits:
+#             - LatentPsychic
+#             - PsychoHistorian
+#             - Infernal #wwdp edit
+#             - Shadowkin #wwdp edit
+#         - !type:CharacterJobRequirement
+#           jobs:
+#             - ResearchDirector
+#             - ForensicMantis
+#             - Chaplain
+#             - Librarian
+#     - !type:CharacterLogicOrRequirement
+#       requirements:
+#         - !type:CharacterSpeciesRequirement
+#           inverted: true
+#           species:
+#             - IPC
+#         - !type:CharacterTraitRequirement
+#           traits:
+#             - AnomalousPositronics
+#     - !type:CharacterSpeciesRequirement
+#       inverted: true
+#       species:
+#         - Oni
+#         - Shadowkin
+#   functions:
+#     - !type:TraitReplaceComponent
+#       components:
+#         - type: PotentiaModifier
+#           potentiaMultiplier: 1.5
+# 
+# - type: trait
+#   id: PowerOverwhelming
+#   category: Psionics
+#   points: -10
+#   requirements:
+#     - !type:CharacterLogicOrRequirement
+#       requirements:
+#         - !type:CharacterTraitRequirement
+#           traits:
+#             - LatentPsychic
+#             - PsychoHistorian
+#             - Infernal #wwdp edit
+#             - Shadowkin #wwdp edit
+#         - !type:CharacterJobRequirement
+#           jobs:
+#             - ResearchDirector
+#             - ForensicMantis
+#             - Chaplain
+#             - Librarian
+#     - !type:CharacterLogicOrRequirement
+#       requirements:
+#         - !type:CharacterSpeciesRequirement
+#           inverted: true
+#           species:
+#             - IPC
+#         - !type:CharacterTraitRequirement
+#           traits:
+#             - AnomalousPositronics
+#   functions:
+#     - !type:TraitAddPsionics
+#       psionicPowers:
+#         - PowerOverwhelming

@@ -1,0 +1,39 @@
+- type: job
+  id: CafeOwner
+  name: job-name-cafe-owner
+  description: job-description-cafe-owner
+  playTimeTracker: JobCafeOwner
+  icon: "JobIconCivilCitizen"
+  salary: 70
+  startingGear: CafeOwnerGear
+  access:
+    - NC_General
+    - Cafe
+
+- type: job
+  id: RestaurantOwner
+  name: job-name-restaurant-owner
+  description: job-description-restaurant-owner
+  playTimeTracker: JobRestaurantOwner
+  icon: "JobIconCivilCitizen"
+  salary: 100
+  startingGear: RestaurantOwnerGear
+  access:
+    - NC_General
+    - Restaurant
+
+- type: startingGear
+  id: CafeOwnerGear
+  equipment:
+    jumpsuit: ClothingUniformJumpsuitBartender
+    back: ClothingBackpackSatchel
+    shoes: ClothingShoesColorBlack
+    id: CafeOwnerPDA
+
+- type: startingGear
+  id: RestaurantOwnerGear
+  equipment:
+    jumpsuit: ClothingUniformJumpsuitChef
+    back: ClothingBackpackSatchelLeather
+    shoes: ClothingShoesColorBlack
+    id: RestaurantOwnerPDA

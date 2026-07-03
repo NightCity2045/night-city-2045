@@ -1,20 +1,19 @@
 ﻿using Content.Shared.RadialSelector;
-using Robust.Shared.GameStates;
 
 namespace Content.Shared._White.BloodCult.TimedFactory;
 
-[RegisterComponent, NetworkedComponent, AutoGenerateComponentState(true)]
+[RegisterComponent]
 public sealed partial class TimedFactoryComponent : Component
 {
-    [DataField, AutoNetworkedField]
+    [DataField]
     public bool Active = true;
 
     [DataField(required: true)]
     public List<RadialSelectorEntry> Entries = new();
 
     [DataField]
-    public float Cooldown = 240;
+    public TimeSpan Cooldown = TimeSpan.FromSeconds(240);
 
-    [ViewVariables(VVAccess.ReadOnly), AutoNetworkedField]
-    public float CooldownRemain = 0;
+    [ViewVariables(VVAccess.ReadOnly)]
+    public TimeSpan CooldownIn = TimeSpan.Zero;
 }

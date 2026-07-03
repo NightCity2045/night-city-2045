@@ -18,7 +18,8 @@
   - type: Computer
   - type: ApcPowerReceiver
     powerLoad: 200
-  - type: ExtensionCableReceiver
+  - type: LogicPowerReceiver
+    powerLoad: 200
   - type: ActivatableUIRequiresPower
   - type: Sprite
     sprite: Structures/Machines/computers.rsi

@@ -1,0 +1,104 @@
+- type: entity
+  parent: BaseFlatpack
+  id: HydroponicsTrayFlatpack
+  name: ent-HydroponicsTrayFlatpack
+  description: Набор деталей для сборки гидропонного лотка.
+  components:
+  - type: Flatpack
+    entity: hydroponicsTray
+  - type: Sprite
+    layers:
+    - state: base
+    - state: overlay
+      color: "#cec8ac"
+    - state: icon-default
+
+- type: entity
+  parent: BaseFlatpack
+  id: SeedExtractorFlatpack
+  name: ent-SeedExtractorFlatpack
+  description: Набор деталей для сборки экстрактора семян.
+  components:
+  - type: Flatpack
+    entity: SeedExtractor
+  - type: Sprite
+    layers:
+    - state: base
+    - state: overlay
+      color: "#cec8ac"
+    - state: icon-default
+
+- type: entity
+  parent: BaseFlatpack
+  id: WeaponWorkbenchFlatpack
+  name: ent-WeaponWorkbenchFlatpack
+  description: Набор деталей для сборки высокотехнологичного оружейного верстака.
+  components:
+  - type: Flatpack
+    entity: NCWeaponWorkbench
+  - type: Sprite
+    layers:
+    - state: base
+    - state: overlay
+      color: "#cec8ac"
+    - state: icon-default
+
+- type: entity
+  parent: BaseFlatpack
+  id: ConsoleCompilerFlatpack
+  name: ent-ConsoleCompilerFlatpack
+  description: Набор деталей для сборки промышленного компилятора данных.
+  components:
+  - type: Flatpack
+    entity: NCConsoleCompiler
+  - type: Sprite
+    layers:
+    - state: base
+    - state: overlay
+      color: "#cec8ac"
+    - state: icon-default
+
+- type: entity
+  parent: BaseFlatpack
+  id: Civil3DPrinterFlatpack
+  name: ent-Civil3DPrinterFlatpack
+  description: Набор деталей для сборки 3D-принтера общего назначения.
+  components:
+  - type: Flatpack
+    entity: NC3dPrinterCivilian
+  - type: Sprite
+    layers:
+    - state: base
+    - state: overlay
+      color: "#cec8ac"
+    - state: icon-default
+
+- type: entity
+  parent: BaseFlatpack
+  id: ChemDispenserFlatpack
+  name: ent-ChemDispenserFlatpack
+  description: Набор деталей для сборки промышленного раздатчика химикатов.
+  components:
+  - type: Flatpack
+    entity: ChemDispenser
+  - type: Sprite
+    layers:
+    - state: base
+    - state: overlay
+      color: "#cec8ac"
+    - state: icon-default
+
+- type: entity
+  parent: BaseFlatpack
+  id: ReagentGrinderFlatpack
+  name: ent-ReagentGrinderFlatpack
+  description: Набор деталей для сборки многофункционального измельчителя реагентов.
+  components:
+  - type: Flatpack
+    entity: KitchenReagentGrinder
+  - type: Sprite
+    layers:
+    - state: base
+    - state: overlay
+      color: "#cec8ac"
+    - state: icon-default

@@ -15,7 +15,6 @@
     sprite: Structures/Wallmounts/barsign.rsi
     state: empty
   - type: ApcPowerReceiver
-  - type: ExtensionCableReceiver
   - type: BarSign
   - type: InteractionOutline
   - type: AccessReader
@@ -69,7 +68,6 @@
 #    sprite: Structures/Wallmounts/sylphs.rsi
 #    state: sylph
 #  - type: ApcPowerReceiver
-#  - type: ExtensionCableReceiver
 #  - type: BarSign
 
 - type: entity

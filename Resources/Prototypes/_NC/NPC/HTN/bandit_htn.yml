@@ -1,0 +1,188 @@
+- type: htnCompound
+  id: NCRangedCombatCompound
+  branches:
+    - preconditions:
+        - !type:GunAmmoPrecondition
+          minPercent: 0.001
+      tasks:
+        - !type:HTNCompoundTask
+          task: GunCombatCompound
+
+    - preconditions:
+        - !type:ActiveHandComponentPrecondition
+          components:
+            - type: Gun
+          invert: true
+      tasks:
+        - !type:HTNCompoundTask
+          task: PickupGunCompound
+
+- type: htnCompound
+  id: NCBanditRootCompound
+  branches:
+    # Priority 1: Retreat if low HP
+    - tasks:
+        - !type:HTNCompoundTask
+          task: NCRetreatCompound
+      preconditions:
+        - !type:HealthPrecondition
+          maxThreshold: 0.25
+
+    # Priority 2: Maintenance (Jam clearing / Racking).
+    - tasks:
+        - !type:HTNCompoundTask
+          task: RackGunCompound
+      preconditions:
+        - !type:NCWeaponMaintenancePrecondition
+
+    # Priority 3: Tactical Combat
+    - tasks:
+        - !type:HTNCompoundTask
+          task: SimpleHumanoidHostileCompound
+
+    # Priority 4: Idle (Fallback).
+    - tasks:
+        - !type:HTNCompoundTask
+          task: IdleCompound
+
+- type: htnCompound
+  id: NCRetreatCompound
+  branches:
+    - tasks:
+        - !type:HTNPrimitiveTask
+          operator: !type:FleeOperator
+            fleeDistance: 15
+
+- type: htnCompound
+  id: RackGunCompound
+  branches:
+    - tasks:
+        - !type:HTNPrimitiveTask
+          operator: !type:NPCUseInHandOperator
+
+- type: htnCompound
+  id: NCTacticalCombatCompound
+  branches:
+    # Coordination: Help ally
+    - tasks:
+        - !type:HTNCompoundTask
+          task: NCRangedCombatCompound
+      preconditions:
+        - !type:KeyNotExistsPrecondition
+          key: Target
+        - !type:AllyCombatTargetPrecondition
+          range: 20
+
+    # Use Cover if ranged
+    - tasks:
+        - !type:HTNCompoundTask
+          task: MoveToCoverCompound
+      preconditions:
+        - !type:ActiveHandComponentPrecondition
+          components:
+            - type: Gun
+        - !type:TargetInLOSPrecondition
+
+    # Circle target
+    - tasks:
+        - !type:HTNPrimitiveTask
+          operator: !type:CirclingOperator
+            duration: 3
+      preconditions:
+        - !type:NCTargetInRangePrecondition
+          minRange: 3
+          maxRange: 8
+
+    # Default Combat
+    - tasks:
+        - !type:HTNCompoundTask
+          task: SimpleHumanoidHostileCompound
+
+- type: htnCompound
+  id: MoveToCoverCompound
+  branches:
+    - tasks:
+        - !type:HTNPrimitiveTask
+          operator: !type:PickCoverOperator
+        - !type:HTNPrimitiveTask
+          operator: !type:MoveToOperator
+            removeKeyOnFinish: true
+        - !type:HTNPrimitiveTask
+          operator: !type:WaitOperator
+            key: CoverWait
+            # wait: 2
+
+- type: htnCompound
+  id: NCBanditTier2CombatCompound
+  branches:
+    - preconditions:
+        - !type:HealthPrecondition
+          maxThreshold: 0.3
+      tasks:
+        - !type:HTNCompoundTask
+          task: NCRetreatCompound
+    - preconditions:
+        - !type:GunAmmoPrecondition
+          minPercent: 0.001
+      tasks:
+        - !type:HTNCompoundTask
+          task: NCTacticalCombatCompound
+    - tasks:
+        - !type:HTNCompoundTask
+          task: SimpleHumanoidHostileCompound
+
+- type: htnCompound
+  id: NCBanditTier2RootCompound
+  branches:
+    - tasks:
+        - !type:HTNCompoundTask
+          task: RackGunCompound
+      preconditions:
+        - !type:NCWeaponMaintenancePrecondition
+    - tasks:
+        - !type:HTNCompoundTask
+          task: NCBanditTier2CombatCompound
+    - tasks:
+        - !type:HTNCompoundTask
+          task: IdleCompound
+
+- type: htnCompound
+  id: NCBanditMilitechCombatCompound
+  branches:
+    - preconditions:
+        - !type:HealthPrecondition
+          maxThreshold: 0.4 # More cautious
+      tasks:
+        - !type:HTNCompoundTask
+          task: NCRetreatCompound
+    - preconditions:
+        - !type:ActiveHandComponentPrecondition
+          components:
+            - type: Gun
+      tasks:
+        - !type:HTNCompoundTask
+          task: NCTacticalCombatCompound
+    - tasks:
+        - !type:HTNCompoundTask
+          task: NCRangedCombatCompound
+    - tasks:
+        - !type:HTNCompoundTask
+          task: MeleeCombatCompound
+
+- type: htnCompound
+  id: NCBanditTier3RootCompound
+  branches:
+    - tasks:
+        - !type:HTNCompoundTask
+          task: RackGunCompound
+      preconditions:
+        - !type:NCWeaponMaintenancePrecondition
+    - tasks:
+        - !type:HTNCompoundTask
+          task: NCBanditMilitechCombatCompound
+    - tasks:
+        - !type:HTNCompoundTask
+          task: MeleeCombatCompound
+    - tasks:
+        - !type:HTNCompoundTask
+          task: IdleCompound

@@ -3,14 +3,23 @@ using Content.Client.CombatMode;
 using Content.Client.Gameplay;
 using Content.Shared.CombatMode;
 using Robust.Client.UserInterface.Controllers;
+using Robust.Shared.Configuration;
 
 namespace Content.Client._White.UserInterface.Systems.CombatMode;
 
 public sealed class CombatModeUIController : UIController, IOnStateEntered<GameplayState>, IOnSystemChanged<CombatModeSystem>
 {
+    [Dependency] private readonly IConfigurationManager _cfg = default!;
+
     private CombatModeComponent? _combatModeComponent;
 
     private CombatModeGui? CombatModGui => UIManager.GetActiveUIWidgetOrNull<CombatModeGui>();
+
+    public override void Initialize()
+    {
+        base.Initialize();
+        _cfg.OnValueChanged(Content.Shared._White.CCVar.WhiteCVars.CombatModeAction, _ => UpdateVisibility());
+    }
 
     public void OnSystemLoaded(CombatModeSystem system)
     {
@@ -28,8 +37,16 @@ public sealed class CombatModeUIController : UIController, IOnStateEntered<Gamep
 
     public void OnStateEntered(GameplayState state)
     {
+        UpdateVisibility();
+    }
+
+    private void UpdateVisibility()
+    {
         if (CombatModGui != null)
-            CombatModGui.Visible = _combatModeComponent is { Enable: true, };
+        {
+            var useAction = _cfg.GetCVar(Content.Shared._White.CCVar.WhiteCVars.CombatModeAction);
+            CombatModGui.Visible = !useAction && _combatModeComponent is { Enable: true, };
+        }
     }
 
     private void OnCombatModeUpdated(bool inCombatMode)
@@ -39,19 +56,15 @@ public sealed class CombatModeUIController : UIController, IOnStateEntered<Gamep
 
     private void OnCombatModeAdded(CombatModeComponent component)
     {
-        if (CombatModGui != null)
-            CombatModGui.Visible = component.Enable;
-
         _combatModeComponent = component;
+        UpdateVisibility();
         OnCombatModeUpdated(component.IsInCombatMode);
     }
 
     private void OnCombatModeRemoved()
     {
-        if (CombatModGui != null)
-            CombatModGui.Visible = false;
-
         _combatModeComponent = null;
+        UpdateVisibility();
     }
 
     public void ToggleCombatMode() => EntityManager.RaisePredictiveEvent(new ToggleCombatModeRequestEvent());

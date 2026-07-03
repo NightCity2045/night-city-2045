@@ -1,0 +1,65 @@
+- type: entity
+  id: NCCitiNetNode
+  parent: BaseMachinePowered
+  name: ent-NCCitiNetNode
+  description: ent-NCCitiNetNode-desc
+  components:
+  - type: Sprite
+    sprite: Structures/Machines/server.rsi
+    no_rot: true
+    layers:
+    - state: server
+      map: ["enum.CitiNetNodeVisuals.State"]
+      shader: unshaded
+      color: "#00FF00" # Зеленый по умолчанию (Idle)
+  - type: CitiNetNode
+    downloadDuration: 30
+    cooldownDuration: 15
+    idlePower: 100
+    activePower: 500
+
+    # --- Настройки взаимодействия ---
+    connectDelay: 5.0 # Время в секундах на подключение диска
+    emergencyDelay: 10.0 # Время в секундах на отмену скачивания
+
+    # --- Лут и Наказания ---
+    burnedDiskPrototype: NCRawDataBurned # Что спавнится при ошибке/прерывании
+    cleanTechChance: 0.5 # 50% шанс, что вместо сырых данных (RawData) выпадет технология (CleanTech)
+
+    # --- Звуки ---
+    soundConnect: /Audio/Machines/terminal_insert_disc.ogg
+    soundError: /Audio/Machines/custom_deny.ogg
+    soundSuccess: /Audio/Machines/twobeep.ogg
+
+    # Пул "Чистых Технологий". Используется система весов (Weights).
+    cleanTechPool:
+      NCTechPistolStreetMaster: 6
+      NCTechPistolHelloCutie: 6
+      NCTechPistolOverlord: 6
+      NCTechPistolCheesemaker: 6
+      NCTechPistolFederalX9: 6
+      NCTechPistolBoomerBuster: 6
+      NCTechPistolMarkIII: 6
+      NCTechPistolAvenger: 5
+      NCTechPistolStukachTommy: 5
+      NCTechPistolSternmeyerP35: 5
+      NCTechRifleM04: 3
+      NCTechRifleNokota: 3
+      NCTechRifleNowaki: 3
+      NCTechSMGShingen: 4
+      NCTechSMGSaratoga: 4
+      NCTechShotgunSvakha: 8
+      NCTechShotgunMilitechCrusher: 4
+
+    # Пул "Сырых данных". Сюда можно добавить Tier2, Tier3 мусор с разными весами.
+    rawDataPool:
+      NCRawDataTier1: 50
+      NCRawDataTier2: 30
+      NCRawDataTier3: 20
+  - type: ApcPowerReceiver
+  - type: LogicPowerReceiver
+  - type: Appearance
+  - type: UserInterface
+    interfaces:
+      enum.CitiNetNodeUiKey.Key:
+        type: CitiNetNodeBoundUserInterface

@@ -3,7 +3,6 @@ using Content.Server.Popups;
 using Content.Shared.Chemistry.EntitySystems;
 using Content.Shared.Audio;
 using Content.Shared.Chemistry.Components.SolutionManager;
-using Content.Shared.Chemistry.EntitySystems;
 using Content.Shared.Database;
 using Content.Shared.DoAfter;
 using Content.Shared.Examine;
@@ -166,7 +165,7 @@ public sealed class DrainSystem : SharedDrainSystem
             puddles.Clear();
 
             var coords = _transform.GetMapCoordinates(uid, xform);
-            foreach (var entity in _lookup.GetEntitiesInRange(coords.MapId, coords.Position, drain.Range, LookupFlags.Static))
+            foreach (var entity in _lookup.GetEntitiesInRange(coords.MapId, coords.Position, drain.Range))  // NC edit: Fix janitor stuff
             {
                 // No InRangeUnobstructed because there's no collision group that fits right now
                 // and these are placed by mappers and not buildable/movable so shouldnt really be a problem...

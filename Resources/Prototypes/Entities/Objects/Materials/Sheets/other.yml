@@ -239,6 +239,10 @@
   - type: Construction
     graph: ImprovisedShotgunShellGraph
     node: plastic
+  - type: ArmorMaterial
+    layerType: Armor
+    grantedArmorClass: 1
+    grantedDurability: 140
 
 - type: entity
   parent: SheetPlastic

@@ -1,0 +1,45 @@
+- type: job
+  id: MaxTacEraser
+  name: job-name-maxtac-eraser
+  description: job-description-maxtac-eraser
+  playTimeTracker: JobMaxTacEraser
+  weight: 60
+  salary: 350
+  icon: "JobIconMaxTacOperator"
+  startingGear: MaxTacEraserGear
+  supervisors: Штурм командир
+  access:
+    - MaxTac_General
+    - MaxTac_Armory
+    - NCPD_Patrol
+    - NC_General
+  special:
+  - !type:AddComponentSpecial
+    components:
+    - type: MapBeacon
+      group: NCPD
+      color: "#ffaa00"
+      icon: /Textures/Interface/VerbIcons/star-solid-yellow.svg.192dpi.png
+      visibleInWorld: false
+    - type: TraumaSubscriber
+      tier: Silver
+  - !type:AddCyberwareSpecial
+    loseHum: false
+    cyberware:
+    - CyberwareExternalReactiveSublayer
+    - CyberwareNeuroKerenzikovMaxTac
+    - CyberwareNeuroTacticalSpartan
+    - CyberwareNeuroSandevistanMaxTac
+    - CyberwareImplantAntiglare
+
+- type: startingGear
+  id: MaxTacEraserGear
+  equipment:
+    jumpsuit: ClothingUniformNSPDNormisBlack
+    back: ClothingBackpackSecurity
+    shoes: ClothingShoesBootsCombatFilled
+    head: ClothingHeadHelmetHardsuitSecurity
+    eyes: ClothingEyesGlassesSecurityVisor
+    id: MaxTacEraserPDA
+    belt: ClothingBeltSecurityFilled
+    outerClothing: ClothingOuterHardsuitMilitech

@@ -131928,13 +131928,6 @@ entities:
     - type: Transform
       pos: 17.574974,-41.225098
       parent: 2
-- proto: SchoolgirlUniformSpawner
-  entities:
-  - uid: 19920
-    components:
-    - type: Transform
-      pos: 60.5,-44.5
-      parent: 2
 - proto: ScrapFirelock1
   entities:
   - uid: 19921

@@ -1261,23 +1261,6 @@ entities:
     - type: Transform
       pos: 2.5,1.5
       parent: 273
-- proto: SchoolgirlUniformSpawner
-  entities:
-  - uid: 51
-    components:
-    - type: Transform
-      pos: -1.5,3.5
-      parent: 273
-  - uid: 52
-    components:
-    - type: Transform
-      pos: -0.5,4.5
-      parent: 273
-  - uid: 53
-    components:
-    - type: Transform
-      pos: -1.5,5.5
-      parent: 273
 - proto: ShardGlass
   entities:
   - uid: 272
@@ -1542,13 +1525,6 @@ entities:
     components:
     - type: Transform
       pos: -0.5,-0.5
-      parent: 273
-- proto: UniformJabroni
-  entities:
-  - uid: 54
-    components:
-    - type: Transform
-      pos: -0.296875,5.551078
       parent: 273
 - proto: VendingMachineSeedsUnlocked
   entities:

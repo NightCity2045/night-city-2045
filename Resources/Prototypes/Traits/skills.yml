@@ -232,18 +232,18 @@
         - Tajaran
         - Harpy
 
-- type: trait
-  id: AnomalousPositronics
-  category: Psionics
-  points: -4
-  functions:
-    - !type:TraitRemoveComponent
-      components:
-        - type: PsionicInsulation
-  requirements:
-    - !type:CharacterSpeciesRequirement
-      species:
-        - IPC
+# - type: trait
+#   id: AnomalousPositronics
+#   category: Psionics
+#   points: -4
+#   functions:
+#     - !type:TraitRemoveComponent
+#       components:
+#         - type: PsionicInsulation
+#   requirements:
+#     - !type:CharacterSpeciesRequirement
+#       species:
+#         - IPC
 
 # - type: trait
 #   id: AnimalFriend

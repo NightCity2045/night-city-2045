@@ -1,0 +1,83 @@
+- type: entity
+  id: CitiNetConsoleNCPD
+  parent: BaseComputer
+  name: ent-CitiNetConsoleNCPD
+  description: ent-CitiNetConsoleNCPD-desc
+  components:
+  - type: Sprite
+    layers:
+    - map: ["computerLayerBody"]
+      state: computer
+    - map: ["computerLayerKeyboard"]
+      state: generic_keyboard
+    - map: ["computerLayerScreen"]
+      state: security
+    - map: ["computerLayerKeys"]
+      state: generic_keys
+  - type: CitiNetMap
+    visibleGroups: ["Public", "NCPD"]
+  - type: ActivatableUI
+    key: enum.CitiNetMapUiKey.Key
+  - type: UserInterface
+    interfaces:
+      enum.CitiNetMapUiKey.Key:
+        type: CitiNetMapConsoleBoundUserInterface
+  - type: AccessReader
+    access:
+      - ["NCPD_Patrol"]
+      - ["NCPD_Armory"]
+      - ["NCPD_Detective"]
+      - ["NCPD_Command"]
+
+- type: entity
+  id: CitiNetConsoleTrauma
+  parent: BaseComputer
+  name: ent-CitiNetConsoleTrauma
+  description: ent-CitiNetConsoleTrauma-desc
+  components:
+  - type: Sprite
+    layers:
+    - map: ["computerLayerBody"]
+      state: computer
+    - map: ["computerLayerKeyboard"]
+      state: generic_keyboard
+    - map: ["computerLayerScreen"]
+      state: medcomp
+    - map: ["computerLayerKeys"]
+      state: generic_keys
+  - type: CitiNetMap
+    visibleGroups: ["Public", "TraumaTeam"]
+  - type: ActivatableUI
+    key: enum.CitiNetMapUiKey.Key
+  - type: UserInterface
+    interfaces:
+      enum.CitiNetMapUiKey.Key:
+        type: CitiNetMapConsoleBoundUserInterface
+  - type: AccessReader
+    access:
+      - ["Trauma_Medical"]
+
+- type: entity
+  id: CitiNetConsoleBiotechnica
+  parent: BaseComputer
+  name: ent-CitiNetConsoleBiotechnica
+  description: ent-CitiNetConsoleBiotechnica-desc
+  components:
+  - type: Sprite
+    layers:
+    - map: ["computerLayerBody"]
+      state: computer
+    - map: ["computerLayerKeyboard"]
+      state: generic_keyboard
+    - map: ["computerLayerScreen"]
+      state: rdcomp
+    - map: ["computerLayerKeys"]
+      state: generic_keys
+  - type: CitiNetMap
+    visibleGroups: ["Public", "Biotechnica"]
+  - type: ActivatableUI
+    key: enum.CitiNetMapUiKey.Key
+  - type: UserInterface
+    interfaces:
+      enum.CitiNetMapUiKey.Key:
+        type: CitiNetMapConsoleBoundUserInterface

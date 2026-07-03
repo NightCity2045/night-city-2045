@@ -1,0 +1,79 @@
+- type: cyberpsychosisTrash
+  id: default
+  trash:
+    - accent-cyberpsycho-7
+    - accent-cyberpsycho-8
+    - accent-cyberpsycho-9
+    - accent-cyberpsycho-10
+    - accent-cyberpsycho-11
+    - accent-cyberpsycho-12
+
+- type: cyberpsychosisTrash
+  id: threats
+  trash:
+    - accent-cyberpsycho-1
+    - accent-cyberpsycho-2
+    - accent-cyberpsycho-3
+    - accent-cyberpsycho-4
+    - accent-cyberpsycho-5
+    - accent-cyberpsycho-6
+
+- type: entity
+  parent: BaseObjective
+  id: CyberpsychoKillEveryoneObjective
+  components:
+  - type: Objective
+    difficulty: 0
+    issuer: objective-issuer-self
+    title: objective-cyberpsychosis-title
+    description: objective-cyberpsychosis-description
+    icon:
+      sprite: Objects/Weapons/Melee/katana.rsi
+      state: icon
+  - type: RoleplayObjective
+
+- type: antag
+  id: Cyberpsycho
+  name: role-cyberpsycho-name
+  antagonist: true
+  objective: role-cyberpsycho-objective
+
+- type: entity
+  parent: BaseMindRoleAntag
+  id: MindRoleCyberpsycho
+  name: Cyberpsycho Role
+  components:
+  - type: MindRole
+    antagPrototype: Cyberpsycho
+    exclusiveAntag: false
+    roleType: SoloAntagonist
+  - type: CyberpsychoRoleRole
+
+# --- ЯЗЫК КИБЕРПСИХОЗА ---
+- type: language
+  id: Cyberpsycho
+  # name: Кибер-бред
+  # description: Язык сломанного разума.
+  # speechOverride:
+  #   fontId: Monospace
+  obfuscation:
+    !type:SyllableObfuscation
+    minSyllables: 1
+    maxSyllables: 1
+    replacement:
+    - "ГР-Р-Р"
+    - "А-А-А"
+    - "ТЫ ВСЕГО ЛИШЬ МЯСО"
+    - "ТЫ ВСЕГО ЛИШЬ МЯСО ДЛЯ ЕБЛИ"
+    - "ТЫ ВСЕГО ЛИШЬ МЯСО И Я ТЕБЯ СЪЕМ"
+    - "ЖАЛКАЯ ПЛОТЬ"
+    - "ПЛОТЬ СЛАБА"
+    - "КОНЕЦ БЛИЗОК"
+    - "ХРОМ ТРЕБУЕТ ЖЕРТВ!"
+    - "ХРОМ ТРЕБУЕТ КРОВИ!"
+    - "ХРОМ ТРЕБУЕТ МЯСА!"
+    - "ЧТО ТЫ СЕБЕ ВООБРАЖАЕШЬ, КАК ТЫ МОЖЕШЬ МЕНЯ ОСТАНОВИТЬ?"
+    - "Я СЪЕМ ТЕБЯ ЦЕЛИКОМ!"
+    - "СВОБОДА - ЭТО СМЕРТЬ!"
+    - "ЧЕРТОВЫ КРИПЫ"
+    - "СВЕЖЕЕ МЯСО"

@@ -5,7 +5,7 @@
   description: It's magic.
   components:
   - type: Microwave
-    capacity: 10
+    capacity: 30  # NC edit: Orchid's Garden - Tidy Kitchen
   - type: Appearance
   - type: GenericVisualizer
     visuals:
@@ -126,7 +126,7 @@
   components:
   - type: Microwave
     cookTimeMultiplier: 0.5
-    capacity: 10
+    capacity: 30  # NC edit: Orchid's Garden - Tidy Kitchen
     canMicrowaveIdsSafely: false
     explosionChance: 0.3
   - type: Sprite

@@ -1,0 +1,80 @@
+- type: department
+  id: CivilianNC
+  name: department-name-CivilianNC
+  description: department-desc-CivilianNC
+  color: "#999999"
+  roles:
+    - NCCitizen
+    - Reaper
+    - Fixer
+    - EdgeRunnerSolo
+    - CafeOwner
+    - RestaurantOwner
+
+- type: department
+  id: NCPD
+  name: department-name-NCPD
+  description: department-desc-NCPD
+  color: "#1e90ff"
+  roles:
+    - NCPDChief
+    - NCPDCommander
+    - NCPDInspector
+    - NCPDLieutenant
+    - NCPDSergeant
+    - NCPDOfficer
+    - MaxTacCommander
+    - MaxTacEraser
+
+- type: department
+  id: TraumaTeam
+  name: department-name-TraumaTeam
+  description: department-desc-TraumaTeam
+  color: "#e74c3c"
+  roles:
+    - TraumaTeamChief
+    - TraumaTeamDoctor
+    - TraumaTeamParamedic
+    - TraumaTeamOperative
+    - TraumaTeamCoroner
+    - TraumaTeamPsych
+    - TraumaTeamIntern
+
+- type: department
+  id: Biotechnica
+  name: department-name-Biotechnica
+  description: department-desc-Biotechnica
+  color: "#2ecc71"
+  roles:
+    - BiotechnicaChief
+    - BiotechnicaOperativeLead
+    - BiotechnicaOperative
+    - BiotechnicaRigger
+    - BiotechnicaBotanist
+    - BiotechnicaMedTech
+    - BiotechnicaTech
+    - BiotechnicaParamedic
+
+- type: department
+  id: Militech
+  name: department-name-Militech
+  description: department-desc-Militech
+  color: "#c0392b"
+  roles:
+    - MilitechChief
+    - MilitechOperativeLead
+    - MilitechOperative
+    - MilitechRigger
+    - MilitechNetrunner
+    - MilitechSecuritySpecialist
+    - MilitechCombatMedic
+    - MilitechTech
+    - MilitechQuartermaster
+
+- type: department
+  id: Jiraff
+  name: department-name-Jiraff
+  description: department-desc-Jiraff
+  color: "#2ecc71"
+  roles:
+    - ZhirafaJanitor

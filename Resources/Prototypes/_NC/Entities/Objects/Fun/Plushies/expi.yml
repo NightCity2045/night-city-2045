@@ -1,0 +1,27 @@
+- type: entity
+  parent: PlushieTrupozarka
+  id: PlushieExperiment  # Arf!
+  name: плюшевый Чмоня
+  description: Это чмоня, но этот не кусается.
+  components:
+  - type: Sprite
+    sprite: &PlushieSprite _NC/Objects/Fun/Plushies/expi.rsi
+  - type: Item
+    sprite: *PlushieSprite
+  - type: Clothing
+    sprite: *PlushieSprite
+  - type: EmitSoundOnUse
+    sound: &PlushieSound
+      path: /Audio/_NC/Items/Toys/arf.ogg
+  - type: EmitSoundOnLand
+    sound: *PlushieSound
+  - type: EmitSoundOnActivate
+    sound: *PlushieSound
+  - type: EmitSoundOnTrigger
+    sound: *PlushieSound
+  - type: EmitSoundOnCollide
+    sound: *PlushieSound
+  - type: Food
+    useSound: *PlushieSound
+  - type: MeleeWeapon
+    soundHit: *PlushieSound

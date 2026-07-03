@@ -1,0 +1,320 @@
+- type: entity
+  id: NCCyberwareFabMachine
+  parent: [Protolathe, BaseMaterialSiloUtilizer]
+  name: ent-NCCyberwareFab
+  description: ent-NCCyberwareFab-desc
+  components:
+  - type: Sprite
+    sprite: Structures/Machines/protolathe.rsi
+    snapCardinals: true
+  - type: Machine
+    board: NCCyberwareFabCircuitboard
+  - type: Lathe
+    idleState: icon
+    runningState: building
+    unlitIdleState: unlit
+    unlitRunningState: unlit-building
+    staticPacks:
+    - NCCyberwarePack
+    dynamicPacks: []
+
+- type: entity
+  id: NCCyberwareFabCircuitboard
+  parent: BaseMachineCircuitboard
+  name: ent-NCCyberwareFabCircuitboard
+  description: ent-NCCyberwareFabCircuitboard-desc
+  components:
+  - type: Sprite
+    state: medical
+  - type: MachineBoard
+    prototype: NCCyberwareFabMachine
+    machinePartRequirements:
+      MatterBin: 2
+      Manipulator: 2
+    tagRequirements:
+      GlassBeaker:
+        amount: 2
+        defaultPrototype: Beaker
+  - type: StealTarget
+    stealGroup: NCCyberwareFabCircuitboard
+
+- type: latheRecipePack
+  id: NCCyberwarePack
+  recipes:
+  - NCCyberwareImplantAntiglare
+  - NCCyberwareImplantInfraredVision
+  - NCCyberwareImplantMicroVideo
+  - NCCyberwareImplantMicroOptics
+  - NCCyberwareNeuroKerenzikovMk1
+  - NCCyberwareNeuroKerenzikovMk2
+  - NCCyberwareNeuroKerenzikovMk3
+  - NCCyberwareNeuroKerenzikovMaxTac
+  - NCCyberwareNeuroBioInhibitorStoic
+  - NCCyberwareNeuroBlockerAegis
+  - NCCyberwareNeuroTacticalSpartan
+  - NCCyberwareNeuroSandevistanMk1
+  - NCCyberwareNeuroSandevistanApogee
+  - NCCyberwareNeuroSandevistanMaxTac
+  - NCCyberwareInternalVampireFangs
+  - NCCyberwareInternalVampireFangsBasic
+  - NCCyberwareInternalPolymerSkeleton
+  - NCCyberwareInternalTitaniumReinforcement
+  - NCCyberwareInternalArmyEndoskeleton
+  - NCCyberwareInternalNasalFilters
+  - NCCyberwareInternalEnhancedAntibodies
+  - NCCyberwareInternalEnhancedAntibodiesTier3
+  - NCCyberwareExternalKevlarSublayer
+  - NCCyberwareExternalThermoplasticArmor
+  - NCCyberwareExternalReactiveSublayer
+
+- type: latheRecipe
+  id: NCCyberwareImplantAntiglare
+  result: CyberwareImplantAntiglare
+  completetime: 4
+  materials:
+    Steel: 300
+    Glass: 300
+    Plastic: 150
+
+- type: latheRecipe
+  id: NCCyberwareImplantInfraredVision
+  result: CyberwareImplantInfraredVision
+  completetime: 5
+  materials:
+    Steel: 400
+    Glass: 500
+    Plastic: 200
+    Silver: 100
+
+- type: latheRecipe
+  id: NCCyberwareImplantMicroVideo
+  result: CyberwareImplantMicroVideo
+  completetime: 6
+  materials:
+    Steel: 500
+    Glass: 700
+    Plastic: 300
+    Gold: 100
+
+- type: latheRecipe
+  id: NCCyberwareImplantMicroOptics
+  result: CyberwareImplantMicroOptics
+  completetime: 5
+  materials:
+    Steel: 350
+    Glass: 600
+    Plastic: 250
+    Silver: 100
+
+- type: latheRecipe
+  id: NCCyberwareNeuroKerenzikovMk1
+  result: CyberwareNeuroKerenzikovMk1
+  completetime: 6
+  materials:
+    Steel: 700
+    Glass: 400
+    Plastic: 300
+    Silver: 100
+
+- type: latheRecipe
+  id: NCCyberwareNeuroKerenzikovMk2
+  result: CyberwareNeuroKerenzikovMk2
+  completetime: 7
+  materials:
+    Steel: 1000
+    Glass: 500
+    Plastic: 400
+    Silver: 200
+
+- type: latheRecipe
+  id: NCCyberwareNeuroKerenzikovMk3
+  result: CyberwareNeuroKerenzikovMk3
+  completetime: 8
+  materials:
+    Steel: 1400
+    Glass: 600
+    Plastic: 500
+    Gold: 200
+
+- type: latheRecipe
+  id: NCCyberwareNeuroKerenzikovMaxTac
+  result: CyberwareNeuroKerenzikovMaxTac
+  completetime: 10
+  materials:
+    Steel: 1800
+    Glass: 700
+    Plastic: 700
+    Gold: 400
+    Plasma: 200
+
+- type: latheRecipe
+  id: NCCyberwareNeuroBioInhibitorStoic
+  result: CyberwareNeuroBioInhibitorStoic
+  completetime: 6
+  materials:
+    Steel: 500
+    Glass: 300
+    Plastic: 300
+    Cloth: 200
+
+- type: latheRecipe
+  id: NCCyberwareNeuroBlockerAegis
+  result: CyberwareNeuroBlockerAegis
+  completetime: 7
+  materials:
+    Steel: 700
+    Glass: 400
+    Plastic: 350
+    Silver: 100
+
+- type: latheRecipe
+  id: NCCyberwareNeuroTacticalSpartan
+  result: CyberwareNeuroTacticalSpartan
+  completetime: 10
+  materials:
+    Steel: 1500
+    Glass: 600
+    Plastic: 600
+    Gold: 200
+    Plasma: 200
+
+- type: latheRecipe
+  id: NCCyberwareNeuroSandevistanMk1
+  result: CyberwareNeuroSandevistanMk1
+  completetime: 8
+  materials:
+    Steel: 1200
+    Glass: 600
+    Plastic: 500
+    Silver: 200
+
+- type: latheRecipe
+  id: NCCyberwareNeuroSandevistanApogee
+  result: CyberwareNeuroSandevistanApogee
+  completetime: 12
+  materials:
+    Steel: 2200
+    Glass: 900
+    Plastic: 800
+    Gold: 400
+    Plasma: 300
+
+- type: latheRecipe
+  id: NCCyberwareNeuroSandevistanMaxTac
+  result: CyberwareNeuroSandevistanMaxTac
+  completetime: 12
+  materials:
+    Steel: 1800
+    Glass: 800
+    Plastic: 700
+    Gold: 300
+    Plasma: 400
+
+- type: latheRecipe
+  id: NCCyberwareInternalVampireFangs
+  result: CyberwareInternalVampireFangs
+  completetime: 6
+  materials:
+    Steel: 500
+    Glass: 200
+    Plastic: 200
+    Silver: 100
+
+- type: latheRecipe
+  id: NCCyberwareInternalVampireFangsBasic
+  result: CyberwareInternalVampireFangsBasic
+  completetime: 4
+  materials:
+    Steel: 300
+    Glass: 100
+    Plastic: 150
+
+- type: latheRecipe
+  id: NCCyberwareInternalPolymerSkeleton
+  result: CyberwareInternalPolymerSkeleton
+  completetime: 7
+  materials:
+    Steel: 1200
+    Plastic: 1000
+    Glass: 200
+
+- type: latheRecipe
+  id: NCCyberwareInternalTitaniumReinforcement
+  result: CyberwareInternalTitaniumReinforcement
+  completetime: 8
+  materials:
+    Steel: 1600
+    Plastic: 800
+    Glass: 300
+    Silver: 200
+
+- type: latheRecipe
+  id: NCCyberwareInternalArmyEndoskeleton
+  result: CyberwareInternalArmyEndoskeleton
+  completetime: 12
+  materials:
+    Steel: 2800
+    Plastic: 1200
+    Glass: 500
+    Gold: 300
+    Plasma: 300
+
+- type: latheRecipe
+  id: NCCyberwareInternalNasalFilters
+  result: CyberwareInternalNasalFilters
+  completetime: 4
+  materials:
+    Steel: 250
+    Glass: 150
+    Plastic: 200
+    Cloth: 100
+
+- type: latheRecipe
+  id: NCCyberwareInternalEnhancedAntibodies
+  result: CyberwareInternalEnhancedAntibodies
+  completetime: 6
+  materials:
+    Steel: 600
+    Glass: 300
+    Plastic: 250
+    Cloth: 200
+
+- type: latheRecipe
+  id: NCCyberwareInternalEnhancedAntibodiesTier3
+  result: CyberwareInternalEnhancedAntibodiesTier3
+  completetime: 8
+  materials:
+    Steel: 900
+    Glass: 400
+    Plastic: 300
+    Cloth: 300
+    Plasma: 150
+
+- type: latheRecipe
+  id: NCCyberwareExternalKevlarSublayer
+  result: CyberwareExternalKevlarSublayer
+  completetime: 7
+  materials:
+    Steel: 1000
+    Plastic: 400
+    Cloth: 1000
+
+- type: latheRecipe
+  id: NCCyberwareExternalThermoplasticArmor
+  result: CyberwareExternalThermoplasticArmor
+  completetime: 9
+  materials:
+    Steel: 1500
+    Plastic: 1000
+    Glass: 400
+
+- type: latheRecipe
+  id: NCCyberwareExternalReactiveSublayer
+  result: CyberwareExternalReactiveSublayer
+  completetime: 12
+  materials:
+    Steel: 2200
+    Plastic: 1400
+    Glass: 600
+    Gold: 200
+    Plasma: 300

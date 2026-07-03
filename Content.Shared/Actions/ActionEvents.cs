@@ -176,6 +176,10 @@ public abstract partial class EntityWorldTargetActionEvent : BaseActionEvent
 ///     Base class for events that are raised when an action gets performed. This should not generally be used outside of the action
 ///     system.
 /// </summary>
+/// <remarks>
+///     Note that the <see cref="Performer"/> and <see cref="Action"/> fields are automatically filled out by the
+///     <see cref="SharedActionsSystem"/>.
+/// </remarks>
 [ImplicitDataDefinitionForInheritors]
 public abstract partial class BaseActionEvent : HandledEntityEventArgs
 {

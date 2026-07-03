@@ -75,8 +75,11 @@ alerts-hunger-desc = Some food would be good right about now.
 alerts-stamina-name = Stamina
 alerts-stamina-desc = Stuns you if it is too low.
 
-alerts-starving-name = [color=red]Starving[/color]
+alerts-starving-name = [color=orange]Starving[/color]
 alerts-starving-desc = You're severely malnourished. The hunger pains make moving around a chore.
+
+alerts-hunger-dead-name = [color=red]Dying of hunger[/color]
+alerts-hunger-dead-desc = You are dying from hunger. You couldn't feel worse.
 
 alerts-thirsty-name = [color=yellow]Thirsty[/color]
 alerts-thirsty-desc = Something to drink would be good right about now.

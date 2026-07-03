@@ -251,7 +251,7 @@
     - !type:CharacterSpeciesRequirement
       inverted: true
       species:
-#        - Felinid # WWDP EDIT
+        - Felinid
         - Tajaran
     - !type:CharacterTraitRequirement
       inverted: true
@@ -1354,11 +1354,9 @@
         - type: LiquorLifeline
         - type: LightweightDrunk
           boozeStrengthMultiplier: 0.5
-    # WWDP EDIT START
-    # - !type:TraitAddComponent
-    #   components:
-    #     - type: ScottishAccent
-    # WWDP EDIT END
+    - !type:TraitAddComponent
+      components:
+        - type: ScottishAccent
     - !type:TraitAddArmor
       damageModifierSets:
         - ExtremePoisonResistance
@@ -1381,11 +1379,9 @@
         - type: LiquorLifeline
         - type: LightweightDrunk
           boozeStrengthMultiplier: 0.5
-    # WWDP EDIT START
-    # - !type:TraitAddComponent
-    #   components:
-    #     - type: ScottishAccent
-    # WWDP EDIT END
+    - !type:TraitAddComponent
+      components:
+        - type: ScottishAccent
     - !type:TraitAddArmor
       damageModifierSets:
         - ExtremePoisonResistance

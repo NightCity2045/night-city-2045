@@ -1,0 +1,11 @@
+- type: entity
+  id: NCProcessedBarrelT2
+  name: ent-NCProcessedBarrelT2
+  description: ent-NCProcessedBarrel-desc
+  parent: BaseItem
+  components:
+    - type: Sprite
+      sprite: Objects/Misc/modular_receiver.rsi
+      state: icon
+    - type: NCWeaponPart
+      partType: Barrel

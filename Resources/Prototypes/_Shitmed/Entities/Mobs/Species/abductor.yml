@@ -8,13 +8,6 @@
   id: MobAbductor
   components:
   - type: Absorbable # BLOOD FOR THE BLOOD GOD
-  - type: Psionic
-    removable: false
-    roller: false
-  - type: InnatePsionicPowers
-    powersToAdd:
-    - TelepathyPower
-    # no glorp accent for you.
   - type: HumanoidAppearance
     species: Abductor
   - type: Icon

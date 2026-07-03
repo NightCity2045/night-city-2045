@@ -1,0 +1,217 @@
+- type: jobIcon
+  parent: JobIcon
+  id: JobIconBiotech
+  icon:
+    sprite: /Textures/_NC/Interface/Misc/job_icons.rsi
+    state: biotech
+
+- type: jobIcon
+  parent: JobIcon
+  id: JobIconBiotechAgrarian
+  icon:
+    sprite: /Textures/_NC/Interface/Misc/job_icons.rsi
+    state: biotech_agrariy
+
+- type: jobIcon
+  parent: JobIcon
+  id: JobIconBiotechParamed
+  icon:
+    sprite: /Textures/_NC/Interface/Misc/job_icons.rsi
+    state: biotech_medick
+
+- type: jobIcon
+  parent: JobIcon
+  id: JobIconBiotechMedTech
+  icon:
+    sprite: /Textures/_NC/Interface/Misc/job_icons.rsi
+    state: biotech_medteh
+
+- type: jobIcon
+  parent: JobIcon
+  id: JobIconBiotechNetrunner
+  icon:
+    sprite: /Textures/_NC/Interface/Misc/job_icons.rsi
+    state: biotech_netruner
+
+- type: jobIcon
+  parent: JobIcon
+  id: JobIconBiotechOfficer
+  icon:
+    sprite: /Textures/_NC/Interface/Misc/job_icons.rsi
+    state: biotech_oficer
+
+- type: jobIcon
+  parent: JobIcon
+  id: JobIconBiotechChief
+  icon:
+    sprite: /Textures/_NC/Interface/Misc/job_icons.rsi
+    state: biotech_rukuvoditel
+
+- type: jobIcon
+  parent: JobIcon
+  id: JobIconBiotechTechnician
+  icon:
+    sprite: /Textures/_NC/Interface/Misc/job_icons.rsi
+    state: biotech_teh
+
+- type: jobIcon
+  parent: JobIcon
+  id: JobIconBiotechParamedOper
+  icon:
+    sprite: /Textures/_NC/Interface/Misc/job_icons.rsi
+    state: biotech_zaparamedick
+
+- type: jobIcon
+  parent: JobIcon
+  id: JobIconCivilCitizen
+  icon:
+    sprite: /Textures/_NC/Interface/Misc/job_icons.rsi
+    state: civ_citizen
+
+- type: jobIcon
+  parent: JobIcon
+  id: JobIconCivilEdgerunner
+  icon:
+    sprite: /Textures/_NC/Interface/Misc/job_icons.rsi
+    state: civ_edgeruner
+
+- type: jobIcon
+  parent: JobIcon
+  id: JobIconCivilFixer
+  icon:
+    sprite: /Textures/_NC/Interface/Misc/job_icons.rsi
+    state: civ_fixer
+
+- type: jobIcon
+  parent: JobIcon
+  id: JobIconCivilNetrunner
+  icon:
+    sprite: /Textures/_NC/Interface/Misc/job_icons.rsi
+    state: civ_netruner
+
+- type: jobIcon
+  parent: JobIcon
+  id: JobIconCivilRipper
+  icon:
+    sprite: /Textures/_NC/Interface/Misc/job_icons.rsi
+    state: civ_ripper
+
+- type: jobIcon
+  parent: JobIcon
+  id: JobIconNCPDChief
+  icon:
+    sprite: /Textures/_NC/Interface/Misc/job_icons.rsi
+    state: ncpd_Nachalnik
+
+- type: jobIcon
+  parent: JobIcon
+  id: JobIconNCPDCommander
+  icon:
+    sprite: /Textures/_NC/Interface/Misc/job_icons.rsi
+    state: ncpd_policer_commander
+
+- type: jobIcon
+  parent: JobIcon
+  id: JobIconNCPDInspector
+  icon:
+    sprite: /Textures/_NC/Interface/Misc/job_icons.rsi
+    state: ncpd_inspector
+
+- type: jobIcon
+  parent: JobIcon
+  id: JobIconNCPDLiutenant
+  icon:
+    sprite: /Textures/_NC/Interface/Misc/job_icons.rsi
+    state: ncpd_Letenant
+
+- type: jobIcon
+  parent: JobIcon
+  id: JobIconNCPDPoliceSerg
+  icon:
+    sprite: /Textures/_NC/Interface/Misc/job_icons.rsi
+    state: ncpd_policer_serg
+
+- type: jobIcon
+  parent: JobIcon
+  id: JobIconNCPDPolice
+  icon:
+    sprite: /Textures/_NC/Interface/Misc/job_icons.rsi
+    state: ncpd_policer
+
+- type: jobIcon
+  parent: JobIcon
+  id: JobIconMaxTacCommander
+  icon:
+    sprite: /Textures/_NC/Interface/Misc/job_icons.rsi
+    state: ncpd_MaxTraher
+
+- type: jobIcon
+  parent: JobIcon
+  id: JobIconMaxTacOperator
+  icon:
+    sprite: /Textures/_NC/Interface/Misc/job_icons.rsi
+    state: ncpd_Tac
+
+- type: jobIcon
+  parent: JobIcon
+  id: JobIconWatchAgent
+  icon:
+    sprite: /Textures/_NC/Interface/Misc/job_icons.rsi
+    state: dozor_3
+
+- type: jobIcon
+  parent: JobIcon
+  id: JobIconTraumaCMO
+  icon:
+    sprite: /Textures/_NC/Interface/Misc/job_icons.rsi
+    state: trauma-glava
+
+- type: jobIcon
+  parent: JobIcon
+  id: JobIconTraumaCoroner
+  icon:
+    sprite: /Textures/_NC/Interface/Misc/job_icons.rsi
+    state: trauma_coroner
+
+- type: jobIcon
+  parent: JobIcon
+  id: JobIconTraumaDoctor
+  icon:
+    sprite: /Textures/_NC/Interface/Misc/job_icons.rsi
+    state: trauma
+
+- type: jobIcon
+  parent: JobIcon
+  id: JobIconTraumaParamed
+  icon:
+    sprite: /Textures/_NC/Interface/Misc/job_icons.rsi
+    state: trauma-paramed
+
+- type: jobIcon
+  parent: JobIcon
+  id: JobIconTraumaPsiholog
+  icon:
+    sprite: /Textures/_NC/Interface/Misc/job_icons.rsi
+    state: trauma-psihologophobia
+
+- type: jobIcon
+  parent: JobIcon
+  id: JobIconTraumaTech
+  icon:
+    sprite: /Textures/_NC/Interface/Misc/job_icons.rsi
+    state: trauma-tehnik
+
+- type: jobIcon
+  parent: JobIcon
+  id: JobIconTraumaOperator
+  icon:
+    sprite: /Textures/_NC/Interface/Misc/job_icons.rsi
+    state: traumator
+
+- type: jobIcon
+  parent: JobIcon
+  id: JobIconTraumaIntern
+  icon:
+    sprite: /Textures/_NC/Interface/Misc/job_icons.rsi
+    state: trauma-intern
+

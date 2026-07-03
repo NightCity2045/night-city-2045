@@ -1,0 +1,157 @@
+# Bandit NPC for Night City (Lootable)
+
+# --- Gear Sets ---
+
+- type: startingGear
+  id: NCBanditGearPistol
+  equipment:
+    jumpsuit: ClothingUniformJumpsuitAncient
+    outerClothing: ClothingOuterArmorMilitechBulletproof
+    shoes: ClothingShoesColorBlack
+    pocket1: MagazinePistolFederalX9
+    pocket2: MagazinePistolFederalX9
+  inhand:
+  - WeaponPistolFederalX9
+
+- type: startingGear
+  id: NCBanditGearRifle
+  equipment:
+    jumpsuit: ClothingUniformJumpsuitAncient
+    outerClothing: ClothingOuterArmorMilitechBulletproof
+    shoes: ClothingShoesColorBlack
+    pocket1: MagazinePistolSubMachineGunSaratoga
+    pocket2: MagazinePistolSubMachineGunSaratoga
+  inhand:
+  - WeaponSubMachineGunMilitechSaratoga
+
+- type: startingGear
+  id: NCBanditGearBoss
+  equipment:
+    jumpsuit: ClothingUniformJumpsuitAncient
+    outerClothing: ClothingOuterHardsuitMilitech
+    shoes: ClothingShoesColorBlack
+    pocket1: MagazineRifleArasaka
+    pocket2: MagazineRifleArasaka
+  inhand:
+  - WeaponRifleArasakaProto
+
+- type: startingGear
+  id: NCBanditGearCrusher
+  equipment:
+    jumpsuit: ClothingUniformJumpsuitAncient
+    outerClothing: ClothingOuterArmorMilitechBulletproof
+    shoes: ClothingShoesColorBlack
+    pocket1: MagazineShotgunMilitechCrusher
+    pocket2: MagazineShotgunMilitechCrusher
+  inhand:
+  - WeaponShotgunMilitechCrusher
+
+- type: startingGear
+  id: NCBanditGearMeleeSledge
+  equipment:
+    jumpsuit: ClothingUniformJumpsuitAncient
+    outerClothing: ClothingOuterArmorMilitechBulletproof
+    shoes: ClothingShoesColorBlack
+  inhand:
+  - Sledgehammer
+
+- type: startingGear
+  id: NCBanditGearMeleeChainsaw
+  equipment:
+    jumpsuit: ClothingUniformJumpsuitAncient
+    outerClothing: ClothingOuterArmorMilitechBulletproof
+    shoes: ClothingShoesColorBlack
+  inhand:
+  - Chainsaw
+
+- type: startingGear
+  id: NCBanditGearMeleeFireAxe
+  equipment:
+    jumpsuit: ClothingUniformJumpsuitAncient
+    outerClothing: ClothingOuterArmorMilitechBulletproof
+    shoes: ClothingShoesColorBlack
+  inhand:
+  - FireAxe
+
+# --- Bandit Variations ---
+
+- type: entity
+  name: ent-MobNCBandit
+  parent: BaseMobHuman
+  id: MobNCBanditLootable
+  description: ent-MobNCBandit-desc
+  abstract: true
+  IdleRange: !type:Single 6
+  components:
+  - type: NpcFactionMember
+    factions:
+    - NCBandit
+  - type: HTN
+    rootTask:
+      task: NCBanditRootCompound
+  - type: NPCAutoReload
+  - type: InputMover
+  - type: MobMover
+
+- type: entity
+  parent: MobNCBanditLootable
+  id: MobNCBanditPistolLootable
+  suffix: NC Pistol
+  components:
+  - type: Loadout
+    prototypes: [NCBanditGearPistol]
+
+- type: entity
+  parent: MobNCBanditLootable
+  id: MobNCBanditRifleLootable
+  suffix: NC Rifle
+  components:
+  - type: Loadout
+    prototypes: [NCBanditGearRifle]
+
+- type: entity
+  parent: MobNCBanditLootable
+  id: MobNCBanditBossLootable
+  suffix: NC Boss
+  components:
+  - type: Loadout
+    prototypes: [NCBanditGearBoss]
+  - type: Cyberware
+  - type: StartingCyberware
+    loseHum: false
+    cyberware:
+    - CyberwareNeuroKerenzikovMk3
+    - CyberwareNeuroTacticalSpartan
+    - CyberwareInternalEnhancedAntibodiesTier3
+
+- type: entity
+  parent: MobNCBanditLootable
+  id: MobNCBanditCrusherLootable
+  suffix: NC Crusher
+  components:
+  - type: Loadout
+    prototypes: [NCBanditGearCrusher]
+
+- type: entity
+  parent: MobNCBanditLootable
+  id: MobNCBanditMeleeSledgeLootable
+  suffix: NC Sledge
+  components:
+  - type: Loadout
+    prototypes: [NCBanditGearMeleeSledge]
+
+- type: entity
+  parent: MobNCBanditLootable
+  id: MobNCBanditMeleeChainsawLootable
+  suffix: NC Chainsaw
+  components:
+  - type: Loadout
+    prototypes: [NCBanditGearMeleeChainsaw]
+
+- type: entity
+  parent: MobNCBanditLootable
+  id: MobNCBanditMeleeFireAxeLootable
+  suffix: NC Fireaxe
+  components:
+  - type: Loadout
+    prototypes: [NCBanditGearMeleeFireAxe]

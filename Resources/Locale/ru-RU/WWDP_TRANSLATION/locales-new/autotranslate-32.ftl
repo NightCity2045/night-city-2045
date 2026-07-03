@@ -1,11 +1,11 @@
-ent-HamtrRLeg = правая нога Х.О.М.Я.К.
-   .desc = Правая нога Х.О.М.Я.К. Она крепится на раму меха.
+ent-HamtrRLeg = правая нога ХОМЯК
+   .desc = Правая нога ХОМЯК. Она крепится на раму меха.
 
-ent-HamtrRArm = правая рука Х.О.М.Я.К.
-   .desc = Правая рука Х.О.М.Я.К. Она крепится на раму меха.
+ent-HamtrRArm = правая рука ХОМЯК
+   .desc = Правая рука ХОМЯК. Она крепится на раму меха.
 
-ent-HamtrChassis = рама Х.О.М.Я.К.
-   .desc = Незавершенное строительство меха Х.О.М.Я.К.
+ent-HamtrChassis = рама ХОМЯК
+   .desc = Незавершенное строительство меха ХОМЯК.
 
 ent-Defibrillator = дефибриллятор
    .desc = РАЗРЯД! Зззат!
@@ -36,24 +36,3 @@ ent-BrutepackAdvanced1 = продвинутый набор для ушибов
 
 ent-Bloodpack = пакет с кровью
    .desc = Содержит инновационный универсальный заменитель крови, созданный передовой медицинской наукой Nanotrasen.
-
-ent-PillDermaline = дермалиновая таблетка (10ед.)
-   .desc = { ent-Pill.desc }
-
-ent-PillBicaridine = таблетка бикаридина (10ед.)
-   .desc = { ent-Pill.desc }
-
-ent-PillAmbuzol = таблетка амбузола
-   .desc = { ent-Pill.desc }
-
-ent-PillAmbuzolPlus = таблетка амбузола плюс
-   .desc = { ent-Pill.desc }
-
-ent-SyringeBicaridine = шприц с бикаридином
-   .desc = { ent-BaseSyringe.desc }
-
-ent-SyringeDermaline = шприц с дермалином
-   .desc = { ent-BaseSyringe.desc }
-
-ent-SyringeHyronalin = шприц с хироналином
-   .desc = { ent-BaseSyringe.desc }

@@ -1,0 +1,29 @@
+# NC edit start: Fix crafting materials
+- type: constructionGraph
+  id: CrateAluminium
+  start: start
+  graph:
+    - node: start
+      edges:
+        - to: end
+          steps:
+            - material: Aluminium
+              amount: 5
+              doAfter: 5
+    - node: end
+      entity: CrateAluminium
+      edges:
+        - to: start
+          steps:
+            - tool: Screwing
+              doAfter: 5
+          conditions:
+            - !type:StorageWelded
+              welded: false
+          completed:
+            - !type:SpawnPrototype
+              prototype: N14IngotAluminium1
+              amount: 5
+            - !type:EmptyAllContainers
+            - !type:DeleteEntity
+# NC edit end: Fix crafting materials

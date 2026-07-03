@@ -95,6 +95,7 @@ entities:
         version: 2
         nodes: []
     - type: OccluderTree
+    - type: AlwaysPowered
     - type: Shuttle
     - type: RadiationGridResistance
     - type: GravityShake
@@ -507,6 +508,7 @@ entities:
     - type: GridTree
     - type: MovedGrids
     - type: Broadphase
+    - type: AlwaysPowered
     - type: OccluderTree
     - type: LoadedMap
 - proto: AirAlarm
@@ -5270,13 +5272,6 @@ entities:
       noAirWhenFullyAirBlocked: True
     missingComponents:
     - TimedDespawn
-- proto: HolofanProjectorEmpty
-  entities:
-  - uid: 1569
-    components:
-    - type: Transform
-      pos: 7.2439203,-7.545966
-      parent: 179
 - proto: HolosignWetFloor
   entities:
   - uid: 848

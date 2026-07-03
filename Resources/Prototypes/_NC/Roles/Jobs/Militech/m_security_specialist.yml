@@ -1,0 +1,27 @@
+- type: job
+  id: MilitechSecuritySpecialist
+  name: job-name-militech-security-specialist
+  description: job-description-militech-security-specialist
+  playTimeTracker: JobMilitechSecuritySpecialist
+  weight: 55
+  salary: 350
+  icon: "JobIconNCPDInspector"
+  startingGear: MilitechSecuritySpecialistGear
+  access:
+    - Militech_Operative
+    - Militech_Armory
+    - Militech_Staff
+    - Militech_General
+    - NC_General
+
+- type: startingGear
+  id: MilitechSecuritySpecialistGear
+  equipment:
+    jumpsuit: ClothingUniformJumpsuitMilitech
+    back: ClothingBackpack
+    shoes: ClothingShoesBootsCombat
+    head: ClothingHeadHatMilitechCap
+    eyes: ClothingEyesGlassesSunglasses
+    id: MilitechSecuritySpecialistPDA
+    belt: ClothingBeltSecurityFilled
+    outerClothing: ClothingOuterArmorMilitechBulletproof

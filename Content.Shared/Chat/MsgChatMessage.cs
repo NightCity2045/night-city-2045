@@ -38,10 +38,11 @@ namespace Content.Shared.Chat
         public string? AudioPath;
         public float AudioVolume;
         public bool IgnoreChatStack;
+        public uint? ServerMessageId;
         [NonSerialized]
         public bool Read;
 
-        public ChatMessage(ChatChannel channel, string message, string wrappedMessage, NetEntity source, int? senderKey, bool hideChat = false, Color? colorOverride = null, string? audioPath = null, float audioVolume = 0, bool ignoreChatStack = false)
+        public ChatMessage(ChatChannel channel, string message, string wrappedMessage, NetEntity source, int? senderKey, bool hideChat = false, Color? colorOverride = null, string? audioPath = null, float audioVolume = 0, bool ignoreChatStack = false, uint? serverMessageId = null)
         {
             Channel = channel;
             Message = message;
@@ -53,6 +54,7 @@ namespace Content.Shared.Chat
             AudioPath = audioPath;
             AudioVolume = audioVolume;
             IgnoreChatStack = ignoreChatStack;
+            ServerMessageId = serverMessageId;
         }
     }
 
@@ -61,6 +63,33 @@ namespace Content.Shared.Chat
     /// </summary>
     [UsedImplicitly]
     public sealed class MsgChatMessage : NetMessage
+    {
+        public override MsgGroups MsgGroup => MsgGroups.Command;
+
+        public ChatMessage Message = default!;
+
+        public override void ReadFromBuffer(NetIncomingMessage buffer, IRobustSerializer serializer)
+        {
+            var length = buffer.ReadVariableInt32();
+            using var stream = new MemoryStream(length);
+            buffer.ReadAlignedMemory(stream, length);
+            serializer.DeserializeDirect(stream, out Message);
+        }
+
+        public override void WriteToBuffer(NetOutgoingMessage buffer, IRobustSerializer serializer)
+        {
+            var stream = new MemoryStream();
+            serializer.SerializeDirect(stream, Message);
+            buffer.WriteVariableInt32((int) stream.Length);
+            buffer.Write(stream.AsSpan());
+        }
+    }
+
+    /// <summary>
+    ///     Sent from server to client to update a previously displayed chat message in-place.
+    /// </summary>
+    [UsedImplicitly]
+    public sealed class MsgUpdateChatMessage : NetMessage
     {
         public override MsgGroups MsgGroup => MsgGroups.Command;
 

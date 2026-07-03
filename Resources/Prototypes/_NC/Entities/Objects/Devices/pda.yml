@@ -1,0 +1,707 @@
+# region NCPD
+
+- type: entity
+  parent: BasePDA
+  id: NCPDChiefPDA
+  name: ent-PDANCPDChief
+  description: ent-PDANCPD-desc
+  components:
+    - type: Pda
+      id: NCPDChiefIDCard
+    - type: Sprite
+      sprite: _White/Objects/Devices/Pda/security.rsi
+    - type: PdaBorderColor
+      borderColor: '#4d4d4d'
+      accentHColor: '#2f5c9e'
+      accentVColor: '#2f5c9e'
+
+- type: entity
+  parent: BasePDA
+  id: NCPDCommanderPDA
+  name: ent-PDANCPDCommander
+  description: ent-PDANCPD-desc
+  components:
+    - type: Pda
+      id: NCPDCommanderIDCard
+    - type: Sprite
+      sprite: _White/Objects/Devices/Pda/security.rsi
+    - type: PdaBorderColor
+      borderColor: '#4d4d4d'
+      accentHColor: '#2f5c9e'
+      accentVColor: '#2f5c9e'
+
+- type: entity
+  parent: BasePDA
+  id: NCPDInspectorPDA
+  name: ent-PDANCPDInspector
+  description: ent-PDANCPD-desc
+  components:
+    - type: Pda
+      id: NCPDInspectorIDCard
+    - type: Sprite
+      sprite: _White/Objects/Devices/Pda/security.rsi
+    - type: PdaBorderColor
+      borderColor: '#4d4d4d'
+      accentHColor: '#2f5c9e'
+      accentVColor: '#2f5c9e'
+
+- type: entity
+  parent: BasePDA
+  id: NCPDLieutenantPDA
+  name: ent-PDANCPDLieutenant
+  description: ent-PDANCPD-desc
+  components:
+    - type: Pda
+      id: NCPDLieutenantIDCard
+    - type: Sprite
+      sprite: _White/Objects/Devices/Pda/security.rsi
+    - type: PdaBorderColor
+      borderColor: '#4d4d4d'
+      accentHColor: '#2f5c9e'
+      accentVColor: '#2f5c9e'
+
+- type: entity
+  parent: BasePDA
+  id: NCPDSergeantPDA
+  name: ent-PDANCPDSergeant
+  description: ent-PDANCPD-desc
+  components:
+    - type: Pda
+      id: NCPDSergeantIDCard
+    - type: Sprite
+      sprite: _White/Objects/Devices/Pda/security.rsi
+    - type: PdaBorderColor
+      borderColor: '#4d4d4d'
+      accentHColor: '#2f5c9e'
+      accentVColor: '#2f5c9e'
+
+- type: entity
+  parent: BasePDA
+  id: NCPDOfficerPDA
+  name: ent-PDANCPDOfficer
+  description: ent-PDANCPD-desc
+  components:
+    - type: Pda
+      id: NCPDOfficerIDCard
+    - type: Sprite
+      sprite: _White/Objects/Devices/Pda/security.rsi
+    - type: PdaBorderColor
+      borderColor: '#4d4d4d'
+      accentHColor: '#2f5c9e'
+      accentVColor: '#2f5c9e'
+
+- type: entity
+  parent: BasePDA
+  id: NCPDWatchAgentPDA
+  name: ent-PDANCPDPatrol
+  description: ent-PDANCPD-desc
+  components:
+    - type: Pda
+      id: NCPDWatchAgentIDCard
+    - type: Sprite
+      sprite: _White/Objects/Devices/Pda/security.rsi
+    - type: PdaBorderColor
+      borderColor: '#4d4d4d'
+      accentHColor: '#2f5c9e'
+      accentVColor: '#2f5c9e'
+
+# region MaxTac
+
+- type: entity
+  parent: BasePDA
+  id: MaxTacCommanderPDA
+  name: ent-PDAMaxTacCommander
+  description: ent-PDAMaxTac-desc
+  components:
+    - type: Pda
+      id: MaxTacCommanderIDCard
+    - type: Sprite
+      sprite: _White/Objects/Devices/Pda/security.rsi
+      color: '#444444'
+    - type: PdaBorderColor
+      borderColor: '#182c4d'
+      accentHColor: '#0f1c30'
+      accentVColor: '#0f1c30'
+
+- type: entity
+  parent: BasePDA
+  id: MaxTacEraserPDA
+  name: ent-PDAMaxTacAssault
+  description: ent-PDAMaxTac-desc
+  components:
+    - type: Pda
+      id: MaxTacEraserIDCard
+    - type: Sprite
+      sprite: _White/Objects/Devices/Pda/security.rsi
+      color: '#444444'
+    - type: PdaBorderColor
+      borderColor: '#182c4d'
+      accentHColor: '#0f1c30'
+      accentVColor: '#0f1c30'
+
+- type: entity
+  parent: BasePDA
+  id: MaxTacInterdictorPDA
+  name: ent-PDAMaxTacSpecialist
+  description: ent-PDAMaxTac-desc
+  components:
+    - type: Pda
+      id: MaxTacInterdictorIDCard
+    - type: Sprite
+      sprite: _White/Objects/Devices/Pda/security.rsi
+      color: '#444444'
+    - type: PdaBorderColor
+      borderColor: '#182c4d'
+      accentHColor: '#0f1c30'
+      accentVColor: '#0f1c30'
+
+- type: entity
+  parent: BasePDA
+  id: MaxTacNetrunnerPDA
+  name: ent-PDAMaxTacNetrunner
+  description: ent-PDAMaxTac-desc
+  components:
+    - type: Pda
+      id: MaxTacNetrunnerIDCard
+    - type: Sprite
+      sprite: _White/Objects/Devices/Pda/security.rsi
+      color: '#444444'
+    - type: PdaBorderColor
+      borderColor: '#182c4d'
+      accentHColor: '#0f1c30'
+      accentVColor: '#0f1c30'
+
+- type: entity
+  parent: BasePDA
+  id: MaxTacPretorPDA
+  name: ent-PDAMaxTacPretor
+  description: ent-PDAMaxTac-desc
+  components:
+    - type: Pda
+      id: MaxTacPretorIDCard
+    - type: Sprite
+      sprite: _White/Objects/Devices/Pda/security.rsi
+      color: '#444444'
+    - type: PdaBorderColor
+      borderColor: '#182c4d'
+      accentHColor: '#0f1c30'
+      accentVColor: '#0f1c30'
+
+# region Trauma Team
+
+- type: entity
+  parent: BaseMedicalPDA
+  id: TraumaTeamChiefPDA
+  name: ent-PDATraumaChief
+  description: ent-PDATrauma-desc
+  components:
+    - type: Pda
+      id: TraumaTeamChiefIDCard
+    - type: Sprite
+      sprite: _White/Objects/Devices/Pda/medical.rsi
+      color: '#aaffcc'
+    - type: PdaBorderColor
+      borderColor: '#e6e6e6'
+      accentHColor: '#4bdc99'
+      accentVColor: '#4bdc99'
+
+- type: entity
+  parent: BaseMedicalPDA
+  id: TraumaTeamCoronerPDA
+  name: ent-PDATraumaCoroner
+  description: ent-PDATrauma-desc
+  components:
+    - type: Pda
+      id: TraumaTeamCoronerIDCard
+    - type: Sprite
+      sprite: _White/Objects/Devices/Pda/medical.rsi
+      color: '#aaffcc'
+    - type: PdaBorderColor
+      borderColor: '#e6e6e6'
+      accentHColor: '#4bdc99'
+      accentVColor: '#4bdc99'
+
+- type: entity
+  parent: BaseMedicalPDA
+  id: TraumaTeamDoctorPDA
+  name: ent-PDATraumaDoctor
+  description: ent-PDATrauma-desc
+  components:
+    - type: Pda
+      id: TraumaTeamDoctorIDCard
+    - type: Sprite
+      sprite: _White/Objects/Devices/Pda/medical.rsi
+      color: '#aaffcc'
+    - type: PdaBorderColor
+      borderColor: '#e6e6e6'
+      accentHColor: '#4bdc99'
+      accentVColor: '#4bdc99'
+
+- type: entity
+  parent: BaseMedicalPDA
+  id: TraumaTeamOperativePDA
+  name: ent-PDATraumaOperative
+  description: ent-PDATrauma-desc
+  components:
+    - type: Pda
+      id: TraumaTeamOperativeIDCard
+    - type: Sprite
+      sprite: _White/Objects/Devices/Pda/medical.rsi
+      color: '#aaffcc'
+    - type: PdaBorderColor
+      borderColor: '#e6e6e6'
+      accentHColor: '#4bdc99'
+      accentVColor: '#4bdc99'
+
+- type: entity
+  parent: BaseMedicalPDA
+  id: TraumaTeamParamedicPDA
+  name: ent-PDATraumaParamedic
+  description: ent-PDATrauma-desc
+  components:
+    - type: Pda
+      id: TraumaTeamParamedicIDCard
+    - type: Sprite
+      sprite: _White/Objects/Devices/Pda/medical.rsi
+      color: '#aaffcc'
+    - type: PdaBorderColor
+      borderColor: '#e6e6e6'
+      accentHColor: '#4bdc99'
+      accentVColor: '#4bdc99'
+
+- type: entity
+  parent: BaseMedicalPDA
+  id: TraumaTeamPsychPDA
+  name: ent-PDATraumaPsych
+  description: ent-PDATrauma-desc
+  components:
+    - type: Pda
+      id: TraumaTeamPsychIDCard
+    - type: Sprite
+      sprite: _White/Objects/Devices/Pda/medical.rsi
+      color: '#aaffcc'
+    - type: PdaBorderColor
+      borderColor: '#e6e6e6'
+      accentHColor: '#4bdc99'
+      accentVColor: '#4bdc99'
+
+- type: entity
+  parent: BaseMedicalPDA
+  id: TraumaTeamTechPDA
+  name: ent-PDATraumaTech
+  description: ent-PDATrauma-desc
+  components:
+    - type: Pda
+      id: TraumaTeamTechIDCard
+    - type: Sprite
+      sprite: _White/Objects/Devices/Pda/medical.rsi
+      color: '#aaffcc'
+    - type: PdaBorderColor
+      borderColor: '#e6e6e6'
+      accentHColor: '#4bdc99'
+      accentVColor: '#4bdc99'
+
+- type: entity
+  parent: BaseMedicalPDA
+  id: TraumaTeamInternPDA
+  name: ent-PDATraumaIntern
+  description: ent-PDATrauma-desc
+  components:
+    - type: Pda
+      id: TraumaTeamInternIDCard
+    - type: Sprite
+      sprite: _White/Objects/Devices/Pda/medical.rsi
+      color: '#aaffcc'
+    - type: PdaBorderColor
+      borderColor: '#e6e6e6'
+      accentHColor: '#4bdc99'
+      accentVColor: '#4bdc99'
+
+# region Citizen
+
+- type: entity
+  parent: BasePDA
+  id: CafeOwnerPDA
+  name: ent-PDACafeOwner
+  description: ent-PDACafeOwner-desc
+  components:
+    - type: Pda
+      id: CafeOwnerIDCard
+    - type: Sprite
+      sprite: _White/Objects/Devices/Pda/pda.rsi
+      color: '#6f4e37'
+    - type: PdaBorderColor
+      borderColor: '#3e2723'
+      accentHColor: '#6f4e37'
+      accentVColor: '#6f4e37'
+
+- type: entity
+  parent: BasePDA
+  id: RestaurantOwnerPDA
+  name: ent-PDARestaurantOwner
+  description: ent-PDARestaurantOwner-desc
+  components:
+    - type: Pda
+      id: RestaurantOwnerIDCard
+    - type: Sprite
+      sprite: _White/Objects/Devices/Pda/pda.rsi
+      color: '#ffd700'
+    - type: PdaBorderColor
+      borderColor: '#b8860b'
+      accentHColor: '#ffd700'
+      accentVColor: '#ffd700'
+
+- type: entity
+  parent: BasePDA
+  id: CitizenPDA
+  name: ent-PDACitizen
+  description: ent-PDACitizen-desc
+  components:
+    - type: Pda
+      id: CitizenIDCard
+    - type: Sprite
+      sprite: _White/Objects/Devices/Pda/pda.rsi
+    - type: PdaBorderColor
+      borderColor: '#4d4d4d'
+      accentHColor: '#888888'
+      accentVColor: '#888888'
+
+- type: entity
+  parent: BasePDA
+  id: EdgeRunnerPDA
+  name: ent-PDAEdgeRunner
+  description: ent-PDAEdgeRunner-desc
+  components:
+    - type: Pda
+      id: EdgeRunnerIDCard
+    - type: Sprite
+      sprite: _White/Objects/Devices/Pda/pda.rsi
+      color: '#ffda1a'
+    - type: PdaBorderColor
+      borderColor: '#1a1a1a'
+      accentHColor: '#ffda1a'
+      accentVColor: '#ffda1a'
+
+- type: entity
+  parent: BasePDA
+  id: FixerPDA
+  name: ent-PDAFixer
+  description: ent-PDAFixer-desc
+  components:
+    - type: Pda
+      id: FixerIDCard
+    - type: Sprite
+      sprite: _White/Objects/Devices/Pda/pda.rsi
+      color: '#b18644'
+    - type: PdaBorderColor
+      borderColor: '#4d4d4d'
+      accentHColor: '#b18644'
+      accentVColor: '#b18644'
+
+- type: entity
+  parent: BaseMedicalPDA
+  id: RipperPDA
+  name: ent-PDARipper
+  description: ent-PDARipper-desc
+  components:
+    - type: Pda
+      id: RipperIDCard
+    - type: Sprite
+      sprite: _White/Objects/Devices/Pda/medical.rsi
+      color: '#5b97bc'
+    - type: PdaBorderColor
+      borderColor: '#1a1a1a'
+      accentHColor: '#aaffcc'
+      accentVColor: '#aaffcc'
+
+# region Biotechnica
+
+- type: entity
+  parent: BasePDA
+  id: BiotechnicaChiefPDA
+  name: ent-PDABiotechnicaChief
+  description: ent-PDABiotechnicaChief-desc
+  components:
+    - type: Pda
+      id: BiotechHeadIDCard
+    - type: Sprite
+      sprite: _White/Objects/Devices/Pda/pda.rsi
+      color: '#3d9e3d'
+    - type: PdaBorderColor
+      borderColor: '#1e3d1e'
+      accentHColor: '#7cfc00'
+      accentVColor: '#7cfc00'
+
+- type: entity
+  parent: BasePDA
+  id: BiotechnicaBotanistPDA
+  name: ent-PDABiotechnicaBotany
+  description: ent-PDABiotechnicaBotany-desc
+  components:
+    - type: Pda
+      id: BiotechnicaBotanistIDCard
+    - type: Sprite
+      sprite: _White/Objects/Devices/Pda/pda.rsi
+      color: '#228b22'
+    - type: PdaBorderColor
+      borderColor: '#006400'
+      accentHColor: '#adff2f'
+      accentVColor: '#adff2f'
+
+- type: entity
+  parent: BaseMedicalPDA
+  id: BiotechnicaMedTechPDA
+  name: ent-PDABiotechnicaMedTech
+  description: ent-PDABiotechnicaMedTech-desc
+  components:
+    - type: Pda
+      id: BiotechnicaMedTechIDCard
+    - type: Sprite
+      sprite: _White/Objects/Devices/Pda/medical.rsi
+      color: '#aaffcc'
+    - type: PdaBorderColor
+      borderColor: '#006400'
+      accentHColor: '#00ff7f'
+      accentVColor: '#00ff7f'
+
+- type: entity
+  parent: BasePDA
+  id: BiotechnicaNetrunnerPDA
+  name: ent-PDABiotechnicaNetrunner
+  description: ent-PDABiotechnicaNetrunner-desc
+  components:
+    - type: Pda
+      id: BiotechnicaNetrunnerIDCard
+    - type: Sprite
+      sprite: _White/Objects/Devices/Pda/pda.rsi
+      color: '#1a1a1a'
+    - type: PdaBorderColor
+      borderColor: '#00ff00'
+      accentHColor: '#008000'
+      accentVColor: '#008000'
+
+- type: entity
+  parent: BasePDA
+  id: BiotechnicaOperativeLeadPDA
+  name: ent-PDABiotechnicaOperativeLead
+  description: ent-PDABiotechnicaOperativeLead-desc
+  components:
+    - type: Pda
+      id: BiotechnicaOperativeLeadIDCard
+    - type: Sprite
+      sprite: _White/Objects/Devices/Pda/security.rsi
+      color: '#4b5320'
+    - type: PdaBorderColor
+      borderColor: '#252910'
+      accentHColor: '#adff2f'
+      accentVColor: '#adff2f'
+
+- type: entity
+  parent: BasePDA
+  id: BiotechnicaOperativePDA
+  name: ent-PDABiotechnicaOperative
+  description: ent-PDABiotechnicaOperative-desc
+  components:
+    - type: Pda
+      id: BiotechnicaOperativeIDCard
+    - type: Sprite
+      sprite: _White/Objects/Devices/Pda/security.rsi
+      color: '#4b5320'
+    - type: PdaBorderColor
+      borderColor: '#252910'
+      accentHColor: '#adff2f'
+      accentVColor: '#adff2f'
+
+- type: entity
+  parent: BasePDA
+  id: BiotechnicaRiggerPDA
+  name: ent-PDABiotechnicaRigger
+  description: ent-PDABiotechnicaRigger-desc
+  components:
+    - type: Pda
+      id: BiotechnicaRiggerIDCard
+    - type: Sprite
+      sprite: _White/Objects/Devices/Pda/pda.rsi
+      color: '#8fbf9f'
+    - type: PdaBorderColor
+      borderColor: '#2f5f3f'
+      accentHColor: '#aaffcc'
+      accentVColor: '#aaffcc'
+
+- type: entity
+  parent: BaseMedicalPDA
+  id: BiotechnicaParamedicPDA
+  name: ent-PDABiotechnicaParamedic
+  description: ent-PDABiotechnicaParamedic-desc
+  components:
+    - type: Pda
+      id: BiotechnicaParamedicIDCard
+    - type: Sprite
+      sprite: _White/Objects/Devices/Pda/medical.rsi
+      color: '#e6fffa'
+    - type: PdaBorderColor
+      borderColor: '#008b8b'
+      accentHColor: '#00ced1'
+      accentVColor: '#00ced1'
+
+- type: entity
+  parent: BasePDA
+  id: BiotechnicaTechPDA
+  name: ent-PDABiotechnicaTech
+  description: ent-PDABiotechnicaTech-desc
+  components:
+    - type: Pda
+      id: BiotechnicaTechIDCard
+    - type: Sprite
+      sprite: _White/Objects/Devices/Pda/pda.rsi
+      color: '#b0c4de'
+    - type: PdaBorderColor
+      borderColor: '#4682b4'
+      accentHColor: '#00fa9a'
+      accentVColor: '#00fa9a'
+
+# region Militech
+
+- type: entity
+  parent: BasePDA
+  id: MilitechChiefPDA
+  name: ent-PDAMilitechChief
+  description: ent-PDAMilitechChief-desc
+  components:
+    - type: Pda
+      id: MilitechChiefIDCard
+    - type: Sprite
+      sprite: _White/Objects/Devices/Pda/security.rsi
+      color: '#2f3437'
+    - type: PdaBorderColor
+      borderColor: '#111111'
+      accentHColor: '#b03030'
+      accentVColor: '#b03030'
+
+- type: entity
+  parent: BasePDA
+  id: MilitechOperativeLeadPDA
+  name: ent-PDAMilitechOperativeLead
+  description: ent-PDAMilitechOperativeLead-desc
+  components:
+    - type: Pda
+      id: MilitechOperativeLeadIDCard
+    - type: Sprite
+      sprite: _White/Objects/Devices/Pda/security.rsi
+      color: '#3d4245'
+    - type: PdaBorderColor
+      borderColor: '#111111'
+      accentHColor: '#b03030'
+      accentVColor: '#b03030'
+
+- type: entity
+  parent: BasePDA
+  id: MilitechOperativePDA
+  name: ent-PDAMilitechOperative
+  description: ent-PDAMilitechOperative-desc
+  components:
+    - type: Pda
+      id: MilitechOperativeIDCard
+    - type: Sprite
+      sprite: _White/Objects/Devices/Pda/security.rsi
+      color: '#3d4245'
+    - type: PdaBorderColor
+      borderColor: '#111111'
+      accentHColor: '#b03030'
+      accentVColor: '#b03030'
+
+- type: entity
+  parent: BasePDA
+  id: MilitechRiggerPDA
+  name: ent-PDAMilitechRigger
+  description: ent-PDAMilitechRigger-desc
+  components:
+    - type: Pda
+      id: MilitechRiggerIDCard
+    - type: Sprite
+      sprite: _White/Objects/Devices/Pda/pda.rsi
+      color: '#444b50'
+    - type: PdaBorderColor
+      borderColor: '#111111'
+      accentHColor: '#b03030'
+      accentVColor: '#708090'
+
+- type: entity
+  parent: BasePDA
+  id: MilitechNetrunnerPDA
+  name: ent-PDAMilitechNetrunner
+  description: ent-PDAMilitechNetrunner-desc
+  components:
+    - type: Pda
+      id: MilitechNetrunnerIDCard
+    - type: Sprite
+      sprite: _White/Objects/Devices/Pda/pda.rsi
+      color: '#1a1a1a'
+    - type: PdaBorderColor
+      borderColor: '#b03030'
+      accentHColor: '#708090'
+      accentVColor: '#708090'
+
+- type: entity
+  parent: BasePDA
+  id: MilitechSecuritySpecialistPDA
+  name: ent-PDAMilitechSecuritySpecialist
+  description: ent-PDAMilitechSecuritySpecialist-desc
+  components:
+    - type: Pda
+      id: MilitechSecuritySpecialistIDCard
+    - type: Sprite
+      sprite: _White/Objects/Devices/Pda/security.rsi
+      color: '#4f5558'
+    - type: PdaBorderColor
+      borderColor: '#111111'
+      accentHColor: '#c0c0c0'
+      accentVColor: '#c0c0c0'
+
+- type: entity
+  parent: BaseMedicalPDA
+  id: MilitechCombatMedicPDA
+  name: ent-PDAMilitechCombatMedic
+  description: ent-PDAMilitechCombatMedic-desc
+  components:
+    - type: Pda
+      id: MilitechCombatMedicIDCard
+    - type: Sprite
+      sprite: _White/Objects/Devices/Pda/medical.rsi
+      color: '#3d4245'
+    - type: PdaBorderColor
+      borderColor: '#111111'
+      accentHColor: '#b03030'
+      accentVColor: '#b03030'
+
+- type: entity
+  parent: BasePDA
+  id: MilitechTechPDA
+  name: ent-PDAMilitechTech
+  description: ent-PDAMilitechTech-desc
+  components:
+    - type: Pda
+      id: MilitechTechIDCard
+    - type: Sprite
+      sprite: _White/Objects/Devices/Pda/pda.rsi
+      color: '#5f6a6a'
+    - type: PdaBorderColor
+      borderColor: '#111111'
+      accentHColor: '#b03030'
+      accentVColor: '#b03030'
+
+- type: entity
+  parent: BasePDA
+  id: MilitechQuartermasterPDA
+  name: ent-PDAMilitechQuartermaster
+  description: ent-PDAMilitechQuartermaster-desc
+  components:
+    - type: Pda
+      id: MilitechQuartermasterIDCard
+    - type: Sprite
+      sprite: _White/Objects/Devices/Pda/pda.rsi
+      color: '#6b5b3e'
+    - type: PdaBorderColor
+      borderColor: '#111111'
+      accentHColor: '#b03030'
+      accentVColor: '#b03030'

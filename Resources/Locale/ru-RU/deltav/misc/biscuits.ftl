@@ -1,1 +1,1 @@
-biscuit-verb-crack = Надломить
+﻿biscuit-verb-crack = Crack

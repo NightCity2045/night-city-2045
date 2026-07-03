@@ -373,6 +373,17 @@
   name: alerts-starving-name
   description: alerts-starving-desc
 
+# NC edit start: Fix hunger
+- type: alert
+  id: DyingOfHunger
+  category: Hunger
+  icons:
+  - sprite: /Textures/Interface/Alerts/hunger.rsi
+    state: starving
+  name: alerts-hunger-dead-name
+  description: alerts-hunger-dead-desc
+# NC edit end: Fix hunger
+
 - type: alert
   id: Thirsty
   category: Thirst

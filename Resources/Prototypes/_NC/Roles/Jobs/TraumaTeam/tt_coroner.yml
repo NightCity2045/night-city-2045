@@ -1,0 +1,33 @@
+- type: job
+  id: TraumaTeamCoroner
+  name: job-name-trauma-team-coroner
+  description: job-description-trauma-team-coroner
+  playTimeTracker: JobTraumaTeamCoroner
+  weight: 90
+  salary: 280
+  icon: "JobIconTraumaCoroner"
+  startingGear: TraumaTeamCoronerGear
+  supervisors: Главный врач Trauma Team
+  access:
+    - Trauma_Medical
+    - Trauma_Morgue
+    - NC_General
+  special:
+  - !type:AddComponentSpecial
+    components:
+    - type: MapBeacon
+      group: TraumaTeam
+      color: "#4bdc99"
+      icon: /Textures/_NC/Interface/Misc/job_icons.rsi/trauma.png
+      visibleInWorld: false
+
+- type: startingGear
+  id: TraumaTeamCoronerGear
+  equipment:
+    jumpsuit: ClothingUniformJumpsuitMedicalGreen
+    back: ClothingBackpackMedical
+    shoes: ClothingShoesColorWhite
+    eyes: ClothingEyesHudMedical
+    id: TraumaTeamCoronerPDA
+    belt: ClothingBeltMedicalFilled
+    outerClothing: ClothingOuterCoatLab

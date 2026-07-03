@@ -1,3 +1,3 @@
-ent-DrinkMeth = мет
-    .desc = Просто целый стакан метамфетамина.
+ent-DrinkMeth = meth
+    .desc = Just a whole glass of meth.
     .suffix = DEBUG

@@ -1,77 +1,77 @@
-- type: entity
-  parent: BaseGameRule
-  id: WormholesSpawn
-  components:
-  - type: StationEvent
-    startAnnouncement: true
-    weight: 7
-    duration: 10
-    minimumPlayers: 15
-    earliestStart: 35
-    reoccurrenceDelay: 50
-  - type: RandomSpawnRule
-    prototype: AnomalyWormhole
-    minCount: 20
-    maxCount: 35
+# - type: entity
+#   parent: BaseGameRule
+#   id: WormholesSpawn
+#   components:
+#   - type: StationEvent
+#     startAnnouncement: true
+#     weight: 7
+#     duration: 10
+#     minimumPlayers: 15
+#     earliestStart: 35
+#     reoccurrenceDelay: 50
+#   - type: RandomSpawnRule
+#     prototype: AnomalyWormhole
+#     minCount: 20
+#     maxCount: 35
 
-- type: entity
-  parent: BaseGameRule
-  id: StraySupplyPod
-  components:
-    - type: StationEvent
-      weight: 8
-      duration: 1
-      minimumPlayers: 5
-      earliestStart: 10
-      reoccurrenceDelay: 15
-    - type: RandomSpawnRule
-      prototype: SpawnStraySupplyPod
-      announce: true
-      locId: station-event-stray-supply-pod-announcement
+# - type: entity
+#   parent: BaseGameRule
+#   id: StraySupplyPod
+#   components:
+#     - type: StationEvent
+#       weight: 8
+#       duration: 1
+#       minimumPlayers: 5
+#       earliestStart: 10
+#       reoccurrenceDelay: 15
+#     - type: RandomSpawnRule
+#       prototype: SpawnStraySupplyPod
+#       announce: true
+#       locId: station-event-stray-supply-pod-announcement
 
-- type: entity
-  parent: BaseGameRule
-  id: StraySupplyPodSyndicate
-  components:
-    - type: StationEvent
-      weight: 6
-      duration: 1
-      minimumPlayers: 10
-      earliestStart: 15
-      reoccurrenceDelay: 40
-    - type: RandomSpawnRule
-      prototype: SpawnStraySupplyPodSyndicate
-      announce: true
-      locId: station-event-stray-supply-pod-announcement
+# - type: entity
+#   parent: BaseGameRule
+#   id: StraySupplyPodSyndicate
+#   components:
+#     - type: StationEvent
+#       weight: 6
+#       duration: 1
+#       minimumPlayers: 10
+#       earliestStart: 15
+#       reoccurrenceDelay: 40
+#     - type: RandomSpawnRule
+#       prototype: SpawnStraySupplyPodSyndicate
+#       announce: true
+#       locId: station-event-stray-supply-pod-announcement
 
-- type: entity
-  parent: BaseGameRule
-  id: XenomorphsInfestation
-  components:
-  - type: StationEvent
-    weight: 5
-    duration: null
-    minimumPlayers: 20
-    earliestStart: 35
-    reoccurrenceDelay: 50
-  - type: VentSpawnRule
-  - type: AntagSpawner
-    prototype: MobXenomorphLarva
-  - type: XenomorphsRule
-  - type: AntagObjectives
-    objectives:
-    - XenomorphSurviveObjective
-  - type: AntagSelection
-    agentName: xenomorph-round-end-agent-name
-    definitions:
-    - spawnerPrototype: SpawnPointGhostXenomorph
-      min: 2
-      max: 4
-      pickPlayer: false
-      briefing:
-        text: xenomorph-role-greeting
-        color: "#8c3986"
-      mindRoles:
-      - MindRoleXenomorph
-  - type: DynamicRuleCost # WD edit
-    cost: 24
+# - type: entity
+#   parent: BaseGameRule
+#   id: XenomorphsInfestation
+#   components:
+#   - type: StationEvent
+#     weight: 5
+#     duration: null
+#     minimumPlayers: 20
+#     earliestStart: 35
+#     reoccurrenceDelay: 50
+#   - type: VentSpawnRule
+#   - type: AntagSpawner
+#     prototype: MobXenomorphLarva
+#   - type: XenomorphsRule
+#   - type: AntagObjectives
+#     objectives:
+#     - XenomorphSurviveObjective
+#   - type: AntagSelection
+#     agentName: xenomorph-round-end-agent-name
+#     definitions:
+#     - spawnerPrototype: SpawnPointGhostXenomorph
+#       min: 2
+#       max: 4
+#       pickPlayer: false
+#       briefing:
+#         text: xenomorph-role-greeting
+#         color: "#8c3986"
+#       mindRoles:
+#       - MindRoleXenomorph
+#   - type: DynamicRuleCost # WD edit
+#     cost: 24

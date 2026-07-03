@@ -88,26 +88,6 @@
     - type: loadout
       id: LoadoutUniformSchoolGakuranBlack
     - type: loadout
-      id: LoadoutUniformSchoolgirlBlack
-    - type: loadout
-      id: LoadoutUniformSchoolgirlBlue
-    - type: loadout
-      id: LoadoutUniformSchoolgirlCyan
-    - type: loadout
-      id: LoadoutUniformSchoolgirlGreen
-    - type: loadout
-      id: LoadoutUniformSchoolgirlOrange
-    - type: loadout
-      id: LoadoutUniformSchoolgirlPink
-    - type: loadout
-      id: LoadoutUniformSchoolgirlPurple
-    - type: loadout
-      id: LoadoutUniformSchoolgirlRed
-    - type: loadout
-      id: LoadoutUniformSchoolgirlDusk
-    - type: loadout
-      id: LoadoutUniformSchoolgirlBlazerTan
-    - type: loadout
       id: LoadoutClothingMNKOfficeSkirt
     - type: loadout
       id: LoadoutClothingMNKUnderGarment

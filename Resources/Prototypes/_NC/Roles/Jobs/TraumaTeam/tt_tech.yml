@@ -1,0 +1,33 @@
+- type: job
+  id: TraumaTeamTech
+  name: job-name-trauma-team-tech
+  description: job-description-trauma-team-tech
+  playTimeTracker: JobTraumaTeamTech
+  weight: 40
+  salary: 250
+  icon: "JobIconTraumaTech"
+  startingGear: TraumaTeamTechGear
+  supervisors: Главный врач Trauma Team
+  access:
+    - Trauma_Medical
+    - Trauma_Morgue
+    - Trauma_Hangar
+    - Trauma_Operative
+    - NC_General
+  special:
+  - !type:AddComponentSpecial
+    components:
+    - type: MapBeacon
+      group: TraumaTeam
+      color: "#4bdc99"
+      icon: /Textures/_NC/Interface/Misc/job_icons.rsi/trauma.png
+      visibleInWorld: false
+
+- type: startingGear
+  id: TraumaTeamTechGear
+  equipment:
+    jumpsuit: ClothingUniformJumpsuitJeansBrown
+    back: ClothingBackpackDuffel
+    shoes: ClothingShoesColorWhite
+    id: TraumaTeamTechPDA
+    belt: ClothingBeltUtilityFilled

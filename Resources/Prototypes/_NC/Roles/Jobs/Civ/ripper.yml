@@ -1,0 +1,19 @@
+- type: job
+  id: Reaper
+  name: job-name-ripper
+  description: job-description-ripper
+  playTimeTracker: JobReaper
+  icon: "JobIconCivilRipper"
+  salary: 40
+  access:
+    - NC_General
+    - Ripper
+  startingGear: ReaperGear
+
+- type: startingGear
+  id: ReaperGear
+  equipment:
+    jumpsuit: ClothingUniformJumpsuitMedicalDoctor
+    back: ClothingBackpackSatchelMedical
+    shoes: ClothingShoesColorWhite
+    id: RipperPDA

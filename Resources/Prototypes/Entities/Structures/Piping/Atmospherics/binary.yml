@@ -36,7 +36,6 @@
   placement:
     mode: SnapgridCenter
   components:
-  - type: ExtensionCableReceiver
   - type: LightningTarget
     priority: 1
   - type: ApcPowerReceiver
@@ -96,7 +95,6 @@
   placement:
     mode: SnapgridCenter
   components:
-    - type: ExtensionCableReceiver
     - type: LightningTarget
       priority: 1
     - type: ApcPowerReceiver

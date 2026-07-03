@@ -276,7 +276,7 @@
   tags:
   - Cooked
   - Meat
-  
+
 # Snail meat
 
 - type: foodSequenceElement
@@ -497,7 +497,7 @@
   id: Cabbage
   name: food-sequence-content-cabbage
   sprites:
-  - sprite: Objects/Specific/Hydroponics/carrot.rsi
+  - sprite: Objects/Specific/Hydroponics/cabbage.rsi
     state: produce
   tags:
   - Vegetable
@@ -771,6 +771,8 @@
   tags:
   - Fruit
   - Slice
+
+# Holymelon
 
 - type: foodSequenceElement
   id: HolymelonSliceBurger
@@ -1102,6 +1104,46 @@
   name: food-sequence-content-pea
   sprites:
   - sprite: Objects/Specific/Hydroponics/pea.rsi
+    state: produce
+  tags:
+  - Vegetable
+
+# Laughin Pea
+
+- type: foodSequenceElement
+  id: LaughinPea
+  name: food-sequence-content-laughin-pea
+  sprites:
+  - sprite: Objects/Specific/Hydroponics/laughin_pea.rsi
+    state: produce
+  tags:
+  - Vegetable
+
+- type: foodSequenceElement
+  id: LaughinPeaBurger
+  name: food-sequence-burger-content-laughin-pea
+  sprites:
+  - sprite: Objects/Specific/Hydroponics/laughin_pea.rsi
+    state: produce
+  tags:
+  - Vegetable
+
+# World Pea
+
+- type: foodSequenceElement
+  id: WorldPea
+  name: food-sequence-content-world-pea
+  sprites:
+  - sprite: Objects/Specific/Hydroponics/world_pea.rsi
+    state: produce
+  tags:
+  - Vegetable
+
+- type: foodSequenceElement
+  id: WorldPeaBurger
+  name: food-sequence-burger-content-world-pea
+  sprites:
+  - sprite: Objects/Specific/Hydroponics/world_pea.rsi
     state: produce
   tags:
   - Vegetable

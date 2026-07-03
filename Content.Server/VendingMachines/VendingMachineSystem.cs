@@ -1,5 +1,6 @@
 using System.Linq;
 using System.Numerics;
+using System.Threading.Tasks;
 using Content.Server.Cargo.Systems;
 using Content.Server.Emp;
 using Content.Server.Power.Components;
@@ -18,6 +19,16 @@ using Robust.Shared.Audio;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Random;
 using Robust.Shared.Timing;
+using Content.Shared.Cargo.Components;
+using Content.Shared.Stacks;
+using Content.Shared.Inventory;
+using Content.Shared.Hands.Components;
+using Content.Shared.Hands.EntitySystems;
+using Content.Server._NC.Bank;
+using Content.Server._NC.VendingMachines;  // NC edit: Profitable vending
+using Content.Shared._NC.VendingMachines;  // NC edit: Profitable vending
+using Content.Shared.Storage;  // NC edit: Partial vending machine restock
+
 
 namespace Content.Server.VendingMachines
 {
@@ -27,6 +38,11 @@ namespace Content.Server.VendingMachines
         [Dependency] private readonly PricingSystem _pricing = default!;
         [Dependency] private readonly ThrowingSystem _throwingSystem = default!;
         [Dependency] private readonly IGameTiming _timing = default!;
+        [Dependency] private readonly Content.Shared.Hands.EntitySystems.SharedHandsSystem _hands = default!;
+        [Dependency] private readonly Content.Shared.Inventory.InventorySystem _inventory = default!;
+        [Dependency] private readonly Content.Shared.Stacks.SharedStackSystem _stack = default!;
+        [Dependency] private readonly BankSystem _bank = default!;
+        [Dependency] private readonly MoneyCollectorSystem _moneyCollector = default!;
 
         private const float WallVendEjectDistanceFromWall = 1f;
 
@@ -132,21 +148,41 @@ namespace Content.Server.VendingMachines
             if (args.Handled || args.Cancelled || args.Args.Used == null)
                 return;
 
-            if (!TryComp<VendingMachineRestockComponent>(args.Args.Used, out var restockComponent))
+            // NC edit start: Partial vending machine restock
+
+            // Handle regular restock
+            if (TryComp<VendingMachineRestockComponent>(args.Args.Used, out var restockComponent))
             {
-                Log.Error($"{ToPrettyString(args.Args.User)} tried to restock {ToPrettyString(uid)} with {ToPrettyString(args.Args.Used.Value)} which did not have a VendingMachineRestockComponent.");
+                TryRestockInventory(uid, component);
+
+                Popup.PopupEntity(Loc.GetString("vending-machine-restock-done", ("this", args.Args.Used), ("user", args.Args.User), ("target", uid)), args.Args.User, PopupType.Medium);
+
+                Audio.PlayPvs(restockComponent.SoundRestockDone, uid, AudioParams.Default.WithVolume(-2f).WithVariation(0.2f));
+
+                Del(args.Args.Used.Value);
+
+                args.Handled = true;
                 return;
             }
 
-            TryRestockInventory(uid, component);
+            // Handle partial restock
+            if (TryComp<VendingMachineRestockPartialComponent>(args.Args.Used, out var partialRestockComponent))
+            {
+                TryPartialRestockInventory(uid, partialRestockComponent, component);
 
-            Popup.PopupEntity(Loc.GetString("vending-machine-restock-done", ("this", args.Args.Used), ("user", args.Args.User), ("target", uid)), args.Args.User, PopupType.Medium);
+                Popup.PopupEntity(Loc.GetString("vending-machine-restock-done", ("this", args.Args.Used), ("user", args.Args.User), ("target", uid)), args.Args.User, PopupType.Medium);
 
-            Audio.PlayPvs(restockComponent.SoundRestockDone, uid, AudioParams.Default.WithVolume(-2f).WithVariation(0.2f));
+                Audio.PlayPvs(partialRestockComponent.SoundRestockDone, uid, AudioParams.Default.WithVolume(-2f).WithVariation(0.2f));
 
-            Del(args.Args.Used.Value);
+                Del(args.Args.Used.Value);
 
-            args.Handled = true;
+                args.Handled = true;
+                return;
+            }
+
+            Log.Error($"{ToPrettyString(args.Args.User)} tried to restock {ToPrettyString(uid)} with {ToPrettyString(args.Args.Used.Value)} which did not have a VendingMachineRestockComponent or VendingMachineRestockPartialComponent.");
+
+            // NC edit end: Partial vending machine restock
         }
 
         /// <summary>
@@ -271,6 +307,45 @@ namespace Content.Server.VendingMachines
             TryUpdateVisualState((uid, vendComponent));
         }
 
+        // NC edit start: Partial vending machine restock
+
+        /// <summary>
+        /// Restocks a vending machine with the contents from a partial restock component.
+        /// Adds items to existing inventory and adds new items if they weren't present before.
+        /// Uses pricing from restock component for new items, existing items keep their price.
+        /// </summary>
+        public void TryPartialRestockInventory(EntityUid uid, VendingMachineRestockPartialComponent restockComponent, VendingMachineComponent? vendComponent = null)
+        {
+            if (!Resolve(uid, ref vendComponent))
+                return;
+
+            // Process each entry in the restock component
+            foreach (var entry in restockComponent.Contents)
+            {
+                if (entry.PrototypeId == null)
+                    continue;
+
+                var itemId = entry.PrototypeId.Value;
+                var amount = (int) entry.GetAmount(_random);
+
+                // Add to regular inventory (partial restocks only affect regular inventory)
+                if (vendComponent.Inventory.TryGetValue(itemId, out var existingEntry))
+                {
+                    // Item already exists, add to its amount, keep existing price
+                    existingEntry.Amount += (uint) amount;
+                }
+                else
+                {
+                    // Item doesn't exist, add it as new entry with price from restock component
+                    vendComponent.Inventory.Add(itemId, new VendingMachineInventoryEntry(InventoryType.Regular, itemId, (uint) amount, entry.Price));
+                }
+            }
+
+            Dirty(uid, vendComponent);
+            TryUpdateVisualState((uid, vendComponent));
+        }
+        // NC edit end: Partial vending machine restock
+
         private void OnPriceCalculation(EntityUid uid, VendingMachineRestockComponent component, ref PriceCalculationEvent args)
         {
             List<double> priceSets = new();
@@ -294,5 +369,31 @@ namespace Content.Server.VendingMachines
 
             args.Price += priceSets.Max();
         }
+        public override async void AuthorizedVend(EntityUid uid, EntityUid sender, InventoryType type, string itemId, VendingMachineComponent component)
+        {
+            var entry = GetEntry(uid, itemId, type, component);
+            if (entry == null)
+                return;
+
+            if (entry.Price > 0)
+            {
+                if (!await _bank.TryBankWithdraw(sender, (int) entry.Price))
+                {
+                    Popup.PopupEntity(Loc.GetString("vending-machine-component-try-eject-insufficient-funds"), uid, sender, PopupType.Medium);
+                    Deny((uid, component), sender);
+                    return;
+                }
+
+                // NC edit start: Profitable vending - collect money if the component exists
+                if (TryComp<MoneyCollectorComponent>(uid, out var collector))
+                {
+                    _moneyCollector.CollectMoney(uid, collector, entry.Price);
+                }
+                // NC edit end: Profitable vending
+            }
+
+            base.AuthorizedVend(uid, sender, type, itemId, component);
+        }
     }
 }
+

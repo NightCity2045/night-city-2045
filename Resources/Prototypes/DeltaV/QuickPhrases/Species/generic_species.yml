@@ -1,7 +1,7 @@
 - type: quickPhrase
   id: BaseGenericSpeciesPhrase
   parent: BaseSpeciesPhrase
-  group: aac-group-generic
+  group: Generic
   abstract: true
 
 - type: quickPhrase

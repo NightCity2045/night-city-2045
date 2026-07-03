@@ -1,0 +1,27 @@
+- type: job
+  id: BiotechnicaMedTech
+  name: job-name-biotechnica-med-tech
+  description: job-description-biotechnica-med-tech
+  playTimeTracker: JobBiotechnicaMedTech
+  weight: 55
+  salary: 200
+  icon: "JobIconBiotechMedTech"
+  startingGear: BiotechnicaMedTechGear
+  access:
+    - Biotech_MedTech
+    - Biotech_Staff
+    # - Biotech_Lab
+    - Biotech_General
+    - NC_General
+
+- type: startingGear
+  id: BiotechnicaMedTechGear
+  equipment:
+    jumpsuit: ClothingUniformJumpsuitBiotechnica
+    back: ClothingBackpackBiotechnica
+    shoes: ClothingShoesColorWhite
+    head: ClothingHeadHatBiotechnicaSterile
+    gloves: ClothingHandsGlovesNitrile
+    id: BiotechnicaMedTechPDA
+    belt: ClothingBeltBiotechnicaMedTechFilled
+    outerClothing: ClothingOuterApronBiotechnica

@@ -1,0 +1,42 @@
+- type: entity
+  id: Bullet9x19
+  name: пуля (9x19)
+  parent: BaseBullet
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: NCPenetration
+    penetration: 2
+  - type: Projectile
+    damage:
+      types:
+        Piercing: 20
+
+- type: entity
+  id: Bullet11x20
+  name: пуля (11x20)
+  parent: BaseBullet
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: NCPenetration
+    penetration: 3
+  - type: Projectile
+    damage:
+      types:
+        Piercing: 32
+
+- type: entity
+  id: Bullet13x23
+  name: пуля (13x23)
+  parent: BaseBullet
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: NCPenetration
+    penetration: 5
+  - type: Projectile
+    damage:
+      types:
+        Piercing: 45
+  - type: Sprite
+    layers:
+    - state: piercing
+      shader: unshaded

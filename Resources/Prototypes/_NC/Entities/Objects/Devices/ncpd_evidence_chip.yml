@@ -1,0 +1,16 @@
+- type: entity
+  parent: BaseItem
+  id: NcpdEvidenceChip
+  name: nc-forensics-chip-program
+  description: nc-forensics-chip-desc
+  components:
+  - type: ForensicChip
+  - type: Cartridge
+    programName: nc-forensics-chip-program
+  - type: Sprite
+    sprite: Objects/Devices/encryption_keys.rsi
+    layers:
+    - state: crypt_blue
+  - type: Item
+    sprite: Objects/Devices/encryption_keys.rsi
+    size: Tiny

@@ -1,0 +1,140 @@
+# --- VAMPIRE FANGS TIER 3 ---
+- type: entity
+  id: CyberwareInternalVampireFangs
+  parent: BaseCyberwareImplant
+  name: ent-CyberwareInternalVampireFangs
+  description: ent-CyberwareInternalVampireFangs-desc
+  components:
+  - type: CyberwareImplant
+    category: Internal
+    humanityCost: 14
+    cyberFamily: VampireFangs
+  #TODO: Придумать нахуя этот имплант
+
+# --- VAMPIRE FANGS BASIC TIER 1 ---
+- type: entity
+  id: CyberwareInternalVampireFangsBasic
+  parent: BaseCyberwareImplant
+  name: ent-CyberwareInternalVampireFangsBasic
+  description: ent-CyberwareInternalVampireFangsBasic-desc
+  components:
+  - type: CyberwareImplant
+    category: Internal
+    humanityCost: 6
+    cyberFamily: VampireFangs
+  #TODO: Придумать нахуя этот имплант
+
+# --- POLYMER SKELETON TIER 1 ---
+- type: entity
+  id: CyberwareInternalPolymerSkeleton
+  parent: BaseCyberwareImplant
+  name: ent-CyberwareInternalPolymerSkeleton
+  description: ent-CyberwareInternalPolymerSkeleton-desc
+  components:
+  - type: CyberwareImplant
+    category: Internal
+    humanityCost: 10
+    cyberFamily: Skeleton
+  - type: Armor
+    modifiers:
+      coefficients:
+        Blunt: 0.85
+        Shock: 1.1
+
+# --- TITANIUM REINFORCEMENT TIER 2 ---
+- type: entity
+  id: CyberwareInternalTitaniumReinforcement
+  parent: BaseCyberwareImplant
+  name: ent-CyberwareInternalTitaniumReinforcement
+  description: ent-CyberwareInternalTitaniumReinforcement-desc
+  components:
+  - type: CyberwareImplant
+    category: Internal
+    humanityCost: 14
+    cyberFamily: Skeleton
+  - type: Armor
+    modifiers:
+      coefficients:
+        Blunt: 0.75
+        Shock: 1.25
+  - type: NoSlip
+
+# --- ARMY ENDOSKELETON TIER 3 ---
+- type: entity
+  id: CyberwareInternalArmyEndoskeleton
+  parent: BaseCyberwareImplant
+  name: ent-CyberwareInternalArmyEndoskeleton
+  description: ent-CyberwareInternalArmyEndoskeleton-desc
+  components:
+  - type: CyberwareImplant
+    category: Internal
+    humanityCost: 28
+    cyberFamily: Skeleton
+  - type: Armor
+    modifiers:
+      coefficients:
+        Blunt: 0.65
+        Slash: 0.75
+        Piercing: 0.8
+        Shock: 1.5
+  - type: CritModifier
+    critThresholdModifier: 50
+    deadThresholdModifier: 100
+  - type: NoSlip
+  - type: Sturdy
+    knockdownImmunity: true
+    stunImmunity: true
+    knockbackImmunity: true
+
+# --- NASAL FILTERS TIER 1 ---
+- type: entity
+  id: CyberwareInternalNasalFilters
+  parent: BaseCyberwareImplant
+  name: ent-CyberwareInternalNasalFilters
+  description: ent-CyberwareInternalNasalFilters-desc
+  components:
+  - type: CyberwareImplant
+    category: Internal
+    humanityCost: 2
+    cyberFamily: Breathing
+  - type: BreathingImmunity
+
+# --- ENHANCED ANTIBODIES TIER 2 ---
+- type: entity
+  id: CyberwareInternalEnhancedAntibodies
+  parent: BaseCyberwareImplant
+  name: ent-CyberwareInternalEnhancedAntibodies
+  description: ent-CyberwareInternalEnhancedAntibodies-desc
+  components:
+  - type: CyberwareImplant
+    category: Internal
+    humanityCost: 7
+    cyberFamily: Immune
+  - type: SolutionRegeneration
+    solution: blood
+    generated:
+      reagents:
+      - ReagentId: Omnizine
+        Quantity: 1
+  - type: CyberwareConditionalSolutionRegeneration
+    minimumTotalDamage: 1
+
+# --- ENHANCED ANTIBODIES TIER 3 ---
+- type: entity
+  id: CyberwareInternalEnhancedAntibodiesTier3
+  parent: BaseCyberwareImplant
+  name: ent-CyberwareInternalEnhancedAntibodiesTier3
+  description: ent-CyberwareInternalEnhancedAntibodiesTier3-desc
+  components:
+  - type: CyberwareImplant
+    category: Internal
+    humanityCost: 7
+    cyberFamily: Immune
+  - type: SolutionRegeneration
+    solution: blood
+    generated:
+      reagents:
+      - ReagentId: Omnizine
+        Quantity: 5
+  - type: CyberwareConditionalSolutionRegeneration
+    minimumTotalDamage: 1

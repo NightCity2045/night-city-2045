@@ -6,59 +6,134 @@ ent-VendingMachineAmmo = Станция Свободы
     .desc = При одном только взгляде на машину вас охватывает непреодолимое чувство древнего патриотизма.
     .suffix = { "" }
 
+ent-VendingMachineCart = ПТех
+    .desc = Автомат ПТех! Предоставляем ШИКАРНЫЙ выбор картриджей для ПДА.
+    .suffix = { "" }
+
+# Ресторан - бар
+
 ent-VendingMachineBooze = АлкоМат
     .desc = Чудо технологической мысли, по замыслу способное смешать именно ту смесь, которую вы хотите выпить, стоит вам только попросить.
     .suffix = { "" }
-
-ent-VendingMachineBoozeUnlocked = { ent-VendingMachineBooze }
-    .desc = { ent-VendingMachineBooze.desc }
-    .suffix = Без доступов
-
-ent-VendingMachineBoozeSyndicate = АминоМат
-    .desc = Обновленный АлкоМат для поднятия боевого духа. С одной стороны виден отпечаток кроваво-красного костюма, а с другой стороны кажется, что краска подгорела.
 
 ent-VendingBarDrobe = БарДероб
     .desc = Стильный автомат для раздачи самой стильной барной униформы!
     .suffix = { "" }
 
-ent-VendingMachineCart = ПТех
-    .desc = Автомат ПТех! Предоставляем ШИКАРНЫЙ выбор картриджей для ПДА.
-    .suffix = { "" }
+# Ресторан - кухня
 
 ent-VendingMachineChefvend = ШефВенд
     .desc = Раздатчик ингредиентов для всех ваших поварских нужд.
     .suffix = { "" }
 
-ent-VendingMachineChapel = БогоМат
-    .desc = { ent-VendingMachine.desc }
+ent-VendingMachineDinnerware = ПосудоМат
+    .desc = Поставщик оборудования для кухонь и ресторанов.
     .suffix = { "" }
 
-ent-VendingMachineCigs = ШейдиСиг Делюкс
+ent-VendingMachineChefDrobe = ШефШкаф
+    .desc = Этот торговый автомат, возможно, и не выдает мясо, но он точно выдает одежду для поваров.
+    .suffix = { "" }
+
+# Кафе
+
+ent-VendingMachineCondiments = Островок соусов
+    .desc = Нанесите эти густые тягучие вещества на еду для полноты вкусовых ощущений.
+    .suffix = { "" }
+
+ent-VendingMachineDonut = Пончики МаксТак
+    .desc = Автомат пончиков, предоставленный компанией НайтКорп.
+    .suffix = { "" }
+
+# Уличная еда
+
+ent-VendingMachineCigs = НикотиНайтс
     .desc = Если вы хотите заболеть раком, то лучше сделать это стильно.
+    .suffix = { "" }
+
+ent-VendingMachineCoffee = Лучшие горячие напитки НайтСити
+    .desc = Подаются кипящими, чтобы оставались горячими весь день!
+    .suffix = { "" }
+
+ent-VendingMachineCola = Кола НайтСити
+    .desc = Автомат прохладительных и таких знакомых напитков по выгодной цене!
+    .suffix = { "" }
+
+ent-VendingMachineDiscount = Дискаунтер Дэна
+    .desc = Торговый автомат с закусками из печально известной франшизы "Дискаунтер Дэна".
+    .suffix = { "" }
+
+ent-VendingMachineChang = Маленький Китай
+    .desc = Автомат самообслуживания с китайской едой, для всех ваших потребностей в китайской еде.
+    .suffix = { "" }
+
+ent-VendingMachineShamblersJuice = Сок Шабмлера
+    .desc = Взбей мне немного этого сока Шабмлера!
+    .suffix = { "" }
+
+ent-VendingMachineSpaceUp = раздатчик Спрайм
+    .desc = Насладитесь взрывом вкуса.
+    .suffix = { "" }
+
+ent-VendingMachineStarkist = раздатчик Старкист
+    .desc = Вкус звезды в жидком виде.
+    .suffix = { "" }
+
+ent-VendingMachineSnack = Шоколад НайтКорп
+    .desc = Автомат с закусками, предоставленный корпорацией НайтКорп.
+    .suffix = { "" }
+
+ent-VendingMachineSovietSoda = ВОДА
+    .desc = Старый торговый автомат со сладкой водой.
+    .suffix = { "" }
+
+ent-VendingMachineHappyHonk = ХэппиХонк
+    .desc = Раздатчик "Хэппи Хонк Мил", сделанных Honk! Co.
+    .suffix = { "" }
+
+ent-VendingMachineSnackOrange = { ent-VendingMachineSnack }
+    .desc = { ent-VendingMachineSnack.desc }
+    .suffix = Оранжевый
+
+ent-VendingMachineSnackBlue = { ent-VendingMachineSnack }
+    .desc = { ent-VendingMachineSnack.desc }
+    .suffix = Синий
+
+ent-VendingMachineSnackGreen = { ent-VendingMachineSnack }
+    .desc = { ent-VendingMachineSnack.desc }
+    .suffix = Зелёный
+
+ent-VendingMachineSnackTeal = { ent-VendingMachineSnack }
+    .desc = { ent-VendingMachineSnack.desc }
+    .suffix = Голубой
+
+ent-VendingMachinePwrGame = ГеймерЭнерджи
+    .desc = Ты этого хочешь, у нас это есть. Предоставлено вам в партнерстве с Салаты от Влада.
+    .suffix = { "" }
+
+ent-VendingMachineColaBlack = { ent-VendingMachineCola }
+    .desc = { ent-VendingMachineCola.desc }
+    .suffix = Чёрный
+
+ent-VendingMachineSoda = { ent-VendingMachineCola }
+    .desc = { ent-VendingMachineCola.desc }
+    .suffix = Сода
+
+ent-VendingMachineColaRed = { ent-VendingMachineCola }
+    .desc = { ent-VendingMachineCola.desc }
+    .suffix = Красный
+
+# Одежда
+
+ent-VendingMachineChapel = БогоМат
+    .desc = { ent-VendingMachine.desc }
     .suffix = { "" }
 
 ent-VendingMachineClothing = ОдеждоМат
     .desc = Торговый автомат для одежды.
     .suffix = { "" }
 
-ent-VendingMachineCoffee = Лучшие горячие напитки Солнечной
-    .desc = Подаются кипящими, чтобы оставались горячими всю смену!
-    .suffix = { "" }
-
-ent-VendingMachineMagivend = МагАзин
+ent-VendingMachineMagivend = МагМазин
     .desc = Магический торговый автомат.
-    .suffix = { "" }
-
-ent-VendingMachineCola = Прохладительные напитки Робаст
-    .desc = Автомат прохладительных напитков, предоставленный компанией Робаст Индастриз, ООО.
-    .suffix = { "" }
-
-ent-VendingMachineDinnerware = Кухонно-пластальная поварская утварь
-    .desc = Поставщик оборудования для кухонь и ресторанов.
-    .suffix = { "" }
-
-ent-VendingMachineDiscount = Дискаунтер Дэна
-    .desc = Торговый автомат с закусками из печально известной франшизы «Дискаунтер Дэна».
     .suffix = { "" }
 
 ent-VendingMachineEngivend = ИнжеМат
@@ -82,19 +157,11 @@ ent-VendingMachineNutri = БотаМакс
     .suffix = { "" }
 
 ent-VendingMachineSec = СБТех
-    .desc = Торговый автомат с экпипировкой СБ. На табличке написано «ТОЛЬКО ДЛЯ СОТРУДНИКОВ СЛУЖБЫ БЕЗОПАСНОСТИ».
+    .desc = Торговый автомат с экпипировкой СБ. На табличке написано "ТОЛЬКО ДЛЯ СОТРУДНИКОВ СЛУЖБЫ БЕЗОПАСНОСТИ".
     .suffix = { "" }
 
 ent-VendingMachineSmartFridge = Умный холодильник
     .desc = Охлаждаемое хранилище для складирования лекарств и химикатов.
-    .suffix = { "" }
-
-ent-VendingMachineSnack = Гетмор Шоколад Корп
-    .desc = Автомат с закусками, предоставленный корпорацией Гетмор Шоколад, базирующейся на Марсе.
-    .suffix = { "" }
-
-ent-VendingMachineSovietSoda = ВОДА
-    .desc = Старый торговый автомат со сладкой водой.
     .suffix = { "" }
 
 ent-VendingMachineTheater = ТеатроШкаф
@@ -109,10 +176,6 @@ ent-VendingMachineGames = Безобидные развлечения
     .desc = Выдает вещи, которые капитан и глава персонала, скорее всего, не оценят, если вы будете развлекаться с ними вместо своей работы...
     .suffix = { "" }
 
-ent-VendingMachineChang = Мистер Чанг
-    .desc = Автомат самообслуживания с китайской едой, для всех ваших потребностей в китайской еде.
-    .suffix = { "" }
-
 ent-VendingMachineSalvage = Утильмаг
     .desc = Лучший друг дварфов!
     .suffix = { "" }
@@ -123,10 +186,6 @@ ent-VendingMachineWallmount = торговый автомат
 
 ent-VendingMachineWallMedical = НаноМед
     .desc = Это настенный раздатчик медицинского оборудования. Только натуральные химикаты!
-    .suffix = { "" }
-
-ent-VendingMachineDonut = Пончики Монкинс
-    .desc = Автомат пончиков, предоставленный компанией Робаст Индастриз, ООО.
     .suffix = { "" }
 
 ent-VendingMachineHydrobe = ГидроРоб
@@ -165,10 +224,6 @@ ent-VendingMachineEngiDrobe = ИнжеШкаф
     .desc = Торговый автомат, специализирующийся на выдаче одежды промышленного класса.
     .suffix = { "" }
 
-ent-VendingMachineChefDrobe = ШефШкаф
-    .desc = Этот торговый автомат, возможно, и не выдает мясо, но он точно выдает одежду для поваров.
-    .suffix = { "" }
-
 ent-VendingMachineDetDrobe = ДетекШкаф
     .desc = Машина для всех ваших детективных нужд, до тех пор, пока вам нужна одежда.
     .suffix = { "" }
@@ -201,66 +256,10 @@ ent-VendingMachineTankDispenserEngineering = раздатчик газовых �
     .desc = Автомат по выдаче газовых баллонов. Этот имеет инженерную окраску.
     .suffix = ИНЖ [O2, Плазма]
 
-ent-VendingMachineCondiments = Островок соусов
-    .desc = Нанесите эти густые тягучие вещества на еду для полноты вкусовых ощущений.
-    .suffix = { "" }
-
-ent-LoveVendingMachine = Элеонора
-    .desc = Я буду ждать прикосновения твоих сильных рук к моему разгоряченному интерфейсу!
-    .suffix = { "" }
-
-ent-VendingMachineHappyHonk = ХэппиХонк
-    .desc = Раздатчик «Хэппи Хонк Мил», сделанных Honk! Co.
-    .suffix = { "" }
-
 ent-VendingMachineCentDrobe = ЦентШкаф
     .desc = Единственный в своем роде торговый автомат для удовлетворения всех ваших эстетических центкомовских потребностей!
     .suffix = { "" }
 
-ent-VendingMachineSnackOrange = { ent-VendingMachineSnack }
-    .desc = { ent-VendingMachineSnack.desc }
-    .suffix = Оранжевый
-
-ent-VendingMachineSnackBlue = { ent-VendingMachineSnack }
-    .desc = { ent-VendingMachineSnack.desc }
-    .suffix = Синий
-
-ent-VendingMachineSnackGreen = { ent-VendingMachineSnack }
-    .desc = { ent-VendingMachineSnack.desc }
-    .suffix = Зелёный
-
-ent-VendingMachineSnackTeal = { ent-VendingMachineSnack }
-    .desc = { ent-VendingMachineSnack.desc }
-    .suffix = Голубой
-
-ent-VendingMachinePwrGame = ГеймерЭнерджи
-    .desc = Ты этого хочешь, у нас это есть. Предоставлено вам в партнерстве с Салаты от Влады.
-    .suffix = { "" }
-
 ent-VendingMachineRobotics = Роботех Делюкс
     .desc = Все инструменты, необходимые вам для создания своей собственной армии роботов.
-    .suffix = { "" }
-
-ent-VendingMachineColaBlack = { ent-VendingMachineCola }
-    .desc = { ent-VendingMachineCola.desc }
-    .suffix = Чёрный
-
-ent-VendingMachineSoda = { ent-VendingMachineCola }
-    .desc = { ent-VendingMachineCola.desc }
-    .suffix = Сода
-
-ent-VendingMachineShamblersJuice = Сок Шабмлера
-    .desc = Взбей мне немного этого сока Шамбелра!
-    .suffix = { "" }
-
-ent-VendingMachineColaRed = { ent-VendingMachineCola }
-    .desc = { ent-VendingMachineCola.desc }
-    .suffix = Красный
-
-ent-VendingMachineSpaceUp = раздатчик Спейс-Ап
-    .desc = Насладитесь взрывом вкуса.
-    .suffix = { "" }
-
-ent-VendingMachineStarkist = раздатчик Старкист
-    .desc = Вкус звезды в жидком виде.
     .suffix = { "" }

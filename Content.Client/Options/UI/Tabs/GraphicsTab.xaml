@@ -18,6 +18,9 @@
                 <CheckBox Name="LightingShaderCheckBox" Text="{Loc 'ui-options-lighting-shader'}" />
                 <CheckBox Name="FilmGrainCheckBox" Text="{Loc 'ui-options-film-grain'}" />
                 <ui:OptionSlider Name="FilmGrainSlider"/>
+                <CheckBox Name="BloomCheckBox" Text="{Loc 'ui-options-bloom'}" />
+                <ui:OptionSlider Name="BloomIntensitySlider" Title="{Loc 'ui-options-bloom-intensity'}" />
+                <CheckBox Name="VignetteCheckBox" Text="{Loc 'ui-options-vignette'}" />
                 <!-- WD EDIT END -->
 
                 <!-- Interface -->

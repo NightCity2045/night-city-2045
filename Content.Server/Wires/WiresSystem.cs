@@ -758,10 +758,15 @@ public sealed class WiresSystem : SharedWiresSystem
                 }
 
                 Tool.PlayToolSound(toolEntity, tool, user);
+                // NC Edit Start: Disable hacking effects when cutting wires
+                /*
                 if (wire.Action == null || wire.Action.Cut(user, wire))
                 {
                     wire.IsCut = true;
                 }
+                */
+                wire.IsCut = true;
+                // NC Edit End
 
                 UpdateUserInterface(used);
                 break;
@@ -779,10 +784,15 @@ public sealed class WiresSystem : SharedWiresSystem
                 }
 
                 Tool.PlayToolSound(toolEntity, tool, user);
+                // NC Edit Start: Disable hacking effects when mending wires
+                /*
                 if (wire.Action == null || wire.Action.Mend(user, wire))
                 {
                     wire.IsCut = false;
                 }
+                */
+                wire.IsCut = false;
+                // NC Edit End
 
                 UpdateUserInterface(used);
                 break;

@@ -2,5 +2,5 @@ reagent-desc-blind-toxin = Густой химикат, лишающий жер�
 
 reagent-name-tirizene = тиризен
 reagent-desc-tirizene = Нелетальный яд, вызывающий у жертвы слабость и усталость
-reagent-name-aranesp = аранесп
-reagent-desc-aranesp = Трудно синтезируемый усилитель производительности, наиболее известный своими мощными возможностями восстановления энергии ((стамины)).
+reagent-name-aranesp = aranesp
+reagent-desc-aranesp = A difficult to synthesize performance enhancer, most famous for strong energy restoration capabilities.

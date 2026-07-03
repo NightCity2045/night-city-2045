@@ -312,9 +312,6 @@ namespace Content.Server.Atmos.EntitySystems
                 return;
 
             RemCompDeferred<OnFireComponent>(uid);
-            _alertsSystem.ClearAlert(uid, flammable.FireAlert);
-            RaiseLocalEvent(uid, new MoodRemoveEffectEvent("OnFire"));
-
             if (!flammable.OnFire)
                 return;
 
@@ -445,6 +442,8 @@ namespace Content.Server.Atmos.EntitySystems
 
                 if (!flammable.OnFire)
                 {
+                    _alertsSystem.ClearAlert(uid, flammable.FireAlert);
+                    RaiseLocalEvent(uid, new MoodRemoveEffectEvent("OnFire"));
                     RemCompDeferred<OnFireComponent>(uid);
                     continue;
                 }

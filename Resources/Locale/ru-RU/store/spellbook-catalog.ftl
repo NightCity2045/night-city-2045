@@ -19,8 +19,8 @@ spellbook-charge-desc = Вдохни в свою палочку вторую ж�
 
 # Equipment
 
-spellbook-ethereal-jaunt-name = Эфирная Прогулка
-spellbook-ethereal-jaunt-description = Проскользните в эфирный мир, чтобы ускользнуть от своих врагов!
+spellbook-ethereal-jaunt-name = Ethereal Jaunt
+spellbook-ethereal-jaunt-description = Slip into the ethereal plane to slip away from your enemies!
 
 # Equipment
 
@@ -32,8 +32,8 @@ spellbook-wand-polymorph-carp-description = Преврати кого-то в с
 
 # Events
 
-spellbook-wand-locker-name = Волшебная Палочка Шкафчика
-spellbook-wand-locker-description = Стреляйте по своим врагам проклятыми шкафчиками и запирайте их!
+spellbook-wand-locker-name = Wand of the Locker
+spellbook-wand-locker-description = Shoot cursed lockers at your enemies and lock em away!
 
 # Events
 
@@ -41,14 +41,14 @@ spellbook-event-summon-ghosts-name = Призыв Призраков
 spellbook-event-summon-ghosts-description = Кто ты звать будешь, а?
 
 # Upgrades
-spellbook-event-summon-guns-name = Призыв Оружия
-spellbook-event-summon-guns-description = АК47 для всех! Даёт каждому разумному существу на станции случайную пушку раз в несолько минут. Отключает возможность возврата при покупке!
+spellbook-event-summon-guns-name = Summon Guns
+spellbook-event-summon-guns-description = AK47s for everyone! Places a random gun in front of everybody. Disables refunds when bought!
 
-spellbook-event-summon-magic-name = Призыв Магии
-spellbook-event-summon-magic-description = Кладёт перед всеми случайный магический предмет. Ничего не может пойти не так! Отменяет возврат средств при покупке!
+spellbook-event-summon-magic-name = Summon Magic
+spellbook-event-summon-magic-description = Places a random magical item in front of everybody. Nothing could go wrong! Disables refunds when bought!
 
 # Upgrades
 spellbook-upgrade-fireball-name = Прокачка Огненного Шара
 spellbook-upgrade-fireball-description = Разбуди настоящую стихию — пусть твой Шар достигнет третьего, финального уровня разрушения!
-spellbook-upgrade-jaunt-name = Улучшенная Эфирная Прогулка
-spellbook-upgrade-jaunt-description = Улучшите «Прогулку» максимум до 3-го уровня!
+spellbook-upgrade-jaunt-name = Upgrade Ethereal Jaunt
+spellbook-upgrade-jaunt-description = Upgrades Jaunt to a maximum of level 3!

@@ -11,7 +11,8 @@
     mayTransfer: true
     whitelist:
       tags:
-        - CartridgeCaselessRifle
+      - Cartridge  # NC edit: Fix janitor stuff
+      - CartridgeCaselessRifle
     proto: CartridgeCaselessRifle
     capacity: 30
   - type: Item
@@ -63,7 +64,8 @@
   - type: BallisticAmmoProvider
     whitelist:
       tags:
-        - CartridgeCaselessRifle
+      - Cartridge  # NC edit: Fix janitor stuff
+      - CartridgeCaselessRifle
     proto: CartridgeCaselessRifle
     capacity: 10
   - type: Item

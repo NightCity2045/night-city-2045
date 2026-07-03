@@ -1,3 +1,3 @@
-ent-ItemActionExample = пример действия с элементом
-    .desc = для тестирования действий элемента
+ent-ItemActionExample = item action example
+    .desc = for testing item actions
     .suffix = DEBUG

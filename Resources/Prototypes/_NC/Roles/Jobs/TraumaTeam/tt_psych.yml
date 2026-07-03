@@ -1,0 +1,32 @@
+- type: job
+  id: TraumaTeamPsych
+  name: job-name-trauma-team-psych
+  description: job-description-trauma-team-psych
+  playTimeTracker: JobTraumaTeamPsych
+  weight: 80
+  salary: 320
+  icon: "JobIconTraumaPsiholog"
+  startingGear: TraumaTeamPsychGear
+  supervisors: Главный врач Trauma Team
+  access:
+    - Trauma_Medical
+    - Trauma_Morgue
+    - NC_General
+  special:
+  - !type:AddComponentSpecial
+    components:
+    - type: MapBeacon
+      group: TraumaTeam
+      color: "#4bdc99"
+      icon: /Textures/_NC/Interface/Misc/job_icons.rsi/trauma.png
+      visibleInWorld: false
+
+- type: startingGear
+  id: TraumaTeamPsychGear
+  equipment:
+    jumpsuit: ClothingUniformJumpsuitMedicalDoctor
+    back: ClothingBackpackMedical
+    shoes: ClothingShoesColorWhite
+    id: TraumaTeamPsychPDA
+    belt: ClothingBeltMedicalFilled
+    outerClothing: ClothingOuterCoatLab

@@ -1,0 +1,35 @@
+# Militech Hardsuit
+- type: entity
+  parent: ClothingOuterHardsuitBaseMedium
+  id: ClothingOuterHardsuitMilitech
+  name: ent-ClothingOuterHardsuitMilitech
+  description: ent-ClothingOuterHardsuitMilitech-desc
+  components:
+  - type: Sprite
+    sprite: _NC/Clothing/OuterClothing/Hardsuits/militech_hardsuit.rsi
+  - type: Clothing
+    sprite: _NC/Clothing/OuterClothing/Hardsuits/militech_hardsuit.rsi
+  - type: PressureProtection
+    highPressureMultiplier: 0.05
+    lowPressureMultiplier: 1000
+  - type: ExplosionResistance
+    damageCoefficient: 0.4
+  - type: Armor
+    modifiers:
+      flatReductions:
+        Piercing: 8
+      coefficients:
+        Blunt: 0.3
+        Slash: 0.3
+        Piercing: 0.3
+        Heat: 0.3
+        Radiation: 0.3
+        Caustic: 0.3
+        Shock: 0.1
+  - type: ClothingSpeedModifier
+    walkModifier: 0.75
+    sprintModifier: 0.9
+  - type: HeldSpeedModifier
+  - type: StaminaDamageResistance
+    coefficient: 0.3
+  - type: NoSlip

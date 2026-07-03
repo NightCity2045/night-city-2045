@@ -1,6 +1,4 @@
 ui-options-emotes-menu = Emotes menu type:
-ui-options-emotes-menu-window = Window
-ui-options-emotes-menu-radial = Radial
 
 ui-options-log-in-chat = Log actions in the chat
 
@@ -15,6 +13,10 @@ ui-options-hud-theme-xenomorph = Xenomorph
 
 ui-options-film-grain = Grain
 ui-options-film-grain-strength = Grain intensity: { $strength }
+ui-options-bloom = Bloom
+ui-options-bloom-intensity = Bloom intensity: { $intensity }
+ui-options-vignette = Vignette
+ui-options-split-toning = Smart Split Toning (Color Correction)
 
 ui-options-bark-volume = Bark volume
 ui-options-bark-limit = Bark limit

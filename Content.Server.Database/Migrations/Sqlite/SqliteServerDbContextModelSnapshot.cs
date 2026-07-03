@@ -599,6 +599,23 @@ namespace Content.Server.Database.Migrations.Sqlite
                     b.ToTable("connection_log", (string)null);
                 });
 
+            modelBuilder.Entity("Content.Server.Database.FactionBankBalance", b =>
+                {
+                    b.Property<int>("FactionId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER")
+                        .HasColumnName("faction_id");
+
+                    b.Property<int>("Balance")
+                        .HasColumnType("INTEGER")
+                        .HasColumnName("balance");
+
+                    b.HasKey("FactionId")
+                        .HasName("PK_faction_bank_balance");
+
+                    b.ToTable("faction_bank_balance", (string)null);
+                });
+
             modelBuilder.Entity("Content.Server.Database.IPIntelCache", b =>
                 {
                     b.Property<int>("Id")
@@ -663,7 +680,7 @@ namespace Content.Server.Database.Migrations.Sqlite
                     b.ToTable("job", (string)null);
                 });
 
-            modelBuilder.Entity("Content.Server.Database.Loadout", b =>
+            modelBuilder.Entity("Content.Server.Database.LoadoutItem", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -706,6 +723,47 @@ namespace Content.Server.Database.Migrations.Sqlite
                         .IsUnique();
 
                     b.ToTable("loadout", (string)null);
+                });
+
+            modelBuilder.Entity("Content.Server.Database.NCCharacterNote", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER")
+                        .HasColumnName("id");
+
+                    b.Property<byte>("ColorTag")
+                        .HasColumnType("INTEGER")
+                        .HasColumnName("color_tag");
+
+                    b.Property<string>("CustomName")
+                        .IsRequired()
+                        .HasColumnType("TEXT")
+                        .HasColumnName("custom_name");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("TEXT")
+                        .HasColumnName("description");
+
+                    b.Property<int>("OwnerProfileId")
+                        .HasColumnType("INTEGER")
+                        .HasColumnName("owner_profile_id");
+
+                    b.Property<int>("TargetProfileId")
+                        .HasColumnType("INTEGER")
+                        .HasColumnName("target_profile_id");
+
+                    b.HasKey("Id")
+                        .HasName("PK_nc_character_notes");
+
+                    b.HasIndex("TargetProfileId")
+                        .HasDatabaseName("IX_nc_character_notes_target_profile_id");
+
+                    b.HasIndex("OwnerProfileId", "TargetProfileId")
+                        .IsUnique();
+
+                    b.ToTable("nc_character_notes", (string)null);
                 });
 
             modelBuilder.Entity("Content.Server.Database.PlayTime", b =>
@@ -829,6 +887,10 @@ namespace Content.Server.Database.Migrations.Sqlite
                         .HasColumnType("INTEGER")
                         .HasColumnName("age");
 
+                    b.Property<int>("BankBalance")
+                        .HasColumnType("INTEGER")
+                        .HasColumnName("bank_balance");
+
                     b.Property<byte>("BarkPause")
                         .HasColumnType("INTEGER")
                         .HasColumnName("bark_pause");
@@ -876,6 +938,10 @@ namespace Content.Server.Database.Migrations.Sqlite
                     b.Property<string>("DisplayPronouns")
                         .HasColumnType("TEXT")
                         .HasColumnName("display_pronouns");
+
+                    b.Property<string>("EmployedDepartment")
+                        .HasColumnType("TEXT")
+                        .HasColumnName("employed_department");
 
                     b.Property<string>("Employer")
                         .IsRequired()
@@ -934,6 +1000,14 @@ namespace Content.Server.Database.Migrations.Sqlite
                         .HasColumnType("TEXT")
                         .HasColumnName("mime_name");
 
+                    b.Property<byte[]>("NCSkills")
+                        .HasColumnType("jsonb")
+                        .HasColumnName("nc_skills");
+
+                    b.Property<byte[]>("NCStats")
+                        .HasColumnType("jsonb")
+                        .HasColumnName("nc_stats");
+
                     b.Property<string>("Nationality")
                         .IsRequired()
                         .HasColumnType("TEXT")
@@ -974,6 +1048,10 @@ namespace Content.Server.Database.Migrations.Sqlite
                         .HasColumnType("TEXT")
                         .HasColumnName("station_ai_name");
 
+                    b.Property<bool>("StatsAndSkillsLocked")
+                        .HasColumnType("INTEGER")
+                        .HasColumnName("stats_and_skills_locked");
+
                     b.Property<string>("Voice")
                         .IsRequired()
                         .HasColumnType("TEXT")
@@ -993,6 +1071,35 @@ namespace Content.Server.Database.Migrations.Sqlite
                         .IsUnique();
 
                     b.ToTable("profile", (string)null);
+                });
+
+            modelBuilder.Entity("Content.Server.Database.QuittedDepartment", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER")
+                        .HasColumnName("quitted_department_id");
+
+                    b.Property<string>("DepartmentId")
+                        .IsRequired()
+                        .HasColumnType("TEXT")
+                        .HasColumnName("department_id");
+
+                    b.Property<int>("ProfileId")
+                        .HasColumnType("INTEGER")
+                        .HasColumnName("profile_id");
+
+                    b.Property<DateTime>("QuitTime")
+                        .HasColumnType("TEXT")
+                        .HasColumnName("quit_time");
+
+                    b.HasKey("Id")
+                        .HasName("PK_quitted_department");
+
+                    b.HasIndex("ProfileId", "DepartmentId")
+                        .IsUnique();
+
+                    b.ToTable("quitted_department", (string)null);
                 });
 
             modelBuilder.Entity("Content.Server.Database.RoleWhitelist", b =>
@@ -1684,7 +1791,7 @@ namespace Content.Server.Database.Migrations.Sqlite
                     b.Navigation("Profile");
                 });
 
-            modelBuilder.Entity("Content.Server.Database.Loadout", b =>
+            modelBuilder.Entity("Content.Server.Database.LoadoutItem", b =>
                 {
                     b.HasOne("Content.Server.Database.Profile", "Profile")
                         .WithMany("Loadouts")
@@ -1694,6 +1801,27 @@ namespace Content.Server.Database.Migrations.Sqlite
                         .HasConstraintName("FK_loadout_profile_profile_id");
 
                     b.Navigation("Profile");
+                });
+
+            modelBuilder.Entity("Content.Server.Database.NCCharacterNote", b =>
+                {
+                    b.HasOne("Content.Server.Database.Profile", "OwnerProfile")
+                        .WithMany()
+                        .HasForeignKey("OwnerProfileId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired()
+                        .HasConstraintName("FK_nc_character_notes_profile_owner_profile_id");
+
+                    b.HasOne("Content.Server.Database.Profile", "TargetProfile")
+                        .WithMany()
+                        .HasForeignKey("TargetProfileId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired()
+                        .HasConstraintName("FK_nc_character_notes_profile_target_profile_id");
+
+                    b.Navigation("OwnerProfile");
+
+                    b.Navigation("TargetProfile");
                 });
 
             modelBuilder.Entity("Content.Server.Database.Player", b =>
@@ -1737,6 +1865,18 @@ namespace Content.Server.Database.Migrations.Sqlite
                         .HasConstraintName("FK_profile_preference_preference_id");
 
                     b.Navigation("Preference");
+                });
+
+            modelBuilder.Entity("Content.Server.Database.QuittedDepartment", b =>
+                {
+                    b.HasOne("Content.Server.Database.Profile", "Profile")
+                        .WithMany("QuittedDepartments")
+                        .HasForeignKey("ProfileId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired()
+                        .HasConstraintName("FK_quitted_department_profile_profile_id");
+
+                    b.Navigation("Profile");
                 });
 
             modelBuilder.Entity("Content.Server.Database.RoleWhitelist", b =>
@@ -2023,6 +2163,8 @@ namespace Content.Server.Database.Migrations.Sqlite
                     b.Navigation("Jobs");
 
                     b.Navigation("Loadouts");
+
+                    b.Navigation("QuittedDepartments");
 
                     b.Navigation("Traits");
                 });

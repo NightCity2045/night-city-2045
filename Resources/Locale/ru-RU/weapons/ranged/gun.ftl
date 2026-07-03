@@ -17,7 +17,7 @@ gun-clumsy = Оружие взрывается вам в лицо!
 gun-set-fire-mode = Установлен режим {$mode}
 
 # SelectiveFire
-gun-magazine-whitelist-fail = Это не влезет в пистолет!
+gun-magazine-whitelist-fail = That won't fit into the gun!
 
 # SelectiveFire
 gun-SemiAuto = полуавто

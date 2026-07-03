@@ -1,5 +1,8 @@
 using System.Linq;
 using System.Text.RegularExpressions;
+using Content.Shared._NC.Bank.Components;
+using Content.Shared._NC.Stats;
+using Content.Shared._NC.Stats.Prototypes;
 using Content.Shared._White.Bark;
 using Content.Shared._White.Bark.Systems;
 using Content.Shared._White.TTS;
@@ -34,6 +37,8 @@ public sealed partial class HumanoidCharacterProfile : ICharacterProfile
     public const int MaxNameLength = 64;
     public const int MaxDescLength = 1024;
     public const int MaxCustomContentLength = 524288; // WD EDIT
+    public const int StartingStatPoints = 62;
+    public const int StartingSkillPoints = 82;
 
     /// Job preferences for initial spawn
     [DataField]
@@ -96,6 +101,15 @@ public sealed partial class HumanoidCharacterProfile : ICharacterProfile
     [DataField]
     public Sex Sex { get; private set; } = Sex.Male;
 
+    [DataField]
+    public int BankBalance { get; set; } = BankAccountComponent.StartingBalance;
+
+    [DataField]
+    public string? EmployedDepartment { get; set; } // NC
+
+    [DataField]
+    public Dictionary<string, DateTime> QuittedDepartments { get; set; } = new(); // NC
+
     // WD EDIT START
     [DataField]
     public string BodyType { get; set; } = SharedHumanoidAppearanceSystem.DefaultBodyType;
@@ -129,6 +143,15 @@ public sealed partial class HumanoidCharacterProfile : ICharacterProfile
     [DataField]
     public string? MimeName { get; set; }
     // WD EDIT END
+
+    [DataField]
+    public List<NCStatEntry> Stats { get; set; } = new();
+
+    [DataField]
+    public List<NCSkillEntry> Skills { get; set; } = new();
+
+    [DataField]
+    public bool StatsAndSkillsLocked { get; set; }
 
     /// <see cref="Appearance"/>
     public ICharacterAppearance CharacterAppearance => Appearance;
@@ -169,6 +192,8 @@ public sealed partial class HumanoidCharacterProfile : ICharacterProfile
         float width,
         int age,
         Sex sex,
+        int bankBalance, // NC
+        string? employedDepartment, // NC
         string voice, // WD EDIT
         string barkVoice, // WD EDIT
         BarkPercentageApplyData barkSettings, // WD EDIT
@@ -179,13 +204,17 @@ public sealed partial class HumanoidCharacterProfile : ICharacterProfile
         string? cyborgName,
         string? clownName, // WD EDIT
         string? mimeName, // WD EDIT
+        List<NCStatEntry> stats, // NC
+        List<NCSkillEntry> skills, // NC
+        bool statsAndSkillsLocked, // NC
         HumanoidCharacterAppearance appearance,
         SpawnPriorityPreference spawnPriority,
         Dictionary<ProtoId<JobPrototype>, JobPriority> jobPriorities,
         PreferenceUnavailableMode preferenceUnavailable,
         HashSet<ProtoId<AntagPrototype>> antagPreferences,
         HashSet<ProtoId<TraitPrototype>> traitPreferences,
-        Dictionary<string, Loadout> loadoutPreferences) // WWDP EDIT
+        Dictionary<string, Loadout> loadoutPreferences, // WWDP EDIT
+        Dictionary<string, DateTime> quittedDepartments) // NC
     {
         Name = name;
         FlavorText = flavortext;
@@ -200,6 +229,9 @@ public sealed partial class HumanoidCharacterProfile : ICharacterProfile
         Width = width;
         Age = age;
         Sex = sex;
+        BankBalance = bankBalance;
+        EmployedDepartment = employedDepartment;
+        QuittedDepartments = quittedDepartments; // NC
         Voice = voice; // WD EDIT
         BarkVoice = barkVoice; // WD EDIT
         BodyType = bodyType; // WD EDIT
@@ -210,6 +242,9 @@ public sealed partial class HumanoidCharacterProfile : ICharacterProfile
         CyborgName = cyborgName;
         ClownName = clownName; // WD EDIT
         MimeName = mimeName; // WD EDIT
+        Stats = CloneStats(stats);
+        Skills = CloneSkills(skills);
+        StatsAndSkillsLocked = statsAndSkillsLocked;
         Appearance = appearance;
         SpawnPriority = spawnPriority;
         _jobPriorities = jobPriorities;
@@ -249,6 +284,8 @@ public sealed partial class HumanoidCharacterProfile : ICharacterProfile
             other.Width,
             other.Age,
             other.Sex,
+            other.BankBalance, // NC
+            other.EmployedDepartment, // NC
             other.Voice, // WD EDIT
             other.BarkVoice, // WD EDIT
             other.BarkSettings.Clone(), // WD EDIT
@@ -259,13 +296,17 @@ public sealed partial class HumanoidCharacterProfile : ICharacterProfile
             other.CyborgName,
             other.ClownName, // WD EDIT
             other.MimeName, // WD EDIT
+            other.Stats,
+            other.Skills,
+            other.StatsAndSkillsLocked,
             other.Appearance.Clone(),
             other.SpawnPriority,
             new Dictionary<ProtoId<JobPrototype>, JobPriority>(other.JobPriorities),
             other.PreferenceUnavailable,
             new HashSet<ProtoId<AntagPrototype>>(other.AntagPreferences),
             new HashSet<ProtoId<TraitPrototype>>(other.TraitPreferences),
-            new Dictionary<string, Loadout>(other.LoadoutPreferences)) // WWDP EDIT
+            new Dictionary<string, Loadout>(other.LoadoutPreferences), // WWDP EDIT
+            new Dictionary<string, DateTime>(other.QuittedDepartments)) // NC
     {
     }
 
@@ -301,29 +342,13 @@ public sealed partial class HumanoidCharacterProfile : ICharacterProfile
             Nationality = SharedHumanoidAppearanceSystem.DefaultNationality,
             Employer = SharedHumanoidAppearanceSystem.DefaultEmployer,
             Lifepath = SharedHumanoidAppearanceSystem.DefaultLifepath,
-            Height = speciesPrototype?.DefaultHeight ?? 1f, // WWDP EDIT
-            Width = speciesPrototype?.DefaultWidth ?? 1f, // WWDP EDIT
         };
     }
 
     // TODO: This should eventually not be a visual change only.
     public static HumanoidCharacterProfile Random(HashSet<string>? ignoredSpecies = null)
     {
-        var prototypeManager = IoCManager.Resolve<IPrototypeManager>();
-        var random = IoCManager.Resolve<IRobustRandom>();
-        // WWDP edit start
-        var specieslist = prototypeManager
-            .EnumeratePrototypes<SpeciesPrototype>()
-            .Where(x => !ignoredSpecies?.Contains(x.ID) ?? true) // WWDP
-            .ToArray();
-
-        if (specieslist.Length == 0) // Fallback
-            specieslist = [prototypeManager.Index<SpeciesPrototype>(SharedHumanoidAppearanceSystem.DefaultSpecies)];
-
-        var species = random.Pick(specieslist).ID;
-        // WWDP edit end
-
-        return RandomWithSpecies(species);
+        return RandomWithSpecies(SharedHumanoidAppearanceSystem.DefaultSpecies);
     }
 
     public static HumanoidCharacterProfile RandomWithSpecies(string species = SharedHumanoidAppearanceSystem.DefaultSpecies)
@@ -358,7 +383,7 @@ public sealed partial class HumanoidCharacterProfile : ICharacterProfile
             .EnumeratePrototypes<TTSVoicePrototype>()
             .Where(o => CanHaveVoice(o, sex)).ToArray()
         ).ID;
-         // WD EDIT END
+        // WD EDIT END
 
         var name = GetName(species, gender);
 
@@ -371,8 +396,6 @@ public sealed partial class HumanoidCharacterProfile : ICharacterProfile
             Voice = voiceId, // WD EDIT
             BodyType = bodyType, // WD EDIT
             Species = species,
-            Height = speciesPrototype?.DefaultHeight ?? 1f, // WWDP EDIT
-            Width = speciesPrototype?.DefaultWidth ?? 1f, // WWDP EDIT
             Appearance = HumanoidCharacterAppearance.Random(species, sex),
             Nationality = SharedHumanoidAppearanceSystem.DefaultNationality,
             Employer = SharedHumanoidAppearanceSystem.DefaultEmployer,
@@ -403,6 +426,8 @@ public sealed partial class HumanoidCharacterProfile : ICharacterProfile
         new(this) { BarkVoice = barkVoice, BarkSettings = setting.Clone() }; // WD EDIT
 
     public HumanoidCharacterProfile WithAge(int age) => new(this) { Age = age };
+    public HumanoidCharacterProfile WithBankBalance(int bankBalance) => new(this) { BankBalance = bankBalance };
+    public HumanoidCharacterProfile WithEmployedDepartment(string? employedDepartment) => new(this) { EmployedDepartment = employedDepartment }; // NC
     // EE - Contractors Change Start
     public HumanoidCharacterProfile WithNationality(string nationality) => new(this) { Nationality = nationality };
     public HumanoidCharacterProfile WithEmployer(string employer) => new(this) { Employer = employer };
@@ -415,6 +440,9 @@ public sealed partial class HumanoidCharacterProfile : ICharacterProfile
     public HumanoidCharacterProfile WithCyborgName(string? cyborgName) => new(this) { CyborgName = cyborgName };
     public HumanoidCharacterProfile WithClownName(string? clownName) => new(this) { ClownName = clownName }; // WD EDIT
     public HumanoidCharacterProfile WithMimeName(string? mimeName) => new(this) { MimeName = mimeName }; // WD EDIT
+    public HumanoidCharacterProfile WithStats(List<NCStatEntry> stats) => new(this) { Stats = CloneStats(stats) };
+    public HumanoidCharacterProfile WithSkills(List<NCSkillEntry> skills) => new(this) { Skills = CloneSkills(skills) };
+    public HumanoidCharacterProfile WithStatsAndSkillsLocked(bool locked) => new(this) { StatsAndSkillsLocked = locked };
     public HumanoidCharacterProfile WithSpecies(string species) => new(this) { Species = species };
     public HumanoidCharacterProfile WithCustomSpeciesName(string customspeciename) => new(this) { Customspeciename = customspeciename };
     public HumanoidCharacterProfile WithHeight(float height) => new(this) { Height = height };
@@ -523,6 +551,9 @@ public sealed partial class HumanoidCharacterProfile : ICharacterProfile
             && Name == other.Name
             && Age == other.Age
             && Sex == other.Sex
+            && BankBalance == other.BankBalance
+            && EmployedDepartment == other.EmployedDepartment // NC
+            && QuittedDepartments.SequenceEqual(other.QuittedDepartments) // NC
             && Voice == other.Voice // WD EDIT
             && BarkVoice == other.BarkVoice // WD EDIT
             && BodyType == other.BodyType // WD EDIT
@@ -535,12 +566,13 @@ public sealed partial class HumanoidCharacterProfile : ICharacterProfile
             // EE - Contractors Change End
             && PreferenceUnavailable == other.PreferenceUnavailable
             && SpawnPriority == other.SpawnPriority
-            && Height == other.Height // WD EDIT
-            && Width == other.Width // WD EDIT
             && _jobPriorities.SequenceEqual(other._jobPriorities)
             && _antagPreferences.SequenceEqual(other._antagPreferences)
             && _traitPreferences.SequenceEqual(other._traitPreferences)
             && LoadoutPreferences.SequenceEqual(other.LoadoutPreferences)
+            && StatsEqual(Stats, other.Stats)
+            && SkillsEqual(Skills, other.Skills)
+            && StatsAndSkillsLocked == other.StatsAndSkillsLocked
             && Appearance.MemberwiseEquals(other.Appearance)
             && FlavorText == other.FlavorText;
     }
@@ -550,11 +582,10 @@ public sealed partial class HumanoidCharacterProfile : ICharacterProfile
         var configManager = collection.Resolve<IConfigurationManager>();
         var prototypeManager = collection.Resolve<IPrototypeManager>();
 
-        if (!prototypeManager.TryIndex(Species, out var speciesPrototype) || speciesPrototype.RoundStart == false)
-        {
-            Species = SharedHumanoidAppearanceSystem.DefaultSpecies;
-            speciesPrototype = prototypeManager.Index(Species);
-        }
+        // NC - Force species to human
+        Species = SharedHumanoidAppearanceSystem.DefaultSpecies;
+        var speciesPrototype = prototypeManager.Index(Species);
+        // NC - End
 
         var sex = Sex switch
         {
@@ -582,8 +613,6 @@ public sealed partial class HumanoidCharacterProfile : ICharacterProfile
         };
 
         var bodyType = speciesPrototype.BodyTypes.Contains(BodyType) ? BodyType : speciesPrototype.BodyTypes.First(); // WD EDIT
-        var height = Height <= 0 ? speciesPrototype.DefaultHeight : Math.Clamp(Height, speciesPrototype.MinHeight, speciesPrototype.MaxHeight); // WD EDIT
-        var width = Width <= 0 ? speciesPrototype.DefaultWidth : Math.Clamp(Width, speciesPrototype.MinWidth, speciesPrototype.MaxWidth); // WD EDIT
 
         string name;
         if (string.IsNullOrEmpty(Name))
@@ -652,14 +681,39 @@ public sealed partial class HumanoidCharacterProfile : ICharacterProfile
             _ => SpawnPriorityPreference.None // Invalid enum values.
         };
 
+        var civilianDepartments = new[] { "Civilian", "CivilianNC" };
+        var departmentPrototypes = prototypeManager.EnumeratePrototypes<DepartmentPrototype>().ToList();
+
         var priorities = new Dictionary<ProtoId<JobPrototype>, JobPriority>(JobPriorities
-            .Where(p => prototypeManager.TryIndex<JobPrototype>(p.Key, out var job) && job.SetPreference && p.Value switch
+            .Where(p =>
             {
-                JobPriority.Never => false, // Drop never since that's assumed default.
-                JobPriority.Low => true,
-                JobPriority.Medium => true,
-                JobPriority.High => true,
-                _ => false
+                if (!prototypeManager.TryIndex<JobPrototype>(p.Key, out var job) || !job.SetPreference)
+                    return false;
+
+                // NC START
+                if (EmployedDepartment != null)
+                {
+                    // Only allow jobs from the employed department
+                    if (!departmentPrototypes.Any(d => d.ID == EmployedDepartment && d.Roles.Contains(p.Key)))
+                        return false;
+                }
+                else
+                {
+                    // If not employed, only allow civilian jobs
+                    // We assume civilian jobs are those that belong to a department in CivilianDepartments
+                    if (!departmentPrototypes.Any(d => civilianDepartments.Contains(d.ID) && d.Roles.Contains(p.Key)))
+                        return false;
+                }
+                // NC END
+
+                return p.Value switch
+                {
+                    JobPriority.Never => false,
+                    JobPriority.Low => true,
+                    JobPriority.Medium => true,
+                    JobPriority.High => true,
+                    _ => false
+                };
             }));
 
         var hasHighPrio = false;
@@ -687,6 +741,9 @@ public sealed partial class HumanoidCharacterProfile : ICharacterProfile
             .Where(l => prototypeManager.HasIndex<LoadoutPrototype>(l.Key))
             .ToList();
 
+        var stats = FitStatsToBudget(EnsureStats(prototypeManager), prototypeManager);
+        var skills = FitSkillsToBudget(EnsureSkills(prototypeManager), prototypeManager);
+
         Name = name;
         Customspeciename = customspeciename;
         FlavorText = flavortext;
@@ -694,8 +751,6 @@ public sealed partial class HumanoidCharacterProfile : ICharacterProfile
         Sex = sex;
         Gender = gender;
         BodyType = bodyType; // WD EDIT
-        Height = height; // WD EDIT
-        Width = width; // WD EDIT
         Appearance = appearance;
         SpawnPriority = spawnPriority;
 
@@ -721,7 +776,7 @@ public sealed partial class HumanoidCharacterProfile : ICharacterProfile
         if (voice is null || !CanHaveVoice(voice, Sex))
             Voice = SharedHumanoidAppearanceSystem.DefaultSexVoice[sex];
 
-        if(!CanHaveBark(prototypeManager, collection))
+        if (!CanHaveBark(prototypeManager, collection))
             BarkVoice = SharedHumanoidAppearanceSystem.DefaultBarkVoice;
 
         foreach (var (key, loadout) in loadouts)
@@ -743,9 +798,12 @@ public sealed partial class HumanoidCharacterProfile : ICharacterProfile
                     loadout.CustomColorTint,
                     loadout.CustomHeirloom);
 
-            _loadoutPreferences[key] = truncatedLoadout;
+                _loadoutPreferences[key] = truncatedLoadout;
         }
         // WD EDIT END
+
+        Stats = stats;
+        Skills = skills;
     }
 
     // WD EDIT START
@@ -755,12 +813,12 @@ public sealed partial class HumanoidCharacterProfile : ICharacterProfile
     }
 
     public bool CanHaveBark(
-        IPrototypeManager prototypeManager,IDependencyCollection collection,
+        IPrototypeManager prototypeManager, IDependencyCollection collection,
         ProtoId<BarkListPrototype>? id = null
     )
     {
         var voice = BarkVoice;
-        if(
+        if (
             !prototypeManager.TryIndex<BarkListPrototype>(id ?? "default", out var barkList) ||
             !barkList.VoiceList.TryGetValue(voice, out var voiceRequirements) ||
             !prototypeManager.TryIndex<BarkVoicePrototype>(voice, out var voicePrototype))
@@ -830,22 +888,289 @@ public sealed partial class HumanoidCharacterProfile : ICharacterProfile
         hashCode.Add(Lifepath);
         hashCode.Add(Age);
         hashCode.Add((int) Sex);
+        hashCode.Add(EmployedDepartment); // NC
         hashCode.Add((int) Gender);
         hashCode.Add(Voice); // WD EDIT
         hashCode.Add(BodyType); // WD EDIT
         hashCode.Add(BarkVoice); // WD EDIT
         hashCode.Add(BarkSettings); // WD EDIT
-        hashCode.Add(Height); // WWDP EDIT
-        hashCode.Add(Width);  // WWDP EDIT
         hashCode.Add(Appearance);
         hashCode.Add((int) SpawnPriority);
         hashCode.Add((int) PreferenceUnavailable);
         hashCode.Add(Customspeciename);
+        hashCode.Add(StatsAndSkillsLocked);
+
+        foreach (var stat in Stats)
+        {
+            hashCode.Add(stat.StatId);
+            hashCode.Add(stat.Value.BaseValue);
+            hashCode.Add(stat.Value.ProgressionValue);
+            hashCode.Add(stat.Value.TemporaryValue);
+            hashCode.Add(stat.Value.FinalValue);
+        }
+
+        foreach (var skill in Skills)
+        {
+            hashCode.Add(skill.SkillId);
+            hashCode.Add(skill.Value.BaseValue);
+            hashCode.Add(skill.Value.ProgressionValue);
+            hashCode.Add(skill.Value.TemporaryValue);
+            hashCode.Add(skill.Value.FinalValue);
+        }
+
         return hashCode.ToHashCode();
     }
 
     public HumanoidCharacterProfile Clone()
     {
         return new HumanoidCharacterProfile(this);
+    }
+
+    public int GetSpentStatPoints()
+    {
+        return Stats.Sum(stat => Math.Max(0, stat.Value.BaseValue - 1));
+    }
+
+    public int GetSpentSkillPoints(IPrototypeManager prototypeManager)
+    {
+        var spent = 0;
+
+        foreach (var skill in Skills)
+        {
+            if (!prototypeManager.TryIndex<NCSkillPrototype>(skill.SkillId, out var proto))
+                continue;
+
+            spent += skill.Value.BaseValue * proto.CostMultiplier;
+        }
+
+        return spent;
+    }
+
+    private static List<NCStatEntry> CloneStats(IEnumerable<NCStatEntry> stats)
+    {
+        return stats
+            .Select(s => new NCStatEntry(s.StatId,
+                new NCTrackedValue
+                {
+                    BaseValue = s.Value.BaseValue,
+                    ProgressionValue = s.Value.ProgressionValue,
+                    TemporaryValue = s.Value.TemporaryValue,
+                    FinalValue = s.Value.FinalValue
+                }))
+            .ToList();
+    }
+
+    private static List<NCSkillEntry> CloneSkills(IEnumerable<NCSkillEntry> skills)
+    {
+        return skills
+            .Select(s => new NCSkillEntry(s.SkillId,
+                new NCTrackedValue
+                {
+                    BaseValue = s.Value.BaseValue,
+                    ProgressionValue = s.Value.ProgressionValue,
+                    TemporaryValue = s.Value.TemporaryValue,
+                    FinalValue = s.Value.FinalValue
+                },
+                s.Specialization))
+            .ToList();
+    }
+
+    private static bool StatsEqual(IReadOnlyList<NCStatEntry> left, IReadOnlyList<NCStatEntry> right)
+    {
+        if (left.Count != right.Count)
+            return false;
+
+        for (var i = 0; i < left.Count; i++)
+        {
+            var l = left[i];
+            var r = right[i];
+            if (l.StatId != r.StatId)
+                return false;
+
+            if (l.Value.BaseValue != r.Value.BaseValue ||
+                l.Value.ProgressionValue != r.Value.ProgressionValue ||
+                l.Value.TemporaryValue != r.Value.TemporaryValue ||
+                l.Value.FinalValue != r.Value.FinalValue)
+                return false;
+        }
+
+        return true;
+    }
+
+    private static bool SkillsEqual(IReadOnlyList<NCSkillEntry> left, IReadOnlyList<NCSkillEntry> right)
+    {
+        if (left.Count != right.Count)
+            return false;
+
+        for (var i = 0; i < left.Count; i++)
+        {
+            var l = left[i];
+            var r = right[i];
+            if (l.SkillId != r.SkillId)
+                return false;
+
+            if (l.Value.BaseValue != r.Value.BaseValue ||
+                l.Value.ProgressionValue != r.Value.ProgressionValue ||
+                l.Value.TemporaryValue != r.Value.TemporaryValue ||
+                l.Value.FinalValue != r.Value.FinalValue)
+                return false;
+        }
+
+        return true;
+    }
+
+    private List<NCStatEntry> EnsureStats(IPrototypeManager prototypeManager)
+    {
+        var existing = new List<NCStatEntry>();
+        var byId = new Dictionary<string, NCStatEntry>();
+
+        foreach (var stat in CloneStats(Stats))
+        {
+            if (!prototypeManager.TryIndex<NCStatPrototype>(stat.StatId, out var proto))
+                continue;
+
+            if (byId.ContainsKey(stat.StatId))
+                continue;
+
+            stat.Value.BaseValue = Math.Clamp(stat.Value.BaseValue, proto.MinValue, proto.MaxValue);
+            stat.Value.ProgressionValue = Math.Max(0, stat.Value.ProgressionValue);
+            stat.Value.FinalValue = Math.Clamp(
+                stat.Value.BaseValue + stat.Value.ProgressionValue + stat.Value.TemporaryValue,
+                proto.MinValue,
+                proto.MaxValue);
+
+            byId.Add(stat.StatId, stat);
+            existing.Add(stat);
+        }
+
+        foreach (var proto in prototypeManager.EnumeratePrototypes<NCStatPrototype>().OrderBy(p => p.ID))
+        {
+            if (!byId.TryGetValue(proto.ID, out var entry))
+            {
+                entry = new NCStatEntry(proto.ID, new NCTrackedValue(proto.MinValue));
+                byId[proto.ID] = entry;
+                existing.Add(entry);
+            }
+
+            entry.Value.BaseValue = Math.Clamp(entry.Value.BaseValue, proto.MinValue, proto.MaxValue);
+            entry.Value.ProgressionValue = Math.Max(0, entry.Value.ProgressionValue);
+            entry.Value.FinalValue = Math.Clamp(
+                entry.Value.BaseValue + entry.Value.ProgressionValue + entry.Value.TemporaryValue,
+                proto.MinValue,
+                proto.MaxValue);
+        }
+
+        return existing
+            .Where(s => prototypeManager.HasIndex<NCStatPrototype>(s.StatId))
+            .OrderBy(s => s.StatId)
+            .ToList();
+    }
+
+    private List<NCSkillEntry> EnsureSkills(IPrototypeManager prototypeManager)
+    {
+        var existing = new List<NCSkillEntry>();
+        var seen = new HashSet<string>();
+
+        foreach (var skill in CloneSkills(Skills))
+        {
+            if (!prototypeManager.TryIndex<NCSkillPrototype>(skill.SkillId, out var proto))
+                continue;
+
+            skill.Specialization = null;
+
+            if (!seen.Add(skill.SkillId))
+                continue;
+
+            skill.Value.BaseValue = Math.Clamp(skill.Value.BaseValue, proto.MinValue, proto.MaxValue);
+            skill.Value.ProgressionValue = Math.Max(0, skill.Value.ProgressionValue);
+            skill.Value.FinalValue = Math.Clamp(
+                skill.Value.BaseValue + skill.Value.ProgressionValue + skill.Value.TemporaryValue,
+                proto.MinValue,
+                proto.MaxValue);
+            existing.Add(skill);
+        }
+
+        foreach (var proto in prototypeManager.EnumeratePrototypes<NCSkillPrototype>().OrderBy(p => p.ID))
+        {
+            if (seen.Contains(proto.ID))
+                continue;
+
+            existing.Add(new NCSkillEntry(proto.ID, new NCTrackedValue(0)));
+        }
+
+        return existing
+            .OrderBy(s => s.SkillId)
+            .ToList();
+    }
+
+    private static List<NCStatEntry> FitStatsToBudget(List<NCStatEntry> stats, IPrototypeManager prototypeManager)
+    {
+        var spent = stats.Sum(stat => Math.Max(0, stat.Value.BaseValue - 1));
+        while (spent > StartingStatPoints)
+        {
+            var changed = false;
+            foreach (var stat in stats.OrderByDescending(s => s.Value.BaseValue).ThenBy(s => s.StatId))
+            {
+                var proto = prototypeManager.Index<NCStatPrototype>(stat.StatId);
+                if (stat.Value.BaseValue <= proto.MinValue)
+                    continue;
+
+                // Reduce overflow deterministically so an invalid client payload cannot exceed the creation budget.
+                stat.Value.BaseValue--;
+                stat.Value.FinalValue = Math.Clamp(
+                    stat.Value.BaseValue + stat.Value.ProgressionValue + stat.Value.TemporaryValue,
+                    proto.MinValue,
+                    proto.MaxValue);
+                spent--;
+                changed = true;
+
+                if (spent <= StartingStatPoints)
+                    break;
+            }
+
+            if (!changed)
+                break;
+        }
+
+        return stats;
+    }
+
+    private static List<NCSkillEntry> FitSkillsToBudget(List<NCSkillEntry> skills, IPrototypeManager prototypeManager)
+    {
+        var spent = skills.Sum(skill =>
+            prototypeManager.TryIndex<NCSkillPrototype>(skill.SkillId, out var proto)
+                ? skill.Value.BaseValue * proto.CostMultiplier
+                : 0);
+
+        while (spent > StartingSkillPoints)
+        {
+            var changed = false;
+            foreach (var skill in skills
+                         .OrderByDescending(s => s.Value.BaseValue)
+                         .ThenByDescending(s => prototypeManager.Index<NCSkillPrototype>(s.SkillId).CostMultiplier)
+                         .ThenBy(s => s.SkillId))
+            {
+                var proto = prototypeManager.Index<NCSkillPrototype>(skill.SkillId);
+                if (skill.Value.BaseValue <= proto.MinValue)
+                    continue;
+
+                // Skill costs can vary, so we refund budget using the prototype multiplier of the exact entry.
+                skill.Value.BaseValue--;
+                skill.Value.FinalValue = Math.Clamp(
+                    skill.Value.BaseValue + skill.Value.ProgressionValue + skill.Value.TemporaryValue,
+                    proto.MinValue,
+                    proto.MaxValue);
+                spent -= proto.CostMultiplier;
+                changed = true;
+
+                if (spent <= StartingSkillPoints)
+                    break;
+            }
+
+            if (!changed)
+                break;
+        }
+
+        return skills;
     }
 }

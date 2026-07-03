@@ -33,6 +33,10 @@
     angleIncrease: 30
     defaultDirection: 1, 0
     # WD EDIT END
+  - type: SlowOnShoot
+    walkModifier: 0.5
+    sprintModifier: 0.5
+    duration: 0.5
   - type: BallisticAmmoProvider
     capacity: 10
     proto: CartridgeLightRifle

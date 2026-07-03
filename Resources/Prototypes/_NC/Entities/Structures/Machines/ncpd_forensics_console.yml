@@ -1,0 +1,19 @@
+﻿- type: entity
+  id: NcpdForensicsConsole
+  name: ent-NcpdForensicsConsole
+  parent: BaseMachinePowered
+  description: ent-NcpdForensicsConsole-desc
+  components:
+  - type: Sprite
+    sprite: Structures/Machines/server.rsi # stub sprite
+    state: server
+  - type: NetBrowser
+    currentUrl: ncpd.gov/forensics
+  - type: ActivatableUI
+    key: enum.NetBrowserUiKey.Key
+  - type: UserInterface
+    interfaces:
+      enum.NetBrowserUiKey.Key:
+        type: NetBrowserBoundUserInterface
+
+# done

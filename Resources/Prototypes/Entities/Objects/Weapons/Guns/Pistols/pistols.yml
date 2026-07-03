@@ -44,6 +44,10 @@
       - FullAuto
     soundGunshot:
       path: /Audio/Weapons/Guns/Gunshots/pistol.ogg
+  - type: SlowOnShoot
+    walkModifier: 0.5
+    sprintModifier: 0.5
+    duration: 0.5
   - type: ChamberMagazineAmmoProvider
     soundRack:
       path: /Audio/Weapons/Guns/Cock/pistol_cock.ogg

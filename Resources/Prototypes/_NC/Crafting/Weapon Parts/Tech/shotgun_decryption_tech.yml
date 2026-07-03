@@ -1,0 +1,37 @@
+- type: entity
+  parent: BaseItem
+  id: NCTechShotgunSvakha
+  name: ent-NCTechShotgunSvakha
+  description: ent-NCTechShotgun-desc
+  components:
+  - type: Sprite
+    sprite: Objects/Misc/module.rsi
+    layers:
+    - state: datadisk_base
+    - state: datadisk_label
+  - type: DecryptionTechnology
+    tier: Standard
+    modulePrototype: NCBlueprintSvakha
+    recipePrototype: NCRecipePaperSvakha
+    moduleCost: 60
+    recipeCost: 90
+    maxUses: 4
+
+- type: entity
+  parent: BaseItem
+  id: NCTechShotgunMilitechCrusher
+  name: ent-NCTechShotgunMilitechCrusher
+  description: ent-NCTechShotgun-desc
+  components:
+  - type: Sprite
+    sprite: Objects/Misc/module.rsi
+    layers:
+    - state: datadisk_base
+    - state: datadisk_label
+  - type: DecryptionTechnology
+    tier: Excellent
+    modulePrototype: NCBlueprintMilitechCrusher
+    recipePrototype: NCRecipePaperMilitechCrusher
+    moduleCost: 150
+    recipeCost: 200
+    maxUses: 2

@@ -28,7 +28,7 @@
   components:
   - type: Sprite
     layers:
-    - state: box_card_wide_base # WWDP edit start
+    - state: box_card_wide_base  # WWDP edit start
     - state: bg
       map: [ paper ]
       sprite: _White/Objects/Storage/boxes_icon.rsi
@@ -42,11 +42,11 @@
       enum.StorageVisuals.Open:
         top:
           True: { state: box_card_wide_med_open }
-          False: { state: box_card_wide_med } # WWDP end
+          False: { state: box_card_wide_med }  # WWDP end
   - type: StorageFill
     contents:
     - id: DiseaseSwab
-      amount: 32
+      amount: 30  # Should match the amount in the description
   - type: GuideHelp
     guides:
   # - Virology (when it's back)

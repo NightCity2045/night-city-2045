@@ -1,0 +1,127 @@
+- type: entity
+  id: BaseNCAirlock
+  parent: Airlock
+  abstract: true
+  name: ent-BaseNCDoor
+  components:
+  - type: Sprite
+    sprite: _NC/Structures/Doors/Door.rsi
+    layers:
+    - state: closed
+      map: ["enum.DoorVisualLayers.Base"]
+    - state: closed_unlit
+      map: ["enum.DoorVisualLayers.BaseUnlit"]
+      shader: unshaded
+    - state: welded
+      map: ["enum.WeldableLayers.BaseWelded"]
+    - state: bolted_unlit
+      map: ["enum.DoorVisualLayers.BaseBolted"]
+      shader: unshaded
+    - state: emergency_unlit
+      map: ["enum.DoorVisualLayers.BaseEmergencyAccess"]
+      shader: unshaded
+  - type: AccessReader
+    containerAccessProvider: null
+
+# region Doors
+
+- type: entity
+  id: NCAirlockGeneral
+  parent: BaseNCAirlock
+  name: ent-BaseNCDoor
+
+- type: entity
+  id: NCAirlock
+  parent: BaseNCAirlock
+  name: ent-BaseNCDoor
+  suffix: "квартира"
+  components:
+  - type: UserInterface
+    interfaces:
+      enum.DoorInterfaceUiKey.Key:
+        type: DoorInterfaceBoundUserInterface
+  - type: DoorInterface
+    price: 1000
+    address: "Апартаменты"
+
+- type: entity
+  id: NCAirlock1000
+  parent: BaseNCAirlock
+  name: ent-BaseNCDoor
+  suffix: "квартира люкс класса 1000"
+  components:
+  - type: UserInterface
+    interfaces:
+      enum.DoorInterfaceUiKey.Key:
+        type: DoorInterfaceBoundUserInterface
+  - type: DoorInterface
+    price: 1000
+    address: "Апартаменты Люкс класса"
+
+- type: entity
+  id: NCAirlock300
+  parent: BaseNCAirlock
+  name: ent-BaseNCDoor
+  suffix: "квартира 300"
+  components:
+  - type: UserInterface
+    interfaces:
+      enum.DoorInterfaceUiKey.Key:
+        type: DoorInterfaceBoundUserInterface
+  - type: DoorInterface
+    price: 150
+    address: "Апартаменты Эконом класса"
+
+- type: entity
+  id: NCAirlock500
+  parent: BaseNCAirlock
+  name: ent-BaseNCDoor
+  suffix: "квартира 500"
+  components:
+  - type: UserInterface
+    interfaces:
+      enum.DoorInterfaceUiKey.Key:
+        type: DoorInterfaceBoundUserInterface
+  - type: DoorInterface
+    price: 250
+    address: "Апартаменты Среднего класса"
+
+- type: entity
+  id: NCAirlock700
+  parent: BaseNCAirlock
+  name: ent-BaseNCDoor
+  suffix: "квартира 700"
+  components:
+  - type: UserInterface
+    interfaces:
+      enum.DoorInterfaceUiKey.Key:
+        type: DoorInterfaceBoundUserInterface
+  - type: DoorInterface
+    price: 350
+    address: "Апартаменты Высшего класса"
+
+# region Airlocks
+
+- type: entity
+  parent: BaseNCAirlock
+  id: RipperAirlock
+  name: ent-NCDoorReaper
+  components:
+  - type: AccessReader
+    access: [["Ripper"]]
+
+- type: entity
+  parent: BaseNCAirlock
+  id: CafeAirlock
+  name: ent-NCDoorCafe
+  components:
+  - type: AccessReader
+    access: [["Cafe"]]
+
+- type: entity
+  parent: BaseNCAirlock
+  id: RestaurantAirlock
+  name: ent-NCDoorRestaurant
+  components:
+  - type: AccessReader
+    access: [["Restaurant"]]

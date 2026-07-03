@@ -1,0 +1,191 @@
+# region Abstract
+
+- type: entity
+  parent: [DrinkCartonVisualsOpenable, DrinkCartonBaseFull]
+  id: NCDrinkCarton
+  name: картонная упаковка
+  description: Просто картонная упаковка для напитков.
+  suffix: картонная упаковка
+  components:
+  - type: SolutionContainerManager
+    solutions:
+      drink:
+        maxVol: 50
+  - type: Sprite
+    sprite: _NC/Objects/Consumable/Food/Vending/cartons.rsi
+
+# region Drinks
+
+- type: entity
+  parent: NCDrinkCarton
+  id: NCDrinkCartonWine
+  name: вино
+  description: Ваш путь к забвению всех забот и веселью!
+  components:
+  - type: SolutionContainerManager
+    solutions:
+      drink:
+        reagents:
+        - ReagentId: Wine
+          Quantity: 50
+  - type: Sprite
+    layers:
+      - state: icon
+        map: ["enum.OpenableVisuals.Layer"]
+      - state: wine
+
+- type: entity
+  parent: NCDrinkCarton
+  id: NCDrinkCartonBluePumpkin
+  name: сок секрета Биотехники
+  description: Вкус как космический Хэллоуин.
+  components:
+  - type: SolutionContainerManager
+    solutions:
+      drink:
+        reagents:
+        - ReagentId: JuiceBluePumpkin
+          Quantity: 50
+  - type: Sprite
+    layers:
+      - state: icon
+        map: ["enum.OpenableVisuals.Layer"]
+      - state: blue_pumpkin
+
+- type: entity
+  parent: NCDrinkCarton
+  id: NCDrinkCartonPineapple
+  name: ананасовый сок
+  description: Не апельсин, но оранжевый!
+  components:
+  - type: SolutionContainerManager
+    solutions:
+      drink:
+        reagents:
+        - ReagentId: JuicePineapple
+          Quantity: 50
+  - type: Sprite
+    layers:
+      - state: icon
+        map: ["enum.OpenableVisuals.Layer"]
+      - state: mango
+
+- type: entity
+  parent: NCDrinkCarton
+  id: NCDrinkCartonMultifruit
+  name: мультифруктовый сок
+  description: Здоровый вкус смеси из разных фруктов.
+  components:
+  - type: SolutionContainerManager
+    solutions:
+      drink:
+        reagents:
+        - ReagentId: JuiceApple
+          Quantity: 12.5
+        - ReagentId: JuicePineapple
+          Quantity: 12.5
+        - ReagentId: JuiceBanana
+          Quantity: 12.5
+        - ReagentId: JuiceOrange
+          Quantity: 12.5
+  - type: Sprite
+    layers:
+      - state: icon
+        map: ["enum.OpenableVisuals.Layer"]
+      - state: multifruit
+
+# region Mini Cartons
+
+- type: entity
+  parent: DrinkMilkCartonMini
+  id: DrinkOatMilkCartonMini
+  name: мини-овсяное молоко
+  description: Овсяная сила - немного сена, много пользы.
+  components:
+  - type: SolutionContainerManager
+    solutions:
+      drink:
+        reagents:
+        - ReagentId: MilkOat
+          Quantity: 25
+
+- type: entity
+  parent: DrinkMilkCartonMini
+  id: DrinkSoyMilkCartonMini
+  name: мини-соевое молоко
+  description: Соевая сила - немного бобов, много пользы.
+  components:
+  - type: SolutionContainerManager
+    solutions:
+      drink:
+        reagents:
+        - ReagentId: MilkSoy
+          Quantity: 25
+
+# region Random Spawner
+
+- type: entity
+  parent: MarkerBase
+  id: NCDrinkCartonSpawner
+  name: случайный напиток
+  description: Спавнер случайного напитка.
+  suffix: картонная упаковка
+  placement:
+    mode: PlaceFree
+  components:
+  - type: Transform
+    anchored: false
+  - type: RandomSpawner
+    prototypes:
+    - NCDrinkCarton
+    - NCDrinkCartonPineapple
+    - NCDrinkCartonMultifruit
+    - DrinkJuiceLimeCarton
+    - DrinkJuiceOrangeCarton
+    - DrinkJuiceTomatoCarton
+    - DrinkCoconutWaterCarton
+    - DrinkCreamCarton
+    - DrinkMilkCarton
+    - DrinkSoyMilkCarton
+    - DrinkOatMilkCarton
+    - DrinkJuiceLemonCarton
+    - DrinkMilkCartonMini
+    - DrinkMilkCartonMiniChocolate
+    - DrinkOatMilkCartonMini
+    - DrinkSoyMilkCartonMini
+    chance: 0.8
+    rarePrototypes:
+    - NCDrinkCartonBluePumpkin
+    - NCDrinkCartonWine
+    rareChance: 0.1
+    offset: 0.0
+  - type: Sprite
+    sprite: _NC/Objects/Consumable/Food/Vending/cartons.rsi
+    state: icon
+
+# region Vending Inventories
+
+- type: vendingMachineInventory
+  id: NCDrinkCartonMiniMachineInventory
+  startingInventory:
+    DrinkMilkCartonMini: 4
+    DrinkMilkCartonMiniChocolate: 4
+    DrinkOatMilkCartonMini: 4
+    DrinkSoyMilkCartonMini: 4
+  startingItemPrices:
+    DrinkMilkCartonMini: 30
+    DrinkMilkCartonMiniChocolate: 30
+    DrinkOatMilkCartonMini: 30
+    DrinkSoyMilkCartonMini: 30
+
+- type: entity
+  parent: VendingMachineColaBlack
+  id: NCVendingMachineCartons
+  name: Молоко ОллФудс
+  description: Автомат с молочными напитками в мини-упаковках!
+  suffix: профит Кафе
+  components:
+  - type: VendingMachine
+    pack: NCDrinkCartonMiniMachineInventory
+  - type: MoneyCollector
+    access: [ [ "Cafe" ] ]

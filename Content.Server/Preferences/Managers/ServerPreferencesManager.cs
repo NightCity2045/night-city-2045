@@ -3,6 +3,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Content.Server.Database;
+using Content.Shared._NC.Bank.Components;
 using Content.Shared._White.CustomGhostSystem;
 using Content.Shared.CCVar;
 using Content.Shared.Preferences;
@@ -86,9 +87,49 @@ namespace Content.Server.Preferences.Managers
 
             // ReSharper disable once ConditionIsAlwaysTrueOrFalseAccordingToNullableAPIContract
             if (message.Profile == null)
+            {
                 _sawmill.Error($"User {userId} sent a {nameof(MsgUpdateCharacter)} with a null profile in slot {message.Slot}.");
-            else
-                await SetProfile(userId, message.Slot, message.Profile);
+                return;
+            }
+
+            var profile = message.Profile;
+
+            // NC EDIT: Защита баланса от подмены клиентом
+            if (profile is Content.Shared.Preferences.HumanoidCharacterProfile newHumanoid)
+            {
+                if (_cachedPlayerPrefs.TryGetValue(userId, out var prefsData) &&
+                    prefsData.Prefs?.Characters.TryGetValue(message.Slot, out var existingProfile) == true &&
+                    existingProfile is Content.Shared.Preferences.HumanoidCharacterProfile oldHumanoid)
+                {
+                    // Если персонаж уже существует, берем его текущий баланс с сервера
+                    var sanitized = newHumanoid.WithBankBalance(oldHumanoid.BankBalance);
+
+                    // Character creation budgets are one-time only. Any later save keeps the original
+                    // stat and skill layout even if the client attempts to resubmit different values.
+                    if (oldHumanoid.StatsAndSkillsLocked)
+                    {
+                        sanitized = sanitized
+                            .WithStats(oldHumanoid.Stats)
+                            .WithSkills(oldHumanoid.Skills)
+                            .WithStatsAndSkillsLocked(true);
+                    }
+                    else
+                    {
+                        sanitized = sanitized.WithStatsAndSkillsLocked(true);
+                    }
+
+                    profile = sanitized;
+                }
+                else
+                {
+                    // Если это новый слот, выдаем стартовый баланс
+                    profile = newHumanoid
+                        .WithBankBalance(BankAccountComponent.StartingBalance)
+                        .WithStatsAndSkillsLocked(true);
+                }
+            }
+
+            await SetProfile(userId, message.Slot, profile);
         }
 
         public async Task SetProfile(NetUserId userId, int slot, ICharacterProfile profile)
@@ -116,6 +157,28 @@ namespace Content.Server.Preferences.Managers
 
             if (ShouldStorePrefs(session.Channel.AuthType))
                 await _db.SaveCharacterSlotAsync(userId, profile, slot);
+        }
+
+        public void ResetAllBalances()
+        {
+            foreach (var prefData in _cachedPlayerPrefs.Values)
+            {
+                if (prefData.Prefs == null) continue;
+
+                var newCharacters = new Dictionary<int, ICharacterProfile>();
+                foreach (var (slot, profile) in prefData.Prefs.Characters)
+                {
+                    if (profile is HumanoidCharacterProfile humanoid)
+                    {
+                        newCharacters[slot] = humanoid.WithBankBalance(BankAccountComponent.StartingBalance);
+                    }
+                    else
+                    {
+                        newCharacters[slot] = profile;
+                    }
+                }
+                prefData.Prefs = prefData.Prefs.WithCharacters(newCharacters);
+            }
         }
 
         private async void HandleDeleteCharacterMessage(MsgDeleteCharacter message)

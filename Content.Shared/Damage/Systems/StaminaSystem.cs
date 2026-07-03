@@ -50,6 +50,7 @@ public sealed partial class StaminaSystem : EntitySystem
     /// How much of a buffer is there between the stun duration and when stuns can be re-applied.
     /// </summary>
     private static readonly TimeSpan StamCritBufferTime = TimeSpan.FromSeconds(3f);
+    public const string StaminaAnimationKey = "stamina"; //CrystallEdge public
 
     public override void Initialize()
     {
@@ -304,11 +305,7 @@ public sealed partial class StaminaSystem : EntitySystem
         RaiseLocalEvent(uid, ref ev);
         if (ev.Cancelled)
             return;
-        //WD EDIT START
-        if (component.Critical)
-            return;
 
-        //WD EDIT END
         // Have we already reached the point of max stamina damage?
         if (component.Critical && immediate)
         {

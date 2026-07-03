@@ -50,6 +50,7 @@ namespace Content.Server.Database
             if (synchronous)
             {
                 prefsCtx.Database.Migrate();
+                EnsureBankBalanceColumn(prefsCtx); // NC EDIT: Manual migration / Protection
                 _dbReadyTask = Task.CompletedTask;
                 prefsCtx.Dispose();
             }
@@ -58,12 +59,46 @@ namespace Content.Server.Database
                 _dbReadyTask = Task.Run(() =>
                 {
                     prefsCtx.Database.Migrate();
+                    EnsureBankBalanceColumn(prefsCtx); // NC EDIT: Manual migration / Protection
                     prefsCtx.Dispose();
                 });
             }
 
             cfg.OnValueChanged(CCVars.DatabaseSqliteDelay, v => _msDelay = v, true);
         }
+
+        // NC EDIT START
+        private void EnsureBankBalanceColumn(SqliteServerDbContext db)
+        {
+            // 1. Создаем колонки, если их нет (защита)
+            try
+            {
+                db.Database.ExecuteSqlRaw("ALTER TABLE Profile ADD COLUMN bank_balance INTEGER NOT NULL DEFAULT 0;");
+            }
+            catch (Exception) { }
+            
+            try
+            {
+                db.Database.ExecuteSqlRaw("ALTER TABLE Profile ADD COLUMN employed_department TEXT;");
+            }
+            catch (Exception) { }
+
+            // 2. МИГРАЦИЯ ДАННЫХ: Переносим из старых колонок в новые
+            try
+            {
+                db.Database.ExecuteSqlRaw("UPDATE Profile SET bank_balance = BankBalance WHERE bank_balance = 0 AND BankBalance != 0;");
+                _opsLog.Info("Database Migration: Recovered BankBalance data to bank_balance.");
+            }
+            catch (Exception) { }
+
+            try
+            {
+                db.Database.ExecuteSqlRaw("UPDATE Profile SET employed_department = EmployedDepartment WHERE employed_department IS NULL AND EmployedDepartment IS NOT NULL;");
+                _opsLog.Info("Database Migration: Recovered EmployedDepartment data to employed_department.");
+            }
+            catch (Exception) { }
+        }
+        // NC EDIT END
 
         #region Ban
         public override async Task<ServerBanDef?> GetServerBanAsync(int id)

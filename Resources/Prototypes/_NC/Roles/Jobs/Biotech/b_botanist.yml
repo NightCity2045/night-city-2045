@@ -1,0 +1,27 @@
+- type: job
+  id: BiotechnicaBotanist
+  name: job-name-biotechnica-botanist
+  description: job-description-biotechnica-botanist
+  playTimeTracker: JobBiotechnicaBotanist
+  weight: 10
+  salary: 150
+  icon: "JobIconBiotechAgrarian"
+  startingGear: BiotechnicaBotanistGear
+  access:
+    - Biotech_Botany
+    - Biotech_Staff
+    # - Biotech_Lab
+    - Biotech_General
+    - NC_General
+
+- type: startingGear
+  id: BiotechnicaBotanistGear
+  equipment:
+    jumpsuit: ClothingUniformJumpsuitBiotechnica
+    back: ClothingBackpackBiotechnica
+    shoes: ClothingShoesColorWhite
+    mask: ClothingMaskSterile
+    gloves: ClothingHandsGlovesNitrile
+    id: BiotechnicaBotanistPDA
+    belt: ClothingBeltBiotechnicaBotanyFilled
+    outerClothing: ClothingOuterApronBiotechnicaBotany

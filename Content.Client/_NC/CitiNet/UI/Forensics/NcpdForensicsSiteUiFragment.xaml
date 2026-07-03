@@ -1,0 +1,31 @@
+<BoxContainer xmlns="https://spacestation14.io"
+              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+              xmlns:controls="clr-namespace:Content.Client._NC.CitiNet.UI"
+              x:Class="Content.Client._NC.CitiNet.UI.Forensics.NcpdForensicsSiteUiFragment"
+              Orientation="Horizontal"
+              HorizontalExpand="True"
+              VerticalExpand="True"
+              Margin="4">
+
+    <!-- LEFT PANEL: List of alerts -->
+    <PanelContainer StyleClasses="BorderedWindowPanel" MinWidth="450" Margin="0 0 4 0">
+        <BoxContainer Orientation="Vertical" Margin="8">
+            <Label Text="{Loc 'nc-forensics-console-header'}" 
+                   FontColorOverride="#00E5FF" 
+                   HorizontalAlignment="Center" 
+                   Margin="0 0 0 8"/>
+            
+            <ScrollContainer VerticalExpand="True" HScrollEnabled="False">
+                <BoxContainer Name="AlertList" Orientation="Vertical" SeparationOverride="4"/>
+            </ScrollContainer>
+        </BoxContainer>
+    </PanelContainer>
+
+    <!-- RIGHT PANEL: Map -->
+    <BoxContainer Orientation="Vertical" HorizontalExpand="True">
+        <PanelContainer StyleClasses="BorderedWindowPanel" VerticalExpand="True" RectClipContent="True">
+            <controls:CitiNetMapControl Name="Map" HorizontalExpand="True" VerticalExpand="True"/>
+        </PanelContainer>
+    </BoxContainer>
+
+</BoxContainer>

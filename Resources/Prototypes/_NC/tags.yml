@@ -1,0 +1,86 @@
+- type: Tag
+  id: StreamCamNC
+
+- type: Tag
+  id: Tablet
+
+- type: Tag
+  id: MagazinePistolHelloCutie
+
+- type: Tag
+  id: MagazinePistolOverlord
+
+- type: Tag
+  id: MagazinePistolAvenger
+
+- type: Tag
+  id: MagazinePistolStukach
+
+- type: Tag
+  id: MagazinePistolStreetMaster
+
+- type: Tag
+  id: Cartridge9x19
+
+- type: Tag
+  id: Cartridge11x20
+
+- type: Tag
+  id: Cartridge13x23
+
+- type: Tag
+  id: Cartridge9x19CL
+
+- type: Tag
+  id: Cartridge11x20CL
+
+- type: Tag
+  id: Cartridge13x23CL
+
+- type: Tag
+  id: Cartridge556x45CL
+
+- type: Tag
+  id: Cartridge127mm
+
+- type: Tag
+  id: Cartridge152mm
+
+- type: Tag
+  id: Cartridge622mmCaseless
+
+- type: Tag
+  id: CartridgeNomadSpike
+
+- type: Tag
+  id: MagazinePistolMarkIII
+
+- type: Tag
+  id: NCBiomonitor
+
+- type: Tag
+  id: MagazinePistolCheesemaker
+
+- type: Tag
+  id: MagazinePistolFederalX9
+
+- type: Tag
+  id: MagazinePistolBoomerBuster
+
+- type: Tag
+  id: MagazineRifleNokota
+
+- type: Tag
+  id: MagazineRifleNowaki
+
+- type: Tag
+  id: MagazineShotgunMilitechCrusher
+
+- type: Tag
+  id: MagazinePistolSubMachineGunShingen
+
+- type: Tag
+  id: MagazinePistolSubMachineGunSaratoga
+
+- type: Tag
+  id: SpaceCash

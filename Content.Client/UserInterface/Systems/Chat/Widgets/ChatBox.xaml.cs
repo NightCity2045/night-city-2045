@@ -1,4 +1,5 @@
 using Content.Client.UserInterface.Systems.Chat.Controls;
+using Content.Client.Localization;
 using Content.Shared._White.CCVar;
 using Content.Shared.CCVar;
 using Content.Shared.Chat;
@@ -21,7 +22,7 @@ namespace Content.Client.UserInterface.Systems.Chat.Widgets;
 
 [GenerateTypedNameReferences]
 [Virtual]
-public partial class ChatBox : UIWidget
+public partial class ChatBox : UIWidget, ILocalizedControl
 {
     private readonly ChatUIController _controller;
     private readonly IEntityManager _entManager;
@@ -155,6 +156,12 @@ public partial class ChatBox : UIWidget
         {
             OnMessageAdded(message.Item2);
         }
+    }
+
+    public void Relocalize()
+    {
+        ChatInput.RefreshLocalization();
+        Repopulate();
     }
 
     private void OnChannelFilter(ChatChannel channel, bool active)

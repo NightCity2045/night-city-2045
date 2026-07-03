@@ -4,5 +4,5 @@
 public sealed partial class ImmersiveAspectComponent : Component
 {
     [DataField]
-    public float EyeModifier = 0.6f;
+    public float EyeModifier = 1f;
 }

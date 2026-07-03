@@ -1,0 +1,24 @@
+- type: entity
+  parent: VendingMachine
+  id: VendingMachineTraumaImplants
+  name: ent-VendingMachineTraumaImplants
+  description: ent-VendingMachineTraumaImplants-desc
+  components:
+  - type: VendingMachine
+    pack: TraumaImplantVendorInventory
+    offState: off
+    brokenState: broken
+    normalState: normal-unshaded
+    denyState: deny-unshaded
+  - type: Sprite
+    sprite: Structures/Machines/VendingMachines/medical.rsi
+    layers:
+    - state: "off"
+      map: ["enum.VendingMachineVisualLayers.Base"]
+    - state: "off"
+      map: ["enum.VendingMachineVisualLayers.BaseUnshaded"]
+      shader: unshaded
+    - state: panel
+      map: ["enum.WiresVisualLayers.MaintenancePanel"]
+  - type: AccessReader
+    access: [["Trauma_Medical"]]

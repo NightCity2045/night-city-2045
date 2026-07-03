@@ -1,0 +1,65 @@
+﻿- type: entity
+  id: ActionNCRTSToggle
+  name: RTS Mode
+  description: Toggle RTS command mode for controllable NPCs.
+  components:
+  - type: Action
+    icon:
+      sprite: Interface/Actions/actions_ai.rsi
+      state: crew_monitor
+    iconOn:
+      sprite: Interface/Actions/actions_ai.rsi
+      state: crew_monitor
+    checkCanInteract: false
+    checkConsciousness: false
+    priority: -5
+  - type: InstantAction
+    event: !type:ToggleRTSModeActionEvent
+
+- type: entity
+  id: ActionNCRiggerExitConsole
+  name: Exit rigger console
+  description: Return your mind to your body at the rigger console.
+  components:
+  - type: Action
+    icon:
+      sprite: Interface/Actions/actions_ai.rsi
+      state: ai_core
+    checkCanInteract: false
+    checkConsciousness: false
+    priority: -3
+  - type: InstantAction
+    event: !type:RiggerExitConsoleActionEvent
+
+- type: entity
+  id: ActionNCRiggerToggleRTS
+  name: RTS Mode
+  description: Toggle RTS command mode for linked rigger drones.
+  components:
+  - type: Action
+    icon:
+      sprite: Interface/Actions/actions_ai.rsi
+      state: crew_monitor
+    iconOn:
+      sprite: Interface/Actions/actions_ai.rsi
+      state: crew_monitor
+    checkCanInteract: false
+    checkConsciousness: false
+    priority: -4
+  - type: InstantAction
+    event: !type:RiggerToggleRTSModeActionEvent
+
+- type: entity
+  id: ActionNCRiggerDroneStatus
+  name: Drone status
+  description: List linked rigger drones and their current state.
+  components:
+  - type: Action
+    icon:
+      sprite: Interface/Actions/actions_ai.rsi
+      state: crew_monitor
+    checkCanInteract: false
+    checkConsciousness: false
+    priority: -5
+  - type: InstantAction
+    event: !type:RiggerDroneStatusActionEvent

@@ -98,7 +98,6 @@ public sealed partial class TypedDamageThreshold : EntityEffectCondition
                 damages.Add(
                 Loc.GetString("health-change-display",
                     ("kind", group.LocalizedName),
-                    ("id", group.ID), // WWDP EDIT
                     ("amount", MathF.Abs(groupDamage.Float())),
                     ("deltasign", 1))
                 );
@@ -119,7 +118,6 @@ public sealed partial class TypedDamageThreshold : EntityEffectCondition
             damages.Add(
                 Loc.GetString("health-change-display",
                     ("kind", prototype.Index<DamageTypePrototype>(kind).LocalizedName),
-                    ("id", kind), // WWDP EDIT
                     ("amount", MathF.Abs(amount.Float())),
                     ("deltasign", 1))
                 );

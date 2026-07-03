@@ -39,10 +39,30 @@ namespace Content.Client.Options.UI.Tabs
 
         private string _searchText = "";
 
+        public void Relocalize()
+        {
+            ResetAllButton.Text = Loc.GetString("ui-options-binds-reset-all");
+            PopulateOptions();
+        }
+
         private void HandleToggleUSQWERTYCheckbox(BaseButton.ButtonToggledEventArgs args)
         {
             _cfg.SetCVar(CVars.DisplayUSQWERTYHotkeys, args.Pressed);
             _cfg.SaveToFile();
+        }
+
+        private void HandleToggleCombatModeAction(BaseButton.ButtonToggledEventArgs args)
+        {
+            _cfg.SetCVar(Content.Shared._White.CCVar.WhiteCVars.CombatModeAction, args.Pressed);
+            _cfg.SaveToFile();
+        }
+
+        private void HandleCombatModeChoice(bool action, BaseButton.ButtonToggledEventArgs args)
+        {
+            if (!args.Pressed) return;
+            _cfg.SetCVar(Content.Shared._White.CCVar.WhiteCVars.CombatModeAction, action);
+            _cfg.SaveToFile();
+            PopulateOptions();
         }
 
         private void InitToggleWalk()
@@ -258,6 +278,7 @@ namespace Content.Client.Options.UI.Tabs
 
             AddHeader("ui-options-header-general");
             AddCheckBox("ui-options-hotkey-keymap", _cfg.GetCVar(CVars.DisplayUSQWERTYHotkeys), HandleToggleUSQWERTYCheckbox);
+            AddCheckBox("ui-options-combat-mode-action", _cfg.GetCVar(Content.Shared._White.CCVar.WhiteCVars.CombatModeAction), HandleToggleCombatModeAction);
 
             AddHeader("ui-options-header-movement");
             AddButton(EngineKeyFunctions.MoveUp);

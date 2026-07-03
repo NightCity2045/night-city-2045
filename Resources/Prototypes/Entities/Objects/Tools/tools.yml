@@ -506,7 +506,6 @@
     - Firelock
     - TubeLight
     - BulbLight
-    - LVCable
     - MVCable
     - HVCable
     - CableTerminal
@@ -817,11 +816,6 @@
   - type: Item
     size: Normal
     sprite: Objects/Tools/shovel.rsi
-    # WD EDIT START
-    shape:
-    - 0,0,3,0
-    storedRotation: 44
-    # WD EDIT END
   - type: PhysicalComposition
     materialComposition:
       Steel: 100
@@ -848,7 +842,6 @@
     state: icon
   - type: Item
     sprite: Objects/Tools/rolling_pin.rsi
-    storedRotation: -45 # WD EDIT
     size: Small
   - type: Clothing
     sprite: Objects/Tools/rolling_pin.rsi

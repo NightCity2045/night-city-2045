@@ -1,0 +1,11 @@
+- type: entity
+  id: NCProcessedElectronicsT2
+  name: ent-NCProcessedElectronicsT2
+  description: ent-NCProcessedElectronics-desc
+  parent: BaseItem
+  components:
+    - type: Sprite
+      sprite: Objects/Misc/module.rsi
+      state: power_mod
+    - type: NCWeaponPart
+      partType: Board

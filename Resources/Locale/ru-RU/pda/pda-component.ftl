@@ -14,7 +14,7 @@ pda-bound-user-interface-show-uplink-description = Получить доступ
 pda-bound-user-interface-lock-uplink-title = Заблокировать аплинк
 pda-bound-user-interface-lock-uplink-description = Запретите кому-либо получать доступ к вашему аплинку без кода
 comp-pda-ui-menu-title = ПДА
-comp-pda-ui-footer = Компактный персональный компьютер
+comp-pda-ui-footer = Personal Digital Assistant
 
 comp-pda-ui-station = Станция: [color=white]{ $station }[/color]
 comp-pda-ui-station-alert-level = Уровень тревоги: [color={ $color }]{ $level }[/color]
@@ -29,7 +29,10 @@ pda-bound-user-interface-music-button = Музыкальный инструме�
 pda-bound-user-interface-music-button-description = Слушайте музыку на своём ПДА
 comp-pda-ui-unknown = Неизвестно
 comp-pda-ui-unassigned = Не назначено
-pda-notification-message =
-    {"["}font size=12]У Вас одно новое сообщение!
-    {"["}bold]ПДА[/bold] { $header }: [/font]
-    «{ $message }»
+pda-notification-message = [font size=12][bold]PDA[/bold] { $header }: [/font]
+    "{ $message }"
+
+comp-pda-ui-housing = Жилье: [color=white]{ $housing }[/color]
+comp-pda-housing-none = Отсутствует
+comp-pda-ui-vehicle = Транспорт: [color=white]{ $vehicle }[/color]
+comp-pda-vehicle-none = Отсутствует

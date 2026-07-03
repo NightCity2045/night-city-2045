@@ -2,17 +2,17 @@ ent-DebugGenerator = { ent-BaseGenerator }
     .suffix = DEBUG
     .desc = { ent-BaseGenerator.desc }
 
-ent-DebugConsumer = потребитель
+ent-DebugConsumer = consumer
     .suffix = DEBUG
-    .desc = потребляет энергию
+    .desc = { "" }
 
-ent-DebugBatteryStorage = аккумулятор для хранения
+ent-DebugBatteryStorage = battery storage
     .suffix = DEBUG
-    .desc = хранит энергию
+    .desc = { "" }
 
-ent-DebugBatteryDischarger = разрядник аккумулятора
+ent-DebugBatteryDischarger = battery discharger
     .suffix = DEBUG
-    .desc = разряжает аккумулятор
+    .desc = { "" }
 
 ent-DebugSMES = { ent-BaseSMES }
     .suffix = DEBUG

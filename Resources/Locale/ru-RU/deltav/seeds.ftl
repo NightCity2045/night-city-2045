@@ -1,7 +1,8 @@
 # Seeds
-seeds-CrystalThistle-name = Хрустальный чертополох
-seeds-CrystalThistle-display-name = Хрустальный чертополох
-seeds-GhostPepper-name = Призрачный перец
-seeds-GhostPepper-display-name = Призрачный перец
-seeds-CosmicRevenant-name = Космический ревенант
-seeds-CosmicRevenant-display-name = Перец космического ревенанта
+
+seeds-CrystalThistle-name = кристалополох
+seeds-CrystalThistle-display-name = кристалополох
+seeds-GhostPepper-name = перец-призрак
+seeds-GhostPepper-display-name = перец-призрак
+seeds-CosmicRevenant-name = космический ревенант
+seeds-CosmicRevenant-display-name = космический ревенант

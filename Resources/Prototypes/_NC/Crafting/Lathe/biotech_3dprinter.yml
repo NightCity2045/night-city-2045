@@ -1,0 +1,28 @@
+- type: entity
+  id: NC3dPrinterBiotechnica
+  parent: [Protolathe, BaseMaterialSiloUtilizer]
+  name: ent-NC3dPrinterBiotechnica
+  description: ent-NC3dPrinterBiotechnica-desc
+  components:
+  - type: Sprite
+    sprite: _NC/Structures/Machines/biotech_protolathe.rsi
+    snapCardinals: true
+    layers:
+    - state: biotech_icon
+      map: ["enum.LatheVisualLayers.IsRunning"]
+    - state: biotech_unlit
+      shader: unshaded
+      map: ["enum.PowerDeviceVisualLayers.Powered"]
+    - state: inserting
+      map: ["enum.MaterialStorageVisualLayers.Inserting"]
+    - state: biotech_panel
+      map: ["enum.WiresVisualLayers.MaintenancePanel"]
+  - type: Lathe
+    idleState: biotech_icon
+    runningState: biotech_building
+    unlitIdleState: biotech_unlit
+    unlitRunningState: biotech_unlit-building
+    staticPacks:
+    - NCDebugAll
+    dynamicPacks:
+    - AdvancedTools

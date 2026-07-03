@@ -1,0 +1,38 @@
+- type: job
+  id: TraumaTeamChief
+  name: job-name-trauma-team-chief
+  description: job-description-trauma-team-chief
+  playTimeTracker: JobTraumaTeamChief
+  weight: 100
+  salary: 650
+  icon: "JobIconTraumaCMO"
+  startingGear: TraumaTeamChiefGear
+  access:
+    - Trauma_Command
+    - Trauma_Medical
+    - Trauma_Morgue
+    - Trauma_Hangar
+    - Trauma_Operative
+    - NC_General
+  special:
+  - !type:AddComponentSpecial
+    components:
+    - type: MapBeacon
+      group: TraumaTeam
+      color: "#4bdc99"
+      icon: /Textures/_NC/Interface/Misc/job_icons.rsi/trauma-glava.png
+      visibleInWorld: false
+    - type: TraumaSubscriber
+      tier: Platinum
+
+- type: startingGear
+  id: TraumaTeamChiefGear
+  equipment:
+    jumpsuit: ClothingUniformJumpsuitCMO
+    back: ClothingBackpackSatchelMedical
+    shoes: ClothingShoesColorWhite
+    head: ClothingHeadHatBeretSeniorPhysician
+    eyes: ClothingEyesGlassesCorpsman
+    id: TraumaTeamChiefPDA
+    belt: ClothingBeltMedicalFilled
+    outerClothing: ClothingOuterCoatLabCmo

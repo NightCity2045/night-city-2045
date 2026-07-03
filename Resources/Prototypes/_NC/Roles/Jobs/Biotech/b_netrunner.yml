@@ -1,0 +1,27 @@
+- type: job
+  id: BiotechnicaNetrunner
+  name: job-name-biotechnica-netrunner
+  description: job-description-biotechnica-netrunner
+  playTimeTracker: JobBiotechnicaNetrunner
+  weight: 60
+  salary: 400
+  icon: "JobIconBiotechNetrunner"
+  startingGear: BiotechnicaNetrunnerGear
+  access:
+    - Biotech_Operative
+    - Biotech_Staff
+    # - Biotech_Security
+    - Biotech_General
+    - NC_General
+
+- type: startingGear
+  id: BiotechnicaNetrunnerGear
+  equipment:
+    jumpsuit: ClothingUniformJumpsuitBiotechnica
+    back: ClothingBackpack
+    shoes: ClothingShoesColorWhite
+    head: ClothingHeadHatBeretSeniorPhysician
+    eyes: ClothingEyesGlassesSunglasses
+    id: BiotechnicaNetrunnerPDA
+    belt: ClothingBeltMedicalFilled
+    outerClothing: ClothingOuterCoatLabCmo

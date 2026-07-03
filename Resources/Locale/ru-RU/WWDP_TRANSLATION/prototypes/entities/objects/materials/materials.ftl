@@ -18,7 +18,7 @@ ent-MaterialDurathread1 = { ent-MaterialDurathread }
     .suffix = Одна
     .desc = { ent-MaterialDurathread.desc }
 
-ent-MaterialWoodPlank = доски
+ent-MaterialWoodPlank = древесина
     .suffix = Полный
     .desc = { ent-MaterialBase.desc }
 

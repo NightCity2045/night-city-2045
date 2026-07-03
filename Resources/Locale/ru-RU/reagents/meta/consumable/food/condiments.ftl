@@ -1,4 +1,4 @@
-reagent-name-astrotame = Астротем
+reagent-name-astrotame = астросоус
 reagent-desc-astrotame = Слаще тысячи ложек сахара, но без калорий.
 reagent-name-bbq-sauce = cоус барбекю
 reagent-desc-bbq-sauce = Салфетки в комплект не входят.
@@ -15,8 +15,8 @@ reagent-desc-ketchup = Приготовлен из томатного пюре �
 reagent-name-ketchunaise = кетчюнез
 reagent-desc-ketchunaise = Так называемый русский соус, популярный среди космонавтов.
 
-reagent-name-laughin-syrup = Ржачный сироп
-reagent-desc-laughin-syrup = Сок Ржачных Бобов. Шипучий, и меняет вкус в зависимости от того, с чем его едят!
+reagent-name-laughin-syrup = смешной сироп
+reagent-desc-laughin-syrup = Таинственный сок, наверняка разработанный Биотехникой. Шипучий, и меняет вкус в зависимости от того, с чем его едят!
 
 reagent-name-mayo = майонез
 reagent-desc-mayo = Соус, сделанный из масла, яйца и немного (съедобной) кислоты.

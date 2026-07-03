@@ -1,0 +1,36 @@
+- type: job
+  id: NCPDLieutenant
+  name: job-name-ncpd-lieutenant
+  description: job-description-ncpd-lieutenant
+  playTimeTracker: JobNCPDLieutenant
+  weight: 85
+  salary: 220
+  icon: "JobIconNCPDLiutenant"
+  startingGear: NCPDLieutenantGear
+  supervisors: Коммандер
+  access:
+    - NCPD_Patrol
+    - NCPD_Armory
+    - NCPD_Detective
+    - NCPD_Command
+    - NC_General
+  special:
+  - !type:AddComponentSpecial
+    components:
+    - type: MapBeacon
+      group: NCPD
+      color: "#ffaa00"
+      icon: /Textures/Interface/VerbIcons/star-solid-yellow.svg.192dpi.png
+      visibleInWorld: false
+
+- type: startingGear
+  id: NCPDLieutenantGear
+  equipment:
+    jumpsuit: ClothingUniformNSPDCool
+    back: ClothingBackpackSecurity
+    shoes: ClothingShoesBootsJack
+    head: ClothingHeadHatWarden
+    eyes: ClothingEyesGlassesSecurityVisor
+    id: NCPDLieutenantPDA
+    belt: ClothingBeltSecurityFilled
+    outerClothing: ClothingOuterCoatWarden

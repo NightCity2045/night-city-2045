@@ -8,3 +8,11 @@
     FoodSnackPopcorn: 3
     FoodSnackEnergy: 3
     CigPackMixed: 2
+  startingItemPrices:
+    FoodSnackCheesie: 15
+    FoodSnackChips: 15
+    FoodSnackBoritos: 15
+    DrinkEnergyDrinkCan: 15
+    FoodSnackPopcorn: 15
+    FoodSnackEnergy: 15
+    CigPackMixed: 30

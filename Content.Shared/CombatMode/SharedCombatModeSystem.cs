@@ -1,7 +1,10 @@
+using Content.Shared.Actions;
 using Content.Shared.Input;
 using Content.Shared.MouseRotator;
 using Content.Shared.Movement.Components;
+using Content.Shared.Popups;
 using Robust.Shared.Input.Binding;
+using Robust.Shared.Network;
 using Robust.Shared.Player;
 using Robust.Shared.Serialization;
 using Robust.Shared.Timing;
@@ -11,63 +14,47 @@ namespace Content.Shared.CombatMode;
 public abstract class SharedCombatModeSystem : EntitySystem
 {
     [Dependency] protected readonly IGameTiming Timing = default!;
-    // WD EDIT START
-    /*[Dependency] private   readonly INetManager _netMan = default!;
-    [Dependency] private   readonly SharedActionsSystem _actionsSystem = default!;
-    [Dependency] private   readonly SharedPopupSystem _popup = default!;*/
-    // WD EDIT END
+    [Dependency] private readonly INetManager _netMan = default!;
+    [Dependency] private readonly SharedActionsSystem _actionsSystem = default!;
+    [Dependency] private readonly SharedPopupSystem _popup = default!;
 
     public override void Initialize()
     {
         base.Initialize();
 
-        /*SubscribeLocalEvent<CombatModeComponent, MapInitEvent>(OnMapInit);*/ // WD EDIT
+        SubscribeLocalEvent<CombatModeComponent, MapInitEvent>(OnMapInit);
         SubscribeLocalEvent<CombatModeComponent, ComponentShutdown>(OnShutdown);
-        /*SubscribeLocalEvent<CombatModeComponent, ToggleCombatActionEvent>(OnActionPerform);*/ // WD EDIT
+        SubscribeLocalEvent<CombatModeComponent, ToggleCombatActionEvent>(OnActionPerform);
 
-        // WD EDIT START
         SubscribeAllEvent<ToggleCombatModeRequestEvent>(OnToggleCombatModeRequest);
 
         CommandBinds.Builder
             .Bind(ContentKeyFunctions.ToggleCombatMode, InputCmdHandler.FromDelegate(ToggleCombatMode, handle: false, outsidePrediction: false))
             .Register<SharedCombatModeSystem>();
-        // WD EDIT END
     }
 
     // WD EDIT END
-    // WD EDIT START
-    /*private void OnMapInit(EntityUid uid, CombatModeComponent component, MapInitEvent args)
+    private void OnMapInit(EntityUid uid, CombatModeComponent component, MapInitEvent args)
     {
         _actionsSystem.AddAction(uid, ref component.CombatToggleActionEntity, component.CombatToggleAction);
         Dirty(uid, component);
-    }*/
-    // WD EDIT END
+    }
 
-    protected virtual void OnShutdown(EntityUid uid, CombatModeComponent component, ComponentShutdown args) // WD EDIT
+    protected virtual void OnShutdown(EntityUid uid, CombatModeComponent component, ComponentShutdown args)
     {
-        /*_actionsSystem.RemoveAction(uid, component.CombatToggleActionEntity);*/ // WD EDIT
+        _actionsSystem.RemoveAction(uid, component.CombatToggleActionEntity);
 
         SetMouseRotatorComponents(uid, false);
     }
 
-    // WD EDIT START
-    /*private void OnActionPerform(EntityUid uid, CombatModeComponent component, ToggleCombatActionEvent args)
+    private void OnActionPerform(EntityUid uid, CombatModeComponent component, ToggleCombatActionEvent args)
     {
         if (args.Handled)
             return;
 
         args.Handled = true;
         SetInCombatMode(uid, !component.IsInCombatMode, component);
-
-        // TODO better handling of predicted pop-ups.
-        // This probably breaks if the client has prediction disabled.
-
-        if (!_netMan.IsClient || !Timing.IsFirstTimePredicted)
-            return;
-
-        var msg = component.IsInCombatMode ? "action-popup-combat-enabled" : "action-popup-combat-disabled";
-        _popup.PopupEntity(Loc.GetString(msg), args.Performer, args.Performer);
-    }*/
+    }
 
     private void OnToggleCombatModeRequest(ToggleCombatModeRequestEvent msg, EntitySessionEventArgs args)
     {
@@ -120,12 +107,10 @@ public abstract class SharedCombatModeSystem : EntitySystem
         component.IsInCombatMode = value;
         Dirty(entity, component);
 
-        // WD EDIT START
         RaiseLocalEvent(entity, new CombatModeToggledEvent(value));
 
-        /*if (component.CombatToggleActionEntity != null)
-            _actionsSystem.SetToggled(component.CombatToggleActionEntity, component.IsInCombatMode);*/
-        // WD EDIT END
+        if (component.CombatToggleActionEntity != null)
+            _actionsSystem.SetToggled(component.CombatToggleActionEntity, component.IsInCombatMode);
 
         // Change mouse rotator comps if flag is set
         if (!component.ToggleMouseRotator || IsNpc(entity))

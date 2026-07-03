@@ -1,2 +1,2 @@
-device-frequency-prototype-name-surveillance-camera-justice = Камера суда
+device-frequency-prototype-name-surveillance-camera-justice = Justice Cameras
 

@@ -1,0 +1,39 @@
+- type: job
+  id: NCPDChief
+  name: job-name-ncpd-chief
+  description: job-description-ncpd-chief
+  playTimeTracker: JobNCPDChief
+  weight: 100
+  salary: 450
+  icon: "JobIconNCPDChief"
+  startingGear: NCPDChiefGear
+  access:
+    - NCPD_Command
+    - NCPD_Patrol
+    - NCPD_Armory
+    - NCPD_Detective
+    - NC_General
+  special:
+  - !type:AddComponentSpecial
+    components:
+    - type: Condemned
+      soulOwnedNotDevil: true
+    - type: MapBeacon
+      group: NCPD
+      color: "#ffaa00"
+      icon: /Textures/Interface/VerbIcons/star-solid-yellow.svg.192dpi.png
+      visibleInWorld: false
+    - type: TraumaSubscriber
+      tier: Platinum
+
+- type: startingGear
+  id: NCPDChiefGear
+  equipment:
+    jumpsuit: ClothingUniformNSPDCoolWhite
+    back: ClothingBackpackSatchelSecurity
+    shoes: ClothingShoesBootsJack
+    head: ClothingHeadHatBeretHoS
+    eyes: ClothingEyesGlassesSecurity
+    id: NCPDChiefPDA
+    belt: ClothingBeltSecurityFilled
+    outerClothing: ClothingOuterCoatHoSTrench

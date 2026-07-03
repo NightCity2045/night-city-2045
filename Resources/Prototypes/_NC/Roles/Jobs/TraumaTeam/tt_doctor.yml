@@ -1,0 +1,33 @@
+- type: job
+  id: TraumaTeamDoctor
+  name: job-name-trauma-team-doctor
+  description: job-description-trauma-team-doctor
+  playTimeTracker: JobTraumaTeamDoctor
+  weight: 50
+  salary: 300
+  icon: "JobIconTraumaDoctor"
+  startingGear: TraumaTeamDoctorGear
+  supervisors: Главный врач Trauma Team
+  access:
+    - Trauma_Medical
+    - Trauma_Morgue
+    - NC_General
+  special:
+  - !type:AddComponentSpecial
+    components:
+    - type: MapBeacon
+      group: TraumaTeam
+      color: "#4bdc99"
+      icon: /Textures/_NC/Interface/Misc/job_icons.rsi/trauma.png
+      visibleInWorld: false
+
+- type: startingGear
+  id: TraumaTeamDoctorGear
+  equipment:
+    jumpsuit: ClothingUniformJumpsuitMedicalGreen
+    back: ClothingBackpackMedical
+    shoes: ClothingShoesColorWhite
+    eyes: ClothingEyesHudMedical
+    id: TraumaTeamDoctorPDA
+    belt: ClothingBeltMedicalFilled
+    outerClothing: ClothingOuterCoatLab

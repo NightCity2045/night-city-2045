@@ -46,8 +46,8 @@ ent-BoxMagazineMagnumSubMachineGunPractice = коробка магазинов �
     .desc = Полная коробка магазинов с учебными патронами для ПП Вектор.
     .suffix = { "" }
 
-ent-BoxMagazinePistolSubMachineGunTopMounted = коробка магазинов «WT550» .35 авто
-    .desc = Полная коробка магазинов с патронами калибра .35 авто для пистолета-пулемёта «WT550».
+ent-BoxMagazinePistolSubMachineGunTopMounted = коробка магазинов WT550 .35 авто
+    .desc = Полная коробка магазинов с патронами калибра .35 авто для WT550.
     .suffix = { "" }
 
 ent-BoxMagazinePistolCalicoTopMounted = коробка магазинов Calico .35 авто

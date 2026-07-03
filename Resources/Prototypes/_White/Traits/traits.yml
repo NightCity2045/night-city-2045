@@ -1,4 +1,4 @@
-﻿- type: trait
+- type: trait
   id: Deaf
   category: Auditory
   points: 4
@@ -19,20 +19,20 @@
     languagesUnderstood:
     - Sign
 
-- type: trait
-  id: Contract
-  category: Psionics
-  points: 13
-  enable: false # WD EDIT
-  functions:
-  - !type:TraitAddComponent
-    components:
-      - type: TriggerOnMobstateChange
-        mobState:
-        - Dead
-      - type: DeleteOnTrigger
-      - type: SpawnOnTrigger
-        proto: giber
+# - type: trait
+#   id: Contract
+#   category: Psionics
+#   points: 13
+#   enable: false # WD EDIT
+#   functions:
+#   - !type:TraitAddComponent
+#     components:
+#       - type: TriggerOnMobstateChange
+#         mobState:
+#         - Dead
+#       - type: DeleteOnTrigger
+#       - type: SpawnOnTrigger
+#         proto: giber
 
 - type: trait
   id: BlueBlood

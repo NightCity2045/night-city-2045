@@ -64,7 +64,7 @@
         !type:CableDeviceNode
         nodeGroupID: MVPower
       output:
-        !type:CableDeviceNode
+        !type:CableNode
         nodeGroupID: Apc
   - type: PowerMonitoringDevice
     group: APC
@@ -79,6 +79,7 @@
     voltage: Apc
   - type: Apc
     voltage: Apc
+  - type: LogicPowerProvider
   - type: ExtensionCableProvider
   - type: UserInterface
     interfaces:

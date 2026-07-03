@@ -37,18 +37,18 @@
         state: radiation
   - type: GhostRoleAntagSpawner
 
-- type: entity
-  parent: MarkerBase
-  id: SpawnPointGhostParadoxAnomaly
-  name: paradox anomaly spawn point
-  components:
-  - type: GhostRole
-    name: ghost-role-information-paradox-anomaly-name
-    description: ghost-role-information-paradox-anomaly-description
-    rules: ghost-role-information-paradox-anomaly-rules
-  - type: ParadoxAnomalySpawner
-  - type: GhostRoleAntagSpawner
-  - type: Sprite
-    sprite: Markers/jobs.rsi
-    layers:
-      - state: green
+# - type: entity
+#   parent: MarkerBase
+#   id: SpawnPointGhostParadoxAnomaly
+#   name: paradox anomaly spawn point
+#   components:
+#   - type: GhostRole
+#     name: ghost-role-information-paradox-anomaly-name
+#     description: ghost-role-information-paradox-anomaly-description
+#     rules: ghost-role-information-paradox-anomaly-rules
+#   - type: ParadoxAnomalySpawner
+#   - type: GhostRoleAntagSpawner
+#   - type: Sprite
+#     sprite: Markers/jobs.rsi
+#     layers:
+#       - state: green

@@ -1,0 +1,53 @@
+- type: entity
+  id: CyberwareImplantAntiglare
+  parent: BaseCyberwareImplant
+  name: ent-CyberwareImplantAntiglare
+  description: ent-CyberwareImplantAntiglare-desc
+  components:
+  - type: CyberwareImplant
+    category: Optics
+    humanityCost: 2
+  - type: CyberwareAntiGlare
+
+- type: entity
+  id: CyberwareImplantInfraredVision
+  parent: BaseCyberwareImplant
+  name: ent-CyberwareImplantInfraredVision
+  description: ent-CyberwareImplantInfraredVision-desc
+  components:
+  - type: CyberwareImplant
+    category: Optics
+    humanityCost: 3
+  - type: CyberwareIRVision
+
+- type: entity
+  id: CyberwareImplantMicroVideo
+  parent: [ SurveillanceWirelessCameraBase, BaseCyberwareImplant ]
+  name: ent-CyberwareImplantMicroVideo
+  description: ent-CyberwareImplantMicroVideo-desc
+  components:
+  - type: CyberwareImplant
+    category: Optics
+    humanityCost: 2
+  - type: SurveillanceCamera
+    id: "cyber_eye_camera"
+  - type: SurveillanceCameraMicrophone
+    enabled: true
+    range: 10
+  - type: StreamCam
+    requireBattery: false
+    energyDrainRate: 0
+  - type: Eye
+
+- type: entity
+  id: CyberwareImplantMicroOptics
+  parent: BaseCyberwareImplant
+  name: ent-CyberwareImplantMicroOptics
+  description: ent-CyberwareImplantMicroOptics-desc
+  components:
+  - type: CyberwareImplant
+    category: Optics
+    humanityCost: 2
+  - type: CyberwareMicroOptics
+    maxOffset: 3
+    pvsIncrease: 0.3

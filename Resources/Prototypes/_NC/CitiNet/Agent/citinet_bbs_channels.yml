@@ -1,0 +1,121 @@
+# NC — CitiNet BBS каналы
+# Гражданские текстовые каналы, маршрутизируемые через CitiNet Relay
+
+- type: citiNetChannel
+  id: CitiNetPublic
+  name: citinet-bbs-channel-public
+  color: "#cccccc"
+  isAnonymous: true
+
+- type: citiNetChannel
+  id: Afterlife
+  name: citinet-bbs-channel-afterlife
+  color: "#9933ff"
+  isHidden: true
+
+# =========== NCPD ===========
+# NCPD Dispatch — общий канал для патрульных и диспетчеров
+- type: citiNetChannel
+  id: NCPD_Dispatch
+  name: citinet-bbs-channel-ncpd-dispatch
+  color: "#2f5c9e"
+  access:
+    - NCPD_Patrol
+    - Trauma_Medical
+  isHidden: false
+
+# NCPD Detectives — канал для расследований и детективов
+- type: citiNetChannel
+  id: NCPD_Detectives
+  name: citinet-bbs-channel-ncpd-detectives
+  color: "#1e3b66"
+  access:
+    - NCPD_Detective
+  isHidden: false
+
+# NCPD Command — связь командования департамента
+- type: citiNetChannel
+  id: NCPD_Command
+  name: citinet-bbs-channel-ncpd-command
+  color: "#4a8ced"
+  access:
+    - NCPD_Command
+  isHidden: false
+
+# =========== MAXTAC ===========
+# MaxTac Tactical — тактический канал оперативников MaxTac
+- type: citiNetChannel
+  id: MaxTac_Tactical
+  name: citinet-bbs-channel-maxtac-tactical
+  color: "#182c4d"
+  access:
+    - MaxTac_General
+  isHidden: false
+
+# MaxTac Command — канал командования MaxTac
+- type: citiNetChannel
+  id: MaxTac_Command
+  name: citinet-bbs-channel-maxtac-command
+  color: "#0f1c30"
+  access:
+    - MaxTac_Command
+  isHidden: false
+
+# =========== BIOTECHNICA ===========
+# Biotech General — общий канал для сотрудников Биотехники
+- type: citiNetChannel
+  id: Biotech_General
+  name: citinet-bbs-channel-biotech-general
+  color: "#35a849"
+  access:
+    - Biotech_Staff
+    - Biotech_General
+  isHidden: false
+
+# Biotech Operatives — канал службы безопасности и оперативников
+- type: citiNetChannel
+  id: Biotech_Operatives
+  name: citinet-bbs-channel-biotech-operatives
+  color: "#237331"
+  access:
+    - Biotech_Operative
+    - Biotech_Security
+  isHidden: false
+
+# Biotech Command — управление и директорат Биотехники
+- type: citiNetChannel
+  id: Biotech_Command
+  name: citinet-bbs-channel-biotech-command
+  color: "#5add72"
+  access:
+    - Biotech_Command
+    - Biotech_Director
+    - Biotech_HeadOfDepartment
+  isHidden: false
+
+# Trauma Team — общий канал для всех сотрудников
+- type: citiNetChannel
+  id: TraumaTeam_General
+  name: citinet-bbs-channel-trauma-general
+  color: "#4bdc99"
+  access:
+    - Trauma_Medical
+  isHidden: false
+
+# Trauma Operatives — мобильные группы реанимации (оперативники, парамедики, ГВ)
+- type: citiNetChannel
+  id: TraumaTeam_Operatives
+  name: citinet-bbs-channel-trauma-operatives
+  color: "#33b87a"
+  access:
+    - Trauma_Hangar
+  isHidden: false
+
+# Trauma Communications — связь с партнёрами и корпорациями (ГВ + кому выдан доступ)
+- type: citiNetChannel
+  id: TraumaTeam_Comms
+  name: citinet-bbs-channel-trauma-comms
+  color: "#ffd700"
+  access:
+    - Trauma_Command
+  isHidden: false

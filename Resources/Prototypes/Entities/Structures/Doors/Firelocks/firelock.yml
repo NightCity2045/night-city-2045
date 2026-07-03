@@ -10,7 +10,6 @@
     - FireAlarm
     - AirAlarm
   - type: ApcPowerReceiver
-  - type: ExtensionCableReceiver
   - type: DeviceNetwork
     deviceNetId: AtmosDevices
     receiveFrequencyId: AtmosMonitor

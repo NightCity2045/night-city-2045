@@ -1,0 +1,30 @@
+- type: entity
+  parent: BaseComputer
+  id: NCConsoleCompiler
+  name: console-compiler-name
+  description: console-compiler-desc
+  components:
+  - type: Sprite
+    layers:
+    - map: ["computerLayerBody"]
+      state: computer
+    - map: ["computerLayerKeyboard"]
+      state: generic_keyboard
+    - map: ["computerLayerScreen"]
+      state: generic
+    - map: ["computerLayerKeys"]
+      state: generic_keys
+    - map: [ "enum.WiresVisualLayers.MaintenancePanel" ]
+      state: generic_panel_open
+  - type: ConsoleCompiler
+    printBlueprintCost: 400
+    printRecipeCost: 100
+    printDoAfterTime: 4.0
+    burnedDiskPrototype: NCRawDataBurned
+  - type: ItemSlots
+  - type: UserInterface
+    interfaces:
+      enum.ConsoleCompilerUiKey.Key:
+        type: ConsoleCompilerBoundUserInterface
+  - type: ActivatableUI
+    key: enum.ConsoleCompilerUiKey.Key

@@ -1,0 +1,617 @@
+# region Botany
+
+# Belts
+
+- type: entity
+  parent: [ClothingBeltPlant, BiotechnicaContraband]
+  id: ClothingBeltBiotechnicaBotany
+  name: ent-ClothingBeltBotany
+  description: ent-ClothingBeltBotany-desc
+  suffix: Biotechnica, Гидропоника, Ботаника
+  components:
+  - type: Sprite
+    sprite: _NC/Clothing/Uniforms/Belts/Biotechnica/botany.rsi
+  - type: Clothing
+    sprite: _NC/Clothing/Uniforms/Belts/Biotechnica/botany.rsi
+
+- type: entity
+  parent: ClothingBeltBiotechnicaBotany
+  id: ClothingBeltBiotechnicaBotanyFilled
+  name: ent-ClothingBeltBotany
+  description: ent-ClothingBeltBotany-desc
+  suffix: Заполненный, Biotechnica, Гидропоника, Ботаника
+  components:
+  - type: StorageFill
+    contents:
+    - id: BiotechnicaHoe
+    - id: BiotechnicaSpade
+    - id: BiotechnicaClippers
+
+- type: entity
+  parent: ClothingBeltBiotechnicaBotany
+  id: ClothingBeltBiotechnicaBotanyFilledFull
+  name: ent-ClothingBeltBotany
+  description: ent-ClothingBeltBotany-desc
+  suffix: Заполненный максимально, Biotechnica, Гидропоника, Ботаника
+  components:
+  - type: StorageFill
+    contents:
+    - id: BiotechnicaHoe
+    - id: BiotechnicaSpade
+    - id: BiotechnicaClippers
+    - id: BiotechnicaScythe
+    - id: BiotechnicaHatchet
+    - id: BiotechnicaLabeler
+    - id: BiotechnicaDropper
+    - id: RobustHarvestChemistryBottle
+    - id: BiotechnicaPlantAnalyzer
+
+# Aprons
+
+- type: entity
+  parent: [ClothingOuterApronBotanist, BiotechnicaContraband]
+  id: ClothingOuterApronBiotechnicaBotany
+  name: ent-ClothingOuterApronBiotechnicaBotany
+  description: ent-ClothingOuterApronBiotechnicaBotany-desc
+  suffix: Biotechnica, Гидропоника, Ботаника
+  components:
+  - type: Sprite
+    sprite: _NC/Clothing/OuterClothing/Biotechnica/Botany/apron.rsi
+  - type: Clothing
+    sprite: _NC/Clothing/OuterClothing/Biotechnica/Botany/apron.rsi
+  - type: Armor
+    modifiers:
+      coefficients:
+        Slash: 0.95
+
+# Envirosuit
+
+- type: entity
+  parent: [ClothingUniformEnvirosuitHydroponics, BiotechnicaContraband]
+  id: ClothingUniformEnvirosuitBiotechnicaBotany
+  name: ent-ClothingUniformEnvirosuitBiotechnicaBotany
+  description: ent-ClothingUniformEnvirosuitBiotechnicaBotany-desc
+  suffix: Biotechnica, Гидропоника, Ботаника
+  components:
+  - type: Sprite
+    sprite: _NC/Clothing/Uniforms/Envirosuits/biotechnica_botany.rsi
+  - type: Clothing
+    sprite: _NC/Clothing/Uniforms/Envirosuits/biotechnica_botany.rsi
+  - type: Armor
+    modifiers:
+      coefficients:
+        Slash: 0.95
+        Caustic: 0.85
+
+- type: entity
+  parent: [ClothingHeadEnvirohelmHydroponics, BiotechnicaContraband]
+  id: ClothingHeadEnvirohelmBiotechnicaBotany
+  name: ent-ClothingHeadEnvirohelmBiotechnicaBotany
+  description: ent-ClothingUniformEnvirosuitBiotechnicaBotany-desc
+  suffix: Biotechnica, Гидропоника, Ботаника
+  components:
+  - type: Sprite
+    sprite: _NC/Clothing/Head/Envirohelms/biotechnica_botany.rsi
+  - type: Clothing
+    sprite: _NC/Clothing/Head/Envirohelms/biotechnica_botany.rsi
+  - type: Armor
+    modifiers:
+      coefficients:
+        Slash: 0.95
+        Caustic: 0.90
+
+- type: entity
+  parent: [ClothingHandsGlovesEnviroglovesLeather, BiotechnicaContraband]
+  id: ClothingHandsGlovesEnviroglovesBiotechnicaBotany
+  name: ent-ClothingHandsGlovesEnviroglovesBiotechnicaBotany
+  description: ent-ClothingHandsGlovesEnviroglovesBiotechnicaBotany-desc
+  suffix: Biotechnica, Гидропоника, Ботаника
+  components:
+  - type: Sprite
+    sprite: Clothing/Hands/Gloves/Color/color.rsi
+    layers:
+    - state: icon
+      color: "#00d26d"  # Biotechnica palette
+  - type: Item
+    sprite: Clothing/Hands/Gloves/Color/color.rsi
+    inhandVisuals:
+      left:
+      - state: inhand-left
+        color: "#00d26d"
+      right:
+      - state: inhand-right
+        color: "#00d26d"
+  - type: Clothing
+    sprite: Clothing/Hands/Gloves/Color/color.rsi
+    clothingVisuals:
+      gloves:
+      - state: equipped-HAND
+        color: "#00d26d"
+  - type: Fiber
+    fiberMaterial: fibers-leather
+    fiberColor: fibers-blue
+  - type: Armor
+    modifiers:
+      coefficients:
+        Slash: 0.95
+        Caustic: 0.95
+
+- type: entity
+  parent: [ClothingShoesBase, BiotechnicaContraband]
+  id: ClothingShoesEnviroshoesBiotechnicaBotany
+  name: ent-ClothingShoesEnviroshoesBiotechnicaBotany
+  description: ent-ClothingShoesEnviroshoesBiotechnicaBotany-desc
+  suffix: Biotechnica, Ботаник
+  components:
+  - type: Sprite
+    sprite: &botanical_shoes_sprite _NC/Clothing/Shoes/Enviroshoes/biotechnica_botany.rsi
+  - type: Clothing
+    sprite: *botanical_shoes_sprite
+  - type: Armor
+    modifiers:
+      coefficients:
+        Slash: 0.95
+        Piercing: 0.90
+
+# Masks
+
+- type: entity
+  parent: [ClothingMaskBreathMedical, BiotechnicaContraband]
+  id: ClothingMaskBreathBiotechnicaBotany
+  name: ent-ClothingMaskBreathBiotechnicaBotany
+  description: ent-ClothingMaskBreathBiotechnicaBotany-desc
+  suffix: Biotechnica, Гидропоника, Ботаника
+  components:
+  - type: Sprite
+    sprite: _NC/Clothing/Mask/Biotechnica/botany.rsi
+  - type: Clothing
+    sprite: _NC/Clothing/Mask/Biotechnica/botany.rsi
+  - type: Armor
+    modifiers:
+      coefficients:
+        Slash: 0.85
+
+# Goggles
+
+- type: entity
+  parent: [ClothingEyesGogglesBotany, BiotechnicaContraband]
+  id: ClothingEyesGogglesBiotechnicaBotany
+  name: ent-ClothingEyesGogglesBiotechnicaBotany
+  description: ent-ClothingEyesGogglesBiotechnicaBotany-desc
+  suffix: Biotechnica, Гидропоника, Ботаника
+  components:
+  - type: Sprite
+    sprite: &botanical_goggles_sprite _NC/Clothing/Eyes/Goggles/Biotechnica/botany.rsi
+  - type: Clothing
+    sprite: *botanical_goggles_sprite
+
+# Lockers
+
+- type: entity
+  id: LockerBiotechnicaBotany
+  parent: LockerBase
+  name: ent-LockerBiotechnica
+  description: ent-LockerBiotechnicaBotany-desc
+  suffix: Biotechnica, Гидропоника, Ботаника
+  components:
+  - type: Appearance
+  - type: EntityStorageVisuals
+    stateBaseClosed: hydro
+    stateDoorOpen: hydro_open
+    stateDoorClosed: hydro_door
+  - type: AccessReader
+    access: [ [ "Biotech_Botany" ] ]
+
+# region Tech
+
+# Belts
+
+- type: entity
+  parent: [ClothingBeltUtility, BiotechnicaContraband]
+  id: ClothingBeltBiotechnicaTech
+  name: ent-ClothingBeltBiotechnicaTech
+  description: ent-ClothingBeltBiotechnicaTech-desc
+  suffix: Biotechnica, Тех
+  components:
+  - type: Sprite
+    sprite: _NC/Clothing/Uniforms/Belts/Biotechnica/botany.rsi
+  - type: Clothing
+    sprite: _NC/Clothing/Uniforms/Belts/Biotechnica/botany.rsi
+
+- type: entity
+  parent: ClothingBeltBiotechnicaTech
+  id: ClothingBeltBiotechnicaTechFilled
+  name: ent-ClothingBeltBiotechnicaTech
+  description: ent-ClothingBeltBiotechnicaTech-desc
+  suffix: Заполненный, Biotechnica, Тех
+  components:
+  - type: StorageFill
+    contents:
+    - id: BiotechnicaCrowbar
+    - id: BiotechnicaWrench
+    - id: BiotechnicaWirecutter
+    - id: BiotechnicaScrewdriverMini
+    - id: BiotechnicaWelderMini
+
+- type: entity
+  parent: ClothingBeltBiotechnicaTech
+  id: ClothingBeltBiotechnicaTechFilledFull
+  name: ent-ClothingBeltBiotechnicaTech
+  description: ent-ClothingBeltBiotechnicaTech-desc
+  suffix: Заполненный максимально, Biotechnica, Тех
+  components:
+  - type: StorageFill
+    contents:
+    - id: BiotechnicaCrowbar
+    - id: PowerDrill
+    - id: BiotechnicaWirecutter
+    - id: BiotechnicaWelder
+    - id: FlashlightEmp
+    - id: NetworkConfigurator
+    - id: HandheldGPSBasic
+    - id: AccessConfigurator
+    - id: Multitool
+
+# Goggles
+
+- type: entity
+  parent: [ClothingEyesGogglesBotany, BiotechnicaContraband]
+  id: ClothingEyesGogglesBiotechnicaTech
+  name: ent-ClothingEyesGogglesBiotechnicaTech
+  description: ent-ClothingEyesGogglesBiotechnicaTech-desc
+  suffix: Biotechnica, Тех
+  components:
+  - type: Sprite
+    sprite: &tech_goggles_sprite _NC/Clothing/Eyes/Goggles/Biotechnica/tech.rsi
+  - type: Clothing
+    sprite: *tech_goggles_sprite
+  - type: Armor
+    modifiers:
+      coefficients:
+        Heat: 0.90
+        Piercing: 0.85
+  - type: FlashImmunity
+  - type: EyeProtection
+
+# region MedTech
+
+# Belts
+
+- type: entity
+  parent: [ClothingBeltMedical, BiotechnicaContraband]
+  id: ClothingBeltBiotechnicaMedTech
+  name: ent-ClothingBeltBiotechnicaMedTech
+  description: ent-ClothingBeltBiotechnicaMedTech-desc
+  suffix: Biotechnica, МедТех
+  components:
+  - type: Sprite
+    sprite: _NC/Clothing/Uniforms/Belts/Biotechnica/botany.rsi
+  - type: Clothing
+    sprite: _NC/Clothing/Uniforms/Belts/Biotechnica/botany.rsi
+
+- type: entity
+  parent: ClothingBeltBiotechnicaMedTech
+  id: ClothingBeltBiotechnicaMedTechFilled
+  name: ent-ClothingBeltBiotechnicaMedTech
+  description: ent-ClothingBeltBiotechnicaMedTech-desc
+  suffix: Заполненный, Biotechnica, МедТех
+  components:
+  - type: StorageFill
+    contents:
+    - id: Gauze
+    - id: Beaker
+    - id: BaseChemistryEmptyVial
+    - id: BiotechnicaDropper
+
+- type: entity
+  parent: ClothingBeltBiotechnicaMedTech
+  id: ClothingBeltBiotechnicaMedTechFilledFull
+  name: ent-ClothingBeltBiotechnicaMedTech
+  description: ent-ClothingBeltBiotechnicaMedTech-desc
+  suffix: Заполненный максимально, Biotechnica, МедТех
+  components:
+  - type: StorageFill
+    contents:
+    - id: Gauze
+    - id: Beaker
+    - id: Scalpel
+    - id: Bonesetter
+    - id: PillCanister
+    - id: GeigerCounter
+    - id: GasAnalyzer
+    - id: Syringe
+    - id: BiotechnicaDropper
+    - id: BaseChemistryEmptyVial
+    - id: BaseChemistryEmptyVial
+    - id: ChemistryEmptyBottle01
+
+# Aprons
+
+- type: entity
+  parent: [ClothingOuterStorageBase, BiotechnicaContraband]
+  id: ClothingOuterApronBiotechnica
+  name: ent-ClothingOuterApronBiotechnica
+  description: ent-ClothingOuterApronBiotechnica-desc
+  suffix: Biotechnica, МедТех
+  components:
+  - type: Sprite
+    sprite: _NC/Clothing/OuterClothing/Biotechnica/apron.rsi
+  - type: Clothing
+    sprite: _NC/Clothing/OuterClothing/Biotechnica/apron.rsi
+  - type: Armor
+    modifiers:
+      coefficients:
+        Caustic: 0.95
+
+# Coats
+
+- type: entity
+  parent: [ClothingOuterStorageFoldableBase, BiotechnicaContraband]
+  id: ClothingOuterCoatBiotechnica
+  name: ent-ClothingOuterCoatBiotechnica
+  description: ent-ClothingOuterCoatBiotechnica-desc
+  suffix: Biotechnica, МедТех
+  components:
+  - type: Sprite
+    sprite: _NC/Clothing/OuterClothing/Biotechnica/MedTech/coat.rsi
+  - type: Clothing
+    sprite: _NC/Clothing/OuterClothing/Biotechnica/MedTech/coat.rsi
+  - type: Armor
+    modifiers:
+      coefficients:
+        Caustic: 0.75
+  - type: TemperatureProtection
+    heatingCoefficient: 0.95
+    coolingCoefficient: 0.95
+
+- type: entity
+  parent: [ClothingOuterStorageFoldableBaseOpened, ClothingOuterCoatBiotechnica]
+  id: ClothingOuterCoatBiotechnicaOpened
+  name: ent-ClothingOuterCoatBiotechnica
+  description: ent-ClothingOuterCoatBiotechnica-desc
+  suffix: Открытый, Biotechnica, МедТех
+
+- type: entity
+  parent: [ClothingOuterStorageFoldableBase, BiotechnicaContraband]
+  id: ClothingOuterCoatBiotechnicaRad
+  name: ent-ClothingOuterCoatBiotechnicaRad
+  description: ent-ClothingOuterCoatBiotechnica-descи радиационного фона.
+  suffix: Biotechnica, МедТех
+  components:
+  - type: Sprite
+    sprite: _NC/Clothing/OuterClothing/Biotechnica/MedTech/coat_radiation.rsi
+  - type: Clothing
+    sprite: _NC/Clothing/OuterClothing/Biotechnica/MedTech/coat_radiation.rsi
+  - type: Armor
+    modifiers:
+      coefficients:
+        Caustic: 0.75
+        Radiation: 0.85
+  - type: TemperatureProtection
+    heatingCoefficient: 0.95
+    coolingCoefficient: 0.95
+
+- type: entity
+  parent: [ClothingOuterStorageFoldableBaseOpened, ClothingOuterCoatBiotechnicaRad]
+  id: ClothingOuterCoatBiotechnicaRadOpened
+  name: ent-ClothingOuterCoatBiotechnicaRad
+  description: ent-ClothingOuterCoatBiotechnica-descи радиационного фона.
+  suffix: Biotechnica, МедТех
+
+- type: entity
+  parent: [ClothingOuterStorageFoldableBase, BiotechnicaContraband]
+  id: ClothingOuterCoatBiotechnicaAdvanced
+  name: ent-ClothingOuterCoatBiotechnicaAdvanced
+  description: ent-ClothingOuterCoatBiotechnicaAdvanced-desc
+  suffix: Biotechnica, МедТех
+  components:
+  - type: Sprite
+    sprite: _NC/Clothing/OuterClothing/Biotechnica/MedTech/coat_advanced.rsi
+  - type: Clothing
+    sprite: _NC/Clothing/OuterClothing/Biotechnica/MedTech/coat_advanced.rsi
+  - type: Armor
+    modifiers:
+      coefficients:
+        Slash: 0.95
+        Heat: 0.95
+        Caustic: 0.65
+  - type: TemperatureProtection
+    heatingCoefficient: 0.90
+    coolingCoefficient: 0.90
+
+- type: entity
+  parent: [ClothingOuterStorageFoldableBaseOpened, ClothingOuterCoatBiotechnicaAdvanced]
+  id: ClothingOuterCoatBiotechnicaAdvancedOpened
+  name: ent-ClothingOuterCoatBiotechnicaAdvanced
+  description: ent-ClothingOuterCoatBiotechnicaAdvanced-desc
+  suffix: Biotechnica, МедТех
+
+# Gloves
+
+- type: entity
+  parent: [ClothingHandsBase, BiotechnicaContraband]
+  id: ClothingHandsMittsBiotechnica
+  name: ent-ClothingHandsMittsBiotechnica
+  description: ent-ClothingHandsMittsBiotechnica-desc
+  suffix: Biotechnica, МедТех
+  components:
+  - type: Sprite
+    sprite: _NC/Clothing/Hands/Gloves/Biotechnica/mitts.rsi
+  - type: Clothing
+    sprite: _NC/Clothing/Hands/Gloves/Biotechnica/mitts.rsi
+  - type: Fiber
+    fiberMaterial: fibers-rubber
+    fiberColor: fibers-black
+  - type: Armor
+    modifiers:
+      coefficients:
+        Heat: 0.35
+  - type: TemperatureProtection
+    heatingCoefficient: 0.3
+    coolingCoefficient: 0.5
+
+# Hats
+
+- type: entity
+  parent: [ClothingHeadBaseButcherable, BiotechnicaContraband]
+  id: ClothingHeadHatBiotechnicaSterile
+  name: ent-ClothingHeadHatBiotechnicaSterile
+  description: ent-ClothingHeadHatBiotechnicaSterile-desc
+  suffix: Biotechnica, МедТех
+  components:
+  - type: Sprite
+    sprite: _NC/Clothing/Head/Hats/biotechnica_sterile.rsi
+  - type: Clothing
+    sprite: _NC/Clothing/Head/Hats/biotechnica_sterile.rsi
+
+# Masks
+
+- type: entity
+  parent: [ClothingMaskBreathMedical, BiotechnicaContraband]
+  id: ClothingMaskBreathBiotechnicaAdvanced
+  name: ent-ClothingMaskBreathBiotechnicaAdvanced
+  description: ent-ClothingMaskBreathBiotechnicaAdvanced-desc
+  suffix: Biotechnica, МедТех
+  components:
+  - type: Sprite
+    sprite: _NC/Clothing/Mask/Biotechnica/medtech.rsi
+  - type: Clothing
+    sprite: _NC/Clothing/Mask/Biotechnica/medtech.rsi
+  - type: Armor
+    modifiers:
+      coefficients:
+        Caustic: 0.85
+
+# region Mixed
+
+- type: entity
+  parent: [ClothingBackpackHydroponics, BiotechnicaContraband]
+  id: ClothingBackpackBiotechnica
+  name: ent-ClothingBackpackBiotechnica
+  description: ent-ClothingBackpackBiotechnica-desc
+  suffix: Biotechnica
+  components:
+  - type: Sprite
+    sprite: _NC/Clothing/Back/Backpacks/biotechnica.rsi
+
+- type: entity
+  parent: [ClothingBackpackSatchelHydroponics, BiotechnicaContraband]
+  id: ClothingBackpackSatchelBiotechnica
+  name: ent-ClothingBackpackSatchelBiotechnica
+  description: ent-ClothingBackpackSatchelBiotechnica-desc
+  suffix: Biotechnica
+  components:
+  - type: Sprite
+    sprite: _NC/Clothing/Back/Satchels/biotechnica.rsi
+
+- type: entity
+  parent: [ClothingBackpackDuffelHydroponics, BiotechnicaContraband]
+  id: ClothingBackpackDuffelBiotechnica
+  name: ent-ClothingBackpackDuffelBiotechnica
+  description: ent-ClothingBackpackDuffelBiotechnica-desc
+  suffix: Biotechnica
+  components:
+    - type: Sprite
+      sprite: _NC/Clothing/Back/Duffels/biotechnica.rsi
+
+# Envirosuit
+
+- type: entity
+  parent: [ClothingUniformEnvirosuitHydroponics, BiotechnicaContraband]
+  id: ClothingUniformEnvirosuitBiotechnica
+  name: ent-ClothingUniformEnvirosuitBiotechnica
+  description: ent-ClothingUniformEnvirosuitBiotechnica-desc
+  suffix: Biotechnica, МедТех, Тех
+  components:
+  - type: Sprite
+    sprite: _NC/Clothing/Uniforms/Envirosuits/biotechnica.rsi
+  - type: Clothing
+    sprite: _NC/Clothing/Uniforms/Envirosuits/biotechnica.rsi
+
+- type: entity
+  parent: [ClothingHeadEnvirohelmHydroponics, BiotechnicaContraband]
+  id: ClothingHeadEnvirohelmBiotechnica
+  name: ent-ClothingHeadEnvirohelmBiotechnica
+  description: ent-ClothingUniformEnvirosuitBiotechnica-desc
+  suffix: Biotechnica, МедТех, Тех
+  components:
+  - type: Sprite
+    sprite: _NC/Clothing/Head/Envirohelms/biotechnica.rsi
+  - type: Clothing
+    sprite: _NC/Clothing/Head/Envirohelms/biotechnica.rsi
+
+- type: entity
+  parent: [ClothingHandsGlovesEnviroglovesLeather, BiotechnicaContraband]
+  id: ClothingHandsGlovesEnviroglovesBiotechnica
+  name: ent-ClothingHandsGlovesEnviroglovesBiotechnica
+  description: ent-ClothingHandsGlovesEnviroglovesBiotechnica-desc
+  suffix: Biotechnica, МедТех, Тех
+  components:
+  - type: Sprite
+    sprite: Clothing/Hands/Gloves/Color/color.rsi
+    layers:
+    - state: icon
+      color: "#73c0d7"  # Biotechnica palette
+  - type: Item
+    sprite: Clothing/Hands/Gloves/Color/color.rsi
+    inhandVisuals:
+      left:
+      - state: inhand-left
+        color: "#73c0d7"
+      right:
+      - state: inhand-right
+        color: "#73c0d7"
+  - type: Clothing
+    sprite: Clothing/Hands/Gloves/Color/color.rsi
+    clothingVisuals:
+      gloves:
+      - state: equipped-HAND
+        color: "#73c0d7"
+  - type: Fiber
+    fiberMaterial: fibers-leather
+    fiberColor: fibers-blue
+
+- type: entity
+  parent: [ClothingShoesBase, BiotechnicaContraband]
+  id: ClothingShoesEnviroshoesBiotechnica
+  name: ent-ClothingShoesEnviroshoesBiotechnica
+  description: ent-ClothingShoesEnviroshoesBiotechnicaBotany-desc
+  suffix: Biotechnica, Ботаник
+  components:
+  - type: Sprite
+    sprite: &shoes_sprite _NC/Clothing/Shoes/Enviroshoes/biotechnica.rsi
+  - type: Clothing
+    sprite: *shoes_sprite
+  - type: Armor
+    modifiers:
+      coefficients:
+        Slash: 0.95
+        Piercing: 0.95
+        Caustic: 0.95
+
+# Lockers
+
+- type: entity
+  id: LockerBiotechnica
+  parent: LockerBase
+  name: ent-LockerBiotechnica
+  description: ent-LockerBiotechnica-desc
+  suffix: Biotechnica, МедТех, Тех
+  components:
+  - type: Appearance
+  - type: EntityStorageVisuals
+    stateBaseClosed: med
+    stateDoorOpen: med_open
+    stateDoorClosed: chemical_door
+  - type: AccessReader
+    access: [ [ "Biotech_MedTech" ], [ "Biotech_Tech" ] ]
+
+- type: entity
+  parent: LockerFreezer
+  id: LockerBiotechnicaFreezer
+  name: ent-LockerBiotechnicaFreezer
+  description: ent-LockerBiotechnicaFreezer-desc
+  suffix: Biotechnica, МедТех
+  components:
+  - type: AccessReader
+    access: [ [ "Biotech_MedTech" ] ]

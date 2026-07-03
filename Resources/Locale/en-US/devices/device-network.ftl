@@ -36,7 +36,7 @@ device-address-prefix-volume-pump = VPP-
 device-address-prefix-smes = SMS-
 device-address-prefix-turret = TRT-
 
-#PDAs and terminals
+# PDAs and terminals
 device-address-prefix-console = CLS-
 device-address-prefix-fire-alarm = FIR-
 device-address-prefix-air-alarm = AIR-
@@ -45,7 +45,7 @@ device-address-prefix-sensor-monitor = MON-
 
 device-address-examine-message = The device's address is {$address}.
 
-#Device net ID names
+# Device net ID names
 device-net-id-private = Private
 device-net-id-wired = Wired
 device-net-id-wireless = Wireless

@@ -1,0 +1,90 @@
+# Militech fighter NPCs for Night City (Unlootable)
+
+# --- Militech Variations ---
+
+- type: entity
+  name: ent-MobNCMilitech
+  parent: BaseMobHuman
+  id: MobNCMilitechUnlootable
+  description: ent-MobNCMilitech-desc
+  abstract: true
+  IdleRange: !type:Single 10
+  components:
+  - type: NpcFactionMember
+    factions:
+    - NCMilitech
+  - type: HTN
+    rootTask:
+      task: NCBanditTier3RootCompound
+  - type: NPCRetaliation
+    attackMemoryLength: 10
+  - type: NPCAutoReload
+  - type: InputMover
+  - type: MobMover
+
+- type: entity
+  parent: MobNCMilitechUnlootable
+  id: MobNCMilitechAvengerUnlootable
+  suffix: Militech Avenger noLoot
+  components:
+  - type: Loadout
+    prototypes: [NCMilitechGearPistol]
+  - type: Cyberware
+  - type: StartingCyberware
+    loseHum: false
+    cyberware:
+    - CyberwareNeuroKerenzikovMk1
+    - CyberwareExternalKevlarSublayer
+    - CyberwareInternalNasalFilters
+  - type: NpcUnlootable
+
+- type: entity
+  parent: MobNCMilitechUnlootable
+  id: MobNCMilitechBoomerUnlootable
+  suffix: Militech Boomer noLoot
+  components:
+  - type: Loadout
+    prototypes: [NCMilitechGearBoomer]
+  - type: Cyberware
+  - type: StartingCyberware
+    loseHum: false
+    cyberware:
+    - CyberwareNeuroKerenzikovMk2
+    - CyberwareExternalKevlarSublayer
+    - CyberwareInternalEnhancedAntibodies
+    - CyberwareInternalNasalFilters
+  - type: NpcUnlootable
+
+- type: entity
+  parent: MobNCMilitechUnlootable
+  id: MobNCMilitechSaratogaUnlootable
+  suffix: Militech Saratoga noLoot
+  components:
+  - type: Loadout
+    prototypes: [NCMilitechGearSaratoga]
+  - type: Cyberware
+  - type: StartingCyberware
+    loseHum: false
+    cyberware:
+    - CyberwareNeuroKerenzikovMk2
+    - CyberwareExternalThermoplasticArmor
+    - CyberwareImplantMicroOptics
+    - CyberwareInternalNasalFilters
+  - type: NpcUnlootable
+
+- type: entity
+  parent: MobNCMilitechUnlootable
+  id: MobNCMilitechCrusherUnlootable
+  suffix: Militech Crusher noLoot
+  components:
+  - type: Loadout
+    prototypes: [NCMilitechGearCrusher]
+  - type: Cyberware
+  - type: StartingCyberware
+    loseHum: false
+    cyberware:
+    - CyberwareInternalArmyEndoskeleton
+    - CyberwareExternalReactiveSublayer
+    - CyberwareNeuroTacticalSpartan
+    - CyberwareInternalNasalFilters
+  - type: NpcUnlootable

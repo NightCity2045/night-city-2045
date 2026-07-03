@@ -31,6 +31,10 @@
     damageModifierSet: StructuralMetallic
   - type: Physics
     bodyType: Static
+  - type: RCDDeconstructable
+    cost: 6
+    delay: 8
+    fx: EffectRCDDeconstruct8
   - type: Reflect
     reflectProb: 1
   - type: Pullable

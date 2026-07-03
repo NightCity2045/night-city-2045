@@ -1,0 +1,40 @@
+- type: entity
+  id: NCArmorWorkbench
+  name: ent-NCArmorWorkbench
+  description: ent-NCArmorWorkbench-desc
+  parent: BaseMachinePowered
+  components:
+  - type: Sprite
+    sprite: _NC/Structures/Machines/cnc_machine.rsi
+    snapCardinals: true
+    layers:
+    - state: base_power_connect_on
+  - type: ArmorWorkbench
+    craftDuration: 15
+  - type: UserInterface
+    interfaces:
+      enum.ArmorWorkbenchUiKey.Key:
+        type: ArmorWorkbenchBoundUserInterface
+  - type: ActivatableUI
+    key: enum.ArmorWorkbenchUiKey.Key
+  - type: ActivatableUIRequiresPower
+  - type: ContainerContainer
+    containers:
+      armor_workbench_storage: !type:Container
+
+- type: entity
+  id: NCArmorBlueprintMilitechVest
+  name: ent-NCArmorBlueprintMilitechVest
+  description: ent-NCArmorBlueprintMilitechVest-desc
+  parent: BaseItem
+  components:
+  - type: Sprite
+    sprite: Objects/Tools/blueprint.rsi
+    state: icon
+  - type: ArmorBlueprint
+    resultPrototype: ClothingOuterArmorMilitechBulletproof
+    baseMaterialAmount: 1
+    softMaterialAmount: 1
+    hardMaterialAmount: 1
+    coverage:
+    - Torso

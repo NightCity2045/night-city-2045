@@ -29643,7 +29643,7 @@ entities:
     - type: Transform
       pos: 11.547624,-26.478827
       parent: 2
-- proto: ClothingMultipleHeadphones
+- proto: ClothingNeckHeadphones
   entities:
   - uid: 4852
     components:
@@ -69312,13 +69312,6 @@ entities:
     - type: Transform
       rot: 3.141592653589793 rad
       pos: 40.427826,3.6428523
-      parent: 2
-- proto: SchoolgirlUniformSpawner
-  entities:
-  - uid: 10739
-    components:
-    - type: Transform
-      pos: -42.5,-31.5
       parent: 2
 - proto: Screen
   entities:

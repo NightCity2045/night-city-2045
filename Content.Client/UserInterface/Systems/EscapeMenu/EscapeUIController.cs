@@ -220,4 +220,18 @@ public sealed class EscapeUIController : UIController, IOnStateEntered<GameplayS
             EscapeButton!.Pressed = true;
         }
     }
+
+    public void RefreshLocalization()
+    {
+        if (_escapeWindow is null || _escapeWindow.Disposed)
+            return;
+
+        _escapeWindow.Title = Loc.GetString("ui-escape-title");
+        _escapeWindow.OptionsButton.Text = Loc.GetString("ui-escape-options");
+        _escapeWindow.RulesButton.Text = Loc.GetString("ui-escape-rules");
+        _escapeWindow.GuidebookButton.Text = Loc.GetString("ui-escape-guidebook");
+        _escapeWindow.WikiButton.Text = Loc.GetString("ui-escape-wiki");
+        _escapeWindow.DisconnectButton.Text = Loc.GetString("ui-escape-disconnect");
+        _escapeWindow.QuitButton.Text = Loc.GetString("ui-escape-quit");
+    }
 }

@@ -1,10 +1,8 @@
 using Content.Server.Antag;
 using Content.Server.GameTicking.Rules.Components;
-using Content.Server.Roles; // WWDP EDIT
 using Content.Server.Station.Components;
 using Content.Server.Station.Systems;
 using Content.Shared.Localizations;
-using Content.Shared.Roles; // WWDP EDIT
 using Robust.Server.GameObjects;
 
 namespace Content.Server.GameTicking.Rules;
@@ -20,7 +18,6 @@ public sealed class DragonRuleSystem : GameRuleSystem<DragonRuleComponent>
         base.Initialize();
 
         SubscribeLocalEvent<DragonRuleComponent, AfterAntagEntitySelectedEvent>(AfterAntagEntitySelected);
-        SubscribeLocalEvent<DragonRoleComponent, GetBriefingEvent>(OnGetBriefing); // WWDP EDIT
     }
 
     private void AfterAntagEntitySelected(Entity<DragonRuleComponent> ent, ref AfterAntagEntitySelectedEvent args)
@@ -52,13 +49,4 @@ public sealed class DragonRuleSystem : GameRuleSystem<DragonRuleComponent>
 
         return briefing;
     }
-    // WWDP EDIT START
-    private void OnGetBriefing(Entity<DragonRoleComponent> role, ref GetBriefingEvent args)
-    {
-        var ent = args.Mind.Comp.OwnedEntity;
-        if (ent is null)
-            return;
-        args.Append(MakeBriefing(ent.Value));
-    }
-    // WWDP EDIT END
 }

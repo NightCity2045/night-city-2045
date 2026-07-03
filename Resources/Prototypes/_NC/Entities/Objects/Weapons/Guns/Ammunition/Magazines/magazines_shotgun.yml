@@ -1,0 +1,20 @@
+- type: entity
+  id: MagazineShotgunMilitechCrusher
+  name: магазин Militech "Crusher" (12 калибр)
+  description: Компактный коробчатый магазин для автоматического дробовика Militech "Crusher". Вмещает 10 патронов 12 калибра.
+  parent: BaseMagazineShotgun
+  components:
+  - type: BallisticAmmoProvider
+    capacity: 10
+    proto: ShellShotgun
+    whitelist:
+      tags:
+      - ShellShotgun
+  - type: Sprite
+    sprite: _NC/Objects/Weapons/Guns/Shotguns/Militech_Crusher/mag.rsi
+    layers:
+    - state: base
+      map: ["enum.GunVisualLayers.Base"]
+  - type: Tag
+    tags:
+    - MagazineShotgunMilitechCrusher

@@ -635,6 +635,25 @@ namespace Content.Server.Database.Migrations.Postgres
                         });
                 });
 
+            modelBuilder.Entity("Content.Server.Database.FactionBankBalance", b =>
+                {
+                    b.Property<int>("FactionId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasColumnName("faction_id");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("FactionId"));
+
+                    b.Property<int>("Balance")
+                        .HasColumnType("integer")
+                        .HasColumnName("balance");
+
+                    b.HasKey("FactionId")
+                        .HasName("PK_faction_bank_balance");
+
+                    b.ToTable("faction_bank_balance", (string)null);
+                });
+
             modelBuilder.Entity("Content.Server.Database.IPIntelCache", b =>
                 {
                     b.Property<int>("Id")
@@ -700,7 +719,7 @@ namespace Content.Server.Database.Migrations.Postgres
                     b.ToTable("job", (string)null);
                 });
 
-            modelBuilder.Entity("Content.Server.Database.Loadout", b =>
+            modelBuilder.Entity("Content.Server.Database.LoadoutItem", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -745,6 +764,49 @@ namespace Content.Server.Database.Migrations.Postgres
                         .IsUnique();
 
                     b.ToTable("loadout", (string)null);
+                });
+
+            modelBuilder.Entity("Content.Server.Database.NCCharacterNote", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasColumnName("id");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<byte>("ColorTag")
+                        .HasColumnType("smallint")
+                        .HasColumnName("color_tag");
+
+                    b.Property<string>("CustomName")
+                        .IsRequired()
+                        .HasColumnType("text")
+                        .HasColumnName("custom_name");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("text")
+                        .HasColumnName("description");
+
+                    b.Property<int>("OwnerProfileId")
+                        .HasColumnType("integer")
+                        .HasColumnName("owner_profile_id");
+
+                    b.Property<int>("TargetProfileId")
+                        .HasColumnType("integer")
+                        .HasColumnName("target_profile_id");
+
+                    b.HasKey("Id")
+                        .HasName("PK_nc_character_notes");
+
+                    b.HasIndex("TargetProfileId")
+                        .HasDatabaseName("IX_nc_character_notes_target_profile_id");
+
+                    b.HasIndex("OwnerProfileId", "TargetProfileId")
+                        .IsUnique();
+
+                    b.ToTable("nc_character_notes", (string)null);
                 });
 
             modelBuilder.Entity("Content.Server.Database.PlayTime", b =>
@@ -879,6 +941,10 @@ namespace Content.Server.Database.Migrations.Postgres
                         .HasColumnType("integer")
                         .HasColumnName("age");
 
+                    b.Property<int>("BankBalance")
+                        .HasColumnType("integer")
+                        .HasColumnName("bank_balance");
+
                     b.Property<byte>("BarkPause")
                         .HasColumnType("smallint")
                         .HasColumnName("bark_pause");
@@ -926,6 +992,10 @@ namespace Content.Server.Database.Migrations.Postgres
                     b.Property<string>("DisplayPronouns")
                         .HasColumnType("text")
                         .HasColumnName("display_pronouns");
+
+                    b.Property<string>("EmployedDepartment")
+                        .HasColumnType("text")
+                        .HasColumnName("employed_department");
 
                     b.Property<string>("Employer")
                         .IsRequired()
@@ -984,6 +1054,14 @@ namespace Content.Server.Database.Migrations.Postgres
                         .HasColumnType("text")
                         .HasColumnName("mime_name");
 
+                    b.Property<JsonDocument>("NCSkills")
+                        .HasColumnType("jsonb")
+                        .HasColumnName("nc_skills");
+
+                    b.Property<JsonDocument>("NCStats")
+                        .HasColumnType("jsonb")
+                        .HasColumnName("nc_stats");
+
                     b.Property<string>("Nationality")
                         .IsRequired()
                         .HasColumnType("text")
@@ -1024,6 +1102,10 @@ namespace Content.Server.Database.Migrations.Postgres
                         .HasColumnType("text")
                         .HasColumnName("station_ai_name");
 
+                    b.Property<bool>("StatsAndSkillsLocked")
+                        .HasColumnType("boolean")
+                        .HasColumnName("stats_and_skills_locked");
+
                     b.Property<string>("Voice")
                         .IsRequired()
                         .HasColumnType("text")
@@ -1043,6 +1125,37 @@ namespace Content.Server.Database.Migrations.Postgres
                         .IsUnique();
 
                     b.ToTable("profile", (string)null);
+                });
+
+            modelBuilder.Entity("Content.Server.Database.QuittedDepartment", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasColumnName("quitted_department_id");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("DepartmentId")
+                        .IsRequired()
+                        .HasColumnType("text")
+                        .HasColumnName("department_id");
+
+                    b.Property<int>("ProfileId")
+                        .HasColumnType("integer")
+                        .HasColumnName("profile_id");
+
+                    b.Property<DateTime>("QuitTime")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("quit_time");
+
+                    b.HasKey("Id")
+                        .HasName("PK_quitted_department");
+
+                    b.HasIndex("ProfileId", "DepartmentId")
+                        .IsUnique();
+
+                    b.ToTable("quitted_department", (string)null);
                 });
 
             modelBuilder.Entity("Content.Server.Database.RoleWhitelist", b =>
@@ -1756,7 +1869,7 @@ namespace Content.Server.Database.Migrations.Postgres
                     b.Navigation("Profile");
                 });
 
-            modelBuilder.Entity("Content.Server.Database.Loadout", b =>
+            modelBuilder.Entity("Content.Server.Database.LoadoutItem", b =>
                 {
                     b.HasOne("Content.Server.Database.Profile", "Profile")
                         .WithMany("Loadouts")
@@ -1766,6 +1879,27 @@ namespace Content.Server.Database.Migrations.Postgres
                         .HasConstraintName("FK_loadout_profile_profile_id");
 
                     b.Navigation("Profile");
+                });
+
+            modelBuilder.Entity("Content.Server.Database.NCCharacterNote", b =>
+                {
+                    b.HasOne("Content.Server.Database.Profile", "OwnerProfile")
+                        .WithMany()
+                        .HasForeignKey("OwnerProfileId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired()
+                        .HasConstraintName("FK_nc_character_notes_profile_owner_profile_id");
+
+                    b.HasOne("Content.Server.Database.Profile", "TargetProfile")
+                        .WithMany()
+                        .HasForeignKey("TargetProfileId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired()
+                        .HasConstraintName("FK_nc_character_notes_profile_target_profile_id");
+
+                    b.Navigation("OwnerProfile");
+
+                    b.Navigation("TargetProfile");
                 });
 
             modelBuilder.Entity("Content.Server.Database.Player", b =>
@@ -1809,6 +1943,18 @@ namespace Content.Server.Database.Migrations.Postgres
                         .HasConstraintName("FK_profile_preference_preference_id");
 
                     b.Navigation("Preference");
+                });
+
+            modelBuilder.Entity("Content.Server.Database.QuittedDepartment", b =>
+                {
+                    b.HasOne("Content.Server.Database.Profile", "Profile")
+                        .WithMany("QuittedDepartments")
+                        .HasForeignKey("ProfileId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired()
+                        .HasConstraintName("FK_quitted_department_profile_profile_id");
+
+                    b.Navigation("Profile");
                 });
 
             modelBuilder.Entity("Content.Server.Database.RoleWhitelist", b =>
@@ -2095,6 +2241,8 @@ namespace Content.Server.Database.Migrations.Postgres
                     b.Navigation("Jobs");
 
                     b.Navigation("Loadouts");
+
+                    b.Navigation("QuittedDepartments");
 
                     b.Navigation("Traits");
                 });

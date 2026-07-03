@@ -1,0 +1,10 @@
+- type: entity
+  parent: [ClothingUniformBase, ClothingUniformFoldableBase, BaseRestrictedContraband]
+  id: ClothingUniformNSPDNormis
+  name: ent-ClothingUniformNCPDNormis
+  description: ent-ClothingUniformNCPDNormis-desc
+  components:
+  - type: Sprite
+    sprite: _NC/Clothing/Uniforms/Jumpsuits/nspd_normis.rsi
+  - type: Clothing
+    sprite: _NC/Clothing/Uniforms/Jumpsuits/nspd_normis.rsi

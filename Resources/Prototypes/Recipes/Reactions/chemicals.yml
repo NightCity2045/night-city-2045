@@ -86,6 +86,22 @@
   products:
     SulfuricAcid: 3
 
+# NC edit start: NightCity FastFood
+- type: reaction
+  id: FerrochromicAcid
+  reactants:
+    Hydrogen:
+      amount: 1
+    Oxygen:
+      amount: 2
+    Iron:
+      amount: 1
+    Carbon:
+      amount: 1
+  products:
+    FerrochromicAcid: 5
+# NC edit end: NightCity FastFood
+
 - type: reaction
   id: FluorosulfuricAcid
   reactants:

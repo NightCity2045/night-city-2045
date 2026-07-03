@@ -84,7 +84,6 @@
   - type: Clickable
   - type: InteractionOutline
   - type: ApcPowerReceiver
-  - type: ExtensionCableReceiver
   - type: AccessReader
     access: [ [ "Atmospherics" ] ]
   - type: Construction

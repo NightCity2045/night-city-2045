@@ -1,0 +1,59 @@
+- type: gameMap
+  id: Aldente
+  mapName: 'New Aldente'
+  mapPath: /Maps/_NC/aldente.yml
+  maxRandomOffset: 0
+  # randomPainting: false
+  minPlayers: 0
+  maxPlayers: 90
+  stations:
+    City:
+      stationProto: NightCityStation
+      components:
+      - type: StationNameSetup
+        mapNameTemplate: 'New Aldente'
+      - type: StationJobs
+        availableJobs:
+          # === Гражданские (CivilianNC) ===
+          NCCitizen: [-1, -1]
+          EdgeRunnerSolo: [2, 2]
+          Fixer: [1, 1]
+          Reaper: [1, 1]
+          CafeOwner: [1, 1]
+          RestaurantOwner: [1, 1]
+          # === NCPD ===
+          NCPDChief: [1, 1]
+          NCPDCommander: [1, 1]
+          NCPDLieutenant: [2, 2]
+          NCPDInspector: [1, 1]
+          NCPDSergeant: [5, 5]
+          NCPDOfficer: [5, 5]
+          # === NCPD MaxTac ===
+          MaxTacCommander: [1, 1]
+          MaxTacEraser: [2, 2]
+          # === Trauma Team ===
+          TraumaTeamChief: [1, 1]
+          TraumaTeamDoctor: [3, 3]
+          TraumaTeamParamedic: [1, 1]
+          TraumaTeamOperative: [2, 2]
+          TraumaTeamCoroner: [1, 1]
+          TraumaTeamPsych: [1, 1]
+          TraumaTeamIntern: [5, 5]
+          # === Biotechnica ===
+          BiotechnicaChief: [1, 1]
+          BiotechnicaOperativeLead: [1, 1]
+          BiotechnicaOperative: [5, 5]
+          BiotechnicaMedTech: [2, 2]
+          BiotechnicaTech: [2, 2]
+          BiotechnicaBotanist: [1, 1]
+          # === Militech ===
+          MilitechChief: [1, 1]
+          MilitechOperativeLead: [1, 1]
+          MilitechOperative: [5, 5]
+          MilitechNetrunner: [1, 1]
+          MilitechSecuritySpecialist: [2, 2]
+          MilitechCombatMedic: [2, 2]
+          MilitechTech: [2, 2]
+          MilitechQuartermaster: [1, 1]
+          # === Zhirafa ===
+          ZhirafaJanitor: [3, 3]

@@ -1,0 +1,35 @@
+- type: job
+  id: TraumaTeamParamedic
+  name: job-name-trauma-team-paramedic
+  description: job-description-trauma-team-paramedic
+  playTimeTracker: JobTraumaTeamParamedic
+  weight: 70
+  salary: 350
+  icon: "JobIconTraumaParamed"
+  startingGear: TraumaTeamParamedicGear
+  supervisors: Главный врач Trauma Team
+  access:
+    - Trauma_Medical
+    - Trauma_Morgue
+    - Trauma_Hangar
+    - Trauma_Operative
+    - NC_General
+  special:
+  - !type:AddComponentSpecial
+    components:
+    - type: MapBeacon
+      group: TraumaTeam
+      color: "#4bdc99"
+      icon: /Textures/_NC/Interface/Misc/job_icons.rsi/trauma.png
+      visibleInWorld: false
+
+- type: startingGear
+  id: TraumaTeamParamedicGear
+  equipment:
+    jumpsuit: ClothingUniformJumpsuitParamedicUniform
+    back: ClothingBackpackSatchelMedical
+    shoes: ClothingShoesBootsCombat
+    eyes: ClothingEyesHudMedSec
+    id: TraumaTeamParamedicPDA
+    belt: ClothingBeltMedicalEMTFilled
+    outerClothing: ClothingOuterHardsuitTraumaTeamMedic

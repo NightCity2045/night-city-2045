@@ -77,13 +77,13 @@
     state: box
   objectType: Item
 
-- type: construction
-  name: coffin
-  id: CrateCoffin
-  graph: CrateCoffin
-  startNode: start
-  targetNode: cratecoffin
-  category: construction-category-storage
-  description: A coffin for storing corpses.
-  icon: { sprite: Structures/Storage/Crates/coffin.rsi, state: base }
-  objectType: Structure
+# - type: construction
+#   name: coffin
+#   id: CrateCoffin
+#   graph: CrateCoffin
+#   startNode: start
+#   targetNode: cratecoffin
+#   category: construction-category-storage
+#   description: A coffin for storing corpses.
+#   icon: { sprite: Structures/Storage/Crates/coffin.rsi, state: base }
+#   objectType: Structure

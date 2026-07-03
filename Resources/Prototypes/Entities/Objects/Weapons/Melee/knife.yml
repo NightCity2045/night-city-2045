@@ -67,7 +67,6 @@
     angle: 225
   - type: Item
     sprite: Objects/Weapons/Melee/kitchen_knife.rsi
-    storedRotation: -50 # WD EDIT
   - type: GuideHelp
     guides:
     - Chef
@@ -191,7 +190,6 @@
     angle: 225
   - type: Item
     sprite: Objects/Weapons/Melee/kukri_knife.rsi
-    storedRotation: -45 # WD EDIT
     storedSprite: null
 
 - type: entity
@@ -260,7 +258,6 @@
     angle: 200
   - type: Item
     sprite: Objects/Weapons/Melee/shiv.rsi
-    storedRotation: -24 # WD EDIT
   - type: DisarmMalus
     malus: 0.5 # WD EDIT: 0.225 -> 0.5
 
@@ -350,6 +347,5 @@
         Piercing: 15
   - type: Item
     sprite: Objects/Weapons/Melee/throwing_knife.rsi
-    storedRotation: -45 # WD EDIT
   - type: ThrowingAngle
     angle: 225

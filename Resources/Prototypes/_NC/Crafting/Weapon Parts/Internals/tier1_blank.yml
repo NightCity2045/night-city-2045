@@ -1,0 +1,21 @@
+# ==========================================
+# МЕХАНИЗМЫ И ЗАТВОРЫ (INTERNALS)
+# ==========================================
+
+- type: entity
+  id: NCBlankInternalsScrap
+  name: ent-NCBlankInternalsScrap
+  description: ent-NCBlankInternals-desc
+  parent: BaseItem
+  components:
+    - type: Sprite
+      sprite: Objects/Misc/stock_parts.rsi
+      state: micro_mani
+    - type: NCWeaponBlank
+      safeZoneHalf: 0.15
+      toleranceTime: 1.5
+      progressSpeed: 0.04
+      resultEntity: NCProcessedInternalsT1
+      anomalies:
+        0.40: HeatSpike
+        0.80: IntegrityDrop

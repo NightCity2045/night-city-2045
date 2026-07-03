@@ -3,6 +3,8 @@ using Content.Server.Damage.Systems;
 using Content.Server.Destructible;
 using Content.Server.Effects;
 using Content.Server.Weapons.Ranged.Systems;
+using Content.Shared._Shitmed.Targeting;
+using Content.Shared.Body.Systems;
 using Content.Shared.Camera;
 using Content.Shared.Damage;
 using Content.Shared.Damage.Events;
@@ -14,7 +16,6 @@ using Robust.Shared.Physics.Events;
 using Robust.Shared.Physics.Systems;
 using Robust.Shared.Player;
 using Robust.Shared.Utility;
-using Robust.Shared.Random;
 
 namespace Content.Server.Projectiles;
 
@@ -25,9 +26,9 @@ public sealed class ProjectileSystem : SharedProjectileSystem
     [Dependency] private readonly DamageableSystem _damageableSystem = default!;
     [Dependency] private readonly DestructibleSystem _destructibleSystem = default!;
     [Dependency] private readonly GunSystem _guns = default!;
+    [Dependency] private readonly SharedBodySystem _body = default!;
     [Dependency] private readonly SharedCameraRecoilSystem _sharedCameraRecoil = default!;
     [Dependency] private readonly SharedPhysicsSystem _physics = default!;
-    [Dependency] private readonly IRobustRandom _random = default!; // WWDP edit
 
     public override void Initialize()
     {
@@ -56,7 +57,8 @@ public sealed class ProjectileSystem : SharedProjectileSystem
             return;
         }
 
-        var ev = new ProjectileHitEvent(component.Damage, target, component.Shooter);
+        var targetPart = ResolveProjectileTargetPart(target, component.Shooter);
+        var ev = new ProjectileHitEvent(component.Damage, target, component.Shooter, targetPart);
         RaiseLocalEvent(uid, ref ev);
 
         var otherName = ToPrettyString(target);
@@ -66,7 +68,14 @@ public sealed class ProjectileSystem : SharedProjectileSystem
             damageRequired -= damageableComponent.TotalDamage;
             damageRequired = FixedPoint2.Max(damageRequired, FixedPoint2.Zero);
         }
-        var modifiedDamage = _damageableSystem.TryChangeDamage(target, ev.Damage, component.IgnoreResistances, damageable: damageableComponent, origin: component.Shooter);
+        var modifiedDamage = _damageableSystem.TryChangeDamage(
+            target,
+            ev.Damage,
+            component.IgnoreResistances,
+            damageable: damageableComponent,
+            origin: component.Shooter,
+            targetPart: ev.TargetPart,
+            damageSource: uid);
         var deleted = Deleted(target);
 
         if (modifiedDamage is not null && EntityManager.EntityExists(component.Shooter))
@@ -117,13 +126,10 @@ public sealed class ProjectileSystem : SharedProjectileSystem
         }
         else
         {
-            // Goobstation start - Enhanced penetration with limits
-            if (component.Penetrate
-                && component.IgnoredEntities.Count < component.MaxPenetrations
-                && (component.PenetrationChance >= 1.0f
-                    || _random.Prob(component.PenetrationChance)))
+            // Goobstation start
+            if (component.Penetrate)
                 component.IgnoredEntities.Add(target);
-else
+            else
                 component.ProjectileSpent = true;
             // Goobstation end
         }
@@ -168,9 +174,31 @@ else
     // WD EDIT START
     private void OnEmbed(EntityUid uid, EmbeddableProjectileComponent component, ref EmbedEvent args)
     {
-        var dmg = _damageableSystem.TryChangeDamage(args.Embedded, component.Damage, origin: args.Shooter);
+        var dmg = _damageableSystem.TryChangeDamage(
+            args.Embedded,
+            component.Damage,
+            origin: args.Shooter,
+            targetPart: args.BodyPart,
+            damageSource: uid);
         if (dmg is { Empty: false })
             _color.RaiseEffect(Color.Red, new List<EntityUid>() { args.Embedded }, Filter.Pvs(args.Embedded, entityManager: EntityManager));
     }
     // WD EDIT END
+
+    /// <summary>
+    /// Layered armor needs a concrete hit zone. Prefer the shooter's selected target,
+    /// otherwise fall back to the target's weighted random body part or torso.
+    /// </summary>
+    private TargetBodyPart ResolveProjectileTargetPart(EntityUid target, EntityUid? shooter)
+    {
+        if (shooter is { } shooterUid
+            && TryComp<TargetingComponent>(shooterUid, out var shooterTargeting))
+            return shooterTargeting.Target;
+
+        if (TryComp<TargetingComponent>(target, out var targetTargeting)
+            && _body.GetRandomBodyPart(target, targetTargeting) is { } randomPart)
+            return randomPart;
+
+        return TargetBodyPart.Torso;
+    }
 }

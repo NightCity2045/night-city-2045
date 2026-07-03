@@ -4,21 +4,58 @@
     HandheldHealthAnalyzer: 3
     Brutepack: 5
     Ointment: 5
+    Gauze: 3
+    RegenerativeMesh: 2
+    MedicatedSuture: 2
+    PainMedipen: 3
     MedicalPatchPrefilledBicaridine: 3  #Goobstation - MedicalPatches
     MedicalPatchPrefilledDermaline: 3   #Goobstation - MedicalPatches
     Bloodpack: 5
     EpinephrineChemistryBottle: 3
     Syringe: 5
-    Defibrillator: 1 # WD EDIT: Portafib -> Defibrillator
+    Defibrillator: 3 # WD EDIT: Portafib -> Defibrillator
+    CartridgeEpinephrine: 2
+    CartridgeAtropine: 2
     # WD EDIT START
     #ClothingEyesGlasses: 5
     #ClothingEyesHudMedical: 2
     #ClothingEyesEyepatchHudMedical: 2
     # WD EDIT END
-    ParamedHypo: 2 #Goobstation - ParamedHypo
     EmergencyRollerBedSpawnFolded: 1 # WD EDIT
     VehicleWheelchairFolded: 3 # Goobstation - Vehicles
+    SyringeCase: 3
+    BoxSyringe: 2
+    EmergencyMedipen: 3
+    PowerCellMedium: 2
+    RollerBedSpawnFolded: 2
+  #NC EDIT START
+  startingItemPrices:
+    HandheldHealthAnalyzer: 150
+    Brutepack: 30
+    Ointment: 30
+    Gauze: 10
+    RegenerativeMesh: 50
+    MedicatedSuture: 50
+    PainMedipen: 80
+    MedicalPatchPrefilledBicaridine: 80
+    MedicalPatchPrefilledDermaline: 80
+    Bloodpack: 60
+    EpinephrineChemistryBottle: 100
+    Syringe: 10
+    Defibrillator: 500
+    CartridgeEpinephrine: 150
+    CartridgeAtropine: 150
+    SyringeCase: 25
+    BoxSyringe: 50
+    EmergencyMedipen: 100
+    PowerCellMedium: 80
+    RollerBedSpawnFolded: 200
+    EmergencyRollerBedSpawnFolded: 200
+    VehicleWheelchairFolded: 300
+  #NC EDIT END
   # WD EDIT START
   emaggedInventory:
     StimpackMini: 1
+  emaggedItemPrices:
+    StimpackMini: 800
   # WD EDIT END

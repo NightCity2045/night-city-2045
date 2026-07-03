@@ -24,6 +24,10 @@
     maxBonusAngle: 30
     defaultDirection: 1, 0
     # WD EDIT END
+  - type: SlowOnShoot
+    walkModifier: 0.5
+    sprintModifier: 0.5
+    duration: 0.5
   - type: StaticPrice
     price: 500
   # No chamber because HMG may want its own

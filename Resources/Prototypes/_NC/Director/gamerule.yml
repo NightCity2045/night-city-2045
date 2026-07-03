@@ -1,0 +1,10 @@
+- type: entity
+  id: GlobalDirector
+  parent: BaseGameRule
+  components:
+  - type: GlobalDirector
+    minDelay: 180
+    maxDelay: 360
+    minPlayers: 1
+    maxConcurrentEvents: 2
+    roundStartDelay: 300

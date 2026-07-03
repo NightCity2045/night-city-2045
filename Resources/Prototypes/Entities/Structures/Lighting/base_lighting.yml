@@ -112,7 +112,7 @@
     containers:
       light_bulb: !type:ContainerSlot
   - type: ApcPowerReceiver
-  - type: ExtensionCableReceiver
+  - type: LogicPowerReceiver
   - type: DeviceNetwork
     deviceNetId: Wireless
     receiveFrequencyId: SmartLight
@@ -332,7 +332,7 @@
   - type: PoweredLight
     bulb: Bulb
   - type: ApcPowerReceiver
-  - type: ExtensionCableReceiver
+  - type: LogicPowerReceiver
   - type: DeviceNetwork
     deviceNetId: Wireless
     receiveFrequencyId: SmartLight
@@ -453,7 +453,7 @@
     color: "#7CFC00"
     mask: /Textures/Effects/LightMasks/double_cone.png
   - type: ApcPowerReceiver
-  - type: ExtensionCableReceiver
+  - type: LogicPowerReceiver
   - type: Battery
     maxCharge: 30000
     startingCharge: 0

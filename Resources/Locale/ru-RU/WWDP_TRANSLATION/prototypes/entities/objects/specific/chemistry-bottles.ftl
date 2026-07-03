@@ -1,43 +1,111 @@
 ent-BaseChemistryEmptyBottle = бутылочка
     .desc = Маленькая бутылочка.
-    .suffix = { "" }
+    .suffix = НЕ МАППИТЬ
 
-ent-ChemistryEmptyBottle01 = бутылочка
+ent-ChemistryEmptyBottle01 = { ent-BaseChemistryEmptyBottle }
     .desc = { ent-BaseChemistryEmptyBottle.desc }
-    .suffix = { "" }
+    .suffix = Пустая 1
 
-ent-ChemistryEmptyBottle02 = бутылочка
+ent-ChemistryEmptyBottle02 = { ent-BaseChemistryEmptyBottle }
     .desc = { ent-BaseChemistryEmptyBottle.desc }
-    .suffix = { "" }
+    .suffix = Пустая 2
 
-ent-ChemistryEmptyBottle03 = бутылочка
+ent-ChemistryEmptyBottle03 = { ent-BaseChemistryEmptyBottle }
     .desc = { ent-BaseChemistryEmptyBottle.desc }
-    .suffix = { "" }
+    .suffix = Пустая 3
 
-ent-ChemistryEmptyBottle04 = бутылочка
+ent-ChemistryEmptyBottle04 = { ent-BaseChemistryEmptyBottle }
     .desc = { ent-BaseChemistryEmptyBottle.desc }
-    .suffix = { "" }
+    .suffix = Пустая 4
 
-ent-EpinephrineChemistryBottle = бутылочка эпинефрина
+ent-CognizineChemistryBottle = { ent-BaseChemistryEmptyBottle }
     .desc = { ent-BaseChemistryEmptyBottle.desc }
-    .suffix = { "" }
+    .suffix = { reagent-name-cognizine }
 
-ent-RobustHarvestChemistryBottle = бутылочка robust harvest
+ent-EpinephrineChemistryBottle = { ent-BaseChemistryEmptyBottle }
+    .desc = { ent-BaseChemistryEmptyBottle.desc }
+    .suffix = { reagent-name-epinephrine }
+
+ent-EZNutrientChemistryBottle = { ent-BaseChemistryEmptyBottle }
+    .desc = Это добавит питательных веществ в лоток.
+    .suffix = { reagent-name-e-z-nutrient }
+
+ent-RobustHarvestChemistryBottle = { ent-BaseChemistryEmptyBottle }
     .desc = Это повысит потенцию ваших растений.
-    .suffix = { "" }
+    .suffix = { reagent-name-robust-harvest }
 
-ent-UnstableMutagenChemistryBottle = бутылочка нестабильного мутагена
+ent-UnstableMutagenChemistryBottle = { ent-BaseChemistryEmptyBottle }
     .desc = Это вызовет быструю мутацию ваших растений.
-    .suffix = { "" }
+    .suffix = { reagent-name-unstable-mutagen }
 
-ent-NocturineChemistryBottle = бутылочка ноктюрина
+ent-NocturineChemistryBottle = { ent-BaseChemistryEmptyBottle }
     .desc = Это заставит любого упасть практически сразу. Сложно вызвать передозировку.
-    .suffix = { "" }
+    .suffix = { reagent-name-nocturine }
 
-ent-EphedrineChemistryBottle = бутылочка эфедрина
+ent-EphedrineChemistryBottle = { ent-BaseChemistryEmptyBottle }
     .desc = { ent-BaseChemistryEmptyBottle.desc }
-    .suffix = { "" }
+    .suffix = { reagent-name-ephedrine }
 
-ent-OmnizineChemistryBottle = бутылочка омнизина
+ent-OmnizineChemistryBottle = { ent-BaseChemistryEmptyBottle }
     .desc = { ent-BaseChemistryEmptyBottle.desc }
-    .suffix = { "" }
+    .suffix = { reagent-name-omnizine }
+
+ent-ToxinChemistryBottle = { ent-BaseChemistryEmptyBottle }
+    .desc = { ent-BaseChemistryEmptyBottle.desc }
+    .suffix = { reagent-name-toxin }
+
+ent-EthanolChemistryBottle = { ent-BaseChemistryEmptyBottle }
+    .desc = { ent-BaseChemistryEmptyBottle.desc }
+    .suffix = { reagent-name-ethanol }
+
+ent-HydrogenChemistryBottle = { ent-BaseChemistryEmptyBottle }
+    .desc = { ent-BaseChemistryEmptyBottle.desc }
+    .suffix = { reagent-name-hydrogen }
+
+ent-LeadChemistryBottle = { ent-BaseChemistryEmptyBottle }
+    .desc = { ent-BaseChemistryEmptyBottle.desc }
+    .suffix = { reagent-name-lead }
+
+ent-Left4ZedChemistryBottle = { ent-BaseChemistryEmptyBottle }
+    .desc = { ent-BaseChemistryEmptyBottle.desc }
+    .suffix = { reagent-name-left4-zed }
+
+ent-MercuryChemistryBottle = { ent-BaseChemistryEmptyBottle }
+    .desc = { ent-BaseChemistryEmptyBottle.desc }
+    .suffix = { reagent-name-mercury }
+
+ent-MorphineChemistryBottle = { ent-BaseChemistryEmptyBottle }
+    .desc = { ent-BaseChemistryEmptyBottle.desc }
+    .suffix = { reagent-name-morphine }
+
+ent-MuteToxinChemistryBottle = { ent-BaseChemistryEmptyBottle }
+    .desc = { ent-BaseChemistryEmptyBottle.desc }
+    .suffix = { reagent-name-mute-toxin }
+
+ent-NapalmChemistryBottle = { ent-BaseChemistryEmptyBottle }
+    .desc = { ent-BaseChemistryEmptyBottle.desc }
+    .suffix = { reagent-name-napalm }
+
+ent-NecrosolChemistryBottle = { ent-BaseChemistryEmptyBottle }
+    .desc = { ent-BaseChemistryEmptyBottle.desc }
+    .suffix = { reagent-name-necrosol }
+
+ent-NitrogenChemistryBottle = { ent-BaseChemistryEmptyBottle }
+    .desc = { ent-BaseChemistryEmptyBottle.desc }
+    .suffix = { reagent-name-nitrogen }
+
+ent-PaxChemistryBottle = { ent-BaseChemistryEmptyBottle }
+    .desc = { ent-BaseChemistryEmptyBottle.desc }
+    .suffix = { reagent-name-pax }
+
+ent-PhosphorusChemistryBottle = { ent-BaseChemistryEmptyBottle }
+    .desc = { ent-BaseChemistryEmptyBottle.desc }
+    .suffix = { reagent-name-phosphorus }
+
+ent-PotassiumChemistryBottle = { ent-BaseChemistryEmptyBottle }
+    .desc = { ent-BaseChemistryEmptyBottle.desc }
+    .suffix = { reagent-name-potassium }
+
+ent-UltravasculineChemistryBottle = { ent-BaseChemistryEmptyBottle }
+    .desc = { ent-BaseChemistryEmptyBottle.desc }
+    .suffix = { reagent-name-ultravasculine }

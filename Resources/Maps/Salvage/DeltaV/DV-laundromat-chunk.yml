@@ -4603,14 +4603,6 @@ entities:
     - type: Transform
       pos: -4.5,8.5
       parent: 1
-- proto: SchoolgirlUniformSpawner
-  entities:
-  - uid: 339
-    components:
-    - type: Transform
-      rot: 3.141592653589793 rad
-      pos: 7.5,10.5
-      parent: 1
 - proto: ShardGlass
   entities:
   - uid: 734

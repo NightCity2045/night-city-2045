@@ -1,10 +1,10 @@
 # Nouns
-# Nouns
+
 seeds-noun-seeds = семян
 seeds-noun-spores = спор
 
 # Seeds
-# Seeds
+
 seeds-wheat-name = пшеница
 seeds-wheat-display-name = стебли пшеницы
 seeds-meatwheat-name = мясница
@@ -37,8 +37,8 @@ seeds-potato-name = картофель
 seeds-potato-display-name = картофель
 seeds-sugarcane-name = сахарный тростник
 seeds-sugarcane-display-name = сахарный тростник
-seeds-teaplant-name = чайное растение
-seeds-teaplant-display-name = чайные растения
+seeds-teaplant-name = tea plant
+seeds-teaplant-display-name = tea plants
 seeds-papercane-name = бумажный тростник
 seeds-papercane-display-name = бумажный тростник
 seeds-towercap-name = грибошляпник
@@ -51,8 +51,8 @@ seeds-bluetomato-name = синий томат
 seeds-bluetomato-display-name = куст синего томата
 seeds-bloodtomato-name = кровяной томат
 seeds-bloodtomato-display-name = куст кровяного томата
-seeds-killertomato-name = помидор-убийца
-seeds-killertomato-display-name = растения помидора-убийцы
+seeds-killertomato-name = томат-убийца
+seeds-killertomato-display-name = куст томата-убийцы
 seeds-eggplant-name = баклажан
 seeds-eggplant-display-name = баклажан
 seeds-apple-name = яблоко
@@ -108,11 +108,11 @@ seeds-gatfruit-display-name = гатфруктовое дерево
 seeds-rice-name = рис
 seeds-rice-display-name = стебли риса
 seeds-soybeans-name = соя
-seeds-soybeans-display-name = соя
+seeds-soybeans-display-name = соевое дерево
 seeds-spacemans-trumpet-name = космонавтская труба
 seeds-spacemans-trumpet-display-name = космонавтская труба
 seeds-koibean-name = коибобы
-seeds-koibean-display-name = растение коибоб
+seeds-koibean-display-name = коибобовое дерево
 seeds-watermelon-name = арбуз
 seeds-watermelon-display-name = стебель арбуза
 seeds-holymelon-name = святой арбуз
@@ -130,16 +130,16 @@ seeds-pea-display-name = гороховая лоза
 seeds-worldpea-name = горох мира
 seeds-worldpea-display-name = лоза гороха мира
 seeds-pumpkin-name = тыква
-seeds-pumpkin-display-name = тыква
-seeds-blue-pumpkin-name = голубая тыква
-seeds-blue-pumpkin-display-name = голубые тыквы
+seeds-pumpkin-display-name = стебель тыквы
+seeds-blue-pumpkin-name = синетыква
+seeds-blue-pumpkin-display-name = стебель синетыквы
 seeds-cotton-name = хлопок
 seeds-cotton-display-name = куст хлопка
-seeds-pyrotton-name = пирохлопок
-seeds-pyrotton-display-name = куст пирохлопка
+seeds-pyrotton-name = огненный хлопок
+seeds-pyrotton-display-name = куст огненного хлопка
 seeds-capfruit-name = пистофрукт
 seeds-capfruit-display-name = пистофруктовое дерево
 seeds-cherry-name = вишня
 seeds-cherry-display-name = вишнёвое дерево
-seeds-anomaly-berry-name = аномальные ягоды
-seeds-anomaly-berry-display-name = аномальные ягоды
+seeds-anomaly-berry-name = аномальная ягода
+seeds-anomaly-berry-display-name = аномальная ягода

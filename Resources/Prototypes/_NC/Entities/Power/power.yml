@@ -1,0 +1,7 @@
+- type: entity
+  id: ClothingEyesGlassesMesonAR
+  parent: ClothingEyesGlassesMeson
+  name: ent-ClothingEyesGlassesMesonAR
+  description: ent-ClothingEyesGlassesMesonAR-desc
+  components:
+  - type: ARPowerVisor

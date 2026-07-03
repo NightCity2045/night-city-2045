@@ -1,0 +1,27 @@
+- type: job
+  id: TraumaTeamIntern
+  name: job-name-trauma-team-intern
+  description: job-description-trauma-team-intern
+  playTimeTracker: JobTraumaTeamIntern
+  weight: 20
+  salary: 170
+  icon: "JobIconTraumaIntern"
+  startingGear: TraumaTeamInternGear
+  supervisors: Главный врач Trauma Team, Ваш наставник и прочие сотрудники Trauma Team
+  access:
+    - Trauma_Medical
+    - NC_General
+  special:
+  - !type:AddComponentSpecial
+    components:
+    - type: TraumaSubscriber
+      tier: Bronze
+
+- type: startingGear
+  id: TraumaTeamInternGear
+  equipment:
+    jumpsuit: ClothingUniformJumpsuitMedicalBlue
+    back: ClothingBackpackMedical
+    shoes: ClothingShoesColorWhite
+    id: TraumaTeamInternPDA
+    belt: ClothingBeltMedicalFilled

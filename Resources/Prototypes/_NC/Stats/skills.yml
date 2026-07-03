@@ -1,0 +1,482 @@
+- type: ncSkill
+  id: Athletics
+  nameKey: nc-skill-athletics-name
+  descriptionKey: nc-skill-athletics-description
+  categoryKey: nc-skill-category-body
+  governingStat: Body
+  mandatoryForCharacters: true
+  defaultBaseValue: 0
+
+- type: ncSkill
+  id: Brawling
+  nameKey: nc-skill-brawling-name
+  descriptionKey: nc-skill-brawling-description
+  categoryKey: nc-skill-category-fighting
+  governingStat: Body
+  mandatoryForCharacters: true
+  defaultBaseValue: 0
+
+- type: ncSkill
+  id: Concentration
+  nameKey: nc-skill-concentration-name
+  descriptionKey: nc-skill-concentration-description
+  categoryKey: nc-skill-category-awareness
+  governingStat: Will
+  mandatoryForCharacters: true
+  defaultBaseValue: 0
+
+- type: ncSkill
+  id: Conversation
+  nameKey: nc-skill-conversation-name
+  descriptionKey: nc-skill-conversation-description
+  categoryKey: nc-skill-category-social
+  governingStat: Cool
+  mandatoryForCharacters: true
+  defaultBaseValue: 0
+
+- type: ncSkill
+  id: Education
+  nameKey: nc-skill-education-name
+  descriptionKey: nc-skill-education-description
+  categoryKey: nc-skill-category-education
+  governingStat: Intelligence
+  mandatoryForCharacters: true
+  defaultBaseValue: 0
+
+- type: ncSkill
+  id: Evasion
+  nameKey: nc-skill-evasion-name
+  descriptionKey: nc-skill-evasion-description
+  categoryKey: nc-skill-category-fighting
+  governingStat: Dexterity
+  mandatoryForCharacters: true
+  defaultBaseValue: 0
+
+- type: ncSkill
+  id: FirstAid
+  nameKey: nc-skill-firstaid-name
+  descriptionKey: nc-skill-firstaid-description
+  categoryKey: nc-skill-category-technique
+  governingStat: Technique
+  mandatoryForCharacters: true
+  defaultBaseValue: 0
+
+- type: ncSkill
+  id: HumanPerception
+  nameKey: nc-skill-humanperception-name
+  descriptionKey: nc-skill-humanperception-description
+  categoryKey: nc-skill-category-social
+  governingStat: Empathy
+  mandatoryForCharacters: true
+  defaultBaseValue: 0
+
+- type: ncSkill
+  id: Perception
+  nameKey: nc-skill-perception-name
+  descriptionKey: nc-skill-perception-description
+  categoryKey: nc-skill-category-awareness
+  governingStat: Intelligence
+  mandatoryForCharacters: true
+  defaultBaseValue: 0
+
+- type: ncSkill
+  id: Persuasion
+  nameKey: nc-skill-persuasion-name
+  descriptionKey: nc-skill-persuasion-description
+  categoryKey: nc-skill-category-social
+  governingStat: Cool
+  mandatoryForCharacters: true
+  defaultBaseValue: 0
+
+- type: ncSkill
+  id: Stealth
+  nameKey: nc-skill-stealth-name
+  descriptionKey: nc-skill-stealth-description
+  categoryKey: nc-skill-category-body
+  governingStat: Dexterity
+  mandatoryForCharacters: true
+  defaultBaseValue: 0
+
+- type: ncSkill
+  id: ConcealRevealObject
+  nameKey: nc-skill-concealrevealobject-name
+  descriptionKey: nc-skill-concealrevealobject-description
+  categoryKey: nc-skill-category-awareness
+  governingStat: Intelligence
+
+- type: ncSkill
+  id: LipReading
+  nameKey: nc-skill-lipreading-name
+  descriptionKey: nc-skill-lipreading-description
+  categoryKey: nc-skill-category-awareness
+  governingStat: Intelligence
+
+- type: ncSkill
+  id: Tracking
+  nameKey: nc-skill-tracking-name
+  descriptionKey: nc-skill-tracking-description
+  categoryKey: nc-skill-category-awareness
+  governingStat: Intelligence
+
+- type: ncSkill
+  id: Contortionist
+  nameKey: nc-skill-contortionist-name
+  descriptionKey: nc-skill-contortionist-description
+  categoryKey: nc-skill-category-body
+  governingStat: Dexterity
+
+- type: ncSkill
+  id: Dance
+  nameKey: nc-skill-dance-name
+  descriptionKey: nc-skill-dance-description
+  categoryKey: nc-skill-category-body
+  governingStat: Dexterity
+
+- type: ncSkill
+  id: Endurance
+  nameKey: nc-skill-endurance-name
+  descriptionKey: nc-skill-endurance-description
+  categoryKey: nc-skill-category-body
+  governingStat: Will
+
+- type: ncSkill
+  id: ResistTortureDrugs
+  nameKey: nc-skill-resisttorturedrugs-name
+  descriptionKey: nc-skill-resisttorturedrugs-description
+  categoryKey: nc-skill-category-body
+  governingStat: Will
+
+- type: ncSkill
+  id: DriveLandVehicle
+  nameKey: nc-skill-drivelandvehicle-name
+  descriptionKey: nc-skill-drivelandvehicle-description
+  categoryKey: nc-skill-category-control
+  governingStat: Reflexes
+
+- type: ncSkill
+  id: PilotAirVehicle
+  nameKey: nc-skill-pilotairvehicle-name
+  descriptionKey: nc-skill-pilotairvehicle-description
+  categoryKey: nc-skill-category-control
+  governingStat: Reflexes
+  costMultiplier: 2
+
+- type: ncSkill
+  id: PilotSeaVehicle
+  nameKey: nc-skill-pilotseavehicle-name
+  descriptionKey: nc-skill-pilotseavehicle-description
+  categoryKey: nc-skill-category-control
+  governingStat: Reflexes
+
+- type: ncSkill
+  id: Accounting
+  nameKey: nc-skill-accounting-name
+  descriptionKey: nc-skill-accounting-description
+  categoryKey: nc-skill-category-education
+  governingStat: Intelligence
+
+- type: ncSkill
+  id: AnimalHandling
+  nameKey: nc-skill-animalhandling-name
+  descriptionKey: nc-skill-animalhandling-description
+  categoryKey: nc-skill-category-education
+  governingStat: Intelligence
+
+- type: ncSkill
+  id: Bureaucracy
+  nameKey: nc-skill-bureaucracy-name
+  descriptionKey: nc-skill-bureaucracy-description
+  categoryKey: nc-skill-category-education
+  governingStat: Intelligence
+
+- type: ncSkill
+  id: Business
+  nameKey: nc-skill-business-name
+  descriptionKey: nc-skill-business-description
+  categoryKey: nc-skill-category-education
+  governingStat: Intelligence
+
+- type: ncSkill
+  id: Composition
+  nameKey: nc-skill-composition-name
+  descriptionKey: nc-skill-composition-description
+  categoryKey: nc-skill-category-education
+  governingStat: Intelligence
+
+- type: ncSkill
+  id: Criminology
+  nameKey: nc-skill-criminology-name
+  descriptionKey: nc-skill-criminology-description
+  categoryKey: nc-skill-category-education
+  governingStat: Intelligence
+
+- type: ncSkill
+  id: Cryptography
+  nameKey: nc-skill-cryptography-name
+  descriptionKey: nc-skill-cryptography-description
+  categoryKey: nc-skill-category-education
+  governingStat: Intelligence
+
+- type: ncSkill
+  id: Deduction
+  nameKey: nc-skill-deduction-name
+  descriptionKey: nc-skill-deduction-description
+  categoryKey: nc-skill-category-education
+  governingStat: Intelligence
+
+- type: ncSkill
+  id: Gamble
+  nameKey: nc-skill-gamble-name
+  descriptionKey: nc-skill-gamble-description
+  categoryKey: nc-skill-category-education
+  governingStat: Intelligence
+
+- type: ncSkill
+  id: Language
+  nameKey: nc-skill-language-name
+  descriptionKey: nc-skill-language-description
+  categoryKey: nc-skill-category-education
+  governingStat: Intelligence
+
+- type: ncSkill
+  id: LibrarySearch
+  nameKey: nc-skill-librarysearch-name
+  descriptionKey: nc-skill-librarysearch-description
+  categoryKey: nc-skill-category-education
+  governingStat: Intelligence
+
+- type: ncSkill
+  id: LocalExpert
+  nameKey: nc-skill-localexpert-name
+  descriptionKey: nc-skill-localexpert-description
+  categoryKey: nc-skill-category-education
+  governingStat: Intelligence
+
+- type: ncSkill
+  id: Science
+  nameKey: nc-skill-science-name
+  descriptionKey: nc-skill-science-description
+  categoryKey: nc-skill-category-education
+  governingStat: Intelligence
+
+- type: ncSkill
+  id: Tactics
+  nameKey: nc-skill-tactics-name
+  descriptionKey: nc-skill-tactics-description
+  categoryKey: nc-skill-category-education
+  governingStat: Intelligence
+
+- type: ncSkill
+  id: WildernessSurvival
+  nameKey: nc-skill-wildernesssurvival-name
+  descriptionKey: nc-skill-wildernesssurvival-description
+  categoryKey: nc-skill-category-education
+  governingStat: Intelligence
+
+- type: ncSkill
+  id: MeleeWeapon
+  nameKey: nc-skill-meleeweapon-name
+  descriptionKey: nc-skill-meleeweapon-description
+  categoryKey: nc-skill-category-fighting
+  governingStat: Dexterity
+
+- type: ncSkill
+  id: MartialArts
+  nameKey: nc-skill-martialarts-name
+  descriptionKey: nc-skill-martialarts-description
+  categoryKey: nc-skill-category-fighting
+  governingStat: Dexterity
+  costMultiplier: 2
+
+- type: ncSkill
+  id: Autofire
+  nameKey: nc-skill-autofire-name
+  descriptionKey: nc-skill-autofire-description
+  categoryKey: nc-skill-category-ranged
+  governingStat: Reflexes
+  costMultiplier: 2
+
+- type: ncSkill
+  id: Archery
+  nameKey: nc-skill-archery-name
+  descriptionKey: nc-skill-archery-description
+  categoryKey: nc-skill-category-ranged
+  governingStat: Reflexes
+
+- type: ncSkill
+  id: Handgun
+  nameKey: nc-skill-handgun-name
+  descriptionKey: nc-skill-handgun-description
+  categoryKey: nc-skill-category-ranged
+  governingStat: Reflexes
+
+- type: ncSkill
+  id: HeavyWeapons
+  nameKey: nc-skill-heavyweapons-name
+  descriptionKey: nc-skill-heavyweapons-description
+  categoryKey: nc-skill-category-ranged
+  governingStat: Reflexes
+  costMultiplier: 2
+
+- type: ncSkill
+  id: ShoulderArms
+  nameKey: nc-skill-shoulderarms-name
+  descriptionKey: nc-skill-shoulderarms-description
+  categoryKey: nc-skill-category-ranged
+  governingStat: Reflexes
+
+- type: ncSkill
+  id: Acting
+  nameKey: nc-skill-acting-name
+  descriptionKey: nc-skill-acting-description
+  categoryKey: nc-skill-category-social
+  governingStat: Cool
+
+- type: ncSkill
+  id: Interrogation
+  nameKey: nc-skill-interrogation-name
+  descriptionKey: nc-skill-interrogation-description
+  categoryKey: nc-skill-category-social
+  governingStat: Cool
+
+- type: ncSkill
+  id: PersonalGrooming
+  nameKey: nc-skill-personalgrooming-name
+  descriptionKey: nc-skill-personalgrooming-description
+  categoryKey: nc-skill-category-social
+  governingStat: Cool
+
+- type: ncSkill
+  id: Streetwise
+  nameKey: nc-skill-streetwise-name
+  descriptionKey: nc-skill-streetwise-description
+  categoryKey: nc-skill-category-social
+  governingStat: Cool
+
+- type: ncSkill
+  id: Trading
+  nameKey: nc-skill-trading-name
+  descriptionKey: nc-skill-trading-description
+  categoryKey: nc-skill-category-social
+  governingStat: Cool
+
+- type: ncSkill
+  id: WardrobeStyle
+  nameKey: nc-skill-wardrobestyle-name
+  descriptionKey: nc-skill-wardrobestyle-description
+  categoryKey: nc-skill-category-social
+  governingStat: Cool
+
+- type: ncSkill
+  id: AirVehicleTech
+  nameKey: nc-skill-airvehicletech-name
+  descriptionKey: nc-skill-airvehicletech-description
+  categoryKey: nc-skill-category-technique
+  governingStat: Technique
+
+- type: ncSkill
+  id: BasicTech
+  nameKey: nc-skill-basictech-name
+  descriptionKey: nc-skill-basictech-description
+  categoryKey: nc-skill-category-technique
+  governingStat: Technique
+
+- type: ncSkill
+  id: Cybertech
+  nameKey: nc-skill-cybertech-name
+  descriptionKey: nc-skill-cybertech-description
+  categoryKey: nc-skill-category-technique
+  governingStat: Technique
+
+- type: ncSkill
+  id: Demolitions
+  nameKey: nc-skill-demolitions-name
+  descriptionKey: nc-skill-demolitions-description
+  categoryKey: nc-skill-category-technique
+  governingStat: Technique
+
+- type: ncSkill
+  id: ElectronicsSecurityTech
+  nameKey: nc-skill-electronicssecuritytech-name
+  descriptionKey: nc-skill-electronicssecuritytech-description
+  categoryKey: nc-skill-category-technique
+  governingStat: Technique
+  costMultiplier: 2
+
+- type: ncSkill
+  id: Forgery
+  nameKey: nc-skill-forgery-name
+  descriptionKey: nc-skill-forgery-description
+  categoryKey: nc-skill-category-technique
+  governingStat: Technique
+
+- type: ncSkill
+  id: LandVehicleTech
+  nameKey: nc-skill-landvehicletech-name
+  descriptionKey: nc-skill-landvehicletech-description
+  categoryKey: nc-skill-category-technique
+  governingStat: Technique
+
+- type: ncSkill
+  id: PaintDrawSculpt
+  nameKey: nc-skill-paintdrawsculpt-name
+  descriptionKey: nc-skill-paintdrawsculpt-description
+  categoryKey: nc-skill-category-technique
+  governingStat: Technique
+
+- type: ncSkill
+  id: Paramedic
+  nameKey: nc-skill-paramedic-name
+  descriptionKey: nc-skill-paramedic-description
+  categoryKey: nc-skill-category-technique
+  governingStat: Technique
+  costMultiplier: 2
+
+- type: ncSkill
+  id: PhotographyFilm
+  nameKey: nc-skill-photographyfilm-name
+  descriptionKey: nc-skill-photographyfilm-description
+  categoryKey: nc-skill-category-technique
+  governingStat: Technique
+
+- type: ncSkill
+  id: PickLock
+  nameKey: nc-skill-picklock-name
+  descriptionKey: nc-skill-picklock-description
+  categoryKey: nc-skill-category-technique
+  governingStat: Technique
+
+- type: ncSkill
+  id: PickPocket
+  nameKey: nc-skill-pickpocket-name
+  descriptionKey: nc-skill-pickpocket-description
+  categoryKey: nc-skill-category-technique
+  governingStat: Dexterity
+
+- type: ncSkill
+  id: SeaVehicleTech
+  nameKey: nc-skill-seavehicletech-name
+  descriptionKey: nc-skill-seavehicletech-description
+  categoryKey: nc-skill-category-technique
+  governingStat: Technique
+
+- type: ncSkill
+  id: Weaponstech
+  nameKey: nc-skill-weaponstech-name
+  descriptionKey: nc-skill-weaponstech-description
+  categoryKey: nc-skill-category-technique
+  governingStat: Technique
+  
+- type: ncSkill
+  id: Armorsmith
+  nameKey: nc-skill-armorsmith-name
+  descriptionKey: nc-skill-armorsmith-description
+  categoryKey: nc-skill-category-technique
+  governingStat: Technique
+
+- type: ncSkill
+  id: PlayInstrument
+  nameKey: nc-skill-playinstrument-name
+  descriptionKey: nc-skill-playinstrument-description
+  categoryKey: nc-skill-category-performance
+  governingStat: Technique

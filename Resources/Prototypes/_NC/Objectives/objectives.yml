@@ -1,0 +1,61 @@
+- type: entity
+  id: SurvivalObjective
+  parent: BaseObjective
+  components:
+  - type: Objective
+    issuer: objective-issuer-nightcity
+    difficulty: 0
+    icon:
+      sprite: Interface/Misc/health_icons.rsi
+      state: Fine
+    title: objective-survival-title
+    description: objective-survival-description
+  - type: SurviveCondition
+
+- type: entity
+  id: BiotechnicaBankObjective
+  parent: BaseObjective
+  components:
+  - type: Objective
+    issuer: objective-issuer-nightcity
+    difficulty: 1
+    icon:
+      sprite: Objects/Misc/bureaucracy.rsi
+      state: folder-white
+    title: objective-biotechnica-bank-title
+    description: objective-biotechnica-bank-description
+  - type: DepartmentBankCondition
+    bankAccount: Biotechnica
+    targetBalance: 100000
+
+- type: entity
+  id: TraumaTeamBankObjective
+  parent: BaseObjective
+  components:
+  - type: Objective
+    issuer: objective-issuer-nightcity
+    difficulty: 1
+    icon:
+      sprite: Objects/Misc/bureaucracy.rsi
+      state: folder-white
+    title: objective-traumateam-bank-title
+    description: objective-traumateam-bank-description
+  - type: DepartmentBankCondition
+    bankAccount: TraumaTeam
+    targetBalance: 100000
+
+- type: entity
+  id: NCPDBankObjective
+  parent: BaseObjective
+  components:
+  - type: Objective
+    issuer: objective-issuer-nightcity
+    difficulty: 1
+    icon:
+      sprite: Objects/Misc/bureaucracy.rsi
+      state: folder-white
+    title: objective-ncpd-bank-title
+    description: objective-ncpd-bank-description
+  - type: DepartmentBankCondition
+    bankAccount: Ncpd
+    targetBalance: 100000

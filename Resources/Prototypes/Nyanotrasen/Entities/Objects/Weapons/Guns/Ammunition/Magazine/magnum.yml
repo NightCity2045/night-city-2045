@@ -10,6 +10,7 @@
   - type: BallisticAmmoProvider
     whitelist:
       tags:
+      - Cartridge  # NC edit: Fix janitor stuff
       - CartridgeMagnum
     proto: CartridgeMagnum
     capacity: 12

@@ -1035,7 +1035,7 @@ public sealed partial class BiomeSystem : SharedBiomeSystem
         EnsureComp<LightCycleComponent>(mapUid);
 
         EnsureComp<SunShadowComponent>(mapUid);
-        EnsureComp<SunShadowCycleComponent>(mapUid);
+        // EnsureComp<SunShadowCycleComponent>(mapUid); // NC: Commented out to fix savemap serialization error (ValueTuples in component)
 
         var moles = new float[Atmospherics.AdjustedNumberOfGases];
         moles[(int) Gas.Oxygen] = 21.824779f;

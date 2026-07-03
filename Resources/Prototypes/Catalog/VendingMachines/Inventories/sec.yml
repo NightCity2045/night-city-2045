@@ -1,40 +1,100 @@
 - type: vendingMachineInventory
   id: SecTechInventory
   startingInventory:
-    SecurityWhistle: 5
-    Handcuffs: 8
-    WeaponSecurityRiotLauncher: 1
+    SecurityWhistle: 4
+    Handcuffs: 6
+    # WeaponSecurityRiotLauncher: 1
     GrenadeFlashBang: 4
-    GrenadeBarrier: 4 # WWDP
+    # GrenadeBarrier: 4 # WWDP
     TearGasGrenade: 4
-    ClusterBangFull: 2
+    # ClusterBangFull: 2
     GrenadeStinger: 4
-    Flash: 5
-    Tourniquet: 5
-    FlashlightSeclite: 5
-    HoloprojectorSecurity: 5 # WD - moved from Sec lockers
-    ClothingEyesGlassesSunglasses: 2
-    ClothingEyesGlassesSecurity: 2 # WD - SecHuds
+    # Flash: 5
+    Tourniquet: 6
+    FlashlightSeclite: 6
+    # HoloprojectorSecurity: 5 # WD - moved from Sec lockers
+    # ClothingEyesGlassesSunglasses: 2
+    # ClothingEyesGlassesSecurity: 2 # WD - SecHuds
     # ClothingEyesHudSecurity: 2 # WWDP remove bloat
     # ClothingEyesEyepatchHudSecurity: 2
-    ClothingBeltSecurityWebbing: 5
-    CombatKnife: 3
-    Truncheon: 2 # WWDP
-    Zipties: 12
-    BolaEnergy: 6
+    # ClothingBeltSecurityWebbing: 5
+    CombatKnife: 4
+    BoxZiptie: 2
+    Truncheon: 4 # WWDP
+    Zipties: 8
+    # BolaEnergy: 6
     RiotShield: 2
-    RiotLaserShield: 2
+    # RiotLaserShield: 2
     RiotBulletShield: 2
-    RadioHandheldSecurity: 5
+    # RadioHandheldSecurity: 5
     # WD - armor moved to SecDrobe
-    BreachingCharge: 4 # WWDP less boom boom
+    BreachingCharge: 2 # WWDP less boom boom
+    NcpdTablet: 50
+    NcpdCitationTerminal: 50
+  startingItemPrices:
+    # SecurityWhistle: 10
+    # Handcuffs: 20
+    # WeaponSecurityRiotLauncher: 500
+    # GrenadeFlashBang: 50
+    # GrenadeBarrier: 50
+    # TearGasGrenade: 50
+    # ClusterBangFull: 200
+    # GrenadeStinger: 50
+    # Flash: 20
+    # Tourniquet: 10
+    # FlashlightSeclite: 20
+    # HoloprojectorSecurity: 20
+    # ClothingEyesGlassesSunglasses: 20
+    # ClothingEyesGlassesSecurity: 100
+    # ClothingBeltSecurityWebbing: 50
+    # CombatKnife: 50
+    # Truncheon: 30
+    # Zipties: 10
+    # BolaEnergy: 50
+    # RiotShield: 100
+    # RiotLaserShield: 100
+    # RiotBulletShield: 100
+    # RadioHandheldSecurity: 50
+    # BreachingCharge: 100
+    SecurityWhistle: 20
+    Handcuffs: 100
+    WeaponSecurityRiotLauncher: 1250
+    GrenadeFlashBang: 250
+    GrenadeBarrier: 300
+    TearGasGrenade: 250
+    ClusterBangFull: 750
+    GrenadeStinger: 300
+    Flash: 150
+    Tourniquet: 50
+    FlashlightSeclite: 100
+    HoloprojectorSecurity: 400
+    ClothingEyesGlassesSunglasses: 100
+    ClothingEyesGlassesSecurity: 500
+    ClothingBeltSecurityWebbing: 250
+    CombatKnife: 200
+    Truncheon: 300
+    Zipties: 20
+    BolaEnergy: 450
+    RiotShield: 750
+    RiotLaserShield: 1100
+    RiotBulletShield: 1400
+    RadioHandheldSecurity: 200
+    BreachingCharge: 600
+    NcpdTablet: 100
+    NcpdCitationTerminal: 100
   # security officers need to follow a diet regimen!
   contrabandInventory:
     FoodDonutHomer: 12
     FoodBoxDonut: 2
+  contrabandItemPrices:
+    FoodDonutHomer: 40
+    FoodBoxDonut: 150
     #box evidence
   #WWDP edit start
   emaggedInventory:
     GrenadeShrapnel: 1
     EmpGrenade: 1
+  emaggedItemPrices:
+    GrenadeShrapnel: 800
+    EmpGrenade: 1000
   #WWDP edit end

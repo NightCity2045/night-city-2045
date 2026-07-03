@@ -8,9 +8,9 @@
 - type: ninjaHackingThreat
   id: Dragon
   announcement: terror-dragon
-  rule: DragonSpawn
+  rule: BaseGameRule
 
 - type: ninjaHackingThreat
   id: Revenant
   announcement: terror-revenant
-  rule: RevenantSpawn
+  rule: BaseGameRule

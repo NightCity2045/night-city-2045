@@ -1,7 +1,7 @@
 - type: quickPhrase
   id: BaseImperativePhrase
   parent: BaseCommonPhrase
-  group: aac-group-commands-and-requests
+  group: Commands and Requests
   abstract: true
 
 - type: quickPhrase

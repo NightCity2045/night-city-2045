@@ -2758,13 +2758,6 @@ entities:
     - type: Transform
       pos: 5.5,7.5
       parent: 1
-- proto: SchoolgirlUniformSpawner
-  entities:
-  - uid: 381
-    components:
-    - type: Transform
-      pos: 5.5,1.5
-      parent: 1
 - proto: Screwdriver
   entities:
   - uid: 382

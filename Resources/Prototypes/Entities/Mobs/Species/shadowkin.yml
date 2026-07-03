@@ -74,6 +74,7 @@
       normalBodyTemperature: 310.15
       thermalRegulationTemperatureThreshold: 0.4 # WWDP
     - type: Perishable
+      rotAfter: 1200
     - type: FireVisuals
       alternateState: Standing
     - type: OfferItem
@@ -224,11 +225,6 @@
     - type: Speech
       allowedEmotes: ['Mars', 'Wurble']
     - type: Shadowkin
-    - type: Psionic
-      mindbreakingFeedback: shadowkin-blackeye
-    - type: InnatePsionicPowers
-      powersToAdd:
-        - TelepathyPower
     - type: LanguageKnowledge
       speaks:
         - TauCetiBasic
@@ -236,8 +232,6 @@
       understands:
         - TauCetiBasic
         - Marish
-    - type: PotentiaModifier
-      potentiaMultiplier: 1.25
     - type: Tag
       tags:
       - CanPilot

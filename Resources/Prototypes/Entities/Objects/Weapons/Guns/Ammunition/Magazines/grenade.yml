@@ -12,7 +12,6 @@
     whitelist:
       tags:
         - Grenade
-        - MortarGrenade # WD EDIT
     capacity: 5
     soundRack:
       path: /Audio/Weapons/Guns/Bolt/lmg_bolt_closed.ogg

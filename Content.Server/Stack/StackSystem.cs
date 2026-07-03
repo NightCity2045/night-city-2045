@@ -4,6 +4,8 @@ using Content.Shared.Verbs;
 using JetBrains.Annotations;
 using Robust.Shared.Map;
 using Robust.Shared.Prototypes;
+using Content.Server.Administration;
+using Robust.Server.Player;
 
 namespace Content.Server.Stack
 {
@@ -15,6 +17,8 @@ namespace Content.Server.Stack
     public sealed class StackSystem : SharedStackSystem
     {
         [Dependency] private readonly IPrototypeManager _prototypeManager = default!;
+        [Dependency] private readonly QuickDialogSystem _quickDialog = default!;
+        [Dependency] private readonly IPlayerManager _playerManager = default!;
 
         public static readonly int[] DefaultSplitAmounts = { 1, 5, 10, 20, 30, 50 };
 
@@ -178,6 +182,37 @@ namespace Content.Server.Stack
                 Priority = 1
             };
             args.Verbs.Add(halve);
+
+            AlternativeVerb customSplit = new()
+            {
+                Text = Loc.GetString("comp-stack-split-any"),
+                Category = VerbCategory.Split,
+                Act = () =>
+                {
+                    if (!_playerManager.TryGetSessionByEntity(args.User, out var session))
+                        return;
+
+                    _quickDialog.OpenDialog<int>(session,
+                        Loc.GetString("comp-stack-split-any-title"),
+                        Loc.GetString("comp-stack-split-any-prompt"),
+                        amount =>
+                        {
+                            StackComponent? currentStack = stack;
+                            if (!Resolve(uid, ref currentStack))
+                                return;
+
+                            if (amount <= 0 || amount >= currentStack.Count)
+                            {
+                                Popup.PopupCursor(Loc.GetString("comp-stack-split-too-small"), args.User, PopupType.Medium);
+                                return;
+                            }
+
+                            UserSplit(uid, args.User, amount, currentStack);
+                        });
+                },
+                Priority = 2
+            };
+            args.Verbs.Add(customSplit);
 
             var priority = 0;
             foreach (var amount in DefaultSplitAmounts)

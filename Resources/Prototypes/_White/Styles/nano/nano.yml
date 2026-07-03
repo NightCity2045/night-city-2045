@@ -1,6 +1,6 @@
 - type: styleSheet
   id: nano
-  parents: [apc, shared]
+  parents: [apc, shared, fixer_market]
   typeDefinition:
     PanelContainer: "Robust.Client.UserInterface.Controls.PanelContainer"
     ContainerButton: "Robust.Client.UserInterface.Controls.ContainerButton"

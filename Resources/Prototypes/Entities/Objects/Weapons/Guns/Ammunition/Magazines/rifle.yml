@@ -14,7 +14,8 @@
     mayTransfer: true
     whitelist:
       tags:
-        - CartridgeRifle
+      - Cartridge  # NC edit: Fix janitor stuff
+      - CartridgeRifle
     capacity: 25
   - type: ContainerContainer
     containers:

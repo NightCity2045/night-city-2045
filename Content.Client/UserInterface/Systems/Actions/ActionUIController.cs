@@ -1,4 +1,6 @@
 using System.Linq;
+using Robust.Shared.Configuration;
+using Robust.Shared.IoC;
 using System.Numerics;
 using Content.Client.Actions;
 using Content.Client.Construction;
@@ -86,6 +88,15 @@ public sealed class ActionUIController : UIController, IOnStateChanged<GameplayS
         var gameplayStateLoad = UIManager.GetUIController<GameplayStateLoadController>();
         gameplayStateLoad.OnScreenLoad += OnScreenLoad;
         gameplayStateLoad.OnScreenUnload += OnScreenUnload;
+
+        IoCManager.Resolve<IConfigurationManager>().OnValueChanged(Content.Shared._White.CCVar.WhiteCVars.CombatModeAction, _ =>
+        {
+            if (_playerManager.LocalEntity != null)
+            {
+                LoadDefaultActions();
+                OnActionsUpdated();
+            }
+        });
     }
 
     private void OnScreenLoad()
@@ -370,6 +381,12 @@ public sealed class ActionUIController : UIController, IOnStateChanged<GameplayS
             StartTargeting(actionId, targetAction);
 
         // WD EDIT START
+        if (EntityManager.TryGetComponent<MetaDataComponent>(actionId, out var meta) && meta.EntityPrototype?.ID == "ActionCombatModeToggle")
+        {
+            if (!IoCManager.Resolve<IConfigurationManager>().GetCVar(Content.Shared._White.CCVar.WhiteCVars.CombatModeAction))
+                return;
+        }
+
         if (_actions.Contains(actionId))
             return;
 
@@ -430,6 +447,16 @@ public sealed class ActionUIController : UIController, IOnStateChanged<GameplayS
             _window.FilterLabel.Text = Loc.GetString("ui-actionmenu-filter-label",
                 ("selectedLabels", string.Join(", ", _window.FilterButton.SelectedLabels)));
         }
+    }
+
+    public void RefreshLocalization()
+    {
+        if (_window == null)
+            return;
+
+        _window.Relocalize();
+        UpdateFilterLabel();
+        QueueWindowUpdate();
     }
 
     private bool MatchesFilter(BaseActionComponent action, Filters filter)
@@ -880,6 +907,12 @@ public sealed class ActionUIController : UIController, IOnStateChanged<GameplayS
         _actions.Clear();
         foreach (var (action, _) in actions)
         {
+            if (EntityManager.TryGetComponent<MetaDataComponent>(action, out var meta) && meta.EntityPrototype?.ID == "ActionCombatModeToggle")
+            {
+                if (!IoCManager.Resolve<IConfigurationManager>().GetCVar(Content.Shared._White.CCVar.WhiteCVars.CombatModeAction))
+                    continue;
+            }
+
             if (!_actions.Contains(action))
                 _actions.Add(action);
         }

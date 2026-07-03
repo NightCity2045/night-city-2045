@@ -1,0 +1,18 @@
+- type: entity
+  id: NCBlankFrameMilled
+  name: ent-NCBlankFrameMilled
+  description: ent-NCBlankFrame-desc
+  parent: BaseItem
+  components:
+    - type: Sprite
+      sprite: Objects/Materials/Sheets/metal.rsi
+      state: steel_3
+    - type: NCWeaponBlank
+      safeZoneHalf: 0.12
+      toleranceTime: 2.2
+      progressSpeed: 0.04
+      resultEntity: NCProcessedFrameT2
+      anomalies:
+        0.25: IntegrityDrop
+        0.55: HeatSpike
+        0.85: DoubleTrouble

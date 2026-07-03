@@ -1,8 +1,8 @@
 language-Universal-name = Универсальный
 language-Universal-description = Что ты такое?
 
-language-Psychomantic-name = Психомантичный
-language-Psychomantic-description = Чистое значение, свободное от тирании примитивных слов и жестов.
+language-Psychomantic-name = Psychomantic
+language-Psychomantic-description = Pure meaning, free from the tyranny of primative words and gestures.
 
 language-Bubblish-name = Пузырчатый
 language-Bubblish-description = Язык слаймов. Поскольку он представляет собой смесь булькающих звуков и хлопков, людям очень трудно говорить на нем без использования механических приспособлений.
@@ -32,11 +32,11 @@ language-NovuNederic-description =
     Этот прямой и прагматичный торговый язык, на котором говорят в Новых Нидерландах, несет в себе резкие согласные и обрезанные гласные своих старосветских корней.
     Созданный на основе многовекового мореплавания, освоения земель и торговли, она процветает среди тех, кто формирует целые миры — точно так же, как их предки формировали землю из моря.
 
-language-TauCetiBasic-name = Базовый Тау-Цети
+language-TauCetiBasic-name = Английский
 language-TauCetiBasic-description =
-    Духовный преемник эсперанто, созданный в 2404 году на Тау Цети цетийскими интеллектуалами.
-    Его уникальный, полностью настраиваемый алфавит и структура позволяют говорить на нем даже большинству внеземных видов.
-    Это официальный язык Тау Цети, и он набирает популярность в дипломатических кругах и среди универсалистов в человеческом пространстве.
+    Духовный преемник оригинального английского с примесью американского диалекта и жаргонизмов.
+    Его распространённость является неоспоримой - на нём говорит весь мир. Или, по крайней мере, почти весь мир.
+    Считается самым массовым и распространённым языком, но многие элитисты назовут его вульгарным.
 
 language-Tradeband-name = Торговый язык
 language-Tradeband-description =
@@ -88,10 +88,10 @@ language-Chittin-description =
 
 # Animal Languages
 
-language-Xeeplian-name = Ксееплиан
+language-Xeeplian-name = Xeeplian
 language-Xeeplian-description =
-    Наш язык высокоразвитый, эффективный и по существу.
-    Мы привыкли подражать бормотанию некоторых низших форм жизни в дальнейшем стремлении к Нашим целям.
+    Our language is highly advanced, efficient and to the point.
+    We have taken a liking to mimic some of the inferior lifeforms' babbling in the further pursuit of Our goals.
 
 # Animal Languages
 
@@ -108,7 +108,7 @@ language-Xeno-name = Ксеноязык
 language-Xeno-description = Сссс!
 
 language-Monkey-name = Обезьяний
-language-Monkey-description = Уук ук!
+language-Monkey-description = Уууу!
 
 language-Mouse-name = Мышиный
 language-Mouse-description = Писк!
@@ -135,10 +135,10 @@ language-Crab-name = Крабовый
 language-Crab-description = Щелк!
 
 language-Kobold-name = Кобольдий
-language-Kobold-description = Шшр!
+language-Kobold-description = Шип!
 
 language-Hissing-name = Шипение
-language-Hissing-description = Шшш!
+language-Hissing-description = Шип!
 
 language-Eldritch-name = Древний
 language-Eldritch-description =
@@ -147,6 +147,5 @@ language-Eldritch-description =
 
 language-Penguin-name = Пингвиний
 language-Penguin-description = Бвап!
-
-language-DroneTalk-name = Электронный
-language-DroneTalk-description = Непонятно для большинства не-дронов!
+language-DroneTalk-name = Drone
+language-DroneTalk-description = Incomprehensible to most non-drones!

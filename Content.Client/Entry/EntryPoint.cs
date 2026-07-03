@@ -1,5 +1,5 @@
+using Content.Client._NC.Overlays;
 using Content.Client._White.ItemSlotRenderer;
-using Content.Client._White.Overlays;
 using Content.Shared._White.CCVar;
 using Content.Client.Administration.Managers;
 using Content.Client.Changelog;
@@ -39,6 +39,7 @@ using Robust.Client.UserInterface;
 using Robust.Shared;
 using Robust.Shared.Configuration;
 using Robust.Shared.ContentPack;
+using Robust.Shared.Localization;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Replays;
 using Robust.Shared.Timing;
@@ -175,8 +176,7 @@ namespace Content.Client.Entry
 
             _overlayManager.AddOverlay(new SingularityOverlay());
             _overlayManager.AddOverlay(new RadiationPulseOverlay());
-            _overlayManager.AddOverlay(new GrainOverlay()); // WD EDIT
-            if (_configManager.GetCVar(CVars.DisplayCompat)) _configManager.SetCVar(WhiteCVars.FilmGrain, false); // WD EDIT
+            _overlayManager.AddOverlay(new PostProcessOverlay()); // WD EDIT
             _overlayManager.AddOverlay(new SpriteToLayerBullshitOverlay()); // WD EDIT
             _chatManager.Initialize();
             _clientPreferencesManager.Initialize();

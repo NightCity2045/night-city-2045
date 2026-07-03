@@ -15,6 +15,10 @@
         - !type:OrganType
           type: Human
           shouldHave: false
+      # NC edit start: NightCity FastFood
+      - !type:ChemAddMoodlet
+        moodPrototype: ColaEffect
+      # NC edit end: NightCity FastFood
     Food:
       effects:
         - !type:AdjustReagent

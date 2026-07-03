@@ -37,6 +37,10 @@
     soundGunshot:
       path: /Audio/Weapons/Guns/Gunshots/smg.ogg
     defaultDirection: 1, 0
+  - type: SlowOnShoot
+    walkModifier: 0.5
+    sprintModifier: 0.5
+    duration: 0.5
   - type: ChamberMagazineAmmoProvider
     soundRack:
       path: /Audio/Weapons/Guns/Cock/smg_cock.ogg

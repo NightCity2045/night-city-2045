@@ -659,3 +659,10 @@
   parent: BaseGoldCircuitboardRecipe
   id: MaterialSiloCircuitboard
   result: MaterialSiloCircuitboard
+
+# NC edit start: Biotechnica lathe
+- type: latheRecipe
+  parent: BaseCircuitboardRecipe
+  id: MedicalTechFabCircuitboard
+  result: MedicalTechFabCircuitboard
+# NC edit end: Biotechnica lathe

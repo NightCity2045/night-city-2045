@@ -77,7 +77,6 @@ namespace Content.Server.EntityEffects.Effects
                 damages.Add(
                     Loc.GetString("health-change-display",
                         ("kind", group.LocalizedName),
-                        ("id", group.ID), // WWDP EDIT
                         ("amount", MathF.Abs(amount.Float())),
                         ("deltasign", sign)
                     ));
@@ -100,7 +99,6 @@ namespace Content.Server.EntityEffects.Effects
                 damages.Add(
                     Loc.GetString("health-change-display",
                         ("kind", prototype.Index<DamageTypePrototype>(kind).LocalizedName),
-                        ("id", kind), // WWDP EDIT
                         ("amount", MathF.Abs(amount.Float())),
                         ("deltasign", sign)
                     ));

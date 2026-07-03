@@ -1,5 +1,0 @@
-- type: vendingMachineInventory
-  id: TankDispenserEVAInventoryEmergency
-  startingInventory:
-    EmergencyOxygenTankFilled: 6
-    EmergencyNitrogenTankFilled: 6

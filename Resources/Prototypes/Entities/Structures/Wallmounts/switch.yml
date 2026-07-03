@@ -121,7 +121,6 @@
       sprite: Structures/Wallmounts/switch.rsi
       state: on
     - type: Rotatable
-    - type: ExtensionCableReceiver
     - type: DeviceNetwork
       deviceNetId: Apc
       transmitFrequencyId: SmartLight # assuming people want to use it for light switches.

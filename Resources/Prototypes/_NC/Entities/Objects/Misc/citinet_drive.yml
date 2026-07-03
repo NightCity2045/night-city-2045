@@ -1,0 +1,16 @@
+- type: entity
+  id: NCBlankDrive
+  parent: BaseItem
+  name: ent-CitinetDriveEmpty
+  description: ent-CitinetDriveEmpty-desc
+  components:
+  - type: Sprite
+    sprite: Objects/Misc/module.rsi
+    layers:
+    - state: datadisk_base
+    - state: datadisk_label
+  - type: CitiNetBlankDrive
+  - type: PhysicalComposition
+    materialComposition:
+      Steel: 100
+      Glass: 50

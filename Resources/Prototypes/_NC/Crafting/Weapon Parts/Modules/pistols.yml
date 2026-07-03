@@ -1,0 +1,292 @@
+# ============================
+# Модули Пистолетов (Pistols)
+# ============================
+
+# Hello Cutie (Tier 1)
+- type: entity
+  id: NCBlueprintHelloCutie
+  name: ent-NCBlueprint
+  description: Модуль для сборки оружия. Т1.
+  parent: BaseItem
+  components:
+    - type: Sprite
+      sprite: Objects/Tools/blueprint.rsi
+      state: icon
+    - type: NCBlueprint
+      resultEntity: WeaponPistolHelloCutieEmpty
+      garbageEntity: Wrench
+      steps:
+        - part: Frame
+          prototype: NCProcessedFrameT1
+          doAfterTime: 2.0
+        - part: Barrel
+          prototype: NCProcessedBarrelT1
+          doAfterTime: 2.0
+        - tool: Screwing
+          doAfterTime: 3.0
+        - part: Internals
+          prototype: NCProcessedInternalsT1
+          doAfterTime: 2.5
+        - tool: Screwing
+          doAfterTime: 2.5
+
+# Overlord (Tier 1)
+- type: entity
+  id: NCBlueprintOverlord
+  name: ent-NCBlueprint
+  description: Модуль для сборки оружия. Т1.
+  parent: BaseItem
+  components:
+    - type: Sprite
+      sprite: Objects/Tools/blueprint.rsi
+      state: icon
+    - type: NCBlueprint
+      resultEntity: WeaponPistolOverlordEmpty
+      garbageEntity: Wrench
+      steps:
+        - part: Frame
+          prototype: NCProcessedFrameT1
+          doAfterTime: 2.0
+        - part: Barrel
+          prototype: NCProcessedBarrelT1
+          doAfterTime: 2.0
+        - tool: Screwing
+          doAfterTime: 3.0
+        - part: Internals
+          prototype: NCProcessedInternalsT1
+          doAfterTime: 2.5
+        - tool: Screwing
+          doAfterTime: 2.5
+
+# Стукач Томми (Tier 2)
+- type: entity
+  id: NCBlueprintStukachTommy
+  name: ent-NCBlueprint
+  description: Модуль для сборки оружия. Т2.
+  parent: BaseItem
+  components:
+    - type: Sprite
+      sprite: Objects/Tools/blueprint.rsi
+      state: icon
+    - type: NCBlueprint
+      resultEntity: WeaponPistolStukachTommyEmpty
+      garbageEntity: Wrench
+      steps:
+        - part: Frame
+          prototype: NCProcessedFrameT2
+          doAfterTime: 2.0
+        - part: Barrel
+          prototype: NCProcessedBarrelT2
+          doAfterTime: 2.0
+        - tool: Screwing
+          doAfterTime: 3.0
+        - part: Internals
+          prototype: NCProcessedInternalsT2
+          doAfterTime: 2.5
+        - part: Board
+          prototype: NCProcessedElectronicsT2
+          doAfterTime: 1.5
+        - tool: Pulsing
+          doAfterTime: 2.5
+
+# Dai Lung StreetMaster (Tier 1)
+- type: entity
+  id: NCBlueprintStreetMaster
+  name: ent-NCBlueprint
+  description: Модуль для сборки оружия. Т1.
+  parent: BaseItem
+  components:
+    - type: Sprite
+      sprite: Objects/Tools/blueprint.rsi
+      state: icon
+    - type: NCBlueprint
+      resultEntity: WeaponPistolStreetMasterEmpty
+      garbageEntity: Wrench
+      steps:
+        - part: Frame
+          prototype: NCProcessedFrameT1
+          doAfterTime: 2.0
+        - part: Barrel
+          prototype: NCProcessedBarrelT1
+          doAfterTime: 2.0
+        - tool: Screwing
+          doAfterTime: 3.0
+        - part: Internals
+          prototype: NCProcessedInternalsT1
+          doAfterTime: 2.5
+        - tool: Screwing
+          doAfterTime: 2.5
+
+# Militech Avenger (Tier 2)
+- type: entity
+  id: NCBlueprintAvenger
+  name: ent-NCBlueprint
+  description: Модуль для сборки оружия. Т2.
+  parent: BaseItem
+  components:
+    - type: Sprite
+      sprite: Objects/Tools/blueprint.rsi
+      state: icon
+    - type: NCBlueprint
+      resultEntity: WeaponPistolAvengerEmpty
+      garbageEntity: Wrench
+      steps:
+        - part: Frame
+          prototype: NCProcessedFrameT2
+          doAfterTime: 2.0
+        - part: Barrel
+          prototype: NCProcessedBarrelT2
+          doAfterTime: 2.0
+        - tool: Screwing
+          doAfterTime: 3.0
+        - part: Internals
+          prototype: NCProcessedInternalsT2
+          doAfterTime: 2.5
+        - part: Board
+          prototype: NCProcessedElectronicsT2
+          doAfterTime: 1.5
+        - tool: Pulsing
+          doAfterTime: 2.5
+
+# FedArms "Cheesemaker" (Tier 1)
+- type: entity
+  id: NCBlueprintCheesemaker
+  name: ent-NCBlueprint
+  description: Модуль для сборки оружия. Т1.
+  parent: BaseItem
+  components:
+    - type: Sprite
+      sprite: Objects/Tools/blueprint.rsi
+      state: icon
+    - type: NCBlueprint
+      resultEntity: WeaponPistolCheesemakerEmpty
+      garbageEntity: Wrench
+      steps:
+        - part: Frame
+          prototype: NCProcessedFrameT1
+          doAfterTime: 2.0
+        - part: Barrel
+          prototype: NCProcessedBarrelT1
+          doAfterTime: 2.0
+        - tool: Screwing
+          doAfterTime: 3.0
+        - part: Internals
+          prototype: NCProcessedInternalsT1
+          doAfterTime: 2.5
+        - tool: Screwing
+          doAfterTime: 2.5
+
+# Federal Arms X9 (Tier 1)
+- type: entity
+  id: NCBlueprintFederalX9
+  name: ent-NCBlueprint
+  description: Модуль для сборки оружия. Т1.
+  parent: BaseItem
+  components:
+    - type: Sprite
+      sprite: Objects/Tools/blueprint.rsi
+      state: icon
+    - type: NCBlueprint
+      resultEntity: WeaponPistolFederalX9Empty
+      garbageEntity: Wrench
+      steps:
+        - part: Frame
+          prototype: NCProcessedFrameT1
+          doAfterTime: 2.0
+        - part: Barrel
+          prototype: NCProcessedBarrelT1
+          doAfterTime: 2.0
+        - tool: Screwing
+          doAfterTime: 3.0
+        - part: Internals
+          prototype: NCProcessedInternalsT1
+          doAfterTime: 2.5
+        - tool: Screwing
+          doAfterTime: 2.5
+
+# Militech "Boomer Buster" (Tier 1)
+- type: entity
+  id: NCBlueprintBoomerBuster
+  name: ent-NCBlueprint
+  description: Модуль для сборки оружия. Т1.
+  parent: BaseItem
+  components:
+    - type: Sprite
+      sprite: Objects/Tools/blueprint.rsi
+      state: icon
+    - type: NCBlueprint
+      resultEntity: WeaponPistolBoomerBusterEmpty
+      garbageEntity: Wrench
+      steps:
+        - part: Frame
+          prototype: NCProcessedFrameT1
+          doAfterTime: 2.0
+        - part: Barrel
+          prototype: NCProcessedBarrelT1
+          doAfterTime: 2.0
+        - tool: Screwing
+          doAfterTime: 3.0
+        - part: Internals
+          prototype: NCProcessedInternalsT1
+          doAfterTime: 2.5
+        - tool: Screwing
+          doAfterTime: 2.5
+
+# Mustang Arms Mark III (Tier 1)
+- type: entity
+  id: NCBlueprintMarkIII
+  name: ent-NCBlueprint
+  description: Модуль для сборки оружия. Т1.
+  parent: BaseItem
+  components:
+    - type: Sprite
+      sprite: Objects/Tools/blueprint.rsi
+      state: icon
+    - type: NCBlueprint
+      resultEntity: WeaponPistolMarkIIIEmpty
+      garbageEntity: Wrench
+      steps:
+        - part: Frame
+          prototype: NCProcessedFrameT1
+          doAfterTime: 2.0
+        - part: Barrel
+          prototype: NCProcessedBarrelT1
+          doAfterTime: 2.0
+        - tool: Screwing
+          doAfterTime: 3.0
+        - part: Internals
+          prototype: NCProcessedInternalsT1
+          doAfterTime: 2.5
+        - tool: Screwing
+          doAfterTime: 2.5
+
+# Sternmeyer P35 (Tier 2)
+- type: entity
+  id: NCBlueprintSternmeyerP35
+  name: ent-NCBlueprint
+  description: Модуль для сборки оружия. Т2.
+  parent: BaseItem
+  components:
+    - type: Sprite
+      sprite: Objects/Tools/blueprint.rsi
+      state: icon
+    - type: NCBlueprint
+      resultEntity: NCWeaponRevolverSternmeyerP35Empty
+      garbageEntity: Wrench
+      steps:
+        - part: Frame
+          prototype: NCProcessedFrameT2
+          doAfterTime: 2.0
+        - part: Barrel
+          prototype: NCProcessedBarrelT2
+          doAfterTime: 2.0
+        - tool: Screwing
+          doAfterTime: 3.0
+        - part: Internals
+          prototype: NCProcessedInternalsT2
+          doAfterTime: 2.5
+        - part: Board
+          prototype: NCProcessedElectronicsT2
+          doAfterTime: 1.5
+        - tool: Pulsing
+          doAfterTime: 2.5

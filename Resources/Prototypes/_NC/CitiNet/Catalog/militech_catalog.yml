@@ -1,0 +1,41 @@
+- type: citiNetStoreCategory
+  id: CorporateMilitechWeapons
+  name: WEAPON
+  entries:
+  - proto: WeaponSubMachineGunMilitechSaratoga
+    name: Militech Saratoga
+    price: 300
+    dataPrice: 50
+    count: 100
+  - proto: WeaponSubMachineGunMilitechSaratogaNCPD
+    price: 400
+    dataPrice: 50
+    count: 300
+  - proto: WeaponSubMachineGunMilitechSaratogaRED
+    price: 400
+    dataPrice: 50
+    count: 300
+  - proto: WeaponShotgunMilitechCrusher
+    price: 550
+    dataPrice: 75
+    count: 100
+
+- type: citiNetStoreCategory
+  id: CorporateMilitechArmor
+  name: ARMOR
+  entries:
+  - proto: ClothingOuterArmorMilitechBulletproof
+    name: Militech Ballistic Vest
+    description: Restricted Militech composite armor for licensed corporate security teams.
+    price: 75
+    dataPrice: 15
+    count: 100
+
+
+- type: citiNetStorePreset
+  id: CorporateMilitechSupply
+  defaultDelivery: Corporate
+  bankAccount: Militech
+  categories:
+  - CorporateMilitechWeapons
+  - CorporateMilitechArmor

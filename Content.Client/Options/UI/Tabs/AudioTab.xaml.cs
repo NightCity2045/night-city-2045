@@ -104,6 +104,31 @@ public sealed partial class AudioTab : Control
         Control.Initialize();
     }
 
+    public void Relocalize()
+    {
+        SliderVolumeMaster.Title = Loc.GetString("ui-options-master-volume");
+        SliderVolumeMidi.Title = Loc.GetString("ui-options-midi-volume");
+        SliderVolumeAmbientMusic.Title = Loc.GetString("ui-options-ambient-music-volume");
+        SliderVolumeAmbience.Title = Loc.GetString("ui-options-ambience-volume");
+        SliderVolumeLobby.Title = Loc.GetString("ui-options-lobby-volume");
+        SliderVolumeInterface.Title = Loc.GetString("ui-options-interface-volume");
+        SliderVolumeAnnouncer.Title = Loc.GetString("ui-options-announcer-volume");
+        SliderVolumeTts.Title = Loc.GetString("ui-options-tts-volume");
+        SliderVolumeBark.Title = Loc.GetString("ui-options-bark-volume");
+        SliderLimitBark.Title = Loc.GetString("ui-options-bark-limit");
+        SliderMaxAmbienceSounds.Title = Loc.GetString("ui-options-ambience-max-sounds");
+        LobbyMusicCheckBox.Text = Loc.GetString("ui-options-lobby-music");
+        RestartSoundsCheckBox.Text = Loc.GetString("ui-options-restart-sounds");
+        EventMusicCheckBox.Text = Loc.GetString("ui-options-event-music");
+        AnnouncerDisableMultipleSoundsCheckBox.Text = Loc.GetString("ui-options-announcer-disable-multiple-sounds");
+        AnnouncerDisableMultipleSoundsCheckBox.ToolTip = Loc.GetString("ui-options-announcer-disable-multiple-sounds-tooltip");
+        AdminSoundsCheckBox.Text = Loc.GetString("ui-options-admin-sounds");
+        BwoinkSoundCheckBox.Text = Loc.GetString("ui-options-bwoink-sound");
+        CombatModeSoundCheckBox.Text = Loc.GetString("ui-options-toggle-combat-mode-sounds");
+        DropDownVoiceType.Title = Loc.GetString("ui-voice-option");
+        Control.RefreshLocalization();
+    }
+
     protected override void EnteredTree()
     {
         base.EnteredTree();

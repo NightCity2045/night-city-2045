@@ -1,0 +1,93 @@
+- type: entity
+  name: Arasaka "NOWAKI"
+  parent: [BaseWeaponRifle, NCBrandNokota]
+  id: WeaponRifleArasakaNOWAKI
+  description: "Arasaka NOWAKI — это изменяемая штурмовая винтовка от компании Arasaka. Компактное многоцелевое оружие с встроенным гранатометом. Магазин винтовки на 20 безгильзовых патронов 6."
+  components:
+  - type: Sprite
+    sprite: _NC/Objects/Weapons/Guns/Rifles/ArasakaNOWAKI/big.rsi
+    scale: 0.75, 0.75
+    layers:
+    - state: base
+      map: ["enum.GunVisualLayers.Base"]
+    - state: mag-0
+      map: ["enum.GunVisualLayers.Mag"]
+  - type: Clothing
+    sprite: _NC/Objects/Weapons/Guns/Rifles/ArasakaNOWAKI/tiny.rsi
+    slots:
+    - Back
+    - SuitStorage
+  - type: Item
+    sprite: _NC/Objects/Weapons/Guns/Rifles/ArasakaNOWAKI/tiny.rsi
+    size: Huge
+  - type: AmmoCounter
+  - type: Wieldable
+  - type: GunRequiresWield
+  - type: GunWieldBonus
+    minAngle: -19
+    maxAngle: -16
+  - type: Gun
+    minAngle: 21
+    maxAngle: 25
+    bonusAngleIncreaseMove: 5
+    bonusAngleIncreaseTurn: 1
+    availableModes:
+    - FullAuto
+    - SemiAuto
+    fireRate: 8
+    soundGunshot:
+      path: /Audio/Weapons/Guns/Gunshots/rifle2.ogg
+    fireOnDropChance: 0.5
+  - type: ChamberMagazineAmmoProvider
+    boltCatch: false
+    soundRack:
+      path: /Audio/Weapons/Guns/Cock/ltrifle_cock.ogg
+  - type: ItemSlots
+    slots:
+      gun_magazine:
+        name: Magazine
+        startingItem: MagazineRifleNowaki
+        insertSound: /Audio/Weapons/Guns/MagIn/ltrifle_magin.ogg
+        ejectSound: /Audio/Weapons/Guns/MagOut/ltrifle_magout.ogg
+        priority: 2
+        whitelist:
+          tags:
+          - MagazineRifle
+      gun_chamber:
+        name: Chamber
+        startingItem: Cartridge556x45CL
+        priority: 1
+        whitelist:
+          tags:
+          - Cartridge556x45CL
+  - type: ContainerContainer
+    containers:
+      gun_magazine: !type:ContainerSlot
+      gun_chamber: !type:ContainerSlot
+
+- type: entity
+  name: Arasaka "NOWAKI"
+  suffix: Empty
+  parent: WeaponRifleArasakaNOWAKI
+  id: WeaponRifleArasakaNOWAKIEmpty
+  components:
+  - type: ItemSlots
+    slots:
+      gun_magazine:
+        name: Magazine
+        insertSound: /Audio/Weapons/Guns/MagIn/ltrifle_magin.ogg
+        ejectSound: /Audio/Weapons/Guns/MagOut/ltrifle_magout.ogg
+        priority: 2
+        whitelist:
+          tags:
+          - MagazineRifleNowaki
+      gun_chamber:
+        name: Chamber
+        priority: 1
+        whitelist:
+          tags:
+          - Cartridge556x45CL
+  - type: ContainerContainer
+    containers:
+      gun_magazine: !type:ContainerSlot
+      gun_chamber: !type:ContainerSlot

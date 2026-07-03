@@ -1,0 +1,27 @@
+- type: entity
+  parent: PlushieTrupozarka
+  id: PlushieAlze
+  name: плюшевая алзе  # Специально с маленькой буквы.
+  description: Аауауэаэ. (с)
+  components:
+  - type: Sprite
+    sprite: &PlushieSprite _NC/Objects/Fun/Plushies/alze.rsi
+  - type: Item
+    sprite: *PlushieSprite
+  - type: Clothing
+    sprite: *PlushieSprite
+  - type: EmitSoundOnUse
+    sound: &PlushieSound
+      path: /Audio/_NC/Items/Toys/bosh_tet.ogg
+  - type: EmitSoundOnLand
+    sound: *PlushieSound
+  - type: EmitSoundOnActivate
+    sound: *PlushieSound
+  - type: EmitSoundOnTrigger
+    sound: *PlushieSound
+  - type: EmitSoundOnCollide
+    sound: *PlushieSound
+  - type: Food
+    useSound: *PlushieSound
+  - type: MeleeWeapon
+    soundHit: *PlushieSound

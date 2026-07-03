@@ -72,7 +72,6 @@
     - type: Anchorable
     - type: ApcPowerReceiver
       powerLoad: 2500
-    - type: ExtensionCableReceiver
     - type: Damageable
       damageContainer: Inorganic
       damageModifierSet: Metallic

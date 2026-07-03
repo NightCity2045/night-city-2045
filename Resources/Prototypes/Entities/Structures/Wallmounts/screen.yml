@@ -32,7 +32,6 @@
   - type: Electrified
     enabled: false
     usesApcPower: true
-  - type: ExtensionCableReceiver
   - type: Screen
   - type: DeviceNetwork
     deviceNetId: Wireless

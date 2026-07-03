@@ -1,1 +1,1 @@
-loadout-name-LoadoutEngineeringHeadHardhatWhite = каска (раскрашиваемое)
+loadout-name-LoadoutEngineeringHeadHardhatWhite = hardhat (colorable)

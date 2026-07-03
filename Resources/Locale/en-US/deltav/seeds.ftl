@@ -1,4 +1,5 @@
 # Seeds
+
 seeds-CrystalThistle-name = CrystalThistle
 seeds-CrystalThistle-display-name = CrystalThistle
 seeds-GhostPepper-name = Ghost Pepper

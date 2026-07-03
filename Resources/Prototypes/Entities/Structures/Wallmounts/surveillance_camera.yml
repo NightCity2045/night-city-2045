@@ -32,7 +32,6 @@
     usesApcPower: true
   - type: WallMount
   - type: ApcPowerReceiver
-  - type: ExtensionCableReceiver
   - type: Eye
   - type: WiredNetworkConnection
   - type: DeviceNetworkRequiresPower
@@ -58,6 +57,12 @@
       Active: camera
       Disabled: camera_off
       InUse: camera_in_use
+  # Acoustic sensor used by the Overwatch dispatch network.  Default ranges can be
+  # overridden by adding the component to a prototype.
+  - type: AcousticSensor
+    gunRange: 10
+    suppressedRange: 3
+    explosionRange: 20
   - type: UserInterface
     interfaces:
       enum.SurveillanceCameraSetupUiKey.Camera:

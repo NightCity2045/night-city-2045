@@ -22,29 +22,29 @@ public sealed partial class AdminVerbSystem
     [Dependency] private readonly ZombieSystem _zombie = default!;
 
     [ValidatePrototypeId<EntityPrototype>]
-    private const string DefaultTraitorRule = "Traitor";
+    private const string DefaultTraitorRule = "BaseGameRule";
 
     [ValidatePrototypeId<EntityPrototype>]
-    private const string DefaultInitialInfectedRule = "Zombie";
+    private const string DefaultInitialInfectedRule = "BaseGameRule";
 
     [ValidatePrototypeId<EntityPrototype>]
-    private const string DefaultNukeOpRule = "LoneOpsSpawn";
+    private const string DefaultNukeOpRule = "BaseGameRule";
 
     [ValidatePrototypeId<EntityPrototype>]
-    private const string DefaultRevsRule = "Revolutionary";
+    private const string DefaultRevsRule = "BaseGameRule";
 
     [ValidatePrototypeId<EntityPrototype>]
-    private const string DefaultThiefRule = "Thief";
+    private const string DefaultThiefRule = "BaseGameRule";
 
     [ValidatePrototypeId<EntityPrototype>]
-    private const string DefaultChangelingRule = "Changeling";
+    private const string DefaultChangelingRule = "BaseGameRule";
 
     [ValidatePrototypeId<EntityPrototype>]
-    private const string DefaultShadowlingRule = "Shadowling";
+    private const string DefaultShadowlingRule = "BaseGameRule";
 
     // WD EDIT START
     [ValidatePrototypeId<EntityPrototype>]
-    private const string DefaultBloodCultRule = "BloodCult";
+    private const string DefaultBloodCultRule = "BaseGameRule";
     // WD EDIT END
 
     [ValidatePrototypeId<StartingGearPrototype>]
@@ -242,7 +242,7 @@ public sealed partial class AdminVerbSystem
             },
             Impact = LogImpact.High,
             Message = Loc.GetString("admin-verb-text-make-blob"),
-	    };
+        };
         args.Verbs.Add(blobAntag);
     }
 }

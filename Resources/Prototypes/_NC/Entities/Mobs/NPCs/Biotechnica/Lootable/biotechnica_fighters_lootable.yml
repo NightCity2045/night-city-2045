@@ -1,0 +1,154 @@
+# Biotechnica fighter NPCs for Night City (Lootable)
+
+# --- Gear Sets ---
+
+- type: startingGear
+  id: NCBiotechnicaGearAvenger
+  equipment:
+    jumpsuit: ClothingUniformJumpsuitBiotechnica
+    outerClothing: ClothingOuterArmorBiotechnicaBulletproof
+    shoes: ClothingShoesColorBlack
+    head: ClothingHeadHatBiotechnicaCap
+    back: ClothingBackpackSecurity
+    belt: ClothingBeltSecurityFilled
+    pocket1: MagazinePistolFederalX9
+    pocket2: MagazinePistolFederalX9
+  inhand:
+  - WeaponPistolFederalX9
+
+- type: startingGear
+  id: NCBiotechnicaGearBoomerBuster
+  equipment:
+    jumpsuit: ClothingUniformJumpsuitBiotechnica
+    outerClothing: ClothingOuterArmorBiotechnicaBulletproof
+    shoes: ClothingShoesColorBlack
+    head: ClothingHeadHatBiotechnicaCap
+    back: ClothingBackpackSecurity
+    belt: ClothingBeltSecurityFilled
+    pocket1: MagazinePistolBoomerBuster
+    pocket2: MagazinePistolBoomerBuster
+  inhand:
+  - WeaponPistolBoomerBuster
+
+- type: startingGear
+  id: NCBiotechnicaGearSaratoga
+  equipment:
+    jumpsuit: ClothingUniformJumpsuitBiotechnica
+    outerClothing: ClothingOuterArmorBiotechnicaBulletproof
+    shoes: ClothingShoesColorBlack
+    head: ClothingHeadHatBiotechnicaCap
+    back: ClothingBackpackSecurity
+    belt: ClothingBeltSecurityFilled
+    pocket1: MagazineRifleM04
+    pocket2: MagazineRifleM04
+  inhand:
+  - WeaponRifleM04
+
+- type: startingGear
+  id: NCBiotechnicaGearCrusher
+  equipment:
+    jumpsuit: ClothingUniformJumpsuitBiotechnica
+    outerClothing: ClothingOuterArmorBiotechnicaBulletproof
+    shoes: ClothingShoesColorBlack
+    head: ClothingHeadHatBiotechnicaCap
+    back: ClothingBackpackSecurity
+    belt: ClothingBeltSecurityFilled
+    pocket1: MagazineShotgunMilitechCrusher
+    pocket2: MagazineShotgunMilitechCrusher
+  inhand:
+  - WeaponShotgunMilitechCrusher
+
+# --- Biotechnica Variations ---
+
+- type: entity
+  name: ent-MobNCBiotechnica
+  parent: BaseMobHuman
+  id: MobNCBiotechnicaLootable
+  description: ent-MobNCBiotechnica-desc
+  abstract: true
+  IdleRange: !type:Single 8
+  components:
+  - type: NpcFactionMember
+    factions:
+    - NanoTrasen
+  - type: FactionException
+  - type: NPCRetaliation
+    attackMemoryLength: 15
+  - type: RTSAggressionMode
+    currentMode: Normal
+    peacefulFactions:
+    - Passive
+    normalFactions:
+    - NanoTrasen
+  - type: RiggerDrone
+  - type: RTSControllable
+  - type: HTN
+    rootTask:
+      task: NCBanditTier2RootCompound
+  - type: NPCAutoReload
+  - type: InputMover
+  - type: MobMover
+
+- type: entity
+  parent: MobNCBiotechnicaLootable
+  id: MobNCBiotechnicaAvengerLootable
+  suffix: Biotechnica Avenger
+  components:
+  - type: Loadout
+    prototypes: [NCBiotechnicaGearAvenger]
+  - type: Cyberware
+  - type: StartingCyberware
+    loseHum: false
+    cyberware:
+    - CyberwareNeuroBioInhibitorStoic
+    - CyberwareInternalEnhancedAntibodies
+    - CyberwareInternalNasalFilters
+    - CyberwareImplantMicroOptics
+
+- type: entity
+  parent: MobNCBiotechnicaLootable
+  id: MobNCBiotechnicaBoomerBusterLootable
+  suffix: Biotechnica Boomer
+  components:
+  - type: Loadout
+    prototypes: [NCBiotechnicaGearBoomerBuster]
+  - type: Cyberware
+  - type: StartingCyberware
+    loseHum: false
+    cyberware:
+    - CyberwareNeuroBioInhibitorStoic
+    - CyberwareExternalThermoplasticArmor
+    - CyberwareInternalNasalFilters
+    - CyberwareImplantInfraredVision
+
+- type: entity
+  parent: MobNCBiotechnicaLootable
+  id: MobNCBiotechnicaSaratogaLootable
+  suffix: Biotechnica Saratoga
+  components:
+  - type: Loadout
+    prototypes: [NCBiotechnicaGearSaratoga]
+  - type: Cyberware
+  - type: StartingCyberware
+    loseHum: false
+    cyberware:
+    - CyberwareNeuroBioInhibitorStoic
+    - CyberwareInternalEnhancedAntibodies
+    - CyberwareExternalThermoplasticArmor
+    - CyberwareImplantMicroOptics
+
+- type: entity
+  parent: MobNCBiotechnicaLootable
+  id: MobNCBiotechnicaCrusherLootable
+  suffix: Biotechnica Crusher
+  components:
+  - type: Loadout
+    prototypes: [NCBiotechnicaGearCrusher]
+  - type: Cyberware
+  - type: StartingCyberware
+    loseHum: false
+    cyberware:
+    - CyberwareInternalTitaniumReinforcement
+    - CyberwareInternalEnhancedAntibodies
+    - CyberwareNeuroBioInhibitorStoic
+    - CyberwareImplantInfraredVision

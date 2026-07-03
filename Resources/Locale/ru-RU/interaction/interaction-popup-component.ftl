@@ -117,6 +117,7 @@ fence-rattle-success = *грохот*
 ## Hugging players
 
 hugging-success-generic = Вы обнимаете { $target }.
+hugging-success-generic-custom = Вы обнимаете { $targetName }.
 hugging-success-generic-others = { CAPITALIZE($user) } обнимает { $target }.
 hugging-success-generic-target = { CAPITALIZE($user) } обнимает вас.
 

@@ -24,6 +24,14 @@ public static class BoundKeyHelper
         return name.Length > 3 ? null : name;
     }
 
+    private static string? GetLatinLetterKeyName(Keyboard.Key key)
+    {
+        if (key is < Keyboard.Key.A or > Keyboard.Key.Z)
+            return null;
+
+        return key.ToString();
+    }
+
     public static bool TryGetShortKeyName(BoundKeyFunction keyFunction, [NotNullWhen(true)] out string? name)
     {
         if (IoCManager.Resolve<IInputManager>().TryGetKeyBinding(keyFunction, out var binding))
@@ -100,7 +108,7 @@ public static class BoundKeyHelper
                 Keyboard.Key.PageUp => "PgU",
                 Keyboard.Key.RBracket => "]",
                 Keyboard.Key.SemiColon => ";",
-                _ => DefaultShortKeyName(keyFunction)
+                _ => GetLatinLetterKeyName(key) ?? DefaultShortKeyName(keyFunction)
             };
             return name != null;
         }

@@ -1,0 +1,187 @@
+- type: reagent
+  id: GunpowderNC
+  name: reagent-name-GunpowderNC
+  group: Elements
+  desc: reagent-desc-GunpowderNC
+  physicalDesc: reagent-physicalDesc-powder
+  color: "#404040"
+  tileReactions:
+  - !type:SpillToStackReaction
+    entity: MaterialGunpowder
+
+- type: reagent
+  id: NCPlastic
+  name: reagent-name-NCPlastic
+  group: Elements
+  desc: reagent-desc-NCPlastic
+  physicalDesc: reagent-physicalDesc-powder
+  color: "#404040"
+
+
+- type: reagent
+  id: Yeast
+  name: reagent-name-Yeast
+  group: Foods
+  desc: reagent-desc-Yeast
+  physicalDesc: reagent-physicalDesc-yeast
+  flavor: bitter
+  color: "#d2b48c"
+  metabolisms:
+    Food:
+      metabolismRate: 0.5
+      effects:
+      - !type:SatiateHunger
+        factor: 1.5
+      - !type:Drunk
+        boozePower: 0.05
+
+- type: reagent
+  id: CornSmoothie
+  name: reagent-name-CornSmoothie
+  group: Foods
+  desc: reagent-desc-CornSmoothie
+  physicalDesc: reagent-physicalDesc-grinded
+  flavor: leafy
+  color: "#e8d382"
+  metabolisms:
+    Drink:
+      metabolismRate: 0.5
+      effects:
+      - !type:SatiateThirst
+    Food:
+      metabolismRate: 0.5
+      effects:
+      - !type:SatiateHunger
+        factor: 1.5
+
+- type: reagent
+  id: WheatSmoothie
+  name: reagent-name-WheatSmoothie
+  group: Foods
+  desc: reagent-desc-WheatSmoothie
+  physicalDesc: reagent-physicalDesc-grinded
+  flavor: leafy
+  color: "#e8e1bc"
+  metabolisms:
+    Drink:
+      metabolismRate: 0.5
+      effects:
+      - !type:SatiateThirst
+    Food:
+      metabolismRate: 0.5
+      effects:
+      - !type:SatiateHunger
+        factor: 1.5
+
+- type: reagent
+  id: WhiteMatter
+  name: reagent-name-WhiteMatter
+  group: Elements
+  desc: reagent-desc-WhiteMatter
+  physicalDesc: reagent-physicalDesc-white
+  flavor: metallic
+  color: "#f0f0f0"
+
+- type: reagent
+  id: NeuroStim
+  name: reagent-name-NeuroStim
+  group: Narcotics
+  desc: reagent-desc-NeuroStim
+  physicalDesc: reagent-physicalDesc-foamy
+  flavor: metallic
+  color: "#e0f7fa"
+  metabolisms:
+    Narcotic:
+      metabolismRate: 0.5
+      effects: []
+
+- type: reagent
+  id: PrimeTime
+  name: reagent-name-PrimeTime
+  group: Narcotics
+  desc: reagent-desc-PrimeTime
+  physicalDesc: reagent-physicalDesc-PrimeTime
+  flavor: metallic
+  color: "#00ffff"
+  metabolisms:
+    Narcotic:
+      metabolismRate: 0.5
+      effects:
+      - !type:HealthChange
+        damage:
+          types:
+            Poison: 1
+            Asphyxiation: 1
+      - !type:NCDrugLogicEffect
+        headGibChance: 0.03
+        legDropChance: 0.04
+
+- type: reagent
+  id: SixGun
+  name: reagent-name-SixGun
+  group: Narcotics
+  desc: reagent-desc-SixGun
+  physicalDesc: reagent-physicalDesc-SixGun
+  flavor: bitter
+  color: "#4b0082"
+  metabolisms:
+    Narcotic:
+      metabolismRate: 0.5
+      effects:
+      - !type:Jitter
+      - !type:GenericStatusEffect
+        key: Stutter
+        component: StutteringAccent
+        time: 3
+      - !type:ChemVomit
+        probability: 0.1
+      - !type:NCDrugLogicEffect
+        armDropChance: 0.03
+        legDropChance: 0.04
+        blindChance: 0.15
+        laughChance: 0.2
+
+- type: reagent
+  id: NitroPolymer
+  name: reagent-name-NitroPolymer
+  group: Elements
+  desc: reagent-desc-NitroPolymer
+  physicalDesc: reagent-physicalDesc-NitroPolymer
+  flavor: medicine
+  color: "#3a3a3a"
+  metabolisms:
+    Poison:
+      metabolismRate: 0.5
+      effects:
+      - !type:ChemVomit
+        probability: 0.6
+      - !type:HealthChange
+        damage:
+          types:
+            Poison: 2
+      - !type:Drunk
+        boozePower: 0.5
+
+- type: reagent
+  id: BioEthanol
+  name: reagent-name-BioEthanol
+  group: Foods
+  desc: reagent-desc-BioEthanol
+  physicalDesc: reagent-physicalDesc-BioEthanol
+  flavor: alcohol
+  color: "#b05b3c"
+  metabolisms:
+    Alcohol:
+      metabolismRate: 0.5
+      effects:
+      - !type:HealthChange
+        damage:
+          types:
+            Poison: 0.02
+            Blunt: -0.03
+            Slash: -0.03
+            Piercing: -0.04
+      - !type:ChemVomit
+        probability: 0.1
+      - !type:Drunk
+        boozePower: 40

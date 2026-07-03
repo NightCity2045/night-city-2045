@@ -294,6 +294,9 @@ namespace Content.Server.Atmos.EntitySystems
         {
             base.Update(frameTime);
 
+            if (!_confMan.GetCVar(Content.Shared.CCVar.CCVars.AtmosGasOverlayUpdate))
+                return;
+
             // Prevent this system from running the expensive checks on every frame.
             AccumulatedFrameTime += frameTime;
             if (AccumulatedFrameTime < _updateInterval)

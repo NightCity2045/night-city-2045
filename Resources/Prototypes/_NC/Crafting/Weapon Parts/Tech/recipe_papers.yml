@@ -1,0 +1,337 @@
+- type: entity
+  parent: Paper
+  id: NCRecipePaperBase
+  abstract: true
+  name: ent-NCRecipePaperBase
+  description: ent-NCRecipePaperBase-desc
+  components:
+  - type: Sprite
+    sprite: Objects/Misc/bureaucracy.rsi
+    layers:
+    - state: paper
+    - state: paper_words
+      map: ["enum.PaperVisualLayers.Writing"]
+      visible: true
+  - type: Paper
+    content: "ИНСТРУКЦИЯ ПО СБОРКЕ: [ДАННЫЕ ПОВРЕЖДЕНЫ]\n\nНа этой бумаге можно писать дополнительные заметки."
+
+# --- ПИСТОЛЕТЫ ---
+
+- type: entity
+  parent: NCRecipePaperBase
+  id: NCRecipePaperHelloCutie
+  name: ent-NCRecipePaper
+  description: Рецепт для сборки оружия. Т1.
+  components:
+  - type: Paper
+    content: |
+      ИНСТРУКЦИЯ ПО СБОРКЕ: Hello Cutie
+
+      Алгоритм сборки:
+      1. Установите рамка кустарного оружия (Т1) Каркас заготовка Т1
+      2. Установите гладкоствольная трубка (Т1) Стволы заготовка Т1
+      3. Инструмент: Screwing
+      4. Установите примитивный УСМ (Т1) УСМ заготовка Т1
+      5. Инструмент: Screwing
+
+- type: entity
+  parent: NCRecipePaperBase
+  id: NCRecipePaperOverlord
+  name: ent-NCRecipePaper
+  description: Рецепт для сборки оружия. Т1.
+  components:
+  - type: Paper
+    content: |
+      ИНСТРУКЦИЯ ПО СБОРКЕ: Overlord
+
+      Алгоритм сборки:
+      1. Установите рамка кустарного оружия (Т1) Каркас заготовка Т1
+      2. Установите гладкоствольная трубка (Т1) Стволы заготовка Т1
+      3. Инструмент: Screwing
+      4. Установите примитивный УСМ (Т1) УСМ заготовка Т1
+      5. Инструмент: Screwing
+
+- type: entity
+  parent: NCRecipePaperBase
+  id: NCRecipePaperStreetMaster
+  name: ent-NCRecipePaper
+  description: Рецепт для сборки оружия. Т1.
+  components:
+  - type: Paper
+    content: |
+      ИНСТРУКЦИЯ ПО СБОРКЕ: StreetMaster
+
+      Алгоритм сборки:
+      1. Установите рамка кустарного оружия (Т1) Каркас заготовка Т1
+      2. Установите гладкоствольная трубка (Т1) Стволы заготовка Т1
+      3. Инструмент: Screwing
+      4. Установите примитивный УСМ (Т1) УСМ заготовка Т1
+      5. Инструмент: Screwing
+
+- type: entity
+  parent: NCRecipePaperBase
+  id: NCRecipePaperStukachTommy
+  name: ent-NCRecipePaper
+  description: Рецепт для сборки оружия. Т2.
+  components:
+  - type: Paper
+    content: |
+      ИНСТРУКЦИЯ ПО СБОРКЕ: Стукач Томми
+
+      Алгоритм сборки:
+      1. Установите корпоративная ствольная коробка (Т2) Каркас заготовка Т2
+      2. Установите стандартный нарезной ствол (Т2) Стволы заготовка Т2
+      3. Инструмент: Screwing
+      4. Установите затворная группа военого стандарта (Т2) УСМ заготовка Т2
+      5. Установите контроллер боепитания (Т2) Электроника заготовка Т2
+      6. Инструмент: Pulsing
+
+- type: entity
+  parent: NCRecipePaperBase
+  id: NCRecipePaperAvenger
+  name: ent-NCRecipePaper
+  description: Рецепт для сборки оружия. Т2.
+  components:
+  - type: Paper
+    content: |
+      ИНСТРУКЦИЯ ПО СБОРКЕ: Militech Avenger
+
+      Алгоритм сборки:
+      1. Установите корпоративная ствольная коробка (Т2) Каркас заготовка Т2
+      2. Установите стандартный нарезной ствол (Т2) Стволы заготовка Т2
+      3. Инструмент: Screwing
+      4. Установите затворная группа военого стандарта (Т2) УСМ заготовка Т2
+      5. Установите контроллер боепитания (Т2) Электроника заготовка Т2
+      6. Инструмент: Pulsing
+
+- type: entity
+  parent: NCRecipePaperBase
+  id: NCRecipePaperCheesemaker
+  name: ent-NCRecipePaper
+  description: Рецепт для сборки оружия. Т1.
+  components:
+  - type: Paper
+    content: |
+      ИНСТРУКЦИЯ ПО СБОРКЕ: FedArms Cheesemaker
+
+      Алгоритм сборки:
+      1. Установите рамка кустарного оружия (Т1) Каркас заготовка Т1
+      2. Установите гладкоствольная трубка (Т1) Стволы заготовка Т1
+      3. Инструмент: Screwing
+      4. Установите примитивный УСМ (Т1) УСМ заготовка Т1
+      5. Инструмент: Screwing
+
+- type: entity
+  parent: NCRecipePaperBase
+  id: NCRecipePaperFederalX9
+  name: ent-NCRecipePaper
+  description: Рецепт для сборки оружия. Т1.
+  components:
+  - type: Paper
+    content: |
+      ИНСТРУКЦИЯ ПО СБОРКЕ: Federal Arms X9
+
+      Алгоритм сборки:
+      1. Установите рамка кустарного оружия (Т1) Каркас заготовка Т1
+      2. Установите гладкоствольная трубка (Т1) Стволы заготовка Т1
+      3. Инструмент: Screwing
+      4. Установите примитивный УСМ (Т1) УСМ заготовка Т1
+      5. Инструмент: Screwing
+
+- type: entity
+  parent: NCRecipePaperBase
+  id: NCRecipePaperBoomerBuster
+  name: ent-NCRecipePaper
+  description: Рецепт для сборки оружия. Т1.
+  components:
+  - type: Paper
+    content: |
+      ИНСТРУКЦИЯ ПО СБОРКЕ: Militech Boomer Buster
+
+      Алгоритм сборки:
+      1. Установите рамка кустарного оружия (Т1) Каркас заготовка Т1
+      2. Установите гладкоствольная трубка (Т1) Стволы заготовка Т1
+      3. Инструмент: Screwing
+      4. Установите примитивный УСМ (Т1) УСМ заготовка Т1
+      5. Инструмент: Screwing
+
+- type: entity
+  parent: NCRecipePaperBase
+  id: NCRecipePaperMarkIII
+  name: ent-NCRecipePaper
+  description: Рецепт для сборки оружия. Т1.
+  components:
+  - type: Paper
+    content: |
+      ИНСТРУКЦИЯ ПО СБОРКЕ: Mustang Arms Mark III
+
+      Алгоритм сборки:
+      1. Установите рамка кустарного оружия (Т1) Каркас заготовка Т1
+      2. Установите гладкоствольная трубка (Т1) Стволы заготовка Т1
+      3. Инструмент: Screwing
+      4. Установите примитивный УСМ (Т1) УСМ заготовка Т1
+      5. Инструмент: Screwing
+
+- type: entity
+  parent: NCRecipePaperBase
+  id: NCRecipePaperSternmeyerP35
+  name: ent-NCRecipePaper
+  description: Рецепт для сборки оружия. Т2.
+  components:
+  - type: Paper
+    content: |
+      ИНСТРУКЦИЯ ПО СБОРКЕ: Sternmeyer P35
+
+      Алгоритм сборки:
+      1. Установите корпоративная ствольная коробка (Т2) Каркас заготовка Т2
+      2. Установите стандартный нарезной ствол (Т2) Стволы заготовка Т2
+      3. Инструмент: Screwing
+      4. Установите затворная группа военого стандарта (Т2) УСМ заготовка Т2
+      5. Установите контроллер боепитания (Т2) Электроника заготовка Т2
+      6. Инструмент: Pulsing
+
+# --- ВИНТОВКИ ---
+
+- type: entity
+  parent: NCRecipePaperBase
+  id: NCRecipePaperM04
+  name: ent-NCRecipePaper
+  description: Рецепт для сборки оружия. Т3.
+  components:
+  - type: Paper
+    content: |
+      ИНСТРУКЦИЯ ПО СБОРКЕ: Steinmeyer M-04 (Т3)
+
+      Алгоритм сборки:
+      1. Установите эргономичный смарт-каркас (Т3) Каркас заготовка Т3
+      2. Установите ствол с магнитной стабилизацией (Т3) Стволы заготовка Т3
+      3. Инструмент: Screwing
+      4. Установите микрогидравлическая система отдачи (Т3) УСМ заготовка Т3
+      5. Инструмент: Screwing
+
+- type: entity
+  parent: NCRecipePaperBase
+  id: NCRecipePaperArasakaProto
+  name: ent-NCRecipePaper
+  description: Рецепт для сборки оружия. Т3.
+  components:
+  - type: Paper
+    content: |
+      ИНСТРУКЦИЯ ПО СБОРКЕ: Arasaka Prototype
+
+      ВНИМАНИЕ: СЕКРЕТНЫЕ ПРОТОТИПЫ
+      1. Установите эргономичный смарт-каркас (Т3) Каркас заготовка Т3
+      2. Установите ствол с магнитной стабилизацией (Т3) Стволы заготовка Т3
+      3. Инструмент: Screwing
+      4. Установите микрогидравлическая система отдачи (Т3) УСМ заготовка Т3
+      5. Установите смарт-модуль наведения (Т3) Электроника заготовка Т3
+      6. Инструмент: Pulsing
+
+- type: entity
+  parent: NCRecipePaperBase
+  id: NCRecipePaperNowaki
+  name: ent-NCRecipePaper
+  description: Рецепт для сборки оружия. Т3.
+  components:
+  - type: Paper
+    content: |
+      ИНСТРУКЦИЯ ПО СБОРКЕ: Arasaka NOWAKI
+
+      Алгоритм сборки:
+      1. Установите эргономичный смарт-каркас (Т3) Каркас заготовка Т3
+      2. Установите ствол с магнитной стабилизацией (Т3) Стволы заготовка Т3
+      3. Инструмент: Screwing
+      4. Установите микрогидравлическая система отдачи (Т3) УСМ заготовка Т3
+      5. Инструмент: Screwing
+
+- type: entity
+  parent: NCRecipePaperBase
+  id: NCRecipePaperNokota
+  name: ent-NCRecipePaper
+  description: Рецепт для сборки оружия. Т2.
+  components:
+  - type: Paper
+    content: |
+      ИНСТРУКЦИЯ ПО СБОРКЕ: Nokota D5 Copperhead
+
+      Алгоритм сборки:
+      1. Установите корпоративная ствольная коробка (Т2) Каркас заготовка Т2
+      2. Установите стандартный нарезной ствол (Т2) Стволы заготовка Т2
+      3. Инструмент: Screwing
+      4. Установите затворная группа военого стандарта (Т2) УСМ заготовка Т2
+      5. Инструмент: Screwing
+
+# --- ДРОБОВИКИ ---
+
+- type: entity
+  parent: NCRecipePaperBase
+  id: NCRecipePaperSvakha
+  name: ent-NCRecipePaper
+  description: Рецепт для сборки оружия. Т1.
+  components:
+  - type: Paper
+    content: |
+      ИНСТРУКЦИЯ ПО СБОРКЕ: Сваха
+
+      Алгоритм сборки:
+      1. Установите рамка кустарного оружия (Т1) Каркас заготовка Т1
+      2. Установите гладкоствольная трубка (Т1) Стволы заготовка Т1
+      3. Инструмент: Screwing
+      4. Установите примитивный УСМ (Т1) УСМ заготовка Т1
+      5. Инструмент: Screwing
+
+- type: entity
+  parent: NCRecipePaperBase
+  id: NCRecipePaperMilitechCrusher
+  name: ent-NCRecipePaper
+  description: Рецепт для сборки оружия. Т2.
+  components:
+  - type: Paper
+    content: |
+      ИНСТРУКЦИЯ ПО СБОРКЕ: Militech Crusher
+
+      Алгоритм сборки:
+      1. Установите корпоративная ствольная коробка (Т2) Каркас заготовка Т2
+      2. Установите стандартный нарезной ствол (Т2) Стволы заготовка Т2
+      3. Инструмент: Screwing
+      4. Установите затворная группа военого стандарта (Т2) УСМ заготовка Т2
+      5. Установите контроллер боепитания (Т2) Электроника заготовка Т2
+      6. Инструмент: Pulsing
+
+# --- ПП ---
+
+- type: entity
+  parent: NCRecipePaperBase
+  id: NCRecipePaperShingen
+  name: ent-NCRecipePaper
+  description: Рецепт для сборки оружия. Т3.
+  components:
+  - type: Paper
+    content: |
+      ИНСТРУКЦИЯ ПО СБОРКЕ: Arasaka TKI20 Shingen
+
+      Алгоритм сборки:
+      1. Установите эргономичный смарт-каркас (Т3) Каркас заготовка Т3
+      2. Установите ствол с магнитной стабилизацией (Т3) Стволы заготовка Т3
+      3. Инструмент: Screwing
+      4. Установите микрогидравлическая система отдачи (Т3) УСМ заготовка Т3
+      5. Установите смарт-модуль наведения (Т3) Электроника заготовка Т3
+      6. Инструмент: Pulsing
+
+- type: entity
+  parent: NCRecipePaperBase
+  id: NCRecipePaperSaratoga
+  name: ent-NCRecipePaper
+  description: Рецепт для сборки оружия. Т2.
+  components:
+  - type: Paper
+    content: |
+      ИНСТРУКЦИЯ ПО СБОРКЕ: Militech M-221 Saratoga
+
+      Алгоритм сборки:
+      1. Установите корпоративная ствольная коробка (Т2) Каркас заготовка Т2
+      2. Установите стандартный нарезной ствол (Т2) Стволы заготовка Т2
+      3. Инструмент: Screwing
+      4. Установите затворная группа военого стандарта (Т2) УСМ заготовка Т2
+      5. Установите контроллер боепитания (Т2) Электроника заготовка Т2
+      6. Инструмент: Pulsing

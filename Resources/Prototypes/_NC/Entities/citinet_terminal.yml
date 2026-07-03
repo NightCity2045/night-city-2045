@@ -1,0 +1,99 @@
+- type: entity
+  parent: BaseComputer
+  id: CitiNetTerminal
+  name: ent-CitiNetTerminal
+  description: ent-CitiNetTerminal-desc
+  components:
+  - type: Sprite
+    sprite: Structures/Machines/computers.rsi
+    state: computer
+  - type: NetBrowser
+  - type: CitiNetStore
+  - type: ItemSlots
+    slots:
+      chip_slot:
+        name: Data Chip Slot
+        whitelist:
+          components:
+          - DataChip
+  - type: ActivatableUI
+    key: enum.NetBrowserUiKey.Key
+  - type: UserInterface
+    interfaces:
+      enum.NetBrowserUiKey.Key:
+        type: NetBrowserBoundUserInterface
+
+- type: entity
+  parent: BaseItem
+  id: CitiNetDataChipNCPD
+  name: ent-CitiNetDataChipNCPD
+  description: ent-CitiNetDataChipNCPD-desc
+  components:
+  - type: Sprite
+    sprite: Objects/Devices/cartridge.rsi
+    state: cart-sec
+  - type: DataChip
+    unlockedSiteId: NCPDDatabase
+
+- type: entity
+  parent: BaseItem
+  id: CitiNetDataChipNCPDForensics
+  name: ent-CitiNetDataChipNCPDForensics
+  description: ent-CitiNetDataChipNCPDForensics-desc
+  components:
+  - type: Sprite
+    sprite: Objects/Devices/cartridge.rsi
+    state: cart-sec
+  - type: DataChip
+    unlockedSiteId: NcpdForensics
+
+- type: entity
+  parent: CrateBaseSecure
+  id: CitiNetCorporateDropBox
+  name: ent-CitiNetCorporateDropBox
+  description: ent-CitiNetCorporateDropBox-desc
+  components:
+  - type: Transform
+    anchored: true
+  - type: DropPoint
+    dropType: Corporate
+    locationName: "Сектор 4, Главный холл"
+  - type: OTPKeypad
+  - type: AccessReader # Overriding with empty access to prevent opening by any card
+    access: []
+  - type: Lock
+    locked: true
+    unlockOnClick: false
+    lockOnClick: false
+  - type: ActivatableUI
+    key: enum.OTPKeypadUiKey.Key
+  - type: UserInterface
+    interfaces:
+      enum.OTPKeypadUiKey.Key:
+        type: OTPKeypadBoundUserInterface
+
+- type: entity
+  parent: Trashbin
+  id: CitiNetStreetDeadDrop
+  name: ent-CitiNetStreetDeadDrop
+  description: ent-CitiNetStreetDeadDrop-desc
+  components:
+  - type: Transform
+    anchored: true
+  - type: DropPoint
+    dropType: DeadDrop
+    locationName: "Переулок за баром Джо"
+
+- type: entity
+  parent: BaseItem
+  id: CitiNetDeliveryChip
+  name: ent-CitiNetDeliveryChip
+  description: ent-CitiNetDeliveryChip-desc
+  components:
+  - type: Cartridge
+    programName: citinet-delivery-cartridge-name
+  - type: Sprite
+    sprite: Objects/Devices/encryption_keys.rsi
+    layers:
+    - state: crypt_blue
+  - type: DeliveryChip

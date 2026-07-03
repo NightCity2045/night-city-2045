@@ -1819,18 +1819,6 @@ entities:
     - type: Transform
       pos: 5.5,-2.5
       parent: 377
-- proto: SchoolgirlUniformSpawner
-  entities:
-  - uid: 151
-    components:
-    - type: Transform
-      pos: 7.5,-7.5
-      parent: 377
-  - uid: 153
-    components:
-    - type: Transform
-      pos: 3.5,-7.5
-      parent: 377
 - proto: ShardGlass
   entities:
   - uid: 239

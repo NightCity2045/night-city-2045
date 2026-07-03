@@ -1,0 +1,69 @@
+- type: netSite
+  id: CitiNetHome
+  name: citinet-site-name-home
+  url: nightcity.gov
+  uiKey: NetHome
+
+- type: netSite
+  id: CitiNetComm
+  name: citinet-site-name-comm
+  url: citinet.net
+  uiKey: CitiNetComm
+
+- type: netSite
+  id: NcpdForensics
+  name: citinet-site-name-flatline
+  url: "ncpd.gov/forensics"
+  uiKey: NcpdForensics
+  requiredAccess:
+  - Security
+
+- type: netSite
+  id: AstrozonHome
+  name: citinet-site-name-astrozon
+  url: "astrozon.nc"
+  uiKey: FixerMarket
+  storePreset: AstrozonMarket
+
+- type: netSite
+  id: NightMarket
+  name: citinet-site-name-night-market
+  url: "fixer.nc/market"
+  uiKey: FixerMarket
+  requiredAccess:
+  - Fixer
+  storePreset: NightMarketMarket
+
+- type: netSite
+  id: CorporateMilitechSupply
+  name: MILITECH SUPPLY
+  url: "militech.corp/supply"
+  uiKey: CorporateSupply
+  requiredAccess:
+  - Security
+  storePreset: CorporateMilitechSupply
+
+- type: netSite
+  id: CorporateBiotechnicaSupply
+  name: BIOTECHNICA SUPPLY
+  url: "biotechnica.corp/supply"
+  uiKey: CorporateSupply
+  requiredAccess:
+  - Biotech_Director
+  storePreset: CorporateBiotechnicaSupply
+
+- type: netSite
+  id: NCPDDatabase
+  name: citinet-site-name-ncpd-records
+  url: ncpd.gov/records
+  requiredAccess:
+  - NCPD_Command
+  uiKey: NetHome # Placeholder
+
+- type: netSite
+  id: TraumaCare
+  name: citinet-site-name-trauma-monitor
+  url: traumacare.com/monitor
+  requiredAccess:
+  - Trauma_Medical
+  uiKey: NetHome # Placeholder

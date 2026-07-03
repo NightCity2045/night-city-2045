@@ -3,55 +3,71 @@
     xmlns:gfx="clr-namespace:Robust.Client.Graphics;assembly=Robust.Client"
     xmlns:controls="clr-namespace:Content.Client.UserInterface.Controls"
     xmlns:widgets="clr-namespace:Content.Client._Shitmed.UserInterface.Systems.PartStatus.Widgets"
-    Name="PartStatusIndicator"
-    VerticalAlignment="Center"
-    HorizontalAlignment="Center">
+    Name="PartStatusIndicator">
     <Control>
-        <PanelContainer>
-            <TextureRect
-                Name="DollHead"
-                Stretch="KeepAspectCentered"
-                SetSize="64 64"/>
-            <TextureRect
-                Name="DollTorso"
-                Stretch="KeepAspectCentered"
-                SetSize="64 64"/>
-            <TextureRect
-                Name="DollGroin"
-                Stretch="KeepAspectCentered"
-                SetSize="64 64"/>
-            <TextureRect
-                Name="DollLeftArm"
-                Stretch="KeepAspectCentered"
-                SetSize="64 64"/>
-            <TextureRect
-                Name="DollLeftHand"
-                Stretch="KeepAspectCentered"
-                SetSize="64 64"/>
-            <TextureRect
-                Name="DollRightArm"
-                Stretch="KeepAspectCentered"
-                SetSize="64 64"/>
-            <TextureRect
-                Name="DollRightHand"
-                Stretch="KeepAspectCentered"
-                SetSize="64 64"/>
-            <TextureRect
-                Name="DollLeftLeg"
-                Stretch="KeepAspectCentered"
-                SetSize="64 64"/>
-            <TextureRect
-                Name="DollLeftFoot"
-                Stretch="KeepAspectCentered"
-                SetSize="64 64"/>
-            <TextureRect
-                Name="DollRightLeg"
-                Stretch="KeepAspectCentered"
-                SetSize="64 64"/>
-            <TextureRect
-                Name="DollRightFoot"
-                Stretch="KeepAspectCentered"
-                SetSize="64 64"/>
-        </PanelContainer>
+        <BoxContainer Orientation="Vertical" SeparationOverride="4">
+            <TextureButton
+                Name="CitiNetButton"
+                Access="Public"
+                TexturePath="/Textures/_White/NovaUI/Icons/pda.png"
+                HorizontalAlignment="Center"
+                SetSize="32 32"
+                ToolTip="Open CitiNet / PDA"/>
+
+            <TextureButton
+                Name="CitiNetMapButton"
+                Access="Public"
+                TexturePath="/Textures/_White/NovaUI/Icons/loopa.png"
+                HorizontalAlignment="Center"
+                SetSize="32 32"
+                ToolTip="Open CitiNet Map"/>
+
+            <PanelContainer>
+                <TextureRect
+                    Name="DollHead"
+                    Stretch="KeepAspectCentered"
+                    SetSize="64 64"/>
+                <TextureRect
+                    Name="DollTorso"
+                    Stretch="KeepAspectCentered"
+                    SetSize="64 64"/>
+                <TextureRect
+                    Name="DollGroin"
+                    Stretch="KeepAspectCentered"
+                    SetSize="64 64"/>
+                <TextureRect
+                    Name="DollLeftArm"
+                    Stretch="KeepAspectCentered"
+                    SetSize="64 64"/>
+                <TextureRect
+                    Name="DollLeftHand"
+                    Stretch="KeepAspectCentered"
+                    SetSize="64 64"/>
+                <TextureRect
+                    Name="DollRightArm"
+                    Stretch="KeepAspectCentered"
+                    SetSize="64 64"/>
+                <TextureRect
+                    Name="DollRightHand"
+                    Stretch="KeepAspectCentered"
+                    SetSize="64 64"/>
+                <TextureRect
+                    Name="DollLeftLeg"
+                    Stretch="KeepAspectCentered"
+                    SetSize="64 64"/>
+                <TextureRect
+                    Name="DollLeftFoot"
+                    Stretch="KeepAspectCentered"
+                    SetSize="64 64"/>
+                <TextureRect
+                    Name="DollRightLeg"
+                    Stretch="KeepAspectCentered"
+                    SetSize="64 64"/>
+                <TextureRect
+                    Name="DollRightFoot"
+                    Stretch="KeepAspectCentered"
+                    SetSize="64 64"/>
+            </PanelContainer>
+        </BoxContainer>
     </Control>
 </widgets:PartStatusControl>

@@ -1,0 +1,21 @@
+- type: entity
+  parent: ClothingHeadBase
+  id: ClothingHeadHatMilitechCap
+  name: ent-ClothingHeadHatMilitech
+  description: ent-ClothingHeadHatMilitech-desc
+  components:
+  - type: Sprite
+    sprite: _NC/Clothing/Head/Hats/militech_cap.rsi
+  - type: Clothing
+    sprite: _NC/Clothing/Head/Hats/militech_cap.rsi
+
+- type: entity
+  parent: ClothingHeadBase
+  id: ClothingHeadHatBiotechnicaCap
+  name: ent-ClothingHeadHatBiotechnica
+  description: ent-ClothingHeadHatBiotechnica-desc
+  components:
+  - type: Sprite
+    sprite: _NC/Clothing/Head/Hats/biotech_cap.rsi
+  - type: Clothing
+    sprite: _NC/Clothing/Head/Hats/biotech_cap.rsi

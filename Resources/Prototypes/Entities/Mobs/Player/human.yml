@@ -27,10 +27,10 @@
   id: MobHumanSyndicateAgent
   name: syndicate agent
   suffix: Human, Traitor
-  components:
-  # make the player a traitor once its taken
-  - type: AutoTraitor
-    profile: TraitorReinforcement
+  # components:
+  # # make the player a traitor once its taken
+  # - type: AutoTraitor
+  #   profile: TraitorReinforcement
 
 - type: entity
   parent: MobHumanSyndicateAgent
@@ -78,8 +78,6 @@
   components:
   - type: NukeOperative
   - type: RandomHumanoidAppearance
-  - type: Psionic
-    powerRollMultiplier: 7
 
 - type: entity
   categories: [ HideSpawnMenu ]
@@ -99,8 +97,6 @@
   - type: NpcFactionMember
     factions:
     - Syndicate
-  - type: Psionic
-    powerRollMultiplier: 7
 
 # Wizard
 - type: entity

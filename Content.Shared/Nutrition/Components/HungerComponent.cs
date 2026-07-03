@@ -18,7 +18,7 @@ public sealed partial class HungerComponent : Component
     /// This value should be updated relatively infrequently. To get the current hunger, which changes with each update,
     /// use <see cref="HungerSystem.GetHunger"/>.
     /// </summary>
-    [DataField, ViewVariables(VVAccess.ReadOnly)]
+    [DataField, ViewVariables(VVAccess.ReadWrite)]  // NC edit: Fix hunger - made this easy to change
     [AutoNetworkedField]
     public float LastAuthoritativeHungerValue;
 
@@ -84,7 +84,7 @@ public sealed partial class HungerComponent : Component
     {
         { HungerThreshold.Peckish, "Peckish" },
         { HungerThreshold.Starving, "Starving" },
-        { HungerThreshold.Dead, "Starving" }
+        { HungerThreshold.Dead, "DyingOfHunger" }  // NC edit: Fix hunger
     };
 
     [DataField]
@@ -116,6 +116,15 @@ public sealed partial class HungerComponent : Component
     /// </summary>
     [DataField("starvationDamage")]
     public DamageSpecifier? StarvationDamage;
+
+    // NC edit start: Fix hunger
+    /// <summary>
+    /// Damage dealt when your current threshold is at HungerThreshold.Dead
+    /// </summary>
+    [DataField("starvationDamageValue"), ViewVariables(VVAccess.ReadWrite)]
+    [AutoNetworkedField]
+    public float? StarvationDamageValue;
+    // NC edit end: Fix hunger
 
     /// <summary>
     /// The time when the hunger threshold will update next.

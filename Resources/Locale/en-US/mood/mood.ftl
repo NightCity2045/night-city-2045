@@ -4,6 +4,7 @@ mood-effect-HungerOverfed = I ate so much, I feel as though I'm about to burst!
 mood-effect-HungerOkay = I am feeling full.
 mood-effect-HungerPeckish = I could go for a snack right about now.
 mood-effect-HungerStarving = I NEED FOOD!
+mood-effect-HungerDead = I'M DYING OF HUNGER!!!
 
 mood-effect-ThirstOverHydrated = I've had my fill of water.
 mood-effect-ThirstOkay = I'm feeling refreshed.

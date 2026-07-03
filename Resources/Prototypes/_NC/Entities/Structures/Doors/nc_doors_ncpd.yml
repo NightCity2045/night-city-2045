@@ -1,0 +1,37 @@
+# НСПД (NCPD) - Шлюзы
+
+# Общий шлюз НСПД
+- type: entity
+  id: NCPDGeneralAirlock
+  parent: BaseNCAirlock
+  name: ent-NCDoorNCPDGeneral
+  components:
+  - type: AccessReader
+    access: [["NCPD_Patrol"]]
+
+# Шлюз для персонала НСПД
+- type: entity
+  id: NCPDStaffAirlock
+  parent: BaseNCAirlock
+  name: ent-NCDoorNCPDStaff
+  components:
+  - type: AccessReader
+    access: [["NCPD_Patrol"]]
+
+# Шлюз арсенала НСПД
+- type: entity
+  id: NCPDArmoryAirlock
+  parent: BaseNCAirlock
+  name: ent-NCDoorNCPDArmory
+  components:
+  - type: AccessReader
+    access: [["NCPD_Armory"]]
+
+# Шлюз начальника департамента НСПД
+- type: entity
+  id: NCPDCommandAirlock
+  parent: BaseNCAirlock
+  name: ent-NCDoorNCPDChief
+  components:
+  - type: AccessReader
+    access: [["NCPD_Command"]]

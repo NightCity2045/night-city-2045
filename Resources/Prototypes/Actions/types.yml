@@ -172,31 +172,29 @@
     useDelay: 1 # equip noise spam.
     event: !type:ToggleClothingEvent
 
-# WD EDIT START
-# - type: entity
-#   id: ActionCombatModeToggle
-#   name: "[color=red]Combat Mode[/color]"
-#   description: Enter combat mode
-#   components:
-#   - type: InstantAction
-#     checkCanInteract: false
-#     checkConsciousness: false
-#     icon: Interface/Actions/harmOff.png
-#     iconOn: Interface/Actions/harm.png
-#     event: !type:ToggleCombatActionEvent
-#     priority: -100
+- type: entity
+  id: ActionCombatModeToggle
+  name: "[color=red]Combat Mode[/color]"
+  description: Enter combat mode
+  components:
+  - type: InstantAction
+    checkCanInteract: false
+    checkConsciousness: false
+    icon: Interface/Actions/harmOff.png
+    iconOn: Interface/Actions/harm.png
+    event: !type:ToggleCombatActionEvent
+    priority: -200
 
-# - type: entity
-#   id: ActionCombatModeToggleOff
-#   parent: ActionCombatModeToggle
-#   name: "[color=red]Combat Mode[/color]"
-#   description: Enter combat mode
-#   components:
-#   - type: InstantAction
-#     enabled: false
-#     autoPopulate: false
-#     priority: -100
-# WD EDIT END
+- type: entity
+  id: ActionCombatModeToggleOff
+  parent: ActionCombatModeToggle
+  name: "[color=red]Combat Mode[/color]"
+  description: Enter combat mode
+  components:
+  - type: InstantAction
+    enabled: false
+    autoPopulate: false
+    priority: -200
 
 - type: entity
   id: ActionChangeVoiceMask
@@ -403,7 +401,6 @@
       sprite: Clothing/Eyes/Goggles/nightvision.rsi
       state: icon
     event: !type:ToggleNightVisionEvent
-    useDelay: 4
 
 - type: entity
   id: ToggleThermalVision

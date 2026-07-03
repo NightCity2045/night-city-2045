@@ -1,0 +1,179 @@
+- type: entity
+  name: Biotechnica Spawner (Lootable)
+  parent: MarkerBase
+  id: SpawnMobNCBiotechnicaLootable
+  suffix: NC Biotechnica Lootable
+  components:
+  - type: Sprite
+    layers:
+    - state: red
+    - sprite: Mobs/Aliens/Xenos/burrower.rsi
+      state: walking
+    - state: ai
+  - type: RandomSpawner
+    # Simulation of weights (4:3:2:1)
+    prototypes:
+    - MobNCBiotechnicaAvengerLootable
+    - MobNCBiotechnicaAvengerLootable
+    - MobNCBiotechnicaAvengerLootable
+    - MobNCBiotechnicaAvengerLootable
+    - MobNCBiotechnicaBoomerBusterLootable
+    - MobNCBiotechnicaBoomerBusterLootable
+    - MobNCBiotechnicaBoomerBusterLootable
+    - MobNCBiotechnicaSaratogaLootable
+    - MobNCBiotechnicaSaratogaLootable
+    - MobNCBiotechnicaCrusherLootable
+
+- type: entity
+  name: Biotechnica Spawner (Avenger Lootable)
+  parent: MarkerBase
+  id: SpawnMobNCBiotechnicaAvengerLootable
+  suffix: NC Biotechnica Avenger Lootable
+  components:
+  - type: Sprite
+    layers:
+    - state: red
+    - sprite: Mobs/Aliens/Xenos/burrower.rsi
+      state: walking
+    - state: ai
+  - type: RandomSpawner
+    prototypes:
+    - MobNCBiotechnicaAvengerLootable
+
+- type: entity
+  name: Biotechnica Spawner (Boomer Lootable)
+  parent: MarkerBase
+  id: SpawnMobNCBiotechnicaBoomerBusterLootable
+  suffix: NC Biotechnica Boomer Lootable
+  components:
+  - type: Sprite
+    layers:
+    - state: red
+    - sprite: Mobs/Aliens/Xenos/burrower.rsi
+      state: walking
+    - state: ai
+  - type: RandomSpawner
+    prototypes:
+    - MobNCBiotechnicaBoomerBusterLootable
+
+- type: entity
+  name: Biotechnica Spawner (Saratoga Lootable)
+  parent: MarkerBase
+  id: SpawnMobNCBiotechnicaSaratogaLootable
+  suffix: NC Biotechnica Saratoga Lootable
+  components:
+  - type: Sprite
+    layers:
+    - state: red
+    - sprite: Mobs/Aliens/Xenos/burrower.rsi
+      state: walking
+    - state: ai
+  - type: RandomSpawner
+    prototypes:
+    - MobNCBiotechnicaSaratogaLootable
+
+- type: entity
+  name: Biotechnica Spawner (Crusher Lootable)
+  parent: MarkerBase
+  id: SpawnMobNCBiotechnicaCrusherLootable
+  suffix: NC Biotechnica Crusher Lootable
+  components:
+  - type: Sprite
+    layers:
+    - state: red
+    - sprite: Mobs/Aliens/Xenos/burrower.rsi
+      state: walking
+    - state: ai
+  - type: RandomSpawner
+    prototypes:
+    - MobNCBiotechnicaCrusherLootable
+
+# - type: entity
+#   name: Biotechnica Spawner (Unlootable)
+#   parent: MarkerBase
+#   id: SpawnMobNCBiotechnicaUnlootable
+#   suffix: NC Biotechnica Unlootable
+#   components:
+#   - type: Sprite
+#     layers:
+#     - state: red
+#     - sprite: Mobs/Aliens/Xenos/burrower.rsi
+#       state: walking
+#     - state: ai
+#   - type: RandomSpawner
+#     # Simulation of weights (4:3:2:1)
+#     prototypes:
+#     - MobNCBiotechnicaAvengerUnlootable
+#     - MobNCBiotechnicaAvengerUnlootable
+#     - MobNCBiotechnicaAvengerUnlootable
+#     - MobNCBiotechnicaAvengerUnlootable
+#     - MobNCBiotechnicaBoomerBusterUnlootable
+#     - MobNCBiotechnicaBoomerBusterUnlootable
+#     - MobNCBiotechnicaBoomerBusterUnlootable
+#     - MobNCBiotechnicaSaratogaUnlootable
+#     - MobNCBiotechnicaSaratogaUnlootable
+#     - MobNCBiotechnicaCrusherUnlootable
+
+# - type: entity
+#   name: Biotechnica Spawner (Avenger Unlootable)
+#   parent: MarkerBase
+#   id: SpawnMobNCBiotechnicaAvengerUnlootable
+#   suffix: NC Biotechnica Avenger Unlootable
+#   components:
+#   - type: Sprite
+#     layers:
+#     - state: red
+#     - sprite: Mobs/Aliens/Xenos/burrower.rsi
+#       state: walking
+#     - state: ai
+#   - type: RandomSpawner
+#     prototypes:
+#     - MobNCBiotechnicaAvengerUnlootable
+
+# - type: entity
+#   name: Biotechnica Spawner (Boomer Unlootable)
+#   parent: MarkerBase
+#   id: SpawnMobNCBiotechnicaBoomerBusterUnlootable
+#   suffix: NC Biotechnica Boomer Unlootable
+#   components:
+#   - type: Sprite
+#     layers:
+#     - state: red
+#     - sprite: Mobs/Aliens/Xenos/burrower.rsi
+#       state: walking
+#     - state: ai
+#   - type: RandomSpawner
+#     prototypes:
+#     - MobNCBiotechnicaBoomerBusterUnlootable
+
+# - type: entity
+#   name: Biotechnica Spawner (Saratoga Unlootable)
+#   parent: MarkerBase
+#   id: SpawnMobNCBiotechnicaSaratogaUnlootable
+#   suffix: NC Biotechnica Saratoga Unlootable
+#   components:
+#   - type: Sprite
+#     layers:
+#     - state: red
+#     - sprite: Mobs/Aliens/Xenos/burrower.rsi
+#       state: walking
+#     - state: ai
+#   - type: RandomSpawner
+#     prototypes:
+#     - MobNCBiotechnicaSaratogaUnlootable
+
+# - type: entity
+#   name: Biotechnica Spawner (Crusher Unlootable)
+#   parent: MarkerBase
+#   id: SpawnMobNCBiotechnicaCrusherUnlootable
+#   suffix: NC Biotechnica Crusher Unlootable
+#   components:
+#   - type: Sprite
+#     layers:
+#     - state: red
+#     - sprite: Mobs/Aliens/Xenos/burrower.rsi
+#       state: walking
+#     - state: ai
+#   - type: RandomSpawner
+#     prototypes:
+#     - MobNCBiotechnicaCrusherUnlootable

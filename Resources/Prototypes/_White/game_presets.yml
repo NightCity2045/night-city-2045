@@ -1,25 +1,25 @@
-﻿- type: gamePreset
-  id: BloodCult
-  alias:
-  - bloodcult
-  name: blood-cult-title
-  showInVote: true
-  description: blood-cult-description
-  rules:
-  - BloodCult
-  - SubGamemodesRule
-  - BasicStationEventScheduler
-  - MeteorSwarmScheduler
-  - SpaceTrafficControlEventScheduler
-  - BasicRoundstartVariation
-  - LavalandStormScheduler
+# - type: gamePreset
+#   id: BloodCult
+#   alias:
+#   - bloodcult
+#   name: blood-cult-title
+#   showInVote: true
+#   description: blood-cult-description
+#   rules:
+#   - BloodCult
+#   - SubGamemodesRule
+#   - BasicStationEventScheduler
+#   - MeteorSwarmScheduler
+#   - SpaceTrafficControlEventScheduler
+#   - BasicRoundstartVariation
+#   - LavalandStormScheduler
 
-- type: gamePreset
-  id: Empty
-  alias:
-  - empty
-  name: preset-empty-title
-  description: preset-empty-description
-  showInVote: false
-  rules:
-  - DisablePreloadsRule
+# - type: gamePreset
+#   id: Empty
+#   alias:
+#   - empty
+#   name: preset-empty-title
+#   description: preset-empty-description
+#   showInVote: false
+#   rules:
+#   - DisablePreloadsRule

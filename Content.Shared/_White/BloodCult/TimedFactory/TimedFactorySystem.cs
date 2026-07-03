@@ -4,11 +4,13 @@ using Content.Shared.Popups;
 using Content.Shared.RadialSelector;
 using Content.Shared.UserInterface;
 using Robust.Shared.Network;
+using Robust.Shared.Timing;
 
 namespace Content.Shared._White.BloodCult.TimedFactory;
 
 public sealed class TimedFactorySystem : EntitySystem
 {
+    [Dependency] private readonly IGameTiming _gameTiming = default!;
     [Dependency] private readonly INetManager _netManager = default!;
 
     [Dependency] private readonly SharedAppearanceSystem _appearance = default!;
@@ -31,12 +33,7 @@ public sealed class TimedFactorySystem : EntitySystem
         var factoryQuery = EntityQueryEnumerator<TimedFactoryComponent>();
         while (factoryQuery.MoveNext(out var uid, out var factory))
         {
-            if (factory.Active)
-                return;
-
-            factory.CooldownRemain -= frameTime;
-            Dirty(uid, factory);
-            if (factory.CooldownRemain > 0)
+            if (factory.Active || factory.CooldownIn > _gameTiming.CurTime)
                 return;
 
             factory.Active = true;
@@ -48,9 +45,7 @@ public sealed class TimedFactorySystem : EntitySystem
     {
         if (!factory.Comp.Active)
         {
-            _popup.PopupClient(Loc.GetString("timed-factory-cooldown", ("cooldown", (int) factory.Comp.CooldownRemain)),
-                factory,
-                args.User);
+            _popup.PopupClient(Loc.GetString("timed-factory-cooldown", ("cooldown", (int) (factory.Comp.CooldownIn - _gameTiming.CurTime).TotalSeconds)), factory, args.User);
             args.Cancel();
             return;
         }
@@ -64,7 +59,7 @@ public sealed class TimedFactorySystem : EntitySystem
             return;
 
         factory.Comp.Active = false;
-        factory.Comp.CooldownRemain = factory.Comp.Cooldown;
+        factory.Comp.CooldownIn = _gameTiming.CurTime + factory.Comp.Cooldown;
         _appearance.SetData(factory, GenericCultVisuals.State, false);
         _ui.CloseUi(factory.Owner, RadialSelectorUiKey.Key);
 

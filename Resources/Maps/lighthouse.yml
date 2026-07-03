@@ -114161,13 +114161,6 @@ entities:
     - type: Transform
       pos: 22.091677,47.669113
       parent: 2
-- proto: SchoolgirlUniformSpawner
-  entities:
-  - uid: 17174
-    components:
-    - type: Transform
-      pos: -46.5,26.5
-      parent: 2
 - proto: Screen
   entities:
   - uid: 17175

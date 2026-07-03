@@ -1,0 +1,145 @@
+# Militech fighter NPCs for Night City (Lootable)
+
+# --- Gear Sets ---
+
+- type: startingGear
+  id: NCMilitechGearPistol
+  equipment:
+    jumpsuit: ClothingUniformJumpsuitMilitech
+    outerClothing: ClothingOuterArmorMilitechBulletproof
+    shoes: ClothingShoesColorBlack
+    head: ClothingHeadHatMilitechCap
+    back: ClothingBackpackSecurity
+    belt: ClothingBeltSecurityFilled
+    pocket1: MagazinePistolAvenger
+    pocket2: MagazinePistolAvenger
+  inhand:
+  - WeaponPistolAvenger
+
+- type: startingGear
+  id: NCMilitechGearBoomer
+  equipment:
+    jumpsuit: ClothingUniformJumpsuitMilitech
+    outerClothing: ClothingOuterArmorMilitechBulletproof
+    shoes: ClothingShoesColorBlack
+    head: ClothingHeadHatMilitechCap
+    back: ClothingBackpackSecurity
+    belt: ClothingBeltSecurityFilled
+    pocket1: MagazinePistolBoomerBuster
+    pocket2: MagazinePistolBoomerBuster
+  inhand:
+  - WeaponPistolBoomerBuster
+
+- type: startingGear
+  id: NCMilitechGearSaratoga
+  equipment:
+    jumpsuit: ClothingUniformJumpsuitMilitech
+    outerClothing: ClothingOuterArmorMilitechBulletproof
+    shoes: ClothingShoesColorBlack
+    head: ClothingHeadHatMilitechCap
+    back: ClothingBackpackSecurity
+    belt: ClothingBeltSecurityFilled
+    pocket1: MagazinePistolSubMachineGunSaratoga
+    pocket2: MagazinePistolSubMachineGunSaratoga
+  inhand:
+  - WeaponSubMachineGunMilitechSaratoga
+
+- type: startingGear
+  id: NCMilitechGearCrusher
+  equipment:
+    jumpsuit: ClothingUniformJumpsuitMilitech
+    outerClothing: ClothingOuterHardsuitMilitech
+    shoes: ClothingShoesColorBlack
+    head: ClothingHeadHatMilitechCap
+    back: ClothingBackpackSecurity
+    belt: ClothingBeltSecurityFilled
+    pocket1: MagazineShotgunMilitechCrusher
+    pocket2: MagazineShotgunMilitechCrusher
+  inhand:
+  - WeaponShotgunMilitechCrusher
+
+# --- Militech Variations ---
+
+- type: entity
+  name: ent-MobNCMilitech
+  parent: BaseMobHuman
+  id: MobNCMilitechLootable
+  description: ent-MobNCMilitech-desc
+  abstract: true
+  IdleRange: !type:Single 10
+  components:
+  - type: NpcFactionMember
+    factions:
+    - NCMilitech
+  - type: HTN
+    rootTask:
+      task: NCBanditTier3RootCompound
+  - type: NPCAutoReload
+  - type: InputMover
+  - type: MobMover
+
+- type: entity
+  parent: MobNCMilitechLootable
+  id: MobNCMilitechAvengerLootable
+  suffix: Militech Avenger
+  components:
+  - type: Loadout
+    prototypes: [NCMilitechGearPistol]
+  - type: Cyberware
+  - type: StartingCyberware
+    loseHum: false
+    cyberware:
+    - CyberwareNeuroKerenzikovMk1
+    - CyberwareExternalKevlarSublayer
+    - CyberwareInternalNasalFilters
+    - CyberwareInternalEnhancedAntibodiesTier3
+
+- type: entity
+  parent: MobNCMilitechLootable
+  id: MobNCMilitechBoomerLootable
+  suffix: Militech Boomer
+  components:
+  - type: Loadout
+    prototypes: [NCMilitechGearBoomer]
+  - type: Cyberware
+  - type: StartingCyberware
+    loseHum: false
+    cyberware:
+    - CyberwareNeuroKerenzikovMk2
+    - CyberwareExternalKevlarSublayer
+    - CyberwareInternalEnhancedAntibodiesTier3
+    - CyberwareInternalNasalFilters
+
+- type: entity
+  parent: MobNCMilitechLootable
+  id: MobNCMilitechSaratogaLootable
+  suffix: Militech Saratoga
+  components:
+  - type: Loadout
+    prototypes: [NCMilitechGearSaratoga]
+  - type: Cyberware
+  - type: StartingCyberware
+    loseHum: false
+    cyberware:
+    - CyberwareNeuroKerenzikovMk2
+    - CyberwareExternalThermoplasticArmor
+    - CyberwareImplantMicroOptics
+    - CyberwareInternalNasalFilters
+    - CyberwareInternalEnhancedAntibodiesTier3
+
+- type: entity
+  parent: MobNCMilitechLootable
+  id: MobNCMilitechCrusherLootable
+  suffix: Militech Crusher
+  components:
+  - type: Loadout
+    prototypes: [NCMilitechGearCrusher]
+  - type: Cyberware
+  - type: StartingCyberware
+    loseHum: false
+    cyberware:
+    - CyberwareInternalArmyEndoskeleton
+    - CyberwareExternalReactiveSublayer
+    - CyberwareNeuroTacticalSpartan
+    - CyberwareInternalNasalFilters
+    - CyberwareInternalEnhancedAntibodiesTier3

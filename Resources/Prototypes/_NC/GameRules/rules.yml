@@ -1,0 +1,13 @@
+- type: entity
+  id: NightCityRoundDuration
+  parent: BaseGameRule
+  components:
+  - type: MaxTimeRestartRule
+    roundMaxTime: 14400 # 2 hours
+    roundEndDelay: 300
+  - type: NightCityObjectiveRule
+    baseObjective: SurvivalObjective
+    departmentObjectives:
+      Biotechnica: BiotechnicaBankObjective
+      TraumaTeam: TraumaTeamBankObjective
+      NCPD: NCPDBankObjective

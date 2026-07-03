@@ -228726,46 +228726,6 @@ entities:
       rot: 3.141592653589793 rad
       pos: 0.5470705,-23.540508
       parent: 1
-- proto: SchoolgirlUniformSpawner
-  entities:
-  - uid: 5721
-    components:
-    - type: Transform
-      pos: -58.5,11.5
-      parent: 1
-  - uid: 8717
-    components:
-    - type: Transform
-      rot: 1.5707963267948966 rad
-      pos: -76.5,-3.5
-      parent: 1
-  - uid: 8718
-    components:
-    - type: Transform
-      rot: 1.5707963267948966 rad
-      pos: -76.5,-2.5
-      parent: 1
-  - uid: 15670
-    components:
-    - type: Transform
-      pos: 14.5,-34.5
-      parent: 1
-  - uid: 29389
-    components:
-    - type: Transform
-      rot: 3.141592653589793 rad
-      pos: 25.5,-51.5
-      parent: 1
-  - uid: 30768
-    components:
-    - type: Transform
-      pos: -57.5,-19.5
-      parent: 1
-  - uid: 40929
-    components:
-    - type: Transform
-      pos: 54.5,-25.5
-      parent: 1
 - proto: Screen
   entities:
   - uid: 28457

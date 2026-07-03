@@ -4,6 +4,7 @@ lobbyenabled = false
 # Dev map for faster loading & convenience
 map = "Dev"
 role_timers = false
+role_whitelist = false
 
 [ghost]
 role_time = 0.5
@@ -46,3 +47,6 @@ enabled = false
 [asteroid_field]
 enabled = false
 # WD EDIT END
+
+[whitelist]
+enabled = false

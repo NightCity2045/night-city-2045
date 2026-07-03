@@ -897,13 +897,6 @@ entities:
     - type: Transform
       pos: -2.5,1.5
       parent: 162
-- proto: SchoolgirlUniformSpawner
-  entities:
-  - uid: 113
-    components:
-    - type: Transform
-      pos: -4.5,5.5
-      parent: 162
 - proto: Stool
   entities:
   - uid: 138

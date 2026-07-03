@@ -39,6 +39,10 @@
     soundGunshot:
       path: /Audio/Weapons/Guns/Gunshots/revolver.ogg
     fireOnDropChance: 0.5
+  - type: SlowOnShoot
+    walkModifier: 0.5
+    sprintModifier: 0.5
+    duration: 0.5
   - type: UseDelay
     delay: 0.66
   - type: DisarmMalus # WWDP

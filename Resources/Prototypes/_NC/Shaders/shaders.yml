@@ -1,0 +1,9 @@
+- type: shader
+  id: Threshold
+  kind: source
+  path: "/Textures/_NC/Shaders/threshold.swsl"
+
+- type: shader
+  id: PostProcess
+  kind: source
+  path: "/Textures/_NC/Shaders/post_process.swsl"

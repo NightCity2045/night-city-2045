@@ -1,0 +1,60 @@
+# NC — Картридж CitiNet
+# Предустановленная программа для PDA — терминал городской сети связи.
+# Обеспечивает P2P звонки, групповые звонки и BBS-каналы.
+
+- type: entity
+  id: CitiNetCartridge
+  parent: BaseItem
+  name: citinet-cartridge-name
+  description: citinet-cartridge-description
+  components:
+  - type: Cartridge
+    programName: citinet-cartridge-name
+    icon:
+      sprite: DeltaV/Misc/program_icons.rsi
+      state: nanochat
+  - type: UIFragment
+    ui: !type:CitiNetUi
+  - type: CitiNetCartridge
+  - type: Sprite
+    sprite: Objects/Devices/cartridge.rsi
+    state: cart-log
+  - type: Item
+    sprite: Objects/Devices/cartridge.rsi
+
+- type: entity
+  id: CitiNetCartridgeCorporate
+  parent: CitiNetCartridge
+  name: citinet-cartridge-corporate-name
+  description: citinet-cartridge-corporate-description
+  components:
+  - type: CitiNetCartridge
+    maxGroupParticipants: 10
+  - type: Sprite
+    sprite: Objects/Devices/cartridge.rsi
+    state: cart-sec
+  - type: Item
+    sprite: Objects/Devices/cartridge.rsi
+
+# NC — Картридж CitiNet Live
+# Отдельное приложение для стриминга через CitiNet.
+- type: entity
+  id: CitiNetLiveCartridge
+  parent: BaseItem
+  name: citinet-live-cartridge-name
+  description: citinet-live-cartridge-description
+  components:
+  - type: Cartridge
+    programName: citinet-live-cartridge-name
+    icon:
+      sprite: DeltaV/Misc/program_icons.rsi
+      state: nanochat
+  - type: UIFragment
+    ui: !type:CitiNetLiveUi
+  - type: CitiNetLiveCartridge
+  - type: Sprite
+    sprite: Objects/Devices/cartridge.rsi
+    state: cart-log
+  - type: Item
+    sprite: Objects/Devices/cartridge.rsi
+

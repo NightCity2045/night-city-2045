@@ -1,7 +1,7 @@
 - type: quickPhrase
   id: BaseActionPhrase
   parent: BaseCommonPhrase
-  group: aac-group-actions
+  group: Actions
   abstract: true
 
 - type: quickPhrase

@@ -1,240 +1,240 @@
-marking-VulpEar-vulp = Вульпканинские уши (База)
-marking-VulpEar-vulp-inner = Вульпканинские уши (Внутренние)
-marking-VulpEar = Вульпканин
+marking-VulpEar-vulp = Vulpkanin ears (base)
+marking-VulpEar-vulp-inner = Vulpkanin ears (inner)
+marking-VulpEar = Vulpkanin
 
-marking-VulpEarFade-vulp = Вульпканинские уши (База)
-marking-VulpEarFade-vulp-fade = Вульпканинские уши (Переход)
-marking-VulpEarFade = Вульпканин (Переход)
+marking-VulpEarFade-vulp = Vulpkanin ears (base)
+marking-VulpEarFade-vulp-fade = Vulpkanin ears (fade)
+marking-VulpEarFade = Vulpkanin (fade)
 
-marking-VulpEarSharp-vulp = Вульпканинские уши (База)
-marking-VulpEarSharp-vulp-sharp = Вульпканинские уши (Резкие)
-marking-VulpEarSharp = Вульпканин (Резкие)
+marking-VulpEarSharp-vulp = Vulpkanin ears (base)
+marking-VulpEarSharp-vulp-sharp = Vulpkanin ears (sharp)
+marking-VulpEarSharp = Vulpkanin (sharp)
 
-marking-VulpEarJackal-jackal = Уши Шакала (База)
-marking-VulpEarJackal-jackal-inner = Уши Шакала (Внутренние)
-marking-VulpEarJackal = Вульпканин Шакал
+marking-VulpEarJackal-jackal = Jackal ears (base)
+marking-VulpEarJackal-jackal-inner = Jackal ears (inner)
+marking-VulpEarJackal = Vulpkanin Jackal
 
-marking-VulpEarTerrier-terrier = Уши Терьера (База)
-marking-VulpEarTerrier-terrier-inner = Уши Терьера (Внутренние)
-marking-VulpEarTerrier = Вульпканин Терьер
+marking-VulpEarTerrier-terrier = Terrier ears (base)
+marking-VulpEarTerrier-terrier-inner = Terrier ears (inner)
+marking-VulpEarTerrier = Vulpkanin Terrier
 
-marking-VulpEarWolf-wolf = Уши Волка (База)
-marking-VulpEarWolf-wolf-inner = Уши Волка (Внутренние)
-marking-VulpEarWolf = Вульпканин Волк
+marking-VulpEarWolf-wolf = Wolf ears (base)
+marking-VulpEarWolf-wolf-inner = Wolf ears (inner)
+marking-VulpEarWolf = Vulpkanin Wolf
 
-marking-VulpEarFennec-fennec = Уши Фенека (База)
-marking-VulpEarFennec-fennec-inner = Уши Фенека (Внутренние)
-marking-VulpEarFennec = Вульпканин Фенек
+marking-VulpEarFennec-fennec = Fennec ears (base)
+marking-VulpEarFennec-fennec-inner = Fennec ears (inner)
+marking-VulpEarFennec = Vulpkanin Fennec
 
-marking-VulpEarFox-fox = Уши Лисы (База)
-marking-VulpEarFox-fox-inner = Уши Лисы (Внутренние)
-marking-VulpEarFox = Вульпканин Лиса
+marking-VulpEarFox-fox = Fox ears (base)
+marking-VulpEarFox-fox-inner = Fox ears (inner)
+marking-VulpEarFox = Vulpkanin Fox
 
-marking-VulpEarOtie-otie = Уши Оти (База)
-marking-VulpEarOtie-otie-inner = Уши Оти (Внутренние)
-marking-VulpEarOtie = Вульпканин Оти
+marking-VulpEarOtie-otie = Otie ears (base)
+marking-VulpEarOtie-otie-inner = Otie ears (inner)
+marking-VulpEarOtie = Vulpkanin Otie
 
-marking-VulpEarTajaran-msai = Уши Таярана (База)
-marking-VulpEarTajaran-msai-inner = Уши Таярана (Внутренние)
-marking-VulpEarTajaran = Вульпканин Таяран
+marking-VulpEarTajaran-msai = Tajaran ears (base)
+marking-VulpEarTajaran-msai-inner = Tajaran ears (inner)
+marking-VulpEarTajaran = Vulpkanin Tajaran
 
-marking-VulpEarShock-shock = Уши Шок
-marking-VulpEarShock = Вульпканин Шок
+marking-VulpEarShock-shock = Shock ears
+marking-VulpEarShock = Vulpkanin Shock
 
-marking-VulpEarCoyote-coyote = Уши Койота
-marking-VulpEarCoyote = Вульпканин Койот
+marking-VulpEarCoyote-coyote = Coyote ears
+marking-VulpEarCoyote = Vulpkanin Coyote
 
-marking-VulpEarDalmatian-dalmatian = Уши Далматина
-marking-VulpEarDalmatian = Вульпканин Далматин
+marking-VulpEarDalmatian-dalmatian = Dalmatian ears
+marking-VulpEarDalmatian = Vulpkanin Dalmatian
 
 
-marking-VulpSnoutAlt-muzzle_alt = Морда
-marking-VulpSnoutAlt-nose = Нос
-marking-VulpSnoutAlt = Вульпканин Морда 2
+marking-VulpSnoutAlt-muzzle_alt = Muzzle
+marking-VulpSnoutAlt-nose = Nose
+marking-VulpSnoutAlt = Vulpkanin Muzzle 2
 
-marking-VulpSnout-muzzle = Морда
-marking-VulpSnout-nose = Нос
-marking-VulpSnout = Вульпканин Морда
+marking-VulpSnout-muzzle = Muzzle
+marking-VulpSnout-nose = Nose
+marking-VulpSnout = Vulpkanin Muzzle
 
-marking-VulpSnoutSharp-muzzle_sharp = Морда
-marking-VulpSnoutSharp-nose = Нос
-marking-VulpSnoutSharp = Вульпканин Морда (Резкая)
+marking-VulpSnoutSharp-muzzle_sharp = Muzzle
+marking-VulpSnoutSharp-nose = Nose
+marking-VulpSnoutSharp = Vulpkanin Muzzle (sharp)
 
-marking-VulpSnoutFade-muzzle_fade = Морда
-marking-VulpSnoutFade-nose = Нос
-marking-VulpSnoutFade = Вульпканин Морда (Переход)
+marking-VulpSnoutFade-muzzle_fade = Muzzle
+marking-VulpSnoutFade-nose = Nose
+marking-VulpSnoutFade = Vulpkanin Muzzle (fade)
 
-marking-VulpSnoutNose-nose = Нос
-marking-VulpSnoutNose = Вульпканин Нос
+marking-VulpSnoutNose-nose = Nose
+marking-VulpSnoutNose = Vulpkanin Nose
 
-marking-VulpSnoutMask-mask = Маска
-marking-VulpSnoutMask-nose = Нос
-marking-VulpSnoutMask = Вульпканин Маска
+marking-VulpSnoutMask-mask = Mask
+marking-VulpSnoutMask-nose = Nose
+marking-VulpSnoutMask = Vulpkanin Mask
 
-marking-VulpSnoutVulpine-vulpine = Вульпий (База)
-marking-VulpSnoutVulpine-vulpine-lines = Вульпий (Линии)
-marking-VulpSnoutVulpine = Вульпканин Вульпий
+marking-VulpSnoutVulpine-vulpine = Vulpine (base)
+marking-VulpSnoutVulpine-vulpine-lines = Vulpine (lines)
+marking-VulpSnoutVulpine = Vulpkanin Vulpine
 
-marking-VulpSnoutSwift-vulpine-lines = Стриж
-marking-VulpSnoutSwift = Вульпканин Стриж
+marking-VulpSnoutSwift-vulpine-lines = Swift
+marking-VulpSnoutSwift = Vulpkanin Swift
 
-marking-VulpSnoutBlaze-blaze = Проталина
-marking-VulpSnoutBlaze = Вульпканин Проталина
+marking-VulpSnoutBlaze-blaze = Blaze
+marking-VulpSnoutBlaze = Vulpkanin Blaze
 
-marking-VulpSnoutPatch-patch = Пятно
-marking-VulpSnoutPatch = Вульпканин Пятно
+marking-VulpSnoutPatch-patch = Patch
+marking-VulpSnoutPatch = Vulpkanin Patch
 
 
-marking-VulpHeadTiger-tiger_head = Тигриные полосы
-marking-VulpHeadTiger = Вульпканин Тигриные полосы (Голова)
+marking-VulpHeadTiger-tiger_head = Tiger stripes
+marking-VulpHeadTiger = Vulpkanin Tiger stripes (head)
 
-marking-VulpHeadTigerFace-tiger_face = Тигриные полосы
-marking-VulpHeadTigerFace = Вульпканин Тигриные полосы (Лицо)
+marking-VulpHeadTigerFace-tiger_face = Tiger stripes
+marking-VulpHeadTigerFace = Vulpkanin Tiger stripes (face)
 
-marking-VulpHeadSlash-slash = Шрам
-marking-VulpHeadSlash = Вульпканин Шрам
+marking-VulpHeadSlash-slash = Slash
+marking-VulpHeadSlash = Vulpkanin Slash
 
 
-marking-VulpTail-vulp = Вульпканинский хвост (База)
-marking-VulpTail-vulp-fade = Вульпканинский хвост (Переход)
-marking-VulpTail = Вульпканин
-marking-VulpTailAnimated = Вульпканин (Анимированный)
+marking-VulpTail-vulp = Vulpkanin tail (base)
+marking-VulpTail-vulp-fade = Vulpkanin tail (fade)
+marking-VulpTail = Vulpkanin
+marking-VulpTailAnimated = Vulpkanin (animated)
 
-marking-VulpTailTip-vulp = Вульпканинский хвост (База)
-marking-VulpTailTip-vulp-tip = Вульпканинский хвост (Кончик)
-marking-VulpTailTip = Вульпканин (Кончик)
-marking-VulpTailTipAnimated = Вульпканин (Кончик) (Анимированный)
+marking-VulpTailTip-vulp = Vulpkanin tail (base)
+marking-VulpTailTip-vulp-tip = Vulpkanin tail (tip)
+marking-VulpTailTip = Vulpkanin (tip)
+marking-VulpTailTipAnimated = Vulpkanin (tip) (animated)
 
-marking-VulpTailAlt-vulp_alt = Вульпканинский хвост (База)
-marking-VulpTailAlt-vulp_alt-fade = Вульпканинский хвост (Переход)
-marking-VulpTailAlt = Вульпканин (Альт)
+marking-VulpTailAlt-vulp_alt = Vulpkanin tail (base)
+marking-VulpTailAlt-vulp_alt-fade = Vulpkanin tail (fade)
+marking-VulpTailAlt = Vulpkanin (alt)
 
-marking-VulpTailAltTip-vulp_alt = Вульпканинский хвост (База)
-marking-VulpTailAltTip-vulp_alt-tip = Вульпканинский хвост (Кончик)
-marking-VulpTailAltTip = Вульпканин (Альт, Кончик)
+marking-VulpTailAltTip-vulp_alt = Vulpkanin tail (base)
+marking-VulpTailAltTip-vulp_alt-tip = Vulpkanin tail (tip)
+marking-VulpTailAltTip = Vulpkanin (alt, tip)
 
-marking-VulpTailLong-long = Длинный хвост (База)
-marking-VulpTailLong-long-tip = Длинный хвост (Кончик)
-marking-VulpTailLong = Вульпканин Длинный
+marking-VulpTailLong-long = Long tail (base)
+marking-VulpTailLong-long-tip = Long tail (tip)
+marking-VulpTailLong = Vulpkanin Long
 
-marking-VulpTailFox-fox = Лисий хвост (База)
-marking-VulpTailFox-fox-fade = Лисий хвост (Переход)
-marking-VulpTailFox = Вульпканин Лиса
-marking-VulpTailFoxAnimated = Вульпканин Лиса (Анимированный)
+marking-VulpTailFox-fox = Fox tail (base)
+marking-VulpTailFox-fox-fade = Fox tail (fade)
+marking-VulpTailFox = Vulpkanin Fox
+marking-VulpTailFoxAnimated = Vulpkanin Fox (animated)
 
-marking-VulpTailFoxTip-fox = Лисий хвост (База)
-marking-VulpTailFoxTip-fox-tip = Лисий хвост (Переход)
-marking-VulpTailFoxTip = Вульпканин Лиса (Кончик)
-marking-VulpTailFoxTipAnimated = Вульпканин Лиса (Кончик) (Анимированный)
+marking-VulpTailFoxTip-fox = Fox tail (base)
+marking-VulpTailFoxTip-fox-tip = Fox tail (fade)
+marking-VulpTailFoxTip = Vulpkanin Fox (tip)
+marking-VulpTailFoxTipAnimated = Vulpkanin Fox (tip) (animated)
 
-marking-VulpTailBushy-bushfluff = Пушистый хвост
-marking-VulpTailBushy = Вульпканин Пушистый
-marking-VulpTailBushyAnimated = Вульпканин Пушистый (Анимированный)
+marking-VulpTailBushy-bushfluff = Bush tail
+marking-VulpTailBushy = Vulpkanin Bush
+marking-VulpTailBushyAnimated = Vulpkanin Bush (animated)
 
-marking-VulpTailCoyote-coyote = Хвост Койота
-marking-VulpTailCoyote = Вульпканин Койот
-marking-VulpTailCoyoteAnimated = Вульпканин Койот (Анимированный)
+marking-VulpTailCoyote-coyote = Coyote tail
+marking-VulpTailCoyote = Vulpkanin Coyote
+marking-VulpTailCoyoteAnimated = Vulpkanin Coyote (animated)
 
-marking-VulpTailHusky-husky-inner = Хвост хаски (Внутренний)
-marking-VulpTailHusky-husky-outer = Хвост хаски (Внешний)
-marking-VulpTailHusky = Вульпканин Хаски
+marking-VulpTailHusky-husky-inner = Husky tail (inner)
+marking-VulpTailHusky-husky-outer = Husky tail (outer)
+marking-VulpTailHusky = Vulpkanin Husky
 
-marking-VulpTailHuskyAlt-husky = Хвост хаски
-marking-VulpTailHuskyAlt = Вульпканин Хаски (Альт)
+marking-VulpTailHuskyAlt-husky = Husky tail
+marking-VulpTailHuskyAlt = Vulpkanin Husky (alt)
 
-marking-VulpTailFox2-fox2 = Лисий хвост
-marking-VulpTailFox2 = Вульпканин Лиса 2
+marking-VulpTailFox2-fox2 = Fox tail
+marking-VulpTailFox2 = Vulpkanin Fox 2
 
-marking-VulpTailFox3-fox3 = Лисий хвост (База)
-marking-VulpTailFox3-fox3-tip = Лисий хвост (Кончик)
-marking-VulpTailFox3 = Вульпканин Лиса 3
+marking-VulpTailFox3-fox3 = Fox tail (base)
+marking-VulpTailFox3-fox3-tip = Fox tail (tip)
+marking-VulpTailFox3 = Vulpkanin Fox 3
 
-marking-VulpTailFennec-fennec = Хвост Фенека
-marking-VulpTailFennec = Вульпканин Фенек
+marking-VulpTailFennec-fennec = Fennec tail
+marking-VulpTailFennec = Vulpkanin Fennec
 
-marking-VulpTailOtie-otie = Хвост Оти
-marking-VulpTailOtie = Вульпканин Оти
+marking-VulpTailOtie-otie = Otie tail
+marking-VulpTailOtie = Vulpkanin Otie
 
-marking-VulpTailFluffy-fluffy = Пушистый хвост
-marking-VulpTailFluffy = Вульпканин Пушистый
+marking-VulpTailFluffy-fluffy = Fluffy tail
+marking-VulpTailFluffy = Vulpkanin Fluffy
 
-marking-VulpTailCorgi-corgi = Хвост Корги
-marking-VulpTailCorgi = Вульпканин Корги
-marking-VulpTailCorgiAnimated = Вульпканин Корги (Анимированный)
+marking-VulpTailCorgi-corgi = Crogi tail
+marking-VulpTailCorgi = Vulpkanin Corgi
+marking-VulpTailCorgiAnimated = Vulpkanin Corgi (animated)
 
-marking-VulpTailDalmatian-dalmatian = Хвост Далматина
-marking-VulpTailDalmatian = Вульпканин Далматин
-marking-VulpTailDalmatianAnimated = Вульпканин Далматин (Анимированный)
+marking-VulpTailDalmatian-dalmatian = Dalmatian tail
+marking-VulpTailDalmatian = Vulpkanin Dalmatian
+marking-VulpTailDalmatianAnimated = Vulpkanin Dalmatian (animated)
 
-marking-VulpBellyCrest-belly_crest = Живот
-marking-VulpBellyCrest = Вульпканин Гребень на животе
+marking-VulpBellyCrest-belly_crest = Belly
+marking-VulpBellyCrest = Vulpkanin Belly Crest
 
-marking-VulpBellyFull-belly_full = Живот
-marking-VulpBellyFull = Вульпканин Живот 1
+marking-VulpBellyFull-belly_full = Belly
+marking-VulpBellyFull = Vulpkanin Belly 1
 
-marking-VulpBellyFox-belly_fox = Живот
-marking-VulpBellyFox = Вульпканин Живот 2
+marking-VulpBellyFox-belly_fox = Belly
+marking-VulpBellyFox = Vulpkanin Belly 2
 
 
-marking-VulpBodyPointsCrest-points_crest = Пойнты (Гребень)
-marking-VulpBodyPointsCrest = Вульпканин Пойнты (Гребень)
+marking-VulpBodyPointsCrest-points_crest = Points (crest)
+marking-VulpBodyPointsCrest = Vulpkanin Points (crest)
 
-marking-VulpBodyPointsFade-points_fade = Вульпканин Пойнты (Переход)
-marking-VulpBodyPointsFade = Вульпканин Пойнты (Переход)
+marking-VulpBodyPointsFade-points_fade = Vulpkanin Points (fade)
+marking-VulpBodyPointsFade = Vulpkanin Points (fade)
 
-marking-VulpBodyPointsSharp-points_sharp = Вульпканин Пойнты (Резкие)
-marking-VulpBodyPointsSharp = Вульпканин Пойнты (Резкие)
+marking-VulpBodyPointsSharp-points_sharp = Vulpkanin Points (sharp)
+marking-VulpBodyPointsSharp = Vulpkanin Points (sharp)
 
 
-marking-VulpPointsFeet-points_feet = Пойнты стоп
-marking-VulpPointsFeet = Вульпканин Пойнты стоп
+marking-VulpPointsFeet-points_feet = Points Feet
+marking-VulpPointsFeet = Vulpkanin Points Feet
 
-marking-VulpPointsCrestLegs-points_crest-legs = Пойнты (Гребень)
-marking-VulpPointsCrestLegs = Вульпканин Пойнты ног (Гребень)
+marking-VulpPointsCrestLegs-points_crest-legs = Points (crest)
+marking-VulpPointsCrestLegs = Vulpkanin Points Legs (crest)
 
-marking-VulpPointsFadeLegs-points_fade-legs = Пойнты (Переход)
-marking-VulpPointsFadeLegs = Вульпканин Пойнты ног (Переход)
+marking-VulpPointsFadeLegs-points_fade-legs = Points (fade)
+marking-VulpPointsFadeLegs = Vulpkanin Points Legs (fade)
 
-marking-VulpPointsSharpLegs-points_sharp-legs = Пойнты (Резкие)
-marking-VulpPointsSharpLegs = Вульпканин Пойнты ног (Резкие)
+marking-VulpPointsSharpLegs-points_sharp-legs = Points (sharp)
+marking-VulpPointsSharpLegs = Vulpkanin Points Legs (sharp)
 
 
-marking-VulpPointsHands-points_hands = Пойнты кистей
-marking-VulpPointsHands = Вульпканин Пойнты кистей
+marking-VulpPointsHands-points_hands = Points Hands
+marking-VulpPointsHands = Vulpkanin Points Hands
 
-marking-VulpPointsCrestArms-points_crest-arms = Пойнты (Гребень)
-marking-VulpPointsCrestArms = Вульпканин Пойнты рук (Гребень)
+marking-VulpPointsCrestArms-points_crest-arms = Points (crest)
+marking-VulpPointsCrestArms = Vulpkanin Points Arms (crest)
 
-marking-VulpPointsFadeArms-points_fade-arms = Пойнты (Переход)
-marking-VulpPointsFadeArms = Вульпканин Пойнты рук (Переход)
+marking-VulpPointsFadeArms-points_fade-arms = Points (fade)
+marking-VulpPointsFadeArms = Vulpkanin Points Arms (fade)
 
-marking-VulpPointsSharpArms-points_sharp-arms = Пойнты (Резкие)
-marking-VulpPointsSharpArms = Вульпканин Пойнты рук (Резкие)
+marking-VulpPointsSharpArms-points_sharp-arms = Points (sharp)
+marking-VulpPointsSharpArms = Vulpkanin Points Arms (sharp)
 
 
-marking-VulpHairAdhara = Адхара
-marking-VulpHairAnita = Анита
-marking-VulpHairApollo = Аполло
-marking-VulpHairBelle = Белле
-marking-VulpHairBraided = Заплетённые волосы
-marking-VulpHairBun = Пучок
-marking-VulpHairCleanCut = Аккуратная стрижка
-marking-VulpHairCurl = Локоны
-marking-VulpHairHawk = Ирокез
-marking-VulpHairJagged = Рваная стрижка
-marking-VulpHairJeremy = Джереми
-marking-VulpHairKajam = Каджам
-marking-VulpHairKeid = Кейд
-marking-VulpHairKleeia = Клейя
-marking-VulpHairMizar = Мизар
-marking-VulpHairPunkBraided = Панковские косички
-marking-VulpHairRaine = Рейн
-marking-VulpHairRough = Небрежная стрижка
-marking-VulpHairShort = Короткие волосы
-marking-VulpHairShort2 = Короткие волосы 2
-marking-VulpHairSpike = Шипы
+marking-VulpHairAdhara = Adhara
+marking-VulpHairAnita = Anita
+marking-VulpHairApollo = Apollo
+marking-VulpHairBelle = Belle
+marking-VulpHairBraided = Braided Hair
+marking-VulpHairBun = Bun
+marking-VulpHairCleanCut = Clean Cut
+marking-VulpHairCurl = Curl
+marking-VulpHairHawk = Hawk
+marking-VulpHairJagged = Jagged
+marking-VulpHairJeremy = Jeremy
+marking-VulpHairKajam = Kajam
+marking-VulpHairKeid = Keid
+marking-VulpHairKleeia = Kleeia
+marking-VulpHairMizar = Mizar
+marking-VulpHairPunkBraided = Punk Braided
+marking-VulpHairRaine = Raine
+marking-VulpHairRough = Rough
+marking-VulpHairShort = Short Hair
+marking-VulpHairShort2 = Short Hair 2
+marking-VulpHairSpike = Spike
 
-marking-VulpFacialHairRuff = Воротник
-marking-VulpFacialHairElder = Старейшина
-marking-VulpFacialHairElderChin = Старейшина (Подбородок)
-marking-VulpFacialHairKita = Кита
+marking-VulpFacialHairRuff = Ruff
+marking-VulpFacialHairElder = Elder
+marking-VulpFacialHairElderChin = Elder Chin
+marking-VulpFacialHairKita = Kita

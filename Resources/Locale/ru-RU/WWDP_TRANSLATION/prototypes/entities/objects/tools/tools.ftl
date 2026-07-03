@@ -14,6 +14,18 @@ ent-Crowbar = лом
     .desc = Многофункциональный инструмент для открывания дверей и борьбы с межпространственными захватчиками.
     .suffix = { "" }
 
+ent-CrowbarGreen = { ent-Crowbar }
+    .desc = { ent-Crowbar.desc }
+    .suffix = { "" }
+
+ent-CrowbarOrange = { ent-Crowbar }
+    .desc = { ent-Crowbar.desc }
+    .suffix = { "" }
+
+ent-CrowbarYellow = { ent-Crowbar }
+    .desc = { ent-Crowbar.desc }
+    .suffix = { "" }
+
 ent-CrowbarRed = аварийный лом
     .desc = { ent-Crowbar.desc }
     .suffix = { "" }

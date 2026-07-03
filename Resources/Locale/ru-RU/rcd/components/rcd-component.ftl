@@ -1,7 +1,7 @@
 
 ### UI
 
-rcd-component-examine-mode-details = Текущий режим: «{$mode}».
+rcd-component-examine-mode-details = Текущий режим: '{$mode}'.
 rcd-component-examine-build-details = Текущий режим строительства: {$name}.
 
 
@@ -11,7 +11,7 @@ rcd-component-examine-build-details = Текущий режим строител
 ### Interaction Messages
 
 # Mode change
-rcd-component-change-mode = РЦД переключён в режим «{$mode}».
+rcd-component-change-mode = РЦД переключён в режим '{$mode}'.
 rcd-component-change-build-mode = РЦД переключён в режим строительства {$name}.
 
 # Ammo count
@@ -42,15 +42,15 @@ rcd-component-cannot-build-identical-tile = Эта плитка уже суще�
 # RCD
 ### Category names
 
-rcd-component-walls-and-flooring = Стены и полы
-rcd-component-windows-and-grilles = Окна и решетки
-rcd-component-airlocks = Шлюзы
-rcd-component-electrical = Электроника
-rcd-component-lighting = Освещение
-rcd-component-piping = Трубопровод
-rcd-component-atmosphericutility = Атмосферные утилиты
-rcd-component-pumps = Насосы и клапаны
-rcd-component-vents = Вентиляция
+rcd-component-walls-and-flooring = Walls and flooring
+rcd-component-windows-and-grilles = Windows and grilles
+rcd-component-airlocks = Airlocks
+rcd-component-electrical = Electrical
+rcd-component-lighting = Lighting
+rcd-component-piping = Piping
+rcd-component-atmosphericutility = Atmospheric Utility
+rcd-component-pumps = Pumps & Valves
+rcd-component-vents = Vents
 
 
 ### Prototype names (note: constructable items will be puralized)

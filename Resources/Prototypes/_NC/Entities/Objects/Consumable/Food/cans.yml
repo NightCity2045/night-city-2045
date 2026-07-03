@@ -1,0 +1,1279 @@
+# region Abstract
+
+- type: entity
+  parent: DrinkCanBaseFull
+  id: NCDrinkCan
+  name: баночка
+  description: Пустая алюминиевая баночка.
+  components:
+  - type: SolutionContainerManager
+    solutions:
+      drink:
+        maxVol: 30
+  - type: Item
+    sprite: _NC/Objects/Consumable/Food/Vending/cans.rsi
+  - type: Sprite
+    sprite: _NC/Objects/Consumable/Food/Vending/cans.rsi
+    state: icon
+    layers:
+      - state: icon
+        map: ["enum.OpenableVisuals.Layer"]
+  - type: GenericVisualizer
+    visuals:
+      enum.OpenableVisuals.Opened:
+        enum.OpenableVisuals.Layer:
+          True: {state: "icon_open"}
+          False: {state: "icon"}
+  - type: PhysicalComposition
+    materialComposition:
+      Aluminum: 50
+
+# region Biotechnica - Unhealthy drinks
+
+# Cheapest options out there - very easy to make,
+# will harm you if drank too much.
+
+- type: entity
+  parent: NCDrinkCan
+  id: NCDrinkCanBiotechnicaMultifruitFake
+  name: напиток Мультифруктовый Бум
+  description: Вкусные фрукты в баночке, с кислинкой!
+  suffix: баночка, Поддельный
+  components:
+  - type: SolutionContainerManager
+    solutions:
+      drink:
+        reagents:
+        - ReagentId: Water
+          Quantity: 22
+        - ReagentId: FerrochromicAcid
+          Quantity: 2
+        - ReagentId: Sugar
+          Quantity: 6
+  - type: Sprite
+    layers:
+      - state: icon
+        map: ["enum.OpenableVisuals.Layer"]
+      - state: multifruit
+  - type: StaticPrice
+    price: 12
+
+- type: entity
+  parent: NCDrinkCan
+  id: NCDrinkCanBiotechnicaTeaFake
+  name: зеленый чай BioPlus
+  description: Напиток со вкусом "зеленый чай 6".
+  components:
+  - type: SolutionContainerManager
+    solutions:
+      drink:
+        reagents:
+        - ReagentId: Water
+          Quantity: 25
+        - ReagentId: Chlorine
+          Quantity: 2
+        - ReagentId: Acetone
+          Quantity: 3
+  - type: Sprite
+    layers:
+      - state: icon
+        map: ["enum.OpenableVisuals.Layer"]
+      - state: tea_bio_plus
+  - type: StaticPrice
+    price: 12
+
+- type: entity
+  parent: NCDrinkCan
+  id: NCDrinkCanBiotechnicaTonicMutagen
+  name: тоник BioPlus
+  description: Тоник Биотехники, ставящий "био" на новый, неизведанный уровень!
+  components:
+  - type: SolutionContainerManager
+    solutions:
+      drink:
+        reagents:
+        - ReagentId: Water
+          Quantity: 27
+        - ReagentId: UnstableMutagen
+          Quantity: 3
+  - type: Sprite
+    layers:
+      - state: icon
+        map: ["enum.OpenableVisuals.Layer"]
+      - state: tonic_bio_plus
+  - type: StaticPrice
+    price: 12
+
+# region Biotechnica - Neutral drinks
+
+# Still cheaper than basic colas and sodas, can
+# barely provide you with flavor/nutriments,
+# but at least won't harm you.
+
+- type: entity
+  parent: NCDrinkCan
+  id: NCDrinkCanBiotechnica  # This should always be the cheapest drink.
+  name: напиток Супер Вода
+  description: Самое дешевое решение твоей жажды!
+  components:
+  - type: SolutionContainerManager
+    solutions:
+      drink:
+        reagents:
+        - ReagentId: Water
+          Quantity: 25
+        - ReagentId: JuiceBluePumpkin
+          Quantity: 5
+  - type: Sprite
+    layers:
+      - state: icon
+        map: ["enum.OpenableVisuals.Layer"]
+      - state: water_bio_plus
+  - type: StaticPrice
+    price: 10
+
+- type: entity
+  parent: NCDrinkCan
+  id: NCDrinkCanBiotechnicaRespawn
+  name: напиток Респавн
+  description: Самое дешевое решение твоего голода!
+  components:
+  - type: SolutionContainerManager
+    solutions:
+      drink:
+        reagents:
+        - ReagentId: Water
+          Quantity: 20
+        - ReagentId: Nutriment
+          Quantity: 5
+        - ReagentId: Sugar
+          Quantity: 5
+  - type: Sprite
+    layers:
+      - state: icon
+        map: ["enum.OpenableVisuals.Layer"]
+      - state: soda_fake
+  - type: StaticPrice
+    price: 12
+
+- type: entity
+  parent: NCDrinkCan
+  id: NCDrinkCanBiotechnicaTonicFake
+  name: тоник Eco
+  description: Тоник Биотехники, правда, кажется, "эко" тут означает "эконом".
+  components:
+  - type: SolutionContainerManager
+    solutions:
+      drink:
+        reagents:
+        - ReagentId: Water
+          Quantity: 25
+        - ReagentId: Allicin
+          Quantity: 5
+  - type: Sprite
+    layers:
+      - state: icon
+        map: ["enum.OpenableVisuals.Layer"]
+      - state: tonic_fake
+  - type: StaticPrice
+    price: 14
+
+# region Cola
+
+# Cheap sodas/colas from barely healthy ingredients.
+# Still better than drinking Biotechnica's unhealthy and neutral drinks,
+# but worse than Biotechnica's healthy drinks, super healthy drinks,
+# cafe drinks and restaurant drinks.
+
+- type: entity
+  parent: NCDrinkCan
+  id: NCDrinkCanCola
+  name: кола NightCity
+  description: Знакомые ощущения по выгодной цене!
+  components:
+  - type: SolutionContainerManager
+    solutions:
+      drink:
+        reagents:
+        - ReagentId: Cola
+          Quantity: 30
+  - type: Sprite
+    layers:
+      - state: icon
+        map: ["enum.OpenableVisuals.Layer"]
+      - state: cola_nc
+  - type: StaticPrice
+    price: 15
+
+- type: entity
+  parent: NCDrinkCan
+  id: NCDrinkCanClassicCola
+  name: кола Classic
+  description: Классический вкус ушедших времен.
+  components:
+  - type: SolutionContainerManager
+    solutions:
+      drink:
+        reagents:
+        - ReagentId: NuclearCola
+          Quantity: 30
+  - type: Sprite
+    layers:
+      - state: icon
+        map: ["enum.OpenableVisuals.Layer"]
+      - state: cola_classic
+  - type: StaticPrice
+    price: 17
+
+- type: entity
+  parent: NCDrinkCan
+  id: NCDrinkCanSweetCola
+  name: кола NightCity MAX
+  description: Удвоенный вкус, удвоенные ощущения!
+  components:
+  - type: SolutionContainerManager
+    solutions:
+      drink:
+        reagents:
+        - ReagentId: Cola
+          Quantity: 25
+        - ReagentId: Sugar
+          Quantity: 5
+  - type: Sprite
+    layers:
+      - state: icon
+        map: ["enum.OpenableVisuals.Layer"]
+      - state: cola_nc_max
+  - type: StaticPrice
+    price: 18
+
+- type: entity
+  parent: NCDrinkCan
+  id: NCDrinkCanBerryCola
+  name: кола Ягодный Драйв
+  description: Вкус ягод в коле, почти как настоящий!
+  components:
+  - type: SolutionContainerManager
+    solutions:
+      drink:
+        reagents:
+        - ReagentId: Cola
+          Quantity: 15
+        - ReagentId: GrapeSoda
+          Quantity: 15
+  - type: Sprite
+    layers:
+      - state: icon
+        map: ["enum.OpenableVisuals.Layer"]
+      - state: cola_grape
+  - type: StaticPrice
+    price: 16
+
+- type: entity
+  parent: NCDrinkCan
+  id: NCDrinkCanRipperCola
+  name: кола Dr. Ripper
+  description: Будто 42 разных вкуса выпотрошили и слили воедино.
+  components:
+  - type: SolutionContainerManager
+    solutions:
+      drink:
+        reagents:
+        - ReagentId: DrGibb
+          Quantity: 30
+  - type: Sprite
+    layers:
+      - state: icon
+        map: ["enum.OpenableVisuals.Layer"]
+      - state: dr_ripper
+  - type: StaticPrice
+    price: 18
+
+- type: entity
+  parent: NCDrinkCan
+  id: NCDrinkCanSoda
+  name: содовая
+  description: Обычная газированная вода.
+  components:
+  - type: SolutionContainerManager
+    solutions:
+      drink:
+        reagents:
+        - ReagentId: SodaWater
+          Quantity: 30
+  - type: Sprite
+    layers:
+      - state: icon
+        map: ["enum.OpenableVisuals.Layer"]
+      - state: soda
+  - type: StaticPrice
+    price: 14
+
+- type: entity
+  parent: NCDrinkCan
+  id: NCDrinkCanSodaAccelerate
+  name: содовая Акселерейт
+  description: Ускорь свою жизнь на максимум!
+  components:
+  - type: SolutionContainerManager
+    solutions:
+      drink:
+        reagents:
+        - ReagentId: SodaWater
+          Quantity: 25
+        - ReagentId: Sugar
+          Quantity: 5
+  - type: Sprite
+    layers:
+      - state: icon
+        map: ["enum.OpenableVisuals.Layer"]
+      - state: soda_accelerate
+  - type: StaticPrice
+    price: 15
+
+- type: entity
+  parent: NCDrinkCanCola
+  id: NCDrinkCanAltCola
+  name: кола Пепис
+  description: Кола от знакомого но давно забытого бренда.
+  components:
+  - type: StaticPrice
+    price: 13
+  - type: Sprite
+    layers:
+      - state: icon
+        map: ["enum.OpenableVisuals.Layer"]
+      - state: cola
+
+- type: entity
+  parent: NCDrinkCan
+  id: NCDrinkCanRipperRedCola
+  name: кола Dr. Ripper Red
+  description: Познай темную сторону риппердока!
+  components:
+  - type: SolutionContainerManager
+    solutions:
+      drink:
+        reagents:
+        - ReagentId: DrGibbBloodRed
+          Quantity: 30
+  - type: Sprite
+    layers:
+      - state: icon
+        map: ["enum.OpenableVisuals.Layer"]
+      - state: dr_ripper_red
+  - type: StaticPrice
+    price: 13
+
+# region Cafe
+
+# Normal drinks from commercial ingredients, sold at cafes.
+# Better than regular colas/sodas and than Biotechnica's neutral drinks,
+# but not as healthy as Biotechnica's healthy and super healthy drinks.
+
+- type: entity
+  parent: NCDrinkCan
+  id: NCDrinkCanLemonade
+  name: лимонад
+  description: Вкусный лимонад в баночке.
+  components:
+  - type: SolutionContainerManager
+    solutions:
+      drink:
+        reagents:
+        - ReagentId: Lemonade
+          Quantity: 30
+  - type: Sprite
+    layers:
+      - state: icon
+        map: ["enum.OpenableVisuals.Layer"]
+      - state: lemonade
+  - type: StaticPrice
+    price: 20
+
+- type: entity
+  parent: NCDrinkCan
+  id: NCDrinkCanRootBeer
+  name: рут-бир
+  description: Вкусный рут-бир в баночке.
+  components:
+  - type: SolutionContainerManager
+    solutions:
+      drink:
+        reagents:
+        - ReagentId: RootBeer
+          Quantity: 30
+  - type: Sprite
+    layers:
+      - state: icon
+        map: ["enum.OpenableVisuals.Layer"]
+      - state: pilk
+  - type: StaticPrice
+    price: 26
+
+- type: entity
+  parent: NCDrinkCan
+  id: NCDrinkCanTonic
+  name: тоник
+  description: Квасина слегка горчит, но хотя бы это настоящий тоник.
+  components:
+  - type: SolutionContainerManager
+    solutions:
+      drink:
+        reagents:
+        - ReagentId: TonicWater
+          Quantity: 30
+  - type: Sprite
+    layers:
+      - state: icon
+        map: ["enum.OpenableVisuals.Layer"]
+      - state: tonic
+  - type: StaticPrice
+    price: 22
+
+# Sodas
+
+- type: entity
+  parent: NCDrinkCan
+  id: NCDrinkCanLemonLime
+  name: содовая лимон-лайм
+  description: Вкусный лимон-лайм в баночке.
+  components:
+  - type: SolutionContainerManager
+    solutions:
+      drink:
+        reagents:
+        - ReagentId: LemonLime
+          Quantity: 30
+  - type: Sprite
+    layers:
+      - state: icon
+        map: ["enum.OpenableVisuals.Layer"]
+      - state: lemon_lime
+  - type: StaticPrice
+    price: 24
+
+- type: entity
+  parent: NCDrinkCan
+  id: NCDrinkCanLemonLimeCranberry
+  name: содовая лимон-лайм-клюква
+  description: Вкусный лимон-лайм-клюква в баночке.
+  components:
+  - type: SolutionContainerManager
+    solutions:
+      drink:
+        reagents:
+        - ReagentId: LemonLimeCranberry
+          Quantity: 30
+  - type: Sprite
+    layers:
+      - state: icon
+        map: ["enum.OpenableVisuals.Layer"]
+      - state: lemon_lime_cranberry
+  - type: StaticPrice
+    price: 24
+
+- type: entity
+  parent: NCDrinkCan
+  id: NCDrinkCanOrangeLime
+  name: содовая апельсин-лайм
+  description: Вкусный апельсин-лайм в баночке.
+  components:
+  - type: SolutionContainerManager
+    solutions:
+      drink:
+        reagents:
+        - ReagentId: KiraSpecial
+          Quantity: 30
+  - type: Sprite
+    layers:
+      - state: icon
+        map: ["enum.OpenableVisuals.Layer"]
+      - state: orange_lime
+  - type: StaticPrice
+    price: 24
+
+# region Cafe - Premium drinks
+
+# Drinks, colas and sodas that are better than regular ones.
+# Relatively equal to Biotechnica's healthy stuff.
+
+- type: entity
+  parent: NCDrinkCan
+  id: NCDrinkCanLemonadeSoda
+  name: содовый лимонад
+  description: Вкусный содовый лимонад в баночке.
+  components:
+  - type: SolutionContainerManager
+    solutions:
+      drink:
+        reagents:
+        - ReagentId: Lemonade
+          Quantity: 20
+        - ReagentId: SodaWater
+          Quantity: 7
+        - ReagentId: Ice
+          Quantity: 3
+  - type: Sprite
+    layers:
+      - state: icon
+        map: ["enum.OpenableVisuals.Layer"]
+      - state: soda_lemonade
+  - type: StaticPrice
+    price: 28
+
+- type: entity
+  parent: NCDrinkCan
+  id: NCDrinkCanCitrusSoda
+  name: содовая CitrusRush
+  description: Вкусная содовая с цитрусовым вкусом.
+  components:
+  - type: SolutionContainerManager
+    solutions:
+      drink:
+        reagents:
+        - ReagentId: SpaceMountainWind
+          Quantity: 30
+  - type: Sprite
+    layers:
+      - state: icon
+        map: ["enum.OpenableVisuals.Layer"]
+      - state: soda_citrus
+  - type: StaticPrice
+    price: 28
+
+- type: entity
+  parent: NCDrinkCan
+  id: NCDrinkCanGrapeSoda
+  name: содовая WineRush
+  description: На удивление безалкогольная содовая с виноградным вкусом.
+  components:
+  - type: SolutionContainerManager
+    solutions:
+      drink:
+        reagents:
+        - ReagentId: GrapeSoda
+          Quantity: 30
+  - type: Sprite
+    layers:
+      - state: icon
+        map: ["enum.OpenableVisuals.Layer"]
+      - state: soda_grape
+  - type: StaticPrice
+    price: 28
+
+- type: entity
+  parent: NCDrinkCan
+  id: NCDrinkCanGingerSoda
+  name: содовая AleRush
+  description: На удивление безалкогольная содовая с имбирным вкусом.
+  components:
+  - type: SolutionContainerManager
+    solutions:
+      drink:
+        reagents:
+        - ReagentId: SolDry
+          Quantity: 30
+  - type: Sprite
+    layers:
+      - state: icon
+        map: ["enum.OpenableVisuals.Layer"]
+      - state: soda_ginger
+  - type: StaticPrice
+    price: 28
+
+- type: entity
+  parent: NCDrinkCan
+  id: NCDrinkCanOrbitalAirCola
+  name: кола Orbital Air
+  description: На вкус как пробоина в корабле.
+  components:
+  - type: SolutionContainerManager
+    solutions:
+      drink:
+        reagents:
+        - ReagentId: SpaceUp
+          Quantity: 30
+  - type: Sprite
+    layers:
+      - state: icon
+        map: ["enum.OpenableVisuals.Layer"]
+      - state: space_up_blue
+  - type: StaticPrice
+    price: 26
+
+- type: entity
+  parent: NCDrinkCan
+  id: NCDrinkCanMountainDew
+  name: содовая Маунтин Дью
+  description: Напиток для настоящих геймеров. Супер-газированный.
+  components:
+  - type: SolutionContainerManager
+    solutions:
+      drink:
+        reagents:
+        - ReagentId: PwrGame
+          Quantity: 30
+  - type: Sprite
+    layers:
+      - state: icon
+        map: ["enum.OpenableVisuals.Layer"]
+      - state: mountain
+  - type: StaticPrice
+    price: 30
+
+# Iced
+
+- type: entity
+  parent: NCDrinkCan
+  id: NCDrinkCanIcedTea
+  name: холодный чай
+  description: Вкусный холодный чай в баночке.
+  components:
+  - type: SolutionContainerManager
+    solutions:
+      drink:
+        reagents:
+        - ReagentId: IcedTea
+          Quantity: 30
+  - type: Sprite
+    layers:
+      - state: icon
+        map: ["enum.OpenableVisuals.Layer"]
+      - state: fantax
+  - type: StaticPrice
+    price: 30
+
+- type: entity
+  parent: NCDrinkCan
+  id: NCDrinkCanIcedGreenTea
+  name: холодный зеленый чай
+  description: Вкусный холодный зеленый чай в баночке.
+  components:
+  - type: SolutionContainerManager
+    solutions:
+      drink:
+        reagents:
+        - ReagentId: IcedGreenTea
+          Quantity: 30
+  - type: Sprite
+    layers:
+      - state: icon
+        map: ["enum.OpenableVisuals.Layer"]
+      - state: spritex
+  - type: StaticPrice
+    price: 30
+
+- type: entity
+  parent: NCDrinkCan
+  id: NCDrinkCanIcedCoffee
+  name: холодный кофе
+  description: Вкусный холодный кофе в баночке.
+  components:
+  - type: SolutionContainerManager
+    solutions:
+      drink:
+        reagents:
+        - ReagentId: IcedCoffee
+          Quantity: 30
+  - type: Sprite
+    layers:
+      - state: icon
+        map: ["enum.OpenableVisuals.Layer"]
+      - state: coffee
+  - type: StaticPrice
+    price: 32
+
+# region Restaurant drinks
+
+- type: entity
+  parent: NCDrinkCan
+  id: NCDrinkCanOrangeSoda
+  name: апельсиновая газировка
+  description: Апельсиновая газировка с добавлением витамина C.
+  components:
+  - type: SolutionContainerManager
+    solutions:
+      drink:
+        reagents:
+        - ReagentId: Starkist
+          Quantity: 30
+  - type: Sprite
+    layers:
+      - state: icon
+        map: ["enum.OpenableVisuals.Layer"]
+      - state: soda_orange
+  - type: StaticPrice
+    price: 32
+
+- type: entity
+  parent: NCDrinkCan
+  id: NCDrinkCanGrenadineSoda
+  name: гренадиновая газировка
+  description: Гренадиновая газировка с добавлением имбирного сиропа.
+  components:
+  - type: SolutionContainerManager
+    solutions:
+      drink:
+        reagents:
+        - ReagentId: ShirleyTemple
+          Quantity: 30
+  - type: Sprite
+    layers:
+      - state: icon
+        map: ["enum.OpenableVisuals.Layer"]
+      - state: soda_grenadine
+  - type: StaticPrice
+    price: 32
+
+# region Energy drinks
+
+- type: entity
+  parent: NCDrinkCan
+  id: NCDrinkCanEnergy  # Basic energy drink, more expensive than cola but not that expensive
+  name: энергетик Re-Charge
+  description: Баночка с твоей ежедневной дозой энергии!
+  components:
+  - type: SolutionContainerManager
+    solutions:
+      drink:
+        reagents:
+        - ReagentId: EnergyDrink
+          Quantity: 30
+  - type: Sprite
+    layers:
+      - state: icon
+        map: ["enum.OpenableVisuals.Layer"]
+      - state: blood
+  - type: StaticPrice
+    price: 18
+
+- type: entity
+  parent: NCDrinkCan
+  id: NCDrinkCanEnergySugar  # Basic energy drink, more expensive than cola
+  name: энергетик SugarRush
+  description: Сладость и энергия в одном напитке!
+  components:
+  - type: SolutionContainerManager
+    solutions:
+      drink:
+        reagents:
+        - ReagentId: EnergyDrink
+          Quantity: 20
+        - ReagentId: JuiceBerryPoison
+          Quantity: 5
+        - ReagentId: Sugar
+          Quantity: 5
+  - type: Sprite
+    layers:
+      - state: icon
+        map: ["enum.OpenableVisuals.Layer"]
+      - state: protein
+  - type: StaticPrice
+    price: 18
+
+- type: entity
+  parent: NCDrinkCan
+  id: NCDrinkCanEnergyPlus  # Good energy drink, more expensive than basic
+  name: энергетик NRG+
+  description: Поднимет даже мертвого!
+  components:
+  - type: SolutionContainerManager
+    solutions:
+      drink:
+        reagents:
+        - ReagentId: EnergyDrink
+          Quantity: 10
+        - ReagentId: IcedCoffee
+          Quantity: 15
+        - ReagentId: Sugar
+          Quantity: 5
+  - type: Sprite
+    layers:
+      - state: icon
+        map: ["enum.OpenableVisuals.Layer"]
+      - state: nutriment
+  - type: StaticPrice
+    price: 32
+
+- type: entity
+  parent: NCDrinkCan
+  id: NCDrinkCanEnergyMax  # Expensive energy drink
+  name: энергетик EnergyMax
+  description: Энергетик с кучей кофеина и других добавок. Опасная вещь, но крайне эффективная.
+  components:
+  - type: SolutionContainerManager
+    solutions:
+      drink:
+        reagents:
+        - ReagentId: Stimulants
+          Quantity: 10
+        - ReagentId: NuclearCola
+          Quantity: 15
+        - ReagentId: Ice
+          Quantity: 5
+  - type: Sprite
+    layers:
+      - state: icon
+        map: ["enum.OpenableVisuals.Layer"]
+      - state: poison
+  - type: StaticPrice
+    price: 64
+
+- type: entity
+  parent: NCDrinkCan
+  id: NCDrinkCanEnergyInsane  # Very expensive energy drink
+  name: энергетик КиберПСИХ
+  description: Самая ядерная энергосмесь, которую можно выпить и не умереть. Осилишь, ничтожество?
+  components:
+  - type: SolutionContainerManager
+    solutions:
+      drink:
+        reagents:
+        - ReagentId: Stimulants
+          Quantity: 12
+        - ReagentId: EnergyDrink
+          Quantity: 8
+        - ReagentId: Coffee
+          Quantity: 8
+        - ReagentId: Sugar
+          Quantity: 2
+  - type: Sprite
+    layers:
+      - state: icon
+        map: ["enum.OpenableVisuals.Layer"]
+      - state: death
+  - type: StaticPrice
+    price: 120
+
+# region Biotechnica - Healthy drinks
+
+- type: entity
+  parent: NCDrinkCan
+  id: NCDrinkCanBiotechnicaBerry
+  name: напиток Ягодный Бум
+  description: Вкусные ягоды в баночке.
+  components:
+  - type: SolutionContainerManager
+    solutions:
+      drink:
+        reagents:
+        - ReagentId: JuiceBerry
+          Quantity: 25
+        - ReagentId: Sugar
+          Quantity: 5
+  - type: Sprite
+    layers:
+      - state: icon
+        map: ["enum.OpenableVisuals.Layer"]
+      - state: berry
+  - type: StaticPrice
+    price: 25
+
+- type: entity
+  parent: NCDrinkCan
+  id: NCDrinkCanBiotechnicaCherry
+  name: напиток Вишнёвый Бум
+  description: Вкусные вишни в баночке.
+  components:
+  - type: SolutionContainerManager
+    solutions:
+      drink:
+        reagents:
+        - ReagentId: JuiceCherry
+          Quantity: 25
+        - ReagentId: Sugar
+          Quantity: 5
+  - type: Sprite
+    layers:
+      - state: icon
+        map: ["enum.OpenableVisuals.Layer"]
+      - state: cherry
+  - type: StaticPrice
+    price: 25
+
+- type: entity
+  parent: NCDrinkCan
+  id: NCDrinkCanBiotechnicaBluePumpkin
+  name: напиток Синий Бум
+  description: Секретный вкус Биотехники!
+  components:
+  - type: SolutionContainerManager
+    solutions:
+      drink:
+        reagents:
+        - ReagentId: JuiceBluePumpkin
+          Quantity: 25
+        - ReagentId: Sugar
+          Quantity: 5
+  - type: Sprite
+    layers:
+      - state: icon
+        map: ["enum.OpenableVisuals.Layer"]
+      - state: blue_pumpkin
+  - type: StaticPrice
+    price: 28
+
+- type: entity
+  parent: NCDrinkCan
+  id: NCDrinkCanBiotechnicaMultifruit
+  name: напиток Мультифруктовый Бум Плюс
+  description: Вкусные фрукты в баночке, с кислинкой!
+  components:
+  - type: SolutionContainerManager
+    solutions:
+      drink:
+        reagents:
+        - ReagentId: JuiceApple
+          Quantity: 10
+        - ReagentId: JuiceBanana
+          Quantity: 10
+        - ReagentId: JuicePineapple
+          Quantity: 10
+  - type: Sprite
+    layers:
+      - state: icon
+        map: ["enum.OpenableVisuals.Layer"]
+      - state: multifruit
+  - type: StaticPrice
+    price: 28
+
+- type: entity
+  parent: NCDrinkCan
+  id: NCDrinkCanBiotechnicaBungo
+  name: напиток Тропический Бум
+  description: Вкус тропиков в маленькой баночке.
+  components:
+  - type: SolutionContainerManager
+    solutions:
+      drink:
+        reagents:
+        - ReagentId: JuiceBungo
+          Quantity: 25
+        - ReagentId: Sugar
+          Quantity: 5
+  - type: Sprite
+    layers:
+      - state: icon
+        map: ["enum.OpenableVisuals.Layer"]
+      - state: mango
+  - type: StaticPrice
+    price: 27
+
+- type: entity
+  parent: NCDrinkCan
+  id: NCDrinkCanBiotechnicaVeggie
+  name: напиток Овощной Бум
+  description: Вкус овощей в маленькой баночке.
+  components:
+  - type: SolutionContainerManager
+    solutions:
+      drink:
+        reagents:
+        - ReagentId: JuiceTomato
+          Quantity: 10
+        - ReagentId: JuiceCarrot
+          Quantity: 10
+        - ReagentId: JuicePotato
+          Quantity: 10
+  - type: Sprite
+    layers:
+      - state: icon
+        map: ["enum.OpenableVisuals.Layer"]
+      - state: potato
+  - type: StaticPrice
+    price: 26
+
+# region Biotechnica - Super healthy drinks
+
+- type: entity
+  parent: NCDrinkCan
+  id: NCDrinkCanBiotechnicaVitamins  # The cheapest super-healthy drink
+  name: тоник ВитаМакс
+  description: По-настоящему здоровый напиток, полный полезных витаминов!
+  components:
+  - type: SolutionContainerManager
+    solutions:
+      drink:
+        reagents:
+        - ReagentId: Vitamin
+          Quantity: 30
+  - type: Sprite
+    layers:
+      - state: icon
+        map: ["enum.OpenableVisuals.Layer"]
+      - state: vitamin
+  - type: StaticPrice
+    price: 40
+
+# region Random Spawner
+
+- type: entity
+  parent: MarkerBase
+  id: NCDrinkCanSpawner
+  name: случайный напиток
+  description: Спавнер случайного напитка.
+  suffix: баночка
+  placement:
+    mode: PlaceFree
+  components:
+  - type: Transform
+    anchored: false
+  - type: RandomSpawner
+    prototypes:
+    # Empty
+    - NCDrinkCan
+    # Biotechnica - Unhealthy drinks
+    - NCDrinkCanBiotechnicaMultifruitFake
+    - NCDrinkCanBiotechnicaTeaFake
+    - NCDrinkCanBiotechnicaTonicMutagen
+    # Biotechnica - Neutral drinks
+    - NCDrinkCanBiotechnica
+    - NCDrinkCanBiotechnicaRespawn
+    - NCDrinkCanBiotechnicaTonicFake
+    # Cola
+    - NCDrinkCanCola
+    - NCDrinkCanClassicCola
+    - NCDrinkCanSweetCola
+    - NCDrinkCanBerryCola
+    - NCDrinkCanRipperCola
+    - NCDrinkCanSoda
+    - NCDrinkCanSodaAccelerate
+    - NCDrinkCanAltCola
+    # Cafe
+    - NCDrinkCanLemonade
+    - NCDrinkCanRootBeer
+    - NCDrinkCanTonic
+    - NCDrinkCanLemonLime
+    - NCDrinkCanLemonLimeCranberry
+    - NCDrinkCanOrangeLime
+    # Cafe Premium
+    - NCDrinkCanLemonadeSoda
+    - NCDrinkCanCitrusSoda
+    - NCDrinkCanGrapeSoda
+    - NCDrinkCanGingerSoda
+    - NCDrinkCanOrbitalAirCola
+    - NCDrinkCanMountainDew
+    # Cafe Iced
+    - NCDrinkCanIcedTea
+    - NCDrinkCanIcedGreenTea
+    - NCDrinkCanIcedCoffee
+    # Energy drinks
+    - NCDrinkCanEnergy
+    - NCDrinkCanEnergySugar
+    - NCDrinkCanEnergyPlus
+    chance: 0.8
+    rarePrototypes:
+    # Restaurant
+    - NCDrinkCanOrangeSoda
+    - NCDrinkCanGrenadineSoda
+    # Energy drinks
+    - NCDrinkCanEnergyMax
+    - NCDrinkCanEnergyInsane
+    # Biotechnica - Healthy drinks
+    - NCDrinkCanBiotechnicaBerry
+    - NCDrinkCanBiotechnicaCherry
+    - NCDrinkCanBiotechnicaBluePumpkin
+    - NCDrinkCanBiotechnicaMultifruit
+    # Biotechnica - Super healthy drinks
+    - NCDrinkCanBiotechnicaVitamins
+    rareChance: 0.1
+    offset: 0.0
+  - type: Sprite
+    sprite: _NC/Objects/Consumable/Food/Vending/cans.rsi
+    state: icon
+
+# region Vending Inventories
+
+- type: vendingMachineInventory
+  id: NCDrinkCanMachineInventory
+  startingInventory:
+    NCDrinkCanBiotechnicaMultifruitFake: 5
+    NCDrinkCanBiotechnicaTeaFake: 5
+    NCDrinkCanBiotechnicaTonicMutagen: 5
+    NCDrinkCanBiotechnica: 8
+    NCDrinkCanBiotechnicaRespawn: 5
+    NCDrinkCanBiotechnicaTonicFake: 5
+    NCDrinkCanCola: 8
+    NCDrinkCanClassicCola: 5
+    NCDrinkCanSweetCola: 5
+    NCDrinkCanBerryCola: 5
+    NCDrinkCanRipperCola: 5
+    NCDrinkCanSoda: 5
+    NCDrinkCanSodaAccelerate: 5
+    NCDrinkCanAltCola: 5
+    NCDrinkCanRipperRedCola: 5
+    NCDrinkCanLemonade: 5
+    NCDrinkCanRootBeer: 3
+    NCDrinkCanTonic: 5
+    NCDrinkCanLemonLime: 3
+    NCDrinkCanLemonLimeCranberry: 3
+    NCDrinkCanOrangeLime: 3
+    NCDrinkCanLemonadeSoda: 3
+    NCDrinkCanCitrusSoda: 3
+    NCDrinkCanGrapeSoda: 3
+    NCDrinkCanGingerSoda: 3
+    NCDrinkCanOrbitalAirCola: 3
+    NCDrinkCanMountainDew: 3
+    NCDrinkCanIcedTea: 3
+    NCDrinkCanIcedGreenTea: 3
+    NCDrinkCanIcedCoffee: 3
+    NCDrinkCanOrangeSoda: 2
+    NCDrinkCanGrenadineSoda: 2
+    NCDrinkCanEnergy: 5
+    NCDrinkCanEnergySugar: 5
+    NCDrinkCanEnergyPlus: 3
+    NCDrinkCanBiotechnicaBerry: 3
+    NCDrinkCanBiotechnicaCherry: 3
+    NCDrinkCanBiotechnicaBluePumpkin: 3
+    NCDrinkCanBiotechnicaMultifruit: 3
+    NCDrinkCanBiotechnicaBungo: 3
+    NCDrinkCanBiotechnicaVeggie: 3
+    NCDrinkCanBiotechnicaVitamins: 2
+  startingItemPrices:
+    NCDrinkCanBiotechnicaMultifruitFake: 12
+    NCDrinkCanBiotechnicaTeaFake: 12
+    NCDrinkCanBiotechnicaTonicMutagen: 12
+    NCDrinkCanBiotechnica: 10
+    NCDrinkCanBiotechnicaRespawn: 12
+    NCDrinkCanBiotechnicaTonicFake: 14
+    NCDrinkCanCola: 15
+    NCDrinkCanClassicCola: 17
+    NCDrinkCanSweetCola: 18
+    NCDrinkCanBerryCola: 16
+    NCDrinkCanRipperCola: 18
+    NCDrinkCanSoda: 14
+    NCDrinkCanSodaAccelerate: 15
+    NCDrinkCanAltCola: 13
+    NCDrinkCanRipperRedCola: 13
+    NCDrinkCanLemonade: 20
+    NCDrinkCanRootBeer: 26
+    NCDrinkCanTonic: 22
+    NCDrinkCanLemonLime: 24
+    NCDrinkCanLemonLimeCranberry: 24
+    NCDrinkCanOrangeLime: 24
+    NCDrinkCanLemonadeSoda: 28
+    NCDrinkCanCitrusSoda: 28
+    NCDrinkCanGrapeSoda: 28
+    NCDrinkCanGingerSoda: 28
+    NCDrinkCanOrbitalAirCola: 26
+    NCDrinkCanMountainDew: 30
+    NCDrinkCanIcedTea: 30
+    NCDrinkCanIcedGreenTea: 30
+    NCDrinkCanIcedCoffee: 32
+    NCDrinkCanOrangeSoda: 32
+    NCDrinkCanGrenadineSoda: 32
+    NCDrinkCanEnergy: 18
+    NCDrinkCanEnergySugar: 18
+    NCDrinkCanEnergyPlus: 32
+    NCDrinkCanBiotechnicaBerry: 25
+    NCDrinkCanBiotechnicaCherry: 25
+    NCDrinkCanBiotechnicaBluePumpkin: 28
+    NCDrinkCanBiotechnicaMultifruit: 28
+    NCDrinkCanBiotechnicaBungo: 27
+    NCDrinkCanBiotechnicaVeggie: 26
+    NCDrinkCanBiotechnicaVitamins: 40
+  contrabandInventory:
+    NCDrinkCanEnergyMax: 2
+    NCDrinkCanEnergyInsane: 1
+  contrabandItemPrices:
+    NCDrinkCanEnergyMax: 64
+    NCDrinkCanEnergyInsane: 120
+  emaggedInventory:
+    NCDrinkCanEnergyMax: 3
+    NCDrinkCanEnergyInsane: 2
+  emaggedItemPrices:
+    NCDrinkCanEnergyMax: 64
+    NCDrinkCanEnergyInsane: 120
+
+- type: vendingMachineInventory
+  id: NCDrinkCanCafeMachineInventory
+  startingInventory:
+    NCDrinkCanLemonade: 5
+    NCDrinkCanRootBeer: 3
+    NCDrinkCanTonic: 5
+    NCDrinkCanLemonLime: 3
+    NCDrinkCanLemonLimeCranberry: 3
+    NCDrinkCanOrangeLime: 3
+    NCDrinkCanLemonadeSoda: 3
+    NCDrinkCanCitrusSoda: 3
+    NCDrinkCanGrapeSoda: 3
+    NCDrinkCanGingerSoda: 3
+    NCDrinkCanOrbitalAirCola: 3
+    NCDrinkCanMountainDew: 3
+    NCDrinkCanIcedTea: 3
+    NCDrinkCanIcedGreenTea: 3
+    NCDrinkCanIcedCoffee: 3
+  startingItemPrices:
+    NCDrinkCanLemonade: 20
+    NCDrinkCanRootBeer: 26
+    NCDrinkCanTonic: 22
+    NCDrinkCanLemonLime: 24
+    NCDrinkCanLemonLimeCranberry: 24
+    NCDrinkCanOrangeLime: 24
+    NCDrinkCanLemonadeSoda: 28
+    NCDrinkCanCitrusSoda: 28
+    NCDrinkCanGrapeSoda: 28
+    NCDrinkCanGingerSoda: 28
+    NCDrinkCanOrbitalAirCola: 26
+    NCDrinkCanMountainDew: 30
+    NCDrinkCanIcedTea: 30
+    NCDrinkCanIcedGreenTea: 30
+    NCDrinkCanIcedCoffee: 32
+  contrabandInventory:
+    NCDrinkCanOrangeSoda: 2
+    NCDrinkCanGrenadineSoda: 2
+  contrabandItemPrices:
+    NCDrinkCanOrangeSoda: 32
+    NCDrinkCanGrenadineSoda: 32
+
+- type: vendingMachineInventory
+  id: NCDrinkCanEnergyMachineInventory
+  startingInventory:
+    NCDrinkCanEnergy: 5
+    NCDrinkCanEnergySugar: 5
+    NCDrinkCanEnergyPlus: 3
+    NCDrinkCanEnergyMax: 2
+    NCDrinkCanEnergyInsane: 1
+  startingItemPrices:
+    NCDrinkCanEnergy: 18
+    NCDrinkCanEnergySugar: 18
+    NCDrinkCanEnergyPlus: 32
+    NCDrinkCanEnergyMax: 64
+    NCDrinkCanEnergyInsane: 120
+  contrabandInventory:
+    NCDrinkCanEnergyMax: 2
+    NCDrinkCanEnergyInsane: 1
+  contrabandItemPrices:
+    NCDrinkCanEnergyMax: 50
+    NCDrinkCanEnergyInsane: 100
+
+- type: entity
+  parent: VendingMachineColaBlack
+  id: NCVendingMachineCans
+  name: Ультимейт-Вендинг
+  description: Автомат с напитками в баночках!
+  components:
+  - type: VendingMachine
+    pack: NCDrinkCanMachineInventory
+
+- type: entity
+  parent: VendingMachineColaBlack
+  id: NCVendingMachineCafe
+  name: Кафе-Вендинг
+  description: Автомат с напитками в баночках!
+  suffix: профит Кафе
+  components:
+  - type: VendingMachine
+    pack: NCDrinkCanCafeMachineInventory
+  - type: MoneyCollector
+    access: [ [ "Cafe" ] ]
+
+- type: entity
+  parent: VendingMachineColaBlack
+  id: NCVendingMachineEnergy
+  name: Станция Зарядки
+  description: Автомат с энергетиками!
+  components:
+  - type: VendingMachine
+    pack: NCDrinkCanEnergyMachineInventory

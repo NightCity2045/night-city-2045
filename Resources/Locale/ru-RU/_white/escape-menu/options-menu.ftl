@@ -1,6 +1,4 @@
 ui-options-emotes-menu = Тип меню эмоции:
-ui-options-emotes-menu-window = Окно
-ui-options-emotes-menu-radial = Радиальное
 
 ui-options-log-in-chat = Логировать действия в чат
 
@@ -15,6 +13,10 @@ ui-options-hud-theme-xenomorph = Ксеноморф
 
 ui-options-film-grain = Зернистость
 ui-options-film-grain-strength = Интенсивность зернистости: { $strength }
+ui-options-bloom = Блум
+ui-options-bloom-intensity = Интенсивность блума: { $intensity }
+ui-options-vignette = Виньетирование
+ui-options-split-toning = Умная цветокоррекция (Split Toning)
 
 ui-options-bark-volume = Громкость лая
 ui-options-bark-limit = Лимит лая

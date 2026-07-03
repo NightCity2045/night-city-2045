@@ -1,0 +1,14 @@
+- type: entity
+  id: NightCityStation
+  parent:
+    - BaseStation
+    - BaseStationNews
+    - BaseStationCargo
+    - BaseStationJobsSpawning
+    - BaseStationRecords
+    # NC: No alerts, no shuttles, no ruins.
+    # - BaseStationAllEventsEligible
+    - BaseStationNanotrasen
+  categories: [ HideSpawnMenu ]
+  components:
+    - type: Transform

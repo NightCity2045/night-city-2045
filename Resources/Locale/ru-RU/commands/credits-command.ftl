@@ -1,2 +1,2 @@
-cmd-credits-desc = Открывает окно со спессо
+cmd-credits-desc = Открывает окно с именами авторов
 cmd-credits-help = Использование: {$command}

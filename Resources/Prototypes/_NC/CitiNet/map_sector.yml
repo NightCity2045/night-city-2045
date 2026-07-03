@@ -1,0 +1,22 @@
+- type: entity
+  id: MapSectorAnchor
+  name: Map Sector Anchor
+  parent: MarkerBase
+  suffix: CitiNet
+  components:
+  - type: Physics
+    bodyType: Static
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape:
+          !type:PhysShapeAabb
+          bounds: "-0.4,-0.4,0.4,0.4"
+        hard: false # So people can walk through it
+  - type: Sprite
+    state: pink
+  - type: MapSector
+    name: citinet-map-sector-default
+    color: "#ff00ff44"
+    bounds: "-10, -10, 10, 10"
+    visibleInWorld: true

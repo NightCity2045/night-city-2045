@@ -4,23 +4,18 @@
   description: job-description-rd
   playTimeTracker: JobResearchDirector
   requirements:
-  - !type:CharacterItemGroupRequirement
-    group: TraitsCasterType
   - !type:CharacterLogicOrRequirement
     requirements:
     - !type:CharacterSpeciesRequirement
       inverted: true
       species:
       - IPC
-    - !type:CharacterTraitRequirement
-      traits:
-      - AnomalousPositronics
   - !type:CharacterTraitRequirement
     inverted: true
     traits:
     - Muted
-    - Foreigner
-    - ForeignerLight
+    # - Foreigner
+    # - ForeignerLight
   - !type:CharacterEmployerRequirement
     employers:
     - NanoTrasen
@@ -49,17 +44,8 @@
   special:
   - !type:AddComponentSpecial
     components:
-    - type: BibleUser
-    - type: Psionic
-      powerSlots: 3
-      baselinePowerCost: 75
-      nextPowerCost: 75
     - type: CommandStaff
-    - type: InnatePsionicPowers
-      powersToAdd:
-      - DispelPower
-      - MetapsionicPower
-      - TelepathyPower
+    - type: BibleUser
   - !type:AddImplantSpecial
     implants: [ MindShieldImplant ]
   afterLoadoutSpecial:
@@ -78,7 +64,7 @@
     shoes: ClothingShoesColorBrown
     id: RnDPDA
     ears: ClothingHeadsetAltScience
-    pocket1: BookPsionicsGuidebook
+    # pocket1: BookPsionicsGuidebook
     pocket2: BibleMystagogue
   storage:
     back:

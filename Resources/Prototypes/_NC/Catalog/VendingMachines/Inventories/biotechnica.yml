@@ -1,0 +1,561 @@
+# region Botany
+
+- type: vendingMachineInventory
+  id: BiotechnicaBotanyInventory
+  startingInventory:
+    BiotechnicaHoe: 2
+    BiotechnicaSpade: 2
+    BiotechnicaClippers: 2
+    BiotechnicaScythe: 2
+    BiotechnicaHatchet: 2
+    BiotechnicaWateringCan: 2
+    BiotechnicaWateringCanExperimental: 1
+    BiotechnicaLabeler: 2
+    BiotechnicaDropper: 4
+    BiotechnicaPlantAnalyzer: 2
+    BiotechnicaPlantBag: 3
+    BiotechnicaPlantBagHolding: 1
+    PlantBGoneSpray: 20
+    WeedSpray: 20
+    PestSpray: 20
+    Syringe: 5
+    RobustHarvestChemistryBottle: 3
+    EZNutrientChemistryBottle: 3
+    Bucket: 3
+    BluespaceBucket: 1
+    DiseaseSwab: 20
+    BoxMouthSwab: 1
+  startingItemPrices:
+    BiotechnicaHoe: 20
+    BiotechnicaSpade: 20
+    BiotechnicaClippers: 20
+    BiotechnicaScythe: 40
+    BiotechnicaHatchet: 60
+    BiotechnicaWateringCan: 80
+    BiotechnicaWateringCanExperimental: 780
+    BiotechnicaLabeler: 140
+    BiotechnicaDropper: 10
+    BiotechnicaPlantAnalyzer: 400
+    BiotechnicaPlantBag: 100
+    BiotechnicaPlantBagHolding: 720
+    PlantBGoneSpray: 20
+    WeedSpray: 40
+    PestSpray: 40
+    Syringe: 20
+    RobustHarvestChemistryBottle: 80
+    EZNutrientChemistryBottle: 60
+    Bucket: 20
+    BluespaceBucket: 640
+    DiseaseSwab: 10
+    BoxMouthSwab: 200  # Cheaper than buying swabs separately
+  contrabandInventory:
+    UnstableMutagenChemistryBottle: 1
+    Joint: 1
+    Blunt: 1
+    SeedEmUpSpray: 1
+    BluespaceWateringCanExperimental: 1
+  contrabandItemPrices:
+    UnstableMutagenChemistryBottle: 100
+    Joint: 50
+    Blunt: 50
+    SeedEmUpSpray: 200
+    BluespaceWateringCanExperimental: 1000
+  emaggedInventory:
+    Left4ZedChemistryBottle: 1
+    Chainsaw: 1
+  emaggedItemPrices:
+    Left4ZedChemistryBottle: 100
+    Chainsaw: 800
+
+- type: vendingMachineInventory
+  id: BiotechnicaBotanyDrobeInventory
+  startingInventory:
+    ClothingBackpackBiotechnica: 2
+    ClothingBackpackSatchelBiotechnica: 2
+    ClothingBackpackDuffelBiotechnica: 2
+    ClothingUniformJumpsuitBiotechnica: 3
+    ClothingOuterApronBiotechnicaBotany: 2
+    ClothingEyesGogglesBiotechnicaBotany: 2
+    ClothingMaskBreathBiotechnicaBotany: 2
+    ClothingShoesColorWhite: 2
+    ClothingBeltBiotechnicaBotany: 2
+    ClothingHeadBandBotany: 2
+    ClothingHeadHatBiotechnicaCap: 2
+    ClothingMaskSterile: 2
+    ClothingHeadEnvirohelmBiotechnicaBotany: 2
+    ClothingUniformEnvirosuitBiotechnicaBotany: 2
+    ClothingHandsGlovesEnviroglovesBiotechnicaBotany: 3
+    ClothingShoesEnviroshoesBiotechnicaBotany: 3
+  contrabandInventory:
+    ClothingOuterWinterHydro: 2
+    ClothingShoesBootsWinterHydro: 2
+  startingItemPrices:
+    ClothingBackpackBiotechnica: 100
+    ClothingBackpackSatchelBiotechnica: 100
+    ClothingBackpackDuffelBiotechnica: 100
+    ClothingUniformJumpsuitBiotechnica: 100
+    ClothingOuterApronBiotechnicaBotany: 150
+    ClothingEyesGogglesBiotechnicaBotany: 200
+    ClothingMaskBreathBiotechnicaBotany: 250
+    ClothingShoesColorWhite: 50
+    ClothingBeltBiotechnicaBotany: 100
+    ClothingHeadBandBotany: 50
+    ClothingHeadHatBiotechnicaCap: 50
+    ClothingMaskSterile: 50
+    ClothingHeadEnvirohelmBiotechnicaBotany: 300
+    ClothingUniformEnvirosuitBiotechnicaBotany: 300
+    ClothingHandsGlovesEnviroglovesBiotechnicaBotany: 200
+    ClothingShoesEnviroshoesBiotechnicaBotany: 150
+  contrabandItemPrices:
+    ClothingOuterWinterHydro: 200
+    ClothingShoesBootsWinterHydro: 100
+
+- type: vendingMachineInventory
+  id: BiotechnicaSeedsInventory
+  startingInventory:
+    AloeSeeds: 3
+    AmbrosiaVulgarisSeeds: 3
+    AppleSeeds: 5
+    BananaSeeds: 5
+    BerrySeeds: 5
+    CarrotSeeds: 5
+    CabbageSeeds: 5
+    ChanterelleSeeds: 5
+    CherrySeeds: 5
+    ChiliSeeds: 5
+    CocoaSeeds: 3
+    CornSeeds: 5
+    CottonSeeds: 5
+    EggplantSeeds: 5
+    EggySeeds: 5
+    GalaxythistleSeeds: 3
+    GarlicSeeds: 3
+    GrapeSeeds: 5
+    LemonSeeds: 5
+    LimeSeeds: 5
+    PineappleSeeds: 5
+    LingzhiSeeds: 3
+    OatSeeds: 5
+    OnionSeeds: 5
+    OnionRedSeeds: 5
+    OrangeSeeds: 5
+    PeaSeeds: 5
+    PoppySeeds: 3
+    PotatoSeeds: 5
+    PumpkinSeeds: 5
+    RiceSeeds: 5
+    SoybeanSeeds: 5
+    SugarcaneSeeds: 5
+    TeaPlantSeeds: 5
+    TomatoSeeds: 5
+    TowercapSeeds: 5
+    WheatSeeds: 5
+    WatermelonSeeds: 5
+  emaggedInventory:
+    FlyAmanitaSeeds: 1
+    NettleSeeds: 1
+    KillerTomatoSeeds: 1
+  contrabandInventory:
+    EggySeeds: 2
+    TobaccoSeeds: 2
+    CannabisSeeds: 2
+    NettleSeeds: 2
+    FlyAmanitaSeeds: 2
+    BungoSeeds: 2
+  startingItemPrices:
+    AloeSeeds: 300
+    AmbrosiaVulgarisSeeds: 800
+    AppleSeeds: 500
+    BananaSeeds: 500
+    BerrySeeds: 400
+    CarrotSeeds: 250
+    CabbageSeeds: 250
+    ChanterelleSeeds: 350
+    CherrySeeds: 500
+    ChiliSeeds: 350
+    CocoaSeeds: 800
+    CornSeeds: 150
+    CottonSeeds: 200
+    EggplantSeeds: 300
+    EggySeeds: 300
+    GalaxythistleSeeds: 600
+    GarlicSeeds: 300
+    GrapeSeeds: 450
+    LemonSeeds: 400
+    LimeSeeds: 400
+    PineappleSeeds: 500
+    LingzhiSeeds: 600
+    OatSeeds: 150
+    OnionSeeds: 250
+    OnionRedSeeds: 300
+    OrangeSeeds: 500
+    PeaSeeds: 200
+    PoppySeeds: 800
+    PotatoSeeds: 150
+    PumpkinSeeds: 300
+    RiceSeeds: 150
+    SoybeanSeeds: 150
+    SugarcaneSeeds: 300
+    TeaPlantSeeds: 600
+    TomatoSeeds: 350
+    TowercapSeeds: 400
+    WheatSeeds: 150
+    WatermelonSeeds: 400
+  emaggedItemPrices:
+    FlyAmanitaSeeds: 1500
+    NettleSeeds: 1000
+    KillerTomatoSeeds: 2000
+  contrabandItemPrices:
+    EggySeeds: 800
+    TobaccoSeeds: 1200
+    CannabisSeeds: 1200
+    NettleSeeds: 1000
+    FlyAmanitaSeeds: 1500
+    BungoSeeds: 600
+
+# region MedTech
+
+- type: vendingMachineInventory
+  id: BiotechnicaMedTechInventory
+  startingInventory:
+    ChemistryEmptyBottle01: 20
+    BaseChemistryEmptyVial: 20
+    PillCanister: 20
+    BiotechnicaDropper: 4
+    Syringe: 4
+    Beaker: 4
+    LargeBeaker: 4
+    Gauze: 4
+    SyringeCryostasis: 2
+    CryostasisBeaker: 2
+    BiotechnicaLabeler: 2
+    GeigerCounter: 2
+    GasAnalyzer: 2
+    BiotechnicaChemBag: 3
+    BiotechnicaChemBagHolding: 1
+  startingItemPrices:
+    ChemistryEmptyBottle01: 10
+    BaseChemistryEmptyVial: 10
+    PillCanister: 10
+    BiotechnicaDropper: 10
+    Syringe: 20
+    Beaker: 20
+    LargeBeaker: 35
+    Gauze: 40
+    SyringeCryostasis: 80
+    CryostasisBeaker: 80
+    BiotechnicaLabeler: 140
+    GeigerCounter: 150
+    GasAnalyzer: 280
+    BiotechnicaChemBag: 100
+    BiotechnicaChemBagHolding: 720
+  contrabandInventory:
+    BiotechnicaAppraisalTool: 1
+    PowerCellPotato: 1
+    SyringeBluespace: 1
+    BluespaceBeaker: 1
+  contrabandItemPrices:
+    BiotechnicaAppraisalTool: 40
+    PowerCellPotato: 40
+    SyringeBluespace: 600
+    BluespaceBeaker: 600
+  emaggedInventory:
+    AnomalyScanner: 1
+    NodeScanner: 1
+    HandHeldMassScanner: 1
+  emaggedItemPrices:
+    AnomalyScanner: 80
+    NodeScanner: 80
+    HandHeldMassScanner: 800
+
+- type: vendingMachineInventory
+  id: BiotechnicaMedTechDrobeInventory
+  startingInventory:
+    ClothingBackpackBiotechnica: 2
+    ClothingBackpackSatchelBiotechnica: 2
+    ClothingBackpackDuffelBiotechnica: 2
+    ClothingUniformJumpsuitBiotechnica: 3
+    ClothingMaskSterile: 2
+    ClothingMaskBreathMedical: 2
+    ClothingMaskBreathBiotechnicaAdvanced: 2
+    ClothingHeadHatBiotechnicaSterile: 2
+    ClothingOuterApronBiotechnica: 2
+    ClothingOuterApronChemist: 2
+    ClothingOuterCoatBiotechnica: 2
+    ClothingOuterCoatBiotechnicaRad: 2
+    ClothingOuterCoatBiotechnicaAdvanced: 2
+    ClothingShoesColorWhite: 2
+    ClothingShoesEnclosedChem: 2
+    ClothingBeltBiotechnicaMedTech: 2
+    ClothingHandsGlovesLatex: 4
+    ClothingHandsGlovesNitrile: 4
+    ClothingHandsGlovesChemist: 2
+    ClothingHandsMittsBiotechnica: 2
+    ClothingHandsGlovesEnviroglovesBiotechnica: 2
+    ClothingHeadEnvirohelmBiotechnica: 2
+    ClothingUniformEnvirosuitBiotechnica: 2
+    ClothingShoesEnviroshoesBiotechnica: 2
+    ClothingEyesGlassesChemist: 2
+    ClothingEyesGlassesChemical: 2
+  contrabandInventory:
+    ClothingUniformJumpsuitChemShirt: 2
+    ClothingNeckTieChem: 2
+    ClothingOuterWinterChem: 2
+  emaggedInventory:
+    ClothingEyesHudEpistemics: 2
+  startingItemPrices:
+    ClothingBackpackBiotechnica: 100
+    ClothingBackpackSatchelBiotechnica: 100
+    ClothingBackpackDuffelBiotechnica: 100
+    ClothingUniformJumpsuitBiotechnica: 100
+    ClothingHeadHatBiotechnicaCap: 50
+    ClothingMaskSterile: 50
+    ClothingMaskBreathMedical: 80
+    ClothingMaskBreathBiotechnicaAdvanced: 250
+    ClothingHeadHatBiotechnicaSterile: 50
+    ClothingOuterApronBiotechnica: 100
+    ClothingOuterApronChemist: 380
+    ClothingOuterCoatBiotechnica: 150
+    ClothingOuterCoatBiotechnicaRad: 250
+    ClothingOuterCoatBiotechnicaAdvanced: 500
+    ClothingShoesColorWhite: 50
+    ClothingShoesEnclosedChem: 100
+    ClothingBeltBiotechnicaMedTech: 50
+    ClothingHandsGlovesLatex: 10
+    ClothingHandsGlovesNitrile: 10
+    ClothingHandsGlovesChemist: 50
+    ClothingHandsMittsBiotechnica: 200
+    ClothingHandsGlovesEnviroglovesBiotechnica: 150
+    ClothingHeadEnvirohelmBiotechnica: 250
+    ClothingUniformEnvirosuitBiotechnica: 250
+    ClothingShoesEnviroshoesBiotechnica: 150
+    ClothingEyesGlassesChemist: 50
+    ClothingEyesGlassesChemical: 350
+  contrabandItemPrices:
+    ClothingUniformJumpsuitChemShirt: 50
+    ClothingNeckTieChem: 20
+    ClothingOuterWinterChem: 100
+  emaggedItemPrices:
+    ClothingEyesHudEpistemics: 600
+
+# region Tech
+
+- type: vendingMachineInventory
+  id: BiotechnicaTechInventory
+  startingInventory:
+    NCBlankDrive: 20
+    BiotechnicaCrowbar: 2
+    BiotechnicaWrench: 2
+    BiotechnicaScrewdriverMini: 2
+    BiotechnicaWirecutter: 2
+    BiotechnicaWelderMini: 2
+    BiotechnicaWelder: 2
+    WelderIndustrial: 2
+    PowerDrill: 2
+    FlashlightLantern: 2
+    NetworkConfigurator: 2
+    Multitool: 2
+    PowerCellSmall: 2
+    PowerCellMedium: 2
+    PowerCellHigh: 2
+  startingItemPrices:
+    NCBlankDrive: 20
+    BiotechnicaCrowbar: 20
+    BiotechnicaWrench: 20
+    BiotechnicaScrewdriverMini: 20
+    BiotechnicaWirecutter: 20
+    BiotechnicaWelderMini: 20
+    BiotechnicaWelder: 80
+    WelderIndustrial: 240
+    PowerDrill: 240
+    FlashlightLantern: 40
+    NetworkConfigurator: 40
+    Multitool: 560
+    PowerCellSmall: 80
+    PowerCellMedium: 180
+    PowerCellHigh: 380
+  contrabandInventory:
+    BiotechnicaAppraisalTool: 1
+    GasAnalyzer: 2
+    HandheldGPSBasic: 2
+    AccessConfigurator: 2
+    trayScanner: 1
+    RemoteSignaller: 1
+    WelderIndustrialAdvanced: 1
+    WelderExperimental: 1
+    FlashlightEmp: 1
+  contrabandItemPrices:
+    BiotechnicaAppraisalTool: 40
+    GasAnalyzer: 280
+    HandheldGPSBasic: 360
+    AccessConfigurator: 520
+    trayScanner: 320
+    RemoteSignaller: 340
+    WelderIndustrialAdvanced: 480
+    WelderExperimental: 600
+    FlashlightEmp: 420
+  emaggedInventory:
+    PowerCellHyper: 1
+    RemoteSignallerAdvanced: 1
+    ScrewdriverAbductor: 1
+    WelderAbductor: 1
+  emaggedItemPrices:
+    PowerCellHyper: 800
+    RemoteSignallerAdvanced: 720
+    ScrewdriverAbductor: 1000
+    WelderAbductor: 1200
+
+- type: vendingMachineInventory
+  id: BiotechnicaTechDrobeInventory
+  startingInventory:
+    ClothingBackpackBiotechnica: 2
+    ClothingBackpackSatchelBiotechnica: 2
+    ClothingBackpackDuffelBiotechnica: 2
+    ClothingUniformJumpsuitBiotechnica: 3
+    ClothingMaskSterile: 2
+    ClothingOuterApronBiotechnica: 2
+    ClothingShoesColorWhite: 2
+    ClothingBeltBiotechnicaTech: 2
+    ClothingHandsGlovesLatex: 4
+    ClothingHandsGlovesNitrile: 4
+    ClothingHandsGlovesColorYellow: 2
+    ClothingHandsGlovesCE: 2
+    ClothingHandsGlovesEnviroglovesBiotechnica: 2
+    ClothingHeadEnvirohelmBiotechnica: 2
+    ClothingUniformEnvirosuitBiotechnica: 2
+    ClothingShoesEnviroshoesBiotechnica: 2
+    ClothingEyesGlassesChemist: 2
+    ClothingEyesGlassesMeson: 2
+    ClothingEyesGogglesBiotechnicaTech: 2
+    ClothingHeadHatWelding: 2
+  contrabandInventory:
+    ClothingHeadHatWeldingMaskFlame: 2
+    ClothingHeadHatWeldingMaskFlameBlue: 2
+    ClothingHeadHatWeldingMaskPainted: 2
+    ClothingMaskWeldingGas: 1
+    ClothingOuterWinterChem: 2
+  emaggedInventory:
+    ClothingEyesHudBeer: 2
+  startingItemPrices:
+    ClothingBackpackBiotechnica: 100
+    ClothingBackpackSatchelBiotechnica: 100
+    ClothingBackpackDuffelBiotechnica: 100
+    ClothingUniformJumpsuitBiotechnica: 100
+    ClothingHeadHatBiotechnicaCap: 50
+    ClothingMaskSterile: 50
+    ClothingOuterApronBiotechnica: 100
+    ClothingShoesColorWhite: 50
+    ClothingBeltBiotechnicaTech: 50
+    ClothingHandsGlovesLatex: 10
+    ClothingHandsGlovesNitrile: 10
+    ClothingHandsGlovesColorYellow: 100
+    ClothingHandsGlovesCE: 200
+    ClothingHandsGlovesEnviroglovesBiotechnica: 150
+    ClothingHeadEnvirohelmBiotechnica: 250
+    ClothingUniformEnvirosuitBiotechnica: 250
+    ClothingShoesEnviroshoesBiotechnica: 150
+    ClothingEyesGlassesChemist: 50
+    ClothingEyesGlassesMeson: 250
+    ClothingEyesGogglesBiotechnicaTech: 250
+    ClothingHeadHatWelding: 50
+  contrabandItemPrices:
+    ClothingHeadHatWeldingMaskFlame: 150
+    ClothingHeadHatWeldingMaskFlameBlue: 150
+    ClothingHeadHatWeldingMaskPainted: 150
+    ClothingMaskWeldingGas: 200
+    ClothingOuterWinterChem: 100
+  emaggedItemPrices:
+    ClothingEyesHudBeer: 600
+
+# region Chief
+
+- type: vendingMachineInventory
+  id: BiotechnicaPDAInventory
+  startingInventory:
+    BiotechnicaChiefPDA: 1
+    BiotechnicaBotanistPDA: 2
+    BiotechnicaMedTechPDA: 2
+    BiotechnicaNetrunnerPDA: 2
+    BiotechnicaOperativeLeadPDA: 1
+    BiotechnicaOperativePDA: 4
+    BiotechnicaRiggerPDA: 2
+    BiotechnicaParamedicPDA: 2
+    BiotechnicaTechPDA: 2
+    RubberStampApproved: 1
+    RubberStampDenied: 1
+    Paper: 10
+    Envelope: 10
+  startingItemPrices:
+    BiotechnicaChiefPDA: 80
+    BiotechnicaBotanistPDA: 50
+    BiotechnicaMedTechPDA: 50
+    BiotechnicaNetrunnerPDA: 50
+    BiotechnicaOperativeLeadPDA: 80
+    BiotechnicaOperativePDA: 50
+    BiotechnicaRiggerPDA: 50
+    BiotechnicaParamedicPDA: 50
+    BiotechnicaTechPDA: 50
+    RubberStampApproved: 20
+    RubberStampDenied: 20
+    Paper: 5
+    Envelope: 5
+
+# region Commercial
+
+- type: vendingMachineInventory
+  id: BiotechnicaVendingInventory
+  startingInventory:
+    NCDrinkCanBiotechnicaMultifruitFake: 4
+    NCDrinkCanBiotechnicaTeaFake: 4
+    NCDrinkCanBiotechnicaTonicMutagen: 4
+    NCDrinkCanBiotechnica: 3
+    NCDrinkCanBiotechnicaRespawn: 5
+    NCDrinkCanBiotechnicaTonicFake: 3
+    NCDrinkCanBiotechnicaBerry: 1
+    NCDrinkCanBiotechnicaCherry: 1
+    NCDrinkCanBiotechnicaBluePumpkin: 1
+    NCDrinkCanBiotechnicaMultifruit: 1
+    NCDrinkCanBiotechnicaBungo: 1
+    NCDrinkCanBiotechnicaVeggie: 1
+  startingItemPrices:
+    NCDrinkCanBiotechnicaMultifruitFake: 12
+    NCDrinkCanBiotechnicaTeaFake: 12
+    NCDrinkCanBiotechnicaTonicMutagen: 12
+    NCDrinkCanBiotechnica: 10
+    NCDrinkCanBiotechnicaRespawn: 12
+    NCDrinkCanBiotechnicaTonicFake: 14
+    NCDrinkCanBiotechnicaBerry: 25
+    NCDrinkCanBiotechnicaCherry: 25
+    NCDrinkCanBiotechnicaBluePumpkin: 28
+    NCDrinkCanBiotechnicaMultifruit: 28
+    NCDrinkCanBiotechnicaBungo: 27
+    NCDrinkCanBiotechnicaVeggie: 26
+  contrabandInventory:
+    NCDrinkCanBiotechnicaVitamins: 1
+  contrabandItemPrices:
+    NCDrinkCanBiotechnicaVitamins: 40
+
+- type: vendingMachineInventory
+  id: BiotechnicaBotanyCommercialInventory
+  startingInventory:
+    PlantBGoneSpray: 5
+    WeedSpray: 5
+    PestSpray: 5
+    Syringe: 5
+    DiseaseSwab: 20
+    RobustHarvestChemistryBottle: 3
+    EZNutrientChemistryBottle: 3
+    Left4ZedChemistryBottle: 2
+    SeedEmUpSpray: 2
+    UnstableMutagenChemistryBottle: 3
+  startingItemPrices:
+    PlantBGoneSpray: 40
+    WeedSpray: 80
+    PestSpray: 80
+    Syringe: 20
+    DiseaseSwab: 10
+    RobustHarvestChemistryBottle: 80
+    EZNutrientChemistryBottle: 60
+    Left4ZedChemistryBottle: 400
+    SeedEmUpSpray: 400
+    UnstableMutagenChemistryBottle: 200

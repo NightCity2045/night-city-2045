@@ -1,0 +1,66 @@
+- type: vendingMachineInventory
+  id: TraumaImplantVendorInventory
+  startingInventory:
+    # External
+    CyberwareExternalKevlarSublayer: 5
+    CyberwareExternalThermoplasticArmor: 3
+    CyberwareExternalReactiveSublayer: 1
+    # Internal
+    CyberwareInternalPolymerSkeleton: 5
+    CyberwareInternalTitaniumReinforcement: 3
+    CyberwareInternalArmyEndoskeleton: 1
+    CyberwareInternalNasalFilters: 5
+    CyberwareInternalEnhancedAntibodies: 5
+    # Neuro (Special for TT)
+    CyberwareNeuroBlockerAegis: 3
+    CyberwareNeuroBioInhibitorStoic: 3
+    CyberwareNeuroKerenzikovMk1: 5
+    CyberwareNeuroKerenzikovMk2: 3
+    CyberwareNeuroKerenzikovMk3: 2
+    CyberwareNeuroSandevistanMk1: 2
+    # Optic
+    CyberwareImplantAntiglare: 5
+    CyberwareImplantInfraredVision: 5
+    CyberwareImplantMicroVideo: 3
+    CyberwareImplantMicroOptics: 3
+    # Human Organs
+    OrganHumanHeart: 2
+    OrganHumanLungs: 2
+    OrganHumanLiver: 2
+    OrganHumanKidneys: 2
+    OrganHumanEyes: 2
+    OrganHumanBrain: 1
+
+
+
+  startingItemPrices:
+    # External
+    CyberwareExternalKevlarSublayer: 150
+    CyberwareExternalThermoplasticArmor: 400
+    CyberwareExternalReactiveSublayer: 1500
+    # Internal
+    CyberwareInternalPolymerSkeleton: 100
+    CyberwareInternalTitaniumReinforcement: 300
+    CyberwareInternalArmyEndoskeleton: 1500
+    CyberwareInternalNasalFilters: 250
+    CyberwareInternalEnhancedAntibodies: 450
+    # Neuro
+    CyberwareNeuroBlockerAegis: 120
+    CyberwareNeuroBioInhibitorStoic: 300
+    CyberwareNeuroKerenzikovMk1: 100
+    CyberwareNeuroKerenzikovMk2: 250
+    CyberwareNeuroKerenzikovMk3: 700
+    CyberwareNeuroSandevistanMk1: 1200
+    # Optic
+    CyberwareImplantAntiglare: 200
+    CyberwareImplantInfraredVision: 500
+    CyberwareImplantMicroVideo: 100
+    CyberwareImplantMicroOptics: 250
+    # Human Organs
+    OrganHumanHeart: 150
+    OrganHumanLungs: 100
+    OrganHumanLiver: 100
+    OrganHumanKidneys: 100
+    OrganHumanEyes: 50
+    OrganHumanBrain: 200
+

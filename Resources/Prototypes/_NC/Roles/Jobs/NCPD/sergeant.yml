@@ -1,0 +1,33 @@
+- type: job
+  id: NCPDSergeant
+  name: job-name-ncpd-sergeant
+  description: job-description-ncpd-sergeant
+  playTimeTracker: JobNCPDSergeant
+  weight: 45
+  salary: 160
+  icon: "JobIconNCPDPoliceSerg"
+  startingGear: NCPDSergeantGear
+  supervisors: Лейтенант
+  access:
+    - NCPD_Patrol
+    - NC_General
+  special:
+  - !type:AddComponentSpecial
+    components:
+    - type: MapBeacon
+      group: NCPD
+      color: "#ffaa00"
+      icon: /Textures/Interface/VerbIcons/star-solid-yellow.svg.192dpi.png
+      visibleInWorld: false
+
+- type: startingGear
+  id: NCPDSergeantGear
+  equipment:
+    jumpsuit: ClothingUniformNSPDNormis
+    back: ClothingBackpackSecurity
+    shoes: ClothingShoesBootsJack
+    head: ClothingHeadHatWarden
+    id: NCPDSergeantPDA
+    eyes: ClothingEyesGlassesSecurityVisor
+    belt: ClothingBeltSecurityFilled
+    outerClothing: ClothingOuterCoatWarden

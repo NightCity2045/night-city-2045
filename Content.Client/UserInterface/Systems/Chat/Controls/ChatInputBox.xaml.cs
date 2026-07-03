@@ -59,6 +59,13 @@ public class ChatInputBox : PanelContainer
         ActiveChannel = (ChatChannel) selectedChannel;
     }
 
+    public void RefreshLocalization()
+    {
+        Input.PlaceHolder = GetChatboxInfoPlaceholder();
+        ChannelSelector.RefreshLocalization();
+        FilterButton.RefreshLocalization();
+    }
+
     private static string GetChatboxInfoPlaceholder()
     {
         return (BoundKeyHelper.IsBound(ContentKeyFunctions.FocusChat), BoundKeyHelper.IsBound(ContentKeyFunctions.CycleChatChannelForward)) switch

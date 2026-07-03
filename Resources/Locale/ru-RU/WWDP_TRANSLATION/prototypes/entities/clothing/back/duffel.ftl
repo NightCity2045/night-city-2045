@@ -66,8 +66,8 @@ ent-ClothingBackpackDuffelSyndicateMedicalBundle = { ent-ClothingBackpackDuffelS
     .desc = { ent-ClothingBackpackDuffelSyndicate.desc }
     .suffix = { "" }
 
-ent-ClothingBackpackDuffelHolding = блюспейс вещмешок
-    .desc = Вещмешок, открывающийся в локальный карман блюспейса.
+ent-ClothingBackpackDuffelHolding = вместительный вещмешок
+    .desc = Вещмешок, имеющий особые растягиваемые скрытые карманы для хранения большого количества вещей.
     .suffix = { "" }
 
 ent-ClothingBackpackDuffelCBURN = вещмешок CBURN

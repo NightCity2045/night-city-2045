@@ -33,7 +33,7 @@
   desc: reagent-desc-hot-cocoa
   physicalDesc: reagent-physical-desc-aromatic
   flavor: chocolate
-  color: "#664300"
+  color: "#e6a380"  # NC edit: NightCity FastFood
   recognizable: true
   metabolisms:
     Drink:
@@ -349,6 +349,10 @@
       effects:
       - !type:SatiateThirst
         factor: -2
+      # NC edit start: NightCity FastFood
+      - !type:ChemAddMoodlet
+        moodPrototype: NotTastyEffect
+      # NC edit end: NightCity FastFood
 
 - type: reagent
   id: Nothing
@@ -491,6 +495,10 @@
       effects:
       - !type:SatiateThirst
         factor: 4
+      # NC edit start: NightCity FastFood
+      - !type:ChemAddMoodlet
+        moodPrototype: PlainWaterEffect
+      # NC edit end: NightCity FastFood
 
 - type: reagent
   id: Ice
@@ -641,3 +649,7 @@
       effects:
       - !type:SatiateThirst
         factor: 0.6
+      # NC edit start: NightCity FastFood
+      - !type:ChemAddMoodlet
+        moodPrototype: NotTastyEffect
+      # NC edit end: NightCity FastFood

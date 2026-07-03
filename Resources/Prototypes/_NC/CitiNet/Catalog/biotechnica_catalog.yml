@@ -1,0 +1,130 @@
+
+- type: citiNetStoreCategory
+  id: CorporateBiotechnicaMedical
+  name: MEDICAL
+  entries:
+  - proto: MedkitAdvancedFilled
+    name: Advanced Trauma Kit
+    description: Biotechnica-grade emergency treatment pack routed from corporate stores.
+    price: 100
+    dataPrice: 100
+    count: 100
+  - proto: Defibrillator
+    name: Defibrillator Unit
+    description: Corporate clinic resuscitation hardware with audited custody.
+    price: 70
+    dataPrice: 30
+    count: 100
+  - proto: Bloodpack
+    name: Synthetic Blood Pack
+    description: Stabilized blood substitute for field medtech response.
+    price: 20
+    dataPrice: 10
+    count: 100
+
+- type: citiNetStoreCategory
+  id: CorporateBiotechnicaFieldGear
+  name: FIELD GEAR
+  entries:
+  - proto: ClothingOuterArmorBiotechnicaBulletproof
+    name: Biotechnica Ballistic Vest
+    description: Corporate field armor issued to Biotechnica security detachments.
+    price: 100
+    dataPrice: 50
+    count: 100
+  - proto: BiotechnicaChemBagHolding
+    name: Biotechnica Chemical Satchel
+    description: Expanded field chemistry bag for sample recovery and containment.
+    price: 30
+    dataPrice: 50
+    count: 100
+
+- type: citiNetStoreCategory
+  id: NightMarket_Cyberware
+  name: citinet-store-category-cyberware
+  entries:
+  - proto: CyberwareImplantAntiglare
+    price: 200
+    dataPrice: 100
+    count: 100
+  - proto: CyberwareImplantInfraredVision
+    price: 200
+    dataPrice: 200
+    count: 100
+  - proto: CyberwareImplantMicroVideo
+    price: 100
+    dataPrice: 50
+    count: 100
+  - proto: CyberwareImplantMicroOptics
+    price: 250
+    dataPrice: 100
+    count: 100
+  - proto: CyberwareNeuroKerenzikovMk1
+    price: 400
+    dataPrice: 230
+    count: 100
+  - proto: CyberwareNeuroKerenzikovMk2
+    price: 450
+    dataPrice: 350
+    count: 100
+  - proto: CyberwareNeuroKerenzikovMk3
+    price: 600
+    dataPrice: 800
+    count: 100
+  - proto: CyberwareNeuroBioInhibitorStoic
+    price: 300
+    dataPrice: 280
+    count: 100
+  - proto: CyberwareNeuroBlockerAegis
+    price: 500
+    dataPrice: 320
+    count: 100
+  - proto: CyberwareNeuroTacticalSpartan
+    price: 750
+    dataPrice: 500
+    count: 100
+  - proto: CyberwareNeuroSandevistanMk1
+    price: 300
+    dataPrice: 180
+    count: 100
+  - proto: CyberwareInternalPolymerSkeleton
+    price: 300
+    dataPrice: 300
+    count: 100
+  - proto: CyberwareInternalTitaniumReinforcement
+    price: 600
+    dataPrice: 450
+    count: 100
+  - proto: CyberwareInternalArmyEndoskeleton
+    price: 800
+    dataPrice: 1000
+    count: 100
+  - proto: CyberwareInternalNasalFilters
+    price: 200
+    dataPrice: 100
+    count: 100
+  - proto: CyberwareInternalEnhancedAntibodies
+    price: 100
+    dataPrice: 600
+    count: 100
+  - proto: CyberwareExternalKevlarSublayer
+    price: 200
+    dataPrice: 100
+    count: 100
+  - proto: CyberwareExternalThermoplasticArmor
+    price: 250
+    dataPrice: 300
+    count: 100
+  - proto: CyberwareExternalReactiveSublayer
+    price: 400
+    dataPrice: 400
+    count: 100
+
+- type: citiNetStorePreset
+  id: CorporateBiotechnicaSupply
+  defaultDelivery: Corporate
+  bankAccount: Biotechnica
+  categories:
+  - CorporateBiotechnicaMedical
+  - CorporateBiotechnicaFieldGear
+  - NightMarket_Cyberware

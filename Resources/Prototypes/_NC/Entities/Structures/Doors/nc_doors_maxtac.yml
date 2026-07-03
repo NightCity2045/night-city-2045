@@ -1,0 +1,28 @@
+# Макстак (MaxTac) - Шлюзы
+
+# Шлюз для персонала Макстак
+- type: entity
+  id: MaxTacStaffAirlock
+  parent: BaseNCAirlock
+  name: ent-NCDoorMaxTacStaff
+  components:
+  - type: AccessReader
+    access: [["MaxTac_General"]]
+
+# Шлюз командира отряда Макстак
+- type: entity
+  id: MaxTacCommandAirlock
+  parent: BaseNCAirlock
+  name: ent-NCDoorMaxTacCommander
+  components:
+  - type: AccessReader
+    access: [["MaxTac_Command"]]
+
+# Шлюз нетраннера Макстак
+- type: entity
+  id: MaxTacNetrunnerAirlock
+  parent: BaseNCAirlock
+  name: ent-NCDoorMaxTacNetrunner
+  components:
+  - type: AccessReader
+    access: [["MaxTac_Armory"]]

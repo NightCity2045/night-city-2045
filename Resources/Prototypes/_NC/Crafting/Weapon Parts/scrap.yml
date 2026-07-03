@@ -1,0 +1,23 @@
+- type: entity
+  parent: BaseItem
+  id: NCWeaponScrap
+  name: nc-weapon-scrap-name
+  description: nc-weapon-scrap-desc
+  suffix: NC
+  components:
+  - type: Sprite
+    sprite: Objects/Materials/Scrap/generic.rsi
+    layers:
+      - state: metal-1
+        map: [ "base" ]
+  - type: RandomSprite
+    available:
+    - base:
+        metal-1: ""
+        metal-2: ""
+        metal-3: ""
+  - type: Item
+    size: Small
+  - type: Tag
+    tags:
+    - Trash

@@ -1,0 +1,28 @@
+- type: job
+  id: EdgeRunnerSolo
+  name: job-name-edgerunner
+  description: job-description-edgerunner
+  playTimeTracker: JobEdgeRunnerSolo
+  icon: "JobIconCivilEdgerunner"
+  salary: 15
+  access:
+    - NC_General
+    - EdgeRunner
+  startingGear: EdgeRunnerSoloGear
+
+- type: startingGear
+  id: EdgeRunnerSoloGear
+  equipment:
+    jumpsuit: ClothingUniformJumpsuitColorBlack
+    back: ClothingBackpackSatchelSecurity
+    shoes: ClothingShoesBootsCombat
+    id: EdgeRunnerPDA
+    gloves: ClothingHandsGlovesColorBlack
+    outerClothing: ClothingOuterArmorBasic
+  storage:
+    back:
+    - MagazinePistolSubMachineGunSaratoga
+    - MagazinePistolSubMachineGunSaratoga
+    - MagazinePistolSubMachineGunSaratoga
+  inhand:
+  - WeaponSubMachineGunMilitechSaratogaRED

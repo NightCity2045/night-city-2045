@@ -1,0 +1,585 @@
+- type: entity
+  id: Trademachine
+  abstract: true
+  name: Торговый автомат Города
+  description: Нужно срочно — он рядом. Выбирай, плати, забирай.
+  suffix: vendor, normal
+  components:
+  - type: UserInterface
+    interfaces:
+      enum.StoreUiKey.Key:
+        type: NcStoreStructuredBoundUi
+  - type: ActivatableUI
+    key: enum.StoreUiKey.Key
+  - type: Clickable
+  - type: InteractionOutline
+  - type: Transform
+    anchored: true
+    noRot: true
+  - type: Physics
+    bodyType: Static
+  - type: Fixtures
+    fixtures:
+      fix1:
+        density: 300
+        shape:
+          !type:PhysShapeAabb
+          bounds: "-0.5,-0.5,0.5,0.5"
+        mask:
+        - MachineMask
+        layer:
+        - MachineLayer
+  - type: Sprite
+    sprite: Structures/Machines/VendingMachines/ammo.rsi
+    layers:
+    - state: "off"
+      map: ["enum.VendingMachineVisualLayers.Base"]
+    - state: "normal-unshaded"
+      map: ["enum.VendingMachineVisualLayers.BaseUnshaded"]
+      shader: unshaded
+  - type: PointLight
+    radius: 2.5
+    energy: 1
+    color: "#b34747"
+    mask: /Textures/Effects/LightMasks/cone.png
+    autoRot: true
+  - type: AccessReader
+    access: [["NC_General"]]
+
+- type: entity
+  id: TrademachineCity
+  parent: Trademachine
+  name: Торговый автомат Города
+  description: Нужно срочно — он рядом. Выбирай, плати, забирай.
+  suffix: vendor, normal
+  components:
+  - type: NcStore
+    sellPresets:
+    - TradeCity_Sell
+
+- type: entity
+  id: TrademachineTickets
+  parent: Trademachine
+  name: торговый автомат каравана
+  description: Специфичный по своей сути торговый автомат, который принимает талоны каравана, взамен предоставляя отличное снаряжение.
+  suffix: vendor, Tickets
+  components:
+  - type: NcStore
+    buyPresets:
+    - TradeTickets_Buy
+    sellPresets:
+    - TradeTickets_Sell
+  - type: Sprite
+    sprite: Structures/Machines/VendingMachines/ammo.rsi
+    layers:
+    - state: "off"
+      map: ["enum.VendingMachineVisualLayers.Base"]
+    - state: "normal-unshaded"
+      map: ["enum.VendingMachineVisualLayers.BaseUnshaded"]
+      shader: unshaded
+
+# ----------------------------
+# TradeCity Categories (Standard Currency)
+# ----------------------------
+
+- type: storeCategoryStructured
+  id: Cat_City_Melee
+  name: "Ближний Бой"
+  entries:
+  - proto: Stunbaton
+    price: 150
+    count: 3
+
+- type: storeCategoryStructured
+  id: Cat_City_Medical
+  name: "Медикаменты"
+  entries:
+  - proto: MedkitFilled
+    price: 100
+    count: 2
+  - proto: Brutepack10Lingering
+    price: 40
+    count: 8
+  - proto: Ointment10Lingering
+    price: 40
+    count: 8
+  - proto: Syringe
+    price: 15
+    count: 10
+  - proto: PillCanisterBicaridine
+    price: 180
+    count: 5
+  - proto: PillCanisterKelotane
+    price: 180
+    count: 5
+  - proto: PillCanisterTricordrazine
+    price: 350
+    count: 5
+  - proto: Beaker
+    price: 20
+    count: 10
+  - proto: LargeBeaker
+    price: 40
+    count: 5
+
+- type: storeCategoryStructured
+  id: Cat_City_Apparel
+  name: "Снаряжение"
+  entries:
+  - proto: ClothingOuterArmorBasic
+    price: 150
+    count: 2
+  - proto: ClothingOuterCoatTrench
+    price: 50
+    count: 4
+  - proto: ClothingOuterVestWebMerc
+    price: 250
+    count: 4
+  - proto: ClothingShoesBootsCombat
+    price: 40
+    count: 5
+  - proto: ClothingEyesGlassesSunglasses
+    price: 20
+    count: 8
+
+- type: storeCategoryStructured
+  id: Cat_City_Clothing
+  name: "Одежда"
+  entries:
+  - proto: ClothingUniformRandomShirt
+    price: 30
+    count: 6
+  - proto: ClothingUniformJumpsuitGreyShirt
+    price: 30
+    count: 6
+  - proto: ClothingUniformJumpsuitLightBlueShirt
+    price: 40
+    count: 6
+  - proto: ClothingUniformJumpsuitClerk
+    price: 50
+    count: 6
+  - proto: ClothingUniformJumpsuitCurator
+    price: 80
+    count: 3
+  - proto: ClothingUniformJumpsuitJournalist
+    price: 100
+    count: 3
+  - proto: ClothingUniformJumpsuitReporter
+    price: 120
+    count: 2
+  - proto: ClothingUniformJumpsuitDisheveled
+    price: 20
+    count: 3
+  - proto: ClothingUniformJumpsuitSuitRolledSleeves
+    price: 150
+    count: 2
+  - proto: ClothingUniformJumpskirtDetectiveGrey
+    price: 120
+    count: 3
+  - proto: ClothingUniformJumpsuitDetectiveGrey
+    price: 120
+    count: 3
+  - proto: ClothingUniformJumpskirtDetective
+    price: 150
+    count: 3
+  - proto: ClothingUniformJumpsuitDetective
+    price: 150
+    count: 3
+  - proto: ClothingUniformJumpsuitLawyerBlue
+    price: 180
+    count: 2
+  - proto: ClothingUniformJumpsuitSuitBlackAlt
+    price: 200
+    count: 3
+  - proto: ClothingUniformJumpsuitLawyerBlack
+    price: 180
+    count: 2
+  - proto: ClothingUniformJumpskirtLawyerBlack
+    price: 180
+    count: 2
+
+- type: storeCategoryStructured
+  id: Cat_City_Equipment
+  name: "Оборудование"
+  entries:
+  - proto: StreamCamNC
+    price: 300
+    count: 10
+
+- type: storeCategoryStructured
+  id: Cat_City_TechStyles
+  name: "Стиль и Мода"
+  entries:
+  - proto: ClothingUniformJumpsuitSuitAristocratic
+    price: 400
+    count: 6
+  - proto: ClothingUniformJumpsuitHawaiRed
+    price: 150
+    count: 2
+  - proto: ClothingUniformJumpsuitHawaiBlue
+    price: 150
+    count: 2
+  - proto: ClothingUniformJumpsuitHawaiYellow
+    price: 150
+    count: 2
+  - proto: ClothingOuterCoatBomberRandomized
+    price: 250
+    count: 3
+  - proto: ClothingOuterCoatLettermanRandomized
+    price: 250
+    count: 3
+  - proto: ClothingUniformJumpsuitNanotrasenRepresentative
+    price: 800
+    count: 1
+
+- type: storeCategoryStructured
+  id: Cat_City_Weapons_Sell
+  name: "Скупка оружия"
+  entries:
+  - proto: WeaponPistolStreetMaster
+    price: 30
+  - proto: WeaponPistolFederalX9
+    price: 35
+  - proto: WeaponPistolCheesemaker
+    price: 45
+  - proto: WeaponPistolHelloCutie
+    price: 15
+  - proto: WeaponPistolAvenger
+    price: 80
+  - proto: WeaponPistolBoomerBuster
+    price: 60
+  - proto: WeaponPistolMarkIII
+    price: 30
+  - proto: WeaponPistolOverlord
+    price: 20
+  - proto: WeaponPistolStukachTommy
+    price: 150
+  - proto: WeaponRifleArasakaNOWAKI
+    price: 350
+  - proto: WeaponRifleArasakaProto
+    price: 500
+  - proto: WeaponRifleM04
+    price: 350
+  - proto: WeaponRifleNokotaD5Copperhead
+    price: 250
+  - proto: WeaponRifleNomadGvozdemet
+    price: 200
+  - proto: WeaponShotgunSvakha
+    price: 30
+  - proto: WeaponSubMachineGunMilitechSaratoga
+    price: 200
+  - proto: WeaponSubMachineGunArasakaShingen
+    price: 220
+  - proto: WeaponShotgunMilitechCrusher
+    price: 350
+
+- type: storeCategoryStructured
+  id: Cat_City_Ammo_Sell
+  name: "Скупка патронов"
+  entries:
+  - proto: Magazine622mmCaseless
+    price: 15
+  - proto: MagazinePistolStukach
+    price: 15
+  - proto: MagazinePistolOverlord
+    price: 5
+  - proto: MagazinePistolAvenger
+    price: 10
+  - proto: MagazinePistolHelloCutie
+    price: 5
+  - proto: MagazinePistolStreetMaster
+    price: 5
+  - proto: MagazinePistolMarkIII
+    price: 5
+  - proto: MagazinePistolCheesemaker
+    price: 10
+  - proto: MagazinePistolFederalX9
+    price: 5
+  - proto: MagazinePistolBoomerBuster
+    price: 10
+  - proto: MagazineRifleNomad
+    price: 15
+  - proto: MagazineRifleArasaka
+    price: 20
+  - proto: MagazineRifleM04
+    price: 20
+  - proto: MagazineRifleNokota
+    price: 15
+  - proto: MagazineRifleNowaki
+    price: 20
+  - proto: AmmoBox11x20
+    price: 35
+  - proto: AmmoBox13x23
+    price: 50
+  - proto: AmmoBox556x45CL
+    price: 60
+  - proto: AmmoBox152mm
+    price: 75
+  - proto: AmmoBoxNomadSpike
+    price: 25
+  - proto: AmmoBox9x19
+    price: 25
+
+- type: storeCategoryStructured
+  id: Cat_City_Crafting_Sell
+  name: "Скупка запчастей"
+  entries:
+  - proto: NCWeaponScrap
+    price: 5
+  - proto: NCBlankBarrelPipe
+    price: 10
+  - proto: NCProcessedBarrelT1
+    price: 30
+  - proto: NCBlankBarrelAlloy
+    price: 20
+  - proto: NCProcessedBarrelT2
+    price: 60
+  - proto: NCBlankBarrelTungsten
+    price: 40
+  - proto: NCProcessedBarrelT3
+    price: 120
+  - proto: NCBlankElectronicsCircuit
+    price: 20
+  - proto: NCProcessedElectronicsT2
+    price: 60
+  - proto: NCBlankElectronicsNeuro
+    price: 50
+  - proto: NCProcessedElectronicsT3
+    price: 120
+  - proto: NCBlankFramePlastic
+    price: 10
+  - proto: NCProcessedFrameT1
+    price: 30
+  - proto: NCBlankFrameMilled
+    price: 20
+  - proto: NCProcessedFrameT2
+    price: 60
+  - proto: NCBlankFrameCarbon
+    price: 40
+  - proto: NCProcessedFrameT3
+    price: 120
+  - proto: NCBlankInternalsScrap
+    price: 10
+  - proto: NCProcessedInternalsT1
+    price: 30
+  - proto: NCBlankInternalsBolt
+    price: 20
+  - proto: NCProcessedInternalsT2
+    price: 60
+  - proto: NCBlankInternalsEM
+    price: 40
+  - proto: NCProcessedInternalsT3
+    price: 120
+  - proto: NCBlueprintHelloCutie
+    price: 100
+  - proto: NCBlueprintOverlord
+    price: 100
+  - proto: NCBlueprintStukachTommy
+    price: 100
+  - proto: NCBlueprintStreetMaster
+    price: 100
+  - proto: NCBlueprintAvenger
+    price: 100
+  - proto: NCBlueprintCheesemaker
+    price: 100
+  - proto: NCBlueprintFederalX9
+    price: 100
+  - proto: NCBlueprintBoomerBuster
+    price: 100
+  - proto: NCBlueprintMarkIII
+    price: 100
+  - proto: NCBlueprintSternmeyerP35
+    price: 150
+  - proto: NCBlueprintM04
+    price: 200
+  - proto: NCBlueprintArasakaProto
+    price: 300
+  - proto: NCBlueprintSvakha
+    price: 100
+  - proto: NCTechPistolHelloCutie
+    price: 200
+  - proto: NCTechPistolOverlord
+    price: 200
+  - proto: NCTechPistolStukachTommy
+    price: 200
+  - proto: NCTechPistolStreetMaster
+    price: 200
+  - proto: NCTechPistolAvenger
+    price: 200
+  - proto: NCTechPistolCheesemaker
+    price: 200
+  - proto: NCTechPistolFederalX9
+    price: 200
+  - proto: NCTechPistolBoomerBuster
+    price: 200
+  - proto: NCTechPistolMarkIII
+    price: 200
+  - proto: NCTechPistolSternmeyerP35
+    price: 250
+  - proto: NCTechRifleM04
+    price: 300
+  - proto: NCTechRifleArasakaProto
+    price: 400
+  - proto: NCTechShotgunSvakha
+    price: 200
+  - proto: NCRecipePaperBase
+    price: 15
+  - proto: NCRecipePaperHelloCutie
+    price: 25
+  - proto: NCRecipePaperOverlord
+    price: 25
+  - proto: NCRecipePaperStreetMaster
+    price: 25
+  - proto: NCRecipePaperStukachTommy
+    price: 25
+  - proto: NCRecipePaperAvenger
+    price: 25
+  - proto: NCRecipePaperCheesemaker
+    price: 25
+  - proto: NCRecipePaperFederalX9
+    price: 25
+  - proto: NCRecipePaperBoomerBuster
+    price: 25
+  - proto: NCRecipePaperMarkIII
+    price: 25
+  - proto: NCRecipePaperSternmeyerP35
+    price: 35
+  - proto: NCRecipePaperM04
+    price: 50
+  - proto: NCRecipePaperArasakaProto
+    price: 80
+  - proto: NCRecipePaperSvakha
+    price: 30
+
+- type: storeCategoryStructured
+  id: Cat_City_Clothing_Extra_Sell
+  name: "Скупка спецснаряжения"
+  entries:
+  - proto: ClothingHeadHatMilitechCap
+    price: 10
+  - proto: ClothingHeadHatBiotechnicaCap
+    price: 10
+  - proto: ClothingUniformJumpsuitMilitech
+    price: 30
+  - proto: ClothingUniformJumpsuitBiotechnica
+    price: 30
+  - proto: ClothingUniformNSPDCool
+    price: 20
+  - proto: ClothingUniformNSPDCoolWhite
+    price: 20
+  - proto: ClothingUniformNSPDNormis
+    price: 20
+  - proto: ClothingUniformNSPDNormisBlack
+    price: 20
+  - proto: ClothingUniformJumpsuitArmoredBusinessSuit
+    price: 50
+  - proto: ClothingOuterArmorBiotechnicaBulletproof
+    price: 80
+  - proto: ClothingOuterArmorMilitechBulletproof
+    price: 80
+  - proto: ClothingOuterHardsuitTraumaTeamMedic
+    price: 200
+  - proto: ClothingOuterHardsuitTraumaTeamOperative
+    price: 200
+  - proto: ClothingHeadHelmetHardsuitTraumaTeamMedic
+    price: 100
+  - proto: ClothingHeadHelmetHardsuitTraumaTeamOperative
+    price: 100
+  - proto: ClothingOuterHardsuitMilitech
+    price: 250
+
+- type: storeCategoryStructured
+  id: Cat_City_Chemistry_Sell
+  name: "Скупка химии"
+  entries:
+  - proto: YeastChemistryBottle
+    price: 10
+  - proto: CornSmoothieChemistryBottle
+    price: 10
+  - proto: WheatSmoothieChemistryBottle
+    price: 10
+  - proto: WhiteMatterChemistryBottle
+    price: 20
+  - proto: NeuroStimChemistryBottle
+    price: 50
+  - proto: PrimeTimeChemistryBottle
+    price: 30
+  - proto: SixGunChemistryBottle
+    price: 30
+  - proto: NitroPolymerChemistryBottle
+    price: 40
+  - proto: BioEthanolChemistryBottle
+    price: 15
+
+- type: storeCategoryStructured
+  id: Cat_City_Devices_Sell
+  name: "Скупка оборудования"
+  entries:
+  - proto: BurnerChip
+    price: 15
+  - proto: NeuralLinkCable
+    price: 15
+  - proto: HydroponicsTrayFlatpack
+    price: 150
+  - proto: SeedExtractorFlatpack
+    price: 200
+  - proto: CitiNetCartridge
+    price: 30
+  - proto: CitiNetCartridgeCorporate
+    price: 80
+  - proto: CitiNetLiveCartridge
+    price: 100
+  - proto: MapCartridge
+    price: 40
+  - proto: StreamCamNC
+    price: 100
+  - proto: NcpdCitationTerminal
+    price: 120
+  - proto: CitizenPDA
+    price: 30
+  - proto: EdgeRunnerPDA
+    price: 50
+  - proto: FixerPDA
+    price: 50
+  - proto: RipperPDA
+    price: 50
+  - proto: NCPDOfficerPDA
+    price: 80
+  - proto: TraumaTeamOperativePDA
+    price: 120
+  - proto: MaxTacEraserPDA
+    price: 200
+  - proto: CitizenIDCard
+    price: 10
+  - proto: NCPDOfficerIDCard
+    price: 30
+  - proto: TraumaTeamOperativeIDCard
+    price: 50
+  - proto: MaxTacEraserIDCard
+    price: 100
+
+- type: storePresetStructured
+  id: TradeCity_Buy
+  currency: Credit
+  categories:
+  - Cat_City_Melee
+  - Cat_City_Medical
+  - Cat_City_Apparel
+  - Cat_City_Clothing
+  - Cat_City_Equipment
+  - Cat_City_TechStyles
+
+- type: storePresetStructured
+  id: TradeCity_Sell
+  currency: Credit
+  categories:
+  - Cat_City_Melee
+  - Cat_City_Apparel
+  - Cat_City_Clothing
+  - Cat_City_TechStyles
+  - Cat_City_Weapons_Sell
+  - Cat_City_Ammo_Sell
+  - Cat_City_Crafting_Sell
+  - Cat_City_Clothing_Extra_Sell
+  - Cat_City_Chemistry_Sell
+  - Cat_City_Devices_Sell

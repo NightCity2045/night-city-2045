@@ -1,0 +1,102 @@
+- type: reaction
+  id: GunpowderNC
+  name: reaction-name-GunpowderNC
+  reactants:
+    Potassium:
+      amount: 1
+    Carbon:
+      amount: 1
+    Sulfur:
+      amount: 1
+  products:
+    GunpowderNC: 3
+
+- type: reaction
+  id: YeastNC
+  name: reaction-name-YeastNC
+  reactants:
+    Sugar:
+      amount: 1
+    Water:
+      amount: 1
+    Nutriment:
+      amount: 1
+  products:
+    Yeast: 3
+  minTemp: 329
+
+- type: reaction
+  id: NeuroStimNC
+  name: reaction-name-NeuroStimNC
+  reactants:
+    TranexamicAcid:
+      amount: 1
+    MindbreakerToxin:
+      amount: 1
+    GreyMatter:
+      amount: 1
+    WhiteMatter:
+      amount: 1
+  products:
+    NeuroStim: 4
+
+- type: reaction
+  id: PrimeTimeNC
+  name: reaction-name-PrimeTimeNC
+  reactants:
+    NeuroStim:
+      amount: 1
+    UnstableMutagen:
+      amount: 1
+  products:
+    PrimeTime: 2
+
+- type: reaction
+  id: SixGunNC
+  name: reaction-name-SixGunNC
+  reactants:
+    Potassium:
+      amount: 1
+    Mercury:
+      amount: 1
+    NeuroStim:
+      amount: 1
+  products:
+    SixGun: 3
+
+- type: reaction
+  id: NitroPolymerNC
+  name: reaction-name-NitroPolymerNC
+  reactants:
+    SulfuricAcid:
+      amount: 1
+    BioEthanol:
+      amount: 1
+    NCPlastic:
+      amount: 2
+  products:
+    NitroPolymer: 2
+    SulfuricAcid: 1
+  minTemp: 389
+
+- type: reaction
+  id: BioEthanolCornNC
+  name: reaction-name-BioEthanolCornNC
+  reactants:
+    Yeast:
+      amount: 1
+    CornSmoothie:
+      amount: 2
+  products:
+    BioEthanol: 1
+
+- type: reaction
+  id: BioEthanolWheatNC
+  name: reaction-name-BioEthanolWheatNC
+  reactants:
+    Yeast:
+      amount: 1
+    WheatSmoothie:
+      amount: 2
+  products:
+    BioEthanol: 1

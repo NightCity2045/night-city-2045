@@ -51,7 +51,7 @@ ent-ThermomachineHeaterMachineCircuitBoard = нагревательная тер
     .suffix = { "" }
 
 ent-PortableScrubberMachineCircuitBoard = переносной скруббер (машинная плата)
-    .desc = Переносной скруббер, коротко — ПСК.
+    .desc = Переносной скруббер, коротко - ПСК.
     .suffix = { "" }
 
 ent-CloningPodMachineCircuitboard = капсула клонирования (машинная плата)
@@ -84,6 +84,14 @@ ent-HydroponicsTrayMachineCircuitboard = гидропонная ванночка
 
 ent-SeedExtractorMachineCircuitboard = экстрактор семян (машинная плата)
     .desc = Печатная плата экстрактора семян.
+    .suffix = { "" }
+
+ent-BiofabricatorMachineCircuitboard = биофабрикатор (машинная плата)
+    .desc = Печатная плата машины печати органических тканей.
+    .suffix = { "" }
+
+ent-BiogeneratorMachineCircuitboard = биогенератор (машинная плата)
+    .desc = Печатная плата машины преобразования органики в биомассу.
     .suffix = { "" }
 
 ent-SMESMachineCircuitboard = СМЕС (машинная плата)

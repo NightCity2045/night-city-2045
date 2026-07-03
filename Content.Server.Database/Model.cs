@@ -8,6 +8,7 @@ using System.Linq;
 using System.Net;
 using System.Text.Json;
 using Content.Shared._EE.Contractors.Prototypes;
+using Content.Shared._NC.CharacterNotes;
 using Content.Shared.Database;
 using Microsoft.EntityFrameworkCore;
 using NpgsqlTypes;
@@ -50,6 +51,8 @@ namespace Content.Server.Database
         public DbSet<RoleWhitelist> RoleWhitelists { get; set; } = null!;
         public DbSet<BanTemplate> BanTemplate { get; set; } = null!;
         public DbSet<IPIntelCache> IPIntelCache { get; set; } = null!;
+        public DbSet<FactionBankBalance> FactionBankBalances { get; set; } = null!;
+        public DbSet<NCCharacterNote> NCCharacterNotes { get; set; } = null!;
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -84,6 +87,75 @@ namespace Content.Server.Database
             modelBuilder.Entity<Job>()
                 .HasIndex(j => new { j.ProfileId, j.JobName })
                 .IsUnique();
+
+            modelBuilder.Entity<QuittedDepartment>()
+                .HasIndex(q => new { q.ProfileId, q.DepartmentId })
+                .IsUnique();
+
+            // NC EDIT START
+            modelBuilder.Entity<Profile>()
+                .Property(p => p.BankBalance)
+                .HasColumnName("bank_balance");
+
+            modelBuilder.Entity<Profile>()
+                .Property(p => p.EmployedDepartment)
+                .HasColumnName("employed_department");
+
+            modelBuilder.Entity<Profile>()
+                .Property(p => p.NCStats)
+                .HasColumnName("nc_stats");
+
+            modelBuilder.Entity<Profile>()
+                .Property(p => p.NCSkills)
+                .HasColumnName("nc_skills");
+
+            modelBuilder.Entity<Profile>()
+                .Property(p => p.StatsAndSkillsLocked)
+                .HasColumnName("stats_and_skills_locked");
+
+            modelBuilder.Entity<NCCharacterNote>()
+                .ToTable("nc_character_notes");
+
+            modelBuilder.Entity<NCCharacterNote>()
+                .HasIndex(n => new { n.OwnerProfileId, n.TargetProfileId })
+                .IsUnique();
+
+            modelBuilder.Entity<NCCharacterNote>()
+                .Property(n => n.Id)
+                .HasColumnName("id");
+
+            modelBuilder.Entity<NCCharacterNote>()
+                .Property(n => n.OwnerProfileId)
+                .HasColumnName("owner_profile_id");
+
+            modelBuilder.Entity<NCCharacterNote>()
+                .Property(n => n.TargetProfileId)
+                .HasColumnName("target_profile_id");
+
+            modelBuilder.Entity<NCCharacterNote>()
+                .Property(n => n.CustomName)
+                .HasColumnName("custom_name");
+
+            modelBuilder.Entity<NCCharacterNote>()
+                .Property(n => n.ColorTag)
+                .HasColumnName("color_tag");
+
+            modelBuilder.Entity<NCCharacterNote>()
+                .Property(n => n.Description)
+                .HasColumnName("description");
+
+            modelBuilder.Entity<NCCharacterNote>()
+                .HasOne(n => n.OwnerProfile)
+                .WithMany()
+                .HasForeignKey(n => n.OwnerProfileId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            modelBuilder.Entity<NCCharacterNote>()
+                .HasOne(n => n.TargetProfile)
+                .WithMany()
+                .HasForeignKey(n => n.TargetProfileId)
+                .OnDelete(DeleteBehavior.Cascade);
+            // NC EDIT END
 
             modelBuilder.Entity<AssignedUserId>()
                 .HasIndex(p => p.UserName)
@@ -398,6 +470,9 @@ namespace Content.Server.Database
         public string Lifepath { get; set; } = null!;
         public int Age { get; set; }
         public string Sex { get; set; } = null!;
+        public int BankBalance { get; set; } = 0; // NC
+        public string? EmployedDepartment { get; set; } // NC
+        public List<QuittedDepartment> QuittedDepartments { get; } = new(); // NC
         public string BodyType { get; set; } = null!; // WD EDIT
         public string Voice { get; set; } = null!; // WD EDIT
         public string BarkVoice { get; set; } = null!; // WD EDIT
@@ -413,6 +488,9 @@ namespace Content.Server.Database
         public string? CyborgName { get; set; }
         public string? ClownName { get; set; } // WD EDIT
         public string? MimeName { get; set; } // WD EDIT
+        [Column(TypeName = "jsonb")] public JsonDocument? NCStats { get; set; }
+        [Column(TypeName = "jsonb")] public JsonDocument? NCSkills { get; set; }
+        public bool StatsAndSkillsLocked { get; set; } // NC
         public string Species { get; set; } = null!;
         public float Height { get; set; } = 1f;
         public float Width { get; set; } = 1f;
@@ -435,6 +513,18 @@ namespace Content.Server.Database
         public Preference Preference { get; set; } = null!;
     }
 
+    public class NCCharacterNote
+    {
+        public int Id { get; set; }
+        public int OwnerProfileId { get; set; }
+        public Profile OwnerProfile { get; set; } = null!;
+        public int TargetProfileId { get; set; }
+        public Profile TargetProfile { get; set; } = null!;
+        public string CustomName { get; set; } = string.Empty;
+        public NCCharacterNoteColorTag ColorTag { get; set; } = NCCharacterNoteColorTag.Neutral;
+        public string Description { get; set; } = string.Empty;
+    }
+
     public class Job
     {
         public int Id { get; set; }
@@ -443,6 +533,17 @@ namespace Content.Server.Database
 
         public string JobName { get; set; } = null!;
         public DbJobPriority Priority { get; set; }
+    }
+
+    [Table("quitted_department")]
+    public class QuittedDepartment
+    {
+        public int Id { get; set; }
+        public Profile Profile { get; set; } = null!;
+        public int ProfileId { get; set; }
+
+        public string DepartmentId { get; set; } = null!;
+        public DateTime QuitTime { get; set; }
     }
 
     public enum DbJobPriority
@@ -1289,5 +1390,12 @@ namespace Content.Server.Database
         /// The score IPIntel returned
         /// </summary>
         public float Score { get; set; }
+    }
+
+    [Table("faction_bank_balance")]
+    public class FactionBankBalance
+    {
+        [Key] public int FactionId { get; set; }
+        public int Balance { get; set; }
     }
 }

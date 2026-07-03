@@ -1,7 +1,7 @@
 - type: quickPhrase
   id: BaseHostileThreatPhrase
   parent: BaseThreatPhrase
-  group: aac-group-hostiles
+  group: Hostiles
   styleClass: SecurityButton
   abstract: true
 

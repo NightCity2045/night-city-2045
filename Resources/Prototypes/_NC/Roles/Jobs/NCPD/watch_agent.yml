@@ -1,0 +1,33 @@
+- type: job
+  id: NCPDWatchAgent
+  name: job-name-ncpd-watch-agent
+  description: job-description-ncpd-watch-agent
+  playTimeTracker: JobNCPDWatchAgent
+  weight: 50
+  salary: 200
+  icon: "JobIconWatchAgent"
+  startingGear: NCPDWatchAgentGear
+  supervisors: Начальник департамента полиции
+  access:
+    - NCPD_Patrol
+    - NCPD_Detective
+    - NC_General
+  special:
+  - !type:AddComponentSpecial
+    components:
+    - type: MapBeacon
+      group: NCPD
+      color: "#ffaa00"
+      icon: /Textures/Interface/VerbIcons/star-solid-yellow.svg.192dpi.png
+      visibleInWorld: false
+
+- type: startingGear
+  id: NCPDWatchAgentGear
+  equipment:
+    jumpsuit: ClothingUniformJumpsuitDetective
+    back: ClothingBackpackSatchelSecurity
+    shoes: ClothingShoesColorBlack
+    head: ClothingHeadHatFedoraBrown
+    eyes: ClothingEyesGlassesSecurityVisor
+    id: NCPDWatchAgentPDA
+    outerClothing: ClothingOuterCoatDetective

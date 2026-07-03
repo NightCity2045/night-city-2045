@@ -38,7 +38,7 @@ ent-DisposalJunctionFlipped = { ent-DisposalJunction }
     .desc = { ent-DisposalJunction.desc }
     .suffix = Перевёрнутый
 
-ent-DisposalYJunction = Т-образная утилизационная труба
+ent-DisposalYJunction = Y-развязка утилизационной трубы
     .desc = Трёхсторонняя развязка с альтернативным местом выхода.
     .suffix = { "" }
 

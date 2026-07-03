@@ -8,4 +8,11 @@
     FoodSnackChowMein: 3
     FoodSnackDanDanNoodles: 3
     PairedChopsticks: 3
-# rice?
+  startingItemPrices:
+    FoodCondimentPacketSoy: 15
+    FoodSnackCookieFortune: 10
+    DrinkRamen: 30
+    DrinkHellRamen: 30
+    FoodSnackChowMein: 30
+    FoodSnackDanDanNoodles: 30
+    PairedChopsticks: 10

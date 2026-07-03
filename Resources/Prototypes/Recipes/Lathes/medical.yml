@@ -115,6 +115,18 @@
   materials:
     Plastic: 50
 
+# NC edit start: Biotechnica lathe
+- type: latheRecipe
+  parent: ClothingMaskSterile
+  id: ClothingMaskBreathMedical
+  result: ClothingMaskBreathMedical
+  completetime: 5
+  materials:
+    Cloth: 200
+    Plastic: 100
+    Paper: 100
+# NC edit end: Biotechnica lathe
+
 - type: latheRecipe
   id: DiseaseSwab
   result: DiseaseSwab

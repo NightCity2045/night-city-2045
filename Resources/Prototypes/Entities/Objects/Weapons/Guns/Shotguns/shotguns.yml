@@ -35,6 +35,10 @@
     maxAngle: 75
     defaultDirection: 1, 0
     # WD EDIT END
+  - type: SlowOnShoot
+    walkModifier: 0.5
+    sprintModifier: 0.5
+    duration: 0.5
   - type: BallisticAmmoProvider
     whitelist:
       tags:
@@ -433,7 +437,7 @@
     shape:
     - 0,0,3,0
     # WD EDIT END
-    storedRotation: 180 # WD EDIT: 90 > 180
+    storedRotation: 90
   - type: Sprite
     sprite: Objects/Weapons/Guns/Shotguns/hm_pistol.rsi
   - type: Clothing

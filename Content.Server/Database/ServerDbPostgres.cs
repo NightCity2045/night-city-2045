@@ -57,6 +57,12 @@ namespace Content.Server.Database
             InitNotificationListener(connectionString);
         }
 
+        // NC EDIT START
+        private async Task EnsureBankBalanceColumn(PostgresServerDbContext db)
+        {
+        }
+        // NC EDIT END
+
         #region Ban
         public override async Task<ServerBanDef?> GetServerBanAsync(int id)
         {

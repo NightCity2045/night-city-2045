@@ -27,3 +27,6 @@ comp-stack-becomes-full = Стопка теперь заполнена.
 comp-stack-split = Вы разделили стопку.
 comp-stack-split-halve = Разделить пополам
 comp-stack-split-too-small = Стопка слишком мала для разделения.
+comp-stack-split-any = Разделить на...
+comp-stack-split-any-title = Разделить
+comp-stack-split-any-prompt = Введите количество

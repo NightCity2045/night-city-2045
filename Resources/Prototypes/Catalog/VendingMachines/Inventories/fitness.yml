@@ -5,11 +5,30 @@
     FoodCondimentPacketProtein: 3
     DrinkMilkCartonMini: 3
     DrinkMilkCartonMiniChocolate: 3
+    # NC edit start: NightCity FastFood
+    DrinkOatMilkCartonMini: 4
+    DrinkSoyMilkCartonMini: 4
+    # NC edit end: NightCity FastFood
     DrinkWaterBottleFull: 3
     DrinkFitnessShakerBlack: 2
     DrinkFitnessShakerRed: 2
     DrinkFitnessShakerBlue: 2
     DrinkSportsYellowBottleFull: 3
+  startingItemPrices:
+    FoodSnackProteinbar: 20
+    FoodCondimentPacketProtein: 15
+    DrinkMilkCartonMini: 30
+    DrinkMilkCartonMiniChocolate: 30
+    DrinkOatMilkCartonMini: 30
+    DrinkSoyMilkCartonMini: 30
+    DrinkWaterBottleFull: 15
+    DrinkFitnessShakerBlack: 40
+    DrinkFitnessShakerRed: 40
+    DrinkFitnessShakerBlue: 40
+    DrinkSportsYellowBottleFull: 15
   contrabandInventory:
     DrinkSportsBlueBottleFull: 2 # they never took the drinks out when cryanobalamin got banned
     DrinkSportsRedBottleFull: 1
+  contrabandItemPrices:
+    DrinkSportsBlueBottleFull: 50
+    DrinkSportsRedBottleFull: 50

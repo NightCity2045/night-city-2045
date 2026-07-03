@@ -165,7 +165,7 @@
   parent: CableBase
   id: CableApcExtension
   name: LV power cable
-  description: A cable used to connect machines to an APC. #APCs aren't area defined anymore so need this cable to connect things to the APC. This description should be dynamic in future.
+  description: A legacy LV cable. Now uses logical links.
   components:
   - type: Sprite
     sprite: Structures/Power/Cables/lv_cable.rsi
@@ -173,14 +173,6 @@
   - type: Icon
     sprite: Structures/Power/Cables/lv_cable.rsi
     state: lvcable_4
-  - type: NodeContainer
-    nodes:
-      power:
-        !type:CableNode
-        nodeGroupID: Apc
-  - type: PowerProvider
-    voltage: Apc
-  - type: ExtensionCableProvider
   - type: Cable
     cableDroppedOnCutPrototype: CableApcStack1
     cableType: Apc

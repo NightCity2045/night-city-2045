@@ -1,0 +1,68 @@
+- type: ncStat
+  id: Intelligence
+  nameKey: nc-stat-intelligence-name
+  shortNameKey: nc-stat-intelligence-short
+  descriptionKey: nc-stat-intelligence-description
+
+- type: ncStat
+  id: Reflexes
+  nameKey: nc-stat-reflexes-name
+  shortNameKey: nc-stat-reflexes-short
+  descriptionKey: nc-stat-reflexes-description
+
+- type: ncStat
+  id: Dexterity
+  nameKey: nc-stat-dexterity-name
+  shortNameKey: nc-stat-dexterity-short
+  descriptionKey: nc-stat-dexterity-description
+
+- type: ncStat
+  id: Technique
+  nameKey: nc-stat-technique-name
+  shortNameKey: nc-stat-technique-short
+  descriptionKey: nc-stat-technique-description
+
+- type: ncStat
+  id: Cool
+  nameKey: nc-stat-cool-name
+  shortNameKey: nc-stat-cool-short
+  descriptionKey: nc-stat-cool-description
+
+- type: ncStat
+  id: Will
+  nameKey: nc-stat-will-name
+  shortNameKey: nc-stat-will-short
+  descriptionKey: nc-stat-will-description
+
+- type: ncStat
+  id: Luck
+  nameKey: nc-stat-luck-name
+  shortNameKey: nc-stat-luck-short
+  descriptionKey: nc-stat-luck-description
+
+- type: ncStat
+  id: Move
+  nameKey: nc-stat-move-name
+  shortNameKey: nc-stat-move-short
+  descriptionKey: nc-stat-move-description
+  movementSpeedModifiers:
+    1: 0.75
+    2: 0.80
+    3: 0.85
+    4: 0.90
+    5: 0.95
+    6: 1.00
+    7: 1.05
+    8: 1.10
+
+- type: ncStat
+  id: Body
+  nameKey: nc-stat-body-name
+  shortNameKey: nc-stat-body-short
+  descriptionKey: nc-stat-body-description
+
+- type: ncStat
+  id: Empathy
+  nameKey: nc-stat-empathy-name
+  shortNameKey: nc-stat-empathy-short
+  descriptionKey: nc-stat-empathy-description

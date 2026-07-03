@@ -40,15 +40,14 @@ namespace Content.Server.GameTicking
             RaiseNetworkEvent(GetInfoMsg(), Filter.Empty().AddPlayers(_playerManager.NetworkedSessions));
         }
 
-        private string GetInfoText()
+        private TickerLobbyInfoEvent GetInfoMsg()
         {
             var preset = CurrentPreset ?? Preset;
             if (preset == null)
             {
-                return string.Empty;
+                return new TickerLobbyInfoEvent(RoundId, _playerManager.PlayerCount, 0, string.Empty, null, null);
             }
 
-            var playerCount = $"{_playerManager.PlayerCount}";
             var readyCount = _playerGameStatuses.Values.Count(x => x == PlayerGameStatus.ReadyToPlay);
 
             var stationNames = new StringBuilder();
@@ -72,18 +71,13 @@ namespace Content.Server.GameTicking
                                     Loc.GetString("game-ticker-no-map-selected"));
             }
 
-            var gmTitle = Loc.GetString(preset.ModeTitle);
-            var desc = Loc.GetString(preset.Description);
-            return Loc.GetString(
-                RunLevel == GameRunLevel.PreRoundLobby
-                    ? "game-ticker-get-info-preround-text"
-                    : "game-ticker-get-info-text",
-                ("roundId", RoundId),
-                ("playerCount", playerCount),
-                ("readyCount", readyCount),
-                ("mapName", stationNames.ToString()),
-                ("gmTitle", gmTitle),
-                ("desc", desc));
+            return new TickerLobbyInfoEvent(
+                RoundId,
+                _playerManager.PlayerCount,
+                readyCount,
+                stationNames.ToString(),
+                preset.ModeTitle,
+                preset.Description);
         }
 
         private TickerConnectionStatusEvent GetConnectionStatusMsg()
@@ -103,11 +97,6 @@ namespace Content.Server.GameTicking
             {
                 RaiseNetworkEvent(GetStatusMsg(player), player.Channel);
             }
-        }
-
-        private TickerLobbyInfoEvent GetInfoMsg()
-        {
-            return new (GetInfoText());
         }
 
         private void UpdateLateJoinStatus()

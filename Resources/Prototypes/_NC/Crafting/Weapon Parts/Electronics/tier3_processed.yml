@@ -1,0 +1,11 @@
+- type: entity
+  id: NCProcessedElectronicsT3
+  name: ent-NCProcessedElectronicsT3
+  description: ent-NCProcessedElectronics-desc
+  parent: BaseItem
+  components:
+    - type: Sprite
+      sprite: Objects/Misc/stock_parts.rsi
+      state: scan_module
+    - type: NCWeaponPart
+      partType: Board

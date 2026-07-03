@@ -1,0 +1,283 @@
+- type: latheRecipePack
+  id: NCDebugAll
+  recipes:
+  - NCBlankBarrelPipe
+  - NCBlankBarrelAlloy
+  - NCBlankBarrelTungsten
+  - NCBlankFramePlastic
+  - NCBlankFrameMilled
+  - NCBlankFrameCarbon
+  - NCBlankInternalsScrap
+  - NCBlankInternalsBolt
+  - NCBlankInternalsEM
+  - NCBlankElectronicsCircuit
+  - NCBlankElectronicsNeuro
+  - NCBlankDrive
+  - NCRecipeMagazinePistolStukach
+  - NCRecipeMagazinePistolOverlord
+  - NCRecipeMagazinePistolAvenger
+  - NCRecipeMagazinePistolHelloCutie
+  - NCRecipeMagazinePistolStreetMaster
+  - NCRecipeMagazinePistolMarkIII
+  - NCRecipeMagazinePistolCheesemaker
+  - NCRecipeMagazinePistolFederalX9
+  - NCRecipeMagazinePistolBoomerBuster
+  - NCRecipeMagazineRifleNomad
+  - NCRecipeMagazineRifleArasaka
+  - NCRecipeMagazineRifleM04
+  - NCRecipeMagazineRifleNokota
+  - NCRecipeMagazineRifleNowaki
+  - NCRecipeMagazineShotgunMilitechCrusher
+  - NCRecipeMagazineSMGShingen
+  - NCRecipeMagazineSMGSaratoga
+
+# ==========================================
+# РЕЦЕПТЫ ПРИНТЕРА (BLANK RECIPES)
+# ==========================================
+
+# Стволы
+- type: latheRecipe
+  id: NCBlankBarrelPipe
+  result: NCBlankBarrelPipe
+  # comms: true
+  materials:
+    Steel: 500
+
+- type: latheRecipe
+  id: NCBlankBarrelAlloy
+  result: NCBlankBarrelAlloy
+  # comms: true
+  materials:
+    Plasteel: 750
+
+- type: latheRecipe
+  id: NCBlankBarrelTungsten
+  result: NCBlankBarrelTungsten
+  # comms: true
+  materials:
+    Plasteel: 1000
+    Uranium: 200
+
+# Рамки
+- type: latheRecipe
+  id: NCBlankFramePlastic
+  result: NCBlankFramePlastic
+  # comms: true
+  materials:
+    Plastic: 1500
+
+- type: latheRecipe
+  id: NCBlankFrameMilled
+  result: NCBlankFrameMilled
+  # comms: true
+  materials:
+    Steel: 1000
+    Plastic: 500
+
+- type: latheRecipe
+  id: NCBlankFrameCarbon
+  result: NCBlankFrameCarbon
+  # comms: true
+  materials:
+    Plasteel: 1000
+    Glass: 500
+    Plastic: 500
+
+# Механизмы
+- type: latheRecipe
+  id: NCBlankInternalsScrap
+  result: NCBlankInternalsScrap
+  # comms: true
+  materials:
+    Steel: 300
+
+- type: latheRecipe
+  id: NCBlankInternalsBolt
+  result: NCBlankInternalsBolt
+  # comms: true
+  materials:
+    Steel: 500
+    Plasteel: 500
+
+- type: latheRecipe
+  id: NCBlankInternalsEM
+  result: NCBlankInternalsEM
+  # comms: true
+  materials:
+    Plasteel: 1000
+    Gold: 100
+
+# Электроника
+- type: latheRecipe
+  id: NCBlankElectronicsCircuit
+  result: NCBlankElectronicsCircuit
+  # comms: true
+  materials:
+    Glass: 500
+    Steel: 200
+
+- type: latheRecipe
+  id: NCBlankElectronicsNeuro
+  result: NCBlankElectronicsNeuro
+  # comms: true
+  materials:
+    Glass: 1000
+    Gold: 200
+    Plastic: 300
+
+- type: latheRecipe
+  id: NCBlankDrive
+  result: NCBlankDrive
+  # comms: true
+  materials:
+    Plasteel: 1500
+    Gold: 500
+
+
+# ==========================================
+# МАГАЗИНЫ (MAGAZINES)
+# ==========================================
+
+
+- type: latheRecipe
+  id: NCRecipeMagazinePistolStukach
+  result: MagazinePistolStukach
+  # comms: true
+  materials:
+    Plastic: 100
+    Steel: 100
+
+- type: latheRecipe
+  id: NCRecipeMagazinePistolOverlord
+  result: MagazinePistolOverlord
+  # comms: true
+  materials:
+    Plastic: 100
+    Steel: 100
+
+- type: latheRecipe
+  id: NCRecipeMagazinePistolAvenger
+  result: MagazinePistolAvenger
+  # comms: true
+  materials:
+    Plastic: 100
+    Steel: 100
+
+- type: latheRecipe
+  id: NCRecipeMagazinePistolHelloCutie
+  result: MagazinePistolHelloCutie
+  # comms: true
+  materials:
+    Plastic: 100
+    Steel: 100
+
+- type: latheRecipe
+  id: NCRecipeMagazinePistolStreetMaster
+  result: MagazinePistolStreetMaster
+  # comms: true
+  materials:
+    Plastic: 100
+    Steel: 100
+
+- type: latheRecipe
+  id: NCRecipeMagazinePistolMarkIII
+  result: MagazinePistolMarkIII
+  # comms: true
+  materials:
+    Plastic: 100
+    Steel: 100
+
+- type: latheRecipe
+  id: NCRecipeMagazinePistolCheesemaker
+  result: MagazinePistolCheesemaker
+  # comms: true
+  materials:
+    Plastic: 100
+    Steel: 100
+
+- type: latheRecipe
+  id: NCRecipeMagazinePistolFederalX9
+  result: MagazinePistolFederalX9
+  # comms: true
+  materials:
+    Plastic: 100
+    Steel: 100
+
+- type: latheRecipe
+  id: NCRecipeMagazinePistolBoomerBuster
+  result: MagazinePistolBoomerBuster
+  # comms: true
+  materials:
+    Plastic: 100
+    Steel: 100
+
+- type: latheRecipe
+  id: NCRecipeMagazineRifleNomad
+  result: MagazineRifleNomad
+  # comms: true
+  materials:
+    Plastic: 100
+    Steel: 100
+
+- type: latheRecipe
+  id: NCRecipeMagazineRifleArasaka
+  result: MagazineRifleArasaka
+  # comms: true
+  materials:
+    Plastic: 100
+    Steel: 100
+
+- type: latheRecipe
+  id: NCRecipeMagazineRifleM04
+  result: MagazineRifleM04
+  # comms: true
+  materials:
+    Plastic: 100
+    Steel: 100
+
+- type: latheRecipe
+  id: NCRecipeMagazineRifleNokota
+  result: MagazineRifleNokota
+  # comms: true
+  materials:
+    Plastic: 100
+    Steel: 100
+
+- type: latheRecipe
+  id: NCRecipeMagazineRifleNowaki
+  result: MagazineRifleNowaki
+  # comms: true
+  materials:
+    Plastic: 100
+    Steel: 100
+
+- type: latheRecipe
+  id: NCRecipeMagazineShotgunMilitechCrusher
+  result: MagazineShotgunMilitechCrusher
+  # comms: true
+  categories:
+  - Ammo
+  materials:
+    Steel: 500
+    Plastic: 200
+
+- type: latheRecipe
+  id: NCRecipeMagazineSMGShingen
+  result: MagazinePistolSubMachineGunShingen
+  # comms: true
+  categories:
+  - Ammo
+  materials:
+    Steel: 300
+    Plastic: 200
+    Plasteel: 100
+
+- type: latheRecipe
+  id: NCRecipeMagazineSMGSaratoga
+  result: MagazinePistolSubMachineGunSaratoga
+  # comms: true
+  categories:
+  - Ammo
+  materials:
+    Steel: 200
+    Plastic: 150

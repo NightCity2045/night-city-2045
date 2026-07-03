@@ -34,6 +34,9 @@ namespace Content.Server.Atmos.EntitySystems
             int cycleNum,
             float frameTime)
         {
+            if (!_cfg.GetCVar(Content.Shared.CCVar.CCVars.AtmosTileEqualize))
+                return;
+
             if (tile.Air == null || (tile.MonstermosInfo.LastCycle >= cycleNum))
                 return; // Already done.
 

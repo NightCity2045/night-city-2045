@@ -11,7 +11,8 @@
     mayTransfer: true
     whitelist:
       tags:
-        - CartridgeMagnum
+      - Cartridge  # NC edit: Fix janitor stuff
+      - CartridgeMagnum
     capacity: 7
 
 - type: entity
@@ -27,7 +28,8 @@
     mayTransfer: true
     whitelist:
       tags:
-        - CartridgeMagnum
+      - Cartridge  # NC edit: Fix janitor stuff
+      - CartridgeMagnum
     capacity: 25
   - type: Item
     size: Small

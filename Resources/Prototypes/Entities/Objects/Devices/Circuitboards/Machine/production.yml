@@ -223,7 +223,7 @@
     state: service
   - type: MachineBoard
     prototype: Biogenerator
-    stackRequirements:
+    machinePartRequirements:
       MatterBin: 2
     tagRequirements:
       GlassBeaker:

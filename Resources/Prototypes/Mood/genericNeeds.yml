@@ -19,6 +19,13 @@
   moodChange: -7
   category: "Hunger"
 
+# NC edit start: Fix hunger
+- type: moodEffect
+  id: HungerDead
+  moodChange: -10
+  category: "Hunger"
+# NC edit end: Fix hunger
+
 # Thirst
 - type: moodEffect
   id: ThirstOverHydrated

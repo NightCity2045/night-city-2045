@@ -108,13 +108,6 @@ public sealed class CapturePointSystem : EntitySystem
             ent.Comp.MessageColor
         );
 
-        _audio.PlayGlobal(
-            ent.Comp.Sound == null
-                ? new ResolvedPathSpecifier(ChatSystem.DefaultAnnouncementSound)
-                : _audio.ResolveSound(ent.Comp.Sound),
-            Filter.Broadcast(),
-            true,
-            AudioParams.Default.WithVolume(ent.Comp.SoundVolume)
-        );
+        _audio.PlayGlobal(ent.Comp.Sound == null ? new ResolvedPathSpecifier(ChatSystem.DefaultAnnouncementSound) : _audio.ResolveSound(ent.Comp.Sound), Filter.Broadcast(), true, AudioParams.Default.WithVolume(-2f));
     }
 }

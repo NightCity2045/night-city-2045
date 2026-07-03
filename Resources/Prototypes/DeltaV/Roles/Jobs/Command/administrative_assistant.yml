@@ -27,9 +27,9 @@
       min: 7200
     - !type:CharacterTraitRequirement
       inverted: true
-      traits:
-        - Foreigner
-        - ForeignerLight
+      traits: []
+        # - Foreigner
+        # - ForeignerLight
     - !type:CharacterEmployerRequirement
       employers:
       - IdrisIncorporated

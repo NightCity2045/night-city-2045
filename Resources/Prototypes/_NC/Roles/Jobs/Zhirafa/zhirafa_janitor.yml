@@ -1,0 +1,18 @@
+- type: job
+  id: ZhirafaJanitor
+  name: job-name-zhirafa-janitor
+  description: job-description-zhirafa-janitor
+  playTimeTracker: JobZhirafaJanitor
+  salary: 80
+  icon: "JobIconCivilCitizen"
+  startingGear: ZhirafaJanitorGear
+  access:
+    - NC_General
+
+- type: startingGear
+  id: ZhirafaJanitorGear
+  equipment:
+    jumpsuit: ClothingUniformJumpsuitColorGrey
+    back: ClothingBackpackSatchel
+    shoes: ClothingShoesColorBlack
+    id: CitizenPDA

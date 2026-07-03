@@ -1,0 +1,224 @@
+- type: entity
+  id: MagazinePistolStukach
+  name: магазин Стукача Томми (11x20 CL)
+  description: Вместительный магазин для тяжелого пистолета Стукач Томми. Заряжен убойными патронами 12.7мм. Вмещает 8 патронов.
+  parent: BaseMagazinePistol
+  components:
+  - type: BallisticAmmoProvider
+    mayTransfer: true
+    capacity: 8
+    proto: Cartridge11x20
+    whitelist:
+      tags:
+      - Cartridge
+      - Cartridge11x20
+  - type: Sprite
+    layers:
+    - state: red
+      map: ["enum.GunVisualLayers.Base"]
+    - state: mag-1
+      map: ["enum.GunVisualLayers.Mag"]
+  - type: Tag
+    tags:
+    - MagazinePistolStukach
+
+- type: entity
+  id: MagazinePistolOverlord
+  name: магазин Оверлорда (13x23)
+  description: Магазин для ручной пушки Оверлорд. Вмещает 6 чудовищно мощных патронов калибра 12.7мм.
+  parent: BaseMagazinePistol
+  components:
+  - type: BallisticAmmoProvider
+    mayTransfer: true
+    capacity: 6
+    proto: Cartridge13x23
+    whitelist:
+      tags:
+      - Cartridge
+      - Cartridge13x23
+  - type: Sprite
+    layers:
+    - state: red
+      map: ["enum.GunVisualLayers.Base"]
+    - state: mag-1
+      map: ["enum.GunVisualLayers.Mag"]
+  - type: Tag
+    tags:
+    - MagazinePistolOverlord
+
+- type: entity
+  id: MagazinePistolAvenger
+  name: магазин Militech "AVENGER" (9x19 CL)
+  description: Стандартный магазин для армейского пистолета Militech "AVENGER". Вмещает 10 патронов калибра 11.4мм.
+  parent: BaseMagazinePistol
+  components:
+  - type: BallisticAmmoProvider
+    mayTransfer: true
+    capacity: 10
+    proto: Cartridge9x19CL
+    whitelist:
+      tags:
+      - Cartridge
+      - Cartridge9x19CL
+  - type: Sprite
+    layers:
+    - state: red
+      map: ["enum.GunVisualLayers.Base"]
+    - state: mag-1
+      map: ["enum.GunVisualLayers.Mag"]
+  - type: Tag
+    tags:
+    - MagazinePistolAvenger
+
+- type: entity
+  id: MagazinePistolHelloCutie
+  name: магазин Hello Cutie (9x19)
+  description: Яркий магазин, скрывающий в себе серьезную мощь калибра 11.4мм. Вмещает 12 патронов.
+  parent: [ BaseItem, BaseRestrictedContraband ]
+  components:
+  - type: Tag
+    tags:
+    - MagazinePistolHelloCutie
+  - type: BallisticAmmoProvider
+    mayTransfer: true
+    proto: Cartridge9x19
+    whitelist:
+      tags:
+      - Cartridge
+      - Cartridge9x19
+    capacity: 12
+  - type: Item
+    size: Small
+  - type: ContainerContainer
+    containers:
+      ballistic-ammo: !type:Container
+  - type: Sprite
+    sprite: _NC/Objects/Weapons/Guns/Pistol/hello_cutie.rsi
+    layers:
+    - state: hello-cutie
+      map: ["enum.GunVisualLayers.Base"]
+  - type: MagazineVisuals
+    magState: mag
+    steps: 5
+    zeroVisible: false
+  - type: Appearance
+
+- type: entity
+  id: MagazinePistolStreetMaster
+  name: магазин Dai Lung "StreetMaster" (9x19)
+  description: Магазин для уличного пистолета StreetMaster. Вмещает 12 надежных патронов калибра 11.4мм.
+  parent: BaseMagazinePistol
+  components:
+  - type: BallisticAmmoProvider
+    mayTransfer: true
+    capacity: 12
+    proto: Cartridge9x19
+    whitelist:
+      tags:
+      - Cartridge
+      - Cartridge9x19
+  - type: Sprite
+    layers:
+    - state: red
+      map: ["enum.GunVisualLayers.Base"]
+    - state: mag-1
+      map: ["enum.GunVisualLayers.Mag"]
+  - type: Tag
+    tags:
+    - MagazinePistolStreetMaster
+
+- type: entity
+  id: MagazinePistolMarkIII
+  name: магазин Mark III (11x20 CL)
+  description: Вместительный магазин для тяжелого пистолета Mark III. Заряжен убойными патронами 12.7мм. Вмещает 8 патронов.
+  parent: BaseMagazinePistol
+  components:
+  - type: BallisticAmmoProvider
+    mayTransfer: true
+    capacity: 8
+    proto: Cartridge11x20CL
+    whitelist:
+      tags:
+      - Cartridge
+      - Cartridge11x20CL
+  - type: Sprite
+    layers:
+    - state: red
+      map: ["enum.GunVisualLayers.Base"]
+    - state: mag-1
+      map: ["enum.GunVisualLayers.Mag"]
+  - type: Tag
+    tags:
+    - MagazinePistolMarkIII
+
+- type: entity
+  id: MagazinePistolCheesemaker
+  name: магазин FedArms "Cheesemaker" (11x20 CL)
+  description: Магазин для тяжелого пистолета Cheesemaker. Вмещает 8 мощных патронов калибра 12.7мм.
+  parent: BaseMagazinePistol
+  components:
+  - type: BallisticAmmoProvider
+    mayTransfer: true
+    capacity: 8
+    proto: Cartridge11x20CL
+    whitelist:
+      tags:
+      - Cartridge
+      - Cartridge11x20CL
+  - type: Sprite
+    layers:
+    - state: red
+      map: ["enum.GunVisualLayers.Base"]
+    - state: mag-1
+      map: ["enum.GunVisualLayers.Mag"]
+  - type: Tag
+    tags:
+    - MagazinePistolCheesemaker
+
+- type: entity
+  id: MagazinePistolFederalX9
+  name: магазин Federal Hand X9 (9x19 CL)
+  description: Магазин для компактного пистолета Federal Hand X9. Вмещает 12 патронов калибра 9мм.
+  parent: BaseMagazinePistol
+  components:
+  - type: BallisticAmmoProvider
+    mayTransfer: true
+    capacity: 12
+    proto: Cartridge9x19CL
+    whitelist:
+      tags:
+      - Cartridge
+      - Cartridge9x19CL
+  - type: Sprite
+    layers:
+    - state: red
+      map: ["enum.GunVisualLayers.Base"]
+    - state: mag-1
+      map: ["enum.GunVisualLayers.Mag"]
+  - type: Tag
+    tags:
+    - MagazinePistolFederalX9
+
+- type: entity
+  id: MagazinePistolBoomerBuster
+  name: магазин Militech "Boomer Buster" (13x23 CL)
+  description: Магазин для тяжелого пистолета Boomer Buster. Вмещает 8 мощных патронов калибра 12.7мм.
+  parent: BaseMagazinePistol
+  components:
+  - type: BallisticAmmoProvider
+    mayTransfer: true
+    capacity: 8
+    proto: Cartridge13x23CL
+    whitelist:
+      tags:
+      - Cartridge
+      - Cartridge13x23CL
+  - type: Sprite
+    layers:
+    - state: red
+      map: ["enum.GunVisualLayers.Base"]
+    - state: mag-1
+      map: ["enum.GunVisualLayers.Mag"]
+  - type: Tag
+    tags:
+    - MagazinePistolBoomerBuster

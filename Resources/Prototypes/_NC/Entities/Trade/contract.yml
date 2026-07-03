@@ -1,0 +1,409 @@
+- type: storeContractPack
+  id: PackEasy
+  contracts:
+  - id: NC_contract_MaterialSheetSteel
+    weight: 50
+  - id: NC_contract_MaterialCloth
+    weight: 50
+  - id: NC_contract_MaterialSheetPlastic
+    weight: 50
+  - id: NC_contract_FoodCarrot
+    weight: 50
+  - id: NC_contract_FoodMeat
+    weight: 50
+  - id: NC_contract_MobRat
+    weight: 50
+  - id: NC_contract_MobCockroach
+    weight: 50
+  - id: NC_contract_MobChicken
+    weight: 50
+
+- type: storeContractsPreset
+  id: PresetBazar
+  limits:
+    Easy: 3
+    Medium: 2
+    Hard: 1
+  packs:
+  - id: PackEasy
+    weight: 1
+
+- type: storeContract
+  id: NC_contract_MaterialSheetSteel
+  name: "Требуется сталь"
+  description: "Для изготовления хардкорных стальных туалетов."
+  difficulty: Easy
+  targets:
+  - id: SheetSteel1
+    required: { min: 3, max: 15 }
+  rewards:
+  - type: Currency
+    id: Credit
+    amount: { min: 50, max: 210 }
+  - type: Pool
+    amount: { min: 1, max: 3 }
+    options:
+    - type: Pool
+      id: ncbase_easy
+
+# - type: storeContract
+#   id: NC_contract_MaterialCloth
+#   name: "Требуется ткань"
+#   description: "Требуется ткань для пошива одежды."
+#   difficulty: Easy
+#   targets:
+#   - id: MaterialCloth1
+#     required: { min: 3, max: 15 }
+#   rewards:
+#   - type: Currency
+#     id: Credit
+#     amount: { min: 50, max: 150 }
+#   - type: Pool
+#     amount: { min: 1, max: 3 }
+#     options:
+#     - type: Pool
+#       id: ncbase_easy
+
+# - type: storeContract
+#   id: NC_contract_MaterialSheetPlastic
+#   name: "Пластик"
+#   description: "Нужен высококачественный пластик для изготовления низкокачественных бронежилетов полиции."
+#   difficulty: Easy
+#   targets:
+#   - id: SheetPlastic1
+#     required: { min: 6, max: 15 }
+#   rewards:
+#   - type: Currency
+#     id: Credit
+#     amount: { min: 150, max: 250 }
+#   - type: Pool
+#     amount: { min: 1, max: 3 }
+#     options:
+#     - type: Pool
+#       id: ncbase_easy
+
+# - type: storeContract
+#   id: NC_contract_FoodCarrot
+#   name: "МОРКОВЬ"
+#   description: "Я почти ОСЛЕП. Моя бабушка сказала, что морковь полезна для зрения... Принесите её мне... ДАЙТЕ МНЕ МОРКОВЬ!"
+#   difficulty: Easy
+#   targets:
+#   - id: FoodCarrot
+#     required: { min: 1, max: 3 }
+#   rewards:
+#   - type: Currency
+#     id: Credit
+#     amount: { min: 100, max: 200 }
+#   - type: Pool
+#     amount: { min: 1, max: 3 }
+#     options:
+#     - type: Pool
+#       id: ncbase_easy
+
+# - type: storeContract
+#   id: NC_contract_FoodMeat
+#   name: "МЯСО МЯСО МЯСО!!!"
+#   description: "НУЖНО СВЕЖЕЕ МЯСО."
+#   difficulty: Easy
+#   targets:
+#   - id: FoodMeat
+#     required: { min: 3, max: 6 }
+#   rewards:
+#   - type: Currency
+#     id: Credit
+#     amount: { min: 110, max: 250 }
+#   - type: Pool
+#     amount: { min: 1, max: 3 }
+#     options:
+#     - type: Pool
+#       id: ncbase_easy
+
+- type: storeContract
+  id: NC_contract_MobRat
+  name: "Мыши"
+  description: "Я люблю есть мышей, принеси их тушки."
+  difficulty: Easy
+  targets:
+  - id: MobMouse
+    required: { min: 2, max: 5 }
+  rewards:
+  - type: Currency
+    id: Credit
+    amount: { min: 50, max: 150 }
+  - type: Pool
+    amount: 1
+    options:
+    - type: Pool
+      id: ncbase_easy
+
+- type: storeContract
+  id: NC_contract_MobCockroach
+  name: "Тараканы"
+  description: "Мерзкие твари. Убей их."
+  difficulty: Easy
+  targets:
+  - id: MobCockroach
+    required: { min: 3, max: 6 }
+  rewards:
+  - type: Currency
+    id: Credit
+    amount: { min: 50, max: 100 }
+  - type: Pool
+    amount: 1
+    options:
+    - type: Pool
+      id: ncbase_easy
+
+- type: storeContract
+  id: NC_contract_MobChicken
+  name: "Бог KFC"
+  description: "Боги требуют подношений! Принеси мне курочку."
+  difficulty: Easy
+  targets:
+  - id: MobChicken
+    required: 1
+  rewards:
+  - type: Currency
+    id: Credit
+    amount: { min: 100, max: 250 }
+  - type: Pool
+    amount: 1
+    options:
+    - type: Pool
+      id: ncbase_easy
+
+# - type: storeContract
+#   id: NC_contract_CigPackBlack
+#   name: "Сигареты"
+#   description: "Принеси покурить."
+#   difficulty: Easy
+#   targets:
+#   - id: CigPackBlack
+#     required: 1
+#   rewards:
+#   - type: Currency
+#     id: Credit
+#     amount: { min: 50, max: 80 }
+#   - type: Pool
+#     amount: 1
+#     options:
+#     - type: Pool
+#       id: ncbase_easy
+
+
+
+
+
+
+### МЕДИУМ
+
+
+
+
+
+
+- type: storeContractPack
+  id: PackMedium
+  contracts:
+  - id: NC_contract_OrganHumanLungs
+    weight: 50
+  - id: NC_contract_OrganHumanKidneys
+    weight: 50
+  - id: NC_contract_DrinkVodkaBottleFull
+    weight: 50
+  - id: NC_contract_OrganHumanHeart
+    weight: 50
+  - id: NC_contract_OrganHumanEyes
+    weight: 50
+  - id: NC_contract_PartRodMetal
+    weight: 50
+
+
+
+
+
+# - type: storeContract
+#   id: NC_contract_OrganHumanLungs
+#   name: "Легкие"
+#   description: "Куплю БУ легкие."
+#   difficulty: medium
+#   targets:
+#   - id: OrganHumanLungs
+#     required: 1
+#   rewards:
+#   - type: Currency
+#     id: Credit
+#     amount: { min: 400, max: 660 }
+#   - type: Pool
+#     amount: 1
+#     options:
+#     - type: Pool
+#       id: ncbase_medium
+
+# - type: storeContract
+#   id: NC_contract_OrganHumanKidneys
+#   name: "Почки"
+#   description: "Куплю БУ почки."
+#   difficulty: medium
+#   targets:
+#   - id: OrganHumanKidneys
+#     required: 1
+#   rewards:
+#   - type: Currency
+#     id: Credit
+#     amount: { min: 300, max: 560 }
+#   - type: Pool
+#     amount: 1
+#     options:
+#     - type: Pool
+#       id: ncbase_medium
+
+# - type: storeContract
+#   id: NC_contract_DrinkVodkaBottleFull
+#   name: "Водка"
+#   description: "Куплю водку."
+#   difficulty: medium
+#   targets:
+#   - id: DrinkVodkaBottleFull
+#     required: 1
+#   rewards:
+#   - type: Currency
+#     id: Credit
+#     amount: { min: 50, max: 80 }
+#   - type: Pool
+#     amount: 1
+#     options:
+#     - type: Pool
+#       id: ncbase_medium
+
+# - type: storeContract
+#   id: NC_contract_OrganHumanHeart
+#   name: "Сердце"
+#   description: "Не спрашивайте зачем, просто принесите."
+#   difficulty: medium
+#   targets:
+#   - id: OrganHumanHeart
+#     required: 1
+#   rewards:
+#   - type: Currency
+#     id: Credit
+#     amount: { min: 400, max: 700 }
+#   - type: Pool
+#     amount: 1
+#     options:
+#     - type: Pool
+#       id: ncbase_medium
+
+# - type: storeContract
+#   id: NC_contract_OrganHumanEyes
+#   name: "Я ТЕБЯ ВИЖУ"
+#   description: "Я ТЕБЯ ВИЖУ"
+#   difficulty: medium
+#   targets:
+#   - id: Defibrillator
+#     required: 1
+#   rewards:
+#   - type: Currency
+#     id: Credit
+#     amount: { min: 200, max: 400 }
+#   - type: Pool
+#     amount: 1
+#     options:
+#     - type: Pool
+#       id: ncbase_medium
+
+# - type: storeContract
+#   id: NC_contract_PartRodMetal
+#   name: "Металлические стержни"
+#   description: "Мухахаха это будет самый большой палаточный бомже-лагерь!"
+#   difficulty: medium
+#   targets:
+#   - id: PartRodMetal
+#     required: { min: 10, max: 30 }
+#   rewards:
+#   - type: Currency
+#     id: Credit
+#     amount: { min: 50, max: 80 }
+#   - type: Pool
+#     amount: 30
+#     options:
+#     - type: Pool
+#       id: ncbase_medium
+
+
+
+
+
+
+
+
+
+# ХАРД
+
+
+
+- type: storeContractPack
+  id: PackHard
+  contracts:
+  - id: NC_contract_OrganHumanLungs
+    weight: 50
+  - id: NC_contract_OrganHumanKidneys
+    weight: 50
+  - id: NC_contract_DrinkVodkaBottleFull
+    weight: 50
+
+
+
+# - type: storeContract
+#   id: NC_contract_ToyRubberDuck
+#   name: "Уточка..."
+#   description: "Оно того стоит."
+#   difficulty: hard
+#   targets:
+#   - id: ToyRubberDuck
+#     required: 1
+#   rewards:
+#   - type: Currency
+#     id: Credit
+#     amount: { min: 500, max: 800 }
+#   - type: Pool
+#     amount: 1
+#     options:
+#     - type: Pool
+#       id: ncbase_hard
+
+# - type: storeContract
+#   id: NC_contract_C4
+#   name: "Бомбочка для ванны"
+#   description: "bingo bango bongo bish bash bosh"
+#   difficulty: hard
+#   targets:
+#   - id: C4
+#     required: 1
+#   rewards:
+#   - type: Currency
+#     id: Credit
+#     amount: { min: 700, max: 1000 }
+#   - type: Pool
+#     amount: 1
+#     options:
+#     - type: Pool
+#       id: ncbase_hard
+
+# - type: storeContract
+#   id: NC_contract_Joint
+#   name: "Косяк"
+#   description: "Пора покурить травку."
+#   difficulty: hard
+#   targets:
+#   - id: PartRodMetal
+#     required: { min: 1, max: 3 }
+#   rewards:
+#   - type: Currency
+#     id: Credit
+#     amount: { min: 600, max: 900 }
+#   - type: Pool
+#     amount: 30
+#     options:
+#     - type: Pool
+#       id: ncbase_hard

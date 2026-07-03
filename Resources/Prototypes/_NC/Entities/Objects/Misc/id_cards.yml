@@ -1,0 +1,964 @@
+# region NCPD
+
+- type: entity
+  parent: IDCardStandard
+  id: NCPDChiefIDCard
+  name: ent-NCPDChiefIDCard
+  components:
+    - type: Sprite
+      layers:
+        - state: default
+        - state: department
+          color: '#2f5c9e'
+        - state: subdepartment
+          color: '#2f5c9e'
+        - state: securityofficer
+    - type: Access
+      tags:
+        - NCPD_Patrol
+        - NCPD_Armory
+        - NCPD_Detective
+        - NCPD_Command
+        - NC_General
+    - type: PresetIdCard
+      job: NCPDChief
+
+- type: entity
+  parent: IDCardStandard
+  id: NCPDCommanderIDCard
+  name: ent-NCPDCommanderIDCard
+  components:
+    - type: Sprite
+      layers:
+        - state: default
+        - state: department
+          color: '#2f5c9e'
+        - state: subdepartment
+          color: '#2f5c9e'
+        - state: securityofficer
+    - type: Access
+      tags:
+        - NCPD_Patrol
+        - NCPD_Armory
+        - NCPD_Detective
+        - NCPD_Command
+        - NC_General
+    - type: PresetIdCard
+      job: NCPDCommander
+
+- type: entity
+  parent: IDCardStandard
+  id: NCPDInspectorIDCard
+  name: ent-NCPDInspectorIDCard
+  components:
+    - type: Sprite
+      layers:
+        - state: default
+        - state: department
+          color: '#2f5c9e'
+        - state: subdepartment
+          color: '#2f5c9e'
+        - state: securityofficer
+    - type: Access
+      tags:
+        - NCPD_Patrol
+        - NCPD_Armory
+        - NCPD_Detective
+        - NCPD_Command
+        - NC_General
+    - type: PresetIdCard
+      job: NCPDInspector
+
+- type: entity
+  parent: IDCardStandard
+  id: NCPDLieutenantIDCard
+  name: ent-NCPDLieutenantIDCard
+  components:
+    - type: Sprite
+      layers:
+        - state: default
+        - state: department
+          color: '#2f5c9e'
+        - state: subdepartment
+          color: '#2f5c9e'
+        - state: securityofficer
+    - type: Access
+      tags:
+        - NCPD_Patrol
+        - NCPD_Armory
+        - NCPD_Detective
+        - NCPD_Command
+        - NC_General
+    - type: PresetIdCard
+      job: NCPDLieutenant
+
+- type: entity
+  parent: IDCardStandard
+  id: NCPDSergeantIDCard
+  name: ent-NCPDSergeantIDCard
+  components:
+    - type: Sprite
+      layers:
+        - state: default
+        - state: department
+          color: '#2f5c9e'
+        - state: subdepartment
+          color: '#2f5c9e'
+        - state: securityofficer
+    - type: Access
+      tags:
+        - NCPD_Patrol
+        - NCPD_Armory
+        - NC_General
+    - type: PresetIdCard
+      job: NCPDSergeant
+
+- type: entity
+  parent: IDCardStandard
+  id: NCPDOfficerIDCard
+  name: ent-NCPDOfficerIDCard
+  components:
+    - type: Sprite
+      layers:
+        - state: default
+        - state: department
+          color: '#2f5c9e'
+        - state: subdepartment
+          color: '#2f5c9e'
+        - state: securityofficer
+    - type: Access
+      tags:
+        - NCPD_Patrol
+        - NC_General
+    - type: PresetIdCard
+      job: NCPDOfficer
+
+- type: entity
+  parent: IDCardStandard
+  id: NCPDWatchAgentIDCard
+  name: ent-NCPDWatchAgentIDCard
+  components:
+    - type: Sprite
+      layers:
+        - state: default
+        - state: department
+          color: '#2f5c9e'
+        - state: subdepartment
+          color: '#2f5c9e'
+        - state: securityofficer
+    - type: Access
+      tags:
+        - NCPD_Patrol
+        - NC_General
+    - type: PresetIdCard
+      job: NCPDWatchAgent
+
+# region MaxTac
+
+- type: entity
+  parent: IDCardStandard
+  id: MaxTacCommanderIDCard
+  name: ent-MaxTacCommanderIDCard
+  components:
+    - type: Sprite
+      layers:
+        - state: default
+        - state: department
+          color: '#182c4d'
+        - state: subdepartment
+          color: '#182c4d'
+        - state: securityofficer
+    - type: Access
+      tags:
+        - MaxTac_General
+        - MaxTac_Armory
+        - MaxTac_Command
+        - NCPD_Patrol
+        - NCPD_Command
+        - NC_General
+    - type: PresetIdCard
+      job: MaxTacCommander
+
+- type: entity
+  parent: IDCardStandard
+  id: MaxTacEraserIDCard
+  name: ent-MaxTacEraserIDCard
+  components:
+    - type: Sprite
+      layers:
+        - state: default
+        - state: department
+          color: '#182c4d'
+        - state: subdepartment
+          color: '#182c4d'
+        - state: securityofficer
+    - type: Access
+      tags:
+        - MaxTac_General
+        - MaxTac_Armory
+        - NCPD_Patrol
+        - NC_General
+    - type: PresetIdCard
+      job: MaxTacEraser
+
+- type: entity
+  parent: IDCardStandard
+  id: MaxTacInterdictorIDCard
+  name: ent-MaxTacInterdictorIDCard
+  components:
+    - type: Sprite
+      layers:
+        - state: default
+        - state: department
+          color: '#182c4d'
+        - state: subdepartment
+          color: '#182c4d'
+        - state: securityofficer
+    - type: Access
+      tags:
+        - MaxTac_General
+        - MaxTac_Armory
+        - NCPD_Patrol
+        - NC_General
+    # - type: PresetIdCard
+    #   job: MaxTacInterdictor
+
+- type: entity
+  parent: IDCardStandard
+  id: MaxTacNetrunnerIDCard
+  name: ent-MaxTacNetrunnerIDCard
+  components:
+    - type: Sprite
+      layers:
+        - state: default
+        - state: department
+          color: '#182c4d'
+        - state: subdepartment
+          color: '#182c4d'
+        - state: securityofficer
+    - type: Access
+      tags:
+        - MaxTac_General
+        - MaxTac_Armory
+        - NCPD_Patrol
+        - NC_General
+    # - type: PresetIdCard
+    #   job: MaxTacNetrunner
+
+- type: entity
+  parent: IDCardStandard
+  id: MaxTacPretorIDCard
+  name: ent-MaxTacPretorIDCard
+  components:
+    - type: Sprite
+      layers:
+        - state: default
+        - state: department
+          color: '#182c4d'
+        - state: subdepartment
+          color: '#182c4d'
+        - state: securityofficer
+    - type: Access
+      tags:
+        - MaxTac_General
+        - MaxTac_Armory
+        - NCPD_Patrol
+        - NC_General
+    # - type: PresetIdCard
+    #   job: MaxTacPretor
+
+# region Trauma Team
+
+- type: entity
+  parent: IDCardStandard
+  id: TraumaTeamChiefIDCard
+  name: ent-TraumaTeamChiefIDCard
+  components:
+    - type: Sprite
+      layers:
+        - state: default
+        - state: department
+          color: '#4bdc99'
+        - state: subdepartment
+          color: '#4bdc99'
+        - state: paramedic
+    - type: Access
+      tags:
+        - Trauma_Medical
+        - Trauma_Morgue
+        - Trauma_Hangar
+        - Trauma_Command
+        - NC_General
+    - type: PresetIdCard
+      job: TraumaTeamChief
+
+- type: entity
+  parent: IDCardStandard
+  id: TraumaTeamCoronerIDCard
+  name: ent-TraumaTeamCoronerIDCard
+  components:
+    - type: Sprite
+      layers:
+        - state: default
+        - state: department
+          color: '#4bdc99'
+        - state: subdepartment
+          color: '#4bdc99'
+        - state: paramedic
+    - type: Access
+      tags:
+        - Trauma_Medical
+        - Trauma_Morgue
+        - Trauma_Hangar
+        - NC_General
+    - type: PresetIdCard
+      job: TraumaTeamCoroner
+
+- type: entity
+  parent: IDCardStandard
+  id: TraumaTeamDoctorIDCard
+  name: ent-TraumaTeamDoctorIDCard
+  components:
+    - type: Sprite
+      layers:
+        - state: default
+        - state: department
+          color: '#4bdc99'
+        - state: subdepartment
+          color: '#4bdc99'
+        - state: paramedic
+    - type: Access
+      tags:
+        - Trauma_Medical
+        - Trauma_Morgue
+        - Trauma_Hangar
+        - NC_General
+    - type: PresetIdCard
+      job: TraumaTeamDoctor
+
+- type: entity
+  parent: IDCardStandard
+  id: TraumaTeamInternIDCard
+  name: ent-TraumaTeamInternIDCard
+  components:
+    - type: Sprite
+      layers:
+        - state: default
+        - state: department
+          color: '#4bdc99'
+        - state: subdepartment
+          color: '#4bdc99'
+        - state: paramedic
+    - type: Access
+      tags:
+        - Trauma_Medical
+        - NC_General
+    - type: PresetIdCard
+      job: TraumaTeamIntern
+
+- type: entity
+  parent: IDCardStandard
+  id: TraumaTeamOperativeIDCard
+  name: ent-TraumaTeamOperativeIDCard
+  components:
+    - type: Sprite
+      layers:
+        - state: default
+        - state: department
+          color: '#4bdc99'
+        - state: subdepartment
+          color: '#4bdc99'
+        - state: paramedic
+    - type: Access
+      tags:
+        - Trauma_Medical
+        - Trauma_Morgue
+        - Trauma_Hangar
+        - NC_General
+    - type: PresetIdCard
+      job: TraumaTeamOperative
+
+- type: entity
+  parent: IDCardStandard
+  id: TraumaTeamParamedicIDCard
+  name: ent-TraumaTeamParamedicIDCard
+  components:
+    - type: Sprite
+      layers:
+        - state: default
+        - state: department
+          color: '#4bdc99'
+        - state: subdepartment
+          color: '#4bdc99'
+        - state: paramedic
+    - type: Access
+      tags:
+        - Trauma_Medical
+        - Trauma_Morgue
+        - Trauma_Hangar
+        - NC_General
+    - type: PresetIdCard
+      job: TraumaTeamParamedic
+
+- type: entity
+  parent: IDCardStandard
+  id: TraumaTeamPsychIDCard
+  name: ent-TraumaTeamPsychIDCard
+  components:
+    - type: Sprite
+      layers:
+        - state: default
+        - state: department
+          color: '#4bdc99'
+        - state: subdepartment
+          color: '#4bdc99'
+        - state: paramedic
+    - type: Access
+      tags:
+        - Trauma_Medical
+        - Trauma_Morgue
+        - Trauma_Hangar
+        - NC_General
+    - type: PresetIdCard
+      job: TraumaTeamPsych
+
+- type: entity
+  parent: IDCardStandard
+  id: TraumaTeamTechIDCard
+  name: ent-TraumaTeamTechIDCard
+  components:
+    - type: Sprite
+      layers:
+        - state: default
+        - state: department
+          color: '#4bdc99'
+        - state: subdepartment
+          color: '#4bdc99'
+        - state: paramedic
+    - type: Access
+      tags:
+        - Trauma_Medical
+        - Trauma_Morgue
+        - Trauma_Hangar
+        - NC_General
+    - type: PresetIdCard
+      job: TraumaTeamTech
+
+# region Citizen
+
+- type: entity
+  parent: IDCardStandard
+  id: CafeOwnerIDCard
+  name: ent-CafeOwnerIDCard
+  components:
+    - type: Sprite
+      layers:
+        - state: default
+        - state: department
+          color: '#ffda1a'
+        - state: subdepartment
+          color: '#000000'
+        - state: assistant
+    - type: Access
+      tags:
+        - NC_General
+        - Cafe
+
+- type: entity
+  parent: IDCardStandard
+  id: RestaurantOwnerIDCard
+  name: ent-RestaurantOwnerIDCard
+  components:
+    - type: Sprite
+      layers:
+        - state: default
+        - state: department
+          color: '#ffda1a'
+        - state: subdepartment
+          color: '#000000'
+        - state: assistant
+    - type: Access
+      tags:
+        - NC_General
+        - Restaurant
+
+- type: entity
+  parent: IDCardStandard
+  id: CitizenIDCard
+  name: ent-CitizenIDCard
+  components:
+    - type: Sprite
+      layers:
+        - state: default
+        - state: department
+          color: '#888888'
+        - state: assistant
+    - type: Access
+      tags:
+        - NC_General
+    - type: PresetIdCard
+      job: NCCitizen
+
+- type: entity
+  parent: IDCardStandard
+  id: EdgeRunnerIDCard
+  name: ent-EdgeRunnerIDCard
+  components:
+    - type: Sprite
+      layers:
+        - state: default
+        - state: department
+          color: '#ffda1a'
+        - state: subdepartment
+          color: '#000000'
+        - state: assistant
+    - type: Access
+      tags:
+        - NC_General
+        - EdgeRunner
+    - type: PresetIdCard
+      job: EdgeRunnerSolo
+
+- type: entity
+  parent: IDCardStandard
+  id: FixerIDCard
+  name: ent-FixerIDCard
+  components:
+    - type: Sprite
+      layers:
+        - state: default
+        - state: department
+          color: '#b18644'
+        - state: subdepartment
+          color: '#888888'
+        - state: assistant
+    - type: Access
+      tags:
+        - NC_General
+        - Fixer
+    - type: PresetIdCard
+      job: Fixer
+
+- type: entity
+  parent: IDCardStandard
+  id: RipperIDCard
+  name: ent-RipperIDCard
+  components:
+    - type: Sprite
+      layers:
+        - state: default
+        - state: department
+          color: '#5b97bc'
+        - state: subdepartment
+          color: '#aaffcc'
+        - state: medicaldoctor
+    - type: Access
+      tags:
+        - NC_General
+        - Ripper
+    - type: PresetIdCard
+      job: Reaper
+
+# region Biotechnica
+
+- type: entity
+  parent: IDCardStandard
+  id: BiotechHeadIDCard
+  name: ent-BiotechHeadIDCard
+  components:
+    - type: Sprite
+      layers:
+        - state: default
+        - state: department
+          color: '#5b97bc'
+        - state: subdepartment
+          color: '#aaffcc'
+    - type: Access
+      tags:
+        - NC_General
+        - Biotech_Director
+        - Biotech_HeadOfDepartment
+        - Biotech_MedTech
+        - Biotech_Operative
+        - Biotech_Staff
+        - Biotech_General
+    - type: PresetIdCard
+      job: BiotechnicaChief
+
+- type: entity
+  parent: IDCardStandard
+  id: BiotechnicaBotanistIDCard
+  name: ent-BiotechnicaBotanistIDCard
+  components:
+    - type: Sprite
+      layers:
+        - state: default
+        - state: department
+          color: '#5b97bc'
+        - state: subdepartment
+          color: '#aaffcc'
+    - type: Access
+      tags:
+        - NC_General
+        - Biotech_Botany
+        - Biotech_Staff
+        - Biotech_General
+    - type: PresetIdCard
+      job: BiotechnicaBotanist
+
+- type: entity
+  parent: IDCardStandard
+  id: BiotechnicaMedTechIDCard
+  name: ent-BiotechnicaMedTechIDCard
+  components:
+    - type: Sprite
+      layers:
+        - state: default
+        - state: department
+          color: '#5b97bc'
+        - state: subdepartment
+          color: '#aaffcc'
+    - type: Access
+      tags:
+        - NC_General
+        - Biotech_MedTech
+        - Biotech_Staff
+        - Biotech_General
+    - type: PresetIdCard
+      job: BiotechnicaMedTech
+
+- type: entity
+  parent: IDCardStandard
+  id: BiotechnicaNetrunnerIDCard
+  name: ent-BiotechnicaNetrunnerIDCard
+  components:
+    - type: Sprite
+      layers:
+        - state: default
+        - state: department
+          color: '#5b97bc'
+        - state: subdepartment
+          color: '#aaffcc'
+    - type: Access
+      tags:
+        - NC_General
+        - Biotech_MedTech
+        - Biotech_Operative
+        - Biotech_Staff
+        - Biotech_General
+    - type: PresetIdCard
+      job: BiotechnicaNetrunner
+
+- type: entity
+  parent: IDCardStandard
+  id: BiotechnicaOperativeLeadIDCard
+  name: ent-BiotechnicaOperativeLeadIDCard
+  components:
+    - type: Sprite
+      layers:
+        - state: default
+        - state: department
+          color: '#5b97bc'
+        - state: subdepartment
+          color: '#aaffcc'
+    - type: Access
+      tags:
+        - NC_General
+        - Biotech_Director
+        - Biotech_HeadOfDepartment
+        - Biotech_MedTech
+        - Biotech_Operative
+        - Biotech_Staff
+        - Biotech_General
+    - type: PresetIdCard
+      job: BiotechnicaOperativeLead
+
+- type: entity
+  parent: IDCardStandard
+  id: BiotechnicaOperativeIDCard
+  name: ent-BiotechnicaOperativeIDCard
+  components:
+    - type: Sprite
+      layers:
+        - state: default
+        - state: department
+          color: '#5b97bc'
+        - state: subdepartment
+          color: '#aaffcc'
+    - type: Access
+      tags:
+        - NC_General
+        - Biotech_MedTech
+        - Biotech_Operative
+        - Biotech_Staff
+        - Biotech_General
+    - type: PresetIdCard
+      job: BiotechnicaOperative
+
+- type: entity
+  parent: IDCardStandard
+  id: BiotechnicaRiggerIDCard
+  name: ent-BiotechnicaRiggerIDCard
+  components:
+    - type: Sprite
+      layers:
+        - state: default
+        - state: department
+          color: '#5b97bc'
+        - state: subdepartment
+          color: '#aaffcc'
+    - type: Access
+      tags:
+        - NC_General
+        - Biotech_Tech
+        - Biotech_Operative
+        - Biotech_Staff
+        - Biotech_General
+    - type: PresetIdCard
+      job: BiotechnicaRigger
+
+- type: entity
+  parent: IDCardStandard
+  id: BiotechnicaParamedicIDCard
+  name: ent-BiotechnicaParamedicIDCard
+  components:
+    - type: Sprite
+      layers:
+        - state: default
+        - state: department
+          color: '#5b97bc'
+        - state: subdepartment
+          color: '#aaffcc'
+    - type: Access
+      tags:
+        - NC_General
+        - Biotech_MedTech
+        - Biotech_Operative
+        - Biotech_Staff
+        - Biotech_General
+    - type: PresetIdCard
+      job: BiotechnicaParamedic
+
+- type: entity
+  parent: IDCardStandard
+  id: BiotechnicaTechIDCard
+  name: ent-BiotechnicaTechIDCard
+  components:
+    - type: Sprite
+      layers:
+        - state: default
+        - state: department
+          color: '#5b97bc'
+        - state: subdepartment
+          color: '#aaffcc'
+    - type: Access
+      tags:
+        - NC_General
+        - Biotech_Tech
+        - Biotech_Staff
+        - Biotech_General
+    - type: PresetIdCard
+      job: BiotechnicaTech
+
+# region Militech
+
+- type: entity
+  parent: IDCardStandard
+  id: MilitechChiefIDCard
+  name: ent-MilitechChiefIDCard
+  components:
+    - type: Sprite
+      layers:
+        - state: default
+        - state: department
+          color: '#2f3437'
+        - state: subdepartment
+          color: '#b03030'
+    - type: Access
+      tags:
+        - NC_General
+        - Militech_Command
+        - Militech_Operative
+        - Militech_Armory
+        - Militech_Tech
+        - Militech_Medical
+        - Militech_Staff
+        - Militech_General
+    - type: PresetIdCard
+      job: MilitechChief
+
+- type: entity
+  parent: IDCardStandard
+  id: MilitechOperativeLeadIDCard
+  name: ent-MilitechOperativeLeadIDCard
+  components:
+    - type: Sprite
+      layers:
+        - state: default
+        - state: department
+          color: '#2f3437'
+        - state: subdepartment
+          color: '#b03030'
+    - type: Access
+      tags:
+        - NC_General
+        - Militech_Command
+        - Militech_Operative
+        - Militech_Armory
+        - Militech_Staff
+        - Militech_General
+    - type: PresetIdCard
+      job: MilitechOperativeLead
+
+- type: entity
+  parent: IDCardStandard
+  id: MilitechOperativeIDCard
+  name: ent-MilitechOperativeIDCard
+  components:
+    - type: Sprite
+      layers:
+        - state: default
+        - state: department
+          color: '#2f3437'
+        - state: subdepartment
+          color: '#b03030'
+    - type: Access
+      tags:
+        - NC_General
+        - Militech_Operative
+        - Militech_Staff
+        - Militech_General
+    - type: PresetIdCard
+      job: MilitechOperative
+
+- type: entity
+  parent: IDCardStandard
+  id: MilitechRiggerIDCard
+  name: ent-MilitechRiggerIDCard
+  components:
+    - type: Sprite
+      layers:
+        - state: default
+        - state: department
+          color: '#2f3437'
+        - state: subdepartment
+          color: '#b03030'
+    - type: Access
+      tags:
+        - NC_General
+        - Militech_Operative
+        - Militech_Tech
+        - Militech_Staff
+        - Militech_General
+    - type: PresetIdCard
+      job: MilitechRigger
+
+- type: entity
+  parent: IDCardStandard
+  id: MilitechNetrunnerIDCard
+  name: ent-MilitechNetrunnerIDCard
+  components:
+    - type: Sprite
+      layers:
+        - state: default
+        - state: department
+          color: '#2f3437'
+        - state: subdepartment
+          color: '#b03030'
+    - type: Access
+      tags:
+        - NC_General
+        - Militech_Command
+        - Militech_Operative
+        - Militech_Tech
+        - Militech_Staff
+        - Militech_General
+    - type: PresetIdCard
+      job: MilitechNetrunner
+
+- type: entity
+  parent: IDCardStandard
+  id: MilitechSecuritySpecialistIDCard
+  name: ent-MilitechSecuritySpecialistIDCard
+  components:
+    - type: Sprite
+      layers:
+        - state: default
+        - state: department
+          color: '#2f3437'
+        - state: subdepartment
+          color: '#b03030'
+    - type: Access
+      tags:
+        - NC_General
+        - Militech_Operative
+        - Militech_Armory
+        - Militech_Staff
+        - Militech_General
+    - type: PresetIdCard
+      job: MilitechSecuritySpecialist
+
+- type: entity
+  parent: IDCardStandard
+  id: MilitechCombatMedicIDCard
+  name: ent-MilitechCombatMedicIDCard
+  components:
+    - type: Sprite
+      layers:
+        - state: default
+        - state: department
+          color: '#2f3437'
+        - state: subdepartment
+          color: '#b03030'
+    - type: Access
+      tags:
+        - NC_General
+        - Militech_Operative
+        - Militech_Medical
+        - Militech_Staff
+        - Militech_General
+    - type: PresetIdCard
+      job: MilitechCombatMedic
+
+- type: entity
+  parent: IDCardStandard
+  id: MilitechTechIDCard
+  name: ent-MilitechTechIDCard
+  components:
+    - type: Sprite
+      layers:
+        - state: default
+        - state: department
+          color: '#2f3437'
+        - state: subdepartment
+          color: '#b03030'
+    - type: Access
+      tags:
+        - NC_General
+        - Militech_Tech
+        - Militech_Staff
+        - Militech_General
+    - type: PresetIdCard
+      job: MilitechTech
+
+- type: entity
+  parent: IDCardStandard
+  id: MilitechQuartermasterIDCard
+  name: ent-MilitechQuartermasterIDCard
+  components:
+    - type: Sprite
+      layers:
+        - state: default
+        - state: department
+          color: '#2f3437'
+        - state: subdepartment
+          color: '#b03030'
+    - type: Access
+      tags:
+        - NC_General
+        - Militech_Armory
+        - Militech_Tech
+        - Militech_Staff
+        - Militech_General
+    - type: PresetIdCard
+      job: MilitechQuartermaster

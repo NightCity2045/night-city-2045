@@ -1,7 +1,5 @@
-ent-BaseWeaponHeavyMachineGun = Тяжёлый Пулемёт
+ent-BaseWeaponHeavyMachineGun = BaseWeaponHeavyMachineGun
     .desc = Пали и моли
-    .suffix = debug
-
 
 ent-WeaponMinigun = миниган
     .desc = Вззззззт! Рахрахрахрах! Врррр! Использует патроны калибра .10 винтовочный.

@@ -21,3 +21,6 @@ comp-stack-becomes-full = Stack is now full.
 comp-stack-split = You split the stack.
 comp-stack-split-halve = Halve
 comp-stack-split-too-small = Stack is too small to split.
+comp-stack-split-any = Split to...
+comp-stack-split-any-title = Split
+comp-stack-split-any-prompt = Enter amount

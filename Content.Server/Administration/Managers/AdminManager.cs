@@ -357,7 +357,7 @@ namespace Content.Server.Administration.Managers
             }
             else if (e.NewStatus == SessionStatus.Disconnected)
             {
-                if (_admins.Remove(e.Session, out var reg ) && _cfg.GetCVar(CCVars.AdminAnnounceLogout))
+                if (_admins.Remove(e.Session, out var reg) && _cfg.GetCVar(CCVars.AdminAnnounceLogout))
                 {
                     if (reg.Data.Stealth)
                     {
@@ -376,11 +376,6 @@ namespace Content.Server.Administration.Managers
 
         private async void LoginAdminMaybe(ICommonSession session)
         {
-            // Not an admin.
-            // ReSharper disable once ConditionIsAlwaysTrueOrFalseAccordingToNullableAPIContract
-            if (session is null)
-                return;
-
             var adminDat = await LoadAdminData(session);
             if (adminDat == null)
             {
@@ -397,7 +392,7 @@ namespace Content.Server.Administration.Managers
 
             _admins.Add(session, reg);
 
-            if (session.ContentData()!.Stealthed)
+            if (session.ContentData()?.Stealthed == true)
                 reg.Data.Stealth = true;
 
             if (reg.Data.Active)
@@ -494,7 +489,7 @@ namespace Content.Server.Administration.Managers
                     Active = !dbData.Deadminned,
                 };
 
-                if (dbData.Title != null  && _cfg.GetCVar(CCVars.AdminUseCustomNamesAdminRank))
+                if (dbData.Title != null && _cfg.GetCVar(CCVars.AdminUseCustomNamesAdminRank))
                 {
                     data.Title = dbData.Title;
                 }

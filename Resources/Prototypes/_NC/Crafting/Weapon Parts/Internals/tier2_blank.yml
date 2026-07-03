@@ -1,0 +1,18 @@
+- type: entity
+  id: NCBlankInternalsBolt
+  name: ent-NCBlankInternalsBolt
+  description: ent-NCBlankInternals-desc
+  parent: BaseItem
+  components:
+    - type: Sprite
+      sprite: Objects/Misc/stock_parts.rsi
+      state: nano_mani
+    - type: NCWeaponBlank
+      safeZoneHalf: 0.15
+      toleranceTime: 2.2
+      progressSpeed: 0.04
+      resultEntity: NCProcessedInternalsT2
+      anomalies:
+        0.30: AlignmentLeft
+        0.60: HeatSpike
+        0.90: IntegrityDrop

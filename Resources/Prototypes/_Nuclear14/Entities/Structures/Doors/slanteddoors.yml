@@ -313,7 +313,6 @@
     damageModifierSet: StructuralMetallic
   - type: ApcPowerReceiver
     powerLoad: 10
-  - type: ExtensionCableReceiver
   - type: Airlock
   - type: LayerChangeOnWeld
     unWeldedLayer: AirlockLayer

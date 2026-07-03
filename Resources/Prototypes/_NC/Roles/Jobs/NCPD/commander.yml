@@ -1,0 +1,36 @@
+- type: job
+  id: NCPDCommander
+  name: job-name-ncpd-commander
+  description: job-description-ncpd-commander
+  playTimeTracker: JobNCPDCommander
+  weight: 90
+  salary: 300
+  icon: "JobIconNCPDCommander"
+  startingGear: NCPDCommanderGear
+  supervisors: Начальник департамента полиции
+  access:
+    - NCPD_Patrol
+    - NCPD_Armory
+    - NCPD_Detective
+    - NCPD_Command
+    - NC_General
+  special:
+  - !type:AddComponentSpecial
+    components:
+    - type: MapBeacon
+      group: NCPD
+      color: "#ffaa00"
+      icon: /Textures/Interface/VerbIcons/star-solid-yellow.svg.192dpi.png
+      visibleInWorld: false
+
+- type: startingGear
+  id: NCPDCommanderGear
+  equipment:
+    jumpsuit: ClothingUniformNSPDCool
+    back: ClothingBackpackSecurity
+    shoes: ClothingShoesBootsJack
+    head: ClothingHeadHelmetBasic
+    eyes: ClothingEyesGlassesSecurityVisor
+    id: NCPDCommanderPDA
+    belt: ClothingBeltSecurityFilled
+    outerClothing: ClothingOuterArmorBasic

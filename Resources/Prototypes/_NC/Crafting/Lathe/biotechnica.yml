@@ -1,0 +1,326 @@
+- type: entity
+  parent: MedicalTechFab
+  id: BiotechnicaTechFab
+  name: ent-BiotechnicaTechFab
+  description: ent-BiotechnicaTechFab-desc
+  suffix: Biotechnica, Тех
+  components:
+  - type: Sprite
+    sprite: Structures/Machines/techfab.rsi
+  - type: Lathe
+    idleState: icon
+    runningState: icon
+    staticPacks:
+    - BiotechnicaTools
+  - type: Machine
+    board: BiotechnicaTechFabCircuitboard
+
+- type: entity
+  parent: MedicalTechFabCircuitboard
+  id: BiotechnicaTechFabCircuitboard
+  name: ent-BiotechnicaTechFab (машинная плата)
+  description: ent-BiotechnicaTechFabCircuitboard-desc
+  suffix: Biotechnica, Тех
+  components:
+  - type: MachineBoard
+    prototype: BiotechnicaTechFab
+    machinePartRequirements:
+      MatterBin: 2
+      Manipulator: 2
+    tagRequirements:
+      GlassBeaker:
+        amount: 2
+        defaultPrototype: Beaker
+
+# ==========================================
+# ГРУППА РЕЦЕПТОВ ФАБА
+# ==========================================
+
+- type: latheRecipePack
+  id: BiotechnicaTools
+  recipes:
+  # Botany
+  - BiotechnicaHoe
+  - BiotechnicaSpade
+  - BiotechnicaClippers
+  - BiotechnicaScythe
+  - BiotechnicaHatchet
+  - BiotechnicaPlantAnalyzer
+  - BiotechnicaPlantBag
+  - BiotechnicaPlantBagHolding
+  # MedTech
+  - BiotechnicaDropper
+  - BiotechnicaChemBag
+  - BiotechnicaChemBagHolding
+  - GeigerCounter
+  - GasAnalyzer
+  - MedicalTechFabCircuitboard
+  # Tech
+  - BiotechnicaCrowbar
+  - BiotechnicaWrench
+  - BiotechnicaScrewdriverMini
+  - BiotechnicaWirecutter
+  - BiotechnicaWelderMini
+  - BiotechnicaWelder
+  - WelderIndustrial
+  - WelderIndustrialAdvanced
+  - WelderExperimental
+  - PowerDrill
+  - FlashlightLantern
+  - FlashlightEmp
+  - NetworkConfigurator
+  - PowerCellSmall
+  - PowerCellMedium
+  - PowerCellHigh
+  - HandheldGPSBasic
+  - AccessConfigurator
+  - Multitool
+  - TRayScanner
+  - Signaller
+  - SignallerAdvanced
+  # Misc
+  - BiotechnicaAppraisalTool
+  - BiotechnicaLabeler
+  # Clothing
+  - ClothingMaskSterile
+  - ClothingMaskBreathMedical
+  - ClothingHeadHatBiotechnicaSterile
+  - ClothingOuterApronBiotechnica
+  - ClothingOuterApronBiotechnicaBotany
+  - ClothingBeltBiotechnicaBotany
+  - ClothingBeltBiotechnicaMedTech
+  - ClothingBeltBiotechnicaTech
+  - ClothingHandsGlovesNitrile
+  - ClothingHandsMittsBiotechnica
+  - ClothingHandsGlovesColorYellow
+  - ClothingMaskBreathBiotechnicaBotany
+  - ClothingMaskBreathBiotechnicaAdvanced
+  - ClothingEyesGogglesBiotechnicaBotany
+  - ClothingEyesGogglesBiotechnicaTech
+  - ClothingShoesEnviroshoesBiotechnicaBotany
+  - ClothingShoesEnviroshoesBiotechnica
+
+# ==========================================
+# РЕЦЕПТЫ ФАБА
+# ==========================================
+
+# region Botany
+
+- type: latheRecipe
+  id: BiotechnicaHoe
+  result: BiotechnicaHoe
+  completetime: 5
+  materials:
+    Steel: 300
+    Plastic: 200
+
+- type: latheRecipe
+  id: BiotechnicaSpade
+  result: BiotechnicaSpade
+  completetime: 5
+  materials:
+    Steel: 300
+    Plastic: 200
+
+- type: latheRecipe
+  id: BiotechnicaClippers
+  result: BiotechnicaClippers
+  completetime: 5
+  materials:
+    Steel: 300
+    Plastic: 200
+
+- type: latheRecipe
+  id: BiotechnicaScythe
+  result: BiotechnicaScythe
+  completetime: 5
+  materials:
+    Steel: 500
+    Plastic: 200
+
+- type: latheRecipe
+  id: BiotechnicaHatchet
+  result: BiotechnicaHatchet
+  completetime: 5
+  materials:
+    Steel: 500
+    Plastic: 400
+
+- type: latheRecipe
+  parent: HandheldHealthAnalyzer
+  id: BiotechnicaPlantAnalyzer
+  result: BiotechnicaPlantAnalyzer
+
+- type: latheRecipe
+  id: BiotechnicaPlantBag
+  result: BiotechnicaPlantBag
+  completetime: 5
+  materials:
+    Cloth: 1000
+
+- type: latheRecipe
+  id: BiotechnicaPlantBagHolding
+  result: BiotechnicaPlantBagHolding
+  completetime: 10
+  materials:
+    Cloth: 6000
+
+# region MedTech
+
+- type: latheRecipe
+  parent: Dropper
+  id: BiotechnicaDropper
+  result: BiotechnicaDropper
+
+- type: latheRecipe
+  parent: BiotechnicaPlantBag
+  id: BiotechnicaChemBag
+  result: BiotechnicaChemBag
+
+- type: latheRecipe
+  parent: BiotechnicaPlantBagHolding
+  id: BiotechnicaChemBagHolding
+  result: BiotechnicaChemBagHolding
+
+# region Tech
+
+- type: latheRecipe
+  parent: CrowbarGreen
+  id: BiotechnicaCrowbar
+  result: BiotechnicaCrowbar
+
+- type: latheRecipe
+  parent: Wrench
+  id: BiotechnicaWrench
+  result: BiotechnicaWrench
+
+- type: latheRecipe
+  parent: Screwdriver
+  id: BiotechnicaScrewdriverMini
+  result: BiotechnicaScrewdriverMini
+
+- type: latheRecipe
+  parent: Wirecutter
+  id: BiotechnicaWirecutter
+  result: BiotechnicaWirecutter
+
+- type: latheRecipe
+  parent: BaseToolRecipe
+  id: BiotechnicaWelderMini
+  result: BiotechnicaWelderMini
+  materials:
+    Steel: 300
+
+- type: latheRecipe
+  parent: Welder
+  id: BiotechnicaWelder
+  result: BiotechnicaWelder
+  materials:
+    Steel: 500
+
+# region Misc
+
+- type: latheRecipe
+  parent: AppraisalTool
+  id: BiotechnicaAppraisalTool
+  result: BiotechnicaAppraisalTool
+
+- type: latheRecipe
+  id: BiotechnicaLabeler
+  result: BiotechnicaLabeler
+  completetime: 5
+  materials:
+    Steel: 300
+    Plastic: 200
+    Paper: 500
+
+# region Clothing
+
+- type: latheRecipe
+  parent: ClothingMaskSterile
+  id: ClothingHeadHatBiotechnicaSterile
+  result: ClothingHeadHatBiotechnicaSterile
+  materials:
+    Cloth: 200
+
+- type: latheRecipe
+  parent: ClothingHandsGlovesColorYellow
+  id: ClothingHandsMittsBiotechnica
+  result: ClothingHandsMittsBiotechnica
+  completetime: 5
+  materials:
+    Cloth: 500
+    Plastic: 200
+    Aluminum: 200
+    Plasma: 200
+
+- type: latheRecipe
+  parent: ClothingHeadHatBiotechnicaSterile
+  id: ClothingOuterApronBiotechnica
+  result: ClothingOuterApronBiotechnica
+  completetime: 8
+  materials:
+    Cloth: 500
+    Plastic: 200
+
+- type: latheRecipe
+  parent: ClothingOuterApronBiotechnica
+  id: ClothingOuterApronBiotechnicaBotany
+  result: ClothingOuterApronBiotechnicaBotany
+  materials:
+    Cloth: 500
+    Plastic: 300
+    Paper: 200
+
+- type: latheRecipe
+  parent: UtilityBelt
+  id: ClothingBeltBiotechnicaBotany
+  result: ClothingBeltBiotechnicaBotany
+
+- type: latheRecipe
+  parent: UtilityBelt
+  id: ClothingBeltBiotechnicaMedTech
+  result: ClothingBeltBiotechnicaMedTech
+
+- type: latheRecipe
+  parent: UtilityBelt
+  id: ClothingBeltBiotechnicaTech
+  result: ClothingBeltBiotechnicaTech
+
+- type: latheRecipe
+  id: ClothingMaskBreathBiotechnicaBotany
+  result: ClothingMaskBreathBiotechnicaBotany
+  completetime: 2
+  materials:
+    Glass: 50
+    Plastic: 150
+    Cloth: 100
+
+- type: latheRecipe
+  parent: ClothingMaskBreathBiotechnicaBotany
+  id: ClothingMaskBreathBiotechnicaAdvanced
+  result: ClothingMaskBreathBiotechnicaAdvanced
+
+- type: latheRecipe
+  parent: ClothingEyesGogglesBotany
+  id: ClothingEyesGogglesBiotechnicaBotany
+  result: ClothingEyesGogglesBiotechnicaBotany
+
+- type: latheRecipe
+  parent: ClothingEyesGogglesBotany
+  id: ClothingEyesGogglesBiotechnicaTech
+  result: ClothingEyesGogglesBiotechnicaTech
+
+- type: latheRecipe
+  id: ClothingShoesEnviroshoesBiotechnicaBotany
+  result: ClothingShoesEnviroshoesBiotechnicaBotany
+  completetime: 2
+  materials:
+    Steel: 50
+    Plastic: 150
+    Cloth: 100
+
+- type: latheRecipe
+  parent: ClothingShoesEnviroshoesBiotechnicaBotany
+  id: ClothingShoesEnviroshoesBiotechnica
+  result: ClothingShoesEnviroshoesBiotechnica

@@ -27,7 +27,7 @@ ent-WardrobeSecurityFilled = { ent-WardrobeSecurity }
     .suffix = Заполненный
 
 ent-WardrobeCargoFilled = { ent-WardrobeCargo }
-    .desc = Шкафчик? Примерно 500 кредитов. Братство? Бесценно.
+    .desc = Шкафчик? Примерно 500 евродолларов. Братство? Бесценно.
     .suffix = Заполненный
 
 ent-WardrobeSalvageFilled = { ent-WardrobeSalvage }

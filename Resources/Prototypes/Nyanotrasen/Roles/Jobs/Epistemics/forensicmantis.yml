@@ -16,9 +16,6 @@
           species:
             - IPC
         - !type:CharacterTraitRequirement
-          traits:
-            - AnomalousPositronics
-        - !type:CharacterTraitRequirement
           inverted: true
           traits:
             - Pacifist
@@ -26,8 +23,6 @@
       employers:
       - NanoTrasen
       - ZengHuPharmaceuticals
-    - !type:CharacterItemGroupRequirement
-      group: TraitsCasterType
   startingGear: ForensicMantisGear
   icon: "JobIconForensicMantis"
   supervisors: job-supervisors-rd
@@ -37,20 +32,7 @@
   - Research
   - Maintenance
   - Mantis # DeltaV - Mantis, see Resources/Prototypes/DeltaV/Access/epistemics.yml
-  special:
-  - !type:AddComponentSpecial
-    components:
-      - type: Psionic
-        powerSlots: 2
-        baselinePowerCost: 75
-        nextPowerCost: 75
-        removable: false
-        powerPool: PsychoHistorianPowerPool
-      - type: InnatePsionicPowers
-        powersToAdd:
-          - MetapsionicPower
-          - TelepathyPower
-          - MantisSummonBlackBlade
+  special: []
 
 
 - type: startingGear
@@ -68,7 +50,7 @@
     gloves: ClothingHandsGlovesColorWhite
     # outerClothing: ClothingOuterCoatMantis # WWDP moved to locker
     # belt: ClothingBeltMantis # WWDP moved to locker
-    pocket1: BookPsionicsGuidebook
+    # pocket1: BookPsionicsGuidebook
   storage:
     back:
     - HandLabeler

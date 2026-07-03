@@ -1,0 +1,11 @@
+- type: gamePreset
+  id: City
+  alias:
+  - aldente
+  name: game-rule-name-city
+  description: game-rule-description-city
+  showInVote: true
+  supportedMaps: NCMapPool
+  rules:
+  - NightCityRoundDuration
+  - GlobalDirector

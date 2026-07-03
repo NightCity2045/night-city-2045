@@ -27,8 +27,6 @@
     radius: 1.5
     energy: 1.6
     color: "#b89e2a"
-  - type: AccessReader
-    access: [["Salvage"]]
 
 - type: localizedDataset
   id: MiningDrobeAds

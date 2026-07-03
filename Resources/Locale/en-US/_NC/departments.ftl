@@ -1,0 +1,19 @@
+department-name-CivilianNC = Civilian
+department-desc-CivilianNC = department-CivilianNC-description
+department-name-NCPD = Night City Police Department
+department-desc-NCPD = department-NCPD-description
+department-name-TraumaTeam = Trauma Team
+department-desc-TraumaTeam = department-TraumaTeam-description
+department-name-Biotechnica = Biotechnica
+department-desc-Biotechnica = department-Biotechnica-description
+department-name-Militech = Militech
+department-desc-Militech = department-Militech-description
+department-name-Jiraff = Zhirafa Corporation
+department-desc-Jiraff = department-Biotechnica-description
+
+nc-rigger-console-no-drones = No live rigger drones are available.
+nc-rigger-rts-enabled = RTS mode enabled.
+nc-rigger-rts-disabled = RTS mode disabled.
+nc-rigger-drone-state-alive = online
+nc-rigger-drone-state-offline = offline
+nc-rigger-drone-damage = damage: {$damage}

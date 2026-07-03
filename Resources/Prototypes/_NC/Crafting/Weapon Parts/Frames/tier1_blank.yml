@@ -1,0 +1,20 @@
+# ==========================================
+# КАРКАСЫ И РАМКИ (FRAMES)
+# ==========================================
+- type: entity
+  id: NCBlankFramePlastic
+  name: ent-NCBlankFramePlastic
+  description: ent-NCBlankFrame-desc
+  parent: BaseItem
+  components:
+    - type: Sprite
+      sprite: Objects/Materials/Sheets/other.rsi
+      state: plastic_3
+    - type: NCWeaponBlank
+      safeZoneHalf: 0.20
+      toleranceTime: 2.5
+      progressSpeed: 0.05
+      resultEntity: NCProcessedFrameT1
+      anomalies:
+        0.40: HeatSpike
+        0.80: IntegrityDrop

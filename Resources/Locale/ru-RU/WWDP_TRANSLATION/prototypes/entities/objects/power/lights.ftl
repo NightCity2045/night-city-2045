@@ -6,6 +6,18 @@ ent-LightBulb = лампа накаливания
     .desc = Обычная лампочка.
     .suffix = { "" }
 
+ent-LedLightBulb = светодиодная лампа
+    .desc = Энергоэффективная лампочка.
+    .suffix = { "" }
+
+ent-DimLightBulb = блеклая лампа накаливания
+    .desc = { ent-LightBulb.desc }
+    .suffix = { "" }
+
+ent-WarmLightBulb = тёплая лампа накаливания
+    .desc = { ent-LightBulb.desc }
+    .suffix = { "" }
+
 ent-LightTube = люминесцентная лампа-трубка
     .desc = Это световая трубка.
     .suffix = { "" }
@@ -20,8 +32,4 @@ ent-ExteriorLightTube = экстерьерная лампа-трубка
 
 ent-SodiumLightTube = натриевая лампа-трубка
     .desc = Мощная энергосберегающая лампа для космических глубин. Солёная.
-    .suffix = { "" }
-
-ent-LedLightBulb = светодиодная лампа
-    .desc = Энергоэффективная лампочка.
     .suffix = { "" }

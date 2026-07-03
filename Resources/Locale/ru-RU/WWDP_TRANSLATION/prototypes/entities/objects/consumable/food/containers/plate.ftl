@@ -25,3 +25,7 @@ ent-FoodPlateSmallPlastic = пластиковая тарелка
 ent-FoodPlateTin = формочка для пирога
     .desc = Дешевая формочка из фольги для пирогов.
     .suffix = { "" }
+
+ent-FoodPlateMuffinTin = формочка для маффина
+    .desc = Дешевая формочка из фольги для маффинов и кексов.
+    .suffix = { "" }

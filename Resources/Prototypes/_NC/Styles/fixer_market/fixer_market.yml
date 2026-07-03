@@ -1,0 +1,97 @@
+- type: styleSheet
+  id: fixer_market
+  parents: [shared]
+  typeDefinition:
+    PanelContainer: "Robust.Client.UserInterface.Controls.PanelContainer"
+    Label: "Robust.Client.UserInterface.Controls.Label"
+    Button: "Robust.Client.UserInterface.Controls.Button"
+    BoxContainer: "Robust.Client.UserInterface.Controls.BoxContainer"
+    ScrollContainer: "Robust.Client.UserInterface.Controls.ScrollContainer"
+    TextureRect: "Robust.Client.UserInterface.Controls.TextureRect"
+    GridContainer: "Robust.Client.UserInterface.Controls.GridContainer"
+  styles:
+    PanelContainer.FixerSiteMain:
+      panel:
+        valueType: Robust.Client.Graphics.StyleBoxFlat
+        value:
+          backgroundColor: "#050505"
+          borderThickness: 1,1,1,1
+          borderColor: "#1a1a1a"
+    
+    PanelContainer.FixerHeader:
+      panel:
+        valueType: Robust.Client.Graphics.StyleBoxFlat
+        value:
+          backgroundColor: "#111111"
+          borderThickness: 0,0,0,2
+          borderColor: "#ff003c"
+
+    Label.FixerTitle:
+      font-color: "#ff003c"
+      font:
+        valueType: Content.StyleSheetify.Client.Font.FontSpecifier
+        value:
+          font: ["/Fonts/Boxfont-round/Boxfont Round.ttf"]
+          size: 20
+
+    Label.FixerBalance:
+      font-color: "#fcee0a"
+
+    PanelContainer.FixerNav:
+      panel:
+        valueType: Robust.Client.Graphics.StyleBoxFlat
+        value:
+          backgroundColor: "#0d0d0d"
+    
+    Button.FixerNavButton:
+      font-color: "#999999"
+      stylebox:
+        valueType: Robust.Client.Graphics.StyleBoxFlat
+        value:
+          backgroundColor: "#1a1a1a"
+          borderThickness: 0,0,2,0
+          borderColor: "#333333"
+    
+    Button.FixerNavButton:hover:
+      font-color: "#ffffff"
+      stylebox:
+        valueType: Robust.Client.Graphics.StyleBoxFlat
+        value:
+          backgroundColor: "#252525"
+          borderThickness: 0,0,2,0
+          borderColor: "#00f2ff"
+
+    PanelContainer.FixerListing:
+      panel:
+        valueType: Robust.Client.Graphics.StyleBoxFlat
+        value:
+          backgroundColor: "#0f0f0f"
+          borderThickness: 1,1,1,1
+          borderColor: "#222222"
+    
+    PanelContainer.FixerListing:hover:
+      panel:
+        valueType: Robust.Client.Graphics.StyleBoxFlat
+        value:
+          backgroundColor: "#141414"
+          borderThickness: 1,1,1,1
+          borderColor: "#ff003c"
+
+    Label.FixerItemName:
+      font-color: "#00f2ff"
+
+    Label.FixerItemPrice:
+      font-color: "#fcee0a"
+
+    Button.FixerBuyButton:
+      font-color: "#ffffff"
+      stylebox:
+        valueType: Robust.Client.Graphics.StyleBoxFlat
+        value:
+          backgroundColor: "#ff003c"
+    
+    Button.FixerBuyButton:hover:
+      stylebox:
+        valueType: Robust.Client.Graphics.StyleBoxFlat
+        value:
+          backgroundColor: "#ff4d7a"

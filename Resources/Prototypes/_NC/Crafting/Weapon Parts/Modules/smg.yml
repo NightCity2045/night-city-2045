@@ -1,0 +1,65 @@
+# ============================
+# Модули ПП (SMG)
+# ============================
+
+# Arasaka TKI20 Shingen (Tier 3)
+- type: entity
+  id: NCBlueprintShingen
+  name: ent-NCBlueprint
+  description: Диск с инструкциями по сборке и физический каркас под детали для ПП Arasaka TKI20 Shingen. Т3.
+  parent: BaseItem
+  components:
+    - type: Sprite
+      sprite: Objects/Tools/blueprint.rsi
+      state: icon
+    - type: NCBlueprint
+      resultEntity: WeaponSubMachineGunArasakaShingenEmpty
+      garbageEntity: Wrench
+      steps:
+        - part: Frame
+          prototype: NCProcessedFrameT3
+          doAfterTime: 2.5
+        - part: Barrel
+          prototype: NCProcessedBarrelT3
+          doAfterTime: 2.5
+        - tool: Screwing
+          doAfterTime: 3.5
+        - part: Internals
+          prototype: NCProcessedInternalsT3
+          doAfterTime: 3.0
+        - part: Board
+          prototype: NCProcessedElectronicsT3
+          doAfterTime: 2.5
+        - tool: Pulsing
+          doAfterTime: 4.0
+
+# Militech Saratoga (Tier 2)
+- type: entity
+  id: NCBlueprintSaratoga
+  name: ent-NCBlueprint
+  description: Диск с инструкциями по сборке и физический каркас под детали для ПП Militech M-221 Saratoga. Т2.
+  parent: BaseItem
+  components:
+    - type: Sprite
+      sprite: Objects/Tools/blueprint.rsi
+      state: icon
+    - type: NCBlueprint
+      resultEntity: WeaponSubMachineGunMilitechSaratogaEmpty
+      garbageEntity: Wrench
+      steps:
+        - part: Frame
+          prototype: NCProcessedFrameT2
+          doAfterTime: 2.0
+        - part: Barrel
+          prototype: NCProcessedBarrelT2
+          doAfterTime: 2.0
+        - tool: Screwing
+          doAfterTime: 3.0
+        - part: Internals
+          prototype: NCProcessedInternalsT2
+          doAfterTime: 2.5
+        - part: Board
+          prototype: NCProcessedElectronicsT2
+          doAfterTime: 1.5
+        - tool: Pulsing
+          doAfterTime: 2.5

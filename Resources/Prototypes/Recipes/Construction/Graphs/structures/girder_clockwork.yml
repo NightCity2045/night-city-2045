@@ -45,19 +45,3 @@
 
     - node: clockworkWall
       entity: WallClock
-      edges:
-        - to: clockGirder
-          completed:
-            - !type:GivePrototype
-              prototype: PartRodMetal1
-              amount: 2
-            - !type:GivePrototype
-              prototype: SheetBrass1
-              amount: 2
-          steps:
-            - tool: Welding
-              doAfter: 10
-            - tool: Cutting
-              doAfter: 1
-            - tool: Prying
-              doAfter: 2

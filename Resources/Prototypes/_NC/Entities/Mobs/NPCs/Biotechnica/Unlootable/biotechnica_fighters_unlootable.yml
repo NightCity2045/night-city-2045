@@ -1,0 +1,89 @@
+# # Biotechnica fighter NPCs for Night City (Unlootable)
+
+# # --- Biotechnica Variations ---
+
+# - type: entity
+#   name: ent-MobNCBiotechnica
+#   parent: BaseMobHuman
+#   id: MobNCBiotechnicaUnlootable
+#   description: ent-MobNCBiotechnica-desc
+#   abstract: true
+#   IdleRange: !type:Single 8
+#   components:
+#   - type: NpcFactionMember
+#     factions:
+#     - NCBiotechnica
+#   - type: HTN
+#     rootTask:
+#       task: NCBanditTier2RootCompound
+#   - type: NPCAutoReload
+#   - type: InputMover
+#   - type: MobMover
+
+# - type: entity
+#   parent: MobNCBiotechnicaUnlootable
+#   id: MobNCBiotechnicaAvengerUnlootable
+#   suffix: Biotechnica Avenger noLoot
+#   components:
+#   - type: Loadout
+#     prototypes: [NCBiotechnicaGearAvenger]
+#   - type: Cyberware
+#   - type: StartingCyberware
+#     loseHum: false
+#     cyberware:
+#     - CyberwareNeuroBioInhibitorStoic
+#     - CyberwareInternalEnhancedAntibodies
+#     - CyberwareInternalNasalFilters
+#     - CyberwareImplantMicroOptics
+#   - type: NpcUnlootable
+
+# - type: entity
+#   parent: MobNCBiotechnicaUnlootable
+#   id: MobNCBiotechnicaBoomerBusterUnlootable
+#   suffix: Biotechnica Boomer noLoot
+#   components:
+#   - type: Loadout
+#     prototypes: [NCBiotechnicaGearBoomerBuster]
+#   - type: Cyberware
+#   - type: StartingCyberware
+#     loseHum: false
+#     cyberware:
+#     - CyberwareNeuroBioInhibitorStoic
+#     - CyberwareExternalThermoplasticArmor
+#     - CyberwareInternalNasalFilters
+#     - CyberwareImplantInfraredVision
+#   - type: NpcUnlootable
+
+# - type: entity
+#   parent: MobNCBiotechnicaUnlootable
+#   id: MobNCBiotechnicaSaratogaUnlootable
+#   suffix: Biotechnica Saratoga noLoot
+#   components:
+#   - type: Loadout
+#     prototypes: [NCBiotechnicaGearSaratoga]
+#   - type: Cyberware
+#   - type: StartingCyberware
+#     loseHum: false
+#     cyberware:
+#     - CyberwareNeuroBioInhibitorStoic
+#     - CyberwareInternalEnhancedAntibodies
+#     - CyberwareExternalThermoplasticArmor
+#     - CyberwareImplantMicroOptics
+#   - type: NpcUnlootable
+
+# - type: entity
+#   parent: MobNCBiotechnicaUnlootable
+#   id: MobNCBiotechnicaCrusherUnlootable
+#   suffix: Biotechnica Crusher noLoot
+#   components:
+#   - type: Loadout
+#     prototypes: [NCBiotechnicaGearCrusher]
+#   - type: Cyberware
+#   - type: StartingCyberware
+#     loseHum: false
+#     cyberware:
+#     - CyberwareInternalTitaniumReinforcement
+#     - CyberwareInternalEnhancedAntibodies
+#     - CyberwareNeuroBioInhibitorStoic
+#     - CyberwareImplantInfraredVision
+#   - type: NpcUnlootable

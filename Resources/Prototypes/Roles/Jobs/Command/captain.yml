@@ -7,8 +7,8 @@
   - !type:CharacterTraitRequirement
     inverted: true
     traits:
-    - Foreigner
-    - ForeignerLight
+    # - Foreigner
+    # - ForeignerLight
     - Pacifist
     - Muted
   - !type:CharacterEmployerRequirement
@@ -28,6 +28,13 @@
   accessGroups:
   - AllAccess
   special:
+  - !type:AddCyberwareSpecial
+    loseHum: false
+    cyberware:
+    - CyberwareExternalReactiveSublayer
+    - CyberwareNeuroKerenzikovMaxTac
+    - CyberwareNeuroTacticalSpartan
+    - CyberwareNeuroSandevistanMaxTac
   - !type:AddImplantSpecial
     implants: [ MindShieldImplant ]
   - !type:AddComponentSpecial
@@ -35,6 +42,13 @@
     - type: CommandStaff
     - type: Condemned # Goobstation - Nanotrasen owns your soul pal.
       soulOwnedNotDevil: true
+    - type: MapBeacon
+      group: NCPD
+      color: "#ffaa00"
+      icon: /Textures/Interface/VerbIcons/star-solid-yellow.svg.192dpi.png
+      visibleInWorld: false
+    - type: TraumaSubscriber
+      tier: Platinum
   afterLoadoutSpecial:
   - !type:ModifyEnvirosuitSpecial
     charges: 8

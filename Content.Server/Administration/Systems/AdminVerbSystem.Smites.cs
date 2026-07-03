@@ -51,6 +51,8 @@ using Robust.Shared.Player;
 using Robust.Shared.Random;
 using Robust.Shared.Utility;
 using Timer = Robust.Shared.Timing.Timer;
+using Content.Server._NC.Ncpd;
+using Content.Server._NC.Dispatch;
 
 namespace Content.Server.Administration.Systems;
 
@@ -80,6 +82,8 @@ public sealed partial class AdminVerbSystem
     [Dependency] private readonly SharedTransformSystem _transformSystem = default!;
     [Dependency] private readonly SuperBonkSystem _superBonkSystem = default!;
     [Dependency] private readonly SlipperySystem _slipperySystem = default!;
+    [Dependency] private readonly NcpdDispatchSystem _ncpdDispatchSystem = default!;
+    [Dependency] private readonly OverwatchSystem _overwatchSystem = default!;
 
     // All smite verbs have names so invokeverb works.
     private void AddSmiteVerbs(GetVerbsEvent<Verb> args)
@@ -923,5 +927,51 @@ public sealed partial class AdminVerbSystem
             Message = string.Join(": ", omniaccentName, Loc.GetString("admin-smite-omni-accent-description"))
         };
         args.Verbs.Add(omniaccent);
+
+        // ===== Night City: NCPD Dispatch Smites =====
+        // These smites create alerts on the Overwatch dispatch console.
+        // The dispatcher then forwards them to NCPD tablets for real-time tracking.
+
+        var wantedName = Loc.GetString("admin-smite-wanted-name").ToLowerInvariant();
+        Verb wanted = new()
+        {
+            Text = wantedName,
+            Category = VerbCategory.Smite,
+            Icon = new SpriteSpecifier.Texture(new ("/Textures/Interface/VerbIcons/smite.svg.192dpi.png")),
+            Act = () =>
+            {
+                var targetName = MetaData(args.Target).EntityName;
+
+                // Send alert to Overwatch console first — dispatcher decides when to forward to tablets
+                _overwatchSystem.AddEntityAlert(
+                    args.Target,
+                    Loc.GetString("admin-smite-wanted-dispatch-title"),
+                    Loc.GetString("admin-smite-wanted-dispatch-description", ("name", targetName)));
+            },
+            Impact = LogImpact.Extreme,
+            Message = string.Join(": ", wantedName, Loc.GetString("admin-smite-wanted-description"))
+        };
+        args.Verbs.Add(wanted);
+
+        var cyberpsychoName = Loc.GetString("admin-smite-cyberpsycho-name").ToLowerInvariant();
+        Verb cyberpsycho = new()
+        {
+            Text = cyberpsychoName,
+            Category = VerbCategory.Smite,
+            Icon = new SpriteSpecifier.Texture(new ("/Textures/Interface/VerbIcons/smite.svg.192dpi.png")),
+            Act = () =>
+            {
+                var targetName = MetaData(args.Target).EntityName;
+
+                // Send alert to Overwatch console first — dispatcher decides when to forward to tablets
+                _overwatchSystem.AddEntityAlert(
+                    args.Target,
+                    Loc.GetString("admin-smite-cyberpsycho-dispatch-title"),
+                    Loc.GetString("admin-smite-cyberpsycho-dispatch-description", ("name", targetName)));
+            },
+            Impact = LogImpact.Extreme,
+            Message = string.Join(": ", cyberpsychoName, Loc.GetString("admin-smite-cyberpsycho-description"))
+        };
+        args.Verbs.Add(cyberpsycho);
     }
 }

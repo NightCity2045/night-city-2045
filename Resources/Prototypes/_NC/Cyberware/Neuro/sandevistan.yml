@@ -1,0 +1,78 @@
+
+# --- SANDEVISTAN TIER 1 ---
+- type: entity
+  id: CyberwareNeuroSandevistanMk1
+  parent: BaseCyberwareImplant
+  name: ent-CyberwareNeuroSandevistanMk1
+  description: ent-CyberwareNeuroSandevistanMk1-desc
+  components:
+  - type: CyberwareImplant
+    category: Neuroport
+    humanityCost: 20
+    cyberFamily: Sandevistan
+  - type: CyberwareAction
+    actionId: ActionToggleSandevistan
+  - type: Sandevistan
+    speedMultiplier: 1.4
+    attackSpeedMultiplier: 1.5
+    maxDuration: 4.0
+    activationHumanityCost: 5.0
+    staminaDrainPerSecond: 10.0
+    humanityLossPerInterval: 1.0
+    overloadStunDuration: 3.0
+    overloadDamage:
+      types:
+        Toxin: 10
+        Blunt: 5
+
+# --- SANDEVISTAN TIER 3 (APOGEE) ---
+- type: entity
+  id: CyberwareNeuroSandevistanApogee
+  parent: BaseCyberwareImplant
+  name: ent-CyberwareNeuroSandevistanApogee
+  description: ent-CyberwareNeuroSandevistanApogee-desc
+  components:
+  - type: CyberwareImplant
+    category: Neuroport
+    humanityCost: 45
+    cyberFamily: Sandevistan
+  - type: CyberwareAction
+    actionId: ActionToggleSandevistan
+  - type: Sandevistan
+    speedMultiplier: 2.5
+    attackSpeedMultiplier: 2.5
+    maxDuration: 8.0
+    activationHumanityCost: 15.0
+    staminaDrainPerSecond: 20.0
+    humanityLossPerInterval: 3.0
+    overloadStunDuration: 6.0
+    overloadDamage:
+      types:
+        Toxin: 30
+        Blunt: 20
+
+# --- SANDEVISTAN TIER 4 (Max-Tac) ---
+- type: entity
+  id: CyberwareNeuroSandevistanMaxTac
+  parent: BaseCyberwareImplant
+  name: ent-CyberwareNeuroSandevistanMaxTac
+  description: ent-CyberwareNeuroSandevistanMaxTac-desc
+  components:
+  - type: CyberwareImplant
+    category: Neuroport
+    humanityCost: 20
+    cyberFamily: Sandevistan
+  - type: CyberwareAction
+    actionId: ActionToggleSandevistan
+  - type: Sandevistan
+    speedMultiplier: 3.0
+    attackSpeedMultiplier: 3.0
+    maxDuration: 3.0
+    activationHumanityCost: 0
+    staminaDrainPerSecond: 20.0
+    humanityLossPerInterval: 0
+    overloadStunDuration: 6.0
+    overloadDamage:
+      types:
+        Toxin: 30
+        Blunt: 20

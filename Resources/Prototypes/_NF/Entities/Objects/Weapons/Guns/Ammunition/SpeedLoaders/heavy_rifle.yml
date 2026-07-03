@@ -11,7 +11,8 @@
   - type: BallisticAmmoProvider
     whitelist:
       tags:
-        - CartridgeRifle
+      - Cartridge  # NC edit: Fix janitor stuff
+      - CartridgeRifle
     capacity: 8
   - type: Sprite
   - type: ContainerContainer

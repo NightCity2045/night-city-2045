@@ -5,15 +5,15 @@ aspect-traitored-announce = Station, the Nanotrasen counterintelligence service 
 aspect-traitored-announce-name = { $name } - KILL HIM!
 aspect-traitored-announce-sender = Meowkiman the Rat
 
-#Traitor Rich
+# Traitor Rich
 aspect-traitor-rich-briefing = Congratulations! It was decided to allocate 10 additional telecrystals for you.
 
-#AdminLog
+# AdminLog
 aspect-admin-log-added = Aspect added: { $aspect }
 aspect-admin-log-started = Aspect started: { $aspect }
 aspect-admin-log-ended = Aspect ended: { $aspect }
 
 run-aspect-admin = { $admin } started aspect { $rule }
 
-#Announcement
+# Announcement
 aspect-announcement-ended = The name of the aspect was: { $aspect }

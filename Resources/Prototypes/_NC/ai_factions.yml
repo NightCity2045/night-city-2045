@@ -1,0 +1,53 @@
+- type: npcFaction
+  id: NCBandit
+  hostile:
+  - NCBiotechnica
+  - NCMilitech
+  - NanoTrasen
+  - SimpleHostile
+  - Syndicate
+  - Xeno
+  - Zombie
+  - Revolutionary
+  - AllHostile
+  - Wizard
+  - SAN
+  - Changeling
+  - Shadowling
+  - Blob
+
+- type: npcFaction
+  id: NCBiotechnica
+  hostile:
+  - NCBandit
+  - NCMilitech
+  - NanoTrasen
+  - SimpleHostile
+  - Syndicate
+  - Xeno
+  - Zombie
+  - Revolutionary
+  - AllHostile
+  - Wizard
+  - SAN
+  - Changeling
+  - Shadowling
+  - Blob
+
+- type: npcFaction
+  id: NCMilitech
+  hostile:
+  - NCBandit
+  - NCBiotechnica
+  - NanoTrasen
+  - SimpleHostile
+  - Syndicate
+  - Xeno
+  - Zombie
+  - Revolutionary
+  - AllHostile
+  - Wizard
+  - SAN
+  - Changeling
+  - Shadowling
+  - Blob

@@ -378,11 +378,11 @@ ent-BaseLightHeadBorg = голова киборга
 ent-BaseBorgTorso = торс киборга
 
 
-ent-ClothingBackpackDuffelSyndicateEliteHardsuitBundle = комплект элитного хардсьюта
+ent-ClothingBackpackDuffelSyndicateEliteHardsuitBundle = комплект элитного бронекостюма
     .desc = Элитный костюм Синдиката. Внутри — больше интересностей.
 
 
-ent-ClothingBackpackDuffelSyndicateHardsuitExtrasBundle = доп. комплект для хардсьюта
+ent-ClothingBackpackDuffelSyndicateHardsuitExtrasBundle = доп. комплект для бронекостюма
     .desc = Всё, что вам захочется прихватить с собой вместе с бронекостюмом.
 
 
@@ -390,7 +390,7 @@ ent-ClothingBackpackDuffelSyndicateDecoyKitFilled = комплект прима�
     .desc = Для отвлечения глаз, ушей... а в будущем — и носа.
 
 
-ent-ClothingBackpackDuffelSyndicateFilledFPA90 = комплект «FPA-90»
+ent-ClothingBackpackDuffelSyndicateFilledFPA90 = комплект FPA-90
     .desc = Дешёвый интегрально заглушённый ПП. Магазины — отдельно.
 
 
@@ -415,7 +415,7 @@ ent-BoxEncryptionKeySyndie = коробка шифрования Синдика�
     .desc = Два ключа по цене одного. Миниатюрные и смертоносные.
 
 
-ent-BoxDeathRattleImplants = коробка имплантов «предсмертный хрип»
+ent-BoxDeathRattleImplants = коробка имплантов "предсмертный хрип"
     .desc = Шесть имплантов с GPS-маячками для всей ударной группы. Хрипи с комфортом.
 
 
@@ -457,11 +457,11 @@ ent-CrateArmoryPistols = ящик пистолетов
     .desc = Два пистолета NT и четыре магазина. Необходим доступ в Оружейную чтобы открыть.
 
 
-ent-CrateArmoryBRDIR25 = ящик БРДИ-Р25
+ent-CrateArmoryBRDIR25 = ящик BRDI-R25
     .desc = Два бесшумных буллпапа. Прямиком из Республики Бисель. Необходим доступ в Оружейную чтобы открыть.
 
 
-ent-CrateCargoLuxuryHardsuit = ящик с роскошным шахтёрским хардсьютом
+ent-CrateCargoLuxuryHardsuit = ящик с роскошным шахтёрским скафандром
     .desc = Скафандр, достойный логиста. Центком наконец услышал ваши жалобы.
 
 
@@ -530,7 +530,7 @@ ent-CrateEngineeringTeslaGroundingRod = ящик с заземляющим ст�
 
 
 ent-CrateEngineeringTEGKit = ящик с комплектом ТЭГ
-    .desc = Набор «Собери свой ТЭГ сам». Некоторая сборка требуется.
+    .desc = Набор "Собери свой ТЭГ сам". Некоторая сборка требуется.
 
 
 ent-CrateFoodPizzaLarge = пицца при катастрофе
@@ -577,7 +577,7 @@ ent-CrateFunInstrumentsKeyedPercussion = ящик с ударно-клавишн
     .desc = Стучи, бей, играй! Всё, что нужно для шумного настроения.
 
 
-ent-CrateFunInstrumentsSpecial = ящик с «особыми» инструментами
+ent-CrateFunInstrumentsSpecial = ящик с "особыми" инструментами
     .desc = Что-то между инструментами и пытками. Центком не несёт ответственности за нанесённую психотравму.
 
 
@@ -605,32 +605,32 @@ ent-CrateFunDartsSet = набор для дартса
     .desc = Всё, что нужно для игры в дартс, не выходя из станции.
 
 
-ent-CrateEngineeringFotiaHardsuit = ящик с скафандром «Фотия»
-    .desc = Содержит скафандр HpI-19t «Фотия». Требуется доступ инженера.
+ent-CrateEngineeringFotiaHardsuit = ящик с скафандром "Фотия"
+    .desc = Содержит скафандр HpI-19t "Фотия". Требуется доступ инженера.
 
 
-ent-CrateEngineeringLampsiHardsuit = ящик с скафандром «Лампси»
-    .desc = Содержит скафандр HpI-19r «Лампси». Без покраски. Требуется доступ инженера.
+ent-CrateEngineeringLampsiHardsuit = ящик с скафандром "Лампси"
+    .desc = Содержит скафандр HpI-19r "Лампси". Без покраски. Требуется доступ инженера.
 
 
-ent-CrateLogisticsKritiHardsuit = ящик с скафандром «Крити»
-    .desc = Содержит скафандр HpI-20s «Крити». Для самых стильных логистов.
+ent-CrateLogisticsKritiHardsuit = ящик с скафандром "Крити"
+    .desc = Содержит скафандр HpI-20s "Крити". Для самых стильных логистов.
 
 
-ent-CrateLogisticsLavrionHardsuit = ящик с скафандром «Лаврион»
-    .desc = Содержит скафандр HpI-20a «Лаврион». Элегантность в вакууме.
+ent-CrateLogisticsLavrionHardsuit = ящик с скафандром "Лаврион"
+    .desc = Содержит скафандр HpI-20a "Лаврион". Элегантность в вакууме.
 
 
 ent-CrateSecurityShanlinTacsuit = ящик с бронекостюмом «Шанлин»
-    .desc = Содержит один тактический костюм КСА-51a «Шанлин». Требуется доступ службы безопасности.
+    .desc = Содержит один тактический костюм CSA-51a «Шанлин». Требуется доступ службы безопасности.
 
 
 ent-CrateSecurityShiweiTacsuit = ящик с бронекостюмом «Шивэй»
-    .desc = Содержит один тактический костюм КСА-54UA «Шивэй». Требуется доступ службы безопасности.
+    .desc = Содержит один тактический костюм CSA-54UA «Шивэй». Требуется доступ службы безопасности.
 
 
 ent-CrateSecurityGuanYuTacsuit = ящик с бронекостюмом «Гуань Юй»
-    .desc = Содержит один тактический костюм КСА-80UA «Гуань Юй». Требуется доступ службы безопасности.
+    .desc = Содержит один тактический костюм CSA-80UA «Гуань Юй». Требуется доступ службы безопасности.
 
 
 ent-CrateSecurityBaghaturTacsuit = ящик с бронекостюмом «Багатур»
@@ -758,7 +758,7 @@ ent-CrateServiceSodaDispenser = ящик пополнения автомата �
     .desc = Запасные картриджи для автомата с газировкой.
 
 
-ent-CrateServiceBoozeDispenser = ящик пополнения АлкоМата
+ent-CrateServiceBoozeDispenser = ящик пополнения Booze-O-Mat
     .desc = Запас алкоголя для Booze-O-Mat. Наслаждайтесь.
 
 
@@ -782,7 +782,7 @@ ent-CrateEngineeringGyroscope = ящик с гироскопом
     .desc = Содержит упакованный гироскоп. Без него ваша конструкция не полетит.
 
 
-ent-CrateCybersunJuggernautBundle = комплект «кибер-берсерка»
+ent-CrateCybersunJuggernautBundle = комплект "кибер-берсерка"
     .desc = Всё, кроме большого ствола, чтобы устроить весёлый день.
 
 
@@ -820,7 +820,7 @@ ent-GunSafeShotgunEnforcer = сейф дробовиков Силовик
 
 ent-GunSafeShotgunKammerer = сейф дробовиков Каммерер
 
-ent-GunSafeSubMachineGunWt550 = сейф «WT550»
+ent-GunSafeSubMachineGunWt550 = сейф ПП WT550
 
 ent-GunSafeLaserCarbine = сейф лазерных винтовок
 
@@ -932,9 +932,9 @@ ent-GunSafePistolUniversal = сейф пистолетов Mk32
 
 ent-GunSafeSniperGrand = сейф винтовок Mark I
 
-ent-GunSafeVulcanRifle = сейф винтовок «Вулкан»
+ent-GunSafeVulcanRifle = сейф винтовок "Вулкан"
 
-ent-GunSafeAdjutantShotgun = сейф дробовиков «Адъютант»
+ent-GunSafeAdjutantShotgun = сейф дробовиков "Адъютант"
 
 ent-GunSafeEnergyGun = сейф энергетических винтовок
 
@@ -956,15 +956,15 @@ ent-ClothingBeltSuspendersBlack = подтяжки
     .desc = Чтобы штаны не падали.
 
 
-ent-ClothingBeltCorpsmanWebbing = страховка бригмедика
-    .desc = Комплект разгрузки для службы безопасности с синими элементами корпуса бригмедика.
+ent-ClothingBeltCorpsmanWebbing = страховка санитара
+    .desc = Комплект разгрузки для службы безопасности с синими элементами корпуса санитара.
 
 
 ent-ClothingEyesGlassesGarMeson = гар-мезоны
     .desc = Делай невозможное, видь невидимое!
 
 
-ent-ClothingEyesGlassesCorpsman = очки бригмедика
+ent-ClothingEyesGlassesCorpsman = очки санитара
     .desc = Защитные очки для санитаров, подходящие для медицинских и служебных задач. Теперь с крутым синим оттенком!
 
 
@@ -1040,7 +1040,7 @@ ent-ClothingOuterArmorDuraVest = жилет из дюранити
     .desc = Прочный жилет, усиленный тканью из дюранити. Не оставит вас без защиты — ни от удара, ни от ножа.
 
 
-ent-ClothingOuterArmorARC = броня ARCS
+ent-ClothingOuterArmorARC = ARCS
     .desc = Бронекостюм расширенного контроля бунтов. Слишком жаркий и неудобный, чтобы быть практичным — но в огне погромов он становится уютным, как одеяло.
 
 
@@ -1405,7 +1405,7 @@ ent-MobNukieMouse = мышь-ядерщик
 
 
 ent-MobArcticFoxSiobhan = Шивон
-    .desc = Имя произносится как «Шивон», но друзья зовут её Шивс. Пушистая и очаровательная арктическая лисичка.
+    .desc = Имя произносится как "Шивон", но друзья зовут её Шивс. Пушистая и очаровательная арктическая лисичка.
 
 
 ent-MobRadioGuard = охранник Синдиката
@@ -1439,7 +1439,7 @@ ent-MobVulpkaninDummy = Вулпканин (болванка)
     .desc = Болванка вулпканина для настройки персонажа.
 
 
-ent-DrinkDrGibbBloodRedCan = банка «Доктор Глибб Красная Кровь»
+ent-DrinkDrGibbBloodRedCan = банка Dr. Gibb Blood Red
     .desc = Напиток для утоления вашей жажды... крови.
 
 
@@ -1632,13 +1632,11 @@ ent-PaperMailHydroCoTrial = сообщение HydroCo о суде
 
 ent-PaperBiscuit = печенье-карта
     .desc = Печенье-карта. На обороте большими буквами написано «НЕ ЕСТЬ».
-ent-PaperBiscuitFilled = печенье-карта
-    .desc = Печенье-карта. На обороте большими буквами написано «НЕ ЕСТЬ».
+
 
 ent-PaperBiscuitCorporate = конфиденциальное печенье-карта
     .desc = Конфиденциальная карта в форме печенья. Её элегантный синий цвет и логотип NT делают её похожей на шоколадку.
-ent-PaperBiscuitCorporateFilled = конфиденциальное печенье-карта
-    .desc = Конфиденциальная карта в форме печенья. Её элегантный синий цвет и логотип NT делают её похожей на шоколадку.
+
 
 ent-PaperBiscuitCorporateSpareID = печенье с аварийным доступом
 
@@ -1674,26 +1672,8 @@ ent-BionicSyrinxImplant = бионический сиринкс-имплант
     .desc = Этот имплант позволяет гарпии настраивать голос под любого, кого она может представить.
 
 
-ent-NapalmChemistryBottle = бутылка с напалмом
-
-ent-UltravasculineChemistryBottle = бутылка с ультрасосудосилом
-
-
 ent-SpareIdCabinet = шкафчик с аварийным доступом
     .desc = Небольшая табличка гласит: «Только для экстренного использования».
-
-
-ent-CrystalThistleSeeds = пакет семян кристального чертополоха
-    .desc = Похоже на мешок с иголками.
-
-
-ent-GhostPepperSeeds = пакет семян перца-призрака
-    .desc = Убедитесь, что посадили на глубину не менее двух метров.
-
-
-
-ent-CosmicRevenantSeeds = пакет семян Космического Ревенанта
-    .desc = Выращивайте тьму ради блага станции.
 
 
 ent-Gavel = судейский молоток
@@ -1736,7 +1716,7 @@ ent-MagazineBoxSpecialIncendiary = коробка зажигательных п�
 
 ent-MagazineBoxSpecialUranium = коробка урановых патронов (.38)
 
-ent-MagazineBoxSpecialMindbreaker = коробка патронов «Майндбрейкер» (.38)
+ent-MagazineBoxSpecialMindbreaker = коробка патронов "Майндбрейкер" (.38)
 
 ent-BoxCartridgeBB = коробка с BB-шарами
 
@@ -1754,7 +1734,7 @@ ent-CartridgeSpecialUranium = урановый патрон (.38)
 
 ent-CartridgeSpecialHoly = освящённый патрон (.38)
 
-ent-CartridgeSpecialMindbreaker = патрон «Майндбрейкер» (.38)
+ent-CartridgeSpecialMindbreaker = патрон "Майндбрейкер" (.38)
 
 
 ent-BaseMagazinePistolSpecial = магазин пистолета (.38 особый)
@@ -1763,7 +1743,7 @@ ent-MagazinePistolSpecial = магазин пистолета (.38 особый)
 
 ent-MagazinePistolSpecialPractice = магазин учебных патронов (.38)
 
-ent-MagazinePistolSpecialMindbreaker = магазин патронов «Майндбрейкер» (.38)
+ent-MagazinePistolSpecialMindbreaker = магазин патронов "Майндбрейкер" (.38)
 
 
 ent-BulletMusket = пуля (мушкет)
@@ -1780,7 +1760,7 @@ ent-BulletSpecialUranium = урановая пуля (.38)
 
 ent-BulletSpecialHoly = освящённая пуля (.38)
 
-ent-BulletSpecialMindbreaker = пуля «Майндбрейкер» (.38)
+ent-BulletSpecialMindbreaker = пуля "Майндбрейкер" (.38)
 
 
 ent-BaseSpeedLoaderSpecial = ускоренный спидлоадер (.38 особый)
@@ -1791,60 +1771,51 @@ ent-SpeedLoaderSpecialPractice = учебный ускоренный спидл�
 
 ent-SpeedLoaderSpecialUranium = урановый ускоренный спидлоадер (.38)
 
-ent-SpeedLoaderSpecialMindbreaker = спидлоадер «Майндбрейкер» (.38)
+ent-SpeedLoaderSpecialMindbreaker = спидлоадер "Майндбрейкер" (.38)
 
 ent-SpeedLoaderSpecialHoly = освящённый ускоренный спидлоадер (.38)
 
-ent-WeaponLauncherChinaLakeBorg = «Чайна Лейк»
+ent-WeaponLauncherChinaLakeBorg = "Чайна Лейк"
     .desc = ПЛУП! Имеет встроенный репликатор, который медленно создаёт боеприпасы.
 
-ent-WeaponLightMachineGunL6Borg = экспериментальный «L6 SAW»
+ent-WeaponLightMachineGunL6Borg = экспериментальный L6 SAW
     .desc = Довольно традиционно собранный пулемёт с лакированной деревянной рукоятью. Использует внутренне генерируемые патроны .30 калибра.
 
 
-ent-WeaponRevolverSnub = «Укороченный .45»
-    .desc = Старый надёжный револьвер, модифицированный для скрытого ношения. Использует патроны .45 магнум.
-    .suffix = Револьвер
+ent-WeaponRevolverSnub = укороченный .45
+    .desc = Старый надёжный револьвер, модифицированный для скрытого ношения. Использует патроны .45 magnum.
 
 
-ent-WeaponRevolverSnubSecurity = «Укороченный .45»
-    .desc = Старый надёжный револьвер, модифицированный для скрытого ношения. Использует патроны .45 магнум. Серийный номер на рукояти указывает на принадлежность Офицеру СБ НТ.
-    .suffix = Револьвер, Офицера
+ent-WeaponRevolverSnubSecurity = укороченный .45
+    .desc = Старый надёжный револьвер, модифицированный для скрытого ношения. Использует патроны .45 magnum. Серийный номер на рукояти указывает на принадлежность Офицеру Безопасности NT.
 
 
-ent-WeaponRevolverK38Master = «K-38 „Шедевр“»
-    .desc = Классическое, хоть и устаревшее оружие правоохранительных органов. Использует специальные патроны .38.
-    .suffix = Револьвер
+ent-WeaponRevolverK38Master = K-38 шедевр
+    .desc = Классическое, хоть и устаревшее оружие правоохранительных органов. Использует патроны .38 special.
 
 
-ent-WeaponRevolverK38MasterSecurity = «K-38 „Шедевр“»
-    .desc = Классическое, хоть и устаревшее оружие правоохранительных органов. Использует специальные патроны .38. Серийный номер на рукояти указывает на принадлежность Офицеру СБ НТ.
-    .suffix = Револьвер, Офицера
+ent-WeaponRevolverK38MasterSecurity = K-38 шедевр
+    .desc = Классическое, хоть и устаревшее оружие правоохранительных органов. Использует патроны .38 special. Серийный номер на рукояти указывает на принадлежность Офицеру Безопасности NT.
 
 
-ent-WeaponRevolverFitz = «Фитц Специальный»
-    .desc = Компактный и легко скрываемый револьвер для самозащиты. Использует специальные патроны .38.
-    .suffix = Револьвер
+ent-WeaponRevolverFitz = Fitz Special
+    .desc = Компактный и легко скрываемый револьвер для самозащиты. Использует патроны .38 special.
 
 
-ent-WeaponRevolverFitzSecurity = «Фитц Специальный»
-    .desc = Компактный и легко скрываемый револьвер для самозащиты. Использует специальные патроны .38. Серийный номер на рукояти указывает на принадлежность Офицеру СБ НТ.
-    .suffix = Револьвер, Офицера
+ent-WeaponRevolverFitzSecurity = Fitz Special
+    .desc = Компактный и легко скрываемый револьвер для самозащиты. Использует патроны .38 special. Серийный номер на рукояти указывает на принадлежность Офицеру Безопасности NT.
 
 
-ent-WeaponRevolverLucky = «Счастливчик 37»
-    .desc = Удача всегда важнее мастерства, сопляк. Использует патроны .38 специальный.
-    .suffix = Револьвер
+ent-WeaponRevolverLucky = Счастливчик 37
+    .desc = Удача всегда важнее мастерства, сопляк. Использует патроны .38 special.
 
 
-ent-WeaponRevolverFaith = «Вера»
-    .desc = Несёт благословения в форме пуль. Использует патроны .38 специальный.
-    .suffix = Револьвер
+ent-WeaponRevolverFaith = Вера
+    .desc = Несёт благословения в форме пуль. Использует патроны .38 special.
 
 
-ent-WeaponRifleJackdaw = «CAWS-25 „Галка“»
+ent-WeaponRifleJackdaw = CAWS-25 «Галка»
     .desc = Начало конца возвещает песнь Галки. Использует патроны .25 безгильзовые.
-    .suffix = Автомат
 
 
 ent-shuttle_manipulator = голография станции
@@ -2059,8 +2030,8 @@ ent-ClothingEyesGlassesJensen = очки Дженсена
     .desc = Жёлтые складные очки. Вы не просили это, но получили.
 
 
-ent-ClothingEyesGlassesJamjar = очки с толстыми линзами
-    .desc = Также известны как «защитники девственности».
+ent-ClothingEyesGlassesJamjar = очки-банки
+    .desc = Также известны как "защитники девственности".
 
 
 ent-ClothingEyesGlassesCheapSunglasses = тёмные очки
@@ -2198,7 +2169,7 @@ ent-ClothingHandsGlovesEnviroglovesJanitor = защитные перчатки �
 
 
 ent-ClothingHandsGlovesEnviroglovesCargo = логистические защитные перчатки
-    .desc = Когда тягаешь ящики и выглядишь при этом на миллион кредитов.
+    .desc = Когда тягаешь ящики и выглядишь при этом на миллион евродолларов.
 
 
 ent-ClothingHandsGlovesEnviroglovesEngineering = инженерные защитные перчатки
@@ -2298,11 +2269,11 @@ ent-GoldRingDiamond = золотое кольцо с бриллиантом
 
 
 ent-SilverRingDiamond = серебряное кольцо с бриллиантом
-    .desc = Эти алмазы тоже якобы добыты «этично». А вы верите?
+    .desc = Эти алмазы тоже якобы добыты "этично". А вы верите?
 
 
 ent-GoldRingGem = золотое кольцо с самоцветом
-    .desc = Блестит, переливается, кричит: «я дороже тебя!»
+    .desc = Блестит, переливается, кричит: "я дороже тебя!"
 
 
 ent-SilverRingGem = серебряное кольцо с самоцветом
@@ -2374,11 +2345,11 @@ ent-ClothingHeadEnvirohelmChaplain = шлем капеллана
 
 
 ent-ClothingHeadEnvirohelmDetective = шлем детектива
-    .desc = Защитит от огня, криков и вопросов «где улики?»
+    .desc = Защитит от огня, криков и вопросов "где улики?"
 
 
 ent-ClothingHeadEnvirohelmChemist = шлем химика
-    .desc = Оранжевые полосы означают: «Не трогай меня, я работаю с кислотой».
+    .desc = Оранжевые полосы означают: "Не трогай меня, я работаю с кислотой".
 
 
 ent-ClothingHeadEnvirohelmClown = шлем клоуна
@@ -2426,7 +2397,7 @@ ent-ClothingHeadEnvirohelmMime = шлем мима
 
 
 ent-ClothingHeadEnvirohelmParamedic = шлем парамедика
-    .desc = Темно-синие полосы говорят: «Я спасаю жизни быстро и стильно».
+    .desc = Темно-синие полосы говорят: "Я спасаю жизни быстро и стильно".
 
 
 ent-ClothingHeadEnvirohelmPrisoner = шлем заключённого
@@ -2510,8 +2481,8 @@ ent-ClothingHeadEnvirohelmGladiator = шлем гладиатора (плазм�
     .desc = Защищает голову от игрушечных копий и ядовитого кислорода.
 
 
-ent-ClothingHeadEnvirohelmMantis = шлем мантиса (плазмамен)
-    .desc = Плазменный шлем с золотой полоской, под стать форензике-мантису.
+ent-ClothingHeadEnvirohelmMantis = шлем богомола (плазмамен)
+    .desc = Плазменный шлем с золотой полоской, под стать форензике-богомолу.
 
 
 ent-ClothingHeadEnvirohelmSafari = сафари-шлем (плазмамен)
@@ -2534,12 +2505,12 @@ ent-ClothingHeadEnvirohelmAdminAssistant = шлем административн
     .desc = Белый шлем с тёмно-синими акцентами. Выглядит важно.
 
 
-ent-ClothingHeadEnvirohelmBlackPink = шлем «БлэкПинк» (плазмамен)
+ent-ClothingHeadEnvirohelmBlackPink = шлем "BlackPink" (плазмамен)
     .desc = How you like that?
 
 
-ent-ClothingHeadEnvirohelmBlackPinkAlt = шлем «БлэкПинк» (альт) (плазмамен)
-    .desc = Этот шлем пробуждает в тебе желание «убить эту любовь».
+ent-ClothingHeadEnvirohelmBlackPinkAlt = шлем "BlackPink" (альт) (плазмамен)
+    .desc = Этот шлем пробуждает в тебе желание "убить эту любовь".
 
 
 ent-ClothingHeadEnvirohelmBlueshield = шлем блюшилда (плазмамен)
@@ -2554,7 +2525,7 @@ ent-ClothingHeadEnvirohelmPrisonGuard = шлем тюремщика (плазм�
     .desc = Надеюсь, заключённый его у тебя не отнимет.
 
 
-ent-ClothingHeadEnvirohelmBrigmedic = шлем бригмедика (плазмамен)
+ent-ClothingHeadEnvirohelmBrigmedic = шлем санитара СБ (плазмамен)
     .desc = Специальный шлем для Корпсмэнов, борющихся с вирусами... и клоунами.
 
 
@@ -3123,7 +3094,7 @@ ent-ClothingNeckCloakAce = плащ пилота-аса
 
 
 ent-ClothingNeckCloakAro = плащ оборотня
-    .desc = Эта накидка сообщает всем: «Я — волк-одиночка. И мне норм.»
+    .desc = Эта накидка сообщает всем: "Я — волк-одиночка. И мне норм."
 
 
 ent-ClothingNeckCloakBi = ядовитый плащ
@@ -3657,7 +3628,7 @@ ent-ClothingShoesBootsWinterSci = зимние ботинки учёного
 ent-ClothingShoesBootsWinterSec = зимние ботинки службы безопасности
 
 ent-ClothingShoesBootsWinterSyndicate = зимние ботинки Синдиката
-    .desc = Тяжёлые и прочные сапоги. Выглядят как сувенир из «Синди-ленда».
+    .desc = Тяжёлые и прочные сапоги. Выглядят как сувенир из "Синди-ленда".
 
 
 ent-ClothingShoesBootsWinterWeb = коконные зимние ботинки
@@ -3766,7 +3737,7 @@ ent-ClothingUniformEnvirosuitCargo = грузовой плазмокостюм
 
 
 ent-ClothingUniformEnvirosuitCaptain = капитанский плазмокостюм
-    .desc = Синий скафандр с золотыми нашивками, указывающими на звание «Капитан».
+    .desc = Синий скафандр с золотыми нашивками, указывающими на звание "Капитан".
 
 
 ent-ClothingUniformEnvirosuitChiefEngineer = плазмокостюм старшего инженера
@@ -3921,7 +3892,7 @@ ent-ClothingUniformEnvirosuitGladiator = гладиаторский плазмо
     .desc = Сделан для тех, кто проливает кровь... и только потом задаёт вопросы.
 
 
-ent-ClothingUniformEnvirosuitMantis = плазмокостюм мантиса
+ent-ClothingUniformEnvirosuitMantis = плазмокостюм богомола
     .desc = Охота на псиоников начинается!
 
 
@@ -3962,7 +3933,7 @@ ent-ClothingUniformEnvirosuitPrisonGuard = энвиро-костюм тюрем�
     .desc = Прочный и удобный костюм, созданный для безопасности и комфорта плазмаменов-охранников.
 
 
-ent-ClothingUniformEnvirosuitBrigmedic = энвиро-костюм бригмедика
+ent-ClothingUniformEnvirosuitBrigmedic = энвиро-костюм санитара брига
     .desc = Защитный костюм, выдаваемый бригмедикам среди плазмаменов.
 
 
@@ -5208,7 +5179,7 @@ ent-MobSnail = улитка
 
 ent-MobSnailMoth = мулитка
 
-ent-MobWeldbot = сваркобот
+ent-MobWeldbot = сварбот
     .desc = Конечно, не инженер, но хоть что-то.
 
 
@@ -5251,7 +5222,7 @@ ent-MobXenoPatriarch = патриарх
     .desc = Уже не так явно дружелюбный. Но может — просто серьёзный.
 
 
-ent-MobXenoFXES = дружелюбный ксено
+ent-MobXenoFXES = FXES
     .desc = На удивление обаятельный ксено. Обнимашки?
 
 
@@ -5573,7 +5544,7 @@ ent-DrinkFitnessShakerBlack = спортивный шейкер
     .desc = Хватает на полдня тренировок. Не обращай внимания на комочки — это текстура силы.
 
 
-ent-DrinkGildlagerBottleFull = бутылка «Гильдлагер»
+ent-DrinkGildlagerBottleFull = бутылка "Гильдлагер"
     .desc = 100-градусный коричный шнапс. Идеален для весёлых, слегка неадекватных каникул.
 
 
@@ -5581,7 +5552,7 @@ ent-DrinkBeerGrowler = крупная пивная бутыль
     .desc = Всё то же пиво, но в формате XL для настоящих знатоков пенного.
 
 
-ent-DrinkAleBottleFullGrowler = бутыль эля «Магм-Аль»
+ent-DrinkAleBottleFullGrowler = бутыль эля "Магм-Аль"
     .desc = Всё как надо, только больше. И громче.
 
 
@@ -5645,11 +5616,11 @@ ent-DrinkWaterMelonJuiceJug = кувшин арбузного сока
     .desc = Может содержать косточки. И летнее настроение.
 
 
-ent-DrinkEnergyDrinkJug = кувшин Ред Булеана
+ent-DrinkEnergyDrinkJug = кувшин "Ред Бул"
     .desc = Кувшин чистого кофеинового крика. Убьёт станцию, но даст тебе крылья.
 
 
-ent-DrinkSolDryCan = «Сол Драй»
+ent-DrinkSolDryCan = "Сол Драй"
     .desc = Имбирная газировка из глубин космоса! Сладко, бодро, звёздно.
 
 
@@ -5683,7 +5654,7 @@ ent-DrinkCartonBaseEmpty = пустая упаковка (база)
 ent-DrinkCartonBaseLargeEmpty = пустая большая упаковка (база)
 
 
-ent-DrinkBottleGildlager = бутылка ликёра «Гилдлагер»
+ent-DrinkBottleGildlager = бутылка ликёра «Gildlager»
 
 ent-DrinkCartonLime = упаковка лаймового сока
 
@@ -5812,7 +5783,7 @@ ent-FoodLemoon = лемуна
     .desc = Луна — не из сыра. Она из молока и лавра. Теперь ты знаешь.
 
 
-ent-FoodExtradimensionalOrange = трёхмерный апельсин
+ent-FoodExtradimensionalOrange = внезмерный апельсин
     .desc = Сложно даже осознать, что ты держишь.
 
 
@@ -6099,8 +6070,8 @@ ent-FoodMealSoftTaco = мягкий тако
     .desc = Мягкий, тёплый, обволакивающий. Укуси — и забудь боль.
 
 
-ent-MobBreadDog = хлебобака
-    .desc = Он хлеб. Он пёс. Он… хлебопёс! Нет… хлебобака!
+ent-MobBreadDog = хлебопёс
+    .desc = Он хлеб. Он пёс. Он… хлебопёс!
 
     .desc = Просто кусочек торта. А ведь этого достаточно.
 
@@ -6114,8 +6085,8 @@ ent-FoodCakeLemoonSlice = кусочек лемунного торта
     .desc = Кусочек Луны, имеет запах молочка.
 
 
-ent-MobCatCake = кортик
-    .desc = Это торт. Это кот. Это… кортик. Мяу?
+ent-MobCatCake = кэйк
+    .desc = Это торт. Это кот. Это... кэйк. Мяу?
 
 
 ent-FoodDonkpocketStonk = стонк-карман
@@ -6537,7 +6508,7 @@ ent-Wristwatch = наручные часы
 
 
 ent-WristwatchGold = золотые часы
-    .desc = Дорогие понтовые часы, дороже твоей почки. Принадлежали знаменитому мафиози Синдиката — Вунибальдо «200-фунтовая мясорубка» Фредиани.
+    .desc = Дорогие понтовые часы, дороже твоей почки. Принадлежали знаменитому мафиози Синдиката — Вунибальдо "200-фунтовая мясорубка" Фредиани.
 
 
 ent-AtmosMonitoringComputerCircuitboard = плата монитора атмосферы
@@ -6575,10 +6546,6 @@ ent-AutolatheHyperConvectionMachineCircuitboard = плата гиперконв�
 
 ent-ProtolatheHyperConvectionMachineCircuitboard = плата гиперконвекционного протолата
     .desc = Печатная плата для продвинутого гиперконвекционного протолата.
-
-
-ent-BiofabricatorMachineCircuitboard = плата биофабрикатора
-    .desc = Печатная плата для машины печати органических тканей.
 
 
 ent-CircuitImprinterHyperConvectionMachineCircuitboard = плата гиперконвекционного принтера схем
@@ -6664,8 +6631,8 @@ ent-MiniGravityGeneratorCircuitboard = плата мини-гравигенер�
     .desc = Печатная плата для портативного генератора гравитации.
 
 
-ent-ShuttleGunSvalinnMachineGunCircuitboard = плата LSE-400c «Свалинн»
-    .desc = Печатная плата для штурмового орудия LSE-400c «Свалинн».
+ent-ShuttleGunSvalinnMachineGunCircuitboard = плата LSE-400c «Svalinn»
+    .desc = Печатная плата для штурмового орудия LSE-400c «Svalinn».
 
 
 ent-ShuttleGunPerforatorCircuitboard = плата LSE-1200c «Перфоратор»
@@ -6786,18 +6753,9 @@ ent-ActionPAIPlayMidi = Воспроизвести MIDI
 ent-ActionPAIOpenMap = Открыть карту
     .desc = Включить карту и помочь хозяину не заблудиться.
 
-    .desc = Призовой билет. Можно обменять на крутой приз!
-
 
 ent-PrizeTicket = призовой билет
-
-ent-PrizeTicket10 = призовой билет
-
-ent-PrizeTicket30 = призовой билет
-
-ent-PrizeTicket60 = призовой билет
-
-ent-PrizeTicket1 = призовой билет
+    .desc = Призовой билет. Можно обменять на крутой приз!
 
 
 ent-PrizeBall = призовой шар
@@ -6878,7 +6836,7 @@ ent-PlushieJester = плюшевый шут
 
 
 ent-PlushieSlips = плюшевый уборщик
-    .desc = Безмолвный чистильщик. Ни Вех, ни следа.
+    .desc = Безмолвный чистильщик. Ни "Weh", ни следа.
 
 
 ent-PlushieGnome = плюшевый гном
@@ -6951,7 +6909,7 @@ ent-PlushieVulp = плюшевая вульпканин
 
 
 ent-PlushieTrystan = офисная плюшевая вульпка
-    .desc = Она издаёт «йип!» и требует премию.
+    .desc = Она издаёт "йип!" и требует премию.
 
 
 ent-PlushieCorgi = плюшевый корги
@@ -6988,8 +6946,8 @@ ent-TeslaToy = плюшевый Тесла
     .desc = Любимая игрушка великого инженера.
 
 
-ent-BwoinkHammer = молоток «бвоинк»
-    .desc = Молот, издающий ужасный звук. Лишён души старого «бэнгаммера», но по-прежнему зловещ.
+ent-BwoinkHammer = молоток "бвоинк"
+    .desc = Молот, издающий ужасный звук. Лишён души старого "бэнгаммера", но по-прежнему зловещ.
 
 
 ent-NewtonCradle = маятник Ньютона
@@ -7071,7 +7029,7 @@ ent-MaterialHideCorgi = шкура корги
 
 ent-MaterialPyrotton = пироттон
 
-ent-MaterialWebSilk = шелк
+ent-MaterialWebSilk = паутина
     .desc = Липкий материал из паутины.
 
 
@@ -7093,7 +7051,7 @@ ent-Coal = уголь
 
 ent-SaltOre = соль
 
-ent-BluespaceOre = блюспейс-руда
+ent-BluespaceOre = загадочная руда
 
 ent-NormalityOre = руда нормальности
 
@@ -7419,12 +7377,12 @@ ent-ShadowkinShadow = пелена Теневиков
 ent-ShadowKudzuTemp = угасающая пелена
 
 
-ent-BluespaceCapacitorStockPart = блюспейс-конденсатор
-    .desc = Использует блюспейс-технологии для обеспечения высокой ёмкости.
+ent-BluespaceCapacitorStockPart = вместительный конденсатор
+    .desc = Использует нанотехнологии для обеспечения высокой ёмкости.
 
 
-ent-BluespaceManipulatorStockPart = блюспейс-манипулятор
-    .desc = Манипулятор, способный работать вне времени и пространства. Почти.
+ent-BluespaceManipulatorStockPart = вместительный манипулятор
+    .desc = Манипулятор, способный работать в стазисе. Почти.
 
 
 ent-MailCapsulePrimed = почтовая капсула
@@ -7444,44 +7402,8 @@ ent-VariantCubeBox = коробка смешанных кубов
 ent-KoboldCubeWrapped = кобольдокуб
     .desc = Распакуйте, чтобы получить куб-кобольда.
 
-
-ent-PaperScrap = скомканная бумага
-    .desc = Кто-то попытался выкинуть мысли из головы и из корзины одновременно.
-
-
-ent-PaperArtifactAnalyzer = распечатка анализатора артефактов
-    .desc = Отчёт какого-то забытого прибора. Шрифт «дискета 97».
-
-
-ent-PaperWrittenPunpunNote = записка
-    .desc = Листок бумаги, пропитанный ароматом бананов и рома — явно почерк Пун-Пуна.
-
-
-ent-LuxuryPen = роскошная ручка
-    .desc = Пишет маслом, стоит как шаттл. Идеальна для подписи о сокращении бюджета.
-
-
-ent-BoxFolderCentCom = папка ЦентКом
-    .desc = Жалкая кучка секретов, блестящая обложка и… пустые страницы?
-
-
-ent-BoxFolderClipboard = планшет-папка
-    .desc = Главное оружие фронтовика-бюрократа. Бьёт не больно, но унижает.
-
-
-ent-BoxFolderCentComClipboard = планшет ЦентКом
-    .desc = Зелёный бархат и позолота. Писать на нём грех, поэтому никто и не пишет.
-
-
-ent-BoxFolderQmClipboard = реквизиционный диги-борд
-    .desc = Электронный пыточный инструмент для финансов. Береги как зеницу кассы!
-
-
 ent-PotatoAIChip = сверхкомпактный AI-чип
     .desc = Требует ровно 1,1 В. На 1,2 В превращается в пюре.
-
-
-ent-RubberStampDetective = штамп детектива
 
 
 ent-Spaceshroom = космогриб
@@ -7695,92 +7617,6 @@ ent-GroundCannabisRainbow = молотый радужный каннабис
     .desc = Время путешествия по радуге!
 
 
-ent-MeatwheatSeeds = пакет мясопшеницы
-    .desc = Хочешь свести вегетарианца с ума? Вот твой шанс.
-
-
-ent-MimanaSeeds = пакет семян миманы
-
-ent-LaughinPeaSeeds = пакет гороха-хохотуна
-    .desc = Семена мягко светятся фиолетовым. Выростет горох-хохотун.
-
-
-ent-LemoonSeeds = пакет лимунных семян
-
-ent-ExtradimensionalOrangeSeeds = пакет внеземных апельсиновых семян
-    .desc = Многогранные, будто из другого измерения.
-
-
-ent-PapercaneSeeds = пакет бумажного тростника
-
-
-ent-SteelcapSeeds = пакет спор стальной шляпки
-
-
-ent-BlueTomatoSeeds = пакет семян синих томатов
-
-ent-BloodTomatoSeeds = пакет семян кровавых томатов
-
-ent-GoldenAppleSeeds = пакет золотых яблок
-
-
-ent-RainbowCannabisSeeds = пакет семян радужной конопли
-    .desc = Вырастет радужная трава. Красочно... и крайне затягивает.
-
-
-ent-DeathNettleSeeds = пакет смертоносной крапивы
-    .desc = Только в очень толстых перчатках.
-
-
-ent-ChillySeeds = пакет ледяных семян
-    .desc = Холодно до ожога.
-
-
-ent-LilySeeds = пакет семян лилии
-    .desc = Превратятся в прекрасные лилии.
-
-
-ent-AmbrosiaDeusSeeds = пакет семян амброзии деус
-    .desc = Лечебное растение, достойное самих богов.
-
-
-ent-GlasstleSeeds = пакет семян стеклочертополоха
-    .desc = Как шрамы от мрачных снов.
-
-
-ent-SpacemansTrumpetSeeds = пакет семян «трубы астронавта»
-
-ent-KoibeanSeeds = пакет семян коибобов
-
-
-ent-HolymelonSeeds = пакет семян святого арбуза
-
-ent-CocoaSeeds = пакет какао-бобов
-
-ent-BerrySeeds = пакет ягодных семян
-
-
-ent-BungoSeeds = пакет семян бунго
-    .desc = Только не глотай косточки.
-
-
-ent-WorldPeaSeeds = пакет мирового гороха
-    .desc = Крупные, светятся успокаивающим синим.
-
-
-ent-PumpkinSeeds = пакет тыквенных семян
-
-ent-CottonSeeds = пакет хлопковых семян
-
-ent-PyrottonSeeds = пакет пироттона
-
-ent-RealCapfruitSeeds = пакет семян капфрута
-    .desc = Настоящий? Подделка? Решай сам.
-
-
-ent-CherrySeeds = пакет вишнёвых семян
-
-
 ent-SoapletSyndie = мылок
     .desc = Маленький кусочек синдикатовского мыла. Но проблем с ним — как с целым бруском.
 
@@ -7802,7 +7638,7 @@ ent-BoxSoapsAssorted = набор ароматного мыла
 
 
 ent-BoxSoapsAssortedOmega = набор ароматного мыла
-    .desc = Коробочка с мылом из блюспейса. Аромат за гранью.
+    .desc = Коробочка с научным мылом. Аромат за гранью.
 
 
 ent-BoxBuildABuddyHuman = набор «Собери-друга»
@@ -7824,14 +7660,6 @@ ent-BoxBuildABuddyVulpkanin = набор «Собери-друга»
 ent-DelayedSmoke = отложенный дым
 
 ent-DelayedEMP = отложенный ЭМИ (7 метров)
-
-
-ent-SyringeCognizine = шприц с когнизином
-
-ent-SyringeOpporozidone = шприц с оппорозидоном
-
-
-ent-NecrosolChemistryBottle = бутылка некрозола
 
 
 ent-DrinkPremiumVodkaBottleFull = бутылка водки «Момент Ясности»
@@ -7880,15 +7708,15 @@ ent-PaperMailNFEMPPreparedness = форма готовности к ЭМИ
 ent-PaperMailNFBuildABuddy = письмо об усыновлении «Собери-друга»
 
 
-ent-MechVim = Вим
+ent-MechVim = Vim
     .desc = Миниатюрный мех от Nanotrasen, созданный, чтобы продлить жизнь незаменимым питомцам станции.
 
 
-ent-VimHarness = крепление Вим
+ent-VimHarness = крепление Vim
     .desc = Маленькое монтажное основание для деталей Vim.
 
 
-ent-VimChassis = каркас Вим
+ent-VimChassis = каркас Vim
     .desc = В процессе сборки миниатюрного экзокостюма Vim.
 
 
@@ -7920,17 +7748,6 @@ ent-HealingToolbox = лечебный ящик с инструментами
     .desc = Заряжен исцеляющей энергией. Лечит раны и вдохновляет на убийства.
 
 
-ent-SyringeSigynate = шприц с сигинатом
-
-ent-SyringeEthylredoxrazine = шприц с этилредоксразином
-
-ent-SyringePhalanximine = шприц с фаланксамином
-
-ent-SyringeSaline = шприц с физиораствором
-
-ent-SyringeStimulants = шприц со стимуляторами
-
-
 ent-HandheldHealthAnalyzerUnpowered = медсканер
     .desc = Ручной сканер для чтения жизненных показателей.
 
@@ -7940,7 +7757,7 @@ ent-BorgHypo = боргоспрей
 
 
 ent-AdminHypo = экспериментальный гипоспрей
-    .desc = Абсолют величия блюспейс-инъекций. Инстант всё.
+    .desc = Абсолют величия инъекций. Инстант всё.
 
 
 ent-BruteAutoInjector = автоинъектор от ударов
@@ -8231,7 +8048,7 @@ ent-Lantern = фонарь
     .desc = Святой свет осветит путь... если не сядет батарейка.
 
 
-ent-FlippoEngravedLighter = гравированная зажигалка «Флиппо»
+ent-FlippoEngravedLighter = гравированная зажигалка Flippo
     .desc = Золотая зажигалка с гравировкой. Тактической пользы — ноль, понтов — максимум.
 
 
@@ -8404,7 +8221,7 @@ ent-MagazineMagnumShrapnel = пистолетный магазин (.45 магн
 
 ent-MagazineMagnumSubMachineGunEmpty = магазин «Vector» (.45 магнум, любой)
 
-ent-MagazinePistolSubMachineGunTopMountedEmpty = магазин «WT550» (.35 авто, любой)
+ent-MagazinePistolSubMachineGunTopMountedEmpty = магазин WT550 (.35 авто, любой)
 
 
 ent-MagazinePistolEmpty = пистолетный магазин (.35 авто, любой)
@@ -8495,7 +8312,7 @@ ent-WeaponPulsePistolCaptain = капитанский импульсный пи�
 
 
 ent-WeaponCivilianDisabler = гражданский дезактиватор
-    .desc = Прототип дезактиватора, адаптированный для гражданской самообороны. Ослаблен до состояния «никто не пострадает», поэтому лицензия не требуется.
+    .desc = Прототип дезактиватора, адаптированный для гражданской самообороны. Ослаблен до состояния "никто не пострадает", поэтому лицензия не требуется.
 
 
 ent-WeaponCCDisabler = дезактиватор ЦентКома
@@ -8543,7 +8360,7 @@ ent-BulletEnergyGunMagnum = магнум-заряд
 ent-BulletEnergyGunIon = ионный заряд
 
 
-ent-WeaponRifleFoam = «Пена-Форс Астро-Эйс»
+ent-WeaponRifleFoam = Foam Force Astro Ace
     .desc = Премиум-пеномёт высшего качества. Пластик прочен, механизм надёжен. Как игрушка, только убойная.
 
 
@@ -8551,13 +8368,12 @@ ent-BaseWeaponShotgunSmall = малый дробовик
     .desc = Пиу-пиу для маленьких, но злобных.
 
 
-ent-WeaponSubMachineGunWt550HoS = антикварный «WT550»
+ent-WeaponSubMachineGunWt550HoS = антикварный WT550
     .desc = Гордость главы СБ. На рукояти выгравированы 24 звезды вокруг пылающего факела, а на стволе засохла кровь...
 
 
 ent-BaseWeaponBallisticTurret = баллистическая турель
     .desc = Автоматическая турель с пулемётом.
-    .suffix = НаноТрейзен
 
 
 ent-BaseWeaponTurretMinigun = турель с миниганом
@@ -8578,7 +8394,6 @@ ent-WeaponEnergyTurretAI = ИИ-турель
 
 ent-WeaponBaguette = багет
     .desc = Bon appétit! Хрустящий, но опасный.
-    .suffix = Оружие
 
 
 ent-IncompleteBaseBallBat = недособранная бита
@@ -8659,7 +8474,7 @@ ent-BaseBarricade = деревянная баррикада
     .desc = Сделана из досок. Похоже, выдержит несколько хороших ударов.
 
 
-ent-CryogenicSleepUnit = капсула криосна
+ent-CryogenicSleepUnit = криогенный капсул
     .desc = Сверхохлаждённый контейнер для безопасной перевозки спящих товарищей.
 
 
@@ -8901,7 +8716,7 @@ ent-BaseSecretDoor = обычная стена
 
 
 ent-BlastDoorFrame = каркас бронированной двери
-    .desc = Также с надписью «BLAST DONGER». Кто это пишет?
+    .desc = Также с надписью "BLAST DONGER". Кто это пишет?
 
 
 ent-WindoorAssemblyClockwork = сборка часовой стеклодвери
@@ -8946,7 +8761,7 @@ ent-WindoorSecureUranium = укреплённая урановая стекло�
     .desc = Настолько неоново-зелёная, что кажется, будто пахнет лаймом. Не нюхай.
 
 
-ent-WebBed = кровать из паутины
+ent-WebBed = паутина-кровать
     .desc = Попался. Ты теперь мебель.
 
 
@@ -8982,14 +8797,14 @@ ent-WoodenBench = деревянная скамейка
 
 
 ent-Shower = душ
-    .desc = Душ с блюспейс-водой. Освежит даже в вакууме.
+    .desc = Душ с обычной водой. Освежит даже в темноте.
 
 
 ent-TableBrass = латунный стол
     .desc = Блестит и не ржавеет. Чистый стимпанк.
 
 
-ent-TableWeb = стол из паутины
+ent-TableWeb = паутинный стол
     .desc = Удивительно гладкий и прочный. Пауки знают толк в дизайне.
 
 
@@ -9080,10 +8895,6 @@ ent-CircuitImprinterHyperConvection = гиперконвекционный пр�
     .desc = Даёт жару — и платы! Медленно, но дёшево.
 
 
-ent-Biofabricator = биофабрикатор
-    .desc = Превращает биомассу в кубики животных. Приятного аппетита?
-
-
 ent-OreProcessorIndustrial = промышленный рудопереработчик
     .desc = Для тех, кто перерабатывает тонны. Мало не покажется.
 
@@ -9109,7 +8920,7 @@ ent-SmartFridge = умный холодильник
     .desc = Хранит вещи холодными и свежими. В отличие от вас после 12-часовой смены.
 
 
-ent-VendingMachineDrGibb = Доктор Глибб
+ent-VendingMachineDrGibb = Dr. Gibb
     .desc = Взрыв вкусов в каждой банке. Иногда — буквальный.
 
 
@@ -9237,19 +9048,19 @@ ent-TeslaGenerator = генератор Теслы
 
 ent-ShuttleGunBase = орудие шаттла
 
-ent-ShuttleGunSvalinnMachineGun = ЛСЕ-400с «Свалинн»
+ent-ShuttleGunSvalinnMachineGun = LSE-400c "Svalinn"
     .desc = Базовый стационарный лазер. Эффективен против живых целей и электроники. Использует обычные батареи, стреляет с бешеной скоростью.
 
 
-ent-ShuttleGunPerforator = ЛСЕ-1200с «Перфоратор»
+ent-ShuttleGunPerforator = LSE-1200c "Perforator"
     .desc = Продвинутый стационарный лазер. Уничтожает электронику и крайне опасен для здоровья! Требует силовую батарею.
 
 
-ent-ShuttleGunFriendship = ЭКСП-320г «Дружба»
+ent-ShuttleGunFriendship = EXP-320g "Friendship"
     .desc = Маленький стационарный гранатомёт на 2 гранаты. Дружелюбен... по названию.
 
 
-ent-ShuttleGunDuster = ЭКСП-2100г «Дастер»
+ent-ShuttleGunDuster = EXP-2100g "Duster"
     .desc = Мощный стационарный гранатомёт. Требует специальный боезапас.
 
 
@@ -9257,7 +9068,7 @@ ent-ShuttleGunPirateCannon = пиратская пушка
     .desc = Бум! А потом тишина и дым.
 
 
-ent-ShuttleGunKinetic = РТК-800 «Дематериализатор материи»
+ent-ShuttleGunKinetic = PTK-800 "Matter Dematerializer"
     .desc = Турель для горнодобычи. Копит заряд сама, отлично справляется с астероидами.
 
 
@@ -9275,7 +9086,7 @@ ent-BarberSignPole = барбер-пол
     .desc = Гипнотизирует. Крутится — и манит.
 
 
-ent-BarberSignThesnip = «Щелк»
+ent-BarberSignThesnip = "Щелк"
     .desc = Надеемся, это не медицинская практика...
 
 
@@ -9457,7 +9268,7 @@ ent-GlassBox = стеклянная витрина
 
 
 ent-GlassBoxFrame = каркас стеклянной витрины
-    .desc = Остов витрины без стекла. Как будто кричит: «Укради меня!»
+    .desc = Остов витрины без стекла. Как будто кричит: "Укради меня!"
 
 
 ent-GlassBoxBroken = разбитая витрина
@@ -9542,7 +9353,7 @@ ent-LockerSyndicateAgentLocker = шкаф агента Синдиката
     .desc = Личное хранилище снаряжения для агентов.
 
 
-ent-LockerBluespaceStation = блюспейс-шкаф
+ent-LockerBluespaceStation = вместительный шкаф
     .desc = Продвинутая технология хранения. Почти магия.
 
 
@@ -9577,24 +9388,24 @@ ent-SignClinic = вывеска клиники
     .desc = Табличка клиники. Надеемся, у них есть лекарства.
 
 
-ent-SignOpen1 = вывеска «открыто»
+ent-SignOpen1 = вывеска "открыто"
     .desc = Может быть, действительно открыто.
 
 
-ent-SignForRent = вывеска «сдаётся»
+ent-SignForRent = вывеска "сдаётся"
     .desc = Объявление о сдаче в аренду.
 
 
-ent-SignNotice = табличка «внимание»
+ent-SignNotice = табличка "внимание"
     .desc = ВНИМАНИЕ!
 
 
-ent-SignDanger2 = табличка «опасность»
+ent-SignDanger2 = табличка "опасность"
     .desc = Опасно. Не заходи. Или заходи — на свой страх и риск.
 
 
-ent-WallDecorExitsign = вывеска «выход»
-    .desc = Надпись «ВЫХОД». Наверное, туда идти.
+ent-WallDecorExitsign = вывеска "выход"
+    .desc = Надпись "ВЫХОД". Наверное, туда идти.
 
 
 ent-SignBazaarOn = вывеска базара
@@ -9605,15 +9416,15 @@ ent-SignHotel = вывеска отеля
     .desc = Табличка отеля. Снимай комнату, не стесняйся.
 
 
-ent-SignPrivateProperty = табличка «частная собственность»
+ent-SignPrivateProperty = табличка "частная собственность"
     .desc = Территория частная. Проход воспрещён.
 
 
-ent-SignOpenBig = большая вывеска «открыто»
+ent-SignOpenBig = большая вывеска "открыто"
     .desc = Мы открыты! Наверное…
 
 
-ent-SignWorkersOnly = табличка «только для персонала»
+ent-SignWorkersOnly = табличка "только для персонала"
     .desc = Посторонним вход воспрещён!
 
 
@@ -9703,32 +9514,16 @@ ent-ShelfChemistry = химическая полка
 
 
 ent-ShotGunCabinet = шкаф с дробовиком
-    .desc = Табличка гласит: «Только для экстренных случаев» с инструкцией безопасного использования. Ха-ха.
+    .desc = Табличка гласит: "Только для экстренных случаев" с инструкцией безопасного использования. Ха-ха.
 
 
-ent-StationMapBroken = карта станции
-    .desc = Виртуальная карта окружающей станции.
+ent-SignalSwitchDirectional = сигнальный переключатель
 
+ent-SignalButtonDirectional = сигнальная кнопка
 
-ent-StationMap = карта станции
-    .desc = Виртуальная карта окружающей станции.
-
-
-ent-StationMapAssembly = заготовка карты станции
-    .desc = Заготовка для карты станции.
-
-
-ent-SignalSwitchDirectional = направленный переключатель
-    .desc = Это переключатель логики устройств, до которого нельзя дотянуться с другой стороны стены.
-
-ent-SignalButtonDirectional = направленная кнопка
-    .desc = Это кнопка для активации чего-либо, до которой нельзя дотянуться с другой стороны стены.
-
-ent-ApcNetSwitchDirectional = направленный сетевой переключатель
-    .desc = Это переключатель, работающий с сетевыми устройствами, до которого нельзя дотянуться с другой стороны стены.
+ent-ApcNetSwitchDirectional = переключатель сети APC
 
 ent-LockableButton = блокируемая кнопка
-    .desc = Это кнопка, которая что-то активирует... но это „что-то“ требует доступа!
 
 ent-ButtonFrame = рамка для кнопки
     .desc = Помогает визуально отличать переключатели.
@@ -9756,8 +9551,8 @@ ent-CleanerDispenser = диспенсер чистящего средства
 
 ent-FuelDispenser = топливный диспенсер
 
-ent-BarSignSpacebucks = космобаксы
-    .desc = Даже в космосе от них не скрыться. Теперь мы зовём их «спессо».
+ent-BarSignSpacebucks = Спейсбакс
+    .desc = Даже в космосе от них не скрыться. Теперь мы зовём их «спесосы».
 
 
 ent-BarSignMaltroach = Мальтроач
@@ -9804,12 +9599,12 @@ ent-PosterContrabandEnlistGorlex = Запишись!
     .desc = Вступай в Горлекс! Увидь галактику, убей корпоратов, получи оплату!
 
 
-ent-PosterContrabandInterdyne = Интердьюна: Здоровье Человечества
-    .desc = Реклама клиник ГенЧистот. «Стань хозяином собственного тела!»
+ent-PosterContrabandInterdyne = Interdyne: Здоровье Человечества
+    .desc = Реклама клиник GeneClean. "Стань хозяином собственного тела!"
 
 
 ent-PosterContrabandWaffleCorp = Моё — Вафельное: Хорошее оружие по честной цене
-    .desc = Реклама старого оружия ВаффлеКорп. «Лучшее вооружение, ниже цена!»
+    .desc = Реклама старого оружия Waffle Corp. "Лучшее вооружение, ниже цена!"
 
 
 ent-PosterContrabandMissingSpacepen = Пропажа: Косморука
@@ -10218,7 +10013,7 @@ ent-ClothingHeadHelmetInsulated = изолирующий подшлемник
     .desc = Псионически изолирует голову носителя. Даёт небольшую защиту от физического урона.
 
 
-ent-ClothingHeadHatFezMantis = феска Мантиса
+ent-ClothingHeadHatFezMantis = феска Богомола
     .desc = Изящная красная феска с золотистой кисточкой.
 
 
@@ -10272,7 +10067,7 @@ ent-ClothingOuterArmorTouseiGusoku = тосэй-гусоку
     .desc = Современная реплика японских доспехов Нимай-до Гусоку.
 
 
-ent-ClothingOuterCoatMantis = куртка Мантиса
+ent-ClothingOuterCoatMantis = куртка Богомола
     .desc = Смоделирована по образцу древней армейской формы. Защитит от неизвестного в поисках истины.
 
 
@@ -10336,14 +10131,14 @@ ent-ClothingOuterWinterCoatMail = зимнее пальто почтальона
     .desc = Укроет от холода, но не от собак.
 
 
-ent-ClothingOuterWinterCoatMantis = зимнее пальто Мантиса
+ent-ClothingOuterWinterCoatMantis = зимнее пальто Богомола
     .desc = Расследуй «холодные» дела — и не мёрзни.
 
 
 ent-ClothingOuterWinterMystagogue = зимнее пальто мистагога
 
 
-ent-ClothingShoesBootsMantis = ботинки Мантиса
+ent-ClothingShoesBootsMantis = ботинки Богомола
     .desc = Мягкие, удобные и подходят для пересечённой местности.
 
 
@@ -10353,10 +10148,6 @@ ent-ClothingShoesGeta = сандалии гета
 
 ent-ClothingShoesWizardFake = ботинки волшебника
     .desc = Пара простых сандалий. Чудес не жди.
-
-
-ent-UniformJabroni = костюм жаброни
-    .desc = Для художников, перформансистов и прочих страдальцев сцены.
 
 
 ent-ClothingCostumeArcDress = белая рубашка и фиолетовая юбка
@@ -10376,47 +10167,16 @@ ent-UniformMaid = форма горничной
     .desc = Прямиком из Космической Франции!
 
 
-ent-ClothingCostumeBunnySuit = костюм зайки
-    .desc = В комплекте — чулки и бабочка. Готов к выходу.
+ent-ClothingCostumeMioSkirt = жёлтая юбка и розовое худи
+    .desc = Мягкая и уютная одежда с яркими цветами и аккуратным бантиком у шеи.
 
 
-ent-ClothingCostumeMioSkirt = жёлтая юбка и розовая худи
-    .desc = Мягкая и уютная одежда с яркими цветами и аккуратным бантиком у горла.
-
-
-ent-ClothingCostumeNaota = бирюзовая худи и шорты
-    .desc = Уютная худи с маленьким кармашком кенгуру.
+ent-ClothingCostumeNaota = бирюзовое худи и шорты
+    .desc = Уютное худи с маленьким кармашком кенгуру.
 
 
 ent-ClothingUniformRat = форма фаната крысиных королей
     .desc = Покажи преданность крысиному монарху и желание поджечь станцию — одновременно!
-
-
-ent-ClothingUniformDressRed = красное платье
-    .desc = Пышное и нарядное. Настоящее красное великолепие.
-
-
-ent-ClothingUniformSwimsuitBlue = синий купальник
-    .desc = Обтягивающий и обтекаемый — идеально для заплывов в баке с плазмой.
-
-    .desc = Готова к учёбе!
-
-
-ent-UniformSchoolgirlRed = красная форма школьницы
-
-ent-UniformSchoolgirlBlack = чёрная форма школьницы
-
-ent-UniformSchoolgirlBlue = синяя форма школьницы
-
-ent-UniformSchoolgirlCyan = бирюзовая форма школьницы
-
-ent-UniformSchoolgirlGreen = зелёная форма школьницы
-
-ent-UniformSchoolgirlOrange = оранжевая форма школьницы
-
-ent-UniformSchoolgirlPink = розовая форма школьницы
-
-ent-UniformSchoolgirlPurple = фиолетовая форма школьницы
 
 
 ent-ClothingUniformKendoHakama = хакама
@@ -10447,20 +10207,8 @@ ent-ClothingKimonoGreen = морской зелёный кимоно
     .desc = Цвета и текстуры, как у водорослей. Ммм...
 
 
-ent-UniformSchoolgirlDusk = школьная форма «сумерки»
-    .desc = Современная мода для уставших учениц.
-
-
-ent-UniformSchoolgirlBlazerTan = школьная форма с бежевым пиджаком
-    .desc = Модная школьная форма с уютным бежевым пиджаком.
-
-
 ent-ClothingUniformSchoolGakuranBlack = форма гакуран
     .desc = Чёрная, строгая, стильная.
-
-
-ent-ClothingUniformMNKOfficeSkirt = офисная юбка MNK
-    .desc = Стиль от MNK, вписывающийся в дресс-код.
 
 
 ent-ClothingUniformMNKUnderGarment = нижнее бельё MNK
@@ -10471,16 +10219,8 @@ ent-ClothingUniformMNKGymBra = спортивный топ MNK
     .desc = Максимальная производительность благодаря потоотводящим тканям MNK.
 
 
-ent-ClothingUniformMNKDressBlack = чёрное платье MNK
-    .desc = Элегантное чёрное платье с фирменным «окном» MNK.
-
-
 ent-ClothingUniformMNKBlackOveralls = чёрный комбинезон MNK
     .desc = Удобная рубашка под плотным комбинезоном.
-
-
-ent-ClothingUniformMNKBlackShoulder = чёрное платье с открытыми плечами MNK
-    .desc = Откровенно и стильно. MNK знает толк.
 
 
 ent-ClothingUniformMNKTracksuitBlack = чёрный спортивный костюм MNK
@@ -10542,17 +10282,6 @@ ent-ClothingUniformJumpsuitSecSummer = летняя форма СБ
 ent-ClothingUniformJumpsuitExplorer = форма исследователя
     .desc = Грубоватый комбинезон для тех, кто шагает по звёздам.
 
-ent-ClothingUniformJumpsuitExplorerDeltaV = серая форма исследователя
-    .desc = Грубоватый комбинезон в сером исполнении для тех, кто шагает по звёздам.
-
-ent-ClothingUniformSecurityTrooper = униформа солдата
-    .desc = Официальная униформа, выдаваемая солдатам НаноТрейзен, обычно прилагается к автомобилю.
-
-ent-ClothingEyesEyepatchHudTintedSecurity = тонированная защитная повязка на глаз
-    .desc = Самый крутой на вид родственник солнцезащитных очков c HUD.
-
-ent-ClothingUniformJumpskirtMusician = юбка музыканта
-    .desc = Модная юбка для тех, кто склонен к музыке. Идеально подходит для любого выступления в стиле лаунж!
 
 ent-ClothingOuterExplorerCoat = лабораторный халат исследователя
     .desc = Видно, что прошёл через многое.
@@ -10642,8 +10371,6 @@ ent-ArenaSpawner = спавнер арены
 
 ent-RandomItem = спавнер случайных предметов
 
-ent-SchoolgirlUniformSpawner = спавнер школьной формы
-
 
 ent-SalvageSeedSpawnerLow = спавнер семян (низкий уровень)
 
@@ -10657,7 +10384,7 @@ ent-MobTomatoKiller = помидор убийца
 
 
 ent-MobGiantSpiderVampire = онирофаг
-    .desc = Паук-«пожиратель снов», по слухам, один из возможных генетических прародителей арахн.
+    .desc = Паук-"пожиратель снов", по слухам, один из возможных генетических прародителей арахн.
 
 
 ent-MobGiantSpiderVampireAngry = онирофаг
@@ -10861,7 +10588,7 @@ ent-FoodMothOatStew = овсяное рагу
     .desc = Сытное блюдо из овсянки, сладкого картофеля и зимних овощей. Обнимет изнутри.
 
 
-ent-FoodMothHeartburnSoup = «изжоговый» суп
+ent-FoodMothHeartburnSoup = "изжоговый" суп
     .desc = Назван в честь розового цвета и остроты, которую ты точно не забудешь.
 
 
@@ -10890,7 +10617,7 @@ ent-FoodMothCheesecakeBalls = шарики чизкейка
 
 
 ent-FoodMothMothmallow = лоток мотыльковых маршмеллоу
-    .desc = Лёгкие и пушистые веганские зефирки с ванилью и ромом. У мотыльков зовутся «облачными квадратиками».
+    .desc = Лёгкие и пушистые веганские зефирки с ванилью и ромом. У мотыльков зовутся "облачными квадратиками".
 
 
 ent-FoodMothMothmallowSlice = кусочек мотылькового маршмеллоу
@@ -10917,11 +10644,11 @@ ent-FoodMothPizzaFirecrackerSlice = кусок пиццы-фейерверка
     .desc = Жгучая, но неожиданно приятная. Осторожно, прилипает к сердцу.
 
 
-ent-FoodMothPizzaFiveCheese = пицца «пять сыров»
+ent-FoodMothPizzaFiveCheese = пицца "пять сыров"
     .desc = Вечный вопрос: сколько сыра — это слишком много сыра?
 
 
-ent-FoodMothPizzaFiveCheeseSlice = кусок пиццы «пять сыров»
+ent-FoodMothPizzaFiveCheeseSlice = кусок пиццы "пять сыров"
     .desc = Самый сырный кусок во всей галактике!
 
 
@@ -10973,7 +10700,7 @@ ent-MailCarrierIDCard = удостоверение курьера
 
 ent-MartialArtistIDCard = удостоверение бойца
 
-ent-ForensicMantisIDCard = удостоверение мантиса-криминалиста
+ent-ForensicMantisIDCard = удостоверение богомола-криминалиста
 
 
 ent-Rickenbacker4003Instrument = Rickenbacker
@@ -11000,7 +10727,7 @@ ent-HideMothroach = кожа мольтараканa
     .desc = Тонкий слой хитина мольтараканьей шкуры. Идеален для модных экспериментов.
 
 
-ent-RubberStampMantis = печать мантиса
+ent-RubberStampMantis = печать богомола
     .desc = Бронзовая печать для официальных бумаг. Да, он ещё верит в бумажную бюрократию.
 
 
@@ -11030,14 +10757,11 @@ ent-ColoredLightTubeFrostyBlue = морозно-синяя люминесцен�
 
 
 ent-ColoredLightTubeBlackLight = ультрафиолетовая люминесцентная трубка
-    .desc = Светит... ну как сказать... «чёрным». Лучше не смотреть, что она высветит.
+    .desc = Светит... ну как сказать... "чёрным". Лучше не смотреть, что она высветит.
 
 
 ent-LightBulbMaintenanceRed = красная лампа накаливания
     .desc = Тусклая лампа, светящаяся зловещим алым. Романтика допросной.
-
-
-ent-MercuryChemistryBottle = бутылочка с ртутью
 
 
 ent-BaseAmphora = амфора
@@ -11048,23 +10772,8 @@ ent-BibleMystagogue = книга тайн
     .desc = Священное писание мистагога. В нём больше вопросов, чем ответов.
 
 
-ent-KillerTomatoSeeds = пакет семян убийственного томата
-
-
 ent-MailBag = почтовая сумка
     .desc = Вот и почта! Вот она вся!
-
-
-ent-PillMindbreakerToxin = таблетка с токсином разума
-    .desc = Блокирует пси-способности. Немного ядовита. Не перепутай с витаминами.
-
-
-ent-PillCryptobiolin = таблетка криптобиолина
-    .desc = Долгодействующее средство, слегка путает сознание, но отлично защищает от пси-воздействий.
-
-
-ent-PillChloralHydrate = таблетка хлоралгидрата
-    .desc = Мощнейшее снотворное. Работает даже на самых болтливых.
 
 
 ent-Hairball = комок шерсти
@@ -11078,19 +10787,19 @@ ent-FishLabeler = метка для рыб
 ent-ShellSoulbreaker = патрон (.50 душелом)
 
 
-ent-BaseMagazineUniversalMagnum = магазин «Универсал» Mk32 (.45 магнум)
+ent-BaseMagazineUniversalMagnum = магазин "Универсал" Mk32 (.45 магнум)
 
-ent-MagazineUniversalMagnumEmpty = магазин «Универсал» Mk32 (.45 магнум, пустой)
+ent-MagazineUniversalMagnumEmpty = магазин "Универсал" Mk32 (.45 магнум, пустой)
 
-ent-MagazineUniversalMagnum = магазин «Универсал» Mk32 (.45 магнум, боевой)
+ent-MagazineUniversalMagnum = магазин "Универсал" Mk32 (.45 магнум, боевой)
 
-ent-MagazineUniversalMagnumPractice = магазин «Универсал» Mk32 (.45 магнум, учебный)
+ent-MagazineUniversalMagnumPractice = магазин "Универсал" Mk32 (.45 магнум, учебный)
 
-ent-MagazineUniversalMagnumIncendiary = магазин «Универсал» Mk32 (.45 магнум, зажигательный)
+ent-MagazineUniversalMagnumIncendiary = магазин "Универсал" Mk32 (.45 магнум, зажигательный)
 
-ent-MagazineUniversalMagnumUranium = магазин «Универсал» Mk32 (.45 магнум, урановый)
+ent-MagazineUniversalMagnumUranium = магазин "Универсал" Mk32 (.45 магнум, урановый)
 
-ent-MagazineUniversalMagnumShrapnel = магазин «Универсал» Mk32 (.45 магнум, шрапнель)
+ent-MagazineUniversalMagnumShrapnel = магазин "Универсал" Mk32 (.45 магнум, шрапнель)
 
 
 ent-MagazineLightRifleMarkOneEmpty = обойма винтовки Mark I (.30, пустая)
@@ -11101,11 +10810,11 @@ ent-MagazineLightRifleMarkOne = обойма винтовки Mark I (.30, за�
 ent-PelletShotgunSoulbreaker = дробь (.50 «Раздушитель»)
 
 
-ent-WeaponSniperGrand = винтовка «Марк 1»
+ent-WeaponSniperGrand = винтовка Mark 1
     .desc = Тяжёлая, надёжная полуавтоматическая винтовка, построенная по мотивам векового оружия. Использует патроны калибра .30.
 
 
-ent-WeaponSniperCeremonial = церемониальная винтовка «Марк 1»
+ent-WeaponSniperCeremonial = церемониальная винтовка
     .desc = Церемониальный вариант винтовки Mark 1, окрашенный в изящные сине-белые тона. Использует патроны калибра .30.
 
 
@@ -11229,7 +10938,7 @@ ent-SophicScribe = София
     .desc = Свежие новости из ноосферы!
 
 
-ent-LockerForensicMantis = шкаф Мантиса
+ent-LockerForensicMantis = шкаф Богомола
     .desc = Никогда не узнаешь, что внутри, пока не обрушишь квантовую суперпозицию всех возможных тайн.
 
 
@@ -11246,11 +10955,11 @@ ent-PaintingMothBigCatch = Большой улов
 
 
 ent-PosterContrabandSaucerNumberOne = Летающая тарелка №1!
-    .desc = Из всех станций в юрисдикции NyanoTrasen, «Тарелка» заняла почётное первое место из пяти! Поздравляем!
+    .desc = Из всех станций в юрисдикции NyanoTrasen, "Тарелка" заняла почётное первое место из пяти! Поздравляем!
 
 
 ent-PosterContrabandBreadLies = Ложь о хлебе
-    .desc = Вас обманули. «Большого Хлеба» не существует. Он не реален. Перестаньте его искать.
+    .desc = Вас обманули. "Большого Хлеба" не существует. Он не реален. Перестаньте его искать.
 
 
 ent-PosterContrabandAyaya = Айяйяяя!
@@ -11531,9 +11240,9 @@ ent-BaseComputerModularCircuitBoard = плата модульного компь
 
 ent-UnburnedDiskPrototype = прототип незаписанного диска
 
-ent-CrewMonitorDiskPrototype = диск «Мониторинг экипажа»
+ent-CrewMonitorDiskPrototype = диск "Мониторинг экипажа"
 
-ent-CommunicationsConsoleDiskPrototype = диск «Консоль связи»
+ent-CommunicationsConsoleDiskPrototype = диск "Консоль связи"
 
 ent-DiskBurner = дисковый прожигатель
     .desc = Устройство, записывающее программу с компьютерной платы на диск.
@@ -11552,16 +11261,14 @@ ent-YukonTurtleSkirt = форма повстанца с Юкона
 
 ent-ClothingHeadHatSeniorTrooper = фуражка старшего бойца
     .desc = Парадная фуражка бойцов NanoTrasen. К ней шёл кейс… который вы, конечно же, потеряли.
-ent-ClothingHeadHatSecurityTrooper = фуражка бойца
-    .desc = Парадная фуражка бойцов NanoTrasen. К ней шёл кейс… который вы, конечно же, потеряли.
+
 
 ent-ClothingUniformJumpsuitSeniorTrooper = форма старшего бойца
     .desc = Официальная форма бойцов NanoTrasen. Обычно выдают с машиной.
 
 
-ent-WeaponSubMachineGunBRDIR25BSO = «BRDI R-25»
-    .desc = Знаменитое оружие Иностранного Легиона Республики Бисель. Перекрашено для офицеров Синего Щита.
-    .suffix = Автомат
+ent-WeaponSubMachineGunBRDIR25BSO = BRDI R-25
+    .desc = Знаменитое оружие Иностранного Легиона Республики Бисель. Перекрашено для офицеров BlueShield.
 
 
 ent-XelthiaRegenerateAction = Отрастить руки
@@ -11650,32 +11357,24 @@ ent-FieldSurgeryKit = полевой хирургический набор
 ent-BasePassport = паспорт
     .desc = Удостоверяет личность и гражданство владельца.
 
-ent-BieselPassport = паспорт Республики Бисель
-    .desc = { ent-BasePassport.desc }
 
-ent-SolPassport = паспорт Солнечного Альянса
-    .desc = { ent-BasePassport.desc }
+ent-BieselPassport = паспорт Республики Бисель
+
+ent-SolPassport = паспорт Соларианского Альянса
 
 ent-ElyranPassport = паспорт Республики Элира
-    .desc = { ent-BasePassport.desc }
 
 ent-ValyrianPassport = паспорт Валира-4б
-    .desc = { ent-BasePassport.desc }
 
 ent-NederlandicPassport = паспорт Новых Нидерландов
-    .desc = { ent-BasePassport.desc }
 
 ent-IzweskiPassport = паспорт Гегемонии Извески
-    .desc = { ent-BasePassport.desc }
 
 ent-AdhomaiPassport = паспорт Народной Республики Адхомай
-    .desc = { ent-BasePassport.desc }
 
 ent-GoldenDeepPassport = паспорт Золотой Глубины
-    .desc = { ent-BasePassport.desc }
 
 ent-QiimaeruPassport = паспорт Киимаэру
-    .desc = { ent-BasePassport.desc }
 
 
 ent-BaseClothingRadio = радиокоммуникатор
@@ -11685,107 +11384,107 @@ ent-ClothingBeltMilitaryWebbingCMOFilled = подсумок главврача
     .desc = Медицинский разгрузочный жилет с глубокими карманами. Для профессионалов и полевых медиков.
 
 
-ent-ClothingBeltTCAFWebbing = подсумок ВС ТЦ
+ent-ClothingBeltTCAFWebbing = подсумок TCAF
     .desc = Подходит для боекомплекта, снаряжения и всего, что пригодится в бою.
 
 
-ent-ClothingHandsGlovesCombatTCAF = боевые перчатки ВС ТЦ
+ent-ClothingHandsGlovesCombatTCAF = боевые перчатки TCAF
     .desc = Тактические перчатки древнего соларианского образца, по-прежнему в ходу у армии Биселя.
 
 
-ent-ClothingHeadHelmetHardsuitTCFLTacsuit = шлем тактикостюма ИЛ ТЦ
-    .desc = Современный шлем, используемый в комплекте с тактикостюмом ИЛ ТЦ.
+ent-ClothingHeadHelmetHardsuitTCFLTacsuit = шлем тактикостюма TCFL
+    .desc = Современный шлем, используемый в комплекте с тактикостюмом TCFL.
 
 
-ent-ClothingHeadHelmetTCFLHeavy = тяжёлый тактический шлем ИЛ ТЦ
-    .desc = Оснащён лицевым щитком из баллистического полимера. Оборудование ИЛ ТЦ часто представляет собой переработку соларианского вооружения.
+ent-ClothingHeadHelmetTCFLHeavy = тяжёлый тактический шлем TCFL
+    .desc = Оснащён лицевым щитком из баллистического полимера. Оборудование TCFL часто представляет собой переработку соларианского вооружения.
 
 
-ent-ClothingHeadHelmetTCFLNoVisor = лёгкий шлем ВС ТЦ
+ent-ClothingHeadHelmetTCFLNoVisor = лёгкий шлем TCAF
     .desc = Базовый шлем, выдаваемый солдатам Армии Тау Кита.
 
 
-ent-ClothingHeadHelmetTCFLVisor = лёгкий шлем ВС ТЦ с визором
+ent-ClothingHeadHelmetTCFLVisor = лёгкий шлем TCAF с визором
     .desc = Базовый шлем, выдаваемый солдатам Армии Тау Кита.
 
 
-ent-ClothingHeadHatTCAFBeretDress = парадный берет ВС ТЦ
+ent-ClothingHeadHatTCAFBeretDress = парадный берет TCAF
     .desc = Парадный берет действующих и бывших военных Тау Кита.
 
 
-ent-ClothingHeadHatTCAFBeretField = полевой берет ВС ТЦ
+ent-ClothingHeadHatTCAFBeretField = полевой берет TCAF
     .desc = Полевой берет для военнослужащих Армии Тау Кита.
 
 
-ent-ClothingHeadHatTCFLBeretDress = парадный берет ИЛ ТЦ
+ent-ClothingHeadHatTCFLBeretDress = парадный берет TCFL
     .desc = Парадный берет Иностранного Легиона Тау Кита. Часто встречается в барах по всему Орионскому Клинку.
 
 
-ent-ClothingHeadHatTCFLBeretField = полевой берет ИЛ ТЦ
-    .desc = Полевой берет для легионеров ИЛ ТЦ. Часто встречается в барах по всему Орионскому Клинку.
+ent-ClothingHeadHatTCFLBeretField = полевой берет TCFL
+    .desc = Полевой берет для легионеров TCFL. Часто встречается в барах по всему Орионскому Клинку.
 
 
-ent-ClothingHeadHatTCFLBeretSentinel = берет стража ИЛ ТЦ
+ent-ClothingHeadHatTCFLBeretSentinel = берет стража TCFL
     .desc = Парадный берет элитных легионеров Иностранного Легиона Тау Кита.
 
 
-ent-ClothingHeadHatTCFLSoftCap = мягкая фуражка ИЛ ТЦ
-    .desc = Тёплая шерстяная шапка легионера ИЛ ТЦ.
+ent-ClothingHeadHatTCFLSoftCap = мягкая фуражка TCFL
+    .desc = Тёплая шерстяная шапка легионера TCFL.
 
 
-ent-ClothingOuterHardsuitTCFL = тактикостюм ИЛ ТЦ
-    .desc = Стандартная броня для флота Солнечного альянса. Снаружи — полимерный костюм с пластитановой плитой, внутри — бирка: «Производитель: „Вооружение Киберсан“. Только для Соларианцев».
+ent-ClothingOuterHardsuitTCFL = тактикостюм TCFL
+    .desc = Стандартная броня для морпехов Солариан. Снаружи — полимерный костюм с пластитановой плитой, внутри — лейбл "Произведено CyberSun Armaments. Только для солариан".
 
 
-ent-ClothingOuterArmorTCFLHeavy = тяжёлая броня ВС ТЦ
+ent-ClothingOuterArmorTCFLHeavy = тяжёлая броня TCAF
     .desc = Массивная броня, используемая Армией Тау Кита. Раньше принадлежала Соларианскому Альянсу, теперь производится локальными компаниями.
 
 
-ent-ClothingOuterArmorTCFLLight = бронежилет ВС ТЦ
+ent-ClothingOuterArmorTCFLLight = бронежилет TCAF
     .desc = Стандартный бронежилет пехоты Армии Тау Кита.
 
 
-ent-ClothingOuterJacketTCAF = куртка ВС ТЦ
+ent-ClothingOuterJacketTCAF = куртка TCAF
     .desc = Качественная куртка из прочной и огнестойкой ткани. Носится действующими и бывшими военными.
 
 
-ent-ClothingUniformJumpsuitTCAFArmsman = форма армейца ВС ТЦ
+ent-ClothingUniformJumpsuitTCAFArmsman = форма армейца TCAF
     .desc = Униформа для солдат и ветеранов Тау Кита.
 
 
-ent-ClothingUniformJumpsuitTCFLLegate = форма легата ИЛ ТЦ
+ent-ClothingUniformJumpsuitTCFLLegate = форма легата TCFL
     .desc = Официальная форма для офицеров Иностранного Легиона.
 
 
-ent-ClothingUniformJumpsuitTCFLPilot = форма пилота ИЛ ТЦ
+ent-ClothingUniformJumpsuitTCFLPilot = форма пилота TCFL
     .desc = Униформа лётного состава Легиона.
 
 
-ent-ClothingUniformJumpsuitTCFLSentinel = форма стража ИЛ ТЦ
+ent-ClothingUniformJumpsuitTCFLSentinel = форма стража TCFL
     .desc = Униформа унтер-офицеров Легиона.
 
 
-ent-ClothingUniformJumpsuitTCFLVolunteer = форма добровольца ИЛ ТЦ
-    .desc = Униформа для рядового состава ИЛ ТЦ. Этот добровольческий корпус принимает всех — вне зависимости от расы и убеждений.
+ent-ClothingUniformJumpsuitTCFLVolunteer = форма добровольца TCFL
+    .desc = Униформа для рядового состава TCFL. Этот добровольческий корпус принимает всех — вне зависимости от расы и убеждений.
 
 
-ent-ClothingModsuitTCFLLegionnaire = контроллер модсьюта «Легионер» ИЛ ТЦ
-    .desc = Основной модуль управления модсьютом ИЛ ТЦ. Обычно надевается офицерами Легиона.
+ent-ClothingModsuitTCFLLegionnaire = контроллер модсьюта "Легионер" TCFL
+    .desc = Основной модуль управления модсьютом TCFL. Обычно надевается офицерами Легиона.
 
 
-ent-ClothingModsuitGauntletsTCFLLegionnaire = перчатки модсьюта «Легионер» ИЛ ТЦ
+ent-ClothingModsuitGauntletsTCFLLegionnaire = перчатки модсьюта "Легионер" TCFL
     .desc = Перчатки, специально созданные для боевого модсьюта.
 
 
-ent-ClothingModsuitHelmetTCFLLegionnaire = шлем модсьюта «Легионер» ИЛ ТЦ
+ent-ClothingModsuitHelmetTCFLLegionnaire = шлем модсьюта "Легионер" TCFL
     .desc = Шлем последнего поколения от NanoTrasen, с встроенным HUD.
 
 
-ent-ClothingModsuitChestplateTCFLLegionnaire = кираса модсьюта «Легионер» ИЛ ТЦ
+ent-ClothingModsuitChestplateTCFLLegionnaire = кираса модсьюта "Легионер" TCFL
     .desc = Нагрудник со встроенными сервоприводами, уменьшающими нагрузку.
 
 
-ent-ClothingModsuitBootsTCFLLegionnaire = магобувь модсьюта «Легионер» ИЛ ТЦ
+ent-ClothingModsuitBootsTCFLLegionnaire = магобувь модсьюта "Легионер" TCFL
     .desc = Модульные магоботы, не замедляют носителя, пока костюм активен.
 
 
@@ -11802,7 +11501,7 @@ ent-ClothingUniformJumpsuitHydroponicsEOC = ново-Нидерландский 
 
 
 
-ent-ClothingUniformJumpsuitSecurityEOC = комбинезон СФК
+ent-ClothingUniformJumpsuitSecurityEOC = комбинезон СПК
     .desc = Стандартная униформа Союза Фермерских Кооперативов, выдаётся сотрудникам Восточно-Орионской Компании, охраняющим сельскохозяйственные активы и интересы.
 
 
@@ -11851,7 +11550,7 @@ ent-ClothingOuterArmorStandardHeavy = тяжёлая броня охраны
 
 
 ent-ClothingOuterArmorHoSHeavy = тяжёлая тактическая броня
-    .desc = Прочная броня для командного состава NT. Защищает и говорит всем: «я тут главный».
+    .desc = Прочная броня для командного состава NT. Защищает и говорит всем: "я тут главный".
 
 
 ent-ClothingUniformJumpsuitHephAtmos = комбинезон атмосферника «Гефеста»
@@ -11966,125 +11665,108 @@ ent-ClothingHeadHatSANNavyCapOfficerSenior = кепка старшего офи�
     .desc = Шапка тех, кто не просто приказывает — их слова вписывают в устав.
 
 
-ent-ClothingHeadHelmetSAN = тактический шлем ФСА
+ent-ClothingHeadHelmetSAN = тактический шлем SAN
     .desc = Почти неотличим от древнего шлема-салета. Теперь — сплав, из которого делают обшивку звёздных кораблей.
 
 
 ent-ClothingHeadHatSANWheelCap = инженерная кепка Солнечного флота
-    .desc = Её также называют «шапка механика». Обычно носится техниками в вооружённых силах ФСА.
+    .desc = Её также называют "шапка механика". Обычно носится техниками в вооружённых силах SAN.
 
 
-ent-ClothingOuterVestWebSAN = разгрузочный жилет ФСА
-    .desc = Стандартная броня флота Солнечного альянса. Дешёв всё, кроме брони — на ней не сэкономили. Внутри на бирке: «Производитель: „Вооружение Киберсан“. Только для Соларианцев».
+ent-ClothingOuterVestWebSAN = разгрузочный жилет SAN
+    .desc = Стандартная броня морпехов Солнечного флота. Дешёв всё, кроме брони — на ней не сэкономили. На внутренней подкладке: "Произведено CyberSun Armaments. Только для использования SAN."
 
 
-ent-ClothingUniformJumpsuitSolArmyService = униформа солдата армии Сол
+ent-ClothingUniformJumpsuitSolArmyService = униформа солдата армии Sol
     .desc = Стандартная форма службы для рядового состава. Почти не используется, уступая место полевому обмундированию.
-    .suffix = ФСА
 
 
-ent-ClothingUniformJumpsuitSolArmyServiceGeneral = униформа генерала армии Сол
+ent-ClothingUniformJumpsuitSolArmyServiceGeneral = униформа генерала армии Sol
     .desc = Форма службы генералов армии. В бою и на параде — одна и та же.
-    .suffix = ФСА
 
 
-ent-ClothingUniformJumpsuitSolArmyServiceOfficer = униформа офицера армии Сол
-    .desc = Униформа для офицеров сухопутных войск Сол.
-    .suffix = ФСА
+ent-ClothingUniformJumpsuitSolArmyServiceOfficer = униформа офицера армии Sol
+    .desc = Униформа для офицеров сухопутных войск Sol.
 
 
-ent-ClothingUniformJumpsuitSolFatigueGreen = зелёная униформа Сол
-    .desc = Униформа для «пушечного мяса» Сол. Земли-матери больше нет, но олива всё ещё помнится в броне.
-    .suffix = ФСА
+ent-ClothingUniformJumpsuitSolFatigueGreen = зелёный BDU Sol
+    .desc = Униформа для "пушечного мяса" Sol. Земли-матери больше нет, но олива всё ещё помнится в броне.
 
 
-ent-ClothingUniformJumpsuitSolFatigueGrey = серая униформа Сол
+ent-ClothingUniformJumpsuitSolFatigueGrey = серый BDU Sol
     .desc = Серый камуфляж для тех, кто хочет быть менее заметным даже в пустоте.
-    .suffix = ФСА
 
 
-ent-ClothingUniformJumpsuitSolFatigueIPC = полевая форма КПБ Сол
-    .desc = Исключение из ксенофобного правила: только синтетики допущены в армию ФСА. Заменят людей там, где мясорубка.
-    .suffix = ФСА
+ent-ClothingUniformJumpsuitSolFatigueIPC = полевая форма IPC Sol
+    .desc = Исключение из ксенофобного правила: только синтетики допущены в армию SAN. Заменят людей там, где мясорубка.
 
 
-ent-ClothingUniformJumpsuitSolFatigueTan = песочная униформа Сол
+ent-ClothingUniformJumpsuitSolFatigueTan = песочный BDU Sol
     .desc = Униформа для засушливых планет. Надёжен как пустыня — и столь же безжалостен.
-    .suffix = ФСА
 
 
-ent-ClothingUniformJumpsuitSolMarineDress = парадная форма морпеха Сол
-    .desc = Те самые «Синие мундиры». Надеваются только на церемонии… и похороны.
-    .suffix = ФСА
+ent-ClothingUniformJumpsuitSolMarineDress = парадная форма морпеха Sol
+    .desc = Те самые "Синие мундиры". Надеваются только на церемонии… и похороны.
 
 
 ent-ClothingUniformJumpsuitSolNavyCoveralls = технический комбинезон Солнечного флота
     .desc = Рабочая форма для экипажа. Мазут, пот и долг — три кита флотской службы.
-    .suffix = ФСА
 
 
 ent-ClothingUniformJumpsuitSolNavyDress = парадная форма Солнечного флота
     .desc = Одевается по особым случаям. Некоторые офицеры носят её даже в туалет — из принципа.
-    .suffix = ФСА
 
 
-ent-ClothingUniformJumpsuitSolNavyDressAdmiral = парадная форма адмирала флота Сол
+ent-ClothingUniformJumpsuitSolNavyDressAdmiral = парадная форма адмирала флота Sol
     .desc = Адмиралы носят это всегда. Они и есть парад.
-    .suffix = ФСА
 
 
-ent-ClothingUniformJumpsuitSolNavyDressOfficer = парадная форма офицера флота Сол
+ent-ClothingUniformJumpsuitSolNavyDressOfficer = парадная форма офицера флота Sol
     .desc = Может быть и парадной, и служебной. Всё зависит от звездочек на плечах.
-    .suffix = ФСА
 
 
-ent-ClothingUniformJumpsuitSolNavyDressSeniorOfficer = парадная форма старшего офицера флота Сол
-    .desc = И для парадов, и для совещаний, и для грозных криков «выполняйте!»
-    .suffix = ФСА
+ent-ClothingUniformJumpsuitSolNavyDressSeniorOfficer = парадная форма старшего офицера флота Sol
+    .desc = И для парадов, и для совещаний, и для грозных криков "выполняйте!"
 
 
-ent-ClothingUniformJumpsuitSolNavySailor = униформа матроса флота Сол
+ent-ClothingUniformJumpsuitSolNavySailor = униформа матроса флота Sol
     .desc = Форма службы для рядового состава. Простая, как присяга.
-    .suffix = ФСА
 
 
-ent-ClothingUniformJumpsuitSolServiceWhite = белая парадная форма армии Сол
+ent-ClothingUniformJumpsuitSolServiceWhite = белая парадная форма армии Sol
     .desc = Белая, парадная, для времён мира. Настолько редкая, что стала легендой.
-    .suffix = ФСА
 
 
-ent-ClothingModsuitSANMarine = модсьют оперативника Солнечного альянса «CSA-85x „Мазу“»
-    .desc = Основной интерфейс костюма «Мазу». Военная реликвия, которую берегут даже лучше, чем генералов.
+ent-ClothingModsuitSANMarine = контроллер модсьюта CSA-85x "Мазу"
+    .desc = Основной интерфейс костюма "Мазу". Военная реликвия, которую берегут даже лучше, чем генералов.
 
 
-ent-ClothingModsuitGauntletsSANMarine = перчатки модсьюта «CSA-85x „Мазу“»
+ent-ClothingModsuitGauntletsSANMarine = перчатки модсьюта CSA-85x "Мазу"
     .desc = Для размозжения чужих черепов. Чисто и технологично.
 
 
-ent-ClothingModsuitHelmetSANMarine = шлем модсьюта «CSA-85x „Мазу“»
-    .desc = Передовая разработка от Киберсан. Встроенный HUD входит в комплект.
+ent-ClothingModsuitHelmetSANMarine = шлем модсьюта CSA-85x "Мазу"
+    .desc = Передовая разработка от CyberSun. Встроенный HUD входит в комплект.
 
 
-ent-ClothingModsuitChestplateSANMarine = бронепластина модсьюта «CSA-85x „Мазу“»
-    .desc = Использует ту же броню, что и «Шанлин», но с сервоприводами. Прямо как грудная клетка меха.
+ent-ClothingModsuitChestplateSANMarine = бронепластина модсьюта CSA-85x "Мазу"
+    .desc = Использует ту же броню, что и "Шанлин", но с сервоприводами. Прямо как грудная клетка меха.
 
 
-ent-ClothingModsuitBootsSANMarine = магноботы модсьюта «CSA-85x „Мазу“»
+ent-ClothingModsuitBootsSANMarine = магноботы модсьюта CSA-85x "Мазу"
     .desc = Пока есть питание — не тормозят. Даже в невесомости.
 
 
-ent-ClothingModsuitSANMarineFilledMarine = модсьют оперативника Солнечного альянса «CSA-85x „Мазу“»
-    .desc = Основной интерфейс костюма «Мазу». Военная реликвия, которую берегут даже лучше, чем генералов.
+ent-ClothingModsuitSANMarineFilledMarine = контроллер модсьюта CSA-85x "Мазу"
 
-ent-ClothingModsuitSANMarineFilledOfficer = модсьют оперативника Солнечного альянса «CSA-85x „Мазу“»
-    .desc = Основной интерфейс костюма «Мазу». Военная реликвия, которую берегут даже лучше, чем генералов.
+ent-ClothingModsuitSANMarineFilledOfficer = контроллер модсьюта CSA-85x "Мазу"
 
 
-ent-CrateSANModsuit = комплект модсьюта морпеха Сол
+ent-CrateSANModsuit = комплект модсьюта морпеха Sol
     .desc = Полный комплект формы и модсьюта для одного элитного вояки.
 
 
-ent-CrateSANModsuitGroup = групповой комплект модсьютов оперативников Солнечного альянса
+ent-CrateSANModsuitGroup = групповой комплект модсьютов морпехов Sol
     .desc = Пять комплектов. Пять солдат. Много трупов.
 
 
@@ -12171,183 +11853,183 @@ ent-MobXelthiaDummy = Урист МакРуки
     .desc = Манекен-кселтия для создания твоего щупальценосного альтер эго.
 
 
-ent-ClothingModsuitApocryphal = модсьют «Апокриф»: блок управления
-    .desc = Сердце модсьюта «Апокриф». Без него — просто крутая пижама.
+ent-ClothingModsuitApocryphal = модкостюм «Апокриф»: блок управления
+    .desc = Сердце модкостюма «Апокриф». Без него — просто крутая пижама.
 
 
-ent-ClothingModsuitGauntletsApocryphal = модсьют «Апокриф»: рукавицы
+ent-ClothingModsuitGauntletsApocryphal = модкостюм «Апокриф»: рукавицы
     .desc = Пара рукавиц для «Апокрифа» — хватайся за невозможное.
 
 
-ent-ClothingModsuitHelmetApocryphal = модсьют «Апокриф»: шлем
+ent-ClothingModsuitHelmetApocryphal = модкостюм «Апокриф»: шлем
     .desc = Футуристичный шлем NanoTrasen с интегрированным HUD — откровение технологий.
 
 
-ent-ClothingModsuitChestplateApocryphal = модсьют «Апокриф»: кираса
+ent-ClothingModsuitChestplateApocryphal = модкостюм «Апокриф»: кираса
     .desc = Кираса с силовыми сервоприводами: броня, которая сама несёт себя.
 
 
-ent-ClothingModsuitBootsApocryphal = модсьют «Апокриф»: маг-ботинки
+ent-ClothingModsuitBootsApocryphal = модкостюм «Апокриф»: маг-ботинки
     .desc = Магботинки, что не тормозят — пока костюм запитан, ты летишь по палубе.
 
 
-ent-ClothingModsuitCorporate = модсьют «Корпоратив»: блок управления
+ent-ClothingModsuitCorporate = модкостюм «Корпоратив»: блок управления
     .desc = Центральный мозг «Корпоратива» — одобрено бухгалтерией.
 
 
-ent-ClothingModsuitGauntletsCorporate = модсьют «Корпоратив»: рукавицы
+ent-ClothingModsuitGauntletsCorporate = модкостюм «Корпоратив»: рукавицы
     .desc = Рукавицы для «Корпоратива» — жми KPI кулаками.
 
 
-ent-ClothingModsuitHelmetCorporate = модсьют «Корпоратив»: шлем
+ent-ClothingModsuitHelmetCorporate = модкостюм «Корпоратив»: шлем
     .desc = Шлем NanoTrasen с HUD для тех, кто любит видеть отчёты в прямом эфире.
 
 
-ent-ClothingModsuitChestplateCorporate = модсьют «Корпоратив»: кираса
+ent-ClothingModsuitChestplateCorporate = модкостюм «Корпоратив»: кираса
     .desc = Кираса с сервоприводами, чтобы тяжесть ответственности не давила на плечи.
 
 
-ent-ClothingModsuitBootsCorporate = модсьют «Корпоратив»: маг-ботинки
+ent-ClothingModsuitBootsCorporate = модкостюм «Корпоратив»: маг-ботинки
     .desc = Магботинки: и прибыль растёт, и скорость не падает.
 
 
-ent-ClothingModsuitResponsoryEngineering = модсьют «Респонсорий Инж»: блок управления
+ent-ClothingModsuitResponsoryEngineering = модкостюм «Респонсорий Инж»: блок управления
     .desc = Главный пульт инженерного респосория — запускай ремонт на ходу.
 
 
-ent-ClothingModsuitGauntletsResponsoryEngineering = модсьют «Респонсорий Инж»: рукавицы
+ent-ClothingModsuitGauntletsResponsoryEngineering = модкостюм «Респонсорий Инж»: рукавицы
     .desc = Рукавицы инженера: шурупы сами крутятся от страха.
 
 
-ent-ClothingModsuitHelmetResponsoryEngineering = модсьют «Респонсорий Инж»: шлем
+ent-ClothingModsuitHelmetResponsoryEngineering = модкостюм «Респонсорий Инж»: шлем
     .desc = Инженерный шлем с HUD — видит утечки прежде, чем они подумали протечь.
 
 
-ent-ClothingModsuitChestplateResponsoryEngineering = модсьют «Респонсорий Инж»: кираса
+ent-ClothingModsuitChestplateResponsoryEngineering = модкостюм «Респонсорий Инж»: кираса
     .desc = Кираса с сервомеханикой: поднимает баллоны, поднимает настроение.
 
 
-ent-ClothingModsuitBootsResponsoryEngineering = модсьют «Респонсорий Инж»: маг-ботинки
+ent-ClothingModsuitBootsResponsoryEngineering = модкостюм «Респонсорий Инж»: маг-ботинки
     .desc = Магботинки, что не тормозят — даже если всё остальное уже дымится.
 
 
-ent-ClothingModsuitInquisitory = модсьют «Инквизитор»: блок управления
+ent-ClothingModsuitInquisitory = модкостюм «Инквизитор»: блок управления
     .desc = Центр команд «Инквизитора» — истина внутри, ересь снаружи.
 
 
-ent-ClothingModsuitGauntletsInquisitory = модсьют «Инквизитор»: рукавицы
+ent-ClothingModsuitGauntletsInquisitory = модкостюм «Инквизитор»: рукавицы
     .desc = Рукавицы, что выжимают признания потуже любого гаечного ключа.
 
 
-ent-ClothingModsuitHelmetInquisitory = модсьют «Инквизитор»: шлем
+ent-ClothingModsuitHelmetInquisitory = модкостюм «Инквизитор»: шлем
     .desc = Шлем с HUD — суд и следствие в одном взгляде.
 
 
-ent-ClothingModsuitChestplateInquisitory = модсьют «Инквизитор»: кираса
+ent-ClothingModsuitChestplateInquisitory = модкостюм «Инквизитор»: кираса
     .desc = «Современная ересь требует современной защиты» — NanoTrasen, 2055 г.
 
 
-ent-ClothingModsuitBootsInquisitory = модсьют «Инквизитор»: маг-ботинки
+ent-ClothingModsuitBootsInquisitory = модкостюм «Инквизитор»: маг-ботинки
     .desc = Магботинки: шагай по кострам, не обжигаясь.
 
 
-ent-ClothingModsuitResponsoryJanitorial = модсьют «Респонсорий Уборка»: блок управления
+ent-ClothingModsuitResponsoryJanitorial = модкостюм «Респонсорий Уборка»: блок управления
     .desc = Управляющий модуль: грязь в панике нажимает ALT+F4.
 
 
-ent-ClothingModsuitGauntletsResponsoryJanitorial = модсьют «Респонсорий Уборка»: рукавицы
+ent-ClothingModsuitGauntletsResponsoryJanitorial = модкостюм «Респонсорий Уборка»: рукавицы
     .desc = Рукавицы, что оттирают пятна быстрее, чем ты успеешь сказать «Кто пролил?».
 
 
-ent-ClothingModsuitHelmetResponsoryJanitorial = модсьют «Респонсорий Уборка»: шлем
+ent-ClothingModsuitHelmetResponsoryJanitorial = модкостюм «Респонсорий Уборка»: шлем
     .desc = Шлем с HUD: видит бактерии, кричит на них и дезинфицирует взглядом.
 
 
-ent-ClothingModsuitChestplateResponsoryJanitorial = модсьют «Респонсорий Уборка»: кираса
+ent-ClothingModsuitChestplateResponsoryJanitorial = модкостюм «Респонсорий Уборка»: кираса
     .desc = Кираса с сервоприводами — чтоб ведро казалось пушинкой.
 
 
-ent-ClothingModsuitBootsResponsoryJanitorial = модсьют «Респонсорий Уборка»: маг-ботинки
+ent-ClothingModsuitBootsResponsoryJanitorial = модкостюм «Респонсорий Уборка»: маг-ботинки
     .desc = Магботинки, что не скользят даже на банановой кожуре отчаяния.
 
 
-ent-ClothingModsuitResponsoryLeader = модсьют «Респонсорий Лидер»: блок управления
+ent-ClothingModsuitResponsoryLeader = модкостюм «Респонсорий Лидер»: блок управления
     .desc = Ядро лидерства: нажми кнопку — команда пойдёт за тобой.
 
 
-ent-ClothingModsuitGauntletsResponsoryLeader = модсьют «Респонсорий Лидер»: рукавицы
+ent-ClothingModsuitGauntletsResponsoryLeader = модкостюм «Респонсорий Лидер»: рукавицы
     .desc = Рукавицы, что пожимают руки судьбы с царской уверенностью.
 
 
-ent-ClothingModsuitHelmetResponsoryLeader = модсьют «Респонсорий Лидер»: шлем
+ent-ClothingModsuitHelmetResponsoryLeader = модкостюм «Респонсорий Лидер»: шлем
     .desc = Шлем с HUD и харизмой +10 — взглядом поднимает мораль.
 
 
-ent-ClothingModsuitChestplateResponsoryLeader = модсьют «Респонсорий Лидер»: кираса
+ent-ClothingModsuitChestplateResponsoryLeader = модкостюм «Респонсорий Лидер»: кираса
     .desc = Кираса-оратор: речь звучит гулко даже в вакууме.
 
 
-ent-ClothingModsuitBootsResponsoryLeader = модсьют «Респонсорий Лидер»: маг-ботинки
+ent-ClothingModsuitBootsResponsoryLeader = модкостюм «Респонсорий Лидер»: маг-ботинки
     .desc = Магботинки, что ведут за собой — буксир не требуется.
 
 
-ent-ClothingModsuitResponsoryMedical = модсьют «Респонсорий Мед»: блок управления
+ent-ClothingModsuitResponsoryMedical = модкостюм «Респонсорий Мед»: блок управления
     .desc = Сердце медицинского костюма — пульс стабилен, кофеин повышен.
 
 
-ent-ClothingModsuitGauntletsResponsoryMedical = модсьют «Респонсорий Мед»: рукавицы
+ent-ClothingModsuitGauntletsResponsoryMedical = модкостюм «Респонсорий Мед»: рукавицы
     .desc = Рукавицы хирурга: руке дрожать запрещено лицензией.
 
 
-ent-ClothingModsuitHelmetResponsoryMedical = модсьют «Респонсорий Мед»: шлем
+ent-ClothingModsuitHelmetResponsoryMedical = модкостюм «Респонсорий Мед»: шлем
     .desc = Шлем с HUD: диагнозы всплывают, как всплывают тромбы — моментально.
 
 
-ent-ClothingModsuitChestplateResponsoryMedical = модсьют «Респонсорий Мед»: кираса
+ent-ClothingModsuitChestplateResponsoryMedical = модкостюм «Респонсорий Мед»: кираса
     .desc = Кираса с сервомеханикой — быстрее дефибриллятора к сердцу пациента.
 
 
-ent-ClothingModsuitBootsResponsoryMedical = модсьют «Респонсорий Мед»: маг-ботинки
+ent-ClothingModsuitBootsResponsoryMedical = модкостюм «Респонсорий Мед»: маг-ботинки
     .desc = Магботинки: беги к пациенту, а не от Хопа.
 
 
-ent-ClothingModsuitPraetorian = модсьют «Преториан»: блок управления
+ent-ClothingModsuitPraetorian = модкостюм «Преториан»: блок управления
     .desc = Центр команд «Преториана» — древний шик, космический шик.
 
 
-ent-ClothingModsuitGauntletsPraetorian = модсьют «Преториан»: рукавицы
+ent-ClothingModsuitGauntletsPraetorian = модкостюм «Преториан»: рукавицы
     .desc = Рукавицы гладиатора XXI века — держат копьё... или швабру.
 
 
-ent-ClothingModsuitHelmetPraetorian = модсьют «Преториан»: шлем
+ent-ClothingModsuitHelmetPraetorian = модкостюм «Преториан»: шлем
     .desc = Шлем-парад: и в бой, и на подиум.
 
 
-ent-ClothingModsuitChestplatePraetorian = модсьют «Преториан»: кираса
+ent-ClothingModsuitChestplatePraetorian = модкостюм «Преториан»: кираса
     .desc = Кираса с сервоприводами — спинка прямая, враги согнуты.
 
 
-ent-ClothingModsuitBootsPraetorian = модсьют «Преториан»: маг-ботинки
+ent-ClothingModsuitBootsPraetorian = модкостюм «Преториан»: маг-ботинки
     .desc = Магботинки: шагай, где легионы даже не мечтали.
 
 
-ent-ClothingModsuitResponsorySecurity = модсьют «Респонсорий СБ»: блок управления
+ent-ClothingModsuitResponsorySecurity = модкостюм «Респонсорий СБ»: блок управления
     .desc = Сердце безопасности — красный код включён по умолчанию.
 
 
-ent-ClothingModsuitGauntletsResponsorySecurity = модсьют «Респонсорий СБ»: рукавицы
+ent-ClothingModsuitGauntletsResponsorySecurity = модкостюм «Респонсорий СБ»: рукавицы
     .desc = Рукавицы правосудия: держат тазер как родного.
 
 
-ent-ClothingModsuitHelmetResponsorySecurity = модсьют «Респонсорий СБ»: шлем
+ent-ClothingModsuitHelmetResponsorySecurity = модкостюм «Респонсорий СБ»: шлем
     .desc = Шлем с HUD: видит преступления до того, как они согрешили.
 
 
-ent-ClothingModsuitChestplateResponsorySecurity = модсьют «Респонсорий СБ»: кираса
+ent-ClothingModsuitChestplateResponsorySecurity = модкостюм «Респонсорий СБ»: кираса
     .desc = Кираса с сервомеханикой — броня, что сама бежит ловить преступника.
 
 
-ent-ClothingModsuitBootsResponsorySecurity = модсьют «Респонсорий СБ»: маг-ботинки
+ent-ClothingModsuitBootsResponsorySecurity = модкостюм «Респонсорий СБ»: маг-ботинки
     .desc = Магботинки, что не тормозят — преступникам остаётся лишь скользить.
 
 
@@ -12406,24 +12088,20 @@ ent-EmergencyNitrousOxideTank = аварийный баллон с закись�
     .desc = Уменьшенная версия баллона с веселящим газом. Подойдёт даже как запас кислорода, если дышать некогда.
 
 
-ent-WeaponCaptainRevolverShotgun = «BRDI-P33 „Присяжный“»
+ent-WeaponCaptainRevolverShotgun = револьвер BRDI-P33 «Присяжный»
     .desc = Элегантный и редкий как здравомыслие на шаттле. Вмещает всего три 12-калиберных патрона — ровно столько, чтобы прекратить любой спор.
-    .suffix = Револьвер-Дробовик
 
 
-ent-WeaponSubMachineGunBRDIR25 = «BRDI R-25»
+ent-WeaponSubMachineGunBRDIR25 = BRDI R-25
     .desc = Знаменитое оружие Легиона Республики Бисель. Символ свободы и лёгкой ностальгии по антисоларианским агиткам.
-    .suffix = Автомат
 
 
-ent-WeaponSubMachineGunBRDIR25HoS = антикварный «BRDI R-25»
+ent-WeaponSubMachineGunBRDIR25HoS = антикварный BRDI R-25
     .desc = Эта винтовка побывала на всех фронтах колоний, и выжила. В отличие от её владельца.
-    .suffix = Автомат
 
 
-ent-Terminus = «DT-8 „Терминус“»
-    .desc = Специально разработано для о́ни. Стреляет веером зарядов дизейблера — не просто угроза, а целое представление.
-    .suffix = Дробовик
+ent-Terminus = DT-8 «Терминус»
+    .desc = Специально разработано для о́ни. Стреляет веером усыпляющих зарядов — не просто угроза, а целое представление.
 
 
 ent-SANMarineSabre = сабля соларианского морпеха
@@ -12513,7 +12191,7 @@ ent-ActionActivateBluespaceLifeline = Активировать блюспейс-
     .desc = Включает твой блюспейсовый спасательный имплант и телепортирует куда подальше от этой станции. Вернуться не получится. Да и не надо.
 
 
-ent-ActionHorn = ХОНК!
+ent-ActionHorn = ГУДОК!
     .desc = Подгуди тем, кого сейчас переедешь. Чтобы знали, за что.
 
 
@@ -12521,27 +12199,27 @@ ent-ActionSiren = Сирена
     .desc = Предупреди свою жертву о приближении. Чтобы успела помолиться.
 
 
-ent-ClothingBackpackDuffelSyndicateStealthHardsuitBundle = комплект скрытности Киберсан
-    .desc = Продвинутый тактический стелс-костюм от Киберсан. Не видно, не слышно, но смертельно.
+ent-ClothingBackpackDuffelSyndicateStealthHardsuitBundle = комплект скрытности Cybersun
+    .desc = Продвинутый тактический стелс-костюм от Cybersun. Не видно, не слышно, но смертельно.
 
 
-ent-ClothingBackpackDuffelSyndicateBurner = набор с винтовкой «Бёрнер»
+ent-ClothingBackpackDuffelSyndicateBurner = набор с винтовкой Burner
     .desc = Винтовка крупного калибра с патронами для антиматериальных и взрывных решений. Больше взрывов, меньше вопросов.
 
 
-ent-ClothingBackpackDuffelSyndicateM90Bundle = комплект с «M-90»
+ent-ClothingBackpackDuffelSyndicateM90Bundle = комплект с M-90
     .desc = Комплект с штурмовой винтовкой M-90 от синдиката и двумя запасными магазинами. Всё для быстрой дипломатии.
 
 
-ent-ClothingBackpackDuffelSyndicateFilledWSPR = комплект с «WSPR»
+ent-ClothingBackpackDuffelSyndicateFilledWSPR = комплект с WSPR
     .desc = Штурмовая винтовка WSPR и пара запасных магазинов — подари кому-то день, полный свинца.
 
 
-ent-BoxDualettaKit = набор «Дуэт»
+ent-BoxDualettaKit = набор Dualetta
     .desc = Коробка, полная абсолютно легального добра. Да, офицер, правда.
 
 
-ent-CrateScienceModsuitCoresFilled = ящик с ядрами модсьютов
+ent-CrateScienceModsuitCoresFilled = ящик с ядрами модкостюмов
     .desc = Внутри три мод-ядра. Готовься к апгрейду!
 
 
@@ -12549,16 +12227,16 @@ ent-CrateFishingGoodies = рыболовный ящик
     .desc = Пара удочек, медведь и шляпа. Всё, что нужно, чтобы выловить всех карпов на станции.
 
 
-ent-CrateCybersunDarkGygaxBundle = комплект Гигакса Киберсан
-    .desc = Набор лёгких боевых мехов от Киберсан. Для тех, кто хочет быть стильным и опасным.
+ent-CrateCybersunDarkGygaxBundle = комплект Cybersun Gygax
+    .desc = Набор лёгких боевых мехов от Cybersun. Для тех, кто хочет быть стильным и опасным.
 
 
-ent-CrateCybersunMaulerBundle = комплект Маулера Киберсан
-    .desc = Тяжёлые мехи от Киберсан. Если хочешь ходить, как танк — вперёд.
+ent-CrateCybersunMaulerBundle = комплект Cybersun Mauler
+    .desc = Тяжёлые мехи от Cybersun. Если хочешь ходить, как танк — вперёд.
 
 
-ent-CrateSyndicateDreadnought = комплект Дредноута Киберсан
-    .desc = Продвинутый комплект дредноутов от Киберсан. Для тех, кто не ищет лёгких путей.
+ent-CrateSyndicateDreadnought = комплект Cybersun Dreadnought
+    .desc = Продвинутый комплект дредноутов от Cybersun. Для тех, кто не ищет лёгких путей.
 
 
 ent-ActionEvolutionMenu = Открыть меню эволюции
@@ -12775,8 +12453,8 @@ ent-ClothingBackpackDuffelBlueshield = сумка блющилда
     .desc = Такая же, но больше. И запах пушек — сильнее.
 
 
-ent-ClothingModsuitStandard = стандартный модсьют: блок управления
-    .desc = Управляет всеми частями стандартного модсьюта. Без него всё рассыпется.
+ent-ClothingModsuitStandard = стандартный модкостюм: блок управления
+    .desc = Управляет всеми частями стандартного модкостюма. Без него всё рассыпется.
 
 
 ent-ClothingBackpackSatchelNanorep = дипломатическая сумка
@@ -12803,7 +12481,7 @@ ent-ClothingEyesGlassesMedSec = очки медбея/СБ
     .desc = Солнцезащитные очки с медицинским и охранным HUD. Умные, стильные, следят за твоим пульсом.
 
 
-ent-ClothingModsuitGauntletsStandard = перчатки стандартного модсьюта
+ent-ClothingModsuitGauntletsStandard = перчатки стандартного модкостюма
     .desc = Перчатки, защищающие от ударов током. Подойдут даже сварщику на каникулах.
 
 
@@ -12811,7 +12489,7 @@ ent-ClothingHeadHelmetHardsuitBlueshield = шлем скафандра блющ�
     .desc = Оснащён встроенным прицелом. Идеален для тех, кто защищает важных — и метко стреляет.
 
 
-ent-ClothingHeadHelmetHardsuitDreadnought = КСА-105УА «Синтянь» — шлем
+ent-ClothingHeadHelmetHardsuitDreadnought = CSA-105UA «Синтянь» — шлем
     .desc = Шлем для тактического костюма «Синтянь». Карательный стиль от инженеров Сола.
 
 
@@ -12827,11 +12505,11 @@ ent-ClothingHeadHatCowboyBlueshield = ковбойская шляпа блющи
     .desc = Шериф снова в городе, детки.
 
 
-ent-BaseClothingModsuitHelmet = базовый шлем модсьюта
+ent-BaseClothingModsuitHelmet = базовый шлем модкостюма
 
-ent-baseclothingmodsuithelmethideident = базовый шлем модсьюта
+ent-baseclothingmodsuithelmethideident = базовый шлем модкостюма
 
-ent-ClothingModsuitHelmetStandard = стандартный шлем модсьюта
+ent-ClothingModsuitHelmetStandard = стандартный шлем модкостюма
     .desc = Прочный складной шлем с защитой от космоса. Складывается в блок управления.
 
 
@@ -12870,17 +12548,17 @@ ent-ClothingOuterHardsuitBlueshield = скафандр блющилда
     .desc = Особый охранный скафандр с усиленной защитой. Лёгкий, надёжный, блющилдовский.
 
 
-ent-ClothingOuterHardsuitCybersunDreadnought = КСА-105UA «Синтянь» — тактикостюм
+ent-ClothingOuterHardsuitCybersunDreadnought = CSA-105UA «Синтянь» — тактикостюм
     .desc = Редкий и пугающий плод инженерного гнева Сола. Надевается в наказание. И действует так же.
 
 
 
-ent-ClothingModsuitChestplateStandard = кираса стандартного модсьюта
-    .desc = Пространствозащитная кираса, складывается прямо внутрь блока управления модсьютом.
+ent-ClothingModsuitChestplateStandard = кираса стандартного модкостюма
+    .desc = Пространствозащитная кираса, складывается прямо внутрь блока управления модкостюмом.
 
 
-ent-ClothingModsuitBootsStandard = ботинки стандартного модсьюта
-    .desc = Пространствозащитные ботинки, складываются в блок управления модсьютом. Удобно, как в шкафу.
+ent-ClothingModsuitBootsStandard = ботинки стандартного модкостюма
+    .desc = Пространствозащитные ботинки, складываются в блок управления модкостюмом. Удобно, как в шкафу.
 
 
 ent-ClothingUniformJumpskirtBlueshieldOfficer = форменная юбка блющилда
@@ -12938,31 +12616,31 @@ ent-SpawnPointNanotrasenRepresentative = корпоративный предст
 ent-SpawnPointMagistrate = магистрат
 
 
-ent-SpawnMechRipley2 = спавн: мех Рипли МК-II
+ent-SpawnMechRipley2 = спавн: мех Рипли MK-II
 
-ent-SpawnMechHonkerFilled = спавн: Х.О.Н.К.
+ent-SpawnMechHonkerFilled = спавн: H.O.N.K.
 
-ent-SpawnMechClarke = спавн: мех Кларк
+ent-SpawnMechClarke = спавн: Кларк
 
-ent-SpawnMechGygax = спавн: мех Гигакс
+ent-SpawnMechGygax = спавн: Гайгакс
 
-ent-SpawnMechDurand = спавн: мех Дюранд
+ent-SpawnMechDurand = спавн: Дуранд
 
-ent-SpawnMechMarauder = спавн: мех Мародёр
+ent-SpawnMechMarauder = спавн: Мародёр
 
-ent-SpawnMechMarauderFilled = спавн: мех Мародёр
+ent-SpawnMechMarauderFilled = спавн: Мародёр
 
-ent-SpawnMechSeraph = спавн: мех Серафим
+ent-SpawnMechSeraph = спавн: Серафим
 
-ent-SpawnMechSeraphFilled = спавн: мех Серафим
+ent-SpawnMechSeraphFilled = спавн: Серафим
 
-ent-SpawnMechGygaxSyndie = спавн: мех тёмный Гигакс
+ent-SpawnMechGygaxSyndie = спавн: Тёмный Гайгакс
 
-ent-SpawnMechGygaxSyndieFilled = спавн: мех тёмный Гигакс
+ent-SpawnMechGygaxSyndieFilled = спавн: Тёмный Гайгакс
 
-ent-SpawnMechMaulerSyndie = спавн: мех Маулер
+ent-SpawnMechMaulerSyndie = спавн: Маулер
 
-ent-SpawnMechMaulerSyndieFilled = спавн: мех Маулер
+ent-SpawnMechMaulerSyndieFilled = спавн: Маулер
 
 
 ent-SpawnVehicleWheelchair = спавн: инвалидное кресло
@@ -13013,16 +12691,16 @@ ent-MagistrateLockerTeleporter = телепортатор шкафчика ма�
 
 ent-BaseExosuitParts = базовые компоненты
 
-ent-DurandArmorPlate = бронепластины «Дюранда»
+ent-DurandArmorPlate = бронепластины Дуранда
     .desc = Пласталевые бронепластины для экзокостюма Дуранд. Толстые, тяжёлые, надёжные.
 
 
-ent-GygaxArmorPlate = бронепластины «Гигакса»
-    .desc = Стальные пластины для экзокостюма Гигакс. Простые, как лом, и такие же эффективные.
+ent-GygaxArmorPlate = бронепластины Гайгакса
+    .desc = Стальные пластины для экзокостюма Гайгакс. Простые, как лом, и такие же эффективные.
 
 
 ent-RipleyUpgradeKit = комплект апгрейда Рипли
-    .desc = Позволяет собрать Рипли МК-II. Теперь ещё мощнее, ещё шумнее!
+    .desc = Позволяет собрать Рипли MK-II. Теперь ещё мощнее, ещё шумнее!
 
 
 ent-MechAirTank = баллон воздуха для меха
@@ -13034,35 +12712,35 @@ ent-MechThruster = манёвровый двигатель меха
 
 
 ent-ClarkeCentralElectronics = центральный модуль управления Кларком
-    .desc = Электронное сердце меха «Кларк». Бьётся ровно и по инструкции.
+    .desc = Электронное сердце меха Кларк. Бьётся ровно и по инструкции.
 
 
 
-ent-ClarkePeripheralsElectronics = модуль периферии «Кларка»
-    .desc = Электронный блок управления внешними системами меха «Кларк».
+ent-ClarkePeripheralsElectronics = модуль периферии Кларка
+    .desc = Электронный блок управления внешними системами меха Кларк.
 
 
-ent-GygaxCentralElectronics = центральный модуль Гигакса
-    .desc = Центральный блок управления меха Гигакс. Сердце стали и стали.
+ent-GygaxCentralElectronics = центральный модуль Гайгакса
+    .desc = Центральный блок управления меха Гайгакс. Сердце стали и стали.
 
 
-ent-GygaxPeripheralsElectronics = модуль периферии Гигакса
-    .desc = Блок управления дополнительными системами меха Гигакс.
+ent-GygaxPeripheralsElectronics = модуль периферии Гайгакса
+    .desc = Блок управления дополнительными системами меха Гайгакс.
 
 
-ent-GygaxTargetingElectronics = модуль наведения и оружия Гигакса
-    .desc = Система наведения для меха Гигакс. Целься, стреляй, побеждай.
+ent-GygaxTargetingElectronics = модуль наведения и оружия Гайгакса
+    .desc = Система наведения для меха Гайгакс. Целься, стреляй, побеждай.
 
 
-ent-DurandCentralElectronics = центральный модуль «Дюранда»
+ent-DurandCentralElectronics = центральный модуль Дуранда
     .desc = Электронное ядро меха Дуранд. Управляет всем, кроме гордости.
 
 
-ent-DurandPeripheralsElectronics = модуль периферии «Дюранда»
+ent-DurandPeripheralsElectronics = модуль периферии Дуранда
     .desc = Управление вспомогательными системами меха Дуранд. Мелочи, но важные.
 
 
-ent-DurandTargetingElectronics = модуль наведения и оружия «Дюранда»
+ent-DurandTargetingElectronics = модуль наведения и оружия Дуранда
     .desc = Система наведения для тяжелого меха Дуранд. Попади с первого раза — второго может не быть.
 
 
@@ -13394,77 +13072,37 @@ ent-BaseFishingSpot = подозрительные волны
     .desc = Что-то плывёт… или ждёт. Лови — на удачу.
 
 
-ent-MechRipley2 = мех «Рипли APLU MK-II»
+ent-MechRipley2 = рипли APLU MK-II
     .desc = Версия MK-II оснащена герметичной кабиной для работы в космосе. Правда, тяжесть замедлила движение.
 
-ent-MechRipley2Battery = мех Рипли МК-II
-    .desc = { ent-MechRipley2.desc }
-    .suffix = С батарейкой
 
-ent-MechClarke = мех «Кларк»
+ent-MechClarke = кларк
     .desc = Быстрый мех для перемещений в космосе. Оснащён встроенными ускорителями. Скорость — его стиль.
 
-ent-MechClarkeBattery = { ent-MechClarke }
-    .desc = { ent-MechClarke.desc }
-    .suffix = С батарейкой
 
-ent-MechGygax = мех «Гигакс»
+ent-MechGygax = гайгакс
     .desc = Лёгкая броня, но бешеная подвижность. Ломает стены, как бумагу. Настоящий таран.
 
-ent-MechGygaxBattery = { ent-MechGygax }
-    .desc = { ent-MechGygax.desc }
-    .suffix = С батарейкой
 
-ent-MechDurand = мех «Дюранд»
+ent-MechDurand = дюранд
     .desc = Медленный, но неумолимый боевой мех. В узких коридорах он становится ночным кошмаром ксеносов.
 
-ent-MechDurandBattery = { ent-MechDurand }
-    .desc = { ent-MechDurand.desc }
-    .suffix = С батарейкой
 
-ent-MechMarauder = мех «Мародёр»
+ent-MechMarauder = мародёр
     .desc = Кажется, мы спасены. Или обречены. Зависит от того, в чьих руках он окажется.
 
-ent-MechMarauderBattery = { ent-MechMarauder }
-    .desc = { ent-MechMarauder.desc }
-    .suffix = С батарейкой
 
-ent-MechMarauderFilled = { ent-MechMarauder }
-    .desc = { ent-MechMarauder.desc }
-    suffix = Полный
-
-ent-MechSeraph = мех «Серафим»
+ent-MechSeraph = серафим
     .desc = Последнее, что ты увидишь. И, пожалуй, не самое приятное.
 
-ent-MechSeraphBattery = { ent-MechSeraph }
-    .desc = { ent-MechSeraph.desc }
-    .suffix = С батарейкой
 
-ent-MechSeraphFilled = { ent-MechSeraph }
-    .desc = { ent-MechSeraph.desc }
-    suffix = Полный
+ent-MechGygaxSyndie = тёмный гайгакс
+    .desc = Модифицированный Гайгакс для мрачных дел. На броне выгравировано: «Cybersun Inc.».
 
-ent-MechGygaxSyndie = мех «тёмный Гигакс»
-    .desc = Модифицированный Гигакс для мрачных дел. На броне выгравировано: «Cybersun Inc.».
 
-ent-MechGygaxSyndieBattery = { ent-MechGygaxSyndie }
-    .desc = { ent-MechGygaxSyndie.desc }
-    .suffix = С батарейкой
-
-ent-MechGygaxSyndieFilled = { ent-MechGygaxSyndie }
-    .desc = { ent-MechGygaxSyndie.desc }
-    suffix = Полный
-
-ent-MechMaulerSyndie = мех «Маулер»
+ent-MechMaulerSyndie = маулер
     .desc = Тяжеловес от Синдиката. Меньше манёвренности, но больше брони и грубой силы. На броне — логотип «Cybersun Inc.».
 
-ent-MechMaulerSyndieBattery = { ent-MechMaulerSyndie }
-    .desc = { ent-MechMaulerSyndie.desc }
-    .suffix = С батарейкой
-
-ent-MechMaulerSyndieFilled = { ent-MechMaulerSyndie }
-    .desc = { ent-MechMaulerSyndie.desc }
-    suffix = Полный
 
 ent-RipleyMKIIHarness = силовой каркас Рипли MK-II
     .desc = Сердце Рипли MK-II. Без него только груда металла.
@@ -13474,157 +13112,148 @@ ent-RipleyMKIIChassis = шасси Рипли MK-II
     .desc = Незавершённая конструкция меха Рипли MK-II. Почти готов к великой задаче.
 
 
-ent-ClarkeHarness = силовой каркас «Кларка»
-    .desc = Сердце меха «Кларк». Всё начинается с него.
+ent-ClarkeHarness = силовой каркас Кларка
+    .desc = Сердце меха Кларк. Всё начинается с него.
 
 
-ent-ClarkeHead = голова «Кларка»
-    .desc = Голова меха «Кларк». Ждёт, когда её вернут на законное место.
+ent-ClarkeHead = голова Кларка
+    .desc = Голова меха Кларк. Ждёт, когда её вернут на законное место.
 
 
-ent-ClarkeRArm = правая рука «Кларка»
-    .desc = Правая рука меха «Кларк». Идеальна для хватания… или раздавливания.
+ent-ClarkeRArm = правая рука Кларка
+    .desc = Правая рука меха Кларк. Идеальна для хватания… или раздавливания.
 
 
-ent-ClarkeLArm = левая рука «Кларка»
-    .desc = Левая рука меха «Кларк». Мечта кибернетика.
+ent-ClarkeLArm = левая рука Кларка
+    .desc = Левая рука меха Кларк. Мечта кибернетика.
 
 
-ent-ClarkeTreads = гусеницы «Кларка»
-    .desc = Гусеничный привод «Кларка». Его путь — по любой поверхности.
+ent-ClarkeTreads = гусеницы Кларка
+    .desc = Гусеничный привод Кларка. Его путь — по любой поверхности.
 
 
-ent-ClarkeChassis = шасси «Кларка»
-    .desc = Каркас меха «Кларк» на стадии сборки. Почти готов к ускоренному разрушению.
+ent-ClarkeChassis = шасси Кларка
+    .desc = Каркас меха Кларк на стадии сборки. Почти готов к ускоренному разрушению.
 
 
-ent-DurandHarness = силовой каркас «Дюранда»
-    .desc = Энергетическое ядро «Дюранда». Надёжность в каждой сварке.
+ent-DurandHarness = силовой каркас Дуранда
+    .desc = Энергетическое ядро Дуранда. Надёжность в каждой сварке.
 
 
-ent-DurandHead = голова «Дюранда»
+ent-DurandHead = голова Дуранда
     .desc = Головной модуль меха Дуранд. Ещё думает, кого задавить первым.
 
 
-ent-DurandLArm = левая рука «Дюранда»
+ent-DurandLArm = левая рука Дуранда
     .desc = Левая рука меха Дуранд. Для штурма, сжатий и красивых жестов.
 
 
-ent-DurandLLeg = левая нога «Дюранда»
-    .desc = Левая нога «Дюранда». Надёжна и тяжела, как корпоративный отчёт.
+ent-DurandLLeg = левая нога Дуранда
+    .desc = Левая нога Дуранда. Надёжна и тяжела, как корпоративный отчёт.
 
 
-ent-DurandRLeg = правая нога «Дюранда»
-    .desc = Правая нога «Дюранда». Когда ступает — пол дрожит.
+ent-DurandRLeg = правая нога Дуранда
+    .desc = Правая нога Дуранда. Когда ступает — пол дрожит.
 
 
-ent-DurandRArm = правая рука «Дюранда»
-    .desc = Правая рука «Дюранда». Иногда используется как таран. Или средство убеждения.
+ent-DurandRArm = правая рука Дуранда
+    .desc = Правая рука Дуранда. Иногда используется как таран. Или средство убеждения.
 
 
-ent-DurandChassis = шасси «Дюранда»
+ent-DurandChassis = шасси Дуранда
     .desc = Каркас меха Дуранд на этапе сборки. Почти готов к развалу… вражеских рядов.
 
 
-ent-GygaxHarness = силовой каркас Гигакса
-    .desc = Ядро меха Гигакс. Лёгкий, но злобный.
+ent-GygaxHarness = силовой каркас Гайгакса
+    .desc = Ядро меха Гайгакс. Лёгкий, но злобный.
 
 
 
-ent-GygaxHead = голова «Гигакса»
-    .desc = Голова боевого меха «Гигакс». Без неё корпус смотрится как-то пусто.
+ent-GygaxHead = голова «Гайгакса»
+    .desc = Голова боевого меха «Гайгакс». Без неё корпус смотрится как-то пусто.
 
 
-ent-GygaxLArm = левая рука «Гигакса»
-    .desc = Левая рука «Гигакса». Её место — на бронекаркасе меха.
+ent-GygaxLArm = левая рука «Гайгакса»
+    .desc = Левая рука «Гайгакса». Её место — на бронекаркасе меха.
 
 
-ent-GygaxLLeg = левая нога «Гигакса»
-    .desc = Левая нога боевого меха. Без неё «Гигакс» хромает — буквально.
+ent-GygaxLLeg = левая нога «Гайгакса»
+    .desc = Левая нога боевого меха. Без неё «Гайгакс» хромает — буквально.
 
 
-ent-GygaxRLeg = правая нога «Гигакса»
+ent-GygaxRLeg = правая нога «Гайгакса»
     .desc = Правая нога боевого меха. Необходима для устойчивого наступления.
 
 
-ent-GygaxRArm = правая рука «Гигакса»
+ent-GygaxRArm = правая рука «Гайгакса»
     .desc = Правая рука меха. Без неё будет сложно навешать врагам.
 
 
-ent-GygaxChassis = каркас «Гигакса»
-    .desc = Каркас меха «Гигакс» в процессе сборки. Всё великое начинается с рамы.
+ent-GygaxChassis = каркас «Гайгакса»
+    .desc = Каркас меха «Гайгакс» в процессе сборки. Всё великое начинается с рамы.
 
 
-ent-WeaponMechCombatPulseRifle = тяжёлая импульсная винтовка «eZ-14 mk2»
+ent-WeaponMechCombatPulseRifle = тяжёлая импульсная винтовка eZ-14 mk2
     .desc = Выстреливает мощные импульсные лазеры. Ощути пульс битвы.
 
 
-ent-WeaponMechCombatImmolationGun = тепловой излучатель «ZFI»
+ent-WeaponMechCombatImmolationGun = тепловой излучатель ZFI
     .desc = Орудие для боевых мехов, стреляющее лучами сверхвысокой температуры. Горячо? Ещё бы.
 
 
-ent-WeaponMechCombatSolarisLaser = лазерная пушка «CH-LC „Солярис“»
+ent-WeaponMechCombatSolarisLaser = лазерная пушка CH-LC «Солярис»
     .desc = Экспериментальная пушка. Бьёт больнее, но перезаряжается медленнее, чем обычная «Искра».
 
 
-ent-WeaponMechCombatFiredartLaser = лазер «CH-PS „Искра“»
+ent-WeaponMechCombatFiredartLaser = лазер CH-PS «Искра»
     .desc = Стандартный лазерный модуль для мехов. Классика жанра.
 
 
-ent-WeaponMechCombatTeslaCannon = тесла-пушка «P-X»
+ent-WeaponMechCombatTeslaCannon = тесла-пушка P-X
     .desc = Пушка, стреляющая энергетическими шарами. Основана на принципах нестабильного двигателя Теслы. Не суй пальцы внутрь.
 
 
-ent-WeaponMechCombatDisabler = электрошокер «CH-PD»
+ent-WeaponMechCombatDisabler = электрошокер CH-PD
     .desc = Нелетальное оружие, устанавливаемое на меха. Иммобилизует цель. Лучше, чем споткнуться.
 
 
-ent-WeaponMechCombatTaser = электрошокер «PBT „Умиротворитель“»
+ent-WeaponMechCombatTaser = электрошокер PBT «Умиротворитель»
     .desc = Тоже нелетален. Зато как красиво гудит!
 
 
-ent-WeaponMechCombatShotgun = дробовик «LBX AC 10 „Шрапнель“»
+ent-WeaponMechCombatShotgun = дробовик LBX AC 10 «Шрапнель»
     .desc = Дробовик, монтируемый на мех. Подойдёт для тех, кто любит эффектный вход.
 
 
-ent-WeaponMechCombatShotgunIncendiary = карабин «FNX-99 „Аид“»
+ent-WeaponMechCombatShotgunIncendiary = карабин FNX-99 «Аид»
     .desc = Карабин с зажигательными патронами. После него не только больно, но и горячо.
 
 
-ent-WeaponMechCombatUltraRifle = карабин «Ультра AC-2»
+ent-WeaponMechCombatUltraRifle = карабин Ultra AC-2
     .desc = Тоже карабин. Тоже горячий. Вдвойне ультра.
 
 
-ent-WeaponMechCombatMissileRack8 = ракетная установка «SRM-8»
+ent-WeaponMechCombatMissileRack8 = ракетная установка SRM-8
     .desc = Пускает маломощные штурмовые ракеты, срабатывающие только при контакте с прочной целью.
 
 
-ent-WeaponMechCombatMissileRack6 = ракетная установка «BRM-6»
+ent-WeaponMechCombatMissileRack6 = ракетная установка BRM-6
     .desc = Заряжается только вручную и только снаружи. Надеемся, у вас есть минутка.
 
 
-ent-WeaponMechCombatFlashbangLauncher = гранатомёт «SGL-6»
+ent-WeaponMechCombatFlashbangLauncher = гранатомёт SGL-6
     .desc = Стреляет штурмовыми светошумовыми боеприпасами. Слепит и бесит.
 
 
-ent-WeaponMechDebugBallistic = DEBUG: бабах (оружие меха)
+ent-WeaponMechDebugBallistic = отладка: бабах
 
 
-ent-WeaponMechDebugLaser = DEBUG: пиф-паф (оружие меха)
+ent-WeaponMechDebugLaser = отладка: пиф-паф
     .desc = Лучевое оружие на принципе стимулированного испускания фотонов. И звучит научно, и стреляет ярко.
 
 
-ent-WeaponMechDebugDisabler = DEBUG: пшик (оружие меха)
+ent-WeaponMechDebugDisabler = отладка: пшик
     .desc = Самооборона с выматывающим эффектом. Враг упадёт. Рано или поздно.
-
-
-ent-WeaponPistolEchis = Пушка
-    .desc = Гадюка для использования киборгами. Создает боеприпасы калибра .35 на лету с помощью внутреннего производителя боеприпасов, который медленно заряжается самостоятельно.
-    .suffix = Оружие киборга
-
-
-ent-EnergyDaggerLoud = энергетический кинжал
-    .desc = Не такой громкий и опасный кинжал с лучом из чистой, концентрированной плазмы. Он совершенно ничем не замаскирован.
 
 
 ent-WeaponMechIndustrialKineticAccelerator = экзокостюм: протокинетический ускоритель
@@ -13643,7 +13272,7 @@ ent-WeaponMechChainSword = цепной меч экзокостюма
     .desc = Боевая игрушка для экзокостюма. Эта цепь прорвёт небо!
 
 
-ent-WeaponMechDebugMelle = DEBUG: бух (оружие меха)
+ent-WeaponMechDebugMelle = отладка: бух
     .desc = Массивная штуковина. Бьёт больно.
 
 
@@ -13758,13 +13387,12 @@ ent-BulletMagnumEnsnaring = пуля (.45 магнум усыпляющая)
 ent-BulletMagnumFlash = пуля (.45 магнум светошумовая)
 
 
-ent-WeaponEnergyRevolver = «EG-4»
-    .desc = Высокотехнологичный энергетический револьвер, стреляющий как летальными, так и оглушающими зарядами.
-    .suffix = Энергетический револьвер
+ent-WeaponEnergyRevolver = энергетический револьвер EG-4
+    .desc = Высокотехнологичный револьвер, стреляющий как летальными, так и оглушающими зарядами.
 
-ent-WeaponEnergyRevolverSecurity = «EG-4»
-    .desc = Высокотехнологичный энергетический револьвер, стреляющий как летальными, так и оглушающими зарядами. Та же модель, но с серийным номером, подтверждающим, что он принадлежит офицеру безопасности НаноТрейзен.
-    .suffix = Энергетический револьвер, Офицера
+
+ent-WeaponEnergyRevolverSecurity = энергетический револьвер EG-4
+    .desc = Та же модель, но с серийным номером, подтверждающим, что он принадлежит офицеру безопасности НаноТрейзен.
 
 
 ent-ArrowEnergy = энергетическая стрела
@@ -13798,12 +13426,12 @@ ent-BulletHighCaliberExplosive = пуля (.50 фугасная)
 ent-BulletAnaconda = пуля (.40 безгильзовая)
 
 
-ent-WeaponRifleBurner = «Бёрнер»
+ent-WeaponRifleBurner = «Горелка»
     .desc = Винтовка Синдиката под .50 калибр, стреляющая как фугасными, так и бронебойными патронами. Когда нужно — жжёт.
-    .suffix = Винтовка
 
 
-ent-BlueshieldMace = ДТ-3 «Зверство»
+
+ent-BlueshieldMace = ДТ-3 "Зверство"
     .desc = Угости дубинкой каждого, кто встанет на пути твоих командиров. В активированном состоянии работает как электрошокер.
 
 
@@ -13815,7 +13443,7 @@ ent-ClothingHandsGlovesKravMaga = перчатки крав-мага
     .desc = Пока они на тебе, встроенные наночипы обучают тебя приёмам крав-мага. Не снимай — и будешь настоящей машиной ближнего боя.
 
 
-ent-BSOManual = руководство по CQC от НаноТрейзен
+ent-BSOManual = руководство по БББ НаноТрейзен
     .desc = Маленькое синее руководство с иллюстрациями тактического рукопашного боя.
 
 
@@ -13843,7 +13471,7 @@ ent-ActionNeckChop = Удар по шее
     .desc = Жёсткий рубящий удар ребром ладони. Немного урона — и минус голос на 20 секунд.
 
 
-ent-ActionLungPunch = Пинок под дых
+ent-ActionLungPunch = Удар в грудь
     .desc = 30 урона по выносливости и запрет на дыхание на 10 секунд. Четыре таких — и цель без сознания. Но осторожнее: без воздуха не живётся.
 
 
@@ -13855,7 +13483,7 @@ ent-BlueShieldShield = великий щит
     .desc = Самый узнаваемый символ Синего Щита. Часто ловит пули, предназначенные для капитана.
 
 
-ent-FloorTileItemBingle = плитка «бингл»
+ent-FloorTileItemBingle = плитка "бингл"
 
 
 ent-ActionDroneOpenMap = Открыть карту
@@ -14264,17 +13892,12 @@ ent-SpeedLoaderRifleHeavyPractice = спидлоадер (.20 винтовка, 
 ent-SpeedLoaderRifleHeavyUranium = спидлоадер (.20 винтовка, урановые)
 
 
-ent-WeaponRifleNovaliteC1 = «Новалайт C1»
-    .desc = Модификация винтовки «Лектер» от SW LLC. Полуавтоматическое гражданское оружие с внутренним магазином. Представители NanoTrasen уверяют — винтовка абсолютно законопослушна. Использует патроны .20 винтовочные.
-    .suffix = Винтовка
+ent-WeaponRifleNovaliteC1 = Новалайт C1
+    .desc = Модификация винтовки Лектер от SW LLC. Полуавтоматическое гражданское оружие с внутренним магазином. Представители NanoTrasen уверяют — винтовка абсолютно законопослушна. Использует патроны .20 винтовочные.
 
-ent-WeaponRifleNovaliteC1Empty = { ent-WeaponRifleNovaliteC1 }
-    .desc = { ent-WeaponRifleNovaliteC1.desc }
-    .suffix = Винтовка, Пустое
 
-ent-WeaponSniperRepeater = «N2524»
-    .desc = Гражданское рычажное оружие, любимое космическими ковбоями по всей границе за надёжность и убойную мощь. Карабин, использующий патроны .45 магнум.
-    .suffix = Снайперская Винтовка
+ent-WeaponSniperRepeater = карабин модели N2524
+    .desc = Гражданское рычажное оружие, любимое космическими ковбоями по всей границе за надёжность и убойную мощь. Использует патроны .45 магнум.
 
 
 ent-SpawnerHoloGraffitiRandom = спавнер голограффити
@@ -14294,6 +13917,7 @@ ent-N14FloraLog1 = полено
 
 
 ent-N14MaterialCircuitry = микросхемы
+    .desc = Простые микросхемы общего назначения.
 
 ent-N14IngotLead = свинцовый слиток
 
@@ -15105,7 +14729,7 @@ ent-N14BlueBarrelOpen = синяя бочка
 
 
 ent-N14RedBarrelOpen = красная бочка
-    .desc = Красная бочка без крышки. Надпись «взрывоопасно» всё ещё в силе.
+    .desc = Красная бочка без крышки. Надпись "взрывоопасно" всё ещё в силе.
 
 
 ent-N14YellowBarrelOpen = жёлтая бочка
@@ -15243,11 +14867,11 @@ ent-N14SignClinic = вывеска клиники
     .desc = Клиника. Молись, чтобы у них были бинты, а не пиявки.
 
 
-ent-N14SignOpen1 = вывеска «открыто»
+ent-N14SignOpen1 = вывеска "открыто"
     .desc = Магазин вроде как открыт. Или просто забыли снять табличку.
 
 
-ent-N14SignForRent = табличка «сдаётся»
+ent-N14SignForRent = табличка "сдаётся"
     .desc = Кому-то нужен угол? Недорого и с тараканами.
 
 
@@ -15267,15 +14891,15 @@ ent-N14SignHotel = вывеска отеля
     .desc = Отель. Возьми комнату, отдохни от выживания.
 
 
-ent-N14SignPrivateProperty = табличка «частная собственность»
+ent-N14SignPrivateProperty = табличка "частная собственность"
     .desc = Частная территория. Твоя смерть — твоя ответственность.
 
 
-ent-N14SignOpenBig = вывеска «мы открыты»
-    .desc = «Открыто» — гласит табличка. Но верить ли ей?
+ent-N14SignOpenBig = вывеска "мы открыты"
+    .desc = "Открыто" — гласит табличка. Но верить ли ей?
 
 
-ent-N14SignWorkersOnly = табличка «только для персонала»
+ent-N14SignWorkersOnly = табличка "только для персонала"
     .desc = Посторонним вход воспрещён. Прямо и ясно.
 
 
@@ -15354,7 +14978,7 @@ ent-N14RockGrey = астероидная скала
 
 
     .desc = Жила угля. Чёрная, как смена без переработки.
-    .desc = Жила золота. Идеальна, если хочешь внезапно стать «случайным» владельцем шахты.
+    .desc = Жила золота. Идеальна, если хочешь внезапно стать "случайным" владельцем шахты.
     .desc = Жила серебра. Холодная, блестящая, как улыбка финансиста.
     .desc = Жила стали. Прочная и полезная. Идеальна для строительства... и ударов по голове.
     .desc = Жила урана. Светится, шипит и делает геолога слегка светящимся.
@@ -15374,7 +14998,7 @@ ent-N14WallRock = камень
     .desc = Камень, внутри которого блестит богатство. Не забудь про налог.
     .desc = Серебряная искра в недрах. Почти как лунный свет, только платят за него.
     .desc = Сталь внутри камня. Звучит, как начало революции.
-    .desc = Камень, что шепчет «не трогай меня без костюма».
+    .desc = Камень, что шепчет "не трогай меня без костюма".
     .desc = Соль в камне. Простая, но незаменимая — как инженер с монтировкой.
 
 ent-N14WallRockBasalt = базальт
@@ -15890,20 +15514,20 @@ ent-ClothingOuterCoatAbductor = лабораторный халат пришел
     .desc = Защитный костюм инопланетного производства. Защищает от ударов и от случайных химических ванн.
 
 
-ent-MeleeDebugSever = членоразделитель «Бабах»
+ent-MeleeDebugSever = членоразделитель "Бабах"
     .desc = Отделит конечности... на следующей неделе.
 
 
-ent-MeleeDebugSever100 = членоразделитель «Бабах» (100 урона)
+ent-MeleeDebugSever100 = членоразделитель "Бабах" (100 урона)
 
-ent-MeleeDebugSever200 = членоразделитель «Бабах» (200 урона)
+ent-MeleeDebugSever200 = членоразделитель "Бабах" (200 урона)
 
 
-ent-MeleeDebugBurner = сжигатель «Бабах»
+ent-MeleeDebugBurner = сжигатель "Бабах"
     .desc = Для обжигания ненужного. Или нужного. Всё сгорит.
 
 
-ent-MeleeDebugBurner200 = сжигатель «Бабах» (200 урона)
+ent-MeleeDebugBurner200 = сжигатель "Бабах" (200 урона)
 
 
 ent-EffectTeleportation = телепортация
@@ -16363,44 +15987,44 @@ ent-MindRoleLoneAbductor = Роль: Одиночный абдуктор
 ent-MindRoleAbductorVictim = Роль: Похищенный
 
 
-ent-BloodredModsuitBackpack = «EE-99MS „Рейдер“» — модконтроллер
+ent-BloodredModsuitBackpack = EE-99MS «Рейдер» — модконтроллер
     .desc = Модуль управления боевым костюмом «Рейдер».
 
 
-ent-ClothingModsuitGauntletsBloodredModsuit = «EE-99MS „Рейдер“» — перчатки
+ent-ClothingModsuitGauntletsBloodredModsuit = EE-99MS «Рейдер» — перчатки
     .desc = Укреплённые боевые перчатки, разработанные для костюма «Рейдер».
 
 
-ent-ClothingModsuitHelmetBloodredModsuit = «EE-99MS „Рейдер“» — шлем
+ent-ClothingModsuitHelmetBloodredModsuit = EE-99MS «Рейдер» — шлем
     .desc = Бронированный шлем костюма «Рейдер».
 
 
-ent-ClothingModsuitChestplateBloodredModsuit = «EE-99MS „Рейдер“» — нагрудник
+ent-ClothingModsuitChestplateBloodredModsuit = EE-99MS «Рейдер» — нагрудник
     .desc = Серийная модель модульного тактического костюма, прославившаяся в солярных СМИ. После отказа от неё в пользу таксьюта «Шанлин» стала популярной среди пиратов фронтира.
 
 
-ent-ClothingModsuitBootsBloodredModsuit = «EE-99MS „Рейдер“» — поножи
+ent-ClothingModsuitBootsBloodredModsuit = EE-99MS «Рейдер» — поножи
     .desc = Боевые поножи, созданные для комплекта «Рейдер».
 
 
-ent-EliteModsuitBackpack = «EE-122MS „Егерь“» — модконтроллер
-    .desc = Модуль управления элитным костюмом «Егерь».
+ent-EliteModsuitBackpack = EE-122MS «Ягер» — модконтроллер
+    .desc = Модуль управления элитным костюмом «Ягер».
 
 
-ent-ClothingModsuitGauntletsEliteSyndicateModsuit = «EE-122MS „Егерь“» — перчатки
-    .desc = Бронированные перчатки боевого костюма «Егерь».
+ent-ClothingModsuitGauntletsEliteSyndicateModsuit = EE-122MS «Ягер» — перчатки
+    .desc = Бронированные перчатки боевого костюма «Ягер».
 
 
-ent-ClothingModsuitHelmetEliteSyndicateModsuit = «EE-122MS „Егерь“» — шлем
-    .desc = Защитный шлем элитной модели модсьюта «Егерь».
+ent-ClothingModsuitHelmetEliteSyndicateModsuit = EE-122MS «Ягер» — шлем
+    .desc = Защитный шлем элитной модели модкостюма «Ягер».
 
 
-ent-ClothingModsuitChestplateEliteSyndicateModsuit = «EE-122MS „Егерь“» — нагрудник
+ent-ClothingModsuitChestplateEliteSyndicateModsuit = EE-122MS «Ягер» — нагрудник
     .desc = Модульная вариация таксьюта «Шивэй», уступающая ему в бронезащите, но превосходящая по гибкости снаряжения. Против лазеров — отличен. От пуль — не очень.
 
 
-ent-ClothingModsuitBootsEliteSyndicateModsuit = «EE-122MS „Егерь“» — поножи
-    .desc = Пара тяжёлых боевых поножей для модели «Егерь».
+ent-ClothingModsuitBootsEliteSyndicateModsuit = EE-122MS «Ягер» — поножи
+    .desc = Пара тяжёлых боевых поножей для модели «Ягер».
 
 
 ent-ActionEndRemoteControl = Завершить удалённое управление
@@ -16573,7 +16197,7 @@ ent-ClothingHandsGlovesVinylOrange = оранжевые виниловые пе�
     .desc = Тот же эффект, но ярче. Идеальны для тех, кто хочет быть замеченным... но не нюханным.
 
 
-ent-ClothingModsuitGauntletsInfiltrator = перчатки модсьюта инфильтратора
+ent-ClothingModsuitGauntletsInfiltrator = перчатки модкостюма инфильтратора
     .desc = Бронированные перчатки к костюму инфильтратора.
 
 
@@ -16618,7 +16242,7 @@ ent-ClothingMaskToyVampireFangs = игрушечные клыки вампира
 
 
 ent-ClothingNeckCloakVampire = плащ вампира
-    .desc = «Тёмный и кроваво-красный плащ древней знати, променявшей душу на вечную молодость и власть», — гласит бирка на воротнике.
+    .desc = "Тёмный и кроваво-красный плащ древней знати, променявшей душу на вечную молодость и власть," — гласит бирка на воротнике.
 
 
 ent-ClothingNeckCaptainWide = широкий плащ капитана
@@ -16830,7 +16454,7 @@ ent-SpawnStraySupplyPodSyndicate = спавнер случайной капсу�
 
 
 ent-MobGondola = гондола
-    .desc = Безрукий, он воплощает даосский принцип «у вэй» (недеяния), а выражение на его улыбающейся морде говорит о полном принятии мира таким, каков он есть.
+    .desc = Безрукий, он воплощает даосский принцип "у вэй" (недеяния), а выражение на его улыбающейся морде говорит о полном принятии мира таким, каков он есть.
 
 ent-BaseMobResomi = Юрист МакРаптор
 
@@ -17020,7 +16644,7 @@ ent-StationAICoreCircuitboard = плата ядра ИИ станции
 
 
 ent-WeaponTurretModularCircuitBoard = плата модульной турели
-    .desc = Плата для модульной турели, или, проще говоря, «сервомотор, привязанный к спусковому крючку верёвочкой».
+    .desc = Плата для модульной турели, или, проще говоря, "сервомотор, привязанный к спусковому крючку верёвочкой".
 
 
 ent-ExperimentalSyndicateTeleporter = экспериментальный телепорт Синдиката
@@ -17028,17 +16652,16 @@ ent-ExperimentalSyndicateTeleporter = экспериментальный тел�
 
 
 ent-GunCaseSyndicate = кейс с оружием
-    .desc = Кейс для оружия с кроваво-красной эмблемой «S» на крышке.
+    .desc = Кейс для оружия с кроваво-красной эмблемой "S" на крышке.
 
 
 ent-HoboIDCard = удостоверение бродяги
 
 ent-MaidIDCard = удостоверение горничной
 
-    .desc = Компактный одноразовый шприц, предназначенный для быстрой установки и извлечения подкожных имплантов.
-
 
 ent-HardlightSpearImplanter = имлантер светового копья
+    .desc = Компактный одноразовый шприц, предназначенный для быстрой установки и извлечения подкожных имплантов.
 
 
 ent-PaperWrittenCommunist = коммyнистская агитка
@@ -17108,8 +16731,8 @@ ent-FloorTileItemReinforcedGlassFrame = усиленное стеклянное 
 ent-FloorTileItemGlassFrame = стеклянное покрытие
 
 
-ent-BodyBagBluespace = блюспейс-мешок для тел
-    .desc = Прочный мешок с блюспейс-изоляцией для хранения и транспортировки тел, предотвращает разложение.
+ent-BodyBagBluespace = криостазисный мешок для тел
+    .desc = Прочный мешок с крио-изоляцией для хранения и транспортировки тел, предотвращает разложение.
 
 
 ent-BodyBagNanoTrasen = синий мешок для тел
@@ -17192,9 +16815,9 @@ ent-ShellShotgunMeteor = патрон (.50 метеор)
 
 ent-ShellShotgunLaser = патрон (.50 лазер)
 
-ent-ShellShotgunFrag = патрон (.50 взрыв)
+ent-ShellShotgunFrag = патрон (.50 FRAG)
 
-ent-ShellShotgunBreach = патрон (.50 противотанковый)
+ent-ShellShotgunBreach = патрон (.50 бронебойный)
 
 
 ent-MagazineLightRifleAR31Hydra = увеличенный магазин .30
@@ -17207,11 +16830,11 @@ ent-MagazineShotgunLaser = барабан (.50 лазер)
     .desc = Барабан на 8 зарядов.
 
 
-ent-MagazineShotgunFrag = барабан (.50 взрыв)
+ent-MagazineShotgunFrag = барабан (.50 FRAG)
     .desc = Барабан на 8 зарядов.
 
 
-ent-MagazineShotgunBreach = барабан (.50 противотанковый)
+ent-MagazineShotgunBreach = барабан (.50 бронебойный)
     .desc = Барабан на 8 зарядов.
 
 
@@ -17241,7 +16864,7 @@ ent-PelletShellLaserSpread = лазерный залп (.50)
 ent-ShellLaserBolt = лазер (.50)
 
 
-ent-WeaponLightAR31Hydra = АР-31 «Гидра»
+ent-WeaponLightAR31Hydra = АР-31 "Гидра"
     .desc = Обновлённая версия легендарного оружия. Использует патроны калибра .30.
 
 

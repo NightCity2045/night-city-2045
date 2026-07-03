@@ -1,4 +1,7 @@
-﻿[events]
+﻿[game]
+role_whitelist = false
+
+[events]
 # Annoying
 enabled = false
 
@@ -19,3 +22,18 @@ enabled = false
 [asteroid_field]
 enabled = false
 # WD EDIT END
+
+[whitelist]
+enabled = false
+
+[nc.chat_translation]
+enabled = true
+provider = "service"
+service_url = "http://127.0.0.1:8090"
+api_key = "change-me"
+timeout_ms = 450
+soft_hold_ms = 75
+failure_backoff_seconds = 5
+max_message_length = 240
+cache_ttl_seconds = 1800
+cache_max_entries = 4096

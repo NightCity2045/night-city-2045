@@ -11,7 +11,8 @@
     mayTransfer: true
     whitelist:
       tags:
-        - CartridgeSpecial
+      - Cartridge  # NC edit: Fix janitor stuff
+      - CartridgeSpecial
     capacity: 5
   - type: Item
     size: Small

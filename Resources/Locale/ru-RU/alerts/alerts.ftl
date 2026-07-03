@@ -75,8 +75,11 @@ alerts-hunger-desc = Было бы неплохо перекусить.
 alerts-stamina-name = Выносливость
 alerts-stamina-desc = Вы будете оглушены, если она опустится до нуля.
 
-alerts-starving-name = [color=red]Сильный голод[/color]
-alerts-starving-desc = Вы истощены. Голод вас замедляет.
+alerts-starving-name = [color=orange]Сильный голод[/color]
+alerts-starving-desc = Вы истощены. Голод вас замедляет и понижает настроение.
+
+alerts-hunger-dead-name = [color=red]Смертельный голод[/color]
+alerts-hunger-dead-desc = Вы умираете от голода. Ваше состояние хуже некуда.
 
 alerts-thirsty-name = [color=yellow]Жажда[/color]
 alerts-thirsty-desc = Было бы неплохо чего-нибудь попить.
@@ -100,13 +103,13 @@ alerts-pulling-name = Вы тянете
 alerts-pulling-desc = Вы что-то тянете. Щелкните по иконке, чтобы перестать.
 
 alerts-bleed-name = [color=red]Кровотечение[/color]
-alerts-bleed-desc = Вы истекаете [color=red]кровью[/color].
+alerts-bleed-desc = You're [color=red]bleeding[/color].
 
 alerts-pacified-name = [color=green]Пацифизм[/color]
 alerts-pacified-desc = Вы чувствуете себя умиротворенно и не можете вредить живым существам.
 
-alerts-adrenaline-name = [color=red]Адреналин[/color]
-alerts-adrenaline-desc = Ты под адреналином: боль вас не замедляет.
+alerts-adrenaline-name = [color=red]Adrenaline[/color]
+alerts-adrenaline-desc = You're full of adrenaline: pain won't slow you down.
 
 alerts-suit-power-name = Заряд костюма
 alerts-suit-power-desc = Запас энергии вашего костюма космического ниндзя.

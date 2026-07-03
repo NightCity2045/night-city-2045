@@ -43,29 +43,11 @@ public partial class ReplacementObfuscation : ObfuscationMethod
     /// </summary>
     [DataField(required: true)]
     public List<string> Replacement = [];
-    //WWDP EDIT START
-    /// <summary>
-    ///     If true, each string in <see cref="Replacement"/> is treated as a locale key
-    ///     and resolved via Loc.GetString() at obfuscation time.
-    /// </summary>
-    [DataField]
-    public bool Localized;
-
-    /// <summary>
-    ///     Returns the replacement string at the given index,
-    ///     resolving it as a locale key if <see cref="Localized"/> is true.
-    /// </summary>
-    protected string GetReplacement(int index)
-    {
-        var value = Replacement[index];
-        return Localized ? Loc.GetString(value) : value;
-    }
-    //WWDP EDIT END
 
     internal override void Obfuscate(StringBuilder builder, string message, SharedLanguageSystem context)
     {
         var idx = context.PseudoRandomNumber(message.GetHashCode(), 0, Replacement.Count - 1);
-        builder.Append(GetReplacement(idx));  // WWDP EDIT
+        builder.Append(Replacement[idx]);
     }
 }
 
@@ -112,7 +94,7 @@ public sealed partial class SyllableObfuscation : ReplacementObfuscation
                     for (var j = 0; j < newWordLength; j++)
                     {
                         var index = context.PseudoRandomNumber(hashCode + j, 0, Replacement.Count - 1);
-                        builder.Append(GetReplacement(index)); // WWDP EDIT
+                        builder.Append(Replacement[index]);
                     }
                 }
 

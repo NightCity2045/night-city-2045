@@ -1,0 +1,120 @@
+- type: entity
+  id: MagazineRifleNomad
+  name: магазин пневматического гвоздемета (штыри)
+  description: Самодельный магазин для пневматического гвоздемета Кочевников. Вмещает 12 тяжелых штырей.
+  parent: BaseMagazineRifle
+  components:
+  - type: BallisticAmmoProvider
+    mayTransfer: true
+    capacity: 12
+    proto: CartridgeNomadSpike
+    whitelist:
+      tags:
+      - Cartridge
+      - CartridgeNomadSpike
+  - type: Sprite
+    layers:
+    - state: red
+      map: ["enum.GunVisualLayers.Base"]
+    - state: mag-1
+      map: ["enum.GunVisualLayers.Mag"]
+  - type: Tag
+    tags:
+    - MagazineRifle
+
+- type: entity
+  id: MagazineRifleArasaka
+  name: магазин штурмовой винтовки Арасака (5.56×45 CL)
+  description: Высокотехнологичный магазин для винтовки Арасака. Вмещает 30 безгильзовых патронов калибра 6.22мм.
+  parent: BaseMagazineRifle
+  components:
+  - type: BallisticAmmoProvider
+    mayTransfer: true
+    capacity: 30
+    proto: Cartridge556x45CL
+    whitelist:
+      tags:
+      - Cartridge
+      - Cartridge556x45CL
+  - type: Sprite
+    layers:
+    - state: red
+      map: ["enum.GunVisualLayers.Base"]
+    - state: mag-1
+      map: ["enum.GunVisualLayers.Mag"]
+  - type: Tag
+    tags:
+    - MagazineRifle
+
+- type: entity
+  id: MagazineRifleM04
+  name: магазин М-04 (5.56×45 CL)
+  description: Высокотехнологичный магазин для карабина Штейнмейер М-04. Вмещает 20 безгильзовых патронов калибра 6.22мм.
+  parent: BaseMagazineRifle
+  components:
+  - type: BallisticAmmoProvider
+    mayTransfer: true
+    capacity: 20
+    proto: Cartridge556x45CL
+    whitelist:
+      tags:
+      - Cartridge
+      - Cartridge556x45CL
+  - type: Sprite
+    layers:
+    - state: red
+      map: ["enum.GunVisualLayers.Base"]
+    - state: mag-1
+      map: ["enum.GunVisualLayers.Mag"]
+  - type: Tag
+    tags:
+    - MagazineRifle
+
+- type: entity
+  id: MagazineRifleNokota
+  name: магазин Nokota (5.56×45 CL)
+  description: Стандартный магазин для винтовок Nokota D5. Вмещает 30 безгильзовых патронов калибра 6.22мм.
+  parent: BaseMagazineRifle
+  components:
+  - type: BallisticAmmoProvider
+    mayTransfer: true
+    capacity: 30
+    proto: Cartridge556x45CL
+    whitelist:
+      tags:
+      - Cartridge
+      - Cartridge556x45CL
+  - type: Sprite
+    sprite: _NC/Objects/Weapons/Guns/Rifles/NokotaD5Copperhead/mag.rsi
+    layers:
+    - state: base
+      map: ["enum.GunVisualLayers.Base"]
+    - state: mag-1
+      map: ["enum.GunVisualLayers.Mag"]
+  - type: Tag
+    tags:
+    - MagazineRifleNokota
+
+- type: entity
+  id: MagazineRifleNowaki
+  name: магазин NOWAKI (5.56×45 CL)
+  description: Стандартный магазин для винтовок Nokota D5. Вмещает 30 безгильзовых патронов калибра 6.22мм.
+  parent: BaseMagazineRifle
+  components:
+  - type: BallisticAmmoProvider
+    mayTransfer: true
+    capacity: 25
+    proto: Cartridge556x45CL
+    whitelist:
+      tags:
+      - Cartridge
+      - Cartridge556x45CL
+  - type: Sprite
+    layers:
+    - state: red
+      map: ["enum.GunVisualLayers.Base"]
+    - state: mag-1
+      map: ["enum.GunVisualLayers.Mag"]
+  - type: Tag
+    tags:
+    - MagazineRifleNowaki

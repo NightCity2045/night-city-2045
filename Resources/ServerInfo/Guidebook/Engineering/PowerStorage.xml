@@ -1,20 +1,20 @@
 ﻿<Document>
-  # Накопители энергии
-  Из-за [textlink="Рамплинга мощности" link="Ramping"] важно иметь устройства накопления энергии, чтобы сглаживать скачки и падения энергопотребления, а также обеспечивать питание в случае дефицита энергии.
+  # Power Storage
+  Because of [textlink="Power Ramping" link="Ramping"], it is important to have power storage devices to help flatten out spikes and dips in power usage, as well as to provide power in the event of a power deficit.
 
-  Каждый трансформатор для соответствующего уровня напряжения ([color=orange]ВН[/color], [color=yellow]СН[/color] и [color=green]НН[/color]) имеет прикрепленную небольшую батарею для обработки незначительных скачков и падений; однако это неприменимо в случае большого дефицита в сети.
+  Each transformer for its respective power level ([color=orange]HV[/color], [color=yellow]MV[/color], and [color=green]LV[/color]) has an attached small battery to handle minor spikes and dips; however, this is not viable in the case of a large grid deficit.
 
-  ## СПИН
+  ## SMES
 
-  Сверхпроводящий индуктивный накопитель (СПИН) — это устройство, которое может хранить большое количество энергии и быстро ее отдавать.
+  The Superconducting Magnetic Energy Storage (SMES) unit is a device that can store a large amount of power and release it quickly.
 
   <Box>
     <GuideEntityEmbed Entity="SMESBasic"/>
   </Box>
 
-  Для зарядки СПИНа необходимо подать питание [color=orange]ВН[/color] на кабельный терминал, указывающий на блок СПИНа. СПИН будет потреблять энергию от терминала и отдавать ее снизу.
+  In order to charge the SMES unit, [color=orange]HV[/color] power must be provided to a cable terminal pointing at the SMES unit. The SMES will draw power from the terminal and send power out from underneath.
 
-  Терминал гарантирует, что [color=orange]вход ВН[/color] и [color=orange]выход ВН[/color] не будут соединены.
+  The terminal will ensure that the [color=orange]HV input[/color] and [color=orange]HV output[/color] do not connect.
 
   <Box HorizontalAlignment="Stretch">
     <Box>
@@ -22,29 +22,29 @@
     </Box>
 
     <Box>
-      <GuideEntityEmbed Entity="CableHV" Caption="Выход"/>
+      <GuideEntityEmbed Entity="CableHV" Caption="Output"/>
       <GuideEntityEmbed Entity="SMESBasic" Caption="" Margin="0"/>
       <GuideEntityEmbed Entity="CableTerminal" Caption="" Margin="0" Rotation="270"/>
-      <GuideEntityEmbed Entity="CableHV" Caption="Вход"/>
+      <GuideEntityEmbed Entity="CableHV" Caption="Input"/>
     </Box>
   </Box>
 
-  СПИНы могут хранить [color=orange][protodata="SMESBasic" comp="Battery" member="MaxCharge" format="N0"/] Дж[/color] энергии и могут отдавать максимум [color=orange][protodata="SMESBasic" comp="PowerNetworkBattery" member="MaxSupply" format="N0"/] Вт[/color] мощности.
+  SMESes can store [color=orange][protodata="SMESBasic" comp="Battery" member="MaxCharge" format="N0"/] J[/color] of energy, and can output a maximum [color=orange][protodata="SMESBasic" comp="PowerNetworkBattery" member="MaxSupply" format="N0"/] W[/color] of power.
 
-  Если батарея полна, СПИН будет пропускать полученную от входного кабеля мощность на выходной кабель. В случае дефицита энергии СПИН будет наращивать отдачу, чтобы восполнить потребление.
+  If the battery is full, the SMES will pass through the power it receives from the input cable to the output cable. In the event of a power deficit, the SMES will ramp up to supplement the power draw.
 
-  ## Продвинутый СПИН
-  Продвинутый СПИН — это более совершенная версия СПИНа, которая может хранить еще больше энергии.
+  ## Advanced SMES
+  The Advanced SMES unit is a more advanced version of the SMES unit that can store even more power.
 
   <Box>
     <GuideEntityEmbed Entity="SMESAdvanced"/>
   </Box>
 
-  В основном они используются в станционных массивах СПИНов для хранения больших объемов энергии для энергосети станции.
-  Они помогают дать инженерам время на запуск генераторов в начале смены или обеспечивают питание в случае длительного дефицита энергии.
+  They're primarily used in station SMES arrays to store large amounts of power for the station's power grid.
+  They help to buy engineers time to setup power at roundstart, or to provide power in the event of a power deficit for extended periods of time.
 
-  Продвинутые СПИНы могут хранить [color=orange][protodata="SMESAdvanced" comp="Battery" member="MaxCharge" format="N0"/] Дж[/color] энергии и могут отдавать максимум [color=orange][protodata="SMESAdvanced" comp="PowerNetworkBattery" member="MaxSupply" format="N0"/] Вт[/color] мощности.
+  Advanced SMESes can store [color=orange][protodata="SMESAdvanced" comp="Battery" member="MaxCharge" format="N0"/] J[/color] of energy, and can output a maximum [color=orange][protodata="SMESAdvanced" comp="PowerNetworkBattery" member="MaxSupply" format="N0"/] W[/color] of power.
 
-  Имейте в виду, что это не волшебное решение проблемы дефицита энергии, и они не могут хранить бесконечную энергию.
-  Нагрузка станции быстро разрядит эти батареи, если нет источника питания, частично их поддерживающего.
+  Keep in mind that these aren't a magic solution to power deficits, and they can't store infinite energy.
+  A station load will drain these battries quickly if there is no power source partially supporting them.
 </Document>

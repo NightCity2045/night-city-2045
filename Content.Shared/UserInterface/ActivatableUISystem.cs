@@ -147,9 +147,6 @@ public sealed partial class ActivatableUISystem : EntitySystem
         if (component.RequiredItems != null)
             return;
 
-        if (_whitelistSystem.IsWhitelistFail(component.UserWhitelist, args.User))
-            return;
-
         args.Handled = InteractUI(args.User, uid, component);
     }
 
@@ -164,9 +161,6 @@ public sealed partial class ActivatableUISystem : EntitySystem
         if (component.RequiredItems != null)
             return;
 
-        if (_whitelistSystem.IsWhitelistFail(component.UserWhitelist, args.User))
-            return;
-
         args.Handled = InteractUI(args.User, uid, component);
     }
 
@@ -179,7 +173,7 @@ public sealed partial class ActivatableUISystem : EntitySystem
             return;
 
         if (_whitelistSystem.IsWhitelistFailOrNull(component.RequiredItems, args.Used) ||
-            _whitelistSystem.IsWhitelistFail(component.UserWhitelist, args.User))
+            !_whitelistSystem.IsWhitelistFail(component.UserWhitelist, args.User))
             return;
 
         args.Handled = InteractUI(args.User, uid, component);

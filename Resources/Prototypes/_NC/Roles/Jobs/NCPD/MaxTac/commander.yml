@@ -1,0 +1,49 @@
+- type: job
+  id: MaxTacCommander
+  name: job-name-maxtac-commander
+  description: job-description-maxtac-commander
+  playTimeTracker: JobMaxTacCommander
+  weight: 95
+  salary: 500
+  icon: "JobIconMaxTacCommander"
+  startingGear: MaxTacCommanderGear
+  supervisors: job-supervisors-centcom
+  access:
+    - MaxTac_Command
+    - MaxTac_General
+    - MaxTac_Armory
+    - NCPD_Command
+    - NCPD_Patrol
+    - NCPD_Armory
+    - NCPD_Detective
+    - NC_General
+  special:
+  - !type:AddComponentSpecial
+    components:
+    - type: MapBeacon
+      group: NCPD
+      color: "#ffaa00"
+      icon: /Textures/Interface/VerbIcons/star-solid-yellow.svg.192dpi.png
+      visibleInWorld: false
+    - type: TraumaSubscriber
+      tier: Silver
+  - !type:AddCyberwareSpecial
+    loseHum: false
+    cyberware:
+    - CyberwareExternalReactiveSublayer
+    - CyberwareNeuroKerenzikovMaxTac
+    - CyberwareNeuroTacticalSpartan
+    - CyberwareNeuroSandevistanMaxTac
+    - CyberwareImplantAntiglare
+
+- type: startingGear
+  id: MaxTacCommanderGear
+  equipment:
+    jumpsuit: ClothingUniformNSPDNormisBlack
+    back: ClothingBackpackSecurity
+    shoes: ClothingShoesBootsCombatFilled
+    head: ClothingHeadHelmetHardsuitSecurityRed
+    eyes: ClothingEyesGlassesSecurityVisor
+    id: MaxTacCommanderPDA
+    belt: ClothingBeltSecurityFilled
+    outerClothing: ClothingOuterHardsuitMilitech

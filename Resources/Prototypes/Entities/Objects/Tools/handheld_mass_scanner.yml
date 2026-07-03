@@ -17,7 +17,6 @@
   - type: RadarConsole
     maxRange: 256
     followEntity: true
-    rotateWithEntity: false # WD EDIT
   - type: Appearance
   - type: GenericVisualizer
     visuals:

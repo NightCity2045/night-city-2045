@@ -1,0 +1,11 @@
+- type: entity
+  id: NCProcessedFrameT1
+  name: ent-NCProcessedFrameT1
+  description: ent-NCProcessedFrame-desc
+  parent: BaseItem
+  components:
+    - type: Sprite
+      sprite: DeltaV/Objects/Misc/modular_breech.rsi
+      state: base
+    - type: NCWeaponPart
+      partType: Frame

@@ -66,6 +66,11 @@ public sealed class ChannelFilterButton : ChatPopupButton<ChannelFilterPopup>
             new Vector2(Math.Max(minX, Popup.MinWidth), minY));
     }
 
+    public void RefreshLocalization()
+    {
+        Popup.RefreshLocalization();
+    }
+
     private void UpdateChildColors()
     {
         if (_textureRect == null) return;

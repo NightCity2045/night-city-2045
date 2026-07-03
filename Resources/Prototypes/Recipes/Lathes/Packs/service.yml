@@ -18,6 +18,13 @@
   - FoodPlateTin
   - FoodPlateMuffinTin
   - FoodKebabSkewer
+  # NC edit start: Biotechnica lathe
+  - ForkPlastic
+  - KnifePlastic
+  - SpoonPlastic
+  - DrinkVacuumFlask
+  - DrinkFlaskOld
+  # NC edit end: Biotechnica lathe
   - SprayBottle
   - MopItem
   - Holoprojector
@@ -48,6 +55,22 @@
   - DeepFryerMachineCircuitboard
   - SeedExtractorMachineCircuitboard
   # EE EDIT END
+
+# NC edit start: Biotechnica lathe
+- type: latheRecipePack
+  id: OfficeStatic
+  recipes:
+  - Paper
+  - Envelope
+  - Pen
+  - BoxFolderGrey
+  - BoxFolderClipboard
+  - BoxPlastic
+  - BoxPlasticSmall
+  - BoxCardboard
+  - BoxCardboardSmall
+  - ClothingHeadHatPaper
+# NC edit end: Biotechnica lathe
 
 ## Dynamic
 

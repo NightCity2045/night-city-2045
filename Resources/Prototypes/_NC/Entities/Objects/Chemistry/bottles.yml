@@ -1,0 +1,134 @@
+- type: entity
+  parent: BaseChemistryBottleFilled
+  id: YeastChemistryBottle
+  name: ent-NCChemistryBottle
+  suffix: дрожжи
+  components:
+  - type: Label
+    currentLabel: reagent-name-Yeast
+  - type: SolutionContainerManager
+    solutions:
+      drink:
+        reagents:
+        - ReagentId: Yeast
+          Quantity: 30
+
+- type: entity
+  parent: BaseChemistryBottleFilled
+  id: CornSmoothieChemistryBottle
+  name: ent-NCChemistryBottle
+  suffix: кукурузный смузи
+  components:
+  - type: Label
+    currentLabel: reagent-name-CornSmoothie
+  - type: SolutionContainerManager
+    solutions:
+      drink:
+        reagents:
+        - ReagentId: CornSmoothie
+          Quantity: 30
+
+- type: entity
+  parent: BaseChemistryBottleFilled
+  id: WheatSmoothieChemistryBottle
+  name: ent-NCChemistryBottle
+  suffix: пшеничный смузи
+  components:
+  - type: Label
+    currentLabel: reagent-name-WheatSmoothie
+  - type: SolutionContainerManager
+    solutions:
+      drink:
+        reagents:
+        - ReagentId: WheatSmoothie
+          Quantity: 30
+
+- type: entity
+  parent: BaseChemistryBottleFilled
+  id: WhiteMatterChemistryBottle
+  name: ent-NCChemistryBottle
+  suffix: белое вещество
+  components:
+  - type: Label
+    currentLabel: reagent-name-WhiteMatter
+  - type: SolutionContainerManager
+    solutions:
+      drink:
+        reagents:
+        - ReagentId: WhiteMatter
+          Quantity: 30
+
+- type: entity
+  parent: BaseChemistryBottleFilled
+  id: NeuroStimChemistryBottle
+  name: ent-NCChemistryBottle
+  suffix: нейростим
+  components:
+  - type: Label
+    currentLabel: reagent-name-NeuroStim
+  - type: SolutionContainerManager
+    solutions:
+      drink:
+        reagents:
+        - ReagentId: NeuroStim
+          Quantity: 30
+
+- type: entity
+  parent: BaseChemistryBottleFilled
+  id: PrimeTimeChemistryBottle
+  name: ent-NCChemistryBottle
+  suffix: прайм тайм
+  components:
+  - type: Label
+    currentLabel: reagent-name-PrimeTime
+  - type: SolutionContainerManager
+    solutions:
+      drink:
+        reagents:
+        - ReagentId: PrimeTime
+          Quantity: 30
+
+- type: entity
+  parent: BaseChemistryBottleFilled
+  id: SixGunChemistryBottle
+  name: ent-NCChemistryBottle
+  suffix: шестистволка
+  components:
+  - type: Label
+    currentLabel: reagent-name-SixGun
+  - type: SolutionContainerManager
+    solutions:
+      drink:
+        reagents:
+        - ReagentId: SixGun
+          Quantity: 30
+
+- type: entity
+  parent: BaseChemistryBottleFilled
+  id: NitroPolymerChemistryBottle
+  name: ent-NCChemistryBottle
+  suffix: нитро-полимер
+  components:
+  - type: Label
+    currentLabel: reagent-name-NitroPolymer
+  - type: SolutionContainerManager
+    solutions:
+      drink:
+        reagents:
+        - ReagentId: NitroPolymer
+          Quantity: 30
+
+- type: entity
+  parent: BaseChemistryBottleFilled
+  id: BioEthanolChemistryBottle
+  name: ent-NCChemistryBottle
+  suffix: био-этанол
+  components:
+  - type: Label
+    currentLabel: reagent-name-BioEthanol
+  - type: SolutionContainerManager
+    solutions:
+      drink:
+        reagents:
+        - ReagentId: BioEthanol
+          Quantity: 30

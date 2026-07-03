@@ -1,0 +1,27 @@
+- type: job
+  id: MilitechNetrunner
+  name: job-name-militech-netrunner
+  description: job-description-militech-netrunner
+  playTimeTracker: JobMilitechNetrunner
+  weight: 60
+  salary: 450
+  icon: "JobIconCivilNetrunner"
+  startingGear: MilitechNetrunnerGear
+  access:
+    - Militech_Command
+    - Militech_Operative
+    - Militech_Tech
+    - Militech_Staff
+    - Militech_General
+    - NC_General
+
+- type: startingGear
+  id: MilitechNetrunnerGear
+  equipment:
+    jumpsuit: ClothingUniformJumpsuitMilitech
+    back: ClothingBackpack
+    shoes: ClothingShoesBootsCombat
+    eyes: ClothingEyesGlassesSunglasses
+    id: MilitechNetrunnerPDA
+    belt: ClothingBeltUtilityEngineering
+    outerClothing: ClothingOuterArmorMilitechBulletproof

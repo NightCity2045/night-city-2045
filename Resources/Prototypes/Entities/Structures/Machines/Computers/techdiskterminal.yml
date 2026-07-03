@@ -23,7 +23,6 @@
         type: DiskConsoleBoundUserInterface
       enum.ResearchClientUiKey.Key:
         type: ResearchClientBoundUserInterface
-  - type: ExtensionCableReceiver
   - type: Computer
     board: TechDiskComputerCircuitboard
   - type: PointLight

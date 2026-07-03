@@ -93,7 +93,7 @@
   categories: [ HideSpawnMenu ]
   components:
   - type: Aspect
-    weight: 3
+    weight: 0
     startAudio:
       path: /Audio/_White/Aspects/accent.ogg
   - type: ImmersiveAspect

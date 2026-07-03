@@ -33,13 +33,11 @@ namespace Content.Shared.CombatMode
 
         #endregion
 
-        // WD EDIT START
-        // [DataField("combatToggleAction", customTypeSerializer: typeof(PrototypeIdSerializer<EntityPrototype>))]
-        // public string CombatToggleAction = "ActionCombatModeToggle";
+        [DataField("combatToggleAction", customTypeSerializer: typeof(PrototypeIdSerializer<EntityPrototype>))]
+        public string CombatToggleAction = "ActionCombatModeToggle";
 
-        // [DataField, AutoNetworkedField]
-        // public EntityUid? CombatToggleActionEntity;
-        // WD EDIT END
+        [DataField, AutoNetworkedField]
+        public EntityUid? CombatToggleActionEntity;
 
         [ViewVariables(VVAccess.ReadWrite), DataField("isInCombatMode"), AutoNetworkedField]
         public bool IsInCombatMode;

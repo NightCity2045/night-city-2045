@@ -50,7 +50,7 @@
     - TelepathyPower
   - type: HTN
     rootTask:
-      task: MeleePsionicFamiliarCompound
+      task: NCBanditRootCompound
     blackboard:
       IdleRange: !type:Single
         3.5

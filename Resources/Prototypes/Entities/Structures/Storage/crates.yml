@@ -24,6 +24,13 @@
     sprite: Structures/Storage/Crates/aluminiumcrate.rsi
   - type: Sprite
     sprite: Structures/Storage/Crates/aluminiumcrate.rsi
+  # NC edit start: Fix crafting materials
+  - type: Construction
+    graph: CrateAluminium
+    node: end
+    containers:
+    - entity_storage
+  # NC edit end: Fix crafting materials
 
 - type: entity
   parent: CrateGenericSteel

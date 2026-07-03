@@ -1,0 +1,18 @@
+- type: entity
+  id: NCBlankBarrelAlloy
+  name: ent-NCBlankBarrelAlloy
+  description: ent-NCBlankBarrelAlloy-desc
+  parent: BaseItem
+  components:
+    - type: Sprite
+      sprite: Objects/Materials/parts.rsi
+      state: rods_4
+    - type: NCWeaponBlank
+      safeZoneHalf: 0.15
+      toleranceTime: 2.2
+      progressSpeed: 0.045
+      resultEntity: NCProcessedBarrelT2
+      anomalies:
+        0.20: IntegrityDrop
+        0.50: HeatSpike
+        0.85: DoubleTrouble

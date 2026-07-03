@@ -1,0 +1,23 @@
+<DefaultWindow
+    xmlns="https://spacestation14.io"
+    Title="Персональные заметки"
+    MinSize="420 360">
+
+    <BoxContainer Orientation="Vertical" Margin="10" SeparationOverride="8" HorizontalExpand="True" VerticalExpand="True">
+        <Label Text="Цель" FontColorOverride="#aaaaaa" />
+        <Label Name="TargetNameLabel" Text="Неизвестно" HorizontalExpand="True" />
+
+        <Label Text="Свое имя" FontColorOverride="#aaaaaa" />
+        <LineEdit Name="CustomNameInput" PlaceHolder="До 32 символов" HorizontalExpand="True" />
+
+        <Label Text="Цветовая метка" FontColorOverride="#aaaaaa" />
+        <OptionButton Name="ColorTagOption" HorizontalExpand="True" />
+
+        <Label Text="Описание" FontColorOverride="#aaaaaa" />
+        <TextEdit Name="DescriptionInput" MinHeight="140" HorizontalExpand="True" VerticalExpand="True" />
+
+        <BoxContainer Orientation="Horizontal" HorizontalAlignment="Right" SeparationOverride="8">
+            <Button Name="SaveButton" Text="Сохранить" MinWidth="120" />
+        </BoxContainer>
+    </BoxContainer>
+</DefaultWindow>

@@ -254,3 +254,78 @@
   materials:
     Glass: 100
     Plastic: 100
+
+# NC edit start: Biotechnica lathe
+- type: latheRecipe
+  id: Paper
+  result: Paper
+  completetime: 1
+  materials:
+    Paper: 50
+
+- type: latheRecipe
+  parent: Paper
+  id: Envelope
+  result: Envelope
+
+- type: latheRecipe
+  id: Pen
+  result: Pen
+  completetime: 1
+  materials:
+    Steel: 25
+    Plastic: 50
+
+- type: latheRecipe
+  id: BoxFolderGrey
+  result: BoxFolderGrey
+  completetime: 1
+  materials:
+    Paper: 100
+    Cardboard: 50
+    Plastic: 50
+
+- type: latheRecipe
+  id: BoxFolderClipboard
+  result: BoxFolderClipboard
+  completetime: 1
+  materials:
+    Paper: 100
+    Cardboard: 50
+    Plastic: 50
+
+- type: latheRecipe
+  id: BoxPlastic
+  result: BoxPlastic
+  completetime: 1
+  materials:
+    Plastic: 200
+
+- type: latheRecipe
+  id: BoxPlasticSmall
+  result: BoxPlasticSmall
+  completetime: 1
+  materials:
+    Plastic: 100
+
+- type: latheRecipe
+  id: BoxCardboard
+  result: BoxCardboard
+  completetime: 1
+  materials:
+    Cardboard: 200
+
+- type: latheRecipe
+  id: BoxCardboardSmall
+  result: BoxCardboardSmall
+  completetime: 1
+  materials:
+    Cardboard: 100
+
+- type: latheRecipe
+  id: ClothingHeadHatPaper
+  result: ClothingHeadHatPaper
+  completetime: 1
+  materials:
+    Paper: 200
+# NC edit end: Biotechnica lathe

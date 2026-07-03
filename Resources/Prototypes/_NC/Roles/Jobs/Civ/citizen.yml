@@ -1,0 +1,18 @@
+- type: job
+  id: NCCitizen
+  name: job-name-nccitizen
+  description: job-description-citizen
+  playTimeTracker: JobNCCitizen
+  icon: "JobIconCivilCitizen"
+  salary: 50
+  startingGear: NCCitizenGear
+  access:
+    - NC_General
+
+- type: startingGear
+  id: NCCitizenGear
+  equipment:
+    jumpsuit: ClothingUniformJumpsuitColorGrey
+    back: ClothingBackpackSatchel
+    shoes: ClothingShoesColorBlack
+    id: CitizenPDA

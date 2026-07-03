@@ -1,0 +1,281 @@
+# Пулы наград для контрактов фиксера
+# Тир Easy — базовое вооружение и расходники
+- type: ncContractRewardPool
+  id: fixer_easy
+  entries:
+  - type: Item
+    id: WeaponPistolStreetMaster
+    weight: 2
+  - type: Item
+    id: WeaponPistolCheesemaker
+    weight: 2
+  - type: Item
+    id: AmmoBox9x19
+    weight: 3
+  - type: Item
+    id: Brutepack
+    amount: { min: 5, max: 10 }
+    weight: 4
+  - type: Item
+    id: Ointment
+    amount: { min: 5, max: 10 }
+    weight: 4
+  - type: Item
+    id: SheetSteel
+    amount: { min: 5, max: 10 }
+    weight: 3
+  - type: Item
+    id: ClothingOuterArmorBasic
+    weight: 2
+  - type: Item
+    id: PillCanisterBicaridine
+    weight: 2
+  - type: Item
+    id: PillCanisterKelotane
+    weight: 2
+  - type: Item
+    id: MagazinePistolCheesemaker
+    amount: { min: 2, max: 4 }
+    weight: 3
+  - type: Item
+    id: WeaponPistolHelloCutie
+    weight: 3
+  - type: Item
+    id: WeaponPistolOverlord
+    weight: 2
+  - type: Item
+    id: CombatKnife
+    weight: 3
+  - type: Item
+    id: CyberwareInternalVampireFangsBasic
+    weight: 1
+  - type: Item
+    id: CyberwareInternalNasalFilters
+    weight: 1
+  - type: Item
+    id: SurvivalKnife
+    weight: 3
+  - type: Item
+    id: Multitool
+    weight: 1
+  - type: Item
+    id: CircuitImprinterMachineCircuitboard
+    weight: 2
+  - type: Item
+    id: WeaponPistolCheesemaker
+    weight: 1
+  - type: Item
+    id: ClothingHeadHatWelding
+    weight: 3
+  - type: Item
+    id: Wristwatch
+    weight: 2
+  - type: Item
+    id: SurvivalKnife
+    weight: 4
+  - type: Item
+    id: KukriKnife
+    weight: 2
+  - type: Item
+    id: Syringe
+    amount: { min: 2, max: 5 }
+    weight: 5
+  - type: Item
+    id: ClothingHandsGlovesColorYellow
+    weight: 2
+  - type: Item
+    id: PowerCellSmall
+    amount: { min: 1, max: 2 }
+    weight: 4
+  - type: Item
+    id: CapacitorStockPart
+    weight: 3
+
+# Тир Medium — серьёзное вооружение и экипировка
+- type: ncContractRewardPool
+  id: fixer_medium
+  entries:
+  - type: Item
+    id: WeaponPistolFederalX9
+    weight: 2
+  - type: Item
+    id: WeaponShotgunSvakha
+    weight: 1
+  - type: Item
+    id: WeaponRifleNokotaD5Copperhead
+    weight: 1
+  - type: Item
+    id: MedkitCombatFilled
+    weight: 2
+  - type: Item
+    id: ClothingOuterArmorBulletproof
+    weight: 2
+  - type: Item
+    id: AmmoBox11x20
+    weight: 3
+  - type: Item
+    id: WeaponPistolAvenger
+    weight: 2
+  - type: Item
+    id: EpinephrineChemistryBottle
+    weight: 2
+  - type: Item
+    id: PillCanisterDylovene
+    weight: 2
+  - type: Item
+    id: PillCanisterDexalin
+    weight: 2
+  - type: Item
+    id: WeaponRifleNomadGvozdemet
+    weight: 1
+  - type: Item
+    id: WeaponPistolBoomerBuster
+    weight: 1
+  - type: Item
+    id: NCWeaponRevolverSternmeyerP35
+    weight: 2
+  - type: Item
+    id: Katana
+    weight: 1
+  - type: Item
+    id: CyberwareImplantAntiglare
+    weight: 2
+  - type: Item
+    id: CyberwareInternalPolymerSkeleton
+    weight: 1
+  - type: Item
+    id: CyberwareExternalKevlarSublayer
+    weight: 1
+  - type: Item
+    id: CyberwareImplantInfraredVision
+    weight: 1
+  - type: Item
+    id: CyberwareImplantMicroVideo
+    weight: 1
+  - type: Item
+    id: CyberwareInternalEnhancedAntibodies
+    weight: 1
+  - type: Item
+    id: ClothingOuterVestWebMerc
+    weight: 2
+  - type: Item
+    id: MedkitFilled
+    weight: 4
+  - type: Item
+    id: WeaponShotgunSvakha
+    weight: 2
+  - type: Item
+    id: ClothingOuterArmorPunkRandomized
+    weight: 3
+  - type: Item
+    id: ClothingOuterArmorElitePunkRandomized
+    weight: 1
+  - type: Item
+    id: WeaponRifleNokotaD5Copperhead
+    weight: 2
+  - type: Item
+    id: WeaponPistolFederalX9
+    weight: 3
+  - type: Item
+    id: ClothingHandsGlovesCombat
+    weight: 1
+  - type: Item
+    id: MedkitCombatFilled
+    amount: { min: 1, max: 2 }
+    weight: 4
+  - type: Item
+    id: WeaponRifleArasakaNOWAKI
+    weight: 2
+  - type: Item
+    id: WeaponRifleArasakaProto
+    weight: 1
+  - type: Item
+    id: ClothingUniformJumpsuitClown # мухахахах
+    weight: 1
+  - type: Item
+    id: ClothingHeadHelmetMerc
+    weight: 3
+  - type: Item
+    id: WeaponRifleM04
+    weight: 2
+  - type: Item
+    id: MorphineChemistryBottle
+    amount: { min: 1, max: 3 }
+    weight: 3
+  - type: Item
+    id: SheetSteel
+    amount: { min: 10, max: 20 }
+    weight: 3
+  - type: Item
+    id: IngotSilver
+    amount: { min: 4, max: 8 }
+    weight: 3
+  - type: Item
+    id: ClothingOuterArmorBasic
+    weight: 2
+  - type: Item
+    id: ClothingHeadHelmetBasic
+    weight: 2
+  - type: Item
+    id: CableApcStack
+    amount: { min: 15, max: 30 }
+    weight: 2
+
+# Тир Hard — элитное снаряжение и прототипы
+- type: ncContractRewardPool
+  id: fixer_hard
+  entries:
+  - type: Item
+    id: WeaponRifleArasakaNOWAKI
+    weight: 2
+  - type: Item
+    id: WeaponRifleM04
+    weight: 1
+  - type: Item
+    id: ClothingOuterHardsuitMilitech
+    weight: 1
+  - type: Item
+    id: ClothingOuterArmorRiot
+    weight: 2
+  - type: Item
+    id: Defibrillator
+    weight: 4
+  - type: Item
+    id: WeaponPistolStukachTommy
+    weight: 3
+  - type: Item
+    id: PillCanisterTricordrazine
+    weight: 5
+  - type: Item
+    id: CyberwareNeuroKerenzikovMk1
+    weight: 6
+  - type: Item
+    id: CyberwareNeuroSandevistanMk1
+    weight: 4
+  - type: Item
+    id: CyberwareExternalThermoplasticArmor
+    weight: 4
+  - type: Item
+    id: CyberwareInternalTitaniumReinforcement
+    weight: 4
+  - type: Item
+    id: CyberwareNeuroBioInhibitorStoic
+    weight: 4
+  - type: Item
+    id: CyberwareNeuroKerenzikovMk2
+    weight: 3
+  - type: Item
+    id: CyberwareNeuroKerenzikovMk3
+    weight: 2
+  - type: Item
+    id: CyberwareNeuroSandevistanApogee
+    weight: 1
+  - type: Item
+    id: CyberwareInternalArmyEndoskeleton
+    weight: 1
+  - type: Item
+    id: CyberwareNeuroTacticalSpartan
+    weight: 1
+  - type: Item
+    id: CyberwareExternalReactiveSublayer
+    weight: 1

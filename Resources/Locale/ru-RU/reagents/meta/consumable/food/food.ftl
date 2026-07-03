@@ -13,5 +13,5 @@ reagent-desc-cocoapowder = Из лучших сортов какао-бобов
 reagent-name-butter = масло
 reagent-desc-butter = Вы можете ему верить!
 
-reagent-name-pumpkin-flesh = тыквенная мякоть
-reagent-desc-pumpkin-flesh = Мягкий, сладкий плод тыквы.
+reagent-name-pumpkin-flesh = тыквенный сок
+reagent-desc-pumpkin-flesh = Мягкая, сладкая мякоть тыквы.

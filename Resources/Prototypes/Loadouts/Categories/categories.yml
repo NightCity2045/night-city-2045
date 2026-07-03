@@ -39,6 +39,7 @@
     - JobsSecurity
     - JobsService
     - JobsZMisc
+    - JobsBiotechnica  # NC edit
 
 - type: loadoutCategory
   id: JobsAUncategorized

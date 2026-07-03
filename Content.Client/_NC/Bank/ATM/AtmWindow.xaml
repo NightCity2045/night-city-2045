@@ -1,0 +1,48 @@
+<controls:FancyWindow xmlns="https://spacestation14.io"
+                      xmlns:controls="clr-namespace:Content.Client.UserInterface.Controls"
+                      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                      x:Class="Content.Client._NC.Bank.ATM.AtmWindow"
+                      Title="Night City Bank ATM"
+                      SetSize="350 350"
+                      MinSize="350 350">
+    <BoxContainer Margin="10 10 10 10" Orientation="Vertical" SeparationOverride="10">
+        
+        <Label Name="StatusLabel" Text="Авторизация" Align="Center" FontColorOverride="#FF5555"/>
+
+        <BoxContainer Name="LoginContainer" Orientation="Vertical" SeparationOverride="5" Visible="True">
+            <LineEdit Name="AccountNumberEdit" PlaceHolder="Номер счета (NC-XXXXXX)" />
+            <LineEdit Name="PinEdit" PlaceHolder="ПИН-код" />
+            <Button Name="LoginButton" Text="Войти" />
+        </BoxContainer>
+
+        <BoxContainer Name="AccountContainer" Orientation="Vertical" SeparationOverride="5" Visible="False">
+            <Button Name="LogoutButton" Text="Выйти" />
+            <Control VerticalExpand="True" />
+
+            <BoxContainer Orientation="Horizontal">
+                <Label Text="Баланс счета: " StyleClasses="LabelKeyText" />
+                <Label Name="BalanceLabel" Text="---" />
+            </BoxContainer>
+            
+            <BoxContainer Orientation="Horizontal">
+                <Label Text="Текущий налог: " StyleClasses="LabelKeyText" />
+                <Label Name="TaxLabel" Text="0%" FontColorOverride="#AAAAAA"/>
+            </BoxContainer>
+
+            <PanelContainer StyleClasses="LowDivider" />
+
+            <BoxContainer Orientation="Horizontal" SeparationOverride="5">
+                <LineEdit Name="WithdrawEdit" PlaceHolder="Сумма" MinSize="100 0" />
+                <Button Name="WithdrawButton" Text="Снять" HorizontalExpand="True"/>
+            </BoxContainer>
+
+            <PanelContainer StyleClasses="LowDivider" />
+
+            <BoxContainer Orientation="Horizontal">
+                <Label Text="В лотке: " StyleClasses="LabelKeyText" />
+                <Label Name="DepositLabel" Text="0$" />
+            </BoxContainer>
+            <Button Name="DepositButton" Text="Внести средства" />
+        </BoxContainer>
+    </BoxContainer>
+</controls:FancyWindow>

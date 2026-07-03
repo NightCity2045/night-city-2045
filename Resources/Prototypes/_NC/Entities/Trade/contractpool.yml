@@ -1,0 +1,82 @@
+- type: ncContractRewardPool
+  id: ncbase_easy
+  entries:
+  - type: Item
+    id: CircuitImprinterMachineCircuitboard
+    weight: 3
+  - type: Item
+    id: ClothingHeadHatWelding
+    weight: 3
+  - type: Item
+    id: Wristwatch
+    weight: 1
+  - type: Item
+    id: SurvivalKnife
+    weight: 2
+  - type: Item
+  - type: Item
+    id: KukriKnife
+    weight: 1
+  - type: Item
+    id: Syringe
+    amount: { min: 1, max: 3 }
+    weight: 3
+  - type: Item
+    id: ClothingHandsGlovesColorYellow
+    weight: 2
+  - type: Item
+    id: PowerCellSmall
+    weight: 3
+  - type: Item
+    id: CapacitorStockPart
+    weight: 2
+
+- type: ncContractRewardPool
+  id: ncbase_medium
+  entries:
+  - type: Item
+    id: MedkitFilled
+    weight: 2
+  - type: Item
+    id: WeaponShotgunSvakha
+    weight: 1
+  - type: Item
+    id: ClothingOuterArmorPunkRandomized
+    weight: 2
+  - type: Item
+    id: ClothingOuterArmorElitePunkRandomized
+    weight: 2
+  - type: Item
+    id: WeaponPistolFederalX9
+    weight: 1
+
+- type: ncContractRewardPool
+  id: ncbase_hard
+  entries:
+  - type: Item
+    id: MedkitCombatFilled
+    weight: 1
+  - type: Item
+    id: ClothingUniformJumpsuitClown
+    weight: 1
+  - type: Item
+    id: ClothingHeadHelmetMerc
+    weight: 1
+
+- type: ncContractRewardPool
+  id: caravan_easy_nonweapons
+  entries:
+  - type: Item
+    id: SheetSteel
+    amount: { min: 4, max: 8 }
+    weight: 3
+  - type: Item
+    id: IngotSilver
+    amount: { min: 2, max: 4 }
+    weight: 3
+  - type: Item
+    id: ClothingOuterArmorBasic
+    weight: 1
+  - type: Item
+    id: ClothingHeadHelmetBasic
+    weight: 2

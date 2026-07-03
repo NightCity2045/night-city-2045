@@ -20,7 +20,7 @@
   suffix: Loot, RandomSmall
 
 - type: entity
-  parent: CrateGenericSteel
+  parent: CrateAluminium  # NC edit: Fix crafting materials
   id: N14CrateAluminium
   name: aluminium crate
   description: An aluminium crate for storing stuff.

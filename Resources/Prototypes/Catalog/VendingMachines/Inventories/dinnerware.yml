@@ -16,21 +16,33 @@
     DrinkGlass: 5
     Beaker: 5
     LargeBeaker: 5
-    Pitcher: 2
-    DrinkMug: 5
-    DrinkMugBlack: 2
-    DrinkMugBlue: 2
-    DrinkMugGreen: 2
-    DrinkMugHeart: 1
-    DrinkMugMetal: 2
-    DrinkMugMoebius: 1
-    DrinkMugOne: 1
-    DrinkMugRainbow: 2
-    DrinkMugRed: 2
-    LunchboxGeneric: 10 # Delta-V Adds Lunchbox
-  #WWDP edit start
+    FoodShakerSalt: 5
+    FoodShakerPepper: 5
+  startingItemPrices:
+    ButchCleaver: 20
+    KitchenKnife: 20
+    RollingPin: 10
+    Spoon: 5
+    Fork: 5
+    PairedChopsticks: 5
+    FoodBowlBig: 5
+    FoodPlate: 5
+    FoodPlateSmall: 5
+    FoodPlateTin: 5
+    FoodPlateMuffinTin: 5
+    FoodKebabSkewer: 5
+    DrinkGlass: 5
+    Beaker: 5
+    LargeBeaker: 10
+    FoodShakerSalt: 5
+    FoodShakerPepper: 5
   contrabandInventory:
     Whetstone: 2
+    LunchboxGeneric: 10
+  contrabandItemPrices:
+    Whetstone: 100
+    LunchboxGeneric: 20
   emaggedInventory:
     DehydratedSpaceCarp: 1
-  #WWDP edit end
+  emaggedItemPrices:
+    DehydratedSpaceCarp: 100

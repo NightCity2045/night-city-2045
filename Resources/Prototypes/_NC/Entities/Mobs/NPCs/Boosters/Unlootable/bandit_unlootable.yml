@@ -1,0 +1,94 @@
+# Bandit NPC for Night City (Unlootable)
+
+# --- Bandit Variations ---
+
+- type: entity
+  name: ent-MobNCBandit
+  parent: BaseMobHuman
+  id: MobNCBanditUnlootable
+  description: ent-MobNCBandit-desc
+  abstract: true
+  IdleRange: !type:Single 6
+  components:
+  - type: NpcFactionMember
+    factions:
+    - NCBandit
+  - type: HTN
+    rootTask:
+      task: NCBanditRootCompound
+  - type: NPCRetaliation
+    attackMemoryLength: 10
+  - type: NPCAutoReload
+  - type: InputMover
+  - type: MobMover
+
+- type: entity
+  parent: MobNCBanditUnlootable
+  id: MobNCBanditPistolUnlootable
+  suffix: NC Pistol noLoot
+  components:
+  - type: Loadout
+    prototypes: [NCBanditGearPistol]
+  - type: NpcUnlootable
+
+- type: entity
+  parent: MobNCBanditUnlootable
+  id: MobNCBanditRifleUnlootable
+  suffix: NC Rifle noLoot
+  components:
+  - type: Loadout
+    prototypes: [NCBanditGearRifle]
+  - type: NpcUnlootable
+
+- type: entity
+  parent: MobNCBanditUnlootable
+  id: MobNCBanditBossUnlootable
+  suffix: NC Boss noLoot
+  components:
+  - type: Loadout
+    prototypes: [NCBanditGearBoss]
+  - type: Cyberware
+  - type: StartingCyberware
+    loseHum: false
+    cyberware:
+    - CyberwareNeuroKerenzikovMk3
+    - CyberwareNeuroTacticalSpartan
+    - CyberwareInternalEnhancedAntibodies
+    - CyberwareInternalEnhancedAntibodiesTier3
+  - type: NpcUnlootable
+
+- type: entity
+  parent: MobNCBanditUnlootable
+  id: MobNCBanditCrusherUnlootable
+  suffix: NC Crusher noLoot
+  components:
+  - type: Loadout
+    prototypes: [NCBanditGearCrusher]
+  - type: NpcUnlootable
+
+- type: entity
+  parent: MobNCBanditUnlootable
+  id: MobNCBanditMeleeSledgeUnlootable
+  suffix: NC Sledge noLoot
+  components:
+  - type: Loadout
+    prototypes: [NCBanditGearMeleeSledge]
+  - type: NpcUnlootable
+
+- type: entity
+  parent: MobNCBanditUnlootable
+  id: MobNCBanditMeleeChainsawUnlootable
+  suffix: NC Chainsaw noLoot
+  components:
+  - type: Loadout
+    prototypes: [NCBanditGearMeleeChainsaw]
+  - type: NpcUnlootable
+
+- type: entity
+  parent: MobNCBanditUnlootable
+  id: MobNCBanditMeleeFireAxeUnlootable
+  suffix: NC Fireaxe noLoot
+  components:
+  - type: Loadout
+    prototypes: [NCBanditGearMeleeFireAxe]
+  - type: NpcUnlootable

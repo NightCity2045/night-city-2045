@@ -1,4 +1,3 @@
-using System.Text.RegularExpressions; // WWDP EDIT
 using Content.Server.DeviceNetwork;
 using Content.Server.DeviceNetwork.Components;
 using Content.Server.DeviceNetwork.Systems;
@@ -81,7 +80,7 @@ public sealed class SurveillanceCameraSystem : EntitySystem
             {
                 { DeviceNetworkConstants.Command, string.Empty },
                 { CameraAddressData, deviceNet.Address },
-                { CameraNameData, GetLocalizedCameraName(component.CameraId) }, // WWDP EDIT
+                { CameraNameData, component.CameraId },
                 { CameraSubnetData, string.Empty }
             };
 
@@ -399,25 +398,6 @@ public sealed class SurveillanceCameraSystem : EntitySystem
 
         _appearance.SetData(uid, SurveillanceCameraVisualsKey.Key, key, appearance);
     }
-    // WWDP EDIT START
-    private static readonly Regex NonAlphanumericRegex = new(@"[^a-z0-9-]", RegexOptions.Compiled);
-    private static readonly Regex MultipleHyphensRegex = new(@"-+", RegexOptions.Compiled);
-    private string GetLocalizedCameraName(string cameraId)
-    {
-        var key = cameraId.ToLower()
-            .Replace(' ', '-')
-            .Replace('_', '-')
-            .Replace('/', '-');
-        key = NonAlphanumericRegex.Replace(key, "");
-        key = MultipleHyphensRegex.Replace(key, "-").Trim('-');
-
-        if (string.IsNullOrEmpty(key))
-            return cameraId;
-
-        var locKey = $"surveillance-monitor-title-{key}";
-        return Loc.TryGetString(locKey, out var localized) ? localized : cameraId;
-    }
-    // WWDP EDIT END
 }
 
 public sealed class OnSurveillanceCameraViewerAddEvent : EntityEventArgs

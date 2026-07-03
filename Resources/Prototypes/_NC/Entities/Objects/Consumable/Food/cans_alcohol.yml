@@ -1,0 +1,508 @@
+# region Alcoholic drinks
+
+- type: entity
+  parent: NCDrinkCan
+  id: NCDrinkCanBeer
+  name: пиво Бластер Светлое
+  description: Светлое пиво Бластер. Пивнее некуда.
+  suffix: баночка, алкоголь
+  components:
+  - type: SolutionContainerManager
+    solutions:
+      drink:
+        reagents:
+        - ReagentId: Beer
+          Quantity: 30
+  - type: Sprite
+    layers:
+      - state: icon
+        map: ["enum.OpenableVisuals.Layer"]
+      - state: text
+  - type: StaticPrice
+    price: 15
+  - type: Tag
+    tags:
+    - DrinkCan
+    - Beer
+
+- type: entity
+  parent: NCDrinkCan
+  id: NCDrinkCanWine
+  name: вино
+  description: Ваш путь к забвению всех забот и веселью!
+  suffix: баночка, алкоголь
+  components:
+  - type: SolutionContainerManager
+    solutions:
+      drink:
+        reagents:
+        - ReagentId: Wine
+          Quantity: 30
+  - type: Sprite
+    layers:
+      - state: icon
+        map: ["enum.OpenableVisuals.Layer"]
+      - state: text_cool
+  - type: StaticPrice
+    price: 18
+  - type: Tag
+    tags:
+    - DrinkCan
+    - Wine
+
+- type: entity
+  parent: NCDrinkCan
+  id: NCDrinkCanNegativiePlus
+  name: негативчик Плюс
+  description: Это реально алкоголь!
+  suffix: баночка, алкоголь
+  components:
+  - type: SolutionContainerManager
+    solutions:
+      drink:
+        reagents:
+        - ReagentId: Water
+          Quantity: 10
+        - ReagentId: JuiceTomato
+          Quantity: 5
+        - ReagentId: Acetone
+          Quantity: 5
+        - ReagentId: Ethanol
+          Quantity: 5
+        - ReagentId: Enzyme
+          Quantity: 5
+  - type: Sprite
+    layers:
+      - state: icon
+        map: ["enum.OpenableVisuals.Layer"]
+      - state: text_purple
+  - type: StaticPrice
+    price: 12
+
+- type: entity
+  parent: NCDrinkCan
+  id: NCDrinkCanNegativie
+  name: негативчик
+  description: Если просто пиво недостаточно тоскливо!
+  suffix: баночка, алкоголь
+  components:
+  - type: SolutionContainerManager
+    solutions:
+      drink:
+        reagents:
+        - ReagentId: Beer
+          Quantity: 15
+        - ReagentId: MilkSpoiled
+          Quantity: 10
+        - ReagentId: Sugar
+          Quantity: 5
+  - type: Sprite
+    layers:
+      - state: icon
+        map: ["enum.OpenableVisuals.Layer"]
+      - state: mango
+  - type: StaticPrice
+    price: 13
+
+- type: entity
+  parent: NCDrinkCan
+  id: NCDrinkCanRumCola
+  name: ромкола
+  description: Затяни этот узел потуже!
+  suffix: баночка, алкоголь
+  components:
+  - type: SolutionContainerManager
+    solutions:
+      drink:
+        reagents:
+        # Original reagents
+        # - ReagentId: Rum
+        #   Quantity: 15
+        # - ReagentId: Cola
+        #   Quantity: 15
+        # Result reagents
+        - ReagentId: Rum
+          Quantity: 7.5
+        - ReagentId: CubaLibre
+          Quantity: 22.5
+  - type: Sprite
+    layers:
+      - state: icon
+        map: ["enum.OpenableVisuals.Layer"]
+      - state: cola
+  - type: StaticPrice
+    price: 15
+
+- type: entity
+  parent: NCDrinkCan
+  id: NCDrinkCanRipperRefill
+  name: заправка риппера
+  description: Главное не пейте это во время операций.
+  suffix: баночка, алкоголь
+  components:
+  - type: SolutionContainerManager
+    solutions:
+      drink:
+        reagents:
+        - ReagentId: Acetone
+          Quantity: 10
+        - ReagentId: Gin
+          Quantity: 10
+        - ReagentId: Vodka
+          Quantity: 10
+  - type: Sprite
+    layers:
+      - state: icon
+        map: ["enum.OpenableVisuals.Layer"]
+      - state: blood
+  - type: StaticPrice
+    price: 25
+
+- type: entity
+  parent: NCDrinkCan
+  id: NCDrinkCanRustedPleasure
+  name: ржавое наслаждение
+  description: Вкус, который заставит вас задуматься о жизни.
+  suffix: баночка, алкоголь
+  components:
+  - type: SolutionContainerManager
+    solutions:
+      drink:
+        reagents:
+        - ReagentId: SodiumHydroxide
+          Quantity: 5
+        - ReagentId: Whiskey
+          Quantity: 15
+        - ReagentId: JuiceLime
+          Quantity: 10
+  - type: Sprite
+    layers:
+      - state: icon
+        map: ["enum.OpenableVisuals.Layer"]
+      - state: pumpkin
+  - type: StaticPrice
+    price: 30
+
+- type: entity
+  parent: NCDrinkCan
+  id: NCDrinkCanBurningCorp
+  name: изжога корпората
+  description: Туда его.
+  suffix: баночка, алкоголь
+  components:
+  - type: SolutionContainerManager
+    solutions:
+      drink:
+        reagents:
+        # Original reagents
+        # - ReagentId: Tequila
+        #   Quantity: 10
+        # - ReagentId: CoffeeLiqueur
+        #   Quantity: 10
+        # - ReagentId: JuiceOrange
+        #   Quantity: 5
+        # - ReagentId: Vodka
+        #   Quantity: 5
+        # Result reagents
+        - ReagentId: BlackRussian
+          Quantity: 7.5
+        - ReagentId: CoffeeLiqueur
+          Quantity: 2.5
+        - ReagentId: JuiceOrange
+          Quantity: 5
+        - ReagentId: BraveBull
+          Quantity: 15
+  - type: Sprite
+    layers:
+      - state: icon
+        map: ["enum.OpenableVisuals.Layer"]
+      - state: poison
+  - type: StaticPrice
+    price: 35
+
+- type: entity
+  parent: NCDrinkCan
+  id: NCDrinkCanBlindHappiness
+  name: слепое счастье
+  description: Живи и наслаждайся выживанием.
+  suffix: баночка, алкоголь
+  components:
+  - type: SolutionContainerManager
+    solutions:
+      drink:
+        reagents:
+        - ReagentId: TonicWater
+          Quantity: 10
+        - ReagentId: Moonshine
+          Quantity: 10
+        - ReagentId: Sake
+          Quantity: 10
+  - type: Sprite
+    layers:
+      - state: icon
+        map: ["enum.OpenableVisuals.Layer"]
+      - state: egg
+  - type: StaticPrice
+    price: 36
+
+- type: entity
+  parent: NCDrinkCan
+  id: NCDrinkCanCubasNightmare
+  name: ужас кубы
+  description: Вся Куба боится этого напитка, особенно старики и дети.
+  suffix: баночка, алкоголь
+  components:
+  - type: SolutionContainerManager
+    solutions:
+      drink:
+        reagents:
+        - ReagentId: Absinthe
+          Quantity: 5
+        - ReagentId: AlliesCocktail
+          Quantity: 10
+        - ReagentId: Antifreeze
+          Quantity: 5
+        - ReagentId: NuclearCola
+          Quantity: 5
+        - ReagentId: Rum
+          Quantity: 5
+  - type: Sprite
+    layers:
+      - state: icon
+        map: ["enum.OpenableVisuals.Layer"]
+      - state: death
+  - type: StaticPrice
+    price: 40
+
+- type: entity
+  parent: NCDrinkCan
+  id: NCDrinkCanInnardsProsecco
+  name: изнанка просекко
+  description: Этот незабываемый вкус вывернет вас наизнанку!
+  suffix: баночка, алкоголь
+  components:
+  - type: SolutionContainerManager
+    solutions:
+      drink:
+        reagents:
+        - ReagentId: EnergyDrink
+          Quantity: 10
+        - ReagentId: Wine
+          Quantity: 10
+        - ReagentId: SodaWater
+          Quantity: 10
+  - type: Sprite
+    layers:
+      - state: icon
+        map: ["enum.OpenableVisuals.Layer"]
+  - type: StaticPrice
+    price: 27
+
+- type: entity
+  parent: NCDrinkCan
+  id: NCDrinkCanChocowhirl
+  name: чоковорот
+  description: Вкус как будто ты кружишься в шоколадной ванне. Уже третий час.
+  suffix: баночка, алкоголь
+  components:
+  - type: SolutionContainerManager
+    solutions:
+      drink:
+        reagents:
+        - ReagentId: Beer
+          Quantity: 15
+        - ReagentId: MilkChoco
+          Quantity: 15
+  - type: Sprite
+    layers:
+      - state: icon
+        map: ["enum.OpenableVisuals.Layer"]
+      - state: pilk
+  - type: StaticPrice
+    price: 30
+
+- type: entity
+  parent: NCDrinkCan
+  id: NCDrinkCanPatron
+  name: патрон
+  description: Придает энергии и драйва!
+  suffix: баночка, алкоголь
+  components:
+  - type: SolutionContainerManager
+    solutions:
+      drink:
+        reagents:
+        # Original reagents
+        # - ReagentId: EnergyDrink
+        #   Quantity: 20
+        # - ReagentId: Vodka
+        #   Quantity: 10
+        # Result reagents
+        - ReagentId: VodkaRedBool
+          Quantity: 30
+  - type: Sprite
+    layers:
+      - state: icon
+        map: ["enum.OpenableVisuals.Layer"]
+      - state: tonic_fake
+  - type: StaticPrice
+    price: 31
+
+- type: entity
+  parent: NCDrinkCan
+  id: NCDrinkCanKonrev
+  name: коньрев
+  description: Крепкий алкогольный напиток с неповторимым вкусом.
+  suffix: баночка, алкоголь
+  components:
+  - type: SolutionContainerManager
+    solutions:
+      drink:
+        reagents:
+        - ReagentId: VodkaRedBool
+          Quantity: 15
+        - ReagentId: Vodka
+          Quantity: 5
+        - ReagentId: Cognac
+          Quantity: 10
+  - type: Sprite
+    layers:
+      - state: icon
+        map: ["enum.OpenableVisuals.Layer"]
+      - state: tonic
+  - type: StaticPrice
+    price: 33
+
+- type: entity
+  parent: NCDrinkCan
+  id: NCDrinkCanFourteenLoko  # Vodka + Coffee + Lime
+  name: водка Форт Локо
+  description: Крепкий лаймовый этанол, который заставит вас почувствовать себя богом.
+  suffix: баночка, алкоголь
+  components:
+  - type: SolutionContainerManager
+    solutions:
+      drink:
+        reagents:
+        - ReagentId: FourteenLoko
+          Quantity: 30
+  - type: Sprite
+    layers:
+      - state: icon
+        map: ["enum.OpenableVisuals.Layer"]
+      - state: coffee
+  - type: StaticPrice
+    price: 38
+
+- type: entity
+  parent: NCDrinkCan
+  id: NCDrinkCanMojito
+  name: классический Мохито
+  description: Классический кубинский коктейль с мятой и лаймом.
+  suffix: баночка, алкоголь
+  components:
+  - type: SolutionContainerManager
+    solutions:
+      drink:
+        reagents:
+        - ReagentId: Mojito
+          Quantity: 30
+  - type: Sprite
+    layers:
+      - state: icon
+        map: ["enum.OpenableVisuals.Layer"]
+      - state: mojito
+  - type: StaticPrice
+    price: 50
+
+# region Random Spawner
+
+- type: entity
+  parent: MarkerBase
+  id: NCDrinkCanAlcoholSpawner
+  name: случайный напиток
+  description: Спавнер случайного напитка.
+  suffix: баночка, алкоголь
+  placement:
+    mode: PlaceFree
+  components:
+  - type: Transform
+    anchored: false
+  - type: RandomSpawner
+    prototypes:
+    # Good luck
+    - NCDrinkCanBeer
+    - NCDrinkCanNegativiePlus
+    - NCDrinkCanNegativie
+    - NCDrinkCanRumCola
+    - NCDrinkCanRipperRefill
+    - NCDrinkCanRustedPleasure
+    # Alcoholic drinks
+    - NCDrinkCanWine
+    - NCDrinkCanBurningCorp
+    - NCDrinkCanBlindHappiness
+    - NCDrinkCanCubasNightmare
+    - NCDrinkCanInnardsProsecco
+    - NCDrinkCanChocowhirl
+    - NCDrinkCanPatron
+    - NCDrinkCanKonrev
+    chance: 0.8
+    rarePrototypes:
+    # Alcoholic drinks
+    - NCDrinkCanFourteenLoko
+    - NCDrinkCanMojito
+    rareChance: 0.1
+    offset: 0.0
+  - type: Sprite
+    sprite: _NC/Objects/Consumable/Food/Vending/cans.rsi
+    state: icon
+
+# region Vending Inventories
+
+- type: vendingMachineInventory
+  id: NCDrinkCanAlcoholMachineInventory
+  startingInventory:
+    NCDrinkCanBeer: 5
+    NCDrinkCanNegativiePlus: 5
+    NCDrinkCanNegativie: 5
+    NCDrinkCanRumCola: 5
+    NCDrinkCanRipperRefill: 5
+    NCDrinkCanRustedPleasure: 5
+    NCDrinkCanWine: 5
+    NCDrinkCanBlindHappiness: 3
+    NCDrinkCanCubasNightmare: 3
+    NCDrinkCanInnardsProsecco: 3
+    NCDrinkCanChocowhirl: 3
+    NCDrinkCanPatron: 3
+    NCDrinkCanKonrev: 3
+    NCDrinkCanFourteenLoko: 3
+    NCDrinkCanMojito: 3
+  startingItemPrices:
+    NCDrinkCanBeer: 15
+    NCDrinkCanNegativiePlus: 12
+    NCDrinkCanNegativie: 13
+    NCDrinkCanRumCola: 15
+    NCDrinkCanRipperRefill: 25
+    NCDrinkCanRustedPleasure: 30
+    NCDrinkCanWine: 18
+    NCDrinkCanBlindHappiness: 36
+    NCDrinkCanCubasNightmare: 40
+    NCDrinkCanInnardsProsecco: 27
+    NCDrinkCanChocowhirl: 30
+    NCDrinkCanPatron: 31
+    NCDrinkCanKonrev: 33
+    NCDrinkCanFourteenLoko: 38
+    NCDrinkCanMojito: 50
+  contrabandInventory:
+    NCDrinkCanBurningCorp: 10
+  contrabandItemPrices:
+    NCDrinkCanBurningCorp: 35
+
+- type: entity
+  parent: VendingMachineColaBlack
+  id: NCVendingMachineAlcohol
+  name: Алкогольный Автомат
+  description: Автомат с холоднейшими напитками!
+  components:
+  - type: VendingMachine
+    pack: NCDrinkCanAlcoholMachineInventory

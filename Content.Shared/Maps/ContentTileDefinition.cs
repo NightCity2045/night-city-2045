@@ -141,5 +141,11 @@ namespace Content.Shared.Maps
 
         [DataField]
         public bool SimulatedTurf = true;
+
+        /// <summary>
+        /// CrystallEdge: used for lightning calculation through zlevels
+        /// </summary>
+        [DataField]
+        public bool Transparent = false;
     }
 }

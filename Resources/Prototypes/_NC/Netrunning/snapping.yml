@@ -1,0 +1,12 @@
+- type: entity
+  parent: AirlockMaint
+  id: NetExpansionPort
+  name: network expansion port
+  description: A digital gateway for adding new modules to the local network.
+  components:
+  - type: NetAnchor
+    direction: East
+  - type: ApcPowerReceiver
+    powerDisabled: true
+  - type: Door
+    requirePower: false

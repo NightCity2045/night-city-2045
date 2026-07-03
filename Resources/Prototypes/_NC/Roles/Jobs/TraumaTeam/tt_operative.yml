@@ -1,0 +1,35 @@
+- type: job
+  id: TraumaTeamOperative
+  name: job-name-trauma-team-operative
+  description: job-description-trauma-team-operative
+  playTimeTracker: JobTraumaTeamOperative
+  weight: 60
+  salary: 400
+  icon: "JobIconTraumaOperator"
+  startingGear: TraumaTeamOperativeGear
+  supervisors: Главный врач Trauma Team и Парамедик Trauma Team
+  access:
+    - Trauma_Medical
+    - Trauma_Hangar
+    - Trauma_Morgue
+    - Trauma_Operative
+    - NC_General
+  special:
+  - !type:AddComponentSpecial
+    components:
+    - type: MapBeacon
+      group: TraumaTeam
+      color: "#4bdc99"
+      icon: /Textures/_NC/Interface/Misc/job_icons.rsi/trauma.png
+      visibleInWorld: false
+
+- type: startingGear
+  id: TraumaTeamOperativeGear
+  equipment:
+    jumpsuit: ClothingUniformJumpsuitMedicalGreen
+    back: ClothingBackpackSecurity
+    shoes: ClothingShoesBootsCombat
+    eyes: ClothingEyesHudMedSec
+    id: TraumaTeamOperativePDA
+    belt: ClothingBeltSecurityFilled
+    outerClothing: ClothingOuterHardsuitTraumaTeamOperative

@@ -1,0 +1,36 @@
+- type: entity
+  name: Militech Crusher
+  parent: WeaponShotgunBulldog
+  id: WeaponShotgunMilitechCrusher
+  description: An automatic shotgun with magazine.
+  components:
+  - type: Sprite
+    sprite: _NC/Objects/Weapons/Guns/Shotguns/Militech_Crusher/big.rsi
+    scale: 0.75, 0.75
+  - type: Clothing
+    sprite: _NC/Objects/Weapons/Guns/Shotguns/Militech_Crusher/tiny.rsi
+  - type: Item
+    sprite: _NC/Objects/Weapons/Guns/Shotguns/Militech_Crusher/tiny.rsi
+    size: Huge
+  - type: ItemSlots
+    slots:
+      gun_magazine:
+        startingItem: MagazineShotgunMilitechCrusher
+        whitelist:
+          tags:
+          - MagazineShotgun
+          - MagazineShotgunMilitechCrusher
+
+- type: entity
+  name: Militech Crusher
+  suffix: Empty
+  parent: WeaponShotgunMilitechCrusher
+  id: WeaponShotgunMilitechCrusherEmpty
+  components:
+  - type: ItemSlots
+    slots:
+      gun_magazine:
+        whitelist:
+          tags:
+          - MagazineShotgun
+          - MagazineShotgunMilitechCrusher

@@ -1,30 +1,82 @@
 - type: vendingMachineInventory
   id: SecDrobeInventory
   startingInventory:
-    ClothingBackpackSecurity: 3
-    ClothingBackpackSatchelSecurity: 3
-    ClothingBackpackDuffelSecurity: 3
-    ClothingUniformJumpsuitSec: 3
-    ClothingShoesBootsJack: 3
-    ClothingHeadHatBeretSecurity: 3
-    ClothingHeadBandRed: 3
-    ClothingMaskNeckGaiterRed: 3
-    ClothingHandsGlovesColorBlack: 3
-    ClothingHandsGlovesFingerless: 3
-    ClothingUniformJumpskirtSec: 3
-    ClothingUniformJumpsuitSecGrey: 3
-    ClothingUniformJumpskirtSecGrey: 3
-    ClothingUniformJumpsuitSecBlue: 3
-    ClothingUniformJumpskirtSecBlue: 3
-    ClothingHeadsetAltSecurityRegular: 3
-    ClothingOuterWinterSec: 2
-    ClothingOuterCoatGreatcoat: 2
-    ClothingNeckScarfStripedRed: 3
-    ClothingEyesBlindfold: 1
-    ClothingShoesBootsCombat: 1
-    ClothingShoesBootsWinterSec: 2
-    ClothingHeadHelmetJustice: 1
-    ClothingOuterStasecSweater: 2 # WWDP - moved sweaters from security lockers to SecDrobe
-    ClothingOuterArmorBasic: 2 # WWDP - moved body armour back to SecDrobe from SecTech
+    # ClothingBackpackSecurity: 3
+    # ClothingBackpackSatchelSecurity: 3
+    # ClothingBackpackDuffelSecurity: 3
+    # ClothingUniformJumpsuitSec: 3
+    # ClothingShoesBootsJack: 3
+    # ClothingHeadHatBeretSecurity: 3
+    # ClothingHeadBandRed: 3
+    # ClothingMaskNeckGaiterRed: 3
+    # ClothingHandsGlovesColorBlack: 3
+    # ClothingHandsGlovesFingerless: 3
+    # ClothingUniformJumpskirtSec: 3
+    # ClothingUniformJumpsuitSecGrey: 3
+    # ClothingUniformJumpskirtSecGrey: 3
+    # ClothingUniformJumpsuitSecBlue: 3
+    # ClothingUniformJumpskirtSecBlue: 3
+    # ClothingHeadsetAltSecurityRegular: 3
+    # ClothingOuterWinterSec: 2
+    # ClothingOuterCoatGreatcoat: 2
+    # ClothingNeckScarfStripedRed: 3
+    # ClothingEyesBlindfold: 1
+    # ClothingShoesBootsCombat: 1
+    # ClothingShoesBootsWinterSec: 2
+    # ClothingHeadHelmetJustice: 1
+    # ClothingOuterStasecSweater: 2 # WWDP - moved sweaters from security lockers to SecDrobe
+    # ClothingOuterArmorBasic: 2 # WWDP - moved body armour back to SecDrobe from SecTech
+    ClothingEyesGlassesSunglasses: 6
+    ClothingUniformNSPDCool: 4
+    ClothingUniformNSPDNormis: 4
+    ClothingOuterCoatJacketLeather: 4
+    ClothingShoesBootsJack: 4
+    ClothingBackpackSecurity: 4
+    ClothingBackpackDuffelSecurity: 4
+    ClothingBackpackSatchelSecurity: 4
+    ClothingOuterArmorBulletproof: 4
+    ClothingHandsGlovesFingerless: 4
+    ClothingHandsGlovesColorBlack: 4
+    ClothingHandsGlovesCombat: 2
+    ClothingBeltSecurity: 4
+  startingItemPrices:
+    # ClothingBackpackSecurity: 50
+    # ClothingBackpackSatchelSecurity: 50
+    # ClothingBackpackDuffelSecurity: 50
+    # ClothingUniformJumpsuitSec: 50
+    # ClothingShoesBootsJack: 50
+    # ClothingHeadHatBeretSecurity: 30
+    # ClothingHeadBandRed: 20
+    # ClothingMaskNeckGaiterRed: 20
+    # ClothingHandsGlovesColorBlack: 30
+    # ClothingHandsGlovesFingerless: 30
+    # ClothingUniformJumpskirtSec: 50
+    # ClothingUniformJumpsuitSecGrey: 50
+    # ClothingUniformJumpskirtSecGrey: 50
+    # ClothingUniformJumpsuitSecBlue: 50
+    # ClothingUniformJumpskirtSecBlue: 50
+    # ClothingHeadsetAltSecurityRegular: 100
+    # ClothingOuterWinterSec: 100
+    # ClothingOuterCoatGreatcoat: 200
+    # ClothingNeckScarfStripedRed: 20
+    # ClothingEyesBlindfold: 10
+    # ClothingShoesBootsCombat: 150
+    # ClothingShoesBootsWinterSec: 100
+    # ClothingHeadHelmetJustice: 100
+    # ClothingOuterStasecSweater: 80
+    # ClothingOuterArmorBasic: 500
+    ClothingEyesGlassesSunglasses: 100
+    ClothingUniformNSPDCool: 350
+    ClothingUniformNSPDNormis: 250
+    ClothingOuterCoatJacketLeather: 400
+    ClothingShoesBootsJack: 150
+    ClothingBackpackSecurity: 150
+    ClothingBackpackDuffelSecurity: 150
+    ClothingBackpackSatchelSecurity: 150
+    ClothingOuterArmorBulletproof: 800
+    ClothingHandsGlovesFingerless: 100
+    ClothingHandsGlovesColorBlack: 100
+    ClothingHandsGlovesCombat: 250
+    ClothingBeltSecurity: 150
   contrabandInventory:
     ClothingMaskClownSecurity: 1

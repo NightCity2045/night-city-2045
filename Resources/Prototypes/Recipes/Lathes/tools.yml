@@ -44,6 +44,51 @@
   materials:
     Steel: 400
 
+# NC edit start: Biotechnica lathe
+- type: latheRecipe
+  parent: Welder
+  id: WelderIndustrial
+  result: WelderIndustrial
+  materials:
+    Steel: 500
+    Plastic: 500
+    Circuitry: 100
+
+- type: latheRecipe
+  parent: Welder
+  id: WelderIndustrialAdvanced
+  result: WelderIndustrialAdvanced
+  materials:
+    Aluminum: 200
+    Steel: 500
+    Plastic: 500
+    Circuitry: 100
+
+- type: latheRecipe
+  parent: BaseBigToolRecipe
+  id: GeigerCounter
+  result: GeigerCounter
+
+- type: latheRecipe
+  parent: FlashlightLantern
+  id: FlashlightEmp
+  result: FlashlightEmp
+  materials:
+    Aluminum: 400
+    Glass: 200
+    Plastic: 200
+    Circuitry: 100
+    Plasma: 200
+
+- type: latheRecipe
+  id: ClothingHandsGlovesColorYellow
+  result: ClothingHandsGlovesColorYellow
+  completetime: 5
+  materials:
+    Cloth: 400
+    Plastic: 400
+# NC edit end: Biotechnica lathe
+
 - type: latheRecipe
   parent: BaseToolRecipe
   id: Wrench

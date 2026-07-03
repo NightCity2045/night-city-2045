@@ -1,0 +1,189 @@
+- type: entity
+  parent: BaseItem
+  id: NCTechPistolHelloCutie
+  name: ent-NCTechPistolHelloCutie
+  description: ent-NCTechPistol-desc
+  components:
+  - type: Sprite
+    sprite: Objects/Misc/module.rsi
+    layers:
+    - state: datadisk_base
+    - state: datadisk_label
+  - type: DecryptionTechnology
+    tier: Standard
+    modulePrototype: NCBlueprintHelloCutie
+    recipePrototype: NCRecipePaperHelloCutie
+    moduleCost: 30
+    recipeCost: 50
+    maxUses: 5
+
+- type: entity
+  parent: BaseItem
+  id: NCTechPistolOverlord
+  name: ent-NCTechPistolOverlord
+  description: ent-NCTechPistol-desc
+  components:
+  - type: Sprite
+    sprite: Objects/Misc/module.rsi
+    layers:
+    - state: datadisk_base
+    - state: datadisk_label
+  - type: DecryptionTechnology
+    tier: Standard
+    modulePrototype: NCBlueprintOverlord
+    recipePrototype: NCRecipePaperOverlord
+    moduleCost: 60
+    recipeCost: 90
+    maxUses: 4
+
+- type: entity
+  parent: BaseItem
+  id: NCTechPistolStukachTommy
+  name: ent-NCTechPistolStukachTommy
+  description: ent-NCTechPistol-desc
+  components:
+  - type: Sprite
+    sprite: Objects/Misc/module.rsi
+    layers:
+    - state: datadisk_base
+    - state: datadisk_label
+  - type: DecryptionTechnology
+    tier: Excellent
+    modulePrototype: NCBlueprintStukachTommy
+    recipePrototype: NCRecipePaperStukachTommy
+    moduleCost: 100
+    recipeCost: 140
+    maxUses: 3
+
+- type: entity
+  parent: BaseItem
+  id: NCTechPistolStreetMaster
+  name: ent-NCTechPistolStreetMaster
+  description: ent-NCTechPistol-desc
+  components:
+  - type: Sprite
+    sprite: Objects/Misc/module.rsi
+    layers:
+    - state: datadisk_base
+    - state: datadisk_label
+  - type: DecryptionTechnology
+    tier: Standard
+    modulePrototype: NCBlueprintStreetMaster
+    recipePrototype: NCRecipePaperStreetMaster
+    moduleCost: 50
+    recipeCost: 80
+    maxUses: 5
+
+- type: entity
+  parent: BaseItem
+  id: NCTechPistolAvenger
+  name: ent-NCTechPistolAvenger
+  description: ent-NCTechPistol-desc
+  components:
+  - type: Sprite
+    sprite: Objects/Misc/module.rsi
+    layers:
+    - state: datadisk_base
+    - state: datadisk_label
+  - type: DecryptionTechnology
+    tier: Excellent
+    modulePrototype: NCBlueprintAvenger
+    recipePrototype: NCRecipePaperAvenger
+    moduleCost: 110
+    recipeCost: 150
+    maxUses: 3
+
+- type: entity
+  parent: BaseItem
+  id: NCTechPistolCheesemaker
+  name: ent-NCTechPistolCheesemaker
+  description: ent-NCTechPistol-desc
+  components:
+  - type: Sprite
+    sprite: Objects/Misc/module.rsi
+    layers:
+    - state: datadisk_base
+    - state: datadisk_label
+  - type: DecryptionTechnology
+    tier: Standard
+    modulePrototype: NCBlueprintCheesemaker
+    recipePrototype: NCRecipePaperCheesemaker
+    moduleCost: 55
+    recipeCost: 85
+    maxUses: 5
+
+- type: entity
+  parent: BaseItem
+  id: NCTechPistolFederalX9
+  name: ent-NCTechPistolFederalX9
+  description: ent-NCTechPistol-desc
+  components:
+  - type: Sprite
+    sprite: Objects/Misc/module.rsi
+    layers:
+    - state: datadisk_base
+    - state: datadisk_label
+  - type: DecryptionTechnology
+    tier: Standard
+    modulePrototype: NCBlueprintFederalX9
+    recipePrototype: NCRecipePaperFederalX9
+    moduleCost: 45
+    recipeCost: 75
+    maxUses: 5
+
+- type: entity
+  parent: BaseItem
+  id: NCTechPistolBoomerBuster
+  name: ent-NCTechPistolBoomerBuster
+  description: ent-NCTechPistol-desc
+  components:
+  - type: Sprite
+    sprite: Objects/Misc/module.rsi
+    layers:
+    - state: datadisk_base
+    - state: datadisk_label
+  - type: DecryptionTechnology
+    tier: Standard
+    modulePrototype: NCBlueprintBoomerBuster
+    recipePrototype: NCRecipePaperBoomerBuster
+    moduleCost: 110
+    recipeCost: 160
+    maxUses: 3
+
+- type: entity
+  parent: BaseItem
+  id: NCTechPistolMarkIII
+  name: ent-NCTechPistolMarkIII
+  description: ent-NCTechPistol-desc
+  components:
+  - type: Sprite
+    sprite: Objects/Misc/module.rsi
+    layers:
+    - state: datadisk_base
+    - state: datadisk_label
+  - type: DecryptionTechnology
+    tier: Standard
+    modulePrototype: NCBlueprintMarkIII
+    recipePrototype: NCRecipePaperMarkIII
+    moduleCost: 40
+    recipeCost: 70
+    maxUses: 5
+
+- type: entity
+  parent: BaseItem
+  id: NCTechPistolP35
+  name: ent-NCTechPistolP35
+  description: ent-NCTechPistol-desc
+  components:
+  - type: Sprite
+    sprite: Objects/Misc/module.rsi
+    layers:
+    - state: datadisk_base
+    - state: datadisk_label
+  - type: DecryptionTechnology
+    tier: Excellent
+    modulePrototype: NCBlueprintP35
+    recipePrototype: NCRecipePaperP35
+    moduleCost: 130
+    recipeCost: 180
+    maxUses: 3

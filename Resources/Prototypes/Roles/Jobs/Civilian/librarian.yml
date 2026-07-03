@@ -15,14 +15,9 @@
       inverted: true
       species:
       - IPC
-    - !type:CharacterTraitRequirement
-      traits:
-      - AnomalousPositronics
   - !type:CharacterEmployerRequirement
     employers:
     - NanoTrasen
-  - !type:CharacterItemGroupRequirement
-    group: TraitsCasterType
   startingGear: LibrarianGear
   icon: "JobIconLibrarian"
   supervisors: job-supervisors-rd
@@ -30,19 +25,7 @@
   - Research
   - Maintenance
   - Library
-  special:
-  - !type:AddComponentSpecial
-    components:
-    - type: Psionic
-      baselinePowerCost: 75
-      nextPowerCost: 75
-      removable: false
-      powerPool: PsychoHistorianPowerPool
-    - type: InnatePsionicPowers
-      powersToAdd:
-      - XenoglossyPower
-      - TelepathyPower
-      - AssayPower
+  special: []
 
 
 - type: startingGear
@@ -56,7 +39,7 @@
     # outerClothing: ClothingOuterCoatRnd - WD EDIT
     id: LibrarianPDA
     ears: ClothingHeadsetScience
-    pocket1: BookPsionicsGuidebook
+    # pocket1: BookPsionicsGuidebook
     pocket2: HandLabeler
   storage:
     back:

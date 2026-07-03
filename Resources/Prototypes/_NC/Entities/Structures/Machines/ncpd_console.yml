@@ -1,0 +1,28 @@
+- type: entity
+  parent: BaseMachinePowered
+  id: NcpdCaptainConsole
+  name: ent-NcpdCaptainConsole
+  description: ent-NcpdCaptainConsole-desc
+  components:
+  - type: Sprite
+    sprite: Structures/Machines/server.rsi # Временный спрайт
+    state: server
+  - type: NcpdCaptainConsole
+  - type: ItemSlots
+    slots:
+      cash_slot:
+        name: Купюроприемник
+        whitelist:
+          components:
+          - Stack
+  - type: ContainerContainer
+    containers:
+      cash_slot: !type:ContainerSlot {}
+  - type: ActivatableUI
+    key: enum.NcpdCaptainConsoleUiKey.Key
+  - type: UserInterface
+    interfaces:
+      enum.NcpdCaptainConsoleUiKey.Key:
+        type: NcpdCaptainConsoleBoundUserInterface
+  - type: AccessReader
+    access: [["NCPD_Command"]] 

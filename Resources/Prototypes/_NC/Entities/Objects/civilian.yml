@@ -1,0 +1,261 @@
+# region Watering Cans
+
+- type: entity
+  parent: DrinkBase
+  id: WateringCan
+  name: ent-WateringCan
+  description: ent-WateringCan-desc
+  components:
+  - type: Clickable
+  - type: Sprite
+    sprite: _NC/Objects/Tools/watering_can.rsi
+    state: icon
+  - type: Item
+    size: Normal
+  - type: MixableSolution
+    solution: bucket
+  - type: SolutionTransfer
+    transferAmount: 100
+    maxTransferAmount: 100
+    minTransferAmount: 10
+    canChangeTransferAmount: true
+  - type: UserInterface
+    interfaces:
+      enum.TransferAmountUiKey.Key:
+        type: TransferAmountBoundUserInterface
+  - type: MeleeWeapon
+    soundNoDamage:
+      path: "/Audio/Effects/Fluids/splat.ogg"
+    damage:
+      types:
+        Blunt: 1
+  - type: RefillableSolution
+    solution: bucket
+  - type: DrainableSolution
+    solution: bucket
+  - type: SolutionItemStatus
+    solution: bucket
+  - type: Appearance
+  - type: ExaminableSolution
+    solution: bucket
+  - type: Tag
+    tags:
+      - Bucket
+  - type: SolutionContainerManager
+    solutions:
+      bucket:
+        maxVol: 300
+  - type: PhysicalComposition
+    materialComposition:
+      Steel: 75
+      Plastic: 75
+
+- type: entity
+  parent: WateringCan
+  id: WateringCanExperimental
+  name: ent-WateringCanAdvanced
+  description: ent-WateringCanAdvanced-desc
+  components:
+  - type: Sprite
+    sprite: _NC/Objects/Tools/watering_can_experimental.rsi
+  - type: SolutionContainerManager
+    solutions:
+      bucket:
+        maxVol: 300
+  - type: PhysicalComposition
+    materialComposition:
+      Steel: 125
+      Plastic: 125
+      Plasma: 50
+  - type: SolutionRegeneration
+    solution: bucket
+    generated:
+      reagents:
+        - ReagentId: Water
+          Quantity: 2.0
+  - type: ReverseEngineering
+    difficulty: 4
+    recipes:
+      - WateringCanExperimental
+
+- type: entity
+  parent: WateringCanExperimental
+  id: BluespaceWateringCanExperimental
+  name: ent-WateringCanAdvancedLarge
+  description: ent-WateringCanAdvancedLarge-desc
+  components:
+  - type: Sprite
+    state: icon_bluespace
+  - type: SolutionContainerManager
+    solutions:
+      bucket:
+        maxVol: 900
+  - type: PhysicalComposition
+    materialComposition:
+      Steel: 125
+      Plastic: 125
+      Plasma: 50
+      Bluespace: 12
+  - type: ReverseEngineering
+    difficulty: 5
+    recipes:
+      - BluespaceWateringCanExperimental
+
+# region Shakers
+
+- type: entity
+  parent: DrinkShaker
+  id: DrinkShakerAdvanced
+  name: ent-DrinkShakerAdvanced
+  description: ent-DrinkShakerAdvanced-desc
+  components:
+  - type: SolutionContainerManager
+    solutions:
+      drink:
+        maxVol: 120  # Exactly 4 drinks
+  - type: PhysicalComposition
+    materialComposition:
+      Steel: 100
+  - type: ReactionMixer
+    mixOnInteract: false
+    reactionTypes:
+    - Shake
+    - Stir
+  - type: ExaminableSolution
+    heldOnly: false
+    # examinableWhileClosed: true
+    # exactVolume: true
+  - type: Sprite
+    sprite: _NC/Objects/Consumable/Drinks/shaker.rsi
+    layers:
+      - state: icon
+        map: [ "enum.SolutionContainerLayers.Base" ]
+      - state: fill-1
+        map: [ "enum.SolutionContainerLayers.Fill" ]
+        visible: false
+  - type: Appearance
+  - type: SolutionContainerVisuals
+    maxFillLevels: 6
+    fillBaseName: fill-
+
+- type: entity
+  parent: DrinkShakerAdvanced
+  id: BluespaceDrinkShakerAdvanced
+  name: ent-DrinkShakerAdvancedLarge
+  description: ent-DrinkShakerAdvancedLarge-desc
+  components:
+  - type: SolutionContainerManager
+    solutions:
+      drink:
+        maxVol: 500
+  - type: Sprite
+    layers:
+      - state: icon_bluespace
+        map: [ "enum.SolutionContainerLayers.Base" ]
+      - state: fill-1
+        map: [ "enum.SolutionContainerLayers.Fill" ]
+        visible: false
+
+# region Kettles
+
+- type: entity
+  parent: Pitcher
+  id: DrinkKettleAdvanced
+  name: ent-DrinkKettleAdvanced
+  description: ent-DrinkKettleAdvanced-desc
+  components:
+  - type: SolutionContainerManager
+    solutions:
+      drink:
+        maxVol: 120  # Exactly 4 drinks
+  - type: PhysicalComposition
+    materialComposition:
+      Steel: 100
+  - type: SolutionHeaterAuto
+    heatPerSecond: 80
+    maxHeat: 350
+    solution: drink
+  - type: ExaminableSolution
+    heldOnly: false
+    # examinableWhileClosed: true
+    # exactVolume: true
+  - type: Sprite
+    sprite: _NC/Objects/Consumable/Drinks/kettle.rsi
+    layers:
+      - state: icon
+        map: [ "enum.SolutionContainerLayers.Base" ]
+      - state: fill-1
+        map: [ "enum.SolutionContainerLayers.Fill" ]
+        visible: false
+  - type: Appearance
+  - type: SolutionContainerVisuals
+    maxFillLevels: 6
+    fillBaseName: fill-
+
+- type: entity
+  parent: DrinkKettleAdvanced
+  id: BluespaceDrinkKettleAdvanced
+  name: ent-DrinkKettleAdvancedLarge
+  description: ent-DrinkKettleAdvancedLarge-desc
+  components:
+  - type: SolutionContainerManager
+    solutions:
+      drink:
+        maxVol: 500
+  - type: Sprite
+    layers:
+      - state: icon_bluespace
+        map: [ "enum.SolutionContainerLayers.Base" ]
+      - state: fill-1
+        map: [ "enum.SolutionContainerLayers.Fill" ]
+        visible: false
+
+# region Buckets
+
+- type: entity
+  parent: Bucket
+  id: BucketBig
+  name: ent-BucketConstruction
+  description: ent-BucketConstruction-desc
+  components:
+  - type: Sprite
+    sprite: &bucket_big_sprite _NC/Objects/Tools/bucket_big.rsi
+  - type: Clothing
+    sprite: *bucket_big_sprite
+  - type: SolutionContainerManager
+    solutions:
+      bucket:
+        maxVol: 500
+  - type: PhysicalComposition
+    materialComposition:
+      Steel: 300
+      Plastic: 200
+  - type: ReverseEngineering
+    difficulty: 2
+    recipes:
+      - BucketBig
+
+- type: entity
+  parent: Bucket
+  id: BluespaceBucket
+  name: ent-BucketAdvanced
+  description: ent-BucketAdvanced-desc
+  components:
+  - type: Sprite
+    sprite: &bluespace_bucket_sprite _NC/Objects/Tools/Biotechnica/Botany/bluespace_bucket.rsi
+  - type: Clothing
+    sprite: *bluespace_bucket_sprite
+  - type: SolutionContainerManager
+    solutions:
+      bucket:
+        maxVol: 1500
+  - type: PhysicalComposition
+    materialComposition:
+      Steel: 25
+      Plastic: 125
+      Plasma: 37
+      Bluespace: 12
+  - type: ReverseEngineering
+    difficulty: 4
+    recipes:
+      - BluespaceBucket

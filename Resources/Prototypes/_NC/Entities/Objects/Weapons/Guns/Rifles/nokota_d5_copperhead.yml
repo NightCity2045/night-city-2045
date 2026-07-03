@@ -1,0 +1,95 @@
+- type: entity
+  name: Copperhead Nokota D5
+  parent: [BaseWeaponRifle, NCBrandNokota]
+  id: WeaponRifleNokotaD5Copperhead
+  description: "Nokota D5 Copperhead — это изменяемая штурмовая винтовка от компании Nokota. Компактное многоцелевое оружие с встроенным гранатометом. Магазин винтовки на 20 безгильзовых патронов 6."
+  components:
+  - type: Sprite
+    sprite: _NC/Objects/Weapons/Guns/Rifles/NokotaD5Copperhead/big.rsi
+    scale: 0.75, 0.75
+    layers:
+    - state: base
+      map: ["enum.GunVisualLayers.Base"]
+    - state: mag-0
+      map: ["enum.GunVisualLayers.Mag"]
+  - type: Clothing
+    sprite: _NC/Objects/Weapons/Guns/Rifles/NokotaD5Copperhead/tiny.rsi
+    slots:
+    - Back
+    - SuitStorage
+  - type: Item
+    sprite: _NC/Objects/Weapons/Guns/Rifles/NokotaD5Copperhead/tiny.rsi
+    size: Huge
+  - type: AmmoCounter
+  - type: Wieldable
+  - type: GunRequiresWield
+  - type: GunWieldBonus
+    minAngle: -19
+    maxAngle: -16
+  - type: Gun
+  # WD EDIT START
+    minAngle: 21
+    maxAngle: 25
+    bonusAngleIncreaseMove: 5
+    bonusAngleIncreaseTurn: 1
+    # WD EDIT END
+    availableModes:
+    - FullAuto
+    - SemiAuto
+    fireRate: 6
+    soundGunshot:
+      path: /Audio/Weapons/Guns/Gunshots/rifle2.ogg
+    fireOnDropChance: 0.5
+  - type: ChamberMagazineAmmoProvider
+    boltCatch: false
+    soundRack:
+      path: /Audio/Weapons/Guns/Cock/ltrifle_cock.ogg
+  - type: ItemSlots
+    slots:
+      gun_magazine:
+        name: Magazine
+        startingItem: MagazineRifleNokota
+        insertSound: /Audio/Weapons/Guns/MagIn/ltrifle_magin.ogg
+        ejectSound: /Audio/Weapons/Guns/MagOut/ltrifle_magout.ogg
+        priority: 2
+        whitelist:
+          tags:
+          - MagazineRifleNokota
+      gun_chamber:
+        name: Chamber
+        startingItem: Cartridge556x45CL
+        priority: 1
+        whitelist:
+          tags:
+          - Cartridge556x45CL
+  - type: ContainerContainer
+    containers:
+      gun_magazine: !type:ContainerSlot
+      gun_chamber: !type:ContainerSlot
+
+- type: entity
+  name: Copperhead Nokota D5
+  suffix: Empty
+  parent: WeaponRifleNokotaD5Copperhead
+  id: WeaponRifleNokotaD5CopperheadEmpty
+  components:
+  - type: ItemSlots
+    slots:
+      gun_magazine:
+        name: Magazine
+        insertSound: /Audio/Weapons/Guns/MagIn/ltrifle_magin.ogg
+        ejectSound: /Audio/Weapons/Guns/MagOut/ltrifle_magout.ogg
+        priority: 2
+        whitelist:
+          tags:
+          - MagazineRifleNokota
+      gun_chamber:
+        name: Chamber
+        priority: 1
+        whitelist:
+          tags:
+          - Cartridge622mmCaseless
+  - type: ContainerContainer
+    containers:
+      gun_magazine: !type:ContainerSlot
+      gun_chamber: !type:ContainerSlot

@@ -1,0 +1,11 @@
+- type: entity
+  id: NCProcessedInternalsT3
+  name: ent-NCProcessedInternalsT3
+  description: ent-NCProcessedInternals-desc
+  parent: BaseItem
+  components:
+    - type: Sprite
+      sprite: DeltaV/Objects/Misc/modular_trigger.rsi
+      state: base
+    - type: NCWeaponPart
+      partType: Internals

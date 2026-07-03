@@ -138,10 +138,13 @@
     - ServiceStatic
     - PowerCellsStatic
     - ElectronicsStatic
-    # EE EDIT START
-    - FauxTiles # moved to static
-    - TranslatorStatic
-    # EE EDIT END
+    # NC edit start: Biotechnica lathe - remove non-cyberpunk-ish stuff from default lathe
+    # # EE EDIT START
+    # - FauxTiles # moved to static
+    # - TranslatorStatic
+    # # EE EDIT END
+    # NC edit end: Biotechnica lathe
+    - OfficeStatic  # NC edit: Biotechnica lathe
   - type: EmagLatheRecipes
     emagStaticPacks:
     - SecurityAmmoStatic

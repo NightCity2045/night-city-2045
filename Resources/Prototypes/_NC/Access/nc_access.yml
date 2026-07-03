@@ -1,0 +1,189 @@
+- type: accessLevel
+  id: NCPD_Patrol
+  name: access-level-ncpd-patrol
+
+- type: accessLevel
+  id: NCPD_Armory
+  name: access-level-ncpd-armory
+
+- type: accessLevel
+  id: NCPD_Detective
+  name: access-level-ncpd-detective
+
+- type: accessLevel
+  id: NCPD_Command
+  name: access-level-ncpd-command
+
+- type: accessGroup
+  id: NCPD
+  tags:
+  - NCPD_Patrol
+  - NCPD_Armory
+  - NCPD_Detective
+  - NCPD_Command
+
+- type: accessLevel
+  id: MaxTac_General
+  name: access-level-maxtac-general
+
+- type: accessLevel
+  id: MaxTac_Armory
+  name: access-level-maxtac-armory
+
+- type: accessLevel
+  id: MaxTac_Command
+  name: access-level-maxtac-command
+
+- type: accessGroup
+  id: MaxTac
+  tags:
+  - MaxTac_General
+  - MaxTac_Armory
+  - MaxTac_Command
+
+- type: accessLevel
+  id: Trauma_Medical
+  name: access-level-trauma-medical
+
+- type: accessLevel
+  id: Trauma_Morgue
+  name: access-level-trauma-morgue
+
+- type: accessLevel
+  id: Trauma_Hangar
+  name: access-level-trauma-hangar
+
+- type: accessLevel
+  id: Trauma_Command
+  name: access-level-trauma-command
+
+- type: accessLevel
+  id: Trauma_Operative
+  name: access-level-trauma-operative
+
+- type: accessGroup
+  id: TraumaTeam
+  tags:
+  - Trauma_Medical
+  - Trauma_Morgue
+  - Trauma_Hangar
+  - Trauma_Command
+  - Trauma_Operative
+
+- type: accessLevel
+  id: NC_General
+  name: access-level-nc-general
+
+- type: accessLevel
+  id: EdgeRunner
+  name: access-level-edgerunner
+
+- type: accessLevel
+  id: Fixer
+  name: access-level-fixer
+
+- type: accessLevel
+  id: Ripper
+  name: access-level-ripper
+
+- type: accessLevel
+  id: Cafe
+  name: access-level-cafe
+
+- type: accessLevel
+  id: Restaurant
+  name: access-level-restaurant
+
+- type: accessGroup
+  id: NightCity
+  tags:
+  - NC_General
+  - EdgeRunner
+  - Fixer
+  - Ripper
+
+# Биотехника (Biotechnica)
+- type: accessLevel
+  id: Biotech_Director
+  name: access-level-biotech-director
+
+- type: accessLevel
+  id: Biotech_HeadOfDepartment
+  name: access-level-biotech-head-of-department
+
+- type: accessLevel
+  id: Biotech_Botany
+  name: access-level-biotech-botany
+
+- type: accessLevel
+  id: Biotech_MedTech
+  name: access-level-biotech-medtech
+
+- type: accessLevel
+  id: Biotech_Tech
+  name: access-level-biotech-tech
+
+- type: accessLevel
+  id: Biotech_Operative
+  name: access-level-biotech-operative
+
+- type: accessLevel
+  id: Biotech_Staff
+  name: access-level-biotech-staff
+
+- type: accessLevel
+  id: Biotech_General
+  name: access-level-biotech-general
+
+- type: accessGroup
+  id: Biotechnica
+  tags:
+  - Biotech_Director
+  - Biotech_HeadOfDepartment
+  - Biotech_Botany
+  - Biotech_MedTech
+  - Biotech_Tech
+  - Biotech_Operative
+  - Biotech_Staff
+  - Biotech_General
+
+# Militech
+- type: accessLevel
+  id: Militech_Command
+  name: access-level-militech-command
+
+- type: accessLevel
+  id: Militech_Operative
+  name: access-level-militech-operative
+
+- type: accessLevel
+  id: Militech_Armory
+  name: access-level-militech-armory
+
+- type: accessLevel
+  id: Militech_Tech
+  name: access-level-militech-tech
+
+- type: accessLevel
+  id: Militech_Medical
+  name: access-level-militech-medical
+
+- type: accessLevel
+  id: Militech_Staff
+  name: access-level-militech-staff
+
+- type: accessLevel
+  id: Militech_General
+  name: access-level-militech-general
+
+- type: accessGroup
+  id: Militech
+  tags:
+  - Militech_Command
+  - Militech_Operative
+  - Militech_Armory
+  - Militech_Tech
+  - Militech_Medical
+  - Militech_Staff
+  - Militech_General
+

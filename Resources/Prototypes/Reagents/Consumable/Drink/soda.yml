@@ -22,6 +22,10 @@
         key: Drowsiness
         time: 1.0
         type: Remove
+      # NC edit start: NightCity FastFood
+      - !type:ChemAddMoodlet
+        moodPrototype: ColaEffect
+      # NC edit end: NightCity FastFood
 
 - type: reagent
   id: RoyRogers
@@ -63,6 +67,15 @@
   metamorphicMaxFillLevels: 5
   metamorphicFillBaseName: fill-
   metamorphicChangeColor: false
+  # NC edit start: NightCity FastFood
+  metabolisms:
+    Drink:
+      effects:
+      - !type:SatiateThirst
+        factor: 2
+      - !type:ChemAddMoodlet
+        moodPrototype: ColaEffect
+  # NC edit end: NightCity FastFood
 
 - type: reagent
   id: EnergyDrink

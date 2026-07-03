@@ -1,0 +1,75 @@
+- type: entity
+  parent: BaseItem
+  id: NCTechRifleM04
+  name: ent-NCTechRifleM04
+  description: ent-NCTechRifle-desc
+  components:
+  - type: Sprite
+    sprite: Objects/Misc/module.rsi
+    layers:
+    - state: datadisk_base
+    - state: datadisk_label
+  - type: DecryptionTechnology
+    tier: Legendary
+    modulePrototype: NCBlueprintM04
+    recipePrototype: NCRecipePaperM04
+    moduleCost: 350
+    recipeCost: 500
+    maxUses: 3
+
+- type: entity
+  parent: BaseItem
+  id: NCTechRifleArasakaProto
+  name: ent-NCTechRifleArasakaProto
+  description: ent-NCTechRifle-desc
+  components:
+  - type: Sprite
+    sprite: Objects/Misc/module.rsi
+    layers:
+    - state: datadisk_base
+    - state: datadisk_label
+  - type: DecryptionTechnology
+    tier: Legendary
+    modulePrototype: NCBlueprintArasakaProto
+    recipePrototype: NCRecipePaperArasakaProto
+    moduleCost: 450
+    recipeCost: 600
+    maxUses: 2
+
+- type: entity
+  parent: BaseItem
+  id: NCTechRifleNowaki
+  name: ent-NCTechRifleNowaki
+  description: ent-NCTechRifle-desc
+  components:
+  - type: Sprite
+    sprite: Objects/Misc/module.rsi
+    layers:
+    - state: datadisk_base
+    - state: datadisk_label
+  - type: DecryptionTechnology
+    tier: Legendary
+    modulePrototype: NCBlueprintNowaki
+    recipePrototype: NCRecipePaperNowaki
+    moduleCost: 400
+    recipeCost: 550
+    maxUses: 3
+
+- type: entity
+  parent: BaseItem
+  id: NCTechRifleNokota
+  name: ent-NCTechRifleNokota
+  description: ent-NCTechRifle-desc
+  components:
+  - type: Sprite
+    sprite: Objects/Misc/module.rsi
+    layers:
+    - state: datadisk_base
+    - state: datadisk_label
+  - type: DecryptionTechnology
+    tier: Excellent
+    modulePrototype: NCBlueprintNokota
+    recipePrototype: NCRecipePaperNokota
+    moduleCost: 250
+    recipeCost: 350
+    maxUses: 4

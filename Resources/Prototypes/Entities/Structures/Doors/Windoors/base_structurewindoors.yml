@@ -58,7 +58,6 @@
     tags:
     - WeldbotFixableStructure
   - type: ApcPowerReceiver
-  - type: ExtensionCableReceiver
   - type: DoorSignalControl
   - type: DeviceNetwork
     deviceNetId: Wireless

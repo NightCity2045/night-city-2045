@@ -1,0 +1,35 @@
+- type: job
+  id: NCPDInspector
+  name: job-name-ncpd-inspector
+  description: job-description-ncpd-inspector
+  playTimeTracker: JobNCPDInspector
+  weight: 80
+  salary: 200
+  icon: "JobIconNCPDInspector"
+  startingGear: NCPDInspectorGear
+  supervisors: Коммандер
+  access:
+    - NCPD_Patrol
+    - NCPD_Armory
+    - NCPD_Detective
+    - NCPD_Command
+    - NC_General
+  special:
+  - !type:AddComponentSpecial
+    components:
+    - type: MapBeacon
+      group: NCPD
+      color: "#ffaa00"
+      icon: /Textures/Interface/VerbIcons/star-solid-yellow.svg.192dpi.png
+      visibleInWorld: false
+
+- type: startingGear
+  id: NCPDInspectorGear
+  equipment:
+    jumpsuit: ClothingUniformJumpsuitSecGrey
+    back: ClothingBackpackSecurity
+    shoes: ClothingShoesBootsJack
+    head: ClothingHeadHatBeretSecurity
+    eyes: ClothingEyesGlassesSecurityVisor
+    id: NCPDInspectorPDA
+    belt: ClothingBeltSecurityFilled
