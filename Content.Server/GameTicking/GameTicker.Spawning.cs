@@ -304,25 +304,31 @@ namespace Content.Server.GameTicking
             {
                 if (jobPrototype.JoinNotifyCrew)
                 {
-                    _chatSystem.DispatchStationAnnouncement(station,
-                        Loc.GetString("latejoin-arrival-announcement-special",
-                            ("character", MetaData(mob).EntityName),
-                            ("entity", mob),
-                            ("gender", character.Gender), // WD-EDIT
-                            ("job", CultureInfo.CurrentCulture.TextInfo.ToTitleCase(jobName))),
-                        Loc.GetString("latejoin-arrival-sender"),
+                    _chatSystem.DispatchStationAnnouncementLocalized(station,
+                        "latejoin-arrival-announcement-special",
+                        _ => new[]
+                        {
+                            ("character", (object) MetaData(mob).EntityName),
+                            ("entity", (object) mob),
+                            ("gender", (object) character.Gender), // WD-EDIT
+                            ("job", CultureInfo.CurrentCulture.TextInfo.ToTitleCase(Loc.GetString(jobPrototype.Name))),
+                        },
+                        "latejoin-arrival-sender",
                         playDefaultSound: false,
                         colorOverride: Color.Gold);
                 }
                 else
                 {
-                    _chatSystem.DispatchStationAnnouncement(station,
-                        Loc.GetString("latejoin-arrival-announcement",
-                            ("character", MetaData(mob).EntityName),
-                            ("entity", mob),
-                            ("gender", character.Gender), // WD-EDIT
-                            ("job", CultureInfo.CurrentCulture.TextInfo.ToTitleCase(jobName))),
-                        Loc.GetString("latejoin-arrival-sender"),
+                    _chatSystem.DispatchStationAnnouncementLocalized(station,
+                        "latejoin-arrival-announcement",
+                        _ => new[]
+                        {
+                            ("character", (object) MetaData(mob).EntityName),
+                            ("entity", (object) mob),
+                            ("gender", (object) character.Gender), // WD-EDIT
+                            ("job", CultureInfo.CurrentCulture.TextInfo.ToTitleCase(Loc.GetString(jobPrototype.Name))),
+                        },
+                        "latejoin-arrival-sender",
                         playDefaultSound: false);
                 }
             }
@@ -351,13 +357,14 @@ namespace Content.Server.GameTicking
             if (Comp<StationJobsComponent>(station).ExtendedAccess
                 && (jobPrototype.ExtendedAccess.Count > 0 || jobPrototype.ExtendedAccessGroups.Count > 0))
             {
-                _chatManager.DispatchServerMessage(player, Loc.GetString("job-greet-crew-shortages"));
+                _chatManager.DispatchServerMessageLocalized(player, "job-greet-crew-shortages");
             }
 
             if (!silent && TryComp(station, out MetaDataComponent? metaData))
             {
-                _chatManager.DispatchServerMessage(player,
-                    Loc.GetString("job-greet-station-name", ("stationName", metaData.EntityName)));
+                _chatManager.DispatchServerMessageLocalized(player,
+                    "job-greet-station-name",
+                    ("stationName", metaData.EntityName));
             }
 
             // We raise this event directed to the mob, but also broadcast it so game rules can do something now.

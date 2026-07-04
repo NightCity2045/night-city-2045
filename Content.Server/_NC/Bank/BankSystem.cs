@@ -105,7 +105,10 @@ namespace Content.Server._NC.Bank
 
             Dirty(ev.Mob, bankComp);
 
-            _chatManager.DispatchServerMessage(ev.Player, $"Ваш банковский счет: {bankComp.AccountNumber}, ПИН-код: {bankComp.PIN}. Никому не сообщайте эти данные.");
+            _chatManager.DispatchServerMessageLocalized(ev.Player,
+                "nc-bank-account-chat-message",
+                ("account", bankComp.AccountNumber),
+                ("pin", bankComp.PIN));
         }
 
         public StationBankComponent EnsureStationBank(EntityUid stationUid)

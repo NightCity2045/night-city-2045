@@ -59,9 +59,9 @@ namespace Content.Server.GameTicking
                     var firstConnection = record != null &&
                                           Math.Abs((record.FirstSeenTime - record.LastSeenTime).TotalMinutes) < 1;
 
-                    _chatManager.SendAdminAnnouncement(firstConnection
-                        ? Loc.GetString("player-first-join-message", ("name", args.Session.Name))
-                        : Loc.GetString("player-join-message", ("name", args.Session.Name)));
+                    _chatManager.SendAdminAnnouncementLocalized(
+                        firstConnection ? "player-first-join-message" : "player-join-message",
+                        locArgs: new[] { ("name", (object) args.Session.Name) });
 
                     RaiseNetworkEvent(GetConnectionStatusMsg(), session.Channel);
 
@@ -121,7 +121,7 @@ namespace Content.Server.GameTicking
 
                 case SessionStatus.Disconnected:
                 {
-                    _chatManager.SendAdminAnnouncement(Loc.GetString("player-leave-message", ("name", args.Session.Name)));
+                    _chatManager.SendAdminAnnouncementLocalized("player-leave-message", locArgs: new[] { ("name", (object) args.Session.Name) });
                     if (mind != null)
                     {
                         _pvsOverride.ClearOverride(GetNetEntity(mindId!.Value));
@@ -189,7 +189,7 @@ namespace Content.Server.GameTicking
         public void PlayerJoinGame(ICommonSession session, bool silent = false)
         {
             if (!silent)
-                _chatManager.DispatchServerMessage(session, Loc.GetString("game-ticker-player-join-game-message"));
+                _chatManager.DispatchServerMessageLocalized(session, "game-ticker-player-join-game-message");
 
             _playerGameStatuses[session.UserId] = PlayerGameStatus.JoinedGame;
             _db.AddRoundPlayers(RoundId, session.UserId);
@@ -199,7 +199,7 @@ namespace Content.Server.GameTicking
                 if (_allPreviousGameRules.Count > 0)
                 {
                     var rulesMessage = GetGameRulesListMessage(true);
-                    _chatManager.SendAdminAnnouncementMessage(session, Loc.GetString("starting-rule-selected-preset", ("preset", rulesMessage)));
+                    _chatManager.SendAdminAnnouncementMessageLocalized(session, "starting-rule-selected-preset", ("preset", rulesMessage));
                 }
             }
 

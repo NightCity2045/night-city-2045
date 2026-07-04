@@ -12,3 +12,4 @@ atm-popup-deposit-success = Зачислено: { $amount }$ (Налог: { $tax
 
 nc-bank-account-details-verb-text = Реквизиты счета
 nc-bank-account-details-popup = Счет: { $account } | ПИН: { $pin }
+nc-bank-account-chat-message = Ваш банковский счет: { $account }, ПИН-код: { $pin }. Никому не сообщайте эти данные.

@@ -63,48 +63,48 @@ namespace Content.Server.Verbs
                     Log.Error($"Unknown verb type received: {key}");
             }
 
-            var verbs = BuildLocalizedVerbs(player, args.CultureName, args.EntityUid, attached, verbTypes, force);
-            var response = new VerbsResponseEvent(args.EntityUid, verbs);
-            RaiseNetworkEvent(response, player.Channel);
+            var previousCulture = ApplyClientCulture(player, args.CultureName);
+            try
+            {
+                var verbs = GetLocalVerbs(GetEntity(args.EntityUid), attached, verbTypes, force);
+                var response = new VerbsResponseEvent(args.EntityUid, verbs);
+                RaiseNetworkEvent(response, player.Channel);
+            }
+            finally
+            {
+                RestoreCulture(previousCulture);
+            }
         }
 
-        private SortedSet<Verb> BuildLocalizedVerbs(
-            ICommonSession session,
-            string? requestedCultureName,
-            NetEntity target,
-            EntityUid attached,
-            List<Type> verbTypes,
-            bool force)
+        private CultureInfo? ApplyClientCulture(ICommonSession session, string? requestedCultureName)
         {
             var previousCulture = _localization.DefaultCulture;
             var cultureName = requestedCultureName ?? _playerCulture.GetCulture(session);
 
-            if (!string.IsNullOrWhiteSpace(cultureName))
-            {
-                try
-                {
-                    // Server-side verbs are serialized with display text, so build them in the client's locale.
-                    _localization.SetCulture(CultureInfo.GetCultureInfo(cultureName, predefinedOnly: false));
-                    VerbCategory.RefreshStaticLocalizations();
-                }
-                catch (CultureNotFoundException)
-                {
-                    // Keep server default culture if the client reports an invalid culture.
-                }
-            }
+            if (string.IsNullOrWhiteSpace(cultureName))
+                return previousCulture;
 
             try
             {
-                return GetLocalVerbs(GetEntity(target), attached, verbTypes, force);
+                // Server-side verbs are serialized with display text, so build and serialize them in the client's locale.
+                _localization.SetCulture(CultureInfo.GetCultureInfo(cultureName, predefinedOnly: false));
+                VerbCategory.RefreshStaticLocalizations();
             }
-            finally
+            catch (CultureNotFoundException)
             {
-                if (previousCulture != null)
-                {
-                    _localization.SetCulture(previousCulture);
-                    VerbCategory.RefreshStaticLocalizations();
-                }
+                // Keep server default culture if the client reports an invalid culture.
             }
+
+            return previousCulture;
+        }
+
+        private void RestoreCulture(CultureInfo? previousCulture)
+        {
+            if (previousCulture == null)
+                return;
+
+            _localization.SetCulture(previousCulture);
+            VerbCategory.RefreshStaticLocalizations();
         }
 
         /// <summary>

@@ -70,52 +70,53 @@ namespace Content.Server.Examine
                 return;
             }
 
-            var text = BuildLocalizedExamineResponse(player, request.CultureName, entity, playerEnt, request.GetVerbs, out var verbs);
-            RaiseNetworkEvent(new ExamineSystemMessages.ExamineInfoResponseMessage(
-                request.NetEntity, request.Id, text, verbs?.ToList()), channel);
+            var previousCulture = ApplyClientCulture(player, request.CultureName);
+            try
+            {
+                var verbs = request.GetVerbs
+                    ? _verbSystem.GetLocalVerbs(entity, playerEnt, typeof(ExamineVerb))
+                    : null;
+
+                var text = GetExamineText(entity, player.AttachedEntity);
+
+                RaiseNetworkEvent(new ExamineSystemMessages.ExamineInfoResponseMessage(
+                    request.NetEntity, request.Id, text, verbs?.ToList()), channel);
+            }
+            finally
+            {
+                RestoreCulture(previousCulture);
+            }
         }
 
-        private FormattedMessage BuildLocalizedExamineResponse(
-            ICommonSession session,
-            string? requestedCultureName,
-            EntityUid entity,
-            EntityUid player,
-            bool getVerbs,
-            out SortedSet<Verb>? verbs)
+        private CultureInfo? ApplyClientCulture(ICommonSession session, string? requestedCultureName)
         {
             var previousCulture = _localization.DefaultCulture;
             var cultureName = requestedCultureName ?? _playerCulture.GetCulture(session);
 
-            if (!string.IsNullOrWhiteSpace(cultureName))
-            {
-                try
-                {
-                    // Full examine text is built on the server, so use the requesting client's locale.
-                    _localization.SetCulture(CultureInfo.GetCultureInfo(cultureName, predefinedOnly: false));
-                    VerbCategory.RefreshStaticLocalizations();
-                }
-                catch (CultureNotFoundException)
-                {
-                    // Keep server default culture if the client somehow reports an invalid culture.
-                }
-            }
+            if (string.IsNullOrWhiteSpace(cultureName))
+                return previousCulture;
 
             try
             {
-                verbs = getVerbs
-                    ? _verbSystem.GetLocalVerbs(entity, player, typeof(ExamineVerb))
-                    : null;
-
-                return GetExamineText(entity, player);
+                // Full examine text and returned verbs are serialized on the server, so use the client's locale.
+                _localization.SetCulture(CultureInfo.GetCultureInfo(cultureName, predefinedOnly: false));
+                VerbCategory.RefreshStaticLocalizations();
             }
-            finally
+            catch (CultureNotFoundException)
             {
-                if (previousCulture != null)
-                {
-                    _localization.SetCulture(previousCulture);
-                    VerbCategory.RefreshStaticLocalizations();
-                }
+                // Keep server default culture if the client somehow reports an invalid culture.
             }
+
+            return previousCulture;
+        }
+
+        private void RestoreCulture(CultureInfo? previousCulture)
+        {
+            if (previousCulture == null)
+                return;
+
+            _localization.SetCulture(previousCulture);
+            VerbCategory.RefreshStaticLocalizations();
         }
     }
 }

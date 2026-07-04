@@ -1,9 +1,11 @@
 using System.Diagnostics.CodeAnalysis;
+using System.Globalization;
 using System.Linq;
 using System.Runtime.InteropServices;
 using Content.Server.Administration.Logs;
 using Content.Server.Administration.Managers;
 using Content.Server.Administration.Systems;
+using Content.Server._NC.Localization;
 using Content.Server.MoMMI;
 using Content.Server._NC.Chat.Translation;
 using Content.Server.Players.RateLimiting;
@@ -44,6 +46,7 @@ internal sealed partial class ChatManager : IChatManager
     [Dependency] private readonly IServerPreferencesManager _preferencesManager = default!;
     [Dependency] private readonly IConfigurationManager _configurationManager = default!;
     [Dependency] private readonly INetConfigurationManager _netConfigManager = default!;
+    [Dependency] private readonly ILocalizationManager _localization = default!;
     [Dependency] private readonly IEntityManager _entityManager = default!;
     [Dependency] private readonly PlayerRateLimitManager _rateLimitManager = default!;
     [Dependency] private readonly IPlayerManager _playerManager = default!;
@@ -124,16 +127,30 @@ internal sealed partial class ChatManager : IChatManager
 
     public void DispatchServerMessage(ICommonSession player, string message, bool suppressLog = false)
     {
-        var wrappedMessage = Loc.GetString("chat-manager-server-wrap-message", ("message", FormattedMessage.EscapeText(message)));
+        var wrappedMessage = LocalizeForSession(player,
+            "chat-manager-server-wrap-message",
+            ("message", FormattedMessage.EscapeText(message)));
         ChatMessageToOne(ChatChannel.Server, message, wrappedMessage, default, false, player.Channel);
 
         if (!suppressLog)
             _adminLogger.Add(LogType.Chat, LogImpact.Low, $"Server message to {player:Player}: {message}");
     }
 
+    public void DispatchServerMessageLocalized(ICommonSession player, string locKey, params (string, object)[] locArgs)
+    {
+        var message = LocalizeForSession(player, locKey, locArgs);
+        DispatchServerMessage(player, message);
+    }
+
+    public void DispatchServerMessageLocalized(ICommonSession player, string locKey, Func<(string, object)[]> locArgsFactory)
+    {
+        var message = LocalizeForSession(player, locKey, locArgsFactory);
+        DispatchServerMessage(player, message);
+    }
+
     public void SendAdminAnnouncement(string message, AdminFlags? flagBlacklist, AdminFlags? flagWhitelist)
     {
-        var clients = _adminManager.ActiveAdmins.Where(p =>
+        var admins = _adminManager.ActiveAdmins.Where(p =>
         {
             var adminData = _adminManager.GetAdminData(p);
 
@@ -147,21 +164,64 @@ internal sealed partial class ChatManager : IChatManager
 
             return flagWhitelist == null || adminData.HasFlag(flagWhitelist.Value);
 
-        }).Select(p => p.Channel);
+        }).ToList();
 
-        var wrappedMessage = Loc.GetString("chat-manager-send-admin-announcement-wrap-message",
-            ("adminChannelName", Loc.GetString("chat-manager-admin-channel-name")), ("message", FormattedMessage.EscapeText(message)));
+        foreach (var admin in admins)
+        {
+            var wrappedMessage = LocalizeForSession(admin,
+                "chat-manager-send-admin-announcement-wrap-message",
+                ("adminChannelName", LocalizeForSession(admin, "chat-manager-admin-channel-name")),
+                ("message", FormattedMessage.EscapeText(message)));
+            ChatMessageToOne(ChatChannel.Admin, message, wrappedMessage, default, false, admin.Channel, recordReplay: true);
+        }
 
-        ChatMessageToMany(ChatChannel.Admin, message, wrappedMessage, default, false, true, clients);
         _adminLogger.Add(LogType.Chat, LogImpact.Low, $"Admin announcement: {message}");
+    }
+
+    public void SendAdminAnnouncementLocalized(string locKey, AdminFlags? flagBlacklist = null, AdminFlags? flagWhitelist = null, params (string, object)[] locArgs)
+    {
+        var admins = _adminManager.ActiveAdmins.Where(p =>
+        {
+            var adminData = _adminManager.GetAdminData(p);
+
+            DebugTools.AssertNotNull(adminData);
+
+            if (adminData == null)
+                return false;
+
+            if (flagBlacklist != null && adminData.HasFlag(flagBlacklist.Value))
+                return false;
+
+            return flagWhitelist == null || adminData.HasFlag(flagWhitelist.Value);
+
+        }).ToList();
+
+        foreach (var admin in admins)
+        {
+            var message = LocalizeForSession(admin, locKey, locArgs);
+            var wrappedMessage = LocalizeForSession(admin,
+                "chat-manager-send-admin-announcement-wrap-message",
+                ("adminChannelName", LocalizeForSession(admin, "chat-manager-admin-channel-name")),
+                ("message", FormattedMessage.EscapeText(message)));
+            ChatMessageToOne(ChatChannel.Admin, message, wrappedMessage, default, false, admin.Channel, recordReplay: true);
+        }
+
+        _adminLogger.Add(LogType.Chat, LogImpact.Low, $"Admin announcement: {locKey}");
     }
 
     public void SendAdminAnnouncementMessage(ICommonSession player, string message, bool suppressLog = true)
     {
-        var wrappedMessage = Loc.GetString("chat-manager-send-admin-announcement-wrap-message",
-            ("adminChannelName", Loc.GetString("chat-manager-admin-channel-name")),
+        var wrappedMessage = LocalizeForSession(player,
+            "chat-manager-send-admin-announcement-wrap-message",
+            ("adminChannelName", LocalizeForSession(player, "chat-manager-admin-channel-name")),
             ("message", FormattedMessage.EscapeText(message)));
         ChatMessageToOne(ChatChannel.Admin, message, wrappedMessage, default, false, player.Channel);
+    }
+
+    public void SendAdminAnnouncementMessageLocalized(ICommonSession player, string locKey, params (string, object)[] locArgs)
+    {
+        var message = LocalizeForSession(player, locKey, locArgs);
+        SendAdminAnnouncementMessage(player, message);
     }
 
     public void SendAdminAlert(string message)
@@ -416,6 +476,58 @@ internal sealed partial class ChatManager : IChatManager
         }
 
         return isOverLength;
+    }
+
+    private string LocalizeForSession(ICommonSession session, string locKey, params (string, object)[] locArgs)
+    {
+        var previousCulture = _localization.DefaultCulture;
+        var cultureName = NCPlayerCulture.GetCulture(session);
+
+        try
+        {
+            if (!string.IsNullOrWhiteSpace(cultureName))
+                _localization.SetCulture(CultureInfo.GetCultureInfo(cultureName, predefinedOnly: false));
+        }
+        catch (CultureNotFoundException)
+        {
+            // Keep the server default culture if a client reports an invalid culture.
+        }
+
+        try
+        {
+            return Loc.GetString(locKey, locArgs);
+        }
+        finally
+        {
+            if (previousCulture != null)
+                _localization.SetCulture(previousCulture);
+        }
+    }
+
+    private string LocalizeForSession(ICommonSession session, string locKey, Func<(string, object)[]> locArgsFactory)
+    {
+        var previousCulture = _localization.DefaultCulture;
+        var cultureName = NCPlayerCulture.GetCulture(session);
+
+        try
+        {
+            if (!string.IsNullOrWhiteSpace(cultureName))
+                _localization.SetCulture(CultureInfo.GetCultureInfo(cultureName, predefinedOnly: false));
+        }
+        catch (CultureNotFoundException)
+        {
+            // Keep the server default culture if a client reports an invalid culture.
+        }
+
+        try
+        {
+            return Loc.GetString(locKey, locArgsFactory());
+        }
+        finally
+        {
+            if (previousCulture != null)
+                _localization.SetCulture(previousCulture);
+        }
     }
 
     #endregion
