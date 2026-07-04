@@ -125,6 +125,11 @@ namespace Content.Server.GameTicking
             _chatManager.ChatMessageToAll(ChatChannel.Server, message, wrappedMessage, default, false, true);
         }
 
+        private void SendServerMessageLocalized(string locKey, params (string, object)[] locArgs)
+        {
+            _chatManager.DispatchServerAnnouncementLocalized(locKey, () => locArgs);
+        }
+
         public override void Update(float frameTime)
         {
             if (DummyTicker)

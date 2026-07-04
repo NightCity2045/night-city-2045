@@ -1119,9 +1119,11 @@ namespace Content.Client.Lobby.UI
 
                     if (!isCivilian)
                     {
-                        var buttonText = isCurrentlyEmployed ? "Уволиться" : "Устроиться";
+                        var buttonText = Loc.GetString(isCurrentlyEmployed
+                            ? "humanoid-profile-editor-department-resign-button"
+                            : "humanoid-profile-editor-department-employ-button");
                         if (_confirmingDepartment == department.ID)
-                            buttonText = "Подтвердить";
+                            buttonText = Loc.GetString("humanoid-profile-editor-department-confirm-button");
 
                         var jobButton = new Button
                         {
@@ -1221,9 +1223,9 @@ namespace Content.Client.Lobby.UI
                     // NC START
                     if (!isDeptOpen)
                     {
-                        var deptLockReason = employedDept == null
-                            ? "Вам нужно устроиться в этот департамент"
-                            : "Вы уже работаете в другом департаменте";
+                        var deptLockReason = Loc.GetString(employedDept == null
+                            ? "humanoid-profile-editor-department-lock-unemployed"
+                            : "humanoid-profile-editor-department-lock-other");
                         selector.LockRequirements(FormattedMessage.FromMarkup(deptLockReason));
                     }
                     else if (!_requirements.CheckJobWhitelist(job, out var reason))

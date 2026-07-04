@@ -81,7 +81,7 @@ internal sealed partial class ChatManager : IChatManager
         if (_oocEnabled == val) return;
 
         _oocEnabled = val;
-        DispatchServerAnnouncement(Loc.GetString(val ? "chat-manager-ooc-chat-enabled-message" : "chat-manager-ooc-chat-disabled-message"));
+        DispatchServerAnnouncementLocalized(val ? "chat-manager-ooc-chat-enabled-message" : "chat-manager-ooc-chat-disabled-message");
     }
 
     private void OnAdminOocEnabledChanged(bool val)
@@ -89,7 +89,7 @@ internal sealed partial class ChatManager : IChatManager
         if (_adminOocEnabled == val) return;
 
         _adminOocEnabled = val;
-        DispatchServerAnnouncement(Loc.GetString(val ? "chat-manager-admin-ooc-chat-enabled-message" : "chat-manager-admin-ooc-chat-disabled-message"));
+        DispatchServerAnnouncementLocalized(val ? "chat-manager-admin-ooc-chat-enabled-message" : "chat-manager-admin-ooc-chat-disabled-message");
     }
 
         public void DeleteMessagesBy(NetUserId uid)
@@ -123,6 +123,27 @@ internal sealed partial class ChatManager : IChatManager
         _sawmill.Info(message);
 
         _adminLogger.Add(LogType.Chat, LogImpact.Low, $"Server announcement: {message}");
+    }
+
+    public void DispatchServerAnnouncementLocalized(string locKey, Color? colorOverride = null, params (string, object)[] locArgs)
+    {
+        DispatchServerAnnouncementLocalized(locKey, () => locArgs, colorOverride);
+    }
+
+    public void DispatchServerAnnouncementLocalized(string locKey, Func<(string, object)[]> locArgsFactory, Color? colorOverride = null)
+    {
+        foreach (var player in _playerManager.Sessions)
+        {
+            var message = LocalizeForSession(player, locKey, locArgsFactory);
+            var wrappedMessage = LocalizeForSession(player,
+                "chat-manager-server-wrap-message",
+                ("message", FormattedMessage.EscapeText(message)));
+
+            ChatMessageToOne(ChatChannel.Server, message, wrappedMessage, EntityUid.Invalid, hideChat: false, player.Channel, colorOverride: colorOverride, recordReplay: true);
+        }
+
+        _sawmill.Info(locKey);
+        _adminLogger.Add(LogType.Chat, LogImpact.Low, $"Server announcement: {locKey}");
     }
 
     public void DispatchServerMessage(ICommonSession player, string message, bool suppressLog = false)

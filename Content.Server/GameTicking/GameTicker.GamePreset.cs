@@ -36,8 +36,8 @@ namespace Content.Server.GameTicking
 
             void FailedPresetRestart()
             {
-                SendServerMessage(Loc.GetString("game-ticker-start-round-cannot-start-game-mode-restart",
-                    ("failedGameMode", presetTitle)));
+                SendServerMessageLocalized("game-ticker-start-round-cannot-start-game-mode-restart",
+                    ("failedGameMode", presetTitle));
                 RestartRound();
                 DelayStart(TimeSpan.FromSeconds(PresetFailedCooldownIncrease));
             }

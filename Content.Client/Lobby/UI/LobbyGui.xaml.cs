@@ -29,6 +29,8 @@ namespace Content.Client.Lobby.UI
             ChangelogButton.OnPressed += _ => UserInterfaceManager.GetUIController<ChangelogUIController>().ToggleWindow();
             QuitButton.OnPressed += _ => _consoleHost.ExecuteCommand("disconnect");
             // White Edit End
+
+            Relocalize();
         }
 
         public void Relocalize()
@@ -41,6 +43,7 @@ namespace Content.Client.Lobby.UI
             AHelpButton.ButtonText = Loc.GetString("ui-lobby-ahelp-button");
             ChangelogButton.ButtonText = Loc.GetString("ui-lobby-changelog-button");
             QuitButton.ButtonText = Loc.GetString("ui-lobby-leave-button");
+            DevInfoBanner.Relocalize();
             LobbySong.SetMarkup(Loc.GetString("lobby-state-song-no-song-text"));
             LobbyBackground.SetMarkup(Loc.GetString("lobby-state-background-no-background-text"));
         }

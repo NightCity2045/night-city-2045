@@ -114,8 +114,8 @@ public sealed partial class ChatSystem : SharedChatSystem
         if (_loocEnabled == val) return;
 
         _loocEnabled = val;
-        _chatManager.DispatchServerAnnouncement(
-            Loc.GetString(val ? "chat-manager-looc-chat-enabled-message" : "chat-manager-looc-chat-disabled-message"));
+        _chatManager.DispatchServerAnnouncementLocalized(
+            val ? "chat-manager-looc-chat-enabled-message" : "chat-manager-looc-chat-disabled-message");
     }
 
     private void OnDeadLoocEnabledChanged(bool val)
@@ -123,8 +123,8 @@ public sealed partial class ChatSystem : SharedChatSystem
         if (_deadLoocEnabled == val) return;
 
         _deadLoocEnabled = val;
-        _chatManager.DispatchServerAnnouncement(
-            Loc.GetString(val ? "chat-manager-dead-looc-chat-enabled-message" : "chat-manager-dead-looc-chat-disabled-message"));
+        _chatManager.DispatchServerAnnouncementLocalized(
+            val ? "chat-manager-dead-looc-chat-enabled-message" : "chat-manager-dead-looc-chat-disabled-message");
     }
 
     private void OnCritLoocEnabledChanged(bool val)
@@ -133,8 +133,8 @@ public sealed partial class ChatSystem : SharedChatSystem
             return;
 
         _critLoocEnabled = val;
-        _chatManager.DispatchServerAnnouncement(
-            Loc.GetString(val ? "chat-manager-crit-looc-chat-enabled-message" : "chat-manager-crit-looc-chat-disabled-message"));
+        _chatManager.DispatchServerAnnouncementLocalized(
+            val ? "chat-manager-crit-looc-chat-enabled-message" : "chat-manager-crit-looc-chat-disabled-message");
     }
 
     private void OnGameChange(GameRunLevelChangedEvent ev)

@@ -15,6 +15,8 @@ namespace Content.Server.Chat.Managers
         /// <param name="message"></param>
         /// <param name="colorOverride">Override the color of the message being sent.</param>
         void DispatchServerAnnouncement(string message, Color? colorOverride = null);
+        void DispatchServerAnnouncementLocalized(string locKey, Color? colorOverride = null, params (string, object)[] locArgs);
+        void DispatchServerAnnouncementLocalized(string locKey, Func<(string, object)[]> locArgsFactory, Color? colorOverride = null);
 
         void DispatchServerMessage(ICommonSession player, string message, bool suppressLog = false);
         void DispatchServerMessageLocalized(ICommonSession player, string locKey, params (string, object)[] locArgs);
