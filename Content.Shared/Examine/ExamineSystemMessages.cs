@@ -15,11 +15,14 @@ namespace Content.Shared.Examine
 
             public readonly bool GetVerbs;
 
-            public RequestExamineInfoMessage(NetEntity netEntity, int id, bool getVerbs=false)
+            public readonly string? CultureName;
+
+            public RequestExamineInfoMessage(NetEntity netEntity, int id, bool getVerbs=false, string? cultureName = null)
             {
                 NetEntity = netEntity;
                 Id = id;
                 GetVerbs = getVerbs;
+                CultureName = cultureName;
             }
         }
 

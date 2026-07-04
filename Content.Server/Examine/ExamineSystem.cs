@@ -70,20 +70,21 @@ namespace Content.Server.Examine
                 return;
             }
 
-            var text = BuildLocalizedExamineResponse(player, entity, playerEnt, request.GetVerbs, out var verbs);
+            var text = BuildLocalizedExamineResponse(player, request.CultureName, entity, playerEnt, request.GetVerbs, out var verbs);
             RaiseNetworkEvent(new ExamineSystemMessages.ExamineInfoResponseMessage(
                 request.NetEntity, request.Id, text, verbs?.ToList()), channel);
         }
 
         private FormattedMessage BuildLocalizedExamineResponse(
             ICommonSession session,
+            string? requestedCultureName,
             EntityUid entity,
             EntityUid player,
             bool getVerbs,
             out SortedSet<Verb>? verbs)
         {
             var previousCulture = _localization.DefaultCulture;
-            var cultureName = _playerCulture.GetCulture(session);
+            var cultureName = requestedCultureName ?? _playerCulture.GetCulture(session);
 
             if (!string.IsNullOrWhiteSpace(cultureName))
             {
@@ -91,6 +92,7 @@ namespace Content.Server.Examine
                 {
                     // Full examine text is built on the server, so use the requesting client's locale.
                     _localization.SetCulture(CultureInfo.GetCultureInfo(cultureName, predefinedOnly: false));
+                    VerbCategory.RefreshStaticLocalizations();
                 }
                 catch (CultureNotFoundException)
                 {
@@ -109,7 +111,10 @@ namespace Content.Server.Examine
             finally
             {
                 if (previousCulture != null)
+                {
                     _localization.SetCulture(previousCulture);
+                    VerbCategory.RefreshStaticLocalizations();
+                }
             }
         }
     }

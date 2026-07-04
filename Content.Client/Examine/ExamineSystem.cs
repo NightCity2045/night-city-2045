@@ -15,6 +15,8 @@ using Robust.Client.Graphics;
 using Robust.Client.Player;
 using Robust.Client.UserInterface;
 using Robust.Client.UserInterface.Controls;
+using Robust.Shared;
+using Robust.Shared.Configuration;
 using Robust.Shared.Input.Binding;
 using Robust.Shared.Map;
 using Robust.Shared.Utility;
@@ -32,6 +34,7 @@ namespace Content.Client.Examine
         [Dependency] private readonly IEyeManager _eyeManager = default!;
         [Dependency] private readonly VerbSystem _verbSystem = default!;
         [Dependency] private readonly NCCharacterNotesSystem _ncCharacterNotes = default!;
+        [Dependency] private readonly IConfigurationManager _cfg = default!;
 
         public const string StyleClassEntityTooltip = "entity-tooltip";
 
@@ -372,7 +375,11 @@ namespace Content.Client.Examine
                     _idCounter += 1;
                 if (_idCounter == int.MaxValue)
                     _idCounter = 0;
-                RaiseNetworkEvent(new ExamineSystemMessages.RequestExamineInfoMessage(GetNetEntity(entity), _idCounter, true));
+                RaiseNetworkEvent(new ExamineSystemMessages.RequestExamineInfoMessage(
+                    GetNetEntity(entity),
+                    _idCounter,
+                    true,
+                    _cfg.GetCVar(CVars.LocCultureName)));
             }
 
             RaiseLocalEvent(entity, new ClientExaminedEvent(entity, playerEnt.Value));

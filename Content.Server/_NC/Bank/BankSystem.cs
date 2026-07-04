@@ -69,8 +69,13 @@ namespace Content.Server._NC.Bank
 
             args.Verbs.Add(new Content.Shared.Verbs.ActivationVerb
             {
-                Text = "Реквизиты счета",
-                Act = () => _popupSystem.PopupEntity($"Счет: {component.AccountNumber} | ПИН: {component.PIN}", uid, uid)
+                Text = Loc.GetString("nc-bank-account-details-verb-text"),
+                Act = () => _popupSystem.PopupEntity(
+                    Loc.GetString("nc-bank-account-details-popup",
+                        ("account", component.AccountNumber),
+                        ("pin", component.PIN)),
+                    uid,
+                    uid)
             });
         }
 

@@ -9,3 +9,6 @@ atm-popup-withdraw-success = Выдано { $amount }$
 atm-popup-insufficient-funds = Недостаточно средств на счете!
 atm-popup-amount-too-small = Сумма слишком мала.
 atm-popup-deposit-success = Зачислено: { $amount }$ (Налог: { $tax }$)
+
+nc-bank-account-details-verb-text = Реквизиты счета
+nc-bank-account-details-popup = Счет: { $account } | ПИН: { $pin }
