@@ -26,12 +26,18 @@
   - type: Armor
     modifiers:
       coefficients:
-        Blunt: 0.95
-        Slash: 0.95
-        Piercing: 0.95
         Heat: 0.9
         Radiation: 0.9
         Caustic: 0.8
+  - type: PhysicalArmor
+    stoppingPower: 42
+    maxDurability: 120
+    currentDurability: 120
+    materialType: Ceramic
+    bluntDamageMultiplier: 0.1
+    durabilityDamageMultiplier: 1.25
+    coverage:
+    - Head
 
 # Operative / Armored Helmet
 - type: entity
@@ -65,12 +71,18 @@
   - type: Armor
     modifiers:
       coefficients:
-        Blunt: 0.8
-        Slash: 0.8
-        Piercing: 0.8
         Heat: 0.8
         Radiation: 0.8
         Caustic: 0.8
+  - type: PhysicalArmor
+    stoppingPower: 64
+    maxDurability: 180
+    currentDurability: 180
+    materialType: Steel
+    bluntDamageMultiplier: 0.35
+    durabilityDamageMultiplier: 0.5
+    coverage:
+    - Head
   - type: FlashImmunity
   - type: FlashSoundSuppression
   - type: EyeProtection

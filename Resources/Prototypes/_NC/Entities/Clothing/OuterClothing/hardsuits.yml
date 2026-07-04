@@ -16,12 +16,27 @@
   - type: Armor
     modifiers:
       coefficients:
-        Blunt: 0.75
-        Slash: 0.75
-        Piercing: 0.55
         Heat: 0.5
         Radiation: 0.5
         Caustic: 0.3
+  - type: PhysicalArmor
+    stoppingPower: 55
+    maxDurability: 220
+    currentDurability: 220
+    materialType: Ceramic
+    bluntDamageMultiplier: 0.15
+    durabilityDamageMultiplier: 1.25
+    coverage:
+    - Torso
+    - Groin
+    - LeftArm
+    - RightArm
+    - LeftHand
+    - RightHand
+    - LeftLeg
+    - RightLeg
+    - LeftFoot
+    - RightFoot
   - type: NoSlip
   - type: StaminaDamageResistance
     coefficient: 0.8
@@ -50,15 +65,28 @@
     damageCoefficient: 0.5
   - type: Armor
     modifiers:
-      flatReductions:
-        Piercing: 4
       coefficients:
-        Blunt: 0.5
-        Slash: 0.5
-        Piercing: 0.35
         Heat: 0.6
         Radiation: 0.6
         Caustic: 0.6
+  - type: PhysicalArmor
+    stoppingPower: 72
+    maxDurability: 320
+    currentDurability: 320
+    materialType: Steel
+    bluntDamageMultiplier: 0.35
+    durabilityDamageMultiplier: 0.5
+    coverage:
+    - Torso
+    - Groin
+    - LeftArm
+    - RightArm
+    - LeftHand
+    - RightHand
+    - LeftLeg
+    - RightLeg
+    - LeftFoot
+    - RightFoot
   - type: ClothingSpeedModifier
     walkModifier: 0.85
     sprintModifier: 1

@@ -14,11 +14,11 @@ public sealed partial class ArmorBlueprintComponent : Component
     [DataField("baseMaterialAmount")]
     public int BaseMaterialAmount = 1;
 
-    [DataField("softMaterialAmount")]
-    public int SoftMaterialAmount = 1;
+    [DataField("carrierMaterialAmount")]
+    public int CarrierMaterialAmount = 1;
 
-    [DataField("hardMaterialAmount")]
-    public int HardMaterialAmount = 1;
+    [DataField("plateMaterialAmount")]
+    public int PlateMaterialAmount = 1;
 
     [DataField("coverage", required: true)]
     public List<TargetBodyPart> Coverage = new();

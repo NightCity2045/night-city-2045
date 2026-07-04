@@ -1,4 +1,5 @@
-nc-layered-armor-examine-pristine = The vest looks solid and the plates still sit tight.
-nc-layered-armor-examine-worn = The carrier is torn up and the plates inside are visibly battered.
-nc-layered-armor-examine-critical = The vest is barely holding together and the plates sound cracked.
-nc-layered-armor-examine-destroyed = This is just shredded fabric with useless scrap rattling inside.
+nc-physical-armor-examine-pristine = The armor layer looks structurally sound.
+nc-physical-armor-examine-worn = The armor layer is visibly worn and battered.
+nc-physical-armor-examine-critical = The armor layer is barely holding together.
+nc-physical-armor-examine-destroyed = The armor layer is ruined and offers no protection.
+armor-plate-slot-name = armor plate

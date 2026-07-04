@@ -37,22 +37,22 @@
 
             <PanelContainer StyleClasses="NightCityPanelDark">
                 <BoxContainer Orientation="Vertical" SeparationOverride="6">
-                    <Label Text="{Loc 'armor-workbench-window-soft-label'}"
+                    <Label Text="{Loc 'armor-workbench-window-carrier-label'}"
                            StyleClasses="NightCityGlowText" />
-                    <OptionButton Name="SoftMaterialButton" HorizontalExpand="True" />
-                    <Label Name="SoftForecastLabel"
-                           Text="{Loc 'armor-workbench-window-soft-forecast-empty'}"
+                    <OptionButton Name="CarrierMaterialButton" HorizontalExpand="True" />
+                    <Label Name="CarrierForecastLabel"
+                           Text="{Loc 'armor-workbench-window-carrier-forecast-empty'}"
                            StyleClasses="NightCityMutedText" />
                 </BoxContainer>
             </PanelContainer>
 
             <PanelContainer StyleClasses="NightCityPanelDark">
                 <BoxContainer Orientation="Vertical" SeparationOverride="6">
-                    <Label Text="{Loc 'armor-workbench-window-hard-label'}"
+                    <Label Text="{Loc 'armor-workbench-window-plate-label'}"
                            StyleClasses="NightCityGlowText" />
-                    <OptionButton Name="HardMaterialButton" HorizontalExpand="True" />
-                    <Label Name="HardForecastLabel"
-                           Text="{Loc 'armor-workbench-window-hard-forecast-empty'}"
+                    <OptionButton Name="PlateMaterialButton" HorizontalExpand="True" />
+                    <Label Name="PlateForecastLabel"
+                           Text="{Loc 'armor-workbench-window-plate-forecast-empty'}"
                            StyleClasses="NightCityMutedText" />
                 </BoxContainer>
             </PanelContainer>

@@ -1,3 +1,4 @@
+using Content.Shared._NC.Armor.Components;
 using Robust.Shared.Serialization;
 
 namespace Content.Shared._NC.Crafting.ArmorWorkbench.Components;
@@ -16,8 +17,8 @@ public enum ArmorMaterialType : byte
 public enum ArmorWorkbenchLayerSlot : byte
 {
     Base,
-    Soft,
-    Hard,
+    Carrier,
+    Plate,
 }
 
 /// <summary>
@@ -29,9 +30,18 @@ public sealed partial class ArmorMaterialComponent : Component
     [DataField("layerType")]
     public ArmorMaterialType LayerType = ArmorMaterialType.Armor;
 
-    [DataField("grantedArmorClass")]
-    public int GrantedArmorClass;
+    [DataField("grantedStoppingPower")]
+    public float GrantedStoppingPower;
 
     [DataField("grantedDurability")]
     public float GrantedDurability = 100f;
+
+    [DataField("materialType")]
+    public PhysicalArmorMaterialType MaterialType = PhysicalArmorMaterialType.Generic;
+
+    [DataField("bluntDamageMultiplier")]
+    public float BluntDamageMultiplier = 0.4f;
+
+    [DataField("durabilityDamageMultiplier")]
+    public float DurabilityDamageMultiplier = 1f;
 }

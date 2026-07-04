@@ -119,8 +119,8 @@ public sealed class ArmorWorkbenchSystem : EntitySystem
                 }
 
                 component.SelectedBaseMaterial = null;
-                component.SelectedSoftMaterial = null;
-                component.SelectedHardMaterial = null;
+                component.SelectedCarrierMaterial = null;
+                component.SelectedPlateMaterial = null;
                 UpdateUserInterface(uid, component);
             }
         });
@@ -138,10 +138,10 @@ public sealed class ArmorWorkbenchSystem : EntitySystem
 
         if (args.LayerType == ArmorWorkbenchLayerSlot.Base && SupportsBase(materialComp))
             component.SelectedBaseMaterial = material;
-        else if (args.LayerType == ArmorWorkbenchLayerSlot.Soft && SupportsSoft(materialComp))
-            component.SelectedSoftMaterial = material;
-        else if (args.LayerType == ArmorWorkbenchLayerSlot.Hard && SupportsHard(materialComp))
-            component.SelectedHardMaterial = material;
+        else if (args.LayerType == ArmorWorkbenchLayerSlot.Carrier && SupportsCarrier(materialComp))
+            component.SelectedCarrierMaterial = material;
+        else if (args.LayerType == ArmorWorkbenchLayerSlot.Plate && SupportsPlate(materialComp))
+            component.SelectedPlateMaterial = material;
 
         UpdateUserInterface(uid, component);
     }
@@ -216,10 +216,9 @@ public sealed class ArmorWorkbenchSystem : EntitySystem
         }
 
         var crafted = Spawn(context.Blueprint.ResultPrototype, Transform(uid).Coordinates);
-        if (TryComp<NCLayeredArmorComponent>(crafted, out var armor))
+        if (TryComp<PhysicalArmorComponent>(crafted, out var armor))
         {
-            ApplyLayer(armor.SoftLayer, context.SoftMaterial, context.Blueprint.Coverage);
-            ApplyLayer(armor.HardLayer, context.HardMaterial, context.Blueprint.Coverage);
+            ApplyArmor(armor, context.CarrierMaterial ?? context.BaseMaterial, context.Blueprint.Coverage);
             Dirty(crafted, armor);
         }
 
@@ -230,26 +229,20 @@ public sealed class ArmorWorkbenchSystem : EntitySystem
         ConsumeCraftMaterials(component, context);
 
         component.SelectedBaseMaterial = null;
-        component.SelectedSoftMaterial = null;
-        component.SelectedHardMaterial = null;
+        component.SelectedCarrierMaterial = null;
+        component.SelectedPlateMaterial = null;
         UpdateUserInterface(uid, component);
     }
 
-    private static void ApplyLayer(NCLayeredArmorLayer layer, ArmorMaterialSnapshot? material, List<Content.Shared._Shitmed.Targeting.TargetBodyPart> coverage)
+    private static void ApplyArmor(PhysicalArmorComponent armor, ArmorMaterialSnapshot material, List<Content.Shared._Shitmed.Targeting.TargetBodyPart> coverage)
     {
-        if (material == null)
-        {
-            layer.ArmorClass = 0;
-            layer.MaxDurability = 0f;
-            layer.CurrentDurability = 0f;
-            layer.Coverage = new List<Content.Shared._Shitmed.Targeting.TargetBodyPart>();
-            return;
-        }
-
-        layer.ArmorClass = material.GrantedArmorClass;
-        layer.MaxDurability = material.GrantedDurability;
-        layer.CurrentDurability = material.GrantedDurability;
-        layer.Coverage = new List<Content.Shared._Shitmed.Targeting.TargetBodyPart>(coverage);
+        armor.StoppingPower = material.GrantedStoppingPower;
+        armor.MaxDurability = material.GrantedDurability;
+        armor.CurrentDurability = material.GrantedDurability;
+        armor.MaterialType = material.MaterialType;
+        armor.BluntDamageMultiplier = material.BluntDamageMultiplier;
+        armor.DurabilityDamageMultiplier = material.DurabilityDamageMultiplier;
+        armor.Coverage = new List<Content.Shared._Shitmed.Targeting.TargetBodyPart>(coverage);
     }
 
     private bool CanInsert(EntityUid uid, ArmorWorkbenchComponent component, EntityUid item)
@@ -274,7 +267,7 @@ public sealed class ArmorWorkbenchSystem : EntitySystem
         return HasComp<ArmorBlueprintComponent>(item) || HasComp<ArmorMaterialComponent>(item);
     }
 
-    private static bool SupportsSoft(ArmorMaterialComponent material)
+    private static bool SupportsCarrier(ArmorMaterialComponent material)
     {
         return material.LayerType == ArmorMaterialType.Armor;
     }
@@ -284,7 +277,7 @@ public sealed class ArmorWorkbenchSystem : EntitySystem
         return material.LayerType == ArmorMaterialType.Base;
     }
 
-    private static bool SupportsHard(ArmorMaterialComponent material)
+    private static bool SupportsPlate(ArmorMaterialComponent material)
     {
         return material.LayerType == ArmorMaterialType.Armor;
     }
@@ -294,11 +287,11 @@ public sealed class ArmorWorkbenchSystem : EntitySystem
         if (component.SelectedBaseMaterial is { } armorBase && !component.Storage.Contains(armorBase))
             component.SelectedBaseMaterial = null;
 
-        if (component.SelectedSoftMaterial is { } soft && !component.Storage.Contains(soft))
-            component.SelectedSoftMaterial = null;
+        if (component.SelectedCarrierMaterial is { } carrier && !component.Storage.Contains(carrier))
+            component.SelectedCarrierMaterial = null;
 
-        if (component.SelectedHardMaterial is { } hard && !component.Storage.Contains(hard))
-            component.SelectedHardMaterial = null;
+        if (component.SelectedPlateMaterial is { } plate && !component.Storage.Contains(plate))
+            component.SelectedPlateMaterial = null;
     }
 
     private CraftContext? GetCraftContext(ArmorWorkbenchComponent component)
@@ -308,8 +301,8 @@ public sealed class ArmorWorkbenchSystem : EntitySystem
         EntityUid? blueprintUid = null;
         ArmorBlueprintComponent? blueprint = null;
         var baseMaterials = new List<EntityUid>();
-        var softMaterials = new List<EntityUid>();
-        var hardMaterials = new List<EntityUid>();
+        var carrierMaterials = new List<EntityUid>();
+        var plateMaterials = new List<EntityUid>();
 
         foreach (var entity in component.Storage.ContainedEntities)
         {
@@ -325,11 +318,11 @@ public sealed class ArmorWorkbenchSystem : EntitySystem
             if (SupportsBase(material))
                 baseMaterials.Add(entity);
 
-            if (SupportsSoft(material))
-                softMaterials.Add(entity);
+            if (SupportsCarrier(material))
+                carrierMaterials.Add(entity);
 
-            if (SupportsHard(material))
-                hardMaterials.Add(entity);
+            if (SupportsPlate(material))
+                plateMaterials.Add(entity);
         }
 
         if (blueprint == null || blueprintUid == null)
@@ -338,11 +331,11 @@ public sealed class ArmorWorkbenchSystem : EntitySystem
         if (component.SelectedBaseMaterial == null || !baseMaterials.Contains(component.SelectedBaseMaterial.Value))
             component.SelectedBaseMaterial = baseMaterials.FirstOrDefault();
 
-        if (component.SelectedSoftMaterial != null && !softMaterials.Contains(component.SelectedSoftMaterial.Value))
-            component.SelectedSoftMaterial = null;
+        if (component.SelectedCarrierMaterial != null && !carrierMaterials.Contains(component.SelectedCarrierMaterial.Value))
+            component.SelectedCarrierMaterial = null;
 
-        if (component.SelectedHardMaterial != null && !hardMaterials.Contains(component.SelectedHardMaterial.Value))
-            component.SelectedHardMaterial = null;
+        if (component.SelectedPlateMaterial != null && !plateMaterials.Contains(component.SelectedPlateMaterial.Value))
+            component.SelectedPlateMaterial = null;
 
         if (component.SelectedBaseMaterial == null)
             return null;
@@ -351,8 +344,8 @@ public sealed class ArmorWorkbenchSystem : EntitySystem
             return null;
 
         var baseMaterialAmount = Math.Max(1, blueprint.BaseMaterialAmount);
-        var softMaterialAmount = Math.Max(1, blueprint.SoftMaterialAmount);
-        var hardMaterialAmount = Math.Max(1, blueprint.HardMaterialAmount);
+        var carrierMaterialAmount = Math.Max(1, blueprint.CarrierMaterialAmount);
+        var plateMaterialAmount = Math.Max(1, blueprint.PlateMaterialAmount);
 
         var requiredMaterialCounts = new Dictionary<EntityUid, int>
         {
@@ -360,29 +353,38 @@ public sealed class ArmorWorkbenchSystem : EntitySystem
         };
 
         var baseMaterialSnapshot = new ArmorMaterialSnapshot(
-            baseMaterial.GrantedArmorClass,
-            baseMaterial.GrantedDurability);
+            baseMaterial.GrantedStoppingPower,
+            baseMaterial.GrantedDurability,
+            baseMaterial.MaterialType,
+            baseMaterial.BluntDamageMultiplier,
+            baseMaterial.DurabilityDamageMultiplier);
 
-        ArmorMaterialSnapshot? softMaterial = null;
-        if (component.SelectedSoftMaterial != null &&
-            TryComp<ArmorMaterialComponent>(component.SelectedSoftMaterial.Value, out var resolvedSoftMaterial))
+        ArmorMaterialSnapshot? carrierMaterial = null;
+        if (component.SelectedCarrierMaterial != null &&
+            TryComp<ArmorMaterialComponent>(component.SelectedCarrierMaterial.Value, out var resolvedCarrierMaterial))
         {
-            softMaterial = new ArmorMaterialSnapshot(
-                resolvedSoftMaterial.GrantedArmorClass,
-                resolvedSoftMaterial.GrantedDurability);
-            requiredMaterialCounts[component.SelectedSoftMaterial.Value] =
-                requiredMaterialCounts.GetValueOrDefault(component.SelectedSoftMaterial.Value) + softMaterialAmount;
+            carrierMaterial = new ArmorMaterialSnapshot(
+                resolvedCarrierMaterial.GrantedStoppingPower,
+                resolvedCarrierMaterial.GrantedDurability,
+                resolvedCarrierMaterial.MaterialType,
+                resolvedCarrierMaterial.BluntDamageMultiplier,
+                resolvedCarrierMaterial.DurabilityDamageMultiplier);
+            requiredMaterialCounts[component.SelectedCarrierMaterial.Value] =
+                requiredMaterialCounts.GetValueOrDefault(component.SelectedCarrierMaterial.Value) + carrierMaterialAmount;
         }
 
-        ArmorMaterialSnapshot? hardMaterial = null;
-        if (component.SelectedHardMaterial != null &&
-            TryComp<ArmorMaterialComponent>(component.SelectedHardMaterial.Value, out var resolvedHardMaterial))
+        ArmorMaterialSnapshot? plateMaterial = null;
+        if (component.SelectedPlateMaterial != null &&
+            TryComp<ArmorMaterialComponent>(component.SelectedPlateMaterial.Value, out var resolvedPlateMaterial))
         {
-            hardMaterial = new ArmorMaterialSnapshot(
-                resolvedHardMaterial.GrantedArmorClass,
-                resolvedHardMaterial.GrantedDurability);
-            requiredMaterialCounts[component.SelectedHardMaterial.Value] =
-                requiredMaterialCounts.GetValueOrDefault(component.SelectedHardMaterial.Value) + hardMaterialAmount;
+            plateMaterial = new ArmorMaterialSnapshot(
+                resolvedPlateMaterial.GrantedStoppingPower,
+                resolvedPlateMaterial.GrantedDurability,
+                resolvedPlateMaterial.MaterialType,
+                resolvedPlateMaterial.BluntDamageMultiplier,
+                resolvedPlateMaterial.DurabilityDamageMultiplier);
+            requiredMaterialCounts[component.SelectedPlateMaterial.Value] =
+                requiredMaterialCounts.GetValueOrDefault(component.SelectedPlateMaterial.Value) + plateMaterialAmount;
         }
 
         foreach (var (materialUid, requiredAmount) in requiredMaterialCounts)
@@ -397,12 +399,12 @@ public sealed class ArmorWorkbenchSystem : EntitySystem
             component.SelectedBaseMaterial.Value,
             baseMaterialSnapshot,
             baseMaterialAmount,
-            component.SelectedSoftMaterial,
-            softMaterial,
-            softMaterial != null ? softMaterialAmount : 0,
-            component.SelectedHardMaterial,
-            hardMaterial,
-            hardMaterial != null ? hardMaterialAmount : 0);
+            component.SelectedCarrierMaterial,
+            carrierMaterial,
+            carrierMaterial != null ? carrierMaterialAmount : 0,
+            component.SelectedPlateMaterial,
+            plateMaterial,
+            plateMaterial != null ? plateMaterialAmount : 0);
     }
 
     private void UpdateUserInterface(EntityUid uid, ArmorWorkbenchComponent component)
@@ -414,11 +416,11 @@ public sealed class ArmorWorkbenchSystem : EntitySystem
         var blueprintName = default(string);
         var resultName = default(string);
         var baseMaterialAmount = 1;
-        var softMaterialAmount = 1;
-        var hardMaterialAmount = 1;
+        var carrierMaterialAmount = 1;
+        var plateMaterialAmount = 1;
         var baseEntries = new List<ArmorWorkbenchMaterialEntry>();
-        var softEntries = new List<ArmorWorkbenchMaterialEntry>();
-        var hardEntries = new List<ArmorWorkbenchMaterialEntry>();
+        var carrierEntries = new List<ArmorWorkbenchMaterialEntry>();
+        var plateEntries = new List<ArmorWorkbenchMaterialEntry>();
 
         foreach (var entity in component.Storage.ContainedEntities)
         {
@@ -428,8 +430,8 @@ public sealed class ArmorWorkbenchSystem : EntitySystem
                 blueprintName = MetaData(entity).EntityName;
                 resultName = ResolveResultName(blueprint.ResultPrototype);
                 baseMaterialAmount = Math.Max(1, blueprint.BaseMaterialAmount);
-                softMaterialAmount = Math.Max(1, blueprint.SoftMaterialAmount);
-                hardMaterialAmount = Math.Max(1, blueprint.HardMaterialAmount);
+                carrierMaterialAmount = Math.Max(1, blueprint.CarrierMaterialAmount);
+                plateMaterialAmount = Math.Max(1, blueprint.PlateMaterialAmount);
             }
 
             if (!TryComp<ArmorMaterialComponent>(entity, out var material))
@@ -442,17 +444,17 @@ public sealed class ArmorWorkbenchSystem : EntitySystem
             var entry = new ArmorWorkbenchMaterialEntry(
                 GetNetEntity(entity),
                 $"{MetaData(entity).EntityName}{countSuffix}",
-                material.GrantedArmorClass,
+                material.GrantedStoppingPower,
                 material.GrantedDurability);
 
             if (SupportsBase(material))
                 baseEntries.Add(entry);
 
-            if (SupportsSoft(material))
-                softEntries.Add(entry);
+            if (SupportsCarrier(material))
+                carrierEntries.Add(entry);
 
-            if (SupportsHard(material))
-                hardEntries.Add(entry);
+            if (SupportsPlate(material))
+                plateEntries.Add(entry);
         }
 
         ValidateSelections(component);
@@ -477,14 +479,14 @@ public sealed class ArmorWorkbenchSystem : EntitySystem
             blueprintName,
             resultName,
             baseMaterialAmount,
-            softMaterialAmount,
-            hardMaterialAmount,
+            carrierMaterialAmount,
+            plateMaterialAmount,
             baseEntries,
-            softEntries,
-            hardEntries,
+            carrierEntries,
+            plateEntries,
             component.SelectedBaseMaterial != null ? GetNetEntity(component.SelectedBaseMaterial.Value) : null,
-            component.SelectedSoftMaterial != null ? GetNetEntity(component.SelectedSoftMaterial.Value) : null,
-            component.SelectedHardMaterial != null ? GetNetEntity(component.SelectedHardMaterial.Value) : null);
+            component.SelectedCarrierMaterial != null ? GetNetEntity(component.SelectedCarrierMaterial.Value) : null,
+            component.SelectedPlateMaterial != null ? GetNetEntity(component.SelectedPlateMaterial.Value) : null);
 
         _ui.SetUiState(uid, ArmorWorkbenchUiKey.Key, state);
     }
@@ -511,13 +513,13 @@ public sealed class ArmorWorkbenchSystem : EntitySystem
             [context.BaseUid] = context.BaseMaterialAmount
         };
 
-        if (context.SoftUid != null && context.SoftMaterialAmount > 0)
-            materialCosts[context.SoftUid.Value] =
-                materialCosts.GetValueOrDefault(context.SoftUid.Value) + context.SoftMaterialAmount;
+        if (context.CarrierUid != null && context.CarrierMaterialAmount > 0)
+            materialCosts[context.CarrierUid.Value] =
+                materialCosts.GetValueOrDefault(context.CarrierUid.Value) + context.CarrierMaterialAmount;
 
-        if (context.HardUid != null && context.HardMaterialAmount > 0)
-            materialCosts[context.HardUid.Value] =
-                materialCosts.GetValueOrDefault(context.HardUid.Value) + context.HardMaterialAmount;
+        if (context.PlateUid != null && context.PlateMaterialAmount > 0)
+            materialCosts[context.PlateUid.Value] =
+                materialCosts.GetValueOrDefault(context.PlateUid.Value) + context.PlateMaterialAmount;
 
         foreach (var (materialUid, amount) in materialCosts)
         {
@@ -558,8 +560,8 @@ public sealed class ArmorWorkbenchSystem : EntitySystem
         }
 
         component.SelectedBaseMaterial = null;
-        component.SelectedSoftMaterial = null;
-        component.SelectedHardMaterial = null;
+        component.SelectedCarrierMaterial = null;
+        component.SelectedPlateMaterial = null;
     }
 
     private sealed record CraftContext(
@@ -568,14 +570,17 @@ public sealed class ArmorWorkbenchSystem : EntitySystem
         EntityUid BaseUid,
         ArmorMaterialSnapshot BaseMaterial,
         int BaseMaterialAmount,
-        EntityUid? SoftUid,
-        ArmorMaterialSnapshot? SoftMaterial,
-        int SoftMaterialAmount,
-        EntityUid? HardUid,
-        ArmorMaterialSnapshot? HardMaterial,
-        int HardMaterialAmount);
+        EntityUid? CarrierUid,
+        ArmorMaterialSnapshot? CarrierMaterial,
+        int CarrierMaterialAmount,
+        EntityUid? PlateUid,
+        ArmorMaterialSnapshot? PlateMaterial,
+        int PlateMaterialAmount);
 
     private sealed record ArmorMaterialSnapshot(
-        int GrantedArmorClass,
-        float GrantedDurability);
+        float GrantedStoppingPower,
+        float GrantedDurability,
+        PhysicalArmorMaterialType MaterialType,
+        float BluntDamageMultiplier,
+        float DurabilityDamageMultiplier);
 }

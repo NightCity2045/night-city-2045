@@ -35,11 +35,16 @@
     category: Internal
     humanityCost: 10
     cyberFamily: Skeleton
-  - type: Armor
-    modifiers:
-      coefficients:
-        Blunt: 0.85
-        Shock: 1.1
+  - type: PhysicalArmor
+    stoppingPower: 0
+    maxDurability: 160
+    currentDurability: 160
+    materialType: Subdermal
+    bluntDamageMultiplier: 0.85
+    durabilityDamageMultiplier: 0.35
+    subdermal: true
+    coverage:
+    - All
 
 # --- TITANIUM REINFORCEMENT TIER 2 ---
 - type: entity
@@ -52,11 +57,16 @@
     category: Internal
     humanityCost: 14
     cyberFamily: Skeleton
-  - type: Armor
-    modifiers:
-      coefficients:
-        Blunt: 0.75
-        Shock: 1.25
+  - type: PhysicalArmor
+    stoppingPower: 20
+    maxDurability: 220
+    currentDurability: 220
+    materialType: Subdermal
+    bluntDamageMultiplier: 0.75
+    durabilityDamageMultiplier: 0.3
+    subdermal: true
+    coverage:
+    - All
   - type: NoSlip
 
 # --- ARMY ENDOSKELETON TIER 3 ---
@@ -70,13 +80,16 @@
     category: Internal
     humanityCost: 28
     cyberFamily: Skeleton
-  - type: Armor
-    modifiers:
-      coefficients:
-        Blunt: 0.65
-        Slash: 0.75
-        Piercing: 0.8
-        Shock: 1.5
+  - type: PhysicalArmor
+    stoppingPower: 35
+    maxDurability: 300
+    currentDurability: 300
+    materialType: Subdermal
+    bluntDamageMultiplier: 0.65
+    durabilityDamageMultiplier: 0.25
+    subdermal: true
+    coverage:
+    - All
   - type: CritModifier
     critThresholdModifier: 50
     deadThresholdModifier: 100
