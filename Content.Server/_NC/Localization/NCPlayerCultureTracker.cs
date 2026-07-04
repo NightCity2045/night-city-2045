@@ -1,7 +1,10 @@
 using Content.Shared._NC.Chat.Translation;
+using Content.Shared._NC.Localization;
+using Content.Shared.CCVar;
 using Robust.Server.Player;
 using Robust.Shared;
 using Robust.Shared.Configuration;
+using Robust.Shared.Enums;
 using Robust.Shared.Network;
 using Robust.Shared.Player;
 
@@ -13,9 +16,32 @@ namespace Content.Server._NC.Localization;
 public sealed class NCPlayerCultureTracker : EntitySystem
 {
     [Dependency] private readonly INetConfigurationManager _netConfig = default!;
+    [Dependency] private readonly IPlayerManager _playerManager = default!;
+
+    private readonly Dictionary<NetUserId, string> _reportedCultures = new();
+
+    public override void Initialize()
+    {
+        base.Initialize();
+        SubscribeNetworkEvent<NCClientCultureChangedEvent>(OnClientCultureChanged);
+        _playerManager.PlayerStatusChanged += OnPlayerStatusChanged;
+    }
+
+    public override void Shutdown()
+    {
+        _playerManager.PlayerStatusChanged -= OnPlayerStatusChanged;
+        base.Shutdown();
+    }
 
     public string? GetCulture(ICommonSession session)
     {
+        var replicatedCulture = _netConfig.GetClientCVar(session.Channel, CCVars.NCPreferredCulture);
+        if (IsValidCultureName(replicatedCulture) && replicatedCulture != CCVars.NCPreferredCulture.DefaultValue)
+            return replicatedCulture;
+
+        if (_reportedCultures.TryGetValue(session.UserId, out var reportedCulture))
+            return reportedCulture;
+
         return _netConfig.GetClientCVar(session.Channel, CVars.LocCultureName);
     }
 
@@ -72,5 +98,35 @@ public sealed class NCPlayerCultureTracker : EntitySystem
             return NCChatTranslationMarkup.EnglishLanguageCode;
 
         return null;
+    }
+
+    private void OnClientCultureChanged(NCClientCultureChangedEvent ev, EntitySessionEventArgs args)
+    {
+        if (!IsValidCultureName(ev.CultureName))
+            return;
+
+        _reportedCultures[args.SenderSession.UserId] = ev.CultureName;
+    }
+
+    private void OnPlayerStatusChanged(object? sender, SessionStatusEventArgs args)
+    {
+        if (args.NewStatus == SessionStatus.Disconnected)
+            _reportedCultures.Remove(args.Session.UserId);
+    }
+
+    private static bool IsValidCultureName(string? cultureName)
+    {
+        if (string.IsNullOrWhiteSpace(cultureName) || cultureName.Length > 32)
+            return false;
+
+        foreach (var c in cultureName)
+        {
+            if (char.IsLetterOrDigit(c) || c == '-')
+                continue;
+
+            return false;
+        }
+
+        return true;
     }
 }
