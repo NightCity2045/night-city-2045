@@ -6,8 +6,7 @@ The armor workbench assembles armor under the physical armor GDD.
 
 - `ArmorBlueprintComponent` selects the result prototype, coverage, and required
   material amounts.
-- `ArmorMaterialComponent` marks materials as `Base`, `Carrier`, `Plate`, or
-  compatible combinations.
+- `ArmorMaterialComponent` marks materials as `Base`, `Carrier`, or `Plate`.
 - Materials grant durability and stopping power through data fields. Stopping
   power uses the same 0-100 scale as projectile penetration.
 
@@ -21,7 +20,7 @@ separate physical plate entities inserted into armor `ItemSlots`.
 
 - Base material: required shell material for the recipe.
 - Carrier material: vest or clothing carrier durability.
-- Plate material: material that contributes `SP`.
+- Plate material: physical armor plate item that contributes `SP`.
 
 Do not use the removed armor-class, soft-layer, or hard-layer terminology in
 new armor workbench code or data.

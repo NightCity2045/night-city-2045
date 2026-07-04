@@ -85,8 +85,8 @@
     inHandsOnly: true
     requireActiveHand: false
   - type: ArmorMaterial
-    layerType: Armor
-    grantedArmorClass: 4
+    layerType: Carrier
+    grantedStoppingPower: 18
     grantedDurability: 400
   - type: ShortConstruction
     entries:
@@ -444,8 +444,8 @@
     inHandsOnly: true
     requireActiveHand: false
   - type: ArmorMaterial
-    layerType: Armor
-    grantedArmorClass: 5
+    layerType: Carrier
+    grantedStoppingPower: 30
     grantedDurability: 900
   - type: ShortConstruction
     entries:

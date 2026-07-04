@@ -269,7 +269,7 @@ public sealed class ArmorWorkbenchSystem : EntitySystem
 
     private static bool SupportsCarrier(ArmorMaterialComponent material)
     {
-        return material.LayerType == ArmorMaterialType.Armor;
+        return material.LayerType == ArmorMaterialType.Carrier;
     }
 
     private static bool SupportsBase(ArmorMaterialComponent material)
@@ -279,7 +279,7 @@ public sealed class ArmorWorkbenchSystem : EntitySystem
 
     private static bool SupportsPlate(ArmorMaterialComponent material)
     {
-        return material.LayerType == ArmorMaterialType.Armor;
+        return material.LayerType == ArmorMaterialType.Plate;
     }
 
     private void ValidateSelections(ArmorWorkbenchComponent component)

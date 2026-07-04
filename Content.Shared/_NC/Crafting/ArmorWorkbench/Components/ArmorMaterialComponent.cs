@@ -10,7 +10,8 @@ namespace Content.Shared._NC.Crafting.ArmorWorkbench.Components;
 public enum ArmorMaterialType : byte
 {
     Base,
-    Armor,
+    Carrier,
+    Plate,
 }
 
 [Serializable, NetSerializable]
@@ -28,7 +29,7 @@ public enum ArmorWorkbenchLayerSlot : byte
 public sealed partial class ArmorMaterialComponent : Component
 {
     [DataField("layerType")]
-    public ArmorMaterialType LayerType = ArmorMaterialType.Armor;
+    public ArmorMaterialType LayerType = ArmorMaterialType.Carrier;
 
     [DataField("grantedStoppingPower")]
     public float GrantedStoppingPower;
