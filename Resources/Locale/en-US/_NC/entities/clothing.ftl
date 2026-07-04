@@ -4,19 +4,19 @@ ent-ClothingHeadHatBiotechnica = Biotechnica cap
 ent-ClothingHeadHatBiotechnica-desc = A cap with the Biotechnica logo, popular among corporate employees and supporters. A practical and stylish accessory for everyday wear.
 
 ent-ClothingHeadHelmetHardsuitTraumaMedic = Trauma Team medic hardsuit helmet
-ent-ClothingHeadHelmetHardsuitTraumaMedic-desc = A helmet with a built-in flashlight and pressure protection, standard for Trauma Team medics.
+ent-ClothingHeadHelmetHardsuitTraumaMedic-desc = A sealed Trauma Team medic helmet with an integrated light and ceramic face protection. It is meant to keep the wearer alive through evacuation, not to win a street war alone.
 ent-ClothingHeadHelmetHardsuitTraumaAssault = Trauma Team assault hardsuit helmet
-ent-ClothingHeadHelmetHardsuitTraumaAssault-desc = A reinforced helmet for Trauma Team operatives, providing excellent protection and visibility in dark areas.
+ent-ClothingHeadHelmetHardsuitTraumaAssault-desc = A reinforced Trauma Team assault helmet with a steel ballistic shell, pressure seals, and combat optics. Expensive, heavy, and built for hot extractions under live fire.
 
 ent-ClothingHeadNetVisor = net-visor
 ent-ClothingHeadNetVisor-desc = Augmented reality glasses that highlight network nodes.
 
 ent-ClothingUniformJumpsuitBusinessKevlar = kevlar business suit
-ent-ClothingUniformJumpsuitBusinessKevlar-desc = A business suit reinforced with kevlar inserts for additional protection. Perfect for professionals who require a combination of style and safety in an urban environment.
+ent-ClothingUniformJumpsuitBusinessKevlar-desc = A tailored business suit with concealed kevlar reinforcement. It will not replace real armor, but it can turn a stray low-grade round into bruises instead of a funeral.
 ent-ClothingUniformJumpsuitMilitech = Militech employee clothing
-ent-ClothingUniformJumpsuitMilitech-desc = Clothing designed for Militech corporate employees. A practical and functional suit that provides comfort and protection in various working conditions.
+ent-ClothingUniformJumpsuitMilitech-desc = A Militech work uniform with light ballistic lining over the torso and arms. Corporate enough for checkpoints, practical enough for a city where meetings can become firefights.
 ent-ClothingUniformJumpsuitBiotechnica = Biotechnica employee clothing
-ent-ClothingUniformJumpsuitBiotechnica-desc = Biotechnica employee clothing designed with advanced technology and comfort in mind. Ideal for working in laboratory and field conditions, providing protection and functionality.
+ent-ClothingUniformJumpsuitBiotechnica-desc = A Biotechnica field uniform with discreet kevlar panels and chemical-resistant fabric. It is designed for lab accidents, field samples, and the occasional bullet.
 
 ent-ClothingUniformNCPDNormis = NCPD patrol uniform
 ent-ClothingUniformNCPDNormis-desc = NCPD patrol uniform.
@@ -28,19 +28,19 @@ ent-ClothingUniformNCPDChief = NCPD chief uniform
 ent-ClothingUniformNCPDChief-desc = NCPD chief uniform.
 
 ent-ClothingOuterHardsuitTraumaMedic = Trauma Team medic hardsuit
-ent-ClothingOuterHardsuitTraumaMedic-desc = A specialized hardsuit for Trauma Team employees, providing protection in hazardous areas while providing medical assistance.
+ent-ClothingOuterHardsuitTraumaMedic-desc = A sealed Trauma Team medical hardsuit with ceramic ballistic sections and life-support hardware. It protects a medic long enough to reach the client and drag them out.
 ent-ClothingOuterHardsuitTraumaAssault = Trauma Team assault hardsuit
-ent-ClothingOuterHardsuitTraumaAssault-desc = A reinforced hardsuit for Trauma Team operatives, designed for working in active combat conditions.
+ent-ClothingOuterHardsuitTraumaAssault-desc = A reinforced Trauma Team combat hardsuit with steel armor coverage and pressure protection. It trades mobility for the ability to cross a kill zone during a premium extraction.
 
-ent-ClothingOuterArmorMilitech = Militech bulletproof vest
-ent-ClothingOuterArmorMilitech-desc = A heavy bulletproof vest manufactured by Militech. The quality standard for private military companies.
+ent-ClothingOuterArmorMilitech = Militech armor vest
+ent-ClothingOuterArmorMilitech-desc = A Militech carrier with kevlar backing and two plate pockets. Its built-in stopping power is modest, but proper plates can turn it into serious battlefield protection.
 ent-ClothingOuterArmorNWN = Safe-Take M2
-ent-ClothingOuterArmorNWN-desc = A lightweight Class IV bulletproof vest with the NET-Watch-News logo. PRESS! Even a sideways glance at it is a war crime.
-ent-ClothingOuterArmorBiotechnica = Biotechnica bulletproof vest
-ent-ClothingOuterArmorBiotechnica-desc = A heavy bulletproof vest with the Biotechnica logo. Provides excellent protection against bullets.
+ent-ClothingOuterArmorNWN-desc = A lightweight NET-Watch-News press vest with a kevlar carrier and a single plate pocket. It is protection for camera crews, not permission to stand in the open.
+ent-ClothingOuterArmorBiotechnica = Biotechnica armor vest
+ent-ClothingOuterArmorBiotechnica-desc = A Biotechnica armor carrier with kevlar backing and two plate pockets. Clean corporate finish outside, replaceable ballistic guts inside.
 
 ent-ClothingOuterHardsuitMilitech = Militech tactical hardsuit
-ent-ClothingOuterHardsuitMilitech-desc = A massive combat hardsuit manufactured by Militech. Combines advanced protection and life support systems.
+ent-ClothingOuterHardsuitMilitech-desc = A massive Militech combat hardsuit with heavy steel ballistic coverage, pressure protection, and integrated life-support systems. This is corporate war gear, not street fashion.
 
 ent-ClothingEyesGogglesBotany = botanical goggles
 ent-ClothingEyesGogglesBotany-desc = Advanced goggles that protect your eyes from thorns and spikes.

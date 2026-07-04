@@ -1,8 +1,8 @@
 - type: entity
   parent: [ClothingOuterBaseMedium, AllowSuitStorageClothing]
   id: ClothingOuterArmorBiotechnicaBulletproof
-  name: ent-ClothingOuterArmorBiotechnica
-  description: ent-ClothingOuterArmorBiotechnica-desc
+  name: Biotechnica armor vest
+  description: A Biotechnica armor carrier with kevlar backing and two plate pockets. Clean corporate finish outside, replaceable ballistic guts inside.
   components:
   - type: Sprite
     sprite: _NC/Clothing/OuterClothing/Armor/biotech_bulletproof.rsi

@@ -3,8 +3,8 @@
 - type: entity
   parent: [ ClothingHeadHardsuitBase, ClothingHeadSuitWithLightBase ]
   id: ClothingHeadHelmetHardsuitTraumaTeamMedic
-  name: ent-ClothingHeadHelmetHardsuitTraumaMedic
-  description: ent-ClothingHeadHelmetHardsuitTraumaMedic-desc
+  name: Trauma Team medic hardsuit helmet
+  description: A sealed Trauma Team medic helmet with an integrated light and ceramic face protection. It is meant to keep the wearer alive through evacuation, not to win a street war alone.
   components:
   - type: Sprite
     sprite: _NC/Clothing/Head/Hardsuits/trauma_med_helmet.rsi
@@ -43,8 +43,8 @@
 - type: entity
   parent: [ ClothingHeadHardsuitBase, ClothingHeadSuitWithLightBase ]
   id: ClothingHeadHelmetHardsuitTraumaTeamOperative
-  name: ent-ClothingHeadHelmetHardsuitTraumaAssault
-  description: ent-ClothingHeadHelmetHardsuitTraumaAssault-desc
+  name: Trauma Team assault hardsuit helmet
+  description: A reinforced Trauma Team assault helmet with a steel ballistic shell, pressure seals, and combat optics. Expensive, heavy, and built for hot extractions under live fire.
   components:
   - type: Sprite
     sprite: _NC/Clothing/Head/Hardsuits/trauma_armored_helmet.rsi

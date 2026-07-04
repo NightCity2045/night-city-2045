@@ -1,8 +1,8 @@
 - type: entity
   parent: [ClothingOuterBaseMedium, AllowSuitStorageClothing]
   id: ClothingOuterArmorMilitechBulletproof
-  name: ent-ClothingOuterArmorMilitech
-  description: ent-ClothingOuterArmorMilitech-desc
+  name: Militech armor vest
+  description: A Militech carrier with kevlar backing and two plate pockets. Its built-in stopping power is modest, but proper plates can turn it into serious battlefield protection.
   components:
   - type: Sprite
     sprite: _NC/Clothing/OuterClothing/Armor/militech_bulletproof.rsi

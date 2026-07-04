@@ -3,8 +3,8 @@
 - type: entity
   parent: ClothingOuterHardsuitBase
   id: ClothingOuterHardsuitTraumaTeamMedic
-  name: ent-ClothingOuterHardsuitTraumaMedic
-  description: ent-ClothingOuterHardsuitTraumaMedic-desc
+  name: Trauma Team medic hardsuit
+  description: A sealed Trauma Team medical hardsuit with ceramic ballistic sections and life-support hardware. It protects a medic long enough to reach the client and drag them out.
   components:
   - type: Sprite
     sprite: _NC/Clothing/OuterClothing/Hardsuits/trauma_med_hardsuit.rsi
@@ -51,8 +51,8 @@
 - type: entity
   parent: ClothingOuterHardsuitBaseMedium
   id: ClothingOuterHardsuitTraumaTeamOperative
-  name: ent-ClothingOuterHardsuitTraumaAssault
-  description: ent-ClothingOuterHardsuitTraumaAssault-desc
+  name: Trauma Team assault hardsuit
+  description: A reinforced Trauma Team combat hardsuit with steel armor coverage and pressure protection. It trades mobility for the ability to cross a kill zone during a premium extraction.
   components:
   - type: Sprite
     sprite: _NC/Clothing/OuterClothing/Hardsuits/trauma_armored_hardsuit.rsi

@@ -1,8 +1,8 @@
 - type: entity
   parent: ClothingUniformBase
   id: ClothingUniformJumpsuitArmoredBusinessSuit
-  name: ent-ClothingUniformJumpsuitBusinessKevlar
-  description: ent-ClothingUniformJumpsuitBusinessKevlar-desc
+  name: kevlar business suit
+  description: A tailored business suit with concealed kevlar reinforcement. It will not replace real armor, but it can turn a stray low-grade round into bruises instead of a funeral.
   components:
   - type: Sprite
     sprite: _NC/Clothing/Uniforms/Jumpsuits/armored_business_suit.rsi
@@ -26,8 +26,8 @@
 - type: entity
   parent: ClothingUniformBase
   id: ClothingUniformJumpsuitMilitech
-  name: ent-ClothingUniformJumpsuitMilitech
-  description: ent-ClothingUniformJumpsuitMilitech-desc
+  name: Militech employee clothing
+  description: A Militech work uniform with light ballistic lining over the torso and arms. Corporate enough for checkpoints, practical enough for a city where meetings can become firefights.
   components:
   - type: Sprite
     sprite: _NC/Clothing/Uniforms/Jumpsuits/militech_jumpsuit.rsi
@@ -48,8 +48,8 @@
 - type: entity
   parent: ClothingUniformBase
   id: ClothingUniformJumpsuitBiotechnica
-  name: ent-ClothingUniformJumpsuitBiotechnica
-  description: ent-ClothingUniformJumpsuitBiotechnica-desc
+  name: Biotechnica employee clothing
+  description: A Biotechnica field uniform with discreet kevlar panels and chemical-resistant fabric. It is designed for lab accidents, field samples, and the occasional bullet.
   components:
   - type: Sprite
     sprite: _NC/Clothing/Uniforms/Jumpsuits/biotech_jumpsuit.rsi

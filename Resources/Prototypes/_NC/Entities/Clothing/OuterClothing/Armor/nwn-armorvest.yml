@@ -3,9 +3,9 @@
 - type: entity
   parent: ClothingOuterStorageFoldableBase
   id: ClothingOuterNWNArmorVest
-  name: ent-ClothingOuterArmorNWN
+  name: Safe-Take M2
+  description: A lightweight NET-Watch-News press vest with a kevlar carrier and a single plate pocket. It is protection for camera crews, not permission to stand in the open.
   suffix: NC; Night City; Trupozarka
-  description:  ent-ClothingOuterArmorNWN-desc
   components:
     - type: Sprite
       sprite: _NC/Clothing/OuterClothing/Armor/nwn-armorvest.rsi
@@ -34,5 +34,6 @@
 - type: entity
   parent: [ClothingOuterStorageFoldableBaseOpened, ClothingOuterNWNArmorVest]
   id: ClothingOuterNWNArmorVestOpened
-  name: ent-ClothingOuterArmorNWN
+  name: Safe-Take M2
+  description: A lightweight NET-Watch-News press vest with a kevlar carrier and a single plate pocket. It is protection for camera crews, not permission to stand in the open.
   suffix: NC; Night City; Trupozarka

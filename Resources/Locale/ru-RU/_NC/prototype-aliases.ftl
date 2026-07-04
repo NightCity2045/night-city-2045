@@ -78,6 +78,7 @@ ent-ClothingOuterHardsuitTraumaTeamOperative-desc = { ent-ClothingOuterHardsuitT
 ent-ClothingOuterNWNArmorVest = { ent-ClothingOuterArmorNWN }
 ent-ClothingOuterNWNArmorVest-desc = { ent-ClothingOuterArmorNWN-desc }
 ent-ClothingOuterNWNArmorVestOpened = { ent-ClothingOuterArmorNWN }
+ent-ClothingOuterNWNArmorVestOpened-desc = { ent-ClothingOuterArmorNWN-desc }
 ent-ClothingUniformJumpsuitArmoredBusinessSuit = { ent-ClothingUniformJumpsuitBusinessKevlar }
 ent-ClothingUniformJumpsuitArmoredBusinessSuit-desc = { ent-ClothingUniformJumpsuitBusinessKevlar-desc }
 ent-ClothingUniformNSPDCool = { ent-ClothingUniformNCPDCool }

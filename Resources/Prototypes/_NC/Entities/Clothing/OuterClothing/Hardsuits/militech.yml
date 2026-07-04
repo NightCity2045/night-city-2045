@@ -2,8 +2,8 @@
 - type: entity
   parent: ClothingOuterHardsuitBaseMedium
   id: ClothingOuterHardsuitMilitech
-  name: ent-ClothingOuterHardsuitMilitech
-  description: ent-ClothingOuterHardsuitMilitech-desc
+  name: Militech tactical hardsuit
+  description: A massive Militech combat hardsuit with heavy steel ballistic coverage, pressure protection, and integrated life-support systems. This is corporate war gear, not street fashion.
   components:
   - type: Sprite
     sprite: _NC/Clothing/OuterClothing/Hardsuits/militech_hardsuit.rsi

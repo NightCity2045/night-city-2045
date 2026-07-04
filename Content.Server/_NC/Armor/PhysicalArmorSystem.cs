@@ -62,6 +62,11 @@ public sealed class PhysicalArmorSystem : EntitySystem
         using (args.PushGroup(nameof(PhysicalArmorComponent)))
         {
             args.PushText(Loc.GetString(GetExamineLocale(ent.Comp)));
+            args.PushText(Loc.GetString(
+                "nc-physical-armor-examine-durability",
+                ("current", MathF.Round(ent.Comp.CurrentDurability, 1)),
+                ("max", MathF.Round(ent.Comp.MaxDurability, 1)),
+                ("percent", MathF.Round(GetDurabilityRatio(ent.Comp) * 100f, 1))));
         }
     }
 
