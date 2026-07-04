@@ -1,5 +1,7 @@
+using System.Globalization;
 using System.Linq;
 using Content.Server.Administration.Managers;
+using Content.Server._NC.Localization;
 using Content.Server.Popups;
 using Content.Shared.Administration;
 using Content.Shared.Administration.Logs;
@@ -7,6 +9,8 @@ using Content.Shared.Database;
 using Content.Shared.Hands.Components;
 using Content.Shared.Inventory.VirtualItem;
 using Content.Shared.Verbs;
+using Robust.Shared.Localization;
+using Robust.Shared.Player;
 
 namespace Content.Server.Verbs
 {
@@ -15,6 +19,8 @@ namespace Content.Server.Verbs
         [Dependency] private readonly ISharedAdminLogManager _adminLogger = default!;
         [Dependency] private readonly PopupSystem _popupSystem = default!;
         [Dependency] private readonly IAdminManager _adminMgr = default!;
+        [Dependency] private readonly ILocalizationManager _localization = default!;
+        [Dependency] private readonly NCPlayerCultureTracker _playerCulture = default!;
 
         public override void Initialize()
         {
@@ -57,9 +63,48 @@ namespace Content.Server.Verbs
                     Log.Error($"Unknown verb type received: {key}");
             }
 
-            var response =
-                new VerbsResponseEvent(args.EntityUid, GetLocalVerbs(GetEntity(args.EntityUid), attached, verbTypes, force));
-            RaiseNetworkEvent(response, player.Channel);
+            var previousCulture = ApplyClientCulture(player, args.CultureName);
+            try
+            {
+                var verbs = GetLocalVerbs(GetEntity(args.EntityUid), attached, verbTypes, force);
+                var response = new VerbsResponseEvent(args.EntityUid, verbs);
+                RaiseNetworkEvent(response, player.Channel);
+            }
+            finally
+            {
+                RestoreCulture(previousCulture);
+            }
+        }
+
+        private CultureInfo? ApplyClientCulture(ICommonSession session, string? requestedCultureName)
+        {
+            var previousCulture = _localization.DefaultCulture;
+            var cultureName = requestedCultureName ?? _playerCulture.GetCulture(session);
+
+            if (string.IsNullOrWhiteSpace(cultureName))
+                return previousCulture;
+
+            try
+            {
+                // Server-side verbs are serialized with display text, so build and serialize them in the client's locale.
+                _localization.SetCulture(CultureInfo.GetCultureInfo(cultureName, predefinedOnly: false));
+                VerbCategory.RefreshStaticLocalizations();
+            }
+            catch (CultureNotFoundException)
+            {
+                // Keep server default culture if the client reports an invalid culture.
+            }
+
+            return previousCulture;
+        }
+
+        private void RestoreCulture(CultureInfo? previousCulture)
+        {
+            if (previousCulture == null)
+                return;
+
+            _localization.SetCulture(previousCulture);
+            VerbCategory.RefreshStaticLocalizations();
         }
 
         /// <summary>

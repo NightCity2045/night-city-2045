@@ -370,7 +370,7 @@ namespace Content.Server.GameTicking
             DebugTools.Assert(RunLevel == GameRunLevel.PreRoundLobby);
             _sawmill.Info("Starting round!");
 
-            SendServerMessage(Loc.GetString("game-ticker-start-round"));
+            SendServerMessageLocalized("game-ticker-start-round");
 
             var readyPlayers = new List<ICommonSession>();
             var readyPlayerProfiles = new Dictionary<NetUserId, HumanoidCharacterProfile>();
@@ -653,7 +653,7 @@ namespace Content.Server.GameTicking
 
             _sawmill.Info("Restarting round!");
 
-            SendServerMessage(Loc.GetString("game-ticker-restart-round"));
+            SendServerMessageLocalized("game-ticker-restart-round");
 
             RoundNumberMetric.Inc();
 

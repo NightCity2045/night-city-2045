@@ -1,8 +1,11 @@
+using System.Globalization;
 using System.Linq;
+using Content.Server._NC.Localization;
 using Content.Server.Verbs;
 using Content.Shared.Examine;
 using Content.Shared.Verbs;
 using JetBrains.Annotations;
+using Robust.Shared.Localization;
 using Robust.Shared.Player;
 using Robust.Shared.Utility;
 
@@ -11,6 +14,8 @@ namespace Content.Server.Examine
     [UsedImplicitly]
     public sealed class ExamineSystem : ExamineSystemShared
     {
+        [Dependency] private readonly ILocalizationManager _localization = default!;
+        [Dependency] private readonly NCPlayerCultureTracker _playerCulture = default!;
         [Dependency] private readonly VerbSystem _verbSystem = default!;
 
         private readonly FormattedMessage _entityNotFoundMessage = new();
@@ -65,13 +70,53 @@ namespace Content.Server.Examine
                 return;
             }
 
-            SortedSet<Verb>? verbs = null;
-            if (request.GetVerbs)
-                verbs = _verbSystem.GetLocalVerbs(entity, playerEnt, typeof(ExamineVerb));
+            var previousCulture = ApplyClientCulture(player, request.CultureName);
+            try
+            {
+                var verbs = request.GetVerbs
+                    ? _verbSystem.GetLocalVerbs(entity, playerEnt, typeof(ExamineVerb))
+                    : null;
 
-            var text = GetExamineText(entity, player.AttachedEntity);
-            RaiseNetworkEvent(new ExamineSystemMessages.ExamineInfoResponseMessage(
-                request.NetEntity, request.Id, text, verbs?.ToList()), channel);
+                var text = GetExamineText(entity, player.AttachedEntity);
+
+                RaiseNetworkEvent(new ExamineSystemMessages.ExamineInfoResponseMessage(
+                    request.NetEntity, request.Id, text, verbs?.ToList()), channel);
+            }
+            finally
+            {
+                RestoreCulture(previousCulture);
+            }
+        }
+
+        private CultureInfo? ApplyClientCulture(ICommonSession session, string? requestedCultureName)
+        {
+            var previousCulture = _localization.DefaultCulture;
+            var cultureName = requestedCultureName ?? _playerCulture.GetCulture(session);
+
+            if (string.IsNullOrWhiteSpace(cultureName))
+                return previousCulture;
+
+            try
+            {
+                // Full examine text and returned verbs are serialized on the server, so use the client's locale.
+                _localization.SetCulture(CultureInfo.GetCultureInfo(cultureName, predefinedOnly: false));
+                VerbCategory.RefreshStaticLocalizations();
+            }
+            catch (CultureNotFoundException)
+            {
+                // Keep server default culture if the client somehow reports an invalid culture.
+            }
+
+            return previousCulture;
+        }
+
+        private void RestoreCulture(CultureInfo? previousCulture)
+        {
+            if (previousCulture == null)
+                return;
+
+            _localization.SetCulture(previousCulture);
+            VerbCategory.RefreshStaticLocalizations();
         }
     }
 }

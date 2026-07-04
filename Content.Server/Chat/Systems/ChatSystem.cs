@@ -6,6 +6,7 @@ using Content.Server._White.Hearing;
 using Content.Server._White.TTS;
 using Content.Server._NC.Chat.Translation;
 using Content.Server._NC.CharacterNotes.Systems;
+using Content.Server._NC.Localization;
 using Content.Server.Administration.Logs;
 using Content.Server.Administration.Managers;
 using Content.Server.Chat.Managers;
@@ -65,6 +66,7 @@ public sealed partial class ChatSystem : SharedChatSystem
     [Dependency] private readonly IReplayRecordingManager _replay = default!;
     [Dependency] private readonly IConfigurationManager _configurationManager = default!;
     [Dependency] private readonly IChatManager _chatManager = default!;
+    [Dependency] private readonly ILocalizationManager _localization = default!;
     [Dependency] private readonly IChatSanitizationManager _sanitizer = default!;
     [Dependency] private readonly IAdminManager _adminManager = default!;
     [Dependency] private readonly IPlayerManager _playerManager = default!;
@@ -112,8 +114,8 @@ public sealed partial class ChatSystem : SharedChatSystem
         if (_loocEnabled == val) return;
 
         _loocEnabled = val;
-        _chatManager.DispatchServerAnnouncement(
-            Loc.GetString(val ? "chat-manager-looc-chat-enabled-message" : "chat-manager-looc-chat-disabled-message"));
+        _chatManager.DispatchServerAnnouncementLocalized(
+            val ? "chat-manager-looc-chat-enabled-message" : "chat-manager-looc-chat-disabled-message");
     }
 
     private void OnDeadLoocEnabledChanged(bool val)
@@ -121,8 +123,8 @@ public sealed partial class ChatSystem : SharedChatSystem
         if (_deadLoocEnabled == val) return;
 
         _deadLoocEnabled = val;
-        _chatManager.DispatchServerAnnouncement(
-            Loc.GetString(val ? "chat-manager-dead-looc-chat-enabled-message" : "chat-manager-dead-looc-chat-disabled-message"));
+        _chatManager.DispatchServerAnnouncementLocalized(
+            val ? "chat-manager-dead-looc-chat-enabled-message" : "chat-manager-dead-looc-chat-disabled-message");
     }
 
     private void OnCritLoocEnabledChanged(bool val)
@@ -131,8 +133,8 @@ public sealed partial class ChatSystem : SharedChatSystem
             return;
 
         _critLoocEnabled = val;
-        _chatManager.DispatchServerAnnouncement(
-            Loc.GetString(val ? "chat-manager-crit-looc-chat-enabled-message" : "chat-manager-crit-looc-chat-disabled-message"));
+        _chatManager.DispatchServerAnnouncementLocalized(
+            val ? "chat-manager-crit-looc-chat-enabled-message" : "chat-manager-crit-looc-chat-disabled-message");
     }
 
     private void OnGameChange(GameRunLevelChangedEvent ev)
@@ -447,6 +449,113 @@ public sealed partial class ChatSystem : SharedChatSystem
         }
 
         _adminLogger.Add(LogType.Chat, LogImpact.Low, $"Station Announcement on {station} from {sender}: {message}");
+    }
+
+    public void DispatchStationAnnouncementLocalized(
+        EntityUid source,
+        string messageLocKey,
+        string? senderLocKey = null,
+        bool playDefaultSound = true,
+        SoundSpecifier? announcementSound = null,
+        Color? colorOverride = null,
+        params (string, object)[] locArgs)
+    {
+        DispatchStationAnnouncementLocalized(
+            source,
+            messageLocKey,
+            _ => locArgs,
+            senderLocKey,
+            playDefaultSound,
+            announcementSound,
+            colorOverride);
+    }
+
+    public void DispatchStationAnnouncementLocalized(
+        EntityUid source,
+        string messageLocKey,
+        Func<ICommonSession, (string, object)[]> locArgsFactory,
+        string? senderLocKey = null,
+        bool playDefaultSound = true,
+        SoundSpecifier? announcementSound = null,
+        Color? colorOverride = null)
+    {
+        var station = _stationSystem.GetOwningStation(source);
+
+        if (station == null)
+            return;
+
+        if (!EntityManager.TryGetComponent<StationDataComponent>(station, out var stationDataComp))
+            return;
+
+        var filter = _stationSystem.GetInStation(stationDataComp);
+
+        foreach (var recipient in filter.Recipients)
+        {
+            var previousCulture = ApplySessionCulture(recipient);
+            string message;
+            string wrappedMessage;
+            try
+            {
+                message = Loc.GetString(messageLocKey, locArgsFactory(recipient));
+                var sender = senderLocKey == null
+                    ? Loc.GetString("chat-manager-sender-announcement")
+                    : Loc.GetString(senderLocKey);
+                wrappedMessage = Loc.GetString("chat-manager-sender-announcement-wrap-message",
+                    ("sender", sender),
+                    ("message", FormattedMessage.EscapeText(message)));
+            }
+            finally
+            {
+                RestoreCulture(previousCulture);
+            }
+
+            _chatManager.ChatMessageToOne(ChatChannel.Radio, message, wrappedMessage, source, false, recipient.Channel, colorOverride, recordReplay: true);
+        }
+
+        if (playDefaultSound)
+        {
+            _audio.PlayGlobal(announcementSound?.ToString() ?? DefaultAnnouncementSound, filter, true, AudioParams.Default.WithVolume(-2f));
+        }
+
+        _adminLogger.Add(LogType.Chat, LogImpact.Low, $"Localized station announcement on {station}: {messageLocKey}");
+    }
+
+    private string LocalizeForSession(ICommonSession session, string locKey, params (string, object)[] locArgs)
+    {
+        var previousCulture = ApplySessionCulture(session);
+
+        try
+        {
+            return Loc.GetString(locKey, locArgs);
+        }
+        finally
+        {
+            RestoreCulture(previousCulture);
+        }
+    }
+
+    private CultureInfo? ApplySessionCulture(ICommonSession session)
+    {
+        var previousCulture = _localization.DefaultCulture;
+        var cultureName = _ncPlayerCulture.GetCulture(session);
+
+        try
+        {
+            if (!string.IsNullOrWhiteSpace(cultureName))
+                _localization.SetCulture(CultureInfo.GetCultureInfo(cultureName, predefinedOnly: false));
+        }
+        catch (CultureNotFoundException)
+        {
+            // Keep the server default culture if the client reports an invalid culture.
+        }
+
+        return previousCulture;
+    }
+
+    private void RestoreCulture(CultureInfo? previousCulture)
+    {
+        if (previousCulture != null)
+            _localization.SetCulture(previousCulture);
     }
 
     #endregion

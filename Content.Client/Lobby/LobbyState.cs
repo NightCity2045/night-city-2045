@@ -67,6 +67,7 @@ namespace Content.Client.Lobby
             var width = _cfg.GetCVar(CCVars.ServerLobbyRightPanelWidth);
             Lobby.RightSide.SetWidth = width;
 
+            Lobby.Relocalize();
             UpdateLobbyUi();
 
             // Lobby.CharacterPreview.CharacterSetupButton.OnPressed += OnSetupPressed; //WD EDIT

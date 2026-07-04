@@ -22,11 +22,19 @@ namespace Content.Shared.Verbs
 
         public readonly bool AdminRequest;
 
-        public RequestServerVerbsEvent(NetEntity entityUid, IEnumerable<Type> verbTypes, NetEntity? slotOwner = null, bool adminRequest = false)
+        public readonly string? CultureName;
+
+        public RequestServerVerbsEvent(
+            NetEntity entityUid,
+            IEnumerable<Type> verbTypes,
+            NetEntity? slotOwner = null,
+            bool adminRequest = false,
+            string? cultureName = null)
         {
             EntityUid = entityUid;
             SlotOwner = slotOwner;
             AdminRequest = adminRequest;
+            CultureName = cultureName;
 
             foreach (var type in verbTypes)
             {

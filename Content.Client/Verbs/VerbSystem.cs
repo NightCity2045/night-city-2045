@@ -13,6 +13,7 @@ using Robust.Client.GameObjects;
 using Robust.Client.Graphics;
 using Robust.Client.Player;
 using Robust.Client.State;
+using Robust.Shared;
 using Robust.Shared.Configuration;
 using Robust.Shared.Containers;
 using Robust.Shared.Map;
@@ -173,7 +174,11 @@ namespace Content.Client.Verbs
         public SortedSet<Verb> GetVerbs(NetEntity target, EntityUid user, List<Type> verbTypes, out List<VerbCategory> extraCategories, bool force = false)
         {
             if (!target.IsClientSide())
-                RaiseNetworkEvent(new RequestServerVerbsEvent(target, verbTypes, adminRequest: force));
+                RaiseNetworkEvent(new RequestServerVerbsEvent(
+                    target,
+                    verbTypes,
+                    adminRequest: force,
+                    cultureName: _cfg.GetCVar(CVars.LocCultureName)));
 
             // Some admin menu interactions will try get verbs for entities that have not yet been sent to the player.
             if (!TryGetEntity(target, out var local))

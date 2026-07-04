@@ -2,21 +2,21 @@
 
 # Entities
 ent-NCConsoleCompiler = Console Compiler
-    .desc = A high-tech data terminal that converts digital codes into physical blueprints and recipes. Load raw data and insert a decrypted master disk to begin printing.
+ent-NCConsoleCompiler-desc = A high-tech data terminal that converts digital codes into physical blueprints and recipes. Load raw data and insert a decrypted master disk to begin printing.
 
 # Raw Data
 ent-NCRawDataT1 = Raw Data (Tier 1)
-    .desc = A low-quality data shard. Provides 100 data points when digitized.
+ent-NCRawDataT1-desc = A low-quality data shard. Provides 100 data points when digitized.
 
 ent-NCRawDataT2 = Raw Data (Tier 2)
-    .desc = A medium-quality data shard. Provides 300 data points when digitized.
+ent-NCRawDataT2-desc = A medium-quality data shard. Provides 300 data points when digitized.
 
 ent-NCRawDataT3 = Raw Data (Tier 3)
-    .desc = A high-quality data shard. Provides 500 data points when digitized.
+ent-NCRawDataT3-desc = A high-quality data shard. Provides 500 data points when digitized.
 
 # Burned Disk
 ent-NCRawDataBurned = Burned Disk
-    .desc = A used and burnt-out data disk. Completely useless.
+ent-NCRawDataBurned-desc = A used and burnt-out data disk. Completely useless.
 
 # UI
 console-compiler-window-title = MILITECH // COMPILER_OS v1.4

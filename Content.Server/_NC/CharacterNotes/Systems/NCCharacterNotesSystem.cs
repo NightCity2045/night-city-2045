@@ -76,7 +76,7 @@ public sealed class NCCharacterNotesSystem : EntitySystem
 
         args.Verbs.Add(new AlternativeVerb
         {
-            Text = "Заметки",
+            Text = Loc.GetString("nc-character-notes-verb-text"),
             Act = () => OpenNotesUi(args.User, uid),
         });
     }

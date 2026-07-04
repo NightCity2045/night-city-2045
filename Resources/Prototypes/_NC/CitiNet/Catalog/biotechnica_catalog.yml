@@ -40,7 +40,7 @@
     count: 100
 
 - type: citiNetStoreCategory
-  id: NightMarket_Cyberware
+  id: CorporateBiotechnicaCyberware
   name: citinet-store-category-cyberware
   entries:
   - proto: CyberwareImplantAntiglare
@@ -127,4 +127,4 @@
   categories:
   - CorporateBiotechnicaMedical
   - CorporateBiotechnicaFieldGear
-  - NightMarket_Cyberware
+  - CorporateBiotechnicaCyberware

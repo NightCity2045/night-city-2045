@@ -1,5 +1,6 @@
 using Content.Client._NC.CharacterNotes;
 using Content.Client.Items;
+using Content.Client.Localization;
 using Content.Shared.Hands.Components;
 using Content.Shared.IdentityManagement;
 using Content.Shared.Inventory.VirtualItem;
@@ -13,7 +14,7 @@ using Robust.Shared.Utility;
 namespace Content.Client.UserInterface.Systems.Inventory.Controls;
 
 [GenerateTypedNameReferences]
-public sealed partial class ItemStatusPanel : Control
+public sealed partial class ItemStatusPanel : Control, ILocalizedControl
 {
     [Dependency] private readonly IEntityManager _entityManager = default!;
 
@@ -26,6 +27,15 @@ public sealed partial class ItemStatusPanel : Control
     {
         RobustXamlLoader.Load(this);
         IoCManager.InjectDependencies(this);
+        Relocalize();
+    }
+
+    public void Relocalize()
+    {
+        NoItemLabel.Text = Loc.GetString("item-status-not-held");
+
+        if (_entity != null)
+            BuildNewEntityStatus();
     }
 
     public void SetSide(HandUILocation location)

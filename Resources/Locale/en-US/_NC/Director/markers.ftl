@@ -1,3 +1,4 @@
+ent-MarkerBase = director marker
 ent-MarkerBase-desc = Marker for Director AI use.
 
 ent-DirectorSpawnPoint = director spawn point

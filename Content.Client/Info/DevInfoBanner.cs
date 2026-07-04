@@ -1,6 +1,7 @@
 using Content.Client._White.UserInterface;
 using Content.Client.Changelog;
 using Content.Client.Credits;
+using Content.Client.Localization;
 using Content.Shared.CCVar;
 using Robust.Client.UserInterface;
 using Robust.Client.UserInterface.Controls;
@@ -11,9 +12,12 @@ using Robust.Shared.Utility;
 
 namespace Content.Client.Info
 {
-    public sealed class DevInfoBanner : BoxContainer
+    public sealed class DevInfoBanner : BoxContainer, ILocalizedControl
     {
         private WindowTracker<CreditsWindow> _creditsWindow = new(); // WWDP EDIT
+        private Button? _reportButton;
+        private Button? _creditsButton;
+
         public DevInfoBanner() {
             var buttons = new BoxContainer
             {
@@ -27,14 +31,24 @@ namespace Content.Client.Info
             var bugReport = cfg.GetCVar(CCVars.InfoLinksBugReport);
             if (bugReport != "")
             {
-                var reportButton = new Button { Text = Loc.GetString("server-info-report-button"), StyleClasses = { "NovaButton", } }; // WWDP EDIT
-                reportButton.OnPressed += args => uriOpener.OpenUri(bugReport);
-                buttons.AddChild(reportButton);
+                _reportButton = new Button { StyleClasses = { "NovaButton", } }; // WWDP EDIT
+                _reportButton.OnPressed += args => uriOpener.OpenUri(bugReport);
+                buttons.AddChild(_reportButton);
             }
 
-            var creditsButton = new Button { Text = Loc.GetString("server-info-credits-button"), StyleClasses = { "NovaButton", } }; // WWDP EDIT
-            creditsButton.OnPressed += args => _creditsWindow.TryOpen(); // WWDP EDIT
-            buttons.AddChild(creditsButton);
+            _creditsButton = new Button { StyleClasses = { "NovaButton", } }; // WWDP EDIT
+            _creditsButton.OnPressed += args => _creditsWindow.TryOpen(); // WWDP EDIT
+            buttons.AddChild(_creditsButton);
+            Relocalize();
+        }
+
+        public void Relocalize()
+        {
+            if (_reportButton != null)
+                _reportButton.Text = Loc.GetString("server-info-report-button");
+
+            if (_creditsButton != null)
+                _creditsButton.Text = Loc.GetString("server-info-credits-button");
         }
     }
 }

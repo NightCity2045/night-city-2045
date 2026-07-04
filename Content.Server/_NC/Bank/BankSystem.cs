@@ -69,8 +69,13 @@ namespace Content.Server._NC.Bank
 
             args.Verbs.Add(new Content.Shared.Verbs.ActivationVerb
             {
-                Text = "Реквизиты счета",
-                Act = () => _popupSystem.PopupEntity($"Счет: {component.AccountNumber} | ПИН: {component.PIN}", uid, uid)
+                Text = Loc.GetString("nc-bank-account-details-verb-text"),
+                Act = () => _popupSystem.PopupEntity(
+                    Loc.GetString("nc-bank-account-details-popup",
+                        ("account", component.AccountNumber),
+                        ("pin", component.PIN)),
+                    uid,
+                    uid)
             });
         }
 
@@ -100,7 +105,10 @@ namespace Content.Server._NC.Bank
 
             Dirty(ev.Mob, bankComp);
 
-            _chatManager.DispatchServerMessage(ev.Player, $"Ваш банковский счет: {bankComp.AccountNumber}, ПИН-код: {bankComp.PIN}. Никому не сообщайте эти данные.");
+            _chatManager.DispatchServerMessageLocalized(ev.Player,
+                "nc-bank-account-chat-message",
+                ("account", bankComp.AccountNumber),
+                ("pin", bankComp.PIN));
         }
 
         public StationBankComponent EnsureStationBank(EntityUid stationUid)

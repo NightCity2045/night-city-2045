@@ -15,14 +15,20 @@ namespace Content.Server.Chat.Managers
         /// <param name="message"></param>
         /// <param name="colorOverride">Override the color of the message being sent.</param>
         void DispatchServerAnnouncement(string message, Color? colorOverride = null);
+        void DispatchServerAnnouncementLocalized(string locKey, Color? colorOverride = null, params (string, object)[] locArgs);
+        void DispatchServerAnnouncementLocalized(string locKey, Func<(string, object)[]> locArgsFactory, Color? colorOverride = null);
 
         void DispatchServerMessage(ICommonSession player, string message, bool suppressLog = false);
+        void DispatchServerMessageLocalized(ICommonSession player, string locKey, params (string, object)[] locArgs);
+        void DispatchServerMessageLocalized(ICommonSession player, string locKey, Func<(string, object)[]> locArgsFactory);
 
         void TrySendOOCMessage(ICommonSession player, string message, OOCChatType type);
 
         void SendHookOOC(string sender, string message);
         void SendAdminAnnouncement(string message, AdminFlags? flagBlacklist = null, AdminFlags? flagWhitelist = null);
+        void SendAdminAnnouncementLocalized(string locKey, AdminFlags? flagBlacklist = null, AdminFlags? flagWhitelist = null, params (string, object)[] locArgs);
         void SendAdminAnnouncementMessage(ICommonSession player, string message, bool suppressLog = true);
+        void SendAdminAnnouncementMessageLocalized(ICommonSession player, string locKey, params (string, object)[] locArgs);
 
         void ChatMessageToOne(ChatChannel channel, string message, string wrappedMessage, EntityUid source, bool hideChat,
             INetChannel client, Color? colorOverride = null, bool recordReplay = false, string? audioPath = null, float audioVolume = 0, NetUserId? author = null, bool ignoreChatStack = false, uint? serverMessageId = null);

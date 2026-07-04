@@ -48,13 +48,23 @@ public sealed class JobSystem : SharedJobSystem
         if (!MindTryGetJob(mindId, out var prototype))
             return;
 
-        _chat.DispatchServerMessage(session, Loc.GetString("job-greet-introduce-job-name",
-            ("jobName", CultureInfo.CurrentCulture.TextInfo.ToTitleCase(prototype.LocalizedName))));
+        _chat.DispatchServerMessageLocalized(session,
+            "job-greet-introduce-job-name",
+            () => new[]
+            {
+                ("jobName", (object) CultureInfo.CurrentCulture.TextInfo.ToTitleCase(prototype.LocalizedName)),
+            });
 
         if (prototype.RequireAdminNotify)
-            _chat.DispatchServerMessage(session, Loc.GetString("job-greet-important-disconnect-admin-notify"));
+            _chat.DispatchServerMessageLocalized(session, "job-greet-important-disconnect-admin-notify");
 
-        _chat.DispatchServerMessage(session, Loc.GetString("job-greet-supervisors-warning", ("jobName", prototype.LocalizedName), ("supervisors", Loc.GetString(prototype.Supervisors))));
+        _chat.DispatchServerMessageLocalized(session,
+            "job-greet-supervisors-warning",
+            () => new[]
+            {
+                ("jobName", (object) prototype.LocalizedName),
+                ("supervisors", Loc.GetString(prototype.Supervisors)),
+            });
     }
 
     public void MindAddJob(EntityUid mindId, string jobPrototypeId)

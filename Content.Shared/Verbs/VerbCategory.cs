@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Robust.Shared.Serialization;
 using Robust.Shared.Utility;
 
@@ -9,7 +10,11 @@ namespace Content.Shared.Verbs
     [Serializable, NetSerializable]
     public sealed class VerbCategory
     {
-        public readonly string Text;
+        private static readonly List<VerbCategory> Categories = new();
+
+        private readonly string _textKey;
+
+        public string Text;
 
         public readonly SpriteSpecifier? Icon;
 
@@ -30,22 +35,36 @@ namespace Content.Shared.Verbs
 
         public VerbCategory(string text, bool iconsOnly = false)
         {
-            Text = Loc.GetString(text);
+            _textKey = text;
+            Text = Loc.GetString(_textKey);
             IconsOnly = iconsOnly;
+            Categories.Add(this);
         }
 
         public VerbCategory(string text, string icon, bool iconsOnly = false)
         {
-            Text = Loc.GetString(text);
+            _textKey = text;
+            Text = Loc.GetString(_textKey);
             Icon = new SpriteSpecifier.Texture(new ResPath(icon));
             IconsOnly = iconsOnly;
+            Categories.Add(this);
         }
 
         public VerbCategory(string text, SpriteSpecifier? sprite, bool iconsOnly = false)
         {
-            Text = Loc.GetString(text);
+            _textKey = text;
+            Text = Loc.GetString(_textKey);
             Icon = sprite;
             IconsOnly = iconsOnly;
+            Categories.Add(this);
+        }
+
+        public static void RefreshStaticLocalizations()
+        {
+            foreach (var category in Categories)
+            {
+                category.Text = Loc.GetString(category._textKey);
+            }
         }
 
         public static readonly VerbCategory Admin =

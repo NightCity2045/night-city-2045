@@ -109,3 +109,13 @@ humanoid-profile-editor-loadouts-heirloom-tooltip = Whichever loadouts you choos
 humanoid-profile-editor-clown-name-label = Clown Nickname:
 
 humanoid-profile-editor-mime-name-label = Mime Nickname:
+
+humanoid-profile-editor-station-ai-name-label = Station AI name:
+
+humanoid-profile-editor-cyborg-name-label = Cyborg name:
+
+humanoid-profile-editor-department-employ-button = Apply
+humanoid-profile-editor-department-resign-button = Resign
+humanoid-profile-editor-department-confirm-button = Confirm
+humanoid-profile-editor-department-lock-unemployed = You need to apply to this department.
+humanoid-profile-editor-department-lock-other = You already work in another department.

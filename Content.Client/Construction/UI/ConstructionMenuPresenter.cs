@@ -340,7 +340,11 @@ namespace Content.Client.Construction.UI
         private static (string displayName, string displayDesc) GetLocalizedStrings(ConstructionPrototype prototype)
         {
             string displayName = Loc.TryGetString($"ent-{prototype.ID}", out var name) ? name : prototype.Name;
-            string displayDesc = Loc.TryGetString($"ent-{prototype.ID}.desc", out var desc) ? desc : prototype.Description;
+            string displayDesc = Loc.TryGetString($"ent-{prototype.ID}-desc", out var desc)
+                ? desc
+                : Loc.TryGetString($"ent-{prototype.ID}.desc", out desc)
+                    ? desc
+                    : prototype.Description;
             return (displayName, displayDesc);
         }
         // WWDP edit end
