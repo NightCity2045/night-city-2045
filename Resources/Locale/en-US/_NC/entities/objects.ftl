@@ -1,23 +1,23 @@
 
 # Vehicles
 ent-VehicleAmericar = AmeriCar
-    .desc = A classic American muscle car. Seats 3 and has a spacious trunk.
+ent-VehicleAmericar-desc = A classic American muscle car. Seats 3 and has a spacious trunk.
 ent-VehiclePassengerSeat = passenger seat
-    .desc = A seat for a passenger.
+ent-VehiclePassengerSeat-desc = A seat for a passenger.
 
 # Tools & Chemistry
 ent-NcpdTablet = NCPD tactical tablet
-    .desc = A tablet for receiving operational briefings and coordinating NCPD groups.
+ent-NcpdTablet-desc = A tablet for receiving operational briefings and coordinating NCPD groups.
 ent-TraumaTablet = Trauma Team tablet
-    .desc = A device for receiving emergency calls regarding platinum insurance patients.
+ent-TraumaTablet-desc = A device for receiving emergency calls regarding platinum insurance patients.
 ent-NCChemistryBottle = bottle
-    .desc = A small bottle for liquids.
+ent-NCChemistryBottle-desc = A small bottle for liquids.
 ent-NCFertilizerBag = fertilizer bag
-    .desc = Just a bag of fertilizer.
+ent-NCFertilizerBag-desc = Just a bag of fertilizer.
 ent-NCFertilizerPotent = potent fertilizer bag
-    .desc = A bag of fertilizer that increases plant potency. Side effects include lack of seeds and pest infestations.
+ent-NCFertilizerPotent-desc = A bag of fertilizer that increases plant potency. Side effects include lack of seeds and pest infestations.
 ent-NCFertilizerNutrient = nutrient fertilizer bag
-    .desc = A bag of fertilizer that increases plant yield. Side effects include reduced growth speed and pest infestations.
+ent-NCFertilizerNutrient-desc = A bag of fertilizer that increases plant yield. Side effects include reduced growth speed and pest infestations.
 
 # PDAs
 ent-PDANCPDChief = NCPD Chief PDA
@@ -41,51 +41,66 @@ ent-PDATraumaPsych = Trauma Team Psychologist PDA
 ent-PDATraumaTech = Trauma Team Tech PDA
 ent-PDATraumaIntern = Trauma Team Intern PDA
 ent-PDACafeOwner = Cafe Owner PDA
+ent-PDACafeOwner-desc = Compact terminal with a coffee bean logo.
 ent-PDARestaurantOwner = Restaurant Owner PDA
+ent-PDARestaurantOwner-desc = Elegant terminal with gold trim.
 ent-PDACitizen = Citizen PDA
+ent-PDACitizen-desc = Standard chip-terminal of a Night City citizen.
 ent-PDAEdgeRunner = Edgerunner PDA
+ent-PDAEdgeRunner-desc = Custom terminal with a secure channel.
 ent-PDAFixer = Fixer PDA
+ent-PDAFixer-desc = A tool for those who solve problems.
 ent-PDARipper = Ripper PDA
+ent-PDARipper-desc = Medical terminal for field work.
 ent-PDABiotechnicaChief = Biotechnica Chief PDA
+ent-PDABiotechnicaChief-desc = Communication device for a Biotechnica facility manager. Smells like fresh-cut grass and corporate espionage.
 ent-PDABiotechnicaBotany = Biotechnica Botany PDA
+ent-PDABiotechnicaBotany-desc = PDA with a built-in moisture sensor and soil analyzer.
 ent-PDABiotechnicaMedTech = Biotechnica MedTech PDA
+ent-PDABiotechnicaMedTech-desc = Medical PDA with an extensive bio-modification database.
 ent-PDABiotechnicaNetrunner = Biotechnica Netrunner PDA
+ent-PDABiotechnicaNetrunner-desc = Optimized device for working within biotechnological node networks.
 ent-PDABiotechnicaOperativeLead = Biotechnica Operative Lead PDA
+ent-PDABiotechnicaOperativeLead-desc = Communication device for a Biotechnica security commander.
 ent-PDABiotechnicaOperative = Biotechnica Operative PDA
+ent-PDABiotechnicaOperative-desc = Standard security communication device for Biotechnica.
 ent-PDABiotechnicaRigger = Biotechnica Rigger PDA
+ent-PDABiotechnicaRigger-desc = Field control PDA tuned for drones, remote sensors, and fragile corporate hardware.
 ent-PDABiotechnicaParamedic = Biotechnica Paramedic PDA
+ent-PDABiotechnicaParamedic-desc = Mobile medical device for emergency response.
 ent-PDABiotechnicaTech = Biotechnica Tech PDA
+ent-PDABiotechnicaTech-desc = PDA with a built-in voltmeter and diagnostic utilities.
 
 # Netrunning Programs & ICE
 ent-NCProgramPing = Ping 1.0
-    .desc = Reveals information about the target's network defense.
+ent-NCProgramPing-desc = Reveals information about the target's network defense.
 ent-NCProgramBlind = Optics Override
-    .desc = Temporarily blinds the target.
+ent-NCProgramBlind-desc = Temporarily blinds the target.
 ent-NCProgramDrop = Weapon Malfunction
-    .desc = Forces the target to drop the active item from their hands.
+ent-NCProgramDrop-desc = Forces the target to drop the active item from their hands.
 ent-NCProgramShock = Short Circuit
-    .desc = Deals electrical damage to the target.
+ent-NCProgramShock-desc = Deals electrical damage to the target.
 ent-NCProgramBreach = Breach 1.0
-    .desc = Instantly hacks Gate passwords.
+ent-NCProgramBreach-desc = Instantly hacks Gate passwords.
 ent-NCProgramSword = Digital Sword
-    .desc = Combat program. High damage against ICE.
+ent-NCProgramSword-desc = Combat program. High damage against ICE.
 ent-NCProgramHighJack = HighJack 1.0
-    .desc = Connects to the target's network architecture, revealing all ICE layers.
+ent-NCProgramHighJack-desc = Connects to the target's network architecture, revealing all ICE layers.
 ent-NCProgramBackdoor = Backdoor 1.0
-    .desc = Creates a safe exit point. Use during a hack to disconnect without neural damage.
+ent-NCProgramBackdoor-desc = Creates a safe exit point. Use during a hack to disconnect without neural damage.
 
 ent-NCBiomonitor = biomonitor
-    .desc = A handheld neuro-scanner. Connects to the patient and listens to their environment for cyberpsychosis therapy.
+ent-NCBiomonitor-desc = A handheld neuro-scanner. Connects to the patient and listens to their environment for cyberpsychosis therapy.
 
 ent-NCRiggerEye = rigger eye
-    .desc = A remote operator viewpoint slaved to a Biotechnica rigger console.
+ent-NCRiggerEye-desc = A remote operator viewpoint slaved to a Biotechnica rigger console.
 
 ent-NCIceGate = ICE: Gate
-    .desc = Basic password protection board. Blocks access until the correct password is entered.
+ent-NCIceGate-desc = Basic password protection board. Blocks access until the correct password is entered.
 ent-NCIceSentry = ICE: Sentry
-    .desc = Active defense system tracking intruders. Can block your access to the network.
+ent-NCIceSentry-desc = Active defense system tracking intruders. Can block your access to the network.
 ent-NCIceKiller = ICE: Killer
-    .desc = Lethal defense system. Burns out neural interfaces without mercy.
+ent-NCIceKiller-desc = Lethal defense system. Burns out neural interfaces without mercy.
 
 # Flatpacks
 ent-HydroponicsTrayFlatpack = hydroponics tray flatpack
@@ -98,52 +113,40 @@ ent-ReagentGrinderFlatpack = reagent grinder flatpack
 
 # Civilian Tools
 ent-WateringCan = watering can
-    .desc = A regular watering can for plants. Holds slightly more water than a bucket and doesn't spill.
+ent-WateringCan-desc = A regular watering can for plants. Holds slightly more water than a bucket and doesn't spill.
 ent-WateringCanAdvanced = advanced watering can
-    .desc = An experimental watering can that slowly refills itself.
+ent-WateringCanAdvanced-desc = An experimental watering can that slowly refills itself.
 ent-WateringCanAdvancedLarge = capacious advanced watering can
-    .desc = An improved experimental self-refilling watering can, expanded threefold.
+ent-WateringCanAdvancedLarge-desc = An improved experimental self-refilling watering can, expanded threefold.
 ent-DrinkShakerAdvanced = advanced shaker
-    .desc = This transparent measuring shaker has an auto-stirrer inside, allowing you to shake and stir liquids simultaneously. It's also slightly larger than usual.
+ent-DrinkShakerAdvanced-desc = This transparent measuring shaker has an auto-stirrer inside, allowing you to shake and stir liquids simultaneously. It's also slightly larger than usual.
 ent-DrinkShakerAdvancedLarge = capacious advanced shaker
-    .desc = This advanced shaker can hold much more liquid.
+ent-DrinkShakerAdvancedLarge-desc = This advanced shaker can hold much more liquid.
 ent-DrinkKettleAdvanced = advanced kettle
-    .desc = This transparent measuring kettle has an auto-heater inside, allowing you to heat drinks on the go up to 400 degrees. And it's slightly larger than regular kettles.
+ent-DrinkKettleAdvanced-desc = This transparent measuring kettle has an auto-heater inside, allowing you to heat drinks on the go up to 400 degrees. And it's slightly larger than regular kettles.
 ent-DrinkKettleAdvancedLarge = capacious advanced kettle
-    .desc = This advanced kettle can hold much more liquid.
+ent-DrinkKettleAdvancedLarge-desc = This advanced kettle can hold much more liquid.
 ent-BucketConstruction = construction bucket
-    .desc = A large bucket, usually used for construction materials. But in Night City, "folk craftsmen" find other uses for it...
+ent-BucketConstruction-desc = A large bucket, usually used for construction materials. But in Night City, "folk craftsmen" find other uses for it...
 ent-BucketAdvanced = advanced bucket
-    .desc = A high-tech bucket capable of holding much more liquid.
+ent-BucketAdvanced-desc = A high-tech bucket capable of holding much more liquid.
+ent-PDANCPD = NCPD PDA
 ent-PDANCPD-desc = Standard issue PDA of the Night City Police Department.
+ent-PDAMaxTac = MaxTac PDA
 ent-PDAMaxTac-desc = Reinforced tactical PDA of the MaxTac unit.
+ent-PDATrauma = Trauma Team PDA
 ent-PDATrauma-desc = High-tech medical terminal for Trauma Team employees.
-ent-PDACafeOwner-desc = Compact terminal with a coffee bean logo.
-ent-PDARestaurantOwner-desc = Elegant terminal with gold trim.
-ent-PDACitizen-desc = Standard chip-terminal of a Night City citizen.
-ent-PDAEdgeRunner-desc = Custom terminal with a secure channel.
-ent-PDAFixer-desc = A tool for those who solve problems.
-ent-PDARipper-desc = Medical terminal for field work.
-ent-PDABiotechnicaChief-desc = Communication device for a Biotechnica facility manager. Smells like fresh-cut grass and corporate espionage.
-ent-PDABiotechnicaBotany-desc = PDA with a built-in moisture sensor and soil analyzer.
-ent-PDABiotechnicaMedTech-desc = Medical PDA with an extensive bio-modification database.
-ent-PDABiotechnicaNetrunner-desc = Optimized device for working within biotechnological node networks.
-ent-PDABiotechnicaOperativeLead-desc = Communication device for a Biotechnica security commander.
-ent-PDABiotechnicaOperative-desc = Standard security communication device for Biotechnica.
-ent-PDABiotechnicaRigger-desc = Field control PDA tuned for drones, remote sensors, and fragile corporate hardware.
-ent-PDABiotechnicaParamedic-desc = Mobile medical device for emergency response.
-ent-PDABiotechnicaTech-desc = PDA with a built-in voltmeter and diagnostic utilities.
 
 # Remaining Devices
 ent-NCCitationTerminal = Police Citation Terminal
-    .desc = A massive device with a built-in ID card scanner. Used for legalized robbery... I mean, collecting fines on the spot.
+ent-NCCitationTerminal-desc = A massive device with a built-in ID card scanner. Used for legalized robbery... I mean, collecting fines on the spot.
 ent-Cyberdeck = cyberdeck
-    .desc = A high-tech portable computer used for netrunning. Requires a battery and both hands to operate.
+ent-Cyberdeck-desc = A high-tech portable computer used for netrunning. Requires a battery and both hands to operate.
 ent-Cyberdeck-Slot1 = Program Slot 1
 ent-Cyberdeck-Slot2 = Program Slot 2
 ent-Cyberdeck-Slot3 = Program Slot 3
 ent-BurnerChip = burner chip
-    .desc = A cheap chip from the black market. Provides a temporary anonymous ID that cannot be tracked through NCPD databases.
+ent-BurnerChip-desc = A cheap chip from the black market. Provides a temporary anonymous ID that cannot be tracked through NCPD databases.
 
 # ID Cards
 ent-NCPDChiefIDCard = NCPD Chief ID card
@@ -192,10 +195,10 @@ ent-MilitechRiggerIDCard = Militech Rigger ID card
 
 # Misc
 ent-CitinetDriveEmpty = Empty Media Drive
-    .desc = A massive drive for extracting data from CitiNet. Ensure stable power before use.
+ent-CitinetDriveEmpty-desc = A massive drive for extracting data from CitiNet. Ensure stable power before use.
 ent-CitinetDriveRawData = Raw Data Disk
-    .desc = A disk containing raw data extracted from various sources. Requires digitization for output in a tech-printer.
+ent-CitinetDriveRawData-desc = A disk containing raw data extracted from various sources. Requires digitization for output in a tech-printer.
 ent-NCPDBulletDeformed = deformed bullet
-    .desc = A flattened piece of lead extracted from a body. Unique barrel rifling remains on it.
+ent-NCPDBulletDeformed-desc = A flattened piece of lead extracted from a body. Unique barrel rifling remains on it.
 ent-NCPDBallisticAnalyzer = ballistic analyzer
-    .desc = A high-tech console for comparing rifling on bullets with specific weapon barrels.
+ent-NCPDBallisticAnalyzer-desc = A high-tech console for comparing rifling on bullets with specific weapon barrels.

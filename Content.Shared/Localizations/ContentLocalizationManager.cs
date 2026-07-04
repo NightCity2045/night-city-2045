@@ -1,4 +1,5 @@
 using System.Globalization;
+using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
 using Content.Shared._White.CCVar;
@@ -13,7 +14,10 @@ namespace Content.Shared.Localizations
         // If you want to change your codebase's language, do it here.
 
         // WD-EDIT
-        private const string FallbackCulture = "en-US";
+        public const string DefaultCultureName = "en-US";
+        private const string FallbackCulture = DefaultCultureName;
+        private readonly HashSet<string> _preparedCultures = new();
+        private readonly HashSet<string> _functionCultures = new();
 
         /// <summary>
         /// Custom format strings used for parsing and displaying minutes:seconds timespans.
@@ -35,13 +39,32 @@ namespace Content.Shared.Localizations
             var cfgManager = IoCManager.Resolve<IConfigurationManager>();
             _culture = cfgManager.GetCVar(WhiteCVars.ServerCulture);
 
-            var culture = new CultureInfo(_culture);
-            var fallbackCulture = new CultureInfo(FallbackCulture);
+            EnsureCulturePrepared(CultureInfo.GetCultureInfo(_culture, false));
+            // White Dream End
+        }
 
-            _loc.LoadCulture(culture);
-            if (_culture != FallbackCulture)
+        public void EnsureCulturePrepared(CultureInfo culture)
+        {
+            _culture = culture.Name;
+
+            if (_preparedCultures.Add(NormalizeCultureKey(culture.Name)))
+                _loc.LoadCulture(culture);
+
+            var fallbackCulture = CultureInfo.GetCultureInfo(FallbackCulture, false);
+            if (_preparedCultures.Add(NormalizeCultureKey(fallbackCulture.Name)))
                 _loc.LoadCulture(fallbackCulture);
+
             _loc.SetFallbackCluture(fallbackCulture);
+
+            RegisterCommonFunctions(culture);
+            RegisterCommonFunctions(fallbackCulture);
+            RegisterEnglishFunctions();
+        }
+
+        private void RegisterCommonFunctions(CultureInfo culture)
+        {
+            if (!_functionCultures.Add(NormalizeCultureKey(culture.Name)))
+                return;
 
             _loc.AddFunction(culture, "PRESSURE", FormatPressure);
             _loc.AddFunction(culture, "POWERWATTS", FormatPowerWatts);
@@ -52,26 +75,22 @@ namespace Content.Shared.Localizations
             _loc.AddFunction(culture, "NATURALFIXED", FormatNaturalFixed);
             _loc.AddFunction(culture, "NATURALPERCENT", FormatNaturalPercent);
             _loc.AddFunction(culture, "PLAYTIME", FormatPlaytime);
+        }
 
-            _loc.AddFunction(fallbackCulture, "PRESSURE", FormatPressure);
-            _loc.AddFunction(fallbackCulture, "POWERWATTS", FormatPowerWatts);
-            _loc.AddFunction(fallbackCulture, "POWERJOULES", FormatPowerJoules);
-            _loc.AddFunction(fallbackCulture, "UNITS", FormatUnits);
-            _loc.AddFunction(fallbackCulture, "TOSTRING", args => FormatToString(culture, args));
-            _loc.AddFunction(fallbackCulture, "LOC", FormatLoc);
-            _loc.AddFunction(fallbackCulture, "NATURALFIXED", FormatNaturalFixed);
-            _loc.AddFunction(fallbackCulture, "NATURALPERCENT", FormatNaturalPercent);
+        private void RegisterEnglishFunctions()
+        {
+            const string englishFunctionsKey = "en-us:english";
+            if (!_functionCultures.Add(englishFunctionsKey))
+                return;
 
-            /*
-             * The following language functions are specific to the english localization. When working on your own
-             * localization you should NOT modify these, instead add new functions specific to your language/culture.
-             * This ensures the english translations continue to work as expected when fallbacks are needed.
-             */
-            var cultureEn = new CultureInfo("en-US");
-
+            var cultureEn = CultureInfo.GetCultureInfo(DefaultCultureName, false);
             _loc.AddFunction(cultureEn, "MAKEPLURAL", FormatMakePlural);
             _loc.AddFunction(cultureEn, "MANY", FormatMany);
-            // White Dream End
+        }
+
+        private static string NormalizeCultureKey(string cultureName)
+        {
+            return cultureName.ToLowerInvariant();
         }
 
         private ILocValue FormatMany(LocArgs args)

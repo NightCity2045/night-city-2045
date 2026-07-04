@@ -9,6 +9,8 @@ using Content.Client.UserInterface.Systems.Hotbar;
 using Content.Client.UserInterface.Systems.Inventory;
 using Content.Client.UserInterface.Systems.Sandbox;
 using Content.Client.Localization;
+using Content.Shared.Localizations;
+using Content.Shared.Verbs;
 using Robust.Client.State;
 using Robust.Client.UserInterface;
 using Robust.Client.UserInterface.Controls;
@@ -20,10 +22,11 @@ namespace Content.Client.UserInterface.Systems.Localization;
 
 public sealed class LocalizationUIController : UIController
 {
-    private const string FallbackCultureName = "en-US";
+    private const string FallbackCultureName = ContentLocalizationManager.DefaultCultureName;
     private readonly ISawmill _sawmill = Logger.GetSawmill("localization.ui");
 
     [Dependency] private readonly IConfigurationManager _cfg = default!;
+    [Dependency] private readonly ContentLocalizationManager _contentLoc = default!;
     [Dependency] private readonly ILocalizationManager _loc = default!;
     [Dependency] private readonly IStateManager _state = default!;
 
@@ -42,9 +45,7 @@ public sealed class LocalizationUIController : UIController
         try
         {
             var culture = ResolveSupportedCultureOrFallback(cultureName);
-            _loc.SetCulture(culture);
-            _loc.ReloadLocalizations();
-            RefreshCurrentCulture();
+            ApplyCulture(culture);
 
             if (string.Equals(cultureName, culture.Name, StringComparison.OrdinalIgnoreCase))
                 return;
@@ -57,6 +58,16 @@ public sealed class LocalizationUIController : UIController
         {
             _sawmill.Error($"Failed to switch localization culture to '{cultureName}': {e}");
         }
+    }
+
+    private void ApplyCulture(CultureInfo culture)
+    {
+        _contentLoc.EnsureCulturePrepared(culture);
+        _loc.SetCulture(culture);
+        _loc.ReloadLocalizations();
+        VerbCategory.RefreshStaticLocalizations();
+
+        RefreshCurrentCulture();
     }
 
     public void RefreshCurrentCulture()

@@ -97,11 +97,11 @@ ent-CyberwareExternalThermoplasticArmor-desc = Standard for undercover detective
 
 # Reactive Subdermal Layer
 ent-CyberwareExternalReactiveSublayer = Militech 'Dragon Scale' Reactive Subdermal Layer
-ent-CyberwareExternalReactiveSubdermalLayer-desc = Elite military development. Micro-scales of boron carbide and graphene connected by an elastic nano-mesh. Armor so strong it can stop a point-blank rifle bullet. Looks like a human, but feels like a concrete wall.
+ent-CyberwareExternalReactiveSublayer-desc = Elite military development. Micro-scales of boron carbide and graphene connected by an elastic nano-mesh. Armor so strong it can stop a point-blank rifle bullet. Looks like a human, but feels like a concrete wall.
 
 # Autodoc
 ent-AutodocConsole = Autodoc Terminal
-    .desc = A medical machine for safe cyber-implant integration. Requires a buckled patient.
+ent-AutodocConsole-desc = A medical machine for safe cyber-implant integration. Requires a buckled patient.
 
 # Roles
 role-cyberpsycho-name = Cyberpsycho

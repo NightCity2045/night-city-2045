@@ -101,7 +101,7 @@ ent-CyberwareExternalReactiveSublayer-desc = Элитная военная ра�
 
 # Autodoc
 ent-AutodocConsole = Терминал Автодока
-    .desc = Медицинская машина для безопасной интеграции киберимплантов. Требует пристегнутого пациента.
+ent-AutodocConsole-desc = Медицинская машина для безопасной интеграции киберимплантов. Требует пристегнутого пациента.
 
 # Roles
 role-cyberpsycho-name = Киберпсих
