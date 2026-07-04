@@ -14,12 +14,12 @@ namespace Content.Client._NC.Crafting.ArmorWorkbench.UI;
 public sealed partial class ArmorWorkbenchWindow : DefaultWindow
 {
     private readonly Dictionary<int, NetEntity> _baseItemMap = new();
-    private readonly Dictionary<int, NetEntity> _softItemMap = new();
-    private readonly Dictionary<int, NetEntity> _hardItemMap = new();
+    private readonly Dictionary<int, NetEntity> _carrierItemMap = new();
+    private readonly Dictionary<int, NetEntity> _plateItemMap = new();
     private NetEntity? _loadedBlueprint;
     private NetEntity? _selectedBaseMaterial;
-    private NetEntity? _selectedSoftMaterial;
-    private NetEntity? _selectedHardMaterial;
+    private NetEntity? _selectedCarrierMaterial;
+    private NetEntity? _selectedPlateMaterial;
     private float _fade;
     private float _targetFade = 1f;
 
@@ -38,16 +38,16 @@ public sealed partial class ArmorWorkbenchWindow : DefaultWindow
                 OnMaterialSelected?.Invoke(ArmorWorkbenchLayerSlot.Base, material);
         };
 
-        SoftMaterialButton.OnItemSelected += args =>
+        CarrierMaterialButton.OnItemSelected += args =>
         {
-            if (_softItemMap.TryGetValue(args.Id, out var material))
-                OnMaterialSelected?.Invoke(ArmorWorkbenchLayerSlot.Soft, material);
+            if (_carrierItemMap.TryGetValue(args.Id, out var material))
+                OnMaterialSelected?.Invoke(ArmorWorkbenchLayerSlot.Carrier, material);
         };
 
-        HardMaterialButton.OnItemSelected += args =>
+        PlateMaterialButton.OnItemSelected += args =>
         {
-            if (_hardItemMap.TryGetValue(args.Id, out var material))
-                OnMaterialSelected?.Invoke(ArmorWorkbenchLayerSlot.Hard, material);
+            if (_plateItemMap.TryGetValue(args.Id, out var material))
+                OnMaterialSelected?.Invoke(ArmorWorkbenchLayerSlot.Plate, material);
         };
 
         AssembleButton.OnPressed += _ => OnStartCraft?.Invoke();
@@ -69,28 +69,28 @@ public sealed partial class ArmorWorkbenchWindow : DefaultWindow
     {
         _loadedBlueprint = state.BlueprintEntity;
         _selectedBaseMaterial = state.SelectedBaseMaterial;
-        _selectedSoftMaterial = state.SelectedSoftMaterial;
-        _selectedHardMaterial = state.SelectedHardMaterial;
+        _selectedCarrierMaterial = state.SelectedCarrierMaterial;
+        _selectedPlateMaterial = state.SelectedPlateMaterial;
 
         BlueprintLabel.Text = state.BlueprintName ?? Loc.GetString("armor-workbench-window-blueprint-empty");
         ResultLabel.Text = state.ResultName ?? Loc.GetString("armor-workbench-window-result-empty");
 
         FillOptions(BaseMaterialButton, _baseItemMap, state.BaseMaterials, state.SelectedBaseMaterial);
-        FillOptions(SoftMaterialButton, _softItemMap, state.SoftMaterials, state.SelectedSoftMaterial);
-        FillOptions(HardMaterialButton, _hardItemMap, state.HardMaterials, state.SelectedHardMaterial);
+        FillOptions(CarrierMaterialButton, _carrierItemMap, state.CarrierMaterials, state.SelectedCarrierMaterial);
+        FillOptions(PlateMaterialButton, _plateItemMap, state.PlateMaterials, state.SelectedPlateMaterial);
 
         BaseForecastLabel.Text = GetBaseForecastText(state.BaseMaterials, state.SelectedBaseMaterial);
-        SoftForecastLabel.Text = GetForecastText(
-            state.SoftMaterials,
-            state.SelectedSoftMaterial,
-            "armor-workbench-window-soft-forecast",
-            "armor-workbench-window-soft-forecast-empty");
+        CarrierForecastLabel.Text = GetForecastText(
+            state.CarrierMaterials,
+            state.SelectedCarrierMaterial,
+            "armor-workbench-window-carrier-forecast",
+            "armor-workbench-window-carrier-forecast-empty");
 
-        HardForecastLabel.Text = GetForecastText(
-            state.HardMaterials,
-            state.SelectedHardMaterial,
-            "armor-workbench-window-hard-forecast",
-            "armor-workbench-window-hard-forecast-empty");
+        PlateForecastLabel.Text = GetForecastText(
+            state.PlateMaterials,
+            state.SelectedPlateMaterial,
+            "armor-workbench-window-plate-forecast",
+            "armor-workbench-window-plate-forecast-empty");
 
         StatusLabel.Text = Loc.GetString(GetStatusKey(state.Status));
         StatusLabel.StyleClasses.Clear();
@@ -99,7 +99,7 @@ public sealed partial class ArmorWorkbenchWindow : DefaultWindow
         EjectRecipeButton.Disabled = state.IsCrafting || state.BlueprintEntity == null;
         EjectRecipeBottomButton.Disabled = state.IsCrafting || state.BlueprintEntity == null;
         EjectMaterialsButton.Disabled = state.IsCrafting ||
-            state.BaseMaterials.Count == 0 && state.SoftMaterials.Count == 0 && state.HardMaterials.Count == 0;
+            state.BaseMaterials.Count == 0 && state.CarrierMaterials.Count == 0 && state.PlateMaterials.Count == 0;
         AssembleButton.Disabled = state.IsCrafting ||
             state.Status is not ArmorWorkbenchUiStatus.Ready;
 
@@ -141,7 +141,7 @@ public sealed partial class ArmorWorkbenchWindow : DefaultWindow
         return Loc.GetString(
             filledKey,
             ("durability", (int) entry.Durability),
-            ("armorClass", entry.ArmorClass));
+            ("sp", entry.StoppingPower));
     }
 
     private void FillOptions(

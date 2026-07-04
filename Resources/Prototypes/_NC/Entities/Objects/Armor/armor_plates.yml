@@ -1,0 +1,86 @@
+- type: entity
+  parent: BaseItem
+  id: NCArmorPlateCeramic
+  name: ceramic armor plate
+  description: A brittle ceramic plate with high stopping power and excellent blunt absorption.
+  components:
+  - type: Sprite
+    sprite: Objects/Materials/Sheets/glass.rsi
+    state: cglass
+  - type: PhysicalArmor
+    stoppingPower: 60
+    maxDurability: 90
+    currentDurability: 90
+    materialType: Ceramic
+    bluntDamageMultiplier: 0
+    durabilityDamageMultiplier: 2
+    coverage:
+    - Torso
+  - type: ArmorMaterial
+    layerType: Plate
+    grantedStoppingPower: 60
+    grantedDurability: 90
+    materialType: Ceramic
+    bluntDamageMultiplier: 0
+    durabilityDamageMultiplier: 2
+  - type: Item
+    size: Normal
+    heldPrefix: cglass
+
+- type: entity
+  parent: BaseItem
+  id: NCArmorPlateSteel
+  name: steel armor plate
+  description: A heavy AR500 plate. Durable, but it still transfers force.
+  components:
+  - type: Sprite
+    sprite: Objects/Materials/Sheets/metal.rsi
+    state: steel
+  - type: PhysicalArmor
+    stoppingPower: 68
+    maxDurability: 250
+    currentDurability: 250
+    materialType: Steel
+    bluntDamageMultiplier: 0.4
+    durabilityDamageMultiplier: 0.35
+    coverage:
+    - Torso
+  - type: ArmorMaterial
+    layerType: Plate
+    grantedStoppingPower: 68
+    grantedDurability: 250
+    materialType: Steel
+    bluntDamageMultiplier: 0.4
+    durabilityDamageMultiplier: 0.35
+  - type: Item
+    size: Normal
+    heldPrefix: steel
+
+- type: entity
+  parent: BaseItem
+  id: NCArmorPlateKevlar
+  name: kevlar trauma panel
+  description: A flexible kevlar panel. It stops weak rounds but transfers most kinetic force.
+  components:
+  - type: Sprite
+    sprite: Objects/Materials/materials.rsi
+    state: durathread
+  - type: PhysicalArmor
+    stoppingPower: 32
+    maxDurability: 180
+    currentDurability: 180
+    materialType: Kevlar
+    bluntDamageMultiplier: 0.8
+    durabilityDamageMultiplier: 0.5
+    coverage:
+    - Torso
+  - type: ArmorMaterial
+    layerType: Plate
+    grantedStoppingPower: 32
+    grantedDurability: 180
+    materialType: Kevlar
+    bluntDamageMultiplier: 0.8
+    durabilityDamageMultiplier: 0.5
+  - type: Item
+    size: Normal
+    heldPrefix: durathread

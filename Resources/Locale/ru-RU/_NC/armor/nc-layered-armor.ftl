@@ -1,4 +1,6 @@
-nc-layered-armor-examine-pristine = Бронежилет выглядит крепким, а плиты внутри сидят плотно.
-nc-layered-armor-examine-worn = Чехол изорван, а плиты внутри заметно помяты.
-nc-layered-armor-examine-critical = Разгрузка еле держится, а плиты внутри уже крошатся.
-nc-layered-armor-examine-destroyed = Это просто рваная ткань с бесполезным звенящим мусором внутри.
+nc-physical-armor-examine-pristine = Бронеслой выглядит целым.
+nc-physical-armor-examine-worn = Бронеслой заметно изношен и помят.
+nc-physical-armor-examine-critical = Бронеслой едва держится.
+nc-physical-armor-examine-destroyed = Бронеслой разрушен и больше не защищает.
+nc-physical-armor-examine-durability = Прочность: { $current } / { $max } ({ $percent }%)
+armor-plate-slot-name = бронеплита

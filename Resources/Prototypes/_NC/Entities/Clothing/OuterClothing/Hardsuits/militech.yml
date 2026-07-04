@@ -2,8 +2,8 @@
 - type: entity
   parent: ClothingOuterHardsuitBaseMedium
   id: ClothingOuterHardsuitMilitech
-  name: ent-ClothingOuterHardsuitMilitech
-  description: ent-ClothingOuterHardsuitMilitech-desc
+  name: Militech tactical hardsuit
+  description: A massive Militech combat hardsuit with heavy steel ballistic coverage, pressure protection, and integrated life-support systems. This is corporate war gear, not street fashion.
   components:
   - type: Sprite
     sprite: _NC/Clothing/OuterClothing/Hardsuits/militech_hardsuit.rsi
@@ -16,16 +16,29 @@
     damageCoefficient: 0.4
   - type: Armor
     modifiers:
-      flatReductions:
-        Piercing: 8
       coefficients:
-        Blunt: 0.3
-        Slash: 0.3
-        Piercing: 0.3
         Heat: 0.3
         Radiation: 0.3
         Caustic: 0.3
         Shock: 0.1
+  - type: PhysicalArmor
+    stoppingPower: 85
+    maxDurability: 450
+    currentDurability: 450
+    materialType: Steel
+    bluntDamageMultiplier: 0.3
+    durabilityDamageMultiplier: 0.4
+    coverage:
+    - Torso
+    - Groin
+    - LeftArm
+    - RightArm
+    - LeftHand
+    - RightHand
+    - LeftLeg
+    - RightLeg
+    - LeftFoot
+    - RightFoot
   - type: ClothingSpeedModifier
     walkModifier: 0.75
     sprintModifier: 0.9

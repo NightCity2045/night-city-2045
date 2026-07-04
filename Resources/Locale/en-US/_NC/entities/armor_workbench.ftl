@@ -1,8 +1,8 @@
 ent-NCArmorWorkbench = armor workbench
-ent-NCArmorWorkbench-desc = A rough industrial bench for assembling layered armor from soft packs and plates.
+ent-NCArmorWorkbench-desc = A rough industrial bench for assembling physical armor from carriers and SP plates.
 ent-NCArmorBlueprintMilitechVest = armor vest blueprint
 ent-NCArmorBlueprintMilitechVest-desc = A cut pattern for a basic armored vest.
-ent-NCArmorSoftMaterialKevlar = kevlar underlayer
-ent-NCArmorSoftMaterialKevlar-desc = A flexible soft package for the inner armor layer.
-ent-NCArmorHardMaterialSteelPlate = steel armor plate
-ent-NCArmorHardMaterialSteelPlate-desc = A heavy external plate for the hard armor layer.
+ent-NCArmorCarrierKevlar = kevlar carrier
+ent-NCArmorCarrierKevlar-desc = A flexible carrier package for armor assembly.
+ent-NCArmorPlateSteelMaterial = steel armor plate
+ent-NCArmorPlateSteelMaterial-desc = A heavy plate that contributes stopping power.

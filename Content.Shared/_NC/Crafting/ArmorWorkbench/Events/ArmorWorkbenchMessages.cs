@@ -22,14 +22,14 @@ public sealed class ArmorWorkbenchMaterialEntry
 {
     public NetEntity Entity { get; }
     public string Name { get; }
-    public int ArmorClass { get; }
+    public float StoppingPower { get; }
     public float Durability { get; }
 
-    public ArmorWorkbenchMaterialEntry(NetEntity entity, string name, int armorClass, float durability)
+    public ArmorWorkbenchMaterialEntry(NetEntity entity, string name, float stoppingPower, float durability)
     {
         Entity = entity;
         Name = name;
-        ArmorClass = armorClass;
+        StoppingPower = stoppingPower;
         Durability = durability;
     }
 }
@@ -44,14 +44,14 @@ public sealed class ArmorWorkbenchBoundUserInterfaceState : BoundUserInterfaceSt
     public string? BlueprintName { get; }
     public string? ResultName { get; }
     public int BaseMaterialAmount { get; }
-    public int SoftMaterialAmount { get; }
-    public int HardMaterialAmount { get; }
+    public int CarrierMaterialAmount { get; }
+    public int PlateMaterialAmount { get; }
     public List<ArmorWorkbenchMaterialEntry> BaseMaterials { get; }
-    public List<ArmorWorkbenchMaterialEntry> SoftMaterials { get; }
-    public List<ArmorWorkbenchMaterialEntry> HardMaterials { get; }
+    public List<ArmorWorkbenchMaterialEntry> CarrierMaterials { get; }
+    public List<ArmorWorkbenchMaterialEntry> PlateMaterials { get; }
     public NetEntity? SelectedBaseMaterial { get; }
-    public NetEntity? SelectedSoftMaterial { get; }
-    public NetEntity? SelectedHardMaterial { get; }
+    public NetEntity? SelectedCarrierMaterial { get; }
+    public NetEntity? SelectedPlateMaterial { get; }
 
     public ArmorWorkbenchBoundUserInterfaceState(
         ArmorWorkbenchUiStatus status,
@@ -61,14 +61,14 @@ public sealed class ArmorWorkbenchBoundUserInterfaceState : BoundUserInterfaceSt
         string? blueprintName,
         string? resultName,
         int baseMaterialAmount,
-        int softMaterialAmount,
-        int hardMaterialAmount,
+        int carrierMaterialAmount,
+        int plateMaterialAmount,
         List<ArmorWorkbenchMaterialEntry> baseMaterials,
-        List<ArmorWorkbenchMaterialEntry> softMaterials,
-        List<ArmorWorkbenchMaterialEntry> hardMaterials,
+        List<ArmorWorkbenchMaterialEntry> carrierMaterials,
+        List<ArmorWorkbenchMaterialEntry> plateMaterials,
         NetEntity? selectedBaseMaterial,
-        NetEntity? selectedSoftMaterial,
-        NetEntity? selectedHardMaterial)
+        NetEntity? selectedCarrierMaterial,
+        NetEntity? selectedPlateMaterial)
     {
         Status = status;
         IsCrafting = isCrafting;
@@ -77,14 +77,14 @@ public sealed class ArmorWorkbenchBoundUserInterfaceState : BoundUserInterfaceSt
         BlueprintName = blueprintName;
         ResultName = resultName;
         BaseMaterialAmount = baseMaterialAmount;
-        SoftMaterialAmount = softMaterialAmount;
-        HardMaterialAmount = hardMaterialAmount;
+        CarrierMaterialAmount = carrierMaterialAmount;
+        PlateMaterialAmount = plateMaterialAmount;
         BaseMaterials = baseMaterials;
-        SoftMaterials = softMaterials;
-        HardMaterials = hardMaterials;
+        CarrierMaterials = carrierMaterials;
+        PlateMaterials = plateMaterials;
         SelectedBaseMaterial = selectedBaseMaterial;
-        SelectedSoftMaterial = selectedSoftMaterial;
-        SelectedHardMaterial = selectedHardMaterial;
+        SelectedCarrierMaterial = selectedCarrierMaterial;
+        SelectedPlateMaterial = selectedPlateMaterial;
     }
 }
 

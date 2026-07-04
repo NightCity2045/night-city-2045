@@ -9,11 +9,16 @@
     category: External
     humanityCost: 14
     cyberFamily: ArmorLayer
-  - type: Armor
-    modifiers:
-      coefficients:
-        Piercing: 0.9
-        Shock: 1.2
+  - type: PhysicalArmor
+    stoppingPower: 18
+    maxDurability: 120
+    currentDurability: 120
+    materialType: Subdermal
+    bluntDamageMultiplier: 0.8
+    durabilityDamageMultiplier: 0.5
+    subdermal: true
+    coverage:
+    - All
 
 # --- THERMOPLASTIC ARMOR TIER 2 ---
 - type: entity
@@ -26,12 +31,16 @@
     category: External
     humanityCost: 22
     cyberFamily: ArmorLayer
-  - type: Armor
-    modifiers:
-      coefficients:
-        Piercing: 0.85
-        Heat: 0.95
-        Shock: 1.3
+  - type: PhysicalArmor
+    stoppingPower: 32
+    maxDurability: 160
+    currentDurability: 160
+    materialType: Subdermal
+    bluntDamageMultiplier: 0.75
+    durabilityDamageMultiplier: 0.45
+    subdermal: true
+    coverage:
+    - All
 
 # --- REACTIVE SUBLAYER TIER 3 ---
 - type: entity
@@ -44,10 +53,13 @@
     category: External
     humanityCost: 35
     cyberFamily: ArmorLayer
-  - type: Armor
-    modifiers:
-      coefficients:
-        Piercing: 0.75
-        Slash: 0.8
-        Blunt: 0.85
-        Shock: 1.5
+  - type: PhysicalArmor
+    stoppingPower: 48
+    maxDurability: 220
+    currentDurability: 220
+    materialType: Subdermal
+    bluntDamageMultiplier: 0.65
+    durabilityDamageMultiplier: 0.4
+    subdermal: true
+    coverage:
+    - All

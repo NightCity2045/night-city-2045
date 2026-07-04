@@ -165,7 +165,7 @@
     heldPrefix: cloth
   - type: ArmorMaterial
     layerType: Base
-    grantedArmorClass: 0
+    grantedStoppingPower: 0
     grantedDurability: 0
   # WD EDIT START - Short crafting
   - type: UserInterface
@@ -286,7 +286,7 @@
     heldPrefix: durathread
   - type: ArmorMaterial
     layerType: Base
-    grantedArmorClass: 0
+    grantedStoppingPower: 0
     grantedDurability: 0
 
 - type: entity
@@ -800,8 +800,8 @@
     count: 50
     stackType: WebSilk
   - type: ArmorMaterial
-    layerType: Armor
-    grantedArmorClass: 0
+    layerType: Carrier
+    grantedStoppingPower: 12
     grantedDurability: 180
   - type: Food
     requiresSpecialDigestion: true

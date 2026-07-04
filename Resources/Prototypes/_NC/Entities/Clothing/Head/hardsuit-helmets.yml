@@ -3,8 +3,8 @@
 - type: entity
   parent: [ ClothingHeadHardsuitBase, ClothingHeadSuitWithLightBase ]
   id: ClothingHeadHelmetHardsuitTraumaTeamMedic
-  name: ent-ClothingHeadHelmetHardsuitTraumaMedic
-  description: ent-ClothingHeadHelmetHardsuitTraumaMedic-desc
+  name: Trauma Team medic hardsuit helmet
+  description: A sealed Trauma Team medic helmet with an integrated light and ceramic face protection. It is meant to keep the wearer alive through evacuation, not to win a street war alone.
   components:
   - type: Sprite
     sprite: _NC/Clothing/Head/Hardsuits/trauma_med_helmet.rsi
@@ -26,19 +26,25 @@
   - type: Armor
     modifiers:
       coefficients:
-        Blunt: 0.95
-        Slash: 0.95
-        Piercing: 0.95
         Heat: 0.9
         Radiation: 0.9
         Caustic: 0.8
+  - type: PhysicalArmor
+    stoppingPower: 42
+    maxDurability: 120
+    currentDurability: 120
+    materialType: Ceramic
+    bluntDamageMultiplier: 0.1
+    durabilityDamageMultiplier: 1.25
+    coverage:
+    - Head
 
 # Operative / Armored Helmet
 - type: entity
   parent: [ ClothingHeadHardsuitBase, ClothingHeadSuitWithLightBase ]
   id: ClothingHeadHelmetHardsuitTraumaTeamOperative
-  name: ent-ClothingHeadHelmetHardsuitTraumaAssault
-  description: ent-ClothingHeadHelmetHardsuitTraumaAssault-desc
+  name: Trauma Team assault hardsuit helmet
+  description: A reinforced Trauma Team assault helmet with a steel ballistic shell, pressure seals, and combat optics. Expensive, heavy, and built for hot extractions under live fire.
   components:
   - type: Sprite
     sprite: _NC/Clothing/Head/Hardsuits/trauma_armored_helmet.rsi
@@ -65,12 +71,18 @@
   - type: Armor
     modifiers:
       coefficients:
-        Blunt: 0.8
-        Slash: 0.8
-        Piercing: 0.8
         Heat: 0.8
         Radiation: 0.8
         Caustic: 0.8
+  - type: PhysicalArmor
+    stoppingPower: 64
+    maxDurability: 180
+    currentDurability: 180
+    materialType: Steel
+    bluntDamageMultiplier: 0.35
+    durabilityDamageMultiplier: 0.5
+    coverage:
+    - Head
   - type: FlashImmunity
   - type: FlashSoundSuppression
   - type: EyeProtection

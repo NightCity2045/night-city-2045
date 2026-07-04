@@ -240,8 +240,8 @@
     graph: ImprovisedShotgunShellGraph
     node: plastic
   - type: ArmorMaterial
-    layerType: Armor
-    grantedArmorClass: 1
+    layerType: Carrier
+    grantedStoppingPower: 8
     grantedDurability: 140
 
 - type: entity

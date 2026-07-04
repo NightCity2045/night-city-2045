@@ -1,28 +1,38 @@
 - type: entity
   parent: [ClothingOuterBaseMedium, AllowSuitStorageClothing]
   id: ClothingOuterArmorBiotechnicaBulletproof
-  name: ent-ClothingOuterArmorBiotechnica
-  description: ent-ClothingOuterArmorBiotechnica-desc
+  name: Biotechnica armor vest
+  description: A Biotechnica armor carrier with kevlar backing and two plate pockets. Clean corporate finish outside, replaceable ballistic guts inside.
   components:
   - type: Sprite
     sprite: _NC/Clothing/OuterClothing/Armor/biotech_bulletproof.rsi
   - type: Clothing
     sprite: _NC/Clothing/OuterClothing/Armor/biotech_bulletproof.rsi
-  - type: NCLayeredArmor
-    softLayer:
-      armorClass: 0
-      maxDurability: 100
-      currentDurability: 100
-      coverage:
-      - Torso
-      - LeftArm
-      - RightArm
-    hardLayer:
-      armorClass: 4
-      maxDurability: 250
-      currentDurability: 250
-      coverage:
-      - Torso
+  - type: PhysicalArmor
+    stoppingPower: 16
+    maxDurability: 100
+    currentDurability: 100
+    materialType: Kevlar
+    bluntDamageMultiplier: 0.8
+    durabilityDamageMultiplier: 1
+    coverage:
+    - Torso
+    - LeftArm
+    - RightArm
+  - type: ItemSlots
+    slots:
+      armor_plate_1:
+        name: armor-plate-slot-name
+        insertOnInteract: true
+        whitelist:
+          components:
+          - PhysicalArmor
+      armor_plate_2:
+        name: armor-plate-slot-name
+        insertOnInteract: true
+        whitelist:
+          components:
+          - PhysicalArmor
   - type: ClothingSpeedModifier
     walkModifier: 0.9
     sprintModifier: 0.8

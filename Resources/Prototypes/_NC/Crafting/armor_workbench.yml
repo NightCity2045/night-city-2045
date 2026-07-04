@@ -34,7 +34,7 @@
   - type: ArmorBlueprint
     resultPrototype: ClothingOuterArmorMilitechBulletproof
     baseMaterialAmount: 1
-    softMaterialAmount: 1
-    hardMaterialAmount: 1
+    carrierMaterialAmount: 1
+    plateMaterialAmount: 1
     coverage:
     - Torso

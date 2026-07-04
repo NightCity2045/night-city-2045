@@ -19,8 +19,8 @@ public sealed partial class ArmorWorkbenchComponent : Component
     public Container Storage = default!;
 
     public EntityUid? SelectedBaseMaterial;
-    public EntityUid? SelectedSoftMaterial;
-    public EntityUid? SelectedHardMaterial;
+    public EntityUid? SelectedCarrierMaterial;
+    public EntityUid? SelectedPlateMaterial;
 
     public bool IsCrafting;
 }

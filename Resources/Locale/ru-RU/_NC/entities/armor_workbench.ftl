@@ -1,8 +1,8 @@
 ent-NCArmorWorkbench = верстак бронника
-ent-NCArmorWorkbench-desc = Грубый промышленный стол для сборки брони из ткани и плит.
+ent-NCArmorWorkbench-desc = Грубый промышленный верстак для сборки физической брони из носителей и SP-плит.
 ent-NCArmorBlueprintMilitechVest = чертёж бронежилета
-ent-NCArmorBlueprintMilitechVest-desc = Выкройка под базовый бронежилет.
-ent-NCArmorSoftMaterialKevlar = кевларовая основа
-ent-NCArmorSoftMaterialKevlar-desc = Гибкий пакет для мягкого слоя брони.
-ent-NCArmorHardMaterialSteelPlate = стальная плита
-ent-NCArmorHardMaterialSteelPlate-desc = Грубая бронеплита для внешнего слоя.
+ent-NCArmorBlueprintMilitechVest-desc = Выкройка для базового бронежилета.
+ent-NCArmorCarrierKevlar = кевларовый носитель
+ent-NCArmorCarrierKevlar-desc = Гибкий пакет-носитель для сборки брони.
+ent-NCArmorPlateSteelMaterial = стальная бронеплита
+ent-NCArmorPlateSteelMaterial-desc = Тяжёлая бронеплита, добавляющая SP.
