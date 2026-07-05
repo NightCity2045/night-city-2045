@@ -11,6 +11,8 @@
     sprite: Objects/Misc/pens.rsi
     heldPrefix: pen
     size: Tiny
+  - type: NCWeight
+    weight: 0.02
   - type: Tag
     tags:
     - Write

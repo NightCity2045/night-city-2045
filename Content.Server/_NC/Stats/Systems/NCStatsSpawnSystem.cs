@@ -15,6 +15,7 @@ namespace Content.Server._NC.Stats.Systems;
 public sealed class NCStatsSpawnSystem : EntitySystem
 {
     [Dependency] private readonly SharedNCStatsSystem _stats = default!;
+    [Dependency] private readonly SharedNCBodySystem _body = default!;
     [Dependency] private readonly MovementSpeedModifierSystem _movementSpeed = default!;
 
     public override void Initialize()
@@ -54,6 +55,10 @@ public sealed class NCStatsSpawnSystem : EntitySystem
         var luck = EnsureComp<NCLuckComponent>(uid);
         _stats.SyncLuck(uid, luck);
         Dirty(uid, luck);
+
+        // BODY-derived carried weight belongs to the same runtime stat application path.
+        var body = EnsureComp<NCBodyComponent>(uid);
+        _body.RefreshBody(uid, body, stats);
 
         // NC stats affect derived movement modifiers, so recalculate after the profile build is on the mob.
         _movementSpeed.RefreshMovementSpeedModifiers(uid);

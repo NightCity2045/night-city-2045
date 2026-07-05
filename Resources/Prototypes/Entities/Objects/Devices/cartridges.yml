@@ -7,6 +7,8 @@
   - type: Sprite
     sprite: Objects/Devices/cartridge.rsi
     state: cart-y
+  - type: NCWeight
+    weight: 0.05
   - type: UIFragment
     ui: !type:NotekeeperUi
   - type: Cartridge
@@ -26,6 +28,8 @@
   - type: Sprite
     sprite: Objects/Devices/cartridge.rsi
     state: cart-nav
+  - type: NCWeight
+    weight: 0.05
   - type: Cartridge
     programName: nano-task-program-name
     icon:
@@ -44,6 +48,8 @@
   - type: Sprite
     sprite: Objects/Devices/cartridge.rsi
     state: cart-y
+  - type: NCWeight
+    weight: 0.05
   - type: UIFragment
     ui: !type:NewsReaderUi
   - type: Cartridge
@@ -62,6 +68,8 @@
   - type: Sprite
     sprite: Objects/Devices/cartridge.rsi
     state: cart-y
+  - type: NCWeight
+    weight: 0.05
   - type: UIFragment
     ui: !type:CrewManifestUi
   - type: Cartridge

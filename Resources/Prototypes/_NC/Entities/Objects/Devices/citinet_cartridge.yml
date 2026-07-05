@@ -21,6 +21,8 @@
     state: cart-log
   - type: Item
     sprite: Objects/Devices/cartridge.rsi
+  - type: NCWeight
+    weight: 0.05
 
 - type: entity
   id: CitiNetCartridgeCorporate
@@ -57,4 +59,6 @@
     state: cart-log
   - type: Item
     sprite: Objects/Devices/cartridge.rsi
+  - type: NCWeight
+    weight: 0.05
 

@@ -37,8 +37,8 @@ public sealed partial class HumanoidCharacterProfile : ICharacterProfile
     public const int MaxNameLength = 64;
     public const int MaxDescLength = 1024;
     public const int MaxCustomContentLength = 524288; // WD EDIT
-    public const int StartingStatPoints = 62;
-    public const int StartingSkillPoints = 82;
+    public const int StartingStatPoints = 50;
+    public const int StartingSkillPoints = 10;
 
     /// Job preferences for initial spawn
     [DataField]

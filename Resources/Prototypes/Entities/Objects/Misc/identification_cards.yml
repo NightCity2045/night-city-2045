@@ -15,6 +15,8 @@
     size: Small
     heldPrefix: default
     storedRotation: -90
+  - type: NCWeight
+    weight: 0.03
   - type: Access
   - type: IdCard
   - type: StationRecordKeyStorage

@@ -1,0 +1,9 @@
+nc-body-alert-name = Перегруз BODY
+nc-body-alert-desc = Вес снаряжения превышает возможности вашего BODY.
+nc-body-overloaded-pickup = Вы слишком перегружены, чтобы взять это.
+nc-character-info-stats-header = Характеристики
+nc-character-info-weight = Вес: {$current} / {$max} кг ({$level})
+nc-body-load-none = норма
+nc-body-load-light = легкий перегруз
+nc-body-load-heavy = тяжелый перегруз
+nc-body-load-overloaded = перегруз

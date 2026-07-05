@@ -1,4 +1,5 @@
 using System.IO;
+using Content.Shared.Alert;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Serialization;
 
@@ -31,6 +32,42 @@ public sealed partial class NCStatPrototype : IPrototype, ISerializationHooks
     [DataField("movementSpeedModifiers")]
     public Dictionary<int, float> MovementSpeedModifiers { get; private set; } = new();
 
+    [DataField("bodyKgPerPoint")]
+    public float BodyKgPerPoint { get; private set; } = 8f;
+
+    [DataField("bodyLightThreshold")]
+    public float BodyLightThreshold { get; private set; } = 0.60f;
+
+    [DataField("bodyHeavyThreshold")]
+    public float BodyHeavyThreshold { get; private set; } = 0.85f;
+
+    [DataField("bodyOverloadedThreshold")]
+    public float BodyOverloadedThreshold { get; private set; } = 1.00f;
+
+    [DataField("bodyLightWalkModifier")]
+    public float BodyLightWalkModifier { get; private set; } = 0.8f;
+
+    [DataField("bodyLightSprintModifier")]
+    public float BodyLightSprintModifier { get; private set; } = 0.8f;
+
+    [DataField("bodyHeavyWalkModifier")]
+    public float BodyHeavyWalkModifier { get; private set; } = 0.6f;
+
+    [DataField("bodyHeavySprintModifier")]
+    public float BodyHeavySprintModifier { get; private set; } = 0f;
+
+    [DataField("bodyOverloadedWalkModifier")]
+    public float BodyOverloadedWalkModifier { get; private set; } = 0.1f;
+
+    [DataField("bodyOverloadedSprintModifier")]
+    public float BodyOverloadedSprintModifier { get; private set; } = 0f;
+
+    [DataField("bodyLoadAlert")]
+    public ProtoId<AlertPrototype> BodyLoadAlert { get; private set; } = "NCBodyLoad";
+
+    [DataField("bodyItemSizeWeights")]
+    public Dictionary<string, float> BodyItemSizeWeights { get; private set; } = new();
+
     void ISerializationHooks.AfterDeserialization()
     {
         if (string.IsNullOrWhiteSpace(ID))
@@ -46,6 +83,38 @@ public sealed partial class NCStatPrototype : IPrototype, ISerializationHooks
 
             if (modifier <= 0f)
                 throw new InvalidDataException($"ncStat {ID} has non-positive movement speed modifier for value {value}.");
+        }
+
+        if (ID != NCStatIds.Body)
+            return;
+
+        if (BodyKgPerPoint <= 0f)
+            throw new InvalidDataException($"ncStat {ID} has non-positive BODY kg-per-point value.");
+
+        if (BodyLightThreshold < 0f ||
+            BodyHeavyThreshold < BodyLightThreshold ||
+            BodyOverloadedThreshold < BodyHeavyThreshold)
+        {
+            throw new InvalidDataException($"ncStat {ID} has invalid BODY load thresholds.");
+        }
+
+        if (BodyLightWalkModifier < 0f ||
+            BodyLightSprintModifier < 0f ||
+            BodyHeavyWalkModifier < 0f ||
+            BodyHeavySprintModifier < 0f ||
+            BodyOverloadedWalkModifier < 0f ||
+            BodyOverloadedSprintModifier < 0f)
+        {
+            throw new InvalidDataException($"ncStat {ID} has negative BODY movement modifier.");
+        }
+
+        foreach (var (size, weight) in BodyItemSizeWeights)
+        {
+            if (string.IsNullOrWhiteSpace(size))
+                throw new InvalidDataException($"ncStat {ID} has an empty BODY item size weight key.");
+
+            if (weight < 0f)
+                throw new InvalidDataException($"ncStat {ID} has negative BODY item size weight for {size}.");
         }
     }
 }

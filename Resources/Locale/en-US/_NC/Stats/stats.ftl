@@ -176,3 +176,13 @@ nc-profile-editor-skills-budget = Skills: {$spent}/{$total} spent, {$remaining} 
 nc-profile-editor-rpg-locked = Distribution is already locked.
 nc-profile-editor-rpg-unlocked = Distribution will lock after the first save.
 nc-profile-editor-skill-cost = (x{$cost})
+
+nc-body-alert-name = BODY Load
+nc-body-alert-desc = Your carried weight exceeds what your BODY can handle.
+nc-body-overloaded-pickup = You are too overloaded to pick that up.
+nc-character-info-stats-header = Characteristics
+nc-character-info-weight = Weight: {$current} / {$max} kg ({$level})
+nc-body-load-none = normal
+nc-body-load-light = light overload
+nc-body-load-heavy = heavy overload
+nc-body-load-overloaded = overloaded
