@@ -11,6 +11,8 @@
     - state: pda-security
   - type: Item
     size: Small
+  - type: NCWeight
+    weight: 0.8
   - type: NcpdTablet
   - type: CitiNetMap
     visibleGroups: ["Public", "NCPD"]

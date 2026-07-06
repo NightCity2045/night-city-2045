@@ -10,6 +10,8 @@
     category: Neuroport
     humanityCost: 20
     cyberFamily: Sandevistan
+  - type: NCWeight
+    weight: 0.6
   - type: CyberwareAction
     actionId: ActionToggleSandevistan
   - type: Sandevistan
@@ -36,6 +38,8 @@
     category: Neuroport
     humanityCost: 45
     cyberFamily: Sandevistan
+  - type: NCWeight
+    weight: 0.6
   - type: CyberwareAction
     actionId: ActionToggleSandevistan
   - type: Sandevistan
@@ -62,6 +66,8 @@
     category: Neuroport
     humanityCost: 20
     cyberFamily: Sandevistan
+  - type: NCWeight
+    weight: 0.6
   - type: CyberwareAction
     actionId: ActionToggleSandevistan
   - type: Sandevistan

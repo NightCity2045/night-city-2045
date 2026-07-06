@@ -25,6 +25,8 @@
   description: Небольшая корпоративная тяпка для удаления сорняков из лотков для растений.
   suffix: Biotechnica, Гидропоника, Ботаника
   components:
+  - type: NCWeight
+    weight: 0.6
   - type: Sprite
     sprite: _NC/Objects/Tools/Biotechnica/Botany/hoe.rsi
     state: icon
@@ -38,6 +40,8 @@
   description: Небольшие корпоративные кусачки дляизвлечения семян из посаженных растений.
   suffix: Biotechnica, Гидропоника, Ботаника, Кусачки
   components:
+  - type: NCWeight
+    weight: 0.4
   - type: Sprite
     sprite: _NC/Objects/Tools/Biotechnica/Botany/clippers.rsi
     state: icon
@@ -52,6 +56,8 @@
   description: Небольшая корпоративная коса для сбора урожая с сопротивляющихся растений. Очень острая.
   suffix: Biotechnica, Гидропоника, Ботаника
   components:
+  - type: NCWeight
+    weight: 1.5
   - type: Sprite
     sprite: _NC/Objects/Tools/Biotechnica/Botany/scythe.rsi
     state: icon
@@ -67,6 +73,8 @@
   description: Небольшой корпоративный топорик для сбора урожая с сопротивляющихся растений. Очень острый.
   suffix: Biotechnica, Гидропоника, Ботаника
   components:
+  - type: NCWeight
+    weight: 1.2
   - type: Sprite
     sprite: _NC/Objects/Tools/Biotechnica/Botany/hatchet.rsi
     state: icon
@@ -80,6 +88,8 @@
   description: Небольшая корпоративная лопатка для удаления еще живых растений из лотков.
   suffix: Biotechnica, Гидропоника, Ботаника
   components:
+  - type: NCWeight
+    weight: 0.8
   - type: Sprite
     sprite: _NC/Objects/Tools/Biotechnica/Botany/spade.rsi
     state: icon
@@ -93,6 +103,8 @@
   description: Корпоративная переносная сумка для хранения плодов растений и их семян. Спереди виднеется лого Biotechnica.
   suffix: Biotechnica, Гидропоника, Ботаника
   components:
+  - type: NCWeight
+    weight: 0.5
   - type: Sprite
     sprite: _NC/Objects/Tools/Biotechnica/Botany/plant_bag.rsi
     state: icon
@@ -104,6 +116,8 @@
   description: Расширенная экспериментальная переносная сумка для хранения плодов растений и семян Biotechnica.
   suffix: Biotechnica, Гидропоника, Ботаника
   components:
+  - type: NCWeight
+    weight: 1.0
   - type: Sprite
     sprite: _NC/Objects/Tools/Biotechnica/Botany/plant_bag_of_holding.rsi
     state: icon
@@ -121,6 +135,8 @@
   description: Корпоративное устройство для считывания состояния здоровья и плодородности растения.
   suffix: Biotechnica, Гидропоника, Ботаника
   components:
+  - type: NCWeight
+    weight: 0.7
   - type: Sprite
     sprite: _NC/Objects/Tools/Biotechnica/Botany/plant_analyzer.rsi
     layers:
@@ -157,6 +173,8 @@
   description: Лечит бесплодие растений. Используйте умеренно.
   suffix: Заполненный
   components:
+  - type: NCWeight
+    weight: 0.2
   - type: Sprite
     sprite: Objects/Tools/Hydroponics/sprays.rsi
     state: nolabelspray
@@ -181,6 +199,8 @@
   description: Корпоративная пипетка для переноса маленьких объемов жидкости в стерильных условиях.
   suffix: Biotechnica, МедТех, Гидропоника, Ботаника
   components:
+  - type: NCWeight
+    weight: 0.05
   - type: Sprite
     sprite: _NC/Objects/Tools/Biotechnica/MedTech/dropper.rsi
   - type: Item
@@ -193,6 +213,8 @@
   description: Корпоративная переносная сумка для хранения химикатов. Спереди виднеется лого Biotechnica.
   suffix: Biotechnica, МедТех
   components:
+  - type: NCWeight
+    weight: 0.5
   - type: Item
     size: Small
   - type: Sprite
@@ -206,6 +228,8 @@
   description: Расширенная экспериментальная переносная сумка для хранения химикатов Biotechnica.
   suffix: Biotechnica, МедТех
   components:
+  - type: NCWeight
+    weight: 1.0
   - type: Sprite
     sprite: _NC/Objects/Tools/Biotechnica/MedTech/chem_bag_of_holding.rsi
     state: icon
@@ -225,6 +249,8 @@
   description: Компактный сварочный аппарат Биотехники с уменьшенным объемом топлива. Требует защиты глаз.
   suffix: Biotechnica, Тех
   components:
+  - type: NCWeight
+    weight: 1.0
   - type: Sprite
     sprite: _NC/Objects/Tools/Biotechnica/Tech/welder_mini.rsi
   - type: Item
@@ -237,6 +263,8 @@
   description: Корпоративный инструмент сварки стандартной мощности и объема топлива. Требует защиты глаз.
   suffix: Biotechnica, Тех
   components:
+  - type: NCWeight
+    weight: 2.0
   - type: Sprite
     sprite: _NC/Objects/Tools/Biotechnica/Tech/welder.rsi
   - type: Item
@@ -249,6 +277,8 @@
   description: Корпоративный инструмент для перерезания проводов.
   suffix: Biotechnica, Тех
   components:
+  - type: NCWeight
+    weight: 0.4
   - type: Sprite
     sprite: _NC/Objects/Tools/Biotechnica/Tech/wirecutters.rsi
   - type: Item
@@ -261,6 +291,8 @@
   description: Копмпактная корпоративная отвёртка со сменной резьбой.
   suffix: Biotechnica, Тех
   components:
+  - type: NCWeight
+    weight: 0.25
   - type: Sprite
     sprite: _NC/Objects/Tools/Biotechnica/Tech/screwdriver.rsi
   - type: Item
@@ -274,6 +306,8 @@
   description: Корпоративный инструмент для закрепления предметов. И наоборот.
   suffix: Biotechnica, Тех
   components:
+  - type: NCWeight
+    weight: 1.0
   - type: Sprite
     sprite: _NC/Objects/Tools/Biotechnica/Tech/wrench.rsi
   - type: Item
@@ -289,6 +323,8 @@
   description: Карманная корпоративная монтировка для разборки вещей и вскрытия заклинивших механизмов.
   suffix: Biotechnica, Тех
   components:
+  - type: NCWeight
+    weight: 1.5
   - type: Sprite
     sprite: Objects/Tools/crowbar.rsi
     layers:
@@ -326,6 +362,8 @@
   description: Корпоративное устройство печати распознавательных этикеток. Маркируйте им ящики, бутылочки и прочие емкости для легкого распознавания.
   suffix: Biotechnica, Карго, МедТех, Гидропоника, Ботаника
   components:
+    - type: NCWeight
+      weight: 0.6
     - type: Sprite
       sprite: _NC/Objects/Tools/Biotechnica/labeler.rsi
     - type: Item
@@ -338,6 +376,8 @@
   description: Корпоративный инструмент для оценки продаваемого товара.
   suffix: Biotechnica, Карго
   components:
+  - type: NCWeight
+    weight: 0.8
   - type: Sprite
     sprite: _NC/Objects/Tools/Biotechnica/appraisal.rsi
   - type: Item

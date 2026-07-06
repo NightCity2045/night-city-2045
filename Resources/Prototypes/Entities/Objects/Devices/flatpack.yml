@@ -7,6 +7,8 @@
   components:
   - type: Item
     size: Large
+  - type: NCWeight
+    weight: 20.0
   - type: Sprite
     sprite: Objects/Devices/flatpack.rsi
     layers:

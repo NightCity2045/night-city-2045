@@ -16,3 +16,5 @@
   - type: Item
     sprite: Objects/Devices/encryption_keys.rsi
     size: Tiny
+  - type: NCWeight
+    weight: 0.05

@@ -6,6 +6,8 @@
   id: ProduceBase
   abstract: true
   components:
+  - type: NCWeight
+    weight: 0.1
   - type: SolutionContainerManager
   - type: Sprite
     state: produce
@@ -31,6 +33,8 @@
   id: FoodProduceBase
   abstract: true
   components:
+  - type: NCWeight
+    weight: 0.1
   - type: SolutionContainerManager
   - type: Sprite
     state: produce

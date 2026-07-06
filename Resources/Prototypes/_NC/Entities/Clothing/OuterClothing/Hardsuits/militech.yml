@@ -39,6 +39,8 @@
     - RightLeg
     - LeftFoot
     - RightFoot
+  - type: NCWeight
+    weight: 25.0
   - type: ClothingSpeedModifier
     walkModifier: 0.75
     sprintModifier: 0.9

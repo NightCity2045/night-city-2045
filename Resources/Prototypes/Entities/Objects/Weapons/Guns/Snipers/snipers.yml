@@ -11,6 +11,8 @@
       map: ["enum.GunVisualLayers.Base"]
   - type: Item
     size: Huge
+  - type: NCWeight
+    weight: 7.5
   - type: Clothing
     equipSound: /Audio/_White/Equip/clothingrustle4.ogg # WD EDIT
     sprite: Objects/Weapons/Guns/Snipers/bolt_gun_wood.rsi

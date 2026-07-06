@@ -31,8 +31,6 @@
     OrganHumanEyes: 2
     OrganHumanBrain: 1
 
-
-
   startingItemPrices:
     # External
     CyberwareExternalKevlarSublayer: 150

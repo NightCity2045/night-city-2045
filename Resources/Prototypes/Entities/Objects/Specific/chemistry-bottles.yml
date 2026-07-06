@@ -5,6 +5,8 @@
   abstract: true
   description: A small bottle.
   components:
+  - type: NCWeight
+    weight: 0.15
   - type: Tag
     tags:
     - Bottle
@@ -144,6 +146,8 @@
   id: BaseChemistryBottleFilled
   abstract: true
   components:
+  - type: NCWeight
+    weight: 0.45
   - type: Tag
     tags:
     - Bottle

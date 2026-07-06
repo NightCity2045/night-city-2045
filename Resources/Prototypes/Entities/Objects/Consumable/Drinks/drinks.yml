@@ -83,6 +83,8 @@
   id: DrinkGlassBase
   abstract: true
   components:
+  - type: NCWeight
+    weight: 0.2
   - type: Damageable
     damageContainer: Inorganic
     damageModifierSet: Glass

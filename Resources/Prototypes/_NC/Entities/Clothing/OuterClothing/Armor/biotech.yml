@@ -33,6 +33,8 @@
         whitelist:
           components:
           - PhysicalArmor
+  - type: NCWeight
+    weight: 3.0
   - type: ClothingSpeedModifier
     walkModifier: 0.9
     sprintModifier: 0.8

@@ -13,6 +13,8 @@
     - Back
   - type: Item
     size: Huge
+  - type: NCWeight
+    weight: 12.0
   - type: StaticPrice
     price: 500
   - type: ContainerContainer

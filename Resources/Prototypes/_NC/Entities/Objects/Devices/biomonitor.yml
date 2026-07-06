@@ -9,6 +9,8 @@
     state: icon
   - type: Item
     storedRotation: -90
+  - type: NCWeight
+    weight: 0.5
   - type: ActivatableUI
     key: enum.BiomonitorUiKey.Key
   - type: UserInterface

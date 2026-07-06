@@ -8,6 +8,8 @@
   - type: Sprite
   - type: Item
     size: Huge
+  - type: NCWeight
+    weight: 9.5
   - type: Clothing
     equipSound: /Audio/_White/Equip/clothingrustle4.ogg # WWDP
     sprite: Objects/Weapons/Guns/LMGs/l6.rsi

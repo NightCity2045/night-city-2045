@@ -11,6 +11,8 @@
       sprite: _NC/Clothing/OuterClothing/Armor/nwn-armorvest.rsi
     - type: Clothing
       sprite: _NC/Clothing/OuterClothing/Armor/nwn-armorvest.rsi
+    - type: NCWeight
+      weight: 2.0
     - type: PhysicalArmor
       stoppingPower: 14
       maxDurability: 80

@@ -450,6 +450,18 @@
     price: 80
   - proto: NCRecipePaperSvakha
     price: 30
+  - proto: OrganHumanHeart
+    price: 150
+  - proto: OrganHumanLungs
+    price: 100
+  - proto: OrganHumanLiver
+    price: 100
+  - proto: OrganHumanKidneys
+    price: 100
+  - proto: OrganHumanEyes
+    price: 50
+  - proto: OrganHumanBrain
+    price: 200
 
 - type: storeCategoryStructured
   id: Cat_City_Clothing_Extra_Sell
@@ -518,7 +530,7 @@
   - proto: BurnerChip
     price: 15
   - proto: NeuralLinkCable
-    price: 15
+    price: 150
   - proto: HydroponicsTrayFlatpack
     price: 150
   - proto: SeedExtractorFlatpack

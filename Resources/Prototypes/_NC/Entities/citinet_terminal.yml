@@ -32,6 +32,8 @@
   - type: Sprite
     sprite: Objects/Devices/cartridge.rsi
     state: cart-sec
+  - type: NCWeight
+    weight: 0.05
   - type: DataChip
     unlockedSiteId: NCPDDatabase
 
@@ -44,6 +46,8 @@
   - type: Sprite
     sprite: Objects/Devices/cartridge.rsi
     state: cart-sec
+  - type: NCWeight
+    weight: 0.05
   - type: DataChip
     unlockedSiteId: NcpdForensics
 
@@ -57,7 +61,7 @@
     anchored: true
   - type: DropPoint
     dropType: Corporate
-    locationName: "Сектор 4, Главный холл"
+    locationName: "Look at cords..."
   - type: OTPKeypad
   - type: AccessReader # Overriding with empty access to prevent opening by any card
     access: []
@@ -82,7 +86,7 @@
     anchored: true
   - type: DropPoint
     dropType: DeadDrop
-    locationName: "Переулок за баром Джо"
+    locationName: "In the ass"
 
 - type: entity
   parent: BaseItem
@@ -96,4 +100,6 @@
     sprite: Objects/Devices/encryption_keys.rsi
     layers:
     - state: crypt_blue
+  - type: NCWeight
+    weight: 0.05
   - type: DeliveryChip
