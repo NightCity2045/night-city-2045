@@ -2064,7 +2064,7 @@ namespace Content.Client.Lobby.UI
                 return;
             }
 
-            var spentStats = Profile.GetSpentStatPoints();
+            var spentStats = Profile.GetSpentStatPoints(_prototypeManager);
             var spentSkills = Profile.GetSpentSkillPoints(_prototypeManager);
             var statsRemaining = HumanoidCharacterProfile.StartingStatPoints - spentStats;
             var skillsRemaining = HumanoidCharacterProfile.StartingSkillPoints - spentSkills;
@@ -2240,7 +2240,7 @@ namespace Content.Client.Lobby.UI
             if (nextValue < proto.MinValue || nextValue > proto.MaxValue)
                 return;
 
-            if (delta > 0 && Profile.GetSpentStatPoints() >= HumanoidCharacterProfile.StartingStatPoints)
+            if (delta > 0 && Profile.GetSpentStatPoints(_prototypeManager) >= HumanoidCharacterProfile.StartingStatPoints)
                 return;
 
             entry.Value.BaseValue = nextValue;

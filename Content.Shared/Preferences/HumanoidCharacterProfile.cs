@@ -926,9 +926,19 @@ public sealed partial class HumanoidCharacterProfile : ICharacterProfile
         return new HumanoidCharacterProfile(this);
     }
 
-    public int GetSpentStatPoints()
+    public int GetSpentStatPoints(IPrototypeManager prototypeManager)
     {
-        return Stats.Sum(stat => Math.Max(0, stat.Value.BaseValue - 1));
+        var spent = 0;
+
+        foreach (var stat in Stats)
+        {
+            if (!prototypeManager.TryIndex<NCStatPrototype>(stat.StatId, out var proto))
+                continue;
+
+            spent += Math.Max(0, stat.Value.BaseValue - proto.MinValue);
+        }
+
+        return spent;
     }
 
     public int GetSpentSkillPoints(IPrototypeManager prototypeManager)
@@ -940,7 +950,7 @@ public sealed partial class HumanoidCharacterProfile : ICharacterProfile
             if (!prototypeManager.TryIndex<NCSkillPrototype>(skill.SkillId, out var proto))
                 continue;
 
-            spent += skill.Value.BaseValue * proto.CostMultiplier;
+            spent += Math.Max(0, skill.Value.BaseValue - proto.MinValue) * proto.CostMultiplier;
         }
 
         return spent;
@@ -1095,7 +1105,7 @@ public sealed partial class HumanoidCharacterProfile : ICharacterProfile
             if (seen.Contains(proto.ID))
                 continue;
 
-            existing.Add(new NCSkillEntry(proto.ID, new NCTrackedValue(0)));
+            existing.Add(new NCSkillEntry(proto.ID, new NCTrackedValue(proto.DefaultBaseValue)));
         }
 
         return existing
@@ -1105,7 +1115,11 @@ public sealed partial class HumanoidCharacterProfile : ICharacterProfile
 
     private static List<NCStatEntry> FitStatsToBudget(List<NCStatEntry> stats, IPrototypeManager prototypeManager)
     {
-        var spent = stats.Sum(stat => Math.Max(0, stat.Value.BaseValue - 1));
+        var spent = stats.Sum(stat =>
+        {
+            var proto = prototypeManager.Index<NCStatPrototype>(stat.StatId);
+            return Math.Max(0, stat.Value.BaseValue - proto.MinValue);
+        });
         while (spent > StartingStatPoints)
         {
             var changed = false;
@@ -1139,7 +1153,7 @@ public sealed partial class HumanoidCharacterProfile : ICharacterProfile
     {
         var spent = skills.Sum(skill =>
             prototypeManager.TryIndex<NCSkillPrototype>(skill.SkillId, out var proto)
-                ? skill.Value.BaseValue * proto.CostMultiplier
+                ? Math.Max(0, skill.Value.BaseValue - proto.MinValue) * proto.CostMultiplier
                 : 0);
 
         while (spent > StartingSkillPoints)

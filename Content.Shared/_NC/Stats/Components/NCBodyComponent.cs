@@ -5,7 +5,7 @@ namespace Content.Shared._NC.Stats.Components;
 /// <summary>
 /// Networked BODY-derived carried-weight state for a character.
 /// </summary>
-[RegisterComponent, NetworkedComponent, AutoGenerateComponentState]
+[RegisterComponent, NetworkedComponent, AutoGenerateComponentState(RaiseAfterAutoHandleState = true)]
 public sealed partial class NCBodyComponent : Component
 {
     [ViewVariables]

@@ -3,6 +3,7 @@ using Content.Client.Stylesheets;
 using Content.Shared._NC.Stats;
 using Content.Shared._NC.Stats.Components;
 using Content.Shared._NC.Stats.Prototypes;
+using Content.Shared._NC.Stats.Events;
 using Robust.Client.Player;
 using Robust.Client.UserInterface;
 using Robust.Client.UserInterface.Controls;
@@ -38,8 +39,8 @@ public sealed class NCCharacterStatsInfoSystem : EntitySystem
         base.Initialize();
 
         SubscribeLocalEvent<CharacterInfoSystem.GetCharacterInfoControlsEvent>(OnGetCharacterInfoControls);
-        SubscribeLocalEvent<NCStatsComponent, AfterAutoHandleStateEvent>(OnStatsStateChanged);
-        SubscribeLocalEvent<NCBodyComponent, AfterAutoHandleStateEvent>(OnBodyStateChanged);
+        SubscribeLocalEvent<NCStatsComponent, NCStatsStateHandledEvent>(OnStatsStateChanged);
+        SubscribeLocalEvent<NCBodyComponent, NCBodyStateHandledEvent>(OnBodyStateChanged);
     }
 
     private void OnGetCharacterInfoControls(ref CharacterInfoSystem.GetCharacterInfoControlsEvent ev)
@@ -53,12 +54,12 @@ public sealed class NCCharacterStatsInfoSystem : EntitySystem
         ev.Controls.Add(BuildInfoBlock(ev.Entity, stats));
     }
 
-    private void OnStatsStateChanged(EntityUid uid, NCStatsComponent component, ref AfterAutoHandleStateEvent args)
+    private void OnStatsStateChanged(EntityUid uid, NCStatsComponent component, NCStatsStateHandledEvent args)
     {
         RefreshCharacterWindow(uid);
     }
 
-    private void OnBodyStateChanged(EntityUid uid, NCBodyComponent component, ref AfterAutoHandleStateEvent args)
+    private void OnBodyStateChanged(EntityUid uid, NCBodyComponent component, NCBodyStateHandledEvent args)
     {
         RefreshCharacterWindow(uid);
     }

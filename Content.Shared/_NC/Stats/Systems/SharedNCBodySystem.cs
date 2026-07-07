@@ -40,6 +40,12 @@ public sealed class SharedNCBodySystem : EntitySystem
         SubscribeLocalEvent<ItemComponent, EntInsertedIntoContainerMessage>(OnItemContainerModified);
         SubscribeLocalEvent<ItemComponent, EntRemovedFromContainerMessage>(OnItemContainerModified);
         SubscribeLocalEvent<NCWeightComponent, AfterAutoHandleStateEvent>(OnWeightStateChanged);
+        SubscribeLocalEvent<NCBodyComponent, AfterAutoHandleStateEvent>(OnBodyHandleState);
+    }
+
+    private void OnBodyHandleState(EntityUid uid, NCBodyComponent component, ref AfterAutoHandleStateEvent args)
+    {
+        RaiseLocalEvent(uid, new NCBodyStateHandledEvent());
     }
 
     private void OnStartup(EntityUid uid, NCBodyComponent component, ComponentStartup args)
