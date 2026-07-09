@@ -1,0 +1,74 @@
+- type: entity
+  parent: BaseStructure
+  id: NCNetIce
+  name: ICE
+  description: Static defensive code hosted by a local NET server.
+  components:
+  - type: Sprite
+    sprite: Structures/Machines/server.rsi
+    state: server
+    color: "#66ccff"
+  - type: InteractionOutline
+  - type: NetDefense
+    kind: Ice
+    reservedLoad: 5
+  - type: IceHealth
+    maxHealth: 100
+    currentHealth: 100
+  - type: Transform
+    anchored: false
+  - type: Physics
+    bodyType: Dynamic
+  - type: Fixtures
+    fixtures:
+      fix1:
+        hard: false
+        shape:
+          !type:PhysShapeAabb
+          bounds: "-0.45,-0.45,0.45,0.45"
+        mask:
+        - MachineMask
+        layer:
+        - MachineLayer
+
+- type: entity
+  parent: NCNetIce
+  id: NCNetBlackIce
+  name: Black ICE
+  description: Lethal defensive code that burns neural links instead of merely blocking them.
+  components:
+  - type: Sprite
+    color: "#ff3333"
+  - type: NetDefense
+    kind: BlackIce
+    reservedLoad: 10
+
+- type: entity
+  parent: BaseMobSpecies
+  id: NCNetDemon
+  name: NET Demon
+  description: Active hostile code that hunts intruders inside a local NET.
+  components:
+  - type: Sprite
+    color: "#ff00ffaa"
+  - type: NetDefense
+    kind: Demon
+    reservedLoad: 15
+  - type: NetDemon
+    damage: 5
+    pulseInterval: 1.5
+    range: 1.5
+  - type: MovementSpeedModifier
+    baseWalkSpeed: 4
+    baseSprintSpeed: 6
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape:
+          !type:PhysShapeCircle
+          radius: 0.35
+        density: 20
+        mask:
+        - MobMask
+        layer:
+        - MobLayer

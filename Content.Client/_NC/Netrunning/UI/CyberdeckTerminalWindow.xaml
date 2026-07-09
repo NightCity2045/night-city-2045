@@ -5,8 +5,11 @@
         <BoxContainer Orientation="Horizontal" SeparationOverride="10">
             <Label Name="TargetLabel" Text="Link: None" />
             <Label Name="RamLabel" Text="RAM: 0/0" />
+            <Label Name="TraceLabel" Text="Trace: 0" />
+            <Label Name="StorageLabel" Text="Storage: 0/0" />
+            <Label Name="ServerLoadLabel" Text="Server: offline" />
             <BoxContainer HorizontalExpand="True" />
-            <Button Name="HotSimButton" Text="TEST" />
+            <Button Name="HotSimButton" Text="IMMERSION" />
         </BoxContainer>
 
         <TabContainer VerticalExpand="True">
@@ -15,6 +18,7 @@
                     <Label Text="Program Name:" />
                     <LineEdit Name="NameInput" HorizontalExpand="True" PlaceHolder="CoolVirus.meta" />
                 </BoxContainer>
+                <CheckBox Name="DefensiveModeCheck" Text="Compile as Defensive Daemon" />
                 <Label Text="META Source Code Editor:" />
                 <TextEdit Name="CodeInput" VerticalExpand="True" MinHeight="250" />
                 <BoxContainer Orientation="Horizontal" HorizontalAlignment="Right" Margin="4">

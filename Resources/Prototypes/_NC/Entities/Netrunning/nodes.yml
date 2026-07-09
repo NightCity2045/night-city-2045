@@ -1,1 +1,45 @@
-# Netrunning is disabled in this branch.
+- type: entity
+  parent: BaseStructure
+  id: NetDeviceNode
+  name: device node
+  description: A digital bridge to a physical device in the real world.
+  components:
+  - type: Sprite
+    sprite: Structures/Machines/server.rsi
+    state: server
+  - type: InteractionOutline
+  - type: Transform
+    anchored: false
+  - type: Physics
+    bodyType: Dynamic
+  - type: NetDeviceNode
+  - type: UserInterface
+    interfaces:
+      enum.Content.Shared._NC.Netrunning.Components.NetNodeUiKey.Key:
+        type: Content.Client._NC.Netrunning.UI.NetNodeBoundUserInterface
+  - type: Fixtures
+    fixtures:
+      fix1:
+        hard: false
+        shape:
+          !type:PhysShapeAabb
+          bounds: "-0.5,-0.5,0.5,0.5"
+        mask:
+        - MachineMask
+        layer:
+        - MachineLayer
+
+- type: entity
+  parent: BaseItem
+  id: LocalNetworkHub
+  name: network hub
+  description: A central server that provides local area network access. Required for persistent digital architecture.
+  components:
+  - type: NetNode
+  - type: Sprite
+    sprite: Structures/Machines/server.rsi
+    state: server
+  - type: Item
+    size: Large
+  - type: Anchorable
+  - type: Rotatable

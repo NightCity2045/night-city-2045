@@ -26,3 +26,7 @@ public sealed partial class NetAvatarComponent : Component
 public sealed partial class JackOutActionEvent : InstantActionEvent
 {
 }
+
+public sealed partial class OpenLinkedCyberdeckActionEvent : InstantActionEvent
+{
+}

@@ -1,1 +1,52 @@
-# Netrunning is disabled in this branch.
+- type: entity
+  parent: BaseStructure
+  id: NetServerBase
+  name: local network server
+  description: A central hub for a localized digital network. Must be connected to an LCP via MV cables.
+  components:
+  - type: Sprite
+    sprite: Structures/Machines/server.rsi
+    state: server
+  - type: InteractionOutline
+  - type: UserInterface
+    interfaces:
+      enum.Content.Shared._NC.Netrunning.Components.NetServerUiKey.Key:
+        type: Content.Client._NC.Netrunning.UI.NetServerBoundUserInterface
+  - type: NetServer
+    maxModules: 3
+    maxLoad: 100
+    rootDifficulty: 50
+  - type: DefensiveDaemon
+  - type: ItemSlots
+    slots:
+      daemon_shard:
+        name: Daemon Shard
+        whitelist:
+          components:
+          - DataShard
+  - type: ContainerContainer
+    containers:
+      daemon_shard: !type:ContainerSlot
+  - type: ApcPowerReceiver
+    powerLoad: 500
+  - type: LogicPowerReceiver
+    powerLoad: 500
+  - type: NetFileStore
+    files:
+    - boot.log
+    - security.tbl
+    - payroll_2045.qnt
+  - type: Transform
+    anchored: true
+  - type: Physics
+    bodyType: Static
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape:
+          !type:PhysShapeAabb
+          bounds: "-0.5,-0.5,0.5,0.5"
+        mask:
+        - MachineMask
+        layer:
+        - MachineLayer

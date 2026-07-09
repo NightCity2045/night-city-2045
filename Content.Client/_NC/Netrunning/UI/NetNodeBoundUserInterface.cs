@@ -17,6 +17,7 @@ public sealed class NetNodeBoundUserInterface : BoundUserInterface
         _window = new NetNodeWindow();
         _window.OnClose += Close;
         _window.OnControlAction += action => SendMessage(new NetNodeControlMessage(action));
+        _window.OnExecuteShard += shard => SendMessage(new NetNodeExecuteShardMessage(shard));
         _window.OpenCentered();
     }
 

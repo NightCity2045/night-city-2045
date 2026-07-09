@@ -17,9 +17,9 @@ public sealed class CyberdeckBoundUserInterface : BoundUserInterface
 
         _window = new CyberdeckTerminalWindow();
         _window.OnClose += Close;
-        _window.OnCompileRequested += (code, name, shard) =>
+        _window.OnCompileRequested += (code, name, kind, shard) =>
         {
-            SendMessage(new CyberdeckCompileMessage(code, name, shard));
+            SendMessage(new CyberdeckCompileMessage(code, name, kind, shard));
         };
 
         _window.OnEjectRequested += (shard) =>
