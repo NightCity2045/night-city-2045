@@ -1,54 +1,34 @@
 <DefaultWindow xmlns="https://spacestation14.io"
                xmlns:ui="clr-namespace:Content.Client._NC.Netrunning.UI"
-               Title="Консоль локальной сети"
+               Title=""
                MinWidth="920"
                MinHeight="620">
     <BoxContainer Orientation="Vertical" Margin="8" SeparationOverride="8">
         <PanelContainer StyleClasses="NetTerminalHeader">
             <BoxContainer Orientation="Horizontal" Margin="10" SeparationOverride="10">
                 <BoxContainer Orientation="Vertical" HorizontalExpand="True" SeparationOverride="2">
-                    <Label Name="ServerNameLabel"
-                           Text="СЕРВЕР://НЕИЗВЕСТЕН"
-                           StyleClasses="NetTerminalTitle"
-                           ClipText="True" />
-                    <Label Text="АДМИНИСТРАТИВНАЯ КОНСОЛЬ ЛОКАЛЬНОЙ СЕТИ"
-                           StyleClasses="NetTerminalSubtitle"
-                           ClipText="True" />
+                    <Label Name="ServerNameLabel" Text="" StyleClasses="NetTerminalTitle" ClipText="True" />
+                    <Label Name="HeaderSubtitleLabel" Text="" StyleClasses="NetTerminalSubtitle" ClipText="True" />
                     <BoxContainer Orientation="Horizontal" SeparationOverride="12" Margin="0 4 0 0">
                         <PanelContainer StyleClasses="NetTerminalBadge">
-                            <Label Name="ProviderLabel"
-                                   Text="ЛКП: нет"
-                                   StyleClasses="NetTerminalBadgeText" />
+                            <Label Name="ProviderLabel" Text="" StyleClasses="NetTerminalBadgeText" />
                         </PanelContainer>
                         <PanelContainer StyleClasses="NetTerminalBadge">
-                            <Label Name="LoadLabel"
-                                   Text="Нагрузка: 0/0"
-                                   StyleClasses="NetTerminalBadgeText" />
+                            <Label Name="LoadLabel" Text="" StyleClasses="NetTerminalBadgeText" />
                         </PanelContainer>
                         <PanelContainer StyleClasses="NetTerminalBadge">
-                            <Label Name="ModuleLabel"
-                                   Text="Модули: 0/0"
-                                   StyleClasses="NetTerminalBadgeText" />
+                            <Label Name="ModuleLabel" Text="" StyleClasses="NetTerminalBadgeText" />
                         </PanelContainer>
                         <PanelContainer StyleClasses="NetTerminalBadge">
-                            <Label Name="DeviceCountLabel"
-                                   Text="Узлы: 0"
-                                   StyleClasses="NetTerminalBadgeText" />
+                            <Label Name="DeviceCountLabel" Text="" StyleClasses="NetTerminalBadgeText" />
                         </PanelContainer>
                         <PanelContainer Name="DaemonBadge" StyleClasses="NetTerminalBadge">
-                            <Label Name="DaemonLabel"
-                                   Text="Демон: пусто"
-                                   StyleClasses="NetTerminalBadgeText" />
+                            <Label Name="DaemonLabel" Text="" StyleClasses="NetTerminalBadgeText" />
                         </PanelContainer>
                     </BoxContainer>
                 </BoxContainer>
-
-                <PanelContainer StyleClasses="NetTerminalPanel"
-                                MinWidth="230"
-                                MinHeight="92">
-                    <ui:NetServerTelemetryControl Name="TelemetryPanel"
-                                                  HorizontalExpand="True"
-                                                  VerticalExpand="True" />
+                <PanelContainer StyleClasses="NetTerminalPanel" MinWidth="230" MinHeight="92">
+                    <ui:NetServerTelemetryControl Name="TelemetryPanel" HorizontalExpand="True" VerticalExpand="True" />
                 </PanelContainer>
             </BoxContainer>
         </PanelContainer>
@@ -58,13 +38,11 @@
                 <PanelContainer StyleClasses="NetTerminalPanel" HorizontalExpand="True" VerticalExpand="True">
                     <BoxContainer Orientation="Vertical" Margin="6" SeparationOverride="4">
                         <BoxContainer Orientation="Horizontal">
-                            <Label Text="УСТРОЙСТВА СЕГМЕНТА ЛКП" StyleClasses="NetTerminalSectionTitle" />
+                            <Label Name="DevicesTitleLabel" Text="" StyleClasses="NetTerminalSectionTitle" />
                             <BoxContainer HorizontalExpand="True" />
-                            <Button Name="RefreshButton" Text="Обновить топологию" StyleClasses="NetTerminalButton" />
+                            <Button Name="RefreshButton" Text="" StyleClasses="NetTerminalButton" />
                         </BoxContainer>
-                        <Label Text="В локальную сеть выводятся только узлы, сидящие на том же прямом источнике логического питания."
-                               StyleClasses="NetTerminalSectionText"
-                               ClipText="True" />
+                        <Label Name="DevicesHintLabel" Text="" StyleClasses="NetTerminalSectionText" ClipText="True" />
                         <PanelContainer StyleClasses="NetTerminalInset" VerticalExpand="True">
                             <ItemList Name="DeviceList" VerticalExpand="True" />
                         </PanelContainer>
@@ -73,10 +51,8 @@
 
                 <PanelContainer StyleClasses="NetTerminalPanel" HorizontalExpand="True" VerticalExpand="True">
                     <BoxContainer Orientation="Vertical" Margin="6" SeparationOverride="4">
-                        <Label Text="ПОРТЫ ТОПОЛОГИИ" StyleClasses="NetTerminalSectionTitle" />
-                        <Label Text="Свободные порты принимают новые комнаты и профильные кластеры локальной сети."
-                               StyleClasses="NetTerminalSectionText"
-                               ClipText="True" />
+                        <Label Name="PortsTitleLabel" Text="" StyleClasses="NetTerminalSectionTitle" />
+                        <Label Name="PortsHintLabel" Text="" StyleClasses="NetTerminalSectionText" ClipText="True" />
                         <PanelContainer StyleClasses="NetTerminalInset" VerticalExpand="True">
                             <ItemList Name="PortList" VerticalExpand="True" />
                         </PanelContainer>
@@ -85,17 +61,15 @@
 
                 <PanelContainer StyleClasses="NetTerminalPanel" HorizontalExpand="True" VerticalExpand="True">
                     <BoxContainer Orientation="Vertical" Margin="6" SeparationOverride="4">
-                        <Label Text="СБОРКА МОДУЛЯ" StyleClasses="NetTerminalSectionTitle" />
-                        <Label Text="Выбери пакет комнаты и вшей его в совместимый расширительный порт."
-                               StyleClasses="NetTerminalSectionText"
-                               ClipText="True" />
+                        <Label Name="ModuleTitleLabel" Text="" StyleClasses="NetTerminalSectionTitle" />
+                        <Label Name="ModuleHintLabel" Text="" StyleClasses="NetTerminalSectionText" ClipText="True" />
                         <PanelContainer StyleClasses="NetTerminalInset" MinHeight="150">
                             <ItemList Name="ModuleList" VerticalExpand="True" />
                         </PanelContainer>
                         <PanelContainer StyleClasses="NetTerminalInset" VerticalExpand="True">
                             <RichTextLabel Name="ModuleDesc" Margin="4" VerticalExpand="True" />
                         </PanelContainer>
-                        <Button Name="ConstructButton" Text="Собрать модуль" StyleClasses="NetTerminalActionButton" />
+                        <Button Name="ConstructButton" Text="" StyleClasses="NetTerminalActionButton" />
                     </BoxContainer>
                 </PanelContainer>
             </BoxContainer>
@@ -103,11 +77,8 @@
             <BoxContainer Name="TopologyTab" Orientation="Horizontal" SeparationOverride="8" VerticalExpand="True">
                 <PanelContainer StyleClasses="NetTerminalPanel" MinWidth="280" HorizontalExpand="True" VerticalExpand="True">
                     <BoxContainer Orientation="Vertical" Margin="6" SeparationOverride="4">
-                        <Label Text="РАЗМЕЩЕНИЕ УЗЛОВ" StyleClasses="NetTerminalSectionTitle" />
-                        <Label Name="TopologyStatusLabel"
-                               Text="Выбери узел в списке. Затем нажми свободный тайл на карте топологии."
-                               StyleClasses="NetTerminalSectionText"
-                               ClipText="True" />
+                        <Label Name="PlacementTitleLabel" Text="" StyleClasses="NetTerminalSectionTitle" />
+                        <Label Name="TopologyStatusLabel" Text="" StyleClasses="NetTerminalSectionText" ClipText="True" />
                         <PanelContainer StyleClasses="NetTerminalInset" VerticalExpand="True">
                             <ItemList Name="TopologyList" VerticalExpand="True" />
                         </PanelContainer>
@@ -119,10 +90,8 @@
 
                 <PanelContainer StyleClasses="NetTerminalPanel" HorizontalExpand="True" VerticalExpand="True">
                     <BoxContainer Orientation="Vertical" Margin="6" SeparationOverride="4">
-                        <Label Text="КАРТА ТОПОЛОГИИ" StyleClasses="NetTerminalSectionTitle" />
-                        <Label Text="Клик по свободному тайлу мгновенно переносит выбранный узел. Требуется локальный admin или ROOT."
-                               StyleClasses="NetTerminalSectionText"
-                               ClipText="True" />
+                        <Label Name="MapTitleLabel" Text="" StyleClasses="NetTerminalSectionTitle" />
+                        <Label Name="MapHintLabel" Text="" StyleClasses="NetTerminalSectionText" ClipText="True" />
                         <PanelContainer StyleClasses="NetTerminalInset" VerticalExpand="True">
                             <ui:NetTopologyMapControl Name="TopologyMap" HorizontalExpand="True" VerticalExpand="True" />
                         </PanelContainer>
@@ -134,19 +103,10 @@
         <PanelContainer StyleClasses="NetTerminalFooter">
             <BoxContainer Orientation="Horizontal" Margin="8" SeparationOverride="8">
                 <BoxContainer Orientation="Vertical" HorizontalExpand="True" SeparationOverride="2">
-                    <Label Name="AccessLabel"
-                           Text="ДОСТУП: НЕТ СЕАНСА"
-                           StyleClasses="NetTerminalSectionTitle"
-                           ClipText="True" />
-                    <Label Name="FooterLabel"
-                           Text="Для админ-сеанса нужна дека, уже связанная с этим сервером."
-                           StyleClasses="NetTerminalFooterText"
-                           ClipText="True" />
+                    <Label Name="AccessLabel" Text="" StyleClasses="NetTerminalSectionTitle" ClipText="True" />
+                    <Label Name="FooterLabel" Text="" StyleClasses="NetTerminalFooterText" ClipText="True" />
                 </BoxContainer>
-                <Button Name="AdminButton"
-                        Text="Получить права администратора"
-                        MinWidth="250"
-                        StyleClasses="NetTerminalActionButton" />
+                <Button Name="AdminButton" Text="" MinWidth="250" StyleClasses="NetTerminalActionButton" />
             </BoxContainer>
         </PanelContainer>
     </BoxContainer>

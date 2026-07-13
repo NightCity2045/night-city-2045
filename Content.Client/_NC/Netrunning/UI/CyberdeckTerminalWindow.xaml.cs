@@ -47,7 +47,11 @@ public sealed partial class CyberdeckTerminalWindow : DefaultWindow
             var module = _availableModules.FirstOrDefault(m => m.Id == id);
             if (module != null)
             {
-                ModuleDesc.SetMessage($"Name: {module.Name}\nServer Load: {module.RamCost}\nPrice: {module.Price} Eddies\n\n{module.Description}");
+                ModuleDesc.SetMessage(Loc.GetString("netrunning-ui-module-desc",
+                    ("name", module.Name),
+                    ("load", module.RamCost),
+                    ("price", module.Price),
+                    ("desc", module.Description)));
             }
         };
 
@@ -104,17 +108,19 @@ public sealed partial class CyberdeckTerminalWindow : DefaultWindow
         TraceLabel.Text = $"Trace: {state.CurrentTrace}";
         StorageLabel.Text = $"Storage: {state.StorageUsed}/{state.StorageCapacity}";
         ServerLoadLabel.Text = state.ActiveServer == null
-            ? "Server: offline"
-            : $"Server: {state.ServerUsedLoad}/{state.ServerMaxLoad} load";
+            ? Loc.GetString("netrunning-cyberdeck-server-offline")
+            : Loc.GetString("netrunning-cyberdeck-server-load", ("used", state.ServerUsedLoad), ("max", state.ServerMaxLoad));
         
         if (!state.HasAR)
         {
-            TargetLabel.Text = "Connection: OFFLINE (AR Overlay Required)";
+            TargetLabel.Text = Loc.GetString("netrunning-cyberdeck-connection-offline");
             TargetLabel.FontColorOverride = Color.Red;
         }
         else
         {
-            TargetLabel.Text = state.ActiveTarget != null ? $"Link: Linked" : "Link: Ready";
+            TargetLabel.Text = state.ActiveTarget != null
+                ? Loc.GetString("netrunning-cyberdeck-link-linked")
+                : Loc.GetString("netrunning-cyberdeck-link-ready");
             TargetLabel.FontColorOverride = state.ActiveTarget != null ? Color.Green : Color.LightGray;
         }
 
@@ -142,14 +148,16 @@ public sealed partial class CyberdeckTerminalWindow : DefaultWindow
         _availableAnchors = state.AvailableAnchors;
         foreach (var port in _availableAnchors)
         {
-            var text = port.Connected ? $"[Occupied] Port {port.Dir}" : $"Port {port.Dir}";
+            var text = port.Connected
+                ? Loc.GetString("netrunning-ui-port-occupied", ("dir", port.Dir))
+                : Loc.GetString("netrunning-ui-port-free", ("dir", port.Dir));
             var item = PortList.AddItem(text, metadata: port.Uid);
             item.Disabled = port.Connected;
         }
 
         ConstructButton.Disabled = true;
-        ConstructButton.ToolTip = "Module construction moved to the physical server console.";
-        ModuleDesc.SetMessage("Module construction is now handled by the physical server console.");
+        ConstructButton.ToolTip = Loc.GetString("netrunning-cyberdeck-construction-moved");
+        ModuleDesc.SetMessage(Loc.GetString("netrunning-cyberdeck-construction-moved"));
 
         if (_selectedShard == null)
             DefensiveModeCheck.Pressed = false;
@@ -168,7 +176,7 @@ public sealed partial class CyberdeckTerminalWindow : DefaultWindow
         if (!_hasAr)
         {
             RunButton.Disabled = true;
-            RunButton.ToolTip = "Requires AR Glasses to execute remote scripts.";
+            RunButton.ToolTip = Loc.GetString("netrunning-cyberdeck-run-requires-ar");
             return;
         }
 
@@ -182,7 +190,7 @@ public sealed partial class CyberdeckTerminalWindow : DefaultWindow
         if (data.Kind == MetaProgramKind.DaemonDefensive)
         {
             RunButton.Disabled = true;
-            RunButton.ToolTip = "Defensive daemon shards must be installed in a protected node.";
+            RunButton.ToolTip = Loc.GetString("netrunning-cyberdeck-run-defensive-install");
             return;
         }
 

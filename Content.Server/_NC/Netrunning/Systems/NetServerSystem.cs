@@ -31,9 +31,6 @@ using Content.Shared.Inventory;
 using Robust.Server.GameObjects;
 using Robust.Shared.Player;
 using Content.Server.SurveillanceCamera;
-using Content.Shared.Pulling.Events;
-using Content.Shared.Movement.Pulling.Components;
-using Content.Shared.Movement.Pulling.Events;
 
 namespace Content.Server._NC.Netrunning.Systems;
 
@@ -43,8 +40,6 @@ namespace Content.Server._NC.Netrunning.Systems;
 /// </summary>
 public sealed class NetServerSystem : EntitySystem
 {
-    private readonly Dictionary<EntityUid, EntityUid> _draggedTopologyByAvatar = new();
-
     [Dependency] private readonly IMapManager _mapManager = default!;
     [Dependency] private readonly MapLoaderSystem _mapLoader = default!;
     [Dependency] private readonly SharedTransformSystem _transform = default!;
@@ -77,23 +72,12 @@ public sealed class NetServerSystem : EntitySystem
         SubscribeLocalEvent<NetServerComponent, NetServerAdminMessage>(OnServerAdminMessage);
         SubscribeLocalEvent<NetServerComponent, NetServerTopologyMoveMessage>(OnServerTopologyMoveMessage);
         SubscribeLocalEvent<NetServerComponent, GetVerbsEvent<ActivationVerb>>(OnServerVerbs);
-        SubscribeLocalEvent<NetAvatarComponent, MoveEvent>(OnAvatarMove);
-        SubscribeLocalEvent<NetAvatarComponent, StartPullAttemptEvent>(OnAvatarStartPullAttempt);
-        SubscribeLocalEvent<NetAvatarComponent, ComponentShutdown>(OnAvatarShutdown);
         SubscribeLocalEvent<NetDeviceNodeComponent, ActivateInWorldEvent>(OnNodeActivate);
         SubscribeLocalEvent<NetDeviceNodeComponent, BoundUIOpenedEvent>(OnNodeUiOpened);
         SubscribeLocalEvent<NetDeviceNodeComponent, BoundUIClosedEvent>(OnNodeUiClosed);
         SubscribeLocalEvent<NetDeviceNodeComponent, ComponentShutdown>(OnNodeShutdown);
-        SubscribeLocalEvent<NetDeviceNodeComponent, BeingPulledAttemptEvent>(OnNodeBeingPulledAttempt);
-        SubscribeLocalEvent<NetDeviceNodeComponent, AttemptStopPullingEvent>(OnTopologyStopPullingAttempt);
         SubscribeLocalEvent<NetDeviceNodeComponent, NetNodeControlMessage>(OnControlMessage);
         SubscribeLocalEvent<NetDeviceNodeComponent, NetNodeExecuteShardMessage>(OnExecuteShardMessage);
-        SubscribeLocalEvent<NetDefenseComponent, BeingPulledAttemptEvent>(OnDefenseBeingPulledAttempt);
-        SubscribeLocalEvent<NetDefenseComponent, AttemptStopPullingEvent>(OnTopologyStopPullingAttempt);
-        SubscribeLocalEvent<NetDataGateComponent, BeingPulledAttemptEvent>(OnDataGateBeingPulledAttempt);
-        SubscribeLocalEvent<NetDataGateComponent, AttemptStopPullingEvent>(OnTopologyStopPullingAttempt);
-        SubscribeLocalEvent<NetDefenseComponent, GetVerbsEvent<UtilityVerb>>(OnDefenseMoveVerbs);
-        SubscribeLocalEvent<DefensiveDaemonComponent, GetVerbsEvent<UtilityVerb>>(OnDaemonMoveVerbs);
     }
 
     private void OnServerActivate(EntityUid uid, NetServerComponent component, ActivateInWorldEvent args)
@@ -127,16 +111,23 @@ public sealed class NetServerSystem : EntitySystem
         if (!_containers.TryGetContainer(uid, NetServerComponent.DaemonShardContainerId, out var container))
             return;
 
+        if (shard.Bytecode == null && !_metaProgram.TryCompile(args.Used, shard, args.User, out var compileError))
+        {
+            _popup.PopupEntity(Loc.GetString("netrunning-popup-compile-error", ("error", compileError ?? string.Empty)), uid, args.User, PopupType.MediumCaution);
+            args.Handled = true;
+            return;
+        }
+
         if (container.ContainedEntities.Count > 0)
         {
-            _popup.PopupEntity("Слот защитного демона уже занят.", uid, args.User, PopupType.MediumCaution);
+            _popup.PopupEntity(Loc.GetString("netrunning-popup-daemon-slot-occupied"), uid, args.User, PopupType.MediumCaution);
             args.Handled = true;
             return;
         }
 
         if (_containers.Insert(args.Used, container))
         {
-            _popup.PopupEntity("Защитный META-шард установлен в сервер.", uid, args.User);
+            _popup.PopupEntity(Loc.GetString("netrunning-popup-daemon-installed"), uid, args.User);
             UpdateServerUi(uid, component, args.User);
             args.Handled = true;
         }
@@ -149,7 +140,7 @@ public sealed class NetServerSystem : EntitySystem
 
         args.Verbs.Add(new ActivationVerb
         {
-            Text = "Открыть консоль сервера",
+            Text = Loc.GetString("netrunning-verb-open-server-console"),
             Act = () => OpenServerUi(uid, component, args.User)
         });
 
@@ -160,12 +151,12 @@ public sealed class NetServerSystem : EntitySystem
         var installed = container.ContainedEntities[0];
         args.Verbs.Add(new ActivationVerb
         {
-            Text = "Извлечь защитный шард",
+            Text = Loc.GetString("netrunning-verb-eject-defensive-shard"),
             Act = () =>
             {
                 if (_containers.Remove(installed, container))
                 {
-                    _popup.PopupEntity("Защитный META-шард извлечен.", uid, args.User);
+                    _popup.PopupEntity(Loc.GetString("netrunning-popup-daemon-ejected"), uid, args.User);
                     UpdateServerUi(uid, component, args.User);
                 }
             }
@@ -191,14 +182,14 @@ public sealed class NetServerSystem : EntitySystem
 
         if (!TryResolveLinkedDeck(args.Actor, uid, out var deckUid, out var deck))
         {
-            _popup.PopupEntity("Сначала свяжи свою деку с этим сервером.", uid, args.Actor, PopupType.MediumCaution);
+            _popup.PopupEntity(Loc.GetString("netrunning-popup-link-deck-first"), uid, args.Actor, PopupType.MediumCaution);
             UpdateServerUi(uid, component, args.Actor);
             return;
         }
 
         if (deck.HackedNetworks.Contains(uid))
         {
-            _popup.PopupEntity("Рут-доступ уже получен и сохранен в деке.", uid, args.Actor);
+            _popup.PopupEntity(Loc.GetString("netrunning-popup-root-already-owned"), uid, args.Actor);
             UpdateServerUi(uid, component, args.Actor);
             _metaProgram.UpdateUi(deckUid, deck, args.Actor);
             return;
@@ -206,7 +197,7 @@ public sealed class NetServerSystem : EntitySystem
 
         if (deck.ActiveTarget == uid)
         {
-            _popup.PopupEntity("Локальный админ-сеанс уже активен.", uid, args.Actor);
+            _popup.PopupEntity(Loc.GetString("netrunning-popup-local-admin-active"), uid, args.Actor);
             UpdateServerUi(uid, component, args.Actor);
             _metaProgram.UpdateUi(deckUid, deck, args.Actor);
             return;
@@ -216,7 +207,7 @@ public sealed class NetServerSystem : EntitySystem
         deck.ActiveTarget = uid;
         Dirty(deckUid, deck);
 
-        _popup.PopupEntity("Локальный админ-сеанс открыт. Топология разблокирована.", uid, args.Actor);
+        _popup.PopupEntity(Loc.GetString("netrunning-popup-local-admin-opened"), uid, args.Actor);
         UpdateServerUi(uid, component, args.Actor);
         _metaProgram.UpdateUi(deckUid, deck, args.Actor);
     }
@@ -227,9 +218,9 @@ public sealed class NetServerSystem : EntitySystem
             return;
 
         var targetUid = GetEntity(args.Target);
-        if (Deleted(targetUid) || ResolveTopologyServer(targetUid) != uid)
+        if (Deleted(targetUid) || ResolveNetworkServer(targetUid) != uid)
         {
-            _popup.PopupEntity("ОШИБКА: выбранный узел больше не принадлежит этой локальной сети.", uid, args.Actor, PopupType.MediumCaution);
+            _popup.PopupEntity(Loc.GetString("netrunning-popup-node-not-owned"), uid, args.Actor, PopupType.MediumCaution);
             UpdateServerUi(uid, component, args.Actor);
             return;
         }
@@ -267,91 +258,9 @@ public sealed class NetServerSystem : EntitySystem
 
     private void OnNodeShutdown(EntityUid uid, NetDeviceNodeComponent component, ComponentShutdown args)
     {
-        ClearDraggedTopologyTarget(uid);
-
         foreach (var viewer in component.ActiveViewers.ToArray())
         {
             UnsubscribeNodeViewer(uid, component, viewer);
-        }
-    }
-
-    private void OnAvatarShutdown(EntityUid uid, NetAvatarComponent component, ComponentShutdown args)
-    {
-        _draggedTopologyByAvatar.Remove(uid);
-    }
-
-    private void OnAvatarStartPullAttempt(EntityUid uid, NetAvatarComponent component, ref StartPullAttemptEvent args)
-    {
-        if (!TryGetTopologyPullServer(args.Pulled, out var serverUid) || !TryHasNodeAdminAccess(uid, serverUid))
-            return;
-
-        // Topology dragging uses the existing pull gesture, but movement is handled
-        // manually because digital nodes are intentionally pass-through entities.
-        if (_draggedTopologyByAvatar.TryGetValue(uid, out var currentlyDragged) && currentlyDragged == args.Pulled)
-        {
-            _draggedTopologyByAvatar.Remove(uid);
-            args.Cancel();
-            return;
-        }
-
-        _draggedTopologyByAvatar[uid] = args.Pulled;
-        args.Cancel();
-    }
-
-    private void OnAvatarMove(EntityUid uid, NetAvatarComponent component, ref MoveEvent args)
-    {
-        if (!_draggedTopologyByAvatar.TryGetValue(uid, out var pulledUid) ||
-            Deleted(pulledUid) ||
-            !TryGetTopologyPullServer(pulledUid, out var serverUid) ||
-            !TryHasNodeAdminAccess(uid, serverUid))
-        {
-            _draggedTopologyByAvatar.Remove(uid);
-            return;
-        }
-
-        // Keep dragged topology snapped to the avatar's previous tile so manual
-        // net-topology rearranging works on pass-through digital entities.
-        if (args.ParentChanged)
-            return;
-
-        var pulledXform = Transform(pulledUid);
-        if (pulledXform.MapID != args.OldPosition.ToMap(EntityManager, _transform).MapId)
-            return;
-
-        _transform.SetCoordinates(pulledUid, pulledXform, args.OldPosition);
-    }
-
-    private void OnTopologyStopPullingAttempt<TComponent>(EntityUid uid, TComponent component, ref AttemptStopPullingEvent args)
-        where TComponent : IComponent
-    {
-        if (args.User is not { } user)
-            return;
-
-        if (_draggedTopologyByAvatar.TryGetValue(user, out var dragged) && dragged == uid)
-            _draggedTopologyByAvatar.Remove(user);
-    }
-
-    private void OnNodeBeingPulledAttempt(EntityUid uid, NetDeviceNodeComponent component, BeingPulledAttemptEvent args)
-    {
-        // Digital topology may only be rearranged by a netrunner who currently holds
-        // admin/root authority over the owning local server.
-        if (component.Server is not { } serverUid || !TryHasNodeAdminAccess(args.Puller, serverUid))
-            args.Cancel();
-    }
-
-    private void OnDefenseBeingPulledAttempt(EntityUid uid, NetDefenseComponent component, BeingPulledAttemptEvent args)
-    {
-        if (component.Server is not { } serverUid || !TryHasNodeAdminAccess(args.Puller, serverUid))
-            args.Cancel();
-    }
-
-    private void OnDataGateBeingPulledAttempt(EntityUid uid, NetDataGateComponent component, BeingPulledAttemptEvent args)
-    {
-        if (!TryComp<NetDeviceNodeComponent>(uid, out var node) ||
-            node.Server is not { } serverUid ||
-            !TryHasNodeAdminAccess(args.Puller, serverUid))
-        {
-            args.Cancel();
         }
     }
 
@@ -427,16 +336,16 @@ public sealed class NetServerSystem : EntitySystem
             _containers.TryGetContainer(uid, NetServerComponent.DaemonShardContainerId, out var daemonContainer) &&
             daemonContainer.ContainedEntities.Count > 0;
 
-        var providerLabel = "ЛКП: нет";
+        var providerLabel = Loc.GetString("netrunning-server-provider-none");
         if (TryComp<LogicPowerReceiverComponent>(uid, out var logicReceiver) && logicReceiver.Provider is { } providerUid && !Deleted(providerUid))
-            providerLabel = $"ЛКП: {Name(providerUid)}";
+            providerLabel = Loc.GetString("netrunning-server-provider", ("name", Name(providerUid)));
         else if (TryComp<LogicPowerProviderComponent>(uid, out _))
-            providerLabel = $"ЛКП: {Name(uid)}";
+            providerLabel = Loc.GetString("netrunning-server-provider", ("name", Name(uid)));
 
         var hasAdminAccess = false;
         var hasPersistentRoot = false;
         var canRequestAdmin = false;
-        var accessStatus = "ДОСТУП: НЕТ СЕАНСА";
+        var accessStatus = Loc.GetString("netrunning-server-access-none");
 
         if (user is { } actor && TryResolveLinkedDeck(actor, uid, out _, out var deck))
         {
@@ -445,16 +354,16 @@ public sealed class NetServerSystem : EntitySystem
             hasAdminAccess = deck.ActiveTarget == uid || hasPersistentRoot;
 
             accessStatus = hasPersistentRoot
-                ? "ДОСТУП: ROOT / ПОСТОЯННЫЙ"
+                ? Loc.GetString("netrunning-server-access-root")
                 : deck.ActiveTarget == uid
-                    ? "ДОСТУП: ЛОКАЛЬНЫЙ АДМИН"
-                    : "ДОСТУП: ДЕКА СВЯЗАНА, СЕАНС НЕ ОТКРЫТ";
+                    ? Loc.GetString("netrunning-server-access-local")
+                    : Loc.GetString("netrunning-server-access-linked");
         }
 
         var topologyEntries = BuildTopologyEntries(uid, component, out var topologyMinTile, out var topologyMaxTile);
 
         var state = new NetServerUiState(
-            $"СЕРВЕР://{Name(uid).ToUpperInvariant()}",
+            Loc.GetString("netrunning-server-title", ("name", Name(uid).ToUpperInvariant())),
             providerLabel,
             component.UsedLoad,
             component.MaxLoad,
@@ -492,22 +401,6 @@ public sealed class NetServerSystem : EntitySystem
                 }
                 break;
 
-            case "move_north":
-                TryMoveNode(uid, component, args.Actor, new Vector2(0, 1));
-                break;
-
-            case "move_south":
-                TryMoveNode(uid, component, args.Actor, new Vector2(0, -1));
-                break;
-
-            case "move_west":
-                TryMoveNode(uid, component, args.Actor, new Vector2(-1, 0));
-                break;
-
-            case "move_east":
-                TryMoveNode(uid, component, args.Actor, new Vector2(1, 0));
-                break;
-
             case "toggle":
                 if (TryComp<DoorComponent>(physical, out var door))
                 {
@@ -524,7 +417,7 @@ public sealed class NetServerSystem : EntitySystem
 
         if (!TryResolveActorDeck(args.Actor, out var deckUid, out var deck))
         {
-            _popup.PopupEntity("ОШИБКА: дека нетраннера не найдена.", uid, args.Actor, PopupType.MediumCaution);
+            _popup.PopupEntity(Loc.GetString("netrunning-popup-no-deck"), uid, args.Actor, PopupType.MediumCaution);
             UpdateNodeUi(uid, component, args.Actor);
             return;
         }
@@ -535,13 +428,13 @@ public sealed class NetServerSystem : EntitySystem
         var shardUid = GetEntity(args.Shard);
         if (!TryComp<DataShardComponent>(shardUid, out var shard))
         {
-            _popup.PopupEntity("ОШИБКА: шард недоступен.", uid, args.Actor, PopupType.MediumCaution);
+            _popup.PopupEntity(Loc.GetString("netrunning-popup-shard-missing"), uid, args.Actor, PopupType.MediumCaution);
             return;
         }
 
         if (shard.Bytecode == null && !_metaProgram.TryCompile(shardUid, shard, args.Actor, out var compileError))
         {
-            _popup.PopupEntity($"ОШИБКА КОМПИЛЯЦИИ: {compileError}", uid, args.Actor, PopupType.MediumCaution);
+            _popup.PopupEntity(Loc.GetString("netrunning-popup-compile-error", ("error", compileError ?? string.Empty)), uid, args.Actor, PopupType.MediumCaution);
             return;
         }
 
@@ -593,74 +486,6 @@ public sealed class NetServerSystem : EntitySystem
         }
     }
 
-    private void TryMoveNode(EntityUid nodeUid, NetDeviceNodeComponent node, EntityUid actor, Vector2 offset)
-    {
-        if (node.Server is not { } serverUid || !TryHasNodeAdminAccess(actor, serverUid))
-        {
-            _popup.PopupEntity("ERROR: Root/admin access required to pull network nodes.", nodeUid, actor, PopupType.MediumCaution);
-            return;
-        }
-
-        if (!TryGetTopologyTile(nodeUid, out _, out var tile))
-            return;
-
-        var delta = new Vector2i((int) offset.X, (int) offset.Y);
-        TryMoveTopologyEntityToTile(nodeUid, serverUid, actor, tile + delta);
-    }
-
-    private void OnDefenseMoveVerbs(EntityUid uid, NetDefenseComponent component, GetVerbsEvent<UtilityVerb> args)
-    {
-        if (!args.CanAccess || !args.CanInteract || component.Server is not { } serverUid || !TryHasNodeAdminAccess(args.User, serverUid))
-            return;
-
-        AddTopologyMoveVerbs(uid, serverUid, args);
-    }
-
-    private void OnDaemonMoveVerbs(EntityUid uid, DefensiveDaemonComponent component, GetVerbsEvent<UtilityVerb> args)
-    {
-        if (!args.CanAccess || !args.CanInteract)
-            return;
-
-        var serverUid = ResolveTopologyServer(uid);
-        if (serverUid == null || !TryHasNodeAdminAccess(args.User, serverUid.Value))
-            return;
-
-        AddTopologyMoveVerbs(uid, serverUid.Value, args);
-    }
-
-    private void AddTopologyMoveVerbs(EntityUid uid, EntityUid serverUid, GetVerbsEvent<UtilityVerb> args)
-    {
-        AddTopologyMoveVerb(uid, serverUid, args, "Pull North", new Vector2(0, 1));
-        AddTopologyMoveVerb(uid, serverUid, args, "Pull South", new Vector2(0, -1));
-        AddTopologyMoveVerb(uid, serverUid, args, "Pull West", new Vector2(-1, 0));
-        AddTopologyMoveVerb(uid, serverUid, args, "Pull East", new Vector2(1, 0));
-    }
-
-    private void AddTopologyMoveVerb(EntityUid uid, EntityUid serverUid, GetVerbsEvent<UtilityVerb> args, string text, Vector2 offset)
-    {
-        args.Verbs.Add(new UtilityVerb
-        {
-            Text = text,
-            Category = VerbCategory.Admin,
-            Act = () => TryMoveTopologyEntity(uid, serverUid, args.User, offset)
-        });
-    }
-
-    private void TryMoveTopologyEntity(EntityUid uid, EntityUid serverUid, EntityUid actor, Vector2 offset)
-    {
-        if (!TryHasNodeAdminAccess(actor, serverUid))
-        {
-            _popup.PopupEntity("ERROR: Root/admin access required to pull topology.", uid, actor, PopupType.MediumCaution);
-            return;
-        }
-
-        if (!TryGetTopologyTile(uid, out _, out var tile))
-            return;
-
-        var delta = new Vector2i((int) offset.X, (int) offset.Y);
-        TryMoveTopologyEntityToTile(uid, serverUid, actor, tile + delta);
-    }
-
     private List<NetTopologyMapEntry> BuildTopologyEntries(EntityUid serverUid, NetServerComponent component, out Vector2i minTile, out Vector2i maxTile)
     {
         minTile = new Vector2i(-4, -4);
@@ -677,11 +502,11 @@ public sealed class NetServerSystem : EntitySystem
             hadAny = true;
             ExpandTopologyBounds(tile, ref minTile, ref maxTile);
 
-            var className = "УЗЕЛ";
+            var className = Loc.GetString("netrunning-class-node");
             if (TryComp<NetDeviceNodeComponent>(nodeUid, out var nodeComp))
             {
                 className = nodeComp.Kind == NetDeviceNodeKind.CameraGroup
-                    ? "КАМЕРЫ"
+                    ? Loc.GetString("netrunning-class-cameras")
                     : GetDeviceClass(nodeComp.PhysicalDevice);
             }
 
@@ -695,7 +520,7 @@ public sealed class NetServerSystem : EntitySystem
 
             hadAny = true;
             ExpandTopologyBounds(tile, ref minTile, ref maxTile);
-            entries.Add(new NetTopologyMapEntry(GetNetEntity(defenseUid), Name(defenseUid), "ЛЁД", tile));
+            entries.Add(new NetTopologyMapEntry(GetNetEntity(defenseUid), Name(defenseUid), Loc.GetString("netrunning-class-ice"), tile));
         }
 
         if (!hadAny)
@@ -730,7 +555,7 @@ public sealed class NetServerSystem : EntitySystem
     {
         if (!TryHasNodeAdminAccess(actor, serverUid))
         {
-            _popup.PopupEntity("ОШИБКА: для перестройки топологии нужен локальный admin или ROOT.", uid, actor, PopupType.MediumCaution);
+            _popup.PopupEntity(Loc.GetString("netrunning-popup-topology-admin-required"), uid, actor, PopupType.MediumCaution);
             return false;
         }
 
@@ -742,13 +567,13 @@ public sealed class NetServerSystem : EntitySystem
 
         if (!grid.TryGetTileRef(targetTile, out var tileRef) || tileRef.Tile.IsEmpty)
         {
-            _popup.PopupEntity("ОШИБКА: выбранный тайл находится вне развернутой карты локальной сети.", uid, actor, PopupType.MediumCaution);
+            _popup.PopupEntity(Loc.GetString("netrunning-popup-topology-tile-outside"), uid, actor, PopupType.MediumCaution);
             return false;
         }
 
         if (!IsTopologyTileFree(serverUid, uid, gridUid, targetTile))
         {
-            _popup.PopupEntity("ОШИБКА: тайл уже занят другим узлом или защитой.", uid, actor, PopupType.MediumCaution);
+            _popup.PopupEntity(Loc.GetString("netrunning-popup-topology-tile-occupied"), uid, actor, PopupType.MediumCaution);
             return false;
         }
 
@@ -831,8 +656,11 @@ public sealed class NetServerSystem : EntitySystem
         return $"device:{node.PhysicalDevice}";
     }
 
-    private EntityUid? ResolveTopologyServer(EntityUid uid)
+    public EntityUid? ResolveNetworkServer(EntityUid uid)
     {
+        if (HasComp<NetServerComponent>(uid))
+            return uid;
+
         if (TryComp<NetDefenseComponent>(uid, out var defense) && defense.Server is { } defenseServer && !Deleted(defenseServer))
             return defenseServer;
 
@@ -852,31 +680,14 @@ public sealed class NetServerSystem : EntitySystem
         if (TryComp<NetModuleComponent>(gridUid, out var gridModule) && gridModule.Server is { } gridServer && !Deleted(gridServer))
             return gridServer;
 
-        return null;
-    }
-
-    private bool TryGetTopologyPullServer(EntityUid uid, out EntityUid serverUid)
-    {
-        serverUid = EntityUid.Invalid;
-
-        if (TryComp<DefensiveDaemonComponent>(uid, out _))
-            return false;
-
-        var resolved = ResolveTopologyServer(uid);
-        if (resolved == null)
-            return false;
-
-        serverUid = resolved.Value;
-        return true;
-    }
-
-    private void ClearDraggedTopologyTarget(EntityUid targetUid)
-    {
-        foreach (var (avatarUid, draggedUid) in _draggedTopologyByAvatar.ToArray())
+        var query = EntityQueryEnumerator<NetServerComponent>();
+        while (query.MoveNext(out var serverUid, out _))
         {
-            if (draggedUid == targetUid)
-                _draggedTopologyByAvatar.Remove(avatarUid);
+            if (CollectNetworkDevices(serverUid).Contains(uid))
+                return serverUid;
         }
+
+        return null;
     }
 
     private bool TryHasNodeAdminAccess(EntityUid actor, EntityUid serverUid)
@@ -961,7 +772,7 @@ public sealed class NetServerSystem : EntitySystem
     {
         if (component.DigitalGrid == null)
         {
-            _popup.PopupEntity("ОШИБКА: у сервера нет инициализированной цифровой решетки.", uid, user, PopupType.MediumCaution);
+            _popup.PopupEntity(Loc.GetString("netrunning-popup-no-digital-grid"), uid, user, PopupType.MediumCaution);
             return false;
         }
 
@@ -970,13 +781,15 @@ public sealed class NetServerSystem : EntitySystem
 
         if (component.SpawnedModules.Count >= component.MaxModules)
         {
-            _popup.PopupEntity($"ОШИБКА: достигнут лимит модулей сервера ({component.MaxModules}).", uid, user, PopupType.MediumCaution);
+            _popup.PopupEntity(Loc.GetString("netrunning-popup-module-limit", ("limit", component.MaxModules)), uid, user, PopupType.MediumCaution);
             return false;
         }
 
         if (component.UsedLoad + module.RamCost > component.MaxLoad)
         {
-            _popup.PopupEntity($"ОШИБКА: перегрузка сервера ({component.UsedLoad + module.RamCost}/{component.MaxLoad}).", uid, user, PopupType.MediumCaution);
+            _popup.PopupEntity(Loc.GetString("netrunning-popup-server-overload",
+                ("load", component.UsedLoad + module.RamCost),
+                ("max", component.MaxLoad)), uid, user, PopupType.MediumCaution);
             return false;
         }
 
@@ -987,7 +800,7 @@ public sealed class NetServerSystem : EntitySystem
         var targetAnchorUid = GetEntity(anchorNet);
         if (!TryComp<NetAnchorComponent>(targetAnchorUid, out var targetAnchor) || targetAnchor.Connected)
         {
-            _popup.PopupEntity("ОШИБКА: порт расширения недоступен или уже занят.", uid, user, PopupType.MediumCaution);
+            _popup.PopupEntity(Loc.GetString("netrunning-popup-port-unavailable"), uid, user, PopupType.MediumCaution);
             return false;
         }
 
@@ -1033,7 +846,7 @@ public sealed class NetServerSystem : EntitySystem
         component.SpawnedModules.Add(loadedGridUid);
         Dirty(uid, component);
 
-        _popup.PopupEntity($"{module.Name} пришит к порту.", uid, user);
+        _popup.PopupEntity(Loc.GetString("netrunning-popup-module-attached", ("module", module.Name)), uid, user);
         return true;
     }
 
@@ -1052,21 +865,21 @@ public sealed class NetServerSystem : EntitySystem
     private string GetDeviceClass(EntityUid uid)
     {
         if (HasComp<DoorComponent>(uid))
-            return "ДВЕРЬ";
+            return Loc.GetString("netrunning-class-door");
 
         if (HasComp<SurveillanceCameraComponent>(uid))
-            return "КАМЕРА";
+            return Loc.GetString("netrunning-class-camera");
 
         if (HasComp<PoweredLightComponent>(uid))
-            return "СВЕТ";
+            return Loc.GetString("netrunning-class-light");
 
         if (HasComp<DeviceNetworkComponent>(uid))
-            return "УСТРОЙСТВО";
+            return Loc.GetString("netrunning-class-device");
 
         if (HasComp<ApcPowerReceiverComponent>(uid))
-            return "ПИТАНИЕ";
+            return Loc.GetString("netrunning-class-power");
 
-        return "НЕИЗВЕСТНО";
+        return Loc.GetString("netrunning-class-unknown");
     }
 
     private void OnMapInit(EntityUid uid, NetServerComponent component, MapInitEvent args)
@@ -1190,7 +1003,7 @@ public sealed class NetServerSystem : EntitySystem
         var devices = CollectNetworkDevices(uid);
         if (devices.Count == 0)
         {
-            _popup.PopupEntity("ОШИБКА СКАНА: сервер не видит прямой линии логического питания.", uid, PopupType.MediumCaution);
+            _popup.PopupEntity(Loc.GetString("netrunning-popup-scan-no-power-line"), uid, PopupType.MediumCaution);
             return;
         }
 
@@ -1226,15 +1039,15 @@ public sealed class NetServerSystem : EntitySystem
 
         if (nodeCount > 0)
         {
-            _popup.PopupEntity($"СКАН ЗАВЕРШЕН: отображено узлов: {nodeCount}.", uid);
+            _popup.PopupEntity(Loc.GetString("netrunning-popup-scan-complete", ("count", nodeCount)), uid);
         }
         else
         {
-            _popup.PopupEntity("СКАН ЗАВЕРШЕН: в этом сегменте ЛКП сетевые узлы не найдены.", uid);
+            _popup.PopupEntity(Loc.GetString("netrunning-popup-scan-empty"), uid);
         }
     }
 
-    private HashSet<EntityUid> CollectNetworkDevices(EntityUid serverUid)
+    public HashSet<EntityUid> CollectNetworkDevices(EntityUid serverUid)
     {
         var devices = new HashSet<EntityUid>();
 
@@ -1306,3 +1119,8 @@ public sealed class NetServerSystem : EntitySystem
         server.SpawnedNodes.Add(nodeUid);
     }
 }
+
+
+
+
+

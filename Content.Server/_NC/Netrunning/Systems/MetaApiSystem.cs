@@ -18,14 +18,9 @@ using Robust.Server.GameObjects;
 using Content.Server.Turrets;
 using Content.Server.SurveillanceCamera;
 using Content.Shared.Turrets;
-using Content.Server.PDA;
-using Content.Server._NC.Cyberware.Systems;
-using Content.Shared._NC.Cyberware.Components;
-using Content.Shared._NC.Cyberware;
 using Content.Server.Chat.Managers;
 using Content.Shared.Damage.Prototypes;
 using Content.Server.Popups;
-using Content.Shared.Popups;
 using Robust.Shared.Audio.Systems;
 using Robust.Shared.Audio;
 using Robust.Shared.Prototypes;
@@ -36,10 +31,6 @@ using Robust.Shared.Player;
 using Robust.Shared.Map;
 using Content.Shared.SurveillanceCamera.Components;
 using Content.Shared.VendingMachines;
-using Content.Server._NC.CitiNet.Cartridges;
-using Content.Shared.CartridgeLoader;
-using Content.Shared._NC.CitiNet;
-using Content.Shared._NC.CitiNet.Live;
 using Content.Shared._NC.Netrunning;
 
 namespace Content.Server._NC.Netrunning.Systems;
@@ -57,17 +48,18 @@ public sealed class MetaApiSystem : EntitySystem, IMetaRuntimeApi
     [Dependency] private readonly SharedStunSystem _stun = default!;
     [Dependency] private readonly TurretTargetSettingsSystem _turretAccess = default!;
     [Dependency] private readonly SharedAudioSystem _audio = default!;
-    [Dependency] private readonly PopupSystem _popup = default!;
     [Dependency] private readonly SharedTransformSystem _transform = default!;
     [Dependency] private readonly UserInterfaceSystem _ui = default!;
     [Dependency] private readonly IChatManager _chatManager = default!;
     [Dependency] private readonly SurveillanceCameraSystem _cameraSystem = default!;
     [Dependency] private readonly VendingMachineSystem _vending = default!;
+    [Dependency] private readonly NetServerSystem _netServer = default!;
 
     private static readonly HashSet<string> AllowedOverrideKeys = new(StringComparer.OrdinalIgnoreCase)
     {
         "DOOR_STATE",
         "DOOR_OPEN",
+        "DOOR_TOGGLE",
         "DOOR_BOLT",
         "SHORT_CIRCUIT",
         "POWER_TOGGLE",
@@ -78,7 +70,6 @@ public sealed class MetaApiSystem : EntitySystem, IMetaRuntimeApi
         "TURRET_FACTION",
         "CAMERA_ACTIVE",
         "VENDING_MACHINE",
-        "CYBERLIMB_LOCK",
     };
 
     private readonly Dictionary<EntityUid, EntityUid?> _eventSources = new();
@@ -103,19 +94,20 @@ public sealed class MetaApiSystem : EntitySystem, IMetaRuntimeApi
 
     public IReadOnlyList<EntityUid> GetConnected(EntityUid target)
     {
-        var found = new List<EntityUid>();
-        foreach (var uid in _lookup.GetEntitiesInRange(target, 8f, LookupFlags.Dynamic | LookupFlags.Sundries))
+        var serverUid = ResolveServer(target);
+        if (serverUid is not { } server)
+            return Array.Empty<EntityUid>();
+
+        var connected = new List<EntityUid>();
+        foreach (var uid in _netServer.CollectNetworkDevices(server))
         {
-            if (uid == target)
+            if (uid == target || Deleted(uid))
                 continue;
 
-            if (HasComp<ApcPowerReceiverComponent>(uid) || HasComp<DoorComponent>(uid) || 
-                HasComp<IceHealthComponent>(uid) || HasComp<ApcComponent>(uid) || 
-                HasComp<DeployableTurretComponent>(uid))
-                found.Add(uid);
+            connected.Add(uid);
         }
 
-        return found;
+        return connected;
     }
 
     public string GetClass(EntityUid target)
@@ -193,6 +185,13 @@ public sealed class MetaApiSystem : EntitySystem, IMetaRuntimeApi
 
         switch (key.ToUpperInvariant())
         {
+            case "DOOR_TOGGLE":
+                if (!TryComp<DoorComponent>(target, out var toggleDoor))
+                    return false;
+
+                _doorSystem.TryToggleDoor(target, toggleDoor);
+                return true;
+
             case "DOOR_STATE":
             case "DOOR_OPEN":
                 if (!TryComp<DoorComponent>(target, out var door))
@@ -299,28 +298,6 @@ public sealed class MetaApiSystem : EntitySystem, IMetaRuntimeApi
                 Dirty(target, vending);
                 return true;
 
-            case "CYBERLIMB_LOCK":
-                if (!TryComp<CyberwareComponent>(target, out var cyber))
-                    return false;
-                
-                bool hasLimbs = false;
-                foreach (var implant in cyber.InstalledImplants.Values)
-                {
-                    if (TryComp<CyberwareImplantComponent>(implant, out var imp) && 
-                        (imp.Category == CyberwareCategory.LeftArm || imp.Category == CyberwareCategory.RightArm ||
-                         imp.Category == CyberwareCategory.LeftLeg || imp.Category == CyberwareCategory.RightLeg))
-                    {
-                        hasLimbs = true;
-                        break;
-                    }
-                }
-
-                if (hasLimbs && value > 0)
-                {
-                    _stun.TryParalyze(target, TimeSpan.FromSeconds(2), true);
-                    _popup.PopupEntity("Your cyberlimbs lock up!", target, target, PopupType.LargeCaution);
-                }
-                return true;
         }
 
         return false;
@@ -358,8 +335,9 @@ public sealed class MetaApiSystem : EntitySystem, IMetaRuntimeApi
 
     public void Disconnect(EntityUid target)
     {
-        _stun.TryParalyze(target, TimeSpan.FromSeconds(1.5), true);
-        SendNetrunningFeedback(target, "DUMPSHOCK", "Connection forcibly severed.", true);
+        var feedbackTarget = ResolveFeedbackTarget(target);
+        _stun.TryParalyze(feedbackTarget, TimeSpan.FromSeconds(1.5), true);
+        SendNetrunningFeedback(feedbackTarget, "DUMPSHOCK", "Connection forcibly severed.", true);
     }
 
     public bool IsValid(EntityUid target)
@@ -405,6 +383,8 @@ public sealed class MetaApiSystem : EntitySystem, IMetaRuntimeApi
             !TryComp<NetServerComponent>(server.Value, out var serverComp) ||
             !TryComp<CyberdeckComponent>(deckUid, out var deck))
             return false;
+
+        _daemon.NotifyIntrusion(server.Value, deckUid);
 
         if (strength < serverComp.RootDifficulty)
         {
@@ -470,31 +450,32 @@ public sealed class MetaApiSystem : EntitySystem, IMetaRuntimeApi
         if (amount == 0)
             return;
 
-        var physicalTarget = target;
-        if (TryComp<NetAvatarComponent>(target, out var avatar) && avatar.PhysicalBody is { } body && !Deleted(body))
-            physicalTarget = body;
+        var physicalTarget = ResolveFeedbackTarget(target);
 
         var spec = new DamageSpecifier();
         spec.DamageDict["Heat"] = amount;
         _damageable.TryChangeDamage(physicalTarget, spec, ignoreResistances: false, interruptsDoAfters: true);
-        SendNetrunningFeedback(target, "NEURAL BURN", $"Digital feedback scorches your link for {amount}.", true);
+        SendNetrunningFeedback(physicalTarget, "NEURAL BURN", $"Digital feedback scorches your link for {amount}.", true);
+    }
+
+    private EntityUid ResolveFeedbackTarget(EntityUid target)
+    {
+        if (TryComp<NetAvatarComponent>(target, out var avatar) &&
+            avatar.PhysicalBody is { } body &&
+            !Deleted(body))
+            return body;
+
+        if (_activeUsers.TryGetValue(target, out var activeUser) &&
+            activeUser is { } user &&
+            !Deleted(user))
+            return user;
+
+        return target;
     }
 
     private EntityUid? ResolveServer(EntityUid uid)
     {
-        if (HasComp<NetServerComponent>(uid))
-            return uid;
-
-        if (TryComp<NetDeviceNodeComponent>(uid, out var node) && node.Server is { } server && !Deleted(server))
-            return server;
-
-        if (TryComp<NetDefenseComponent>(uid, out var defense) && defense.Server is { } defenseServer && !Deleted(defenseServer))
-            return defenseServer;
-
-        if (TryComp<NetModuleComponent>(uid, out var module) && module.Server is { } moduleServer && !Deleted(moduleServer))
-            return moduleServer;
-
-        return null;
+        return _netServer.ResolveNetworkServer(uid);
     }
 
     private bool CanHostDefense(EntityUid deckUid, EntityUid serverUid, int load, out NetServerComponent server)
@@ -545,16 +526,28 @@ public sealed class MetaApiSystem : EntitySystem, IMetaRuntimeApi
     {
         EntityUid? best = null;
         float bestDist = float.MaxValue;
-        foreach (var uid in _lookup.GetEntitiesInRange(deckUid, Math.Max(1, radius), LookupFlags.Dynamic | LookupFlags.Sundries))
+
+        var origin = GetTarget(deckUid) is { } target && !Deleted(target)
+            ? target
+            : deckUid;
+
+        var candidates = GetServer(deckUid) is { } serverUid && !Deleted(serverUid)
+            ? _netServer.CollectNetworkDevices(serverUid)
+            : _lookup.GetEntitiesInRange(origin, Math.Max(1, radius), LookupFlags.Dynamic | LookupFlags.Sundries).ToHashSet();
+
+        foreach (var uid in candidates)
         {
-            if (uid == deckUid || Deleted(uid))
+            if (uid == deckUid || uid == origin || Deleted(uid))
                 continue;
 
             var cls = GetClass(uid);
             if (!cls.Contains(className, StringComparison.OrdinalIgnoreCase))
                 continue;
 
-            var dist = (_transform.GetWorldPosition(deckUid) - _transform.GetWorldPosition(uid)).Length();
+            var dist = (_transform.GetWorldPosition(origin) - _transform.GetWorldPosition(uid)).Length();
+            if (dist > Math.Max(1, radius))
+                continue;
+
             if (dist < bestDist)
             {
                 best = uid;
@@ -632,64 +625,6 @@ public sealed class MetaApiSystem : EntitySystem, IMetaRuntimeApi
         return list;
     }
 
-    public string InterceptPda(EntityUid target)
-    {
-        if (!TryResolveCitiNetCartridge(target, out var cartridgeUid, out var cartridge))
-            return "ERROR: No CitiNet traffic available.";
-
-        var latestKind = string.Empty;
-        var latestSender = string.Empty;
-        var latestContent = string.Empty;
-        var latestTimestamp = TimeSpan.MinValue;
-
-        foreach (var history in cartridge.ChatHistories.Values)
-        {
-            if (history.Count == 0)
-                continue;
-
-            var msg = history[^1];
-            if (msg.Timestamp <= latestTimestamp)
-                continue;
-
-            latestTimestamp = msg.Timestamp;
-            latestKind = "P2P";
-            latestSender = msg.SenderName;
-            latestContent = msg.Content;
-        }
-
-        if (cartridge.GroupMessages.Count > 0)
-        {
-            var msg = cartridge.GroupMessages[^1];
-            if (msg.Timestamp > latestTimestamp)
-            {
-                latestTimestamp = msg.Timestamp;
-                latestKind = "GROUP";
-                latestSender = msg.SenderName;
-                latestContent = msg.Content;
-            }
-        }
-
-        foreach (var history in cartridge.ChannelMessages)
-        {
-            if (history.Value.Count == 0)
-                continue;
-
-            var msg = history.Value[^1];
-            if (msg.Timestamp <= latestTimestamp)
-                continue;
-
-            latestTimestamp = msg.Timestamp;
-            latestKind = $"BBS:{history.Key}";
-            latestSender = msg.SenderName;
-            latestContent = msg.Content;
-        }
-
-        if (latestTimestamp == TimeSpan.MinValue)
-            return "ERROR: No CitiNet traffic available.";
-
-        return $"[{latestKind}] {latestSender}: {latestContent}";
-    }
-
     public void MetaLog(EntityUid deckUid, string text)
     {
         _sawmill.Info($"[{ToPrettyString(deckUid)}] {text}");
@@ -717,41 +652,5 @@ public sealed class MetaApiSystem : EntitySystem, IMetaRuntimeApi
         }
 
         RaiseNetworkEvent(new NetrunningFeedbackEvent(title, message, critical), eventTarget);
-    }
-
-    private bool TryResolveCitiNetCartridge(EntityUid target, out EntityUid cartridgeUid, out CitiNetCartridgeComponent cartridge)
-    {
-        cartridgeUid = EntityUid.Invalid;
-        cartridge = default!;
-
-        if (TryComp<CitiNetCartridgeComponent>(target, out CitiNetCartridgeComponent? directCartridge))
-        {
-            cartridgeUid = target;
-            cartridge = directCartridge;
-            return true;
-        }
-
-        if (!TryComp<CartridgeLoaderComponent>(target, out var loader))
-            return false;
-
-        if (loader.ActiveProgram is { } activeProgram &&
-            TryComp<CitiNetCartridgeComponent>(activeProgram, out CitiNetCartridgeComponent? activeCartridge))
-        {
-            cartridgeUid = activeProgram;
-            cartridge = activeCartridge;
-            return true;
-        }
-
-        foreach (var programUid in loader.BackgroundPrograms)
-        {
-            if (!TryComp<CitiNetCartridgeComponent>(programUid, out CitiNetCartridgeComponent? backgroundCartridge))
-                continue;
-
-            cartridgeUid = programUid;
-            cartridge = backgroundCartridge;
-            return true;
-        }
-
-        return false;
     }
 }

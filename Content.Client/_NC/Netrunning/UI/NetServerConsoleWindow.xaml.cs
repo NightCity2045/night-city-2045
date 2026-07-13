@@ -37,8 +37,31 @@ public sealed partial class NetServerConsoleWindow : DefaultWindow
     {
         RobustXamlLoader.Load(this);
 
-        Tabs.SetTabTitle(0, "Обзор");
-        Tabs.SetTabTitle(1, "Топология");
+        Title = Loc.GetString("netrunning-server-console-title");
+        Tabs.SetTabTitle(0, Loc.GetString("netrunning-ui-tab-overview"));
+        Tabs.SetTabTitle(1, Loc.GetString("netrunning-ui-tab-topology"));
+        ServerNameLabel.Text = Loc.GetString("netrunning-server-console-unknown");
+        HeaderSubtitleLabel.Text = Loc.GetString("netrunning-server-console-subtitle");
+        ProviderLabel.Text = Loc.GetString("netrunning-server-provider-none");
+        LoadLabel.Text = Loc.GetString("netrunning-ui-label-load", ("used", 0), ("max", 0));
+        ModuleLabel.Text = Loc.GetString("netrunning-ui-label-modules", ("count", 0), ("limit", 0));
+        DeviceCountLabel.Text = Loc.GetString("netrunning-ui-label-nodes", ("count", 0));
+        DaemonLabel.Text = Loc.GetString("netrunning-ui-daemon-empty");
+        DevicesTitleLabel.Text = Loc.GetString("netrunning-server-devices-title");
+        DevicesHintLabel.Text = Loc.GetString("netrunning-server-devices-hint");
+        RefreshButton.Text = Loc.GetString("netrunning-server-refresh");
+        PortsTitleLabel.Text = Loc.GetString("netrunning-server-ports-title");
+        PortsHintLabel.Text = Loc.GetString("netrunning-server-ports-hint");
+        ModuleTitleLabel.Text = Loc.GetString("netrunning-server-module-title");
+        ModuleHintLabel.Text = Loc.GetString("netrunning-server-module-hint");
+        ConstructButton.Text = Loc.GetString("netrunning-server-construct");
+        PlacementTitleLabel.Text = Loc.GetString("netrunning-server-placement-title");
+        TopologyStatusLabel.Text = Loc.GetString("netrunning-ui-topology-ready");
+        MapTitleLabel.Text = Loc.GetString("netrunning-server-map-title");
+        MapHintLabel.Text = Loc.GetString("netrunning-server-map-hint");
+        AccessLabel.Text = Loc.GetString("netrunning-server-access-none");
+        FooterLabel.Text = Loc.GetString("netrunning-ui-footer-admin-missing-deck");
+        AdminButton.Text = Loc.GetString("netrunning-ui-admin-request");
 
         RefreshButton.OnPressed += _ => OnRefreshRequested?.Invoke();
         AdminButton.OnPressed += _ => OnAdminRequested?.Invoke();
@@ -55,7 +78,11 @@ public sealed partial class NetServerConsoleWindow : DefaultWindow
             var id = (string) args.ItemList[args.ItemIndex].Metadata!;
             var module = _availableModules.FirstOrDefault(m => m.Id == id);
             if (module != null)
-                ModuleDesc.SetMessage($"[color=#7fd3ff]{module.Name}[/color]\nНагрузка: {module.RamCost}\nЦена: {module.Price}\n\n{module.Description}");
+                ModuleDesc.SetMessage(Loc.GetString("netrunning-ui-module-desc",
+                    ("name", module.Name),
+                    ("load", module.RamCost),
+                    ("price", module.Price),
+                    ("desc", module.Description)));
 
             RefreshConstructState();
         };
@@ -80,20 +107,22 @@ public sealed partial class NetServerConsoleWindow : DefaultWindow
     {
         ServerNameLabel.Text = state.ServerName;
         ProviderLabel.Text = state.ProviderLabel;
-        LoadLabel.Text = $"Нагрузка: {state.UsedLoad}/{state.MaxLoad}";
-        ModuleLabel.Text = $"Модули: {state.ModuleCount}/{state.ModuleLimit}";
-        DeviceCountLabel.Text = $"Узлы: {state.ConnectedDeviceCount}";
-        DaemonLabel.Text = state.HasDaemonShard ? "Демон: установлен" : "Демон: пусто";
+        LoadLabel.Text = Loc.GetString("netrunning-ui-label-load", ("used", state.UsedLoad), ("max", state.MaxLoad));
+        ModuleLabel.Text = Loc.GetString("netrunning-ui-label-modules", ("count", state.ModuleCount), ("limit", state.ModuleLimit));
+        DeviceCountLabel.Text = Loc.GetString("netrunning-ui-label-nodes", ("count", state.ConnectedDeviceCount));
+        DaemonLabel.Text = state.HasDaemonShard
+            ? Loc.GetString("netrunning-ui-daemon-installed")
+            : Loc.GetString("netrunning-ui-daemon-empty");
         AccessLabel.Text = state.AccessStatus;
         FooterLabel.Text = state.CanRequestAdmin
-            ? "Подключенная дека обнаружена. Можно открыть локальный admin-сеанс."
-            : "Для admin-сеанса сначала подключи деку к этому серверу.";
+            ? Loc.GetString("netrunning-ui-footer-admin-ready")
+            : Loc.GetString("netrunning-ui-footer-admin-missing-deck");
         AdminButton.Disabled = !state.CanRequestAdmin || state.HasAdminAccess;
         AdminButton.Text = state.HasPersistentRoot
-            ? "Рут уже получен"
+            ? Loc.GetString("netrunning-ui-admin-root-owned")
             : state.HasAdminAccess
-                ? "Локальный доступ активен"
-                : "Получить права администратора";
+                ? Loc.GetString("netrunning-ui-admin-local-active")
+                : Loc.GetString("netrunning-ui-admin-request");
 
         _loadRatio = state.MaxLoad > 0 ? (float) state.UsedLoad / state.MaxLoad : 0f;
         _moduleRatio = state.ModuleLimit > 0 ? (float) state.ModuleCount / state.ModuleLimit : 0f;
@@ -112,7 +141,9 @@ public sealed partial class NetServerConsoleWindow : DefaultWindow
         _availableAnchors = state.AvailableAnchors;
         foreach (var port in _availableAnchors)
         {
-            var text = port.Connected ? $"[Занят] Порт {port.Dir}" : $"Порт {port.Dir}";
+            var text = port.Connected
+                ? Loc.GetString("netrunning-ui-port-occupied", ("dir", port.Dir))
+                : Loc.GetString("netrunning-ui-port-free", ("dir", port.Dir));
             var item = PortList.AddItem(text, metadata: port.Uid);
             item.Disabled = port.Connected;
         }
@@ -194,24 +225,24 @@ public sealed partial class NetServerConsoleWindow : DefaultWindow
     {
         ConstructButton.Disabled = !ModuleList.GetSelected().Any() || !PortList.GetSelected().Any();
         if (ConstructButton.Disabled)
-            ModuleDesc.SetMessage("[color=#768692]Выбери пакет комнаты и свободный порт, чтобы начать сборку.[/color]");
+            ModuleDesc.SetMessage(Loc.GetString("netrunning-ui-module-select-hint"));
     }
 
     private void RefreshTopologyStatus()
     {
         if (!_hasTopologyAdminAccess)
         {
-            TopologyStatusLabel.Text = "Размещение заблокировано. Сначала открой локальный admin-сеанс или получи ROOT.";
+            TopologyStatusLabel.Text = Loc.GetString("netrunning-ui-topology-locked");
             return;
         }
 
         if (_topologyEntries.Count == 0)
         {
-            TopologyStatusLabel.Text = "В этой локальной сети пока нет узлов, которые можно разместить вручную.";
+            TopologyStatusLabel.Text = Loc.GetString("netrunning-ui-topology-empty");
             return;
         }
 
-        TopologyStatusLabel.Text = "Выбери узел в списке. Затем нажми свободный тайл на карте топологии.";
+        TopologyStatusLabel.Text = Loc.GetString("netrunning-ui-topology-ready");
     }
 
     private void RefreshTopologySelection()
@@ -220,22 +251,25 @@ public sealed partial class NetServerConsoleWindow : DefaultWindow
 
         if (_selectedTopologyEntity is not { } selected)
         {
-            TopologySelectionLabel.SetMessage("[color=#768692]Узел не выбран.[/color]");
+            TopologySelectionLabel.SetMessage(Loc.GetString("netrunning-ui-topology-none"));
             return;
         }
 
         var entry = _topologyEntries.FirstOrDefault(x => x.Uid == selected);
         if (entry == null)
         {
-            TopologySelectionLabel.SetMessage("[color=#768692]Узел не выбран.[/color]");
+            TopologySelectionLabel.SetMessage(Loc.GetString("netrunning-ui-topology-none"));
             return;
         }
 
-        var accessText = _hasTopologyAdminAccess ? "Размещение доступно" : "Размещение заблокировано";
-        TopologySelectionLabel.SetMessage(
-            $"[color=#ffd27a]Выбран:[/color] {entry.Name}\n" +
-            $"Класс: {entry.Class}\n" +
-            $"Позиция: {entry.Tile.X}, {entry.Tile.Y}\n" +
-            $"{accessText}");
+        var accessText = _hasTopologyAdminAccess
+            ? Loc.GetString("netrunning-ui-topology-access-ready")
+            : Loc.GetString("netrunning-ui-topology-access-locked");
+        TopologySelectionLabel.SetMessage(Loc.GetString("netrunning-ui-topology-selected",
+            ("name", entry.Name),
+            ("class", entry.Class),
+            ("x", entry.Tile.X),
+            ("y", entry.Tile.Y),
+            ("access", accessText)));
     }
 }

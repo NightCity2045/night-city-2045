@@ -37,6 +37,18 @@ public sealed partial class NetNodeWindow : DefaultWindow
     {
         RobustXamlLoader.Load(this);
 
+        Title = Loc.GetString("netrunning-node-title");
+        DeviceNameLabel.Text = Loc.GetString("netrunning-node-unknown-title");
+        DeviceKindLabel.Text = Loc.GetString("netrunning-node-unknown-kind");
+        ViewportTitleLabel.Text = Loc.GetString("netrunning-node-viewport-title");
+        ViewportHintLabel.Text = Loc.GetString("netrunning-node-viewport-default");
+        ScriptsTitleLabel.Text = Loc.GetString("netrunning-node-scripts-title");
+        ShardStatusLabel.Text = Loc.GetString("netrunning-node-scripts-default");
+        ExecuteShardButton.Text = Loc.GetString("netrunning-node-execute");
+        ControlTitleLabel.Text = Loc.GetString("netrunning-node-control-title");
+        ToggleButton.Text = Loc.GetString("netrunning-node-toggle");
+        ScanButton.Text = Loc.GetString("netrunning-node-rescan");
+
         _viewport = new ScalingViewport
         {
             VerticalExpand = true,
@@ -64,13 +76,13 @@ public sealed partial class NetNodeWindow : DefaultWindow
 
     public void UpdateState(NetNodeUiState state)
     {
-        DeviceNameLabel.Text = $"УЗЕЛ://{state.DeviceName.ToUpperInvariant()}";
+        DeviceNameLabel.Text = Loc.GetString("netrunning-node-title-name", ("name", state.DeviceName.ToUpperInvariant()));
         DeviceKindLabel.Text = state.Kind == NetDeviceNodeKind.CameraGroup
-            ? $"ТИП: {GetKindLabel(state.Kind)} / КАМЕР В ГРУППЕ: {state.DeviceCount}"
-            : $"ТИП: {GetKindLabel(state.Kind)}";
+            ? Loc.GetString("netrunning-node-kind-camera-group", ("kind", GetKindLabel(state.Kind)), ("count", state.DeviceCount))
+            : Loc.GetString("netrunning-node-kind", ("kind", GetKindLabel(state.Kind)));
         ViewportHintLabel.Text = state.Kind == NetDeviceNodeKind.CameraGroup
-            ? "Живой видеопоток камеры. Отображается активный физический узел."
-            : "Живой обзор физического устройства. Центрирован на узле, радиус наблюдения около 4 тайлов.";
+            ? Loc.GetString("netrunning-node-viewport-camera")
+            : Loc.GetString("netrunning-node-viewport-device");
 
         ShardList.Clear();
         _shards.Clear();
@@ -78,15 +90,17 @@ public sealed partial class NetNodeWindow : DefaultWindow
 
         foreach (var shard in _shards.OrderBy(s => s.Name))
         {
-            var kind = shard.Kind == Content.Shared._NC.Netrunning.Meta.MetaProgramKind.DaemonDefensive ? "ДЕМОН" : "СКРИПТ";
+            var kind = shard.Kind == Content.Shared._NC.Netrunning.Meta.MetaProgramKind.DaemonDefensive
+                ? Loc.GetString("netrunning-node-shard-kind-daemon")
+                : Loc.GetString("netrunning-node-shard-kind-script");
             ShardList.AddItem($"{shard.Name} [{kind}] RAM:{shard.RamCost}", metadata: shard.Uid);
         }
 
         ShardStatusLabel.Text = state.HasLinkedDeck
             ? _shards.Count > 0
-                ? "Выбери скрипт из деки и выпусти его в текущий узел."
-                : "В деке нет доступных META-скриптов для запуска."
-            : "Дека не привязана к аватару. Скрипты недоступны.";
+                ? Loc.GetString("netrunning-node-shard-ready")
+                : Loc.GetString("netrunning-node-shard-empty")
+            : Loc.GetString("netrunning-node-shard-no-deck");
 
         _hasLinkedDeck = state.HasLinkedDeck;
         _physicalUid = IoCManager.Resolve<IEntityManager>().GetEntity(state.PhysicalDevice);
@@ -105,10 +119,10 @@ public sealed partial class NetNodeWindow : DefaultWindow
     {
         return kind switch
         {
-            NetDeviceNodeKind.Door => "ШЛЮЗ",
-            NetDeviceNodeKind.CameraGroup => "КАМЕРНЫЙ УЗЕЛ",
-            NetDeviceNodeKind.DataGate => "ШЛЮЗ СЕТИ",
-            _ => "УСТРОЙСТВО",
+            NetDeviceNodeKind.Door => Loc.GetString("netrunning-node-kind-door"),
+            NetDeviceNodeKind.CameraGroup => Loc.GetString("netrunning-node-kind-camera"),
+            NetDeviceNodeKind.DataGate => Loc.GetString("netrunning-node-kind-gate"),
+            _ => Loc.GetString("netrunning-node-kind-device"),
         };
     }
 

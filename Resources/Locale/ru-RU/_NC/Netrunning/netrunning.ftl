@@ -29,3 +29,121 @@ hacking-access-denied-remaining = Доступ запрещен. Осталос�
 hacking-ui-floor = Уровень { $floor }
 hacking-system-bypassed = SYSTEM BYPASSED. ROOT ACCESS GRANTED.
 hacking-root-access-saved = ROOT ACCESS GRANTED. KEYS SAVED.
+
+# META / NET server console
+netrunning-ui-tab-overview = Обзор
+netrunning-ui-tab-topology = Топология
+netrunning-ui-label-load = Нагрузка: { $used }/{ $max }
+netrunning-ui-label-modules = Модули: { $count }/{ $limit }
+netrunning-ui-label-nodes = Узлы: { $count }
+netrunning-ui-daemon-installed = Демон: установлен
+netrunning-ui-daemon-empty = Демон: пусто
+netrunning-ui-footer-admin-ready = Подключенная дека обнаружена. Можно открыть локальный admin-сеанс.
+netrunning-ui-footer-admin-missing-deck = Для admin-сеанса сначала подключи деку к этому серверу.
+netrunning-ui-admin-root-owned = Рут уже получен
+netrunning-ui-admin-local-active = Локальный доступ активен
+netrunning-ui-admin-request = Получить права администратора
+netrunning-ui-module-desc = [color=#7fd3ff]{ $name }[/color]\nНагрузка: { $load }\nЦена: { $price }\n\n{ $desc }
+netrunning-ui-module-select-hint = [color=#768692]Выбери пакет комнаты и свободный порт, чтобы начать сборку.[/color]
+netrunning-ui-port-occupied = [Занят] Порт { $dir }
+netrunning-ui-port-free = Порт { $dir }
+netrunning-ui-topology-locked = Размещение заблокировано. Сначала открой локальный admin-сеанс или получи ROOT.
+netrunning-ui-topology-empty = В этой локальной сети пока нет узлов, которые можно разместить вручную.
+netrunning-ui-topology-ready = Выбери узел в списке. Затем нажми свободный тайл на карте топологии.
+netrunning-ui-topology-none = [color=#768692]Узел не выбран.[/color]
+netrunning-ui-topology-access-ready = Размещение доступно
+netrunning-ui-topology-access-locked = Размещение заблокировано
+netrunning-ui-topology-selected = [color=#ffd27a]Выбран:[/color] { $name }\nКласс: { $class }\nПозиция: { $x }, { $y }\n{ $access }
+
+# META / NET node console
+netrunning-node-title = Узел сети
+netrunning-node-title-name = УЗЕЛ://{ $name }
+netrunning-node-kind = ТИП: { $kind }
+netrunning-node-kind-camera-group = ТИП: { $kind } / КАМЕР В ГРУППЕ: { $count }
+netrunning-node-viewport-camera = Живой видеопоток камеры. Отображается активный физический узел.
+netrunning-node-viewport-device = Живой обзор физического устройства. Центрирован на узле, радиус наблюдения около 4 тайлов.
+netrunning-node-shard-kind-daemon = ДЕМОН
+netrunning-node-shard-kind-script = СКРИПТ
+netrunning-node-shard-ready = Выбери скрипт из деки и выпусти его в текущий узел.
+netrunning-node-shard-empty = В деке нет доступных META-скриптов для запуска.
+netrunning-node-shard-no-deck = Дека не привязана к аватару. Скрипты недоступны.
+netrunning-node-kind-door = ШЛЮЗ
+netrunning-node-kind-camera = КАМЕРНЫЙ УЗЕЛ
+netrunning-node-kind-gate = ШЛЮЗ СЕТИ
+netrunning-node-kind-device = УСТРОЙСТВО
+
+# META / NET server runtime
+netrunning-server-provider-none = ЛКП: нет
+netrunning-server-provider = ЛКП: { $name }
+netrunning-server-access-none = ДОСТУП: НЕТ СЕАНСА
+netrunning-server-access-root = ДОСТУП: ROOT / ПОСТОЯННЫЙ
+netrunning-server-access-local = ДОСТУП: ЛОКАЛЬНЫЙ АДМИН
+netrunning-server-access-linked = ДОСТУП: ДЕКА СВЯЗАНА, СЕАНС НЕ ОТКРЫТ
+netrunning-server-title = СЕРВЕР://{ $name }
+netrunning-class-node = УЗЕЛ
+netrunning-class-cameras = КАМЕРЫ
+netrunning-class-ice = ЛЕД
+netrunning-class-door = ДВЕРЬ
+netrunning-class-camera = КАМЕРА
+netrunning-class-light = СВЕТ
+netrunning-class-device = УСТРОЙСТВО
+netrunning-class-power = ПИТАНИЕ
+netrunning-class-unknown = НЕИЗВЕСТНО
+netrunning-popup-compile-error = ОШИБКА КОМПИЛЯЦИИ: { $error }
+netrunning-popup-daemon-slot-occupied = Слот защитного демона уже занят.
+netrunning-popup-daemon-installed = Защитный META-шард установлен в сервер.
+netrunning-verb-open-server-console = Открыть консоль сервера
+netrunning-verb-eject-defensive-shard = Извлечь защитный шард
+netrunning-popup-daemon-ejected = Защитный META-шард извлечен.
+netrunning-popup-link-deck-first = Сначала свяжи свою деку с этим сервером.
+netrunning-popup-root-already-owned = Рут-доступ уже получен и сохранен в деке.
+netrunning-popup-local-admin-active = Локальный админ-сеанс уже активен.
+netrunning-popup-local-admin-opened = Локальный админ-сеанс открыт. Топология разблокирована.
+netrunning-popup-node-not-owned = ОШИБКА: выбранный узел больше не принадлежит этой локальной сети.
+netrunning-popup-no-deck = ОШИБКА: дека нетраннера не найдена.
+netrunning-popup-shard-missing = ОШИБКА: шард недоступен.
+netrunning-popup-topology-admin-required = ОШИБКА: для перестройки топологии нужен локальный admin или ROOT.
+netrunning-popup-topology-tile-outside = ОШИБКА: выбранный тайл находится вне развернутой карты локальной сети.
+netrunning-popup-topology-tile-occupied = ОШИБКА: тайл уже занят другим узлом или защитой.
+netrunning-popup-no-digital-grid = ОШИБКА: у сервера нет инициализированной цифровой решетки.
+netrunning-popup-module-limit = ОШИБКА: достигнут лимит модулей сервера ({ $limit }).
+netrunning-popup-server-overload = ОШИБКА: перегрузка сервера ({ $load }/{ $max }).
+netrunning-popup-port-unavailable = ОШИБКА: порт расширения недоступен или уже занят.
+netrunning-popup-module-attached = { $module } пришит к порту.
+netrunning-popup-scan-no-power-line = ОШИБКА СКАНА: сервер не видит прямой линии логического питания.
+netrunning-popup-scan-complete = СКАН ЗАВЕРШЕН: отображено узлов: { $count }.
+netrunning-popup-scan-empty = СКАН ЗАВЕРШЕН: в этом сегменте ЛКП сетевые узлы не найдены.
+
+# META / Cyberdeck terminal
+netrunning-cyberdeck-server-offline = Сервер: offline
+netrunning-cyberdeck-server-load = Сервер: { $used }/{ $max } нагрузка
+netrunning-cyberdeck-connection-offline = Соединение: OFFLINE (требуется AR-оверлей)
+netrunning-cyberdeck-link-linked = Линк: подключено
+netrunning-cyberdeck-link-ready = Линк: готов
+netrunning-cyberdeck-construction-moved = Сборка модулей перенесена в физическую консоль сервера.
+netrunning-cyberdeck-run-requires-ar = Для запуска удаленных скриптов нужны AR-очки.
+netrunning-cyberdeck-run-defensive-install = Защитные daemon-шарды нужно устанавливать в защищенный узел.
+netrunning-server-console-title = Консоль локальной сети
+netrunning-server-console-subtitle = АДМИНИСТРАТИВНАЯ КОНСОЛЬ ЛОКАЛЬНОЙ СЕТИ
+netrunning-server-console-unknown = СЕРВЕР://НЕИЗВЕСТЕН
+netrunning-server-devices-title = УСТРОЙСТВА СЕГМЕНТА ЛКП
+netrunning-server-devices-hint = В локальную сеть выводятся только узлы, сидящие на том же прямом источнике логического питания.
+netrunning-server-refresh = Обновить топологию
+netrunning-server-ports-title = ПОРТЫ ТОПОЛОГИИ
+netrunning-server-ports-hint = Свободные порты принимают новые комнаты и профильные кластеры локальной сети.
+netrunning-server-module-title = СБОРКА МОДУЛЯ
+netrunning-server-module-hint = Выбери пакет комнаты и вшей его в совместимый расширительный порт.
+netrunning-server-construct = Собрать модуль
+netrunning-server-placement-title = РАЗМЕЩЕНИЕ УЗЛОВ
+netrunning-server-map-title = КАРТА ТОПОЛОГИИ
+netrunning-server-map-hint = Клик по свободному тайлу мгновенно переносит выбранный узел. Требуется локальный admin или ROOT.
+netrunning-node-unknown-title = УЗЕЛ://НЕИЗВЕСТНО
+netrunning-node-unknown-kind = ТИП: НЕИЗВЕСТНО
+netrunning-node-viewport-title = ВЬЮПОРТ УЗЛА
+netrunning-node-viewport-default = Прямой визуальный канал через выбранный узел.
+netrunning-node-scripts-title = СКРИПТЫ ДЕКИ
+netrunning-node-scripts-default = Подключи деку, чтобы получить доступ к боевым скриптам.
+netrunning-node-execute = Запустить выбранный скрипт
+netrunning-node-control-title = КОНТРОЛЬ УЗЛА
+netrunning-node-toggle = Переключить
+netrunning-node-rescan = Пересканировать

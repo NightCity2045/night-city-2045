@@ -32,7 +32,6 @@ public sealed class MetaCompilerSystem : EntitySystem
         ["DOWNLOAD"] = (2, 2),
         ["UPLOAD"] = (2, 2),
         ["GET_VITALS"] = (1, 1),
-        ["INTERCEPT_PDA"] = (1, 1),
         ["ARR_LENGTH"] = (1, 1),
         ["LOG"] = (1, 1),
         ["HAS_ROOT"] = (1, 1),
@@ -316,7 +315,7 @@ public sealed class MetaCompilerSystem : EntitySystem
             "GET_TARGET" or "GET_SERVER" or "GET_SELF" or "GET_INTRUDER" => MetaValueType.Ptr,
             "GET_EVENT_SOURCE" or "FIND_NEAREST" => MetaValueType.Ptr,
             "GET_CONNECTED" or "GET_FILES" or "GET_VITALS" => MetaValueType.Arr,
-            "GET_CLASS" or "INTERCEPT_PDA" => MetaValueType.Str,
+            "GET_CLASS" => MetaValueType.Str,
             "GET_ICE" or "GET_TRACE" or "ARR_LENGTH" or "IS_VALID" => MetaValueType.Int,
             "HAS_ROOT" or "ROOT" => MetaValueType.Int,
             "SPAWN_ICE" or "SPAWN_BLACK_ICE" or "SPAWN_DEMON" => MetaValueType.Ptr,
@@ -393,7 +392,6 @@ public sealed class MetaCompilerSystem : EntitySystem
             case "GET_FILES":
             case "HAS_ROOT":
             case "GET_VITALS":
-            case "INTERCEPT_PDA":
                 return args.Count > 0 && ExpectType(args[0], MetaValueType.Ptr, ctx, out error);
             case "ROOT":
             case "SPAWN_ICE":

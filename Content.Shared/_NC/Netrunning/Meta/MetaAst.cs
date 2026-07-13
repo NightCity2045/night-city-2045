@@ -194,7 +194,6 @@ public interface IMetaRuntimeApi
     bool Upload(EntityUid deckUid, EntityUid target, string fileId);
     void MetaLog(EntityUid deckUid, string text);
     IReadOnlyList<int> GetVitals(EntityUid target);
-    string InterceptPda(EntityUid target);
     void SetUser(EntityUid deckUid, EntityUid? userUid);
     void SetEventSource(EntityUid hostUid, EntityUid? source);
     bool Breach(EntityUid attacker, EntityUid target);

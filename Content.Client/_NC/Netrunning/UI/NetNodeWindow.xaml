@@ -1,48 +1,36 @@
 <DefaultWindow xmlns="https://spacestation14.io"
-               Title="Узел сети"
+               Title=""
                MinWidth="960"
                MinHeight="620">
     <BoxContainer Orientation="Vertical" Margin="8" SeparationOverride="8">
         <PanelContainer StyleClasses="NetTerminalHeader">
             <BoxContainer Orientation="Vertical" Margin="10" SeparationOverride="2">
-                <Label Name="DeviceNameLabel"
-                       Text="УЗЕЛ://НЕИЗВЕСТНО"
-                       StyleClasses="NetTerminalTitle"
-                       ClipText="True" />
-                <Label Name="DeviceKindLabel"
-                       Text="ТИП: НЕИЗВЕСТНО"
-                       StyleClasses="NetTerminalSubtitle"
-                       ClipText="True" />
+                <Label Name="DeviceNameLabel" Text="" StyleClasses="NetTerminalTitle" ClipText="True" />
+                <Label Name="DeviceKindLabel" Text="" StyleClasses="NetTerminalSubtitle" ClipText="True" />
             </BoxContainer>
         </PanelContainer>
 
         <BoxContainer Orientation="Horizontal" SeparationOverride="8" VerticalExpand="True">
             <PanelContainer StyleClasses="NetTerminalPanel" HorizontalExpand="True" VerticalExpand="True">
                 <BoxContainer Orientation="Vertical" Margin="6" SeparationOverride="4">
-                    <Label Text="ВЬЮПОРТ УЗЛА" StyleClasses="NetTerminalSectionTitle" />
-                    <Label Name="ViewportHintLabel"
-                           Text="Прямой визуальный канал через выбранный узел."
-                           StyleClasses="NetTerminalSectionText"
-                           ClipText="True" />
+                    <Label Name="ViewportTitleLabel" Text="" StyleClasses="NetTerminalSectionTitle" />
+                    <Label Name="ViewportHintLabel" Text="" StyleClasses="NetTerminalSectionText" ClipText="True" />
                     <PanelContainer Name="ViewportContainer" StyleClasses="NetTerminalInset" VerticalExpand="True" />
                 </BoxContainer>
             </PanelContainer>
 
             <PanelContainer StyleClasses="NetTerminalPanel" MinWidth="330" HorizontalExpand="True" VerticalExpand="True">
                 <BoxContainer Orientation="Vertical" Margin="6" SeparationOverride="6">
-                    <Label Text="СКРИПТЫ ДЕКИ" StyleClasses="NetTerminalSectionTitle" />
-                    <Label Name="ShardStatusLabel"
-                           Text="Подключи деку, чтобы получить доступ к боевым скриптам."
-                           StyleClasses="NetTerminalSectionText"
-                           ClipText="True" />
+                    <Label Name="ScriptsTitleLabel" Text="" StyleClasses="NetTerminalSectionTitle" />
+                    <Label Name="ShardStatusLabel" Text="" StyleClasses="NetTerminalSectionText" ClipText="True" />
                     <PanelContainer StyleClasses="NetTerminalInset" VerticalExpand="True">
                         <ItemList Name="ShardList" VerticalExpand="True" />
                     </PanelContainer>
-                    <Button Name="ExecuteShardButton" Text="Запустить выбранный скрипт" StyleClasses="NetTerminalActionButton" />
-                    <Label Text="КОНТРОЛЬ УЗЛА" StyleClasses="NetTerminalSectionTitle" />
+                    <Button Name="ExecuteShardButton" Text="" StyleClasses="NetTerminalActionButton" />
+                    <Label Name="ControlTitleLabel" Text="" StyleClasses="NetTerminalSectionTitle" />
                     <BoxContainer Orientation="Horizontal" SeparationOverride="6">
-                        <Button Name="ToggleButton" Text="Переключить" StyleClasses="NetTerminalButton" HorizontalExpand="True" />
-                        <Button Name="ScanButton" Text="Пересканировать" StyleClasses="NetTerminalButton" HorizontalExpand="True" />
+                        <Button Name="ToggleButton" Text="" StyleClasses="NetTerminalButton" HorizontalExpand="True" />
+                        <Button Name="ScanButton" Text="" StyleClasses="NetTerminalButton" HorizontalExpand="True" />
                     </BoxContainer>
                 </BoxContainer>
             </PanelContainer>

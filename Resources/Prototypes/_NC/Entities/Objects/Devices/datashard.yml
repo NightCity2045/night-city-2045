@@ -104,3 +104,81 @@
       
       FREE RAM [10];
       EXIT [0];
+
+- type: entity
+  parent: NCDataShard
+  id: NCDataShardDoorToggle
+  name: "META: Переключатель шлюза"
+  description: Простой боевой скрипт для открытия или закрытия выбранного шлюза.
+  components:
+  - type: DataShard
+    requiredRam: 5
+    sourceCode: |
+      // Door Toggle - базовый контроль шлюза
+      ALLOC RAM [5];
+      DEF PTR door = SYS.GET_TARGET();
+
+      IF (SYS.IS_VALID(door) == 1) {
+          SYS.LOG("Переключаю состояние шлюза.");
+          SYS.OVERRIDE(door, "DOOR_TOGGLE", 1);
+      } ELSE {
+          SYS.LOG("ОШИБКА: цель недоступна.");
+      }
+
+      FREE RAM [5];
+      EXIT [0];
+
+- type: entity
+  parent: NCDataShard
+  id: NCDataShardDoorCrushLoop
+  name: "META: Давилка шлюза"
+  description: Заставляет выбранный шлюз несколько раз открываться и резко закрываться.
+  components:
+  - type: DataShard
+    requiredRam: 8
+    sourceCode: |
+      // Door Crush Loop - принудительный цикл створок
+      ALLOC RAM [8];
+      DEF PTR door = SYS.GET_TARGET();
+
+      IF (SYS.IS_VALID(door) == 1) {
+          SYS.LOG("Запускаю цикл створок.");
+          FOR (DEF INT i = 0; i < 5; i += 1) {
+              IF (SYS.IS_VALID(door) == 1) {
+                  SYS.OVERRIDE(door, "DOOR_OPEN", 1);
+                  YIELD [250];
+                  SYS.OVERRIDE(door, "DOOR_OPEN", 0);
+                  YIELD [250];
+              }
+          }
+      } ELSE {
+          SYS.LOG("ОШИБКА: цель недоступна.");
+      }
+
+      FREE RAM [8];
+      EXIT [0];
+
+- type: entity
+  parent: NCDataShard
+  id: NCDataShardDoorShortCircuit
+  name: "META: Короткое замыкание"
+  description: Перегружает выбранный шлюз, выбивает питание и создает тепловую дугу рядом с дверью.
+  components:
+  - type: DataShard
+    requiredRam: 6
+    sourceCode: |
+      // Short Circuit - аварийная перегрузка шлюза
+      ALLOC RAM [6];
+      DEF PTR door = SYS.GET_TARGET();
+
+      IF (SYS.IS_VALID(door) == 1) {
+          SYS.LOG("Перегружаю питание шлюза.");
+          YIELD [500];
+          SYS.OVERRIDE(door, "SHORT_CIRCUIT", 35);
+          SYS.LOG("Короткое замыкание выполнено.");
+      } ELSE {
+          SYS.LOG("ОШИБКА: цель недоступна.");
+      }
+
+      FREE RAM [6];
+      EXIT [0];

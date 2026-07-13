@@ -466,7 +466,6 @@ public sealed class MetaVirtualMachineSystem : EntitySystem
         {
             var f = sys.Name.ToUpperInvariant();
             if (f == "GET_CLASS" && CheckRam(s, SysHeavyCost)) { var t = EvalPtr(s, sys.Arguments[0]); return t != null ? (_api.GetClass(t.Value) ?? "") : ""; }
-            if (f == "INTERCEPT_PDA") { var t = EvalPtr(s, sys.Arguments[0]); return t != null ? (_api.InterceptPda(t.Value) ?? "") : ""; }
         }
         if (e is MetaBinaryExpression b && b.Op == MetaBinaryOp.Add && (IsStringExpression(s, b.Left) || IsStringExpression(s, b.Right)))
             return EvalString(s, b.Left) + EvalString(s, b.Right);
@@ -501,8 +500,7 @@ public sealed class MetaVirtualMachineSystem : EntitySystem
             MetaStringLiteral => true,
             MetaVariableExpression v => s.StrVars.ContainsKey(v.Name),
             MetaArrayIndexExpression a => s.ArrVars.TryGetValue(a.ArrayName, out var arr) && arr.ElementType == MetaValueType.Str,
-            MetaSysCallExpression sys => sys.Name.Equals("GET_CLASS", StringComparison.OrdinalIgnoreCase) ||
-                                         sys.Name.Equals("INTERCEPT_PDA", StringComparison.OrdinalIgnoreCase),
+            MetaSysCallExpression sys => sys.Name.Equals("GET_CLASS", StringComparison.OrdinalIgnoreCase),
             MetaBinaryExpression b when b.Op == MetaBinaryOp.Add => IsStringExpression(s, b.Left) || IsStringExpression(s, b.Right),
             _ => false
         };
