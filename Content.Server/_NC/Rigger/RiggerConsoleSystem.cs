@@ -250,6 +250,9 @@ public sealed class RiggerConsoleSystem : EntitySystem
 
     private bool BelongsToConsole(EntityUid droneUid, RiggerDroneComponent drone, Entity<RiggerConsoleComponent> console)
     {
+        if (!drone.Enabled || !HasAllowedDroneFaction(drone, console.Comp))
+            return false;
+
         if (drone.Console == console.Owner)
             return true;
 
@@ -260,8 +263,22 @@ public sealed class RiggerConsoleSystem : EntitySystem
         var droneMap = Transform(droneUid).MapUid;
         if (consoleMap == null || consoleMap != droneMap)
             return false;
-        
+
+        if (console.Comp.AutoLinkRange > 0f &&
+            !Transform(droneUid).Coordinates.InRange(EntityManager, _transform, Transform(console).Coordinates, console.Comp.AutoLinkRange))
+        {
+            return false;
+        }
+
         return true;
+    }
+
+    private bool HasAllowedDroneFaction(RiggerDroneComponent drone, RiggerConsoleComponent console)
+    {
+        if (console.AllowedDroneFactions.Count == 0)
+            return true;
+
+        return drone.DroneFactions.Overlaps(console.AllowedDroneFactions);
     }
 
     private bool HasAnyLiveDrone(RiggerConsoleComponent console)

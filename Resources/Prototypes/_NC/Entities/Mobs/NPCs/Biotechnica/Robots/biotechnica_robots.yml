@@ -1,0 +1,64 @@
+# Biotechnica rigger robots. These are IPC-based drones, not human operatives.
+
+- type: entity
+  name: ent-MobNCBiotechnicaRobot
+  parent: MobIPC
+  id: MobNCBiotechnicaRobot
+  description: ent-MobNCBiotechnicaRobot-desc
+  abstract: true
+  IdleRange: !type:Single 8
+  components:
+  - type: NpcFactionMember
+    factions:
+    - NCBiotechnica
+  - type: FactionException
+  - type: NPCRetaliation
+    attackMemoryLength: 15
+  - type: RTSAggressionMode
+    currentMode: Normal
+    peacefulFactions:
+    - Passive
+    normalFactions:
+    - NCBiotechnica
+  - type: RiggerDrone
+    droneFactions:
+    - NCBiotechnica
+  - type: RTSControllable
+  - type: HTN
+    rootTask:
+      task: NCBanditTier2RootCompound
+  - type: NPCAutoReload
+  - type: InputMover
+  - type: MobMover
+
+- type: entity
+  parent: MobNCBiotechnicaRobot
+  id: MobNCBiotechnicaRobotAvenger
+  suffix: Biotechnica Robot Avenger
+  components:
+  - type: Loadout
+    prototypes: [NCBiotechnicaGearAvenger]
+
+- type: entity
+  parent: MobNCBiotechnicaRobot
+  id: MobNCBiotechnicaRobotBoomerBuster
+  suffix: Biotechnica Robot Boomer
+  components:
+  - type: Loadout
+    prototypes: [NCBiotechnicaGearBoomerBuster]
+
+- type: entity
+  parent: MobNCBiotechnicaRobot
+  id: MobNCBiotechnicaRobotSaratoga
+  suffix: Biotechnica Robot Saratoga
+  components:
+  - type: Loadout
+    prototypes: [NCBiotechnicaGearSaratoga]
+
+- type: entity
+  parent: MobNCBiotechnicaRobot
+  id: MobNCBiotechnicaRobotCrusher
+  suffix: Biotechnica Robot Crusher
+  components:
+  - type: Loadout
+    prototypes: [NCBiotechnicaGearCrusher]

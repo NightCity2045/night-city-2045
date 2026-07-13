@@ -1,4 +1,6 @@
+using Content.Shared.NPC.Prototypes;
 using Robust.Shared.GameStates;
+using Robust.Shared.Prototypes;
 
 namespace Content.Shared._NC.Rigger.Components;
 
@@ -8,6 +10,9 @@ namespace Content.Shared._NC.Rigger.Components;
 [RegisterComponent, NetworkedComponent, AutoGenerateComponentState]
 public sealed partial class RiggerDroneComponent : Component
 {
+    [DataField]
+    public HashSet<ProtoId<NpcFactionPrototype>> DroneFactions = new();
+
     [DataField, AutoNetworkedField]
     public EntityUid? Console;
 

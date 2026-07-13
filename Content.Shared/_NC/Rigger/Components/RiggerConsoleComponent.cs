@@ -1,3 +1,4 @@
+using Content.Shared.NPC.Prototypes;
 using Robust.Shared.GameStates;
 using Robust.Shared.Prototypes;
 
@@ -14,6 +15,9 @@ public sealed partial class RiggerConsoleComponent : Component
 
     [DataField]
     public float AutoLinkRange = 20f;
+
+    [DataField]
+    public HashSet<ProtoId<NpcFactionPrototype>> AllowedDroneFactions = new();
 
     [DataField]
     public EntProtoId EyePrototype = "NCRiggerEye";

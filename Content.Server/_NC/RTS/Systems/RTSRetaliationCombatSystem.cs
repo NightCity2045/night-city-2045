@@ -2,6 +2,7 @@ using Content.Server.Hands.Systems;
 using Content.Server.NPC.Components;
 using Content.Server.NPC.HTN;
 using Content.Server.NPC.Systems;
+using Content.Shared._NC.Rigger.Components;
 using Content.Shared._NC.RTS.Components;
 using Content.Shared._NC.RTS.Events;
 using Content.Shared.CombatMode;
@@ -49,11 +50,10 @@ public sealed class RTSRetaliationCombatSystem : EntitySystem
         if (ent.Comp.ActiveCommand != null)
             return;
 
-        if (!HasComp<NPCRetaliationComponent>(ent.Owner))
+        if (!HasComp<NPCRetaliationComponent>(ent.Owner) ||
+            IsFriendlyAttacker(ent.Owner, attacker))
             return;
 
-        // Do not use vanilla friendly filtering here: RTS drones must answer
-        // the entity that actually damaged them even in peaceful faction mode.
         _faction.AggroEntity(ent.Owner, attacker);
 
         if (!_hands.TryGetActiveItem(ent.Owner, out var heldItem) || !HasComp<GunComponent>(heldItem))
@@ -63,6 +63,21 @@ public sealed class RTSRetaliationCombatSystem : EntitySystem
         }
 
         RetaliateWithRangedCombat(ent.Owner, attacker);
+    }
+
+    private bool IsFriendlyAttacker(EntityUid uid, EntityUid attacker)
+    {
+        // DroneFactions remain stable even when RTS peaceful mode temporarily
+        // swaps the active NPC faction to Passive.
+        if (TryComp<RiggerDroneComponent>(uid, out var drone) &&
+            drone.DroneFactions.Count != 0 &&
+            TryComp<NpcFactionMemberComponent>(attacker, out var attackerFaction) &&
+            _faction.IsMemberOfAny((attacker, attackerFaction), drone.DroneFactions))
+        {
+            return true;
+        }
+
+        return _faction.IsEntityFriendly(uid, attacker);
     }
 
     private void RetaliateWithRangedCombat(EntityUid uid, EntityUid attacker)
