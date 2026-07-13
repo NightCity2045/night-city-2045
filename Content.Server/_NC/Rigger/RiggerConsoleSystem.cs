@@ -2,6 +2,7 @@ using System.Linq;
 using System.Numerics;
 using Content.Server.Mind;
 using Content.Server.Power.Components;
+using Content.Server.PowerCell;
 using Content.Shared._NC.Rigger.Components;
 using Content.Shared._NC.Rigger.Events;
 using Content.Shared.Access.Components;
@@ -9,7 +10,8 @@ using Content.Shared.Access.Systems;
 using Content.Shared.Actions;
 using Content.Shared.Damage;
 using Content.Shared.Interaction;
-using Content.Shared.ListViewSelector;
+using Content.Shared.Mobs;
+using Content.Shared.Mobs.Components;
 using Content.Shared.Mind.Components;
 using Content.Shared.Mobs.Systems;
 using Content.Shared.Popups;
@@ -30,6 +32,8 @@ public sealed class RiggerConsoleSystem : EntitySystem
     [Dependency] private readonly AccessReaderSystem _access = default!;
     [Dependency] private readonly MindSystem _mind = default!;
     [Dependency] private readonly MobStateSystem _mobState = default!;
+    [Dependency] private readonly MobThresholdSystem _mobThreshold = default!;
+    [Dependency] private readonly PowerCellSystem _powerCell = default!;
     [Dependency] private readonly SharedPopupSystem _popup = default!;
     [Dependency] private readonly IPlayerManager _player = default!;
     [Dependency] private readonly PvsOverrideSystem _pvsOverride = default!;
@@ -65,7 +69,10 @@ public sealed class RiggerConsoleSystem : EntitySystem
             RefreshLinkedDrones((uid, console));
 
             if (console.ActiveEye is { } eye && TryComp<RiggerConsoleUserComponent>(eye, out var user))
+            {
                 SyncSessionOverrides(new Entity<RiggerConsoleUserComponent>(eye, user));
+                UpdateDroneStatusUi((eye, user));
+            }
         }
     }
 
@@ -163,25 +170,67 @@ public sealed class RiggerConsoleSystem : EntitySystem
         ent.Comp.LinkedDrones.AddRange(console.LinkedDrones);
         Dirty(ent);
 
-        var entries = new List<ListViewSelectorEntry>();
+        _ui.SetUiState(ent.Owner, RiggerDroneStatusUiKey.Key, BuildDroneStatusState(ent));
+        _ui.TryToggleUi(ent.Owner, RiggerDroneStatusUiKey.Key, ent.Owner);
+    }
+
+    private void UpdateDroneStatusUi(Entity<RiggerConsoleUserComponent> ent)
+    {
+        if (!_ui.IsUiOpen(ent.Owner, RiggerDroneStatusUiKey.Key))
+            return;
+
+        _ui.SetUiState(ent.Owner, RiggerDroneStatusUiKey.Key, BuildDroneStatusState(ent));
+    }
+
+    private RiggerDroneStatusBuiState BuildDroneStatusState(Entity<RiggerConsoleUserComponent> ent)
+    {
+        var entries = new List<RiggerDroneStatusEntry>();
         foreach (var drone in ent.Comp.LinkedDrones)
         {
             if (!Exists(drone))
                 continue;
 
-            var status = _mobState.IsAlive(drone)
-                ? Loc.GetString("nc-rigger-drone-state-alive")
-                : Loc.GetString("nc-rigger-drone-state-offline");
+            var isAlive = _mobState.IsAlive(drone);
+            var health = GetDroneHealthFraction(drone, isAlive);
+            var battery = GetDroneBatteryFraction(drone);
 
-            var description = status;
-            if (TryComp<DamageableComponent>(drone, out var damage))
-                description = $"{status}, {Loc.GetString("nc-rigger-drone-damage", ("damage", (int) damage.TotalDamage.Float()))}";
-
-            entries.Add(new ListViewSelectorEntry(drone.ToString(), Name(drone), description));
+            entries.Add(new RiggerDroneStatusEntry(GetNetEntity(drone), Name(drone), isAlive, health, battery));
         }
 
-        _ui.SetUiState(ent.Owner, ListViewSelectorUiKey.Key, new ListViewSelectorState(entries));
-        _ui.TryToggleUi(ent.Owner, ListViewSelectorUiKey.Key, ent.Owner);
+        return new RiggerDroneStatusBuiState(entries);
+    }
+
+    private float? GetDroneHealthFraction(EntityUid drone, bool isAlive)
+    {
+        if (!isAlive)
+            return 0f;
+
+        if (!TryComp<DamageableComponent>(drone, out var damage) ||
+            !TryComp<MobThresholdsComponent>(drone, out var thresholds) ||
+            !_mobThreshold.TryGetThresholdForState(drone, MobState.Dead, out var deadThreshold, thresholds))
+        {
+            return null;
+        }
+
+        var maxHealth = deadThreshold.Value.Float();
+        if (maxHealth <= 0f)
+            return null;
+
+        return Math.Clamp(1f - damage.TotalDamage.Float() / maxHealth, 0f, 1f);
+    }
+
+    private float? GetDroneBatteryFraction(EntityUid drone)
+    {
+        if (!TryComp<BatteryComponent>(drone, out var battery) &&
+            !_powerCell.TryGetBatteryFromSlot(drone, out battery))
+        {
+            return null;
+        }
+
+        if (battery.MaxCharge <= 0f)
+            return null;
+
+        return Math.Clamp(battery.CurrentCharge / battery.MaxCharge, 0f, 1f);
     }
 
     private void OnUserShutdown(Entity<RiggerConsoleUserComponent> ent, ref ComponentShutdown args)

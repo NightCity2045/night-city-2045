@@ -90,6 +90,8 @@
     interfaces:
       enum.ListViewSelectorUiKey.Key:
         type: ListViewSelectorBUI
+      enum.RiggerDroneStatusUiKey.Key:
+        type: RiggerDroneStatusBoundUserInterface
   - type: RiggerConsoleUser
 
 - type: entity
