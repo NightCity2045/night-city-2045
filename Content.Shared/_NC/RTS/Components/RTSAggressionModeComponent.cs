@@ -9,12 +9,14 @@ namespace Content.Shared._NC.RTS.Components;
 public enum RTSAggressionMode : byte
 {
     Peaceful,
-    Normal
+    Normal,
+    Aggressive
 }
 
 /// <summary>
 /// Stores the autonomous aggression mode for RTS drones. Systems swap faction
-/// membership from this data instead of hardcoding faction names in C#.
+/// membership from this data and derive aggressive hostility from faction
+/// prototypes instead of hardcoding faction names in C#.
 /// </summary>
 [RegisterComponent, NetworkedComponent, AutoGenerateComponentState]
 public sealed partial class RTSAggressionModeComponent : Component

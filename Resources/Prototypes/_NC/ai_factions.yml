@@ -1,9 +1,47 @@
 - type: npcFaction
   id: NCBandit
   hostile:
+  - NCNCPD
+  - NCCitizens
   - NCBiotechnica
   - NCMilitech
   - NanoTrasen
+  - SimpleHostile
+  - Syndicate
+  - Xeno
+  - Zombie
+  - Revolutionary
+  - AllHostile
+  - Wizard
+  - SAN
+  - Changeling
+  - Shadowling
+  - Blob
+
+- type: npcFaction
+  id: NCNCPD
+  friendly:
+  - NCCitizens
+  hostile:
+  - NCBandit
+  - SimpleHostile
+  - Syndicate
+  - Xeno
+  - Zombie
+  - Revolutionary
+  - AllHostile
+  - Wizard
+  - SAN
+  - Changeling
+  - Shadowling
+  - Blob
+
+- type: npcFaction
+  id: NCCitizens
+  friendly:
+  - NCNCPD
+  hostile:
+  - NCBandit
   - SimpleHostile
   - Syndicate
   - Xeno
@@ -51,3 +89,23 @@
   - Changeling
   - Shadowling
   - Blob
+
+- type: ncDepartmentFaction
+  id: NCDepartmentFactionCitizens
+  department: CivilianNC
+  faction: NCCitizens
+
+- type: ncDepartmentFaction
+  id: NCDepartmentFactionNCPD
+  department: NCPD
+  faction: NCNCPD
+
+- type: ncDepartmentFaction
+  id: NCDepartmentFactionBiotechnica
+  department: Biotechnica
+  faction: NCBiotechnica
+
+- type: ncDepartmentFaction
+  id: NCDepartmentFactionMilitech
+  department: Militech
+  faction: NCMilitech

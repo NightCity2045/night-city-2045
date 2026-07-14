@@ -1,0 +1,10 @@
+nc-rts-window-title = RTS Control Panel
+nc-rts-selection-count = Units Selected: {$count}
+nc-rts-command-move = Move
+nc-rts-command-attack-move = A-Move
+nc-rts-command-attack-target = Attack
+nc-rts-command-hold-position = Hold Position
+nc-rts-command-stop = Stop (Clear Orders)
+nc-rts-aggression-peaceful = Peaceful
+nc-rts-aggression-normal = Normal
+nc-rts-aggression-aggressive = Aggressive

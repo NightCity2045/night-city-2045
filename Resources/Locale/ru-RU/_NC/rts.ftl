@@ -1,0 +1,10 @@
+nc-rts-window-title = Панель RTS
+nc-rts-selection-count = Выбрано юнитов: {$count}
+nc-rts-command-move = Двигаться
+nc-rts-command-attack-move = Атака-ход
+nc-rts-command-attack-target = Атака
+nc-rts-command-hold-position = Держать позицию
+nc-rts-command-stop = Стоп (сброс приказов)
+nc-rts-aggression-peaceful = Мирный
+nc-rts-aggression-normal = Обычный
+nc-rts-aggression-aggressive = Агрессивный

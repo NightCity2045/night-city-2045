@@ -11,9 +11,11 @@ using Content.Shared._NC.Rigger.Components;
 using Content.Shared._NC.RTS.Components;
 using Content.Shared._NC.RTS.Events;
 using Content.Shared.NPC.Components;
+using Content.Shared.NPC.Prototypes;
 using Content.Shared.NPC.Systems;
 using Robust.Shared.Map;
 using Robust.Shared.Player;
+using Robust.Shared.Prototypes;
 
 namespace Content.Server._NC.RTS.Systems;
 
@@ -39,11 +41,25 @@ public sealed partial class RTSSystem : EntitySystem
         base.Initialize();
         SubscribeNetworkEvent<RTSCommandEvent>(OnCommandReceived);
         SubscribeLocalEvent<RTSAggressionModeComponent, ComponentStartup>(OnAggressionStartup);
+        SubscribeLocalEvent<PrototypesReloadedEventArgs>(OnPrototypesReloaded);
     }
 
     private void OnAggressionStartup(Entity<RTSAggressionModeComponent> ent, ref ComponentStartup args)
     {
         ApplyAggressionMode(ent.Owner, ent.Comp.CurrentMode);
+    }
+
+    private void OnPrototypesReloaded(PrototypesReloadedEventArgs args)
+    {
+        if (!args.WasModified<NpcFactionPrototype>())
+            return;
+
+        var query = EntityQueryEnumerator<RTSAggressionModeComponent>();
+        while (query.MoveNext(out var uid, out var aggression))
+        {
+            if (aggression.CurrentMode == RTSAggressionMode.Aggressive)
+                ApplyAggressionMode(uid, aggression.CurrentMode);
+        }
     }
 
     private void OnCommandReceived(RTSCommandEvent ev, EntitySessionEventArgs args)
@@ -111,6 +127,10 @@ public sealed partial class RTSSystem : EntitySystem
                 case RTSCommandType.SetNormalMode:
                     SetAggressionMode(uid, RTSAggressionMode.Normal);
                     break;
+
+                case RTSCommandType.SetAggressiveMode:
+                    SetAggressionMode(uid, RTSAggressionMode.Aggressive);
+                    break;
             }
 
             Dirty(uid, rts);
@@ -160,21 +180,29 @@ public sealed partial class RTSSystem : EntitySystem
     }
 
     /// <summary>
-    /// Applies peaceful/normal RTS mode through normal NPC factions so HTN
-    /// continues to own target selection after manual commands end.
+    /// Applies RTS aggression through normal NPC factions so HTN continues to
+    /// own target selection after manual commands end.
     /// </summary>
     private void ApplyAggressionMode(EntityUid uid, RTSAggressionMode mode)
     {
         if (!TryComp<RTSAggressionModeComponent>(uid, out var aggression))
             return;
 
-        var targetFactions = mode == RTSAggressionMode.Peaceful
-            ? aggression.PeacefulFactions
-            : aggression.NormalFactions;
+        var targetFactions = mode switch
+        {
+            RTSAggressionMode.Peaceful => aggression.PeacefulFactions,
+            RTSAggressionMode.Normal => aggression.NormalFactions,
+            RTSAggressionMode.Aggressive => aggression.NormalFactions,
+            _ => aggression.NormalFactions
+        };
 
         var faction = EnsureComp<NpcFactionMemberComponent>(uid);
         _faction.ClearFactions((uid, faction), dirty: false);
         _faction.AddFactions((uid, faction), targetFactions, dirty: true);
+
+        if (mode == RTSAggressionMode.Aggressive)
+            _faction.NCApplyAggressiveRtsHostiles((uid, faction), aggression.PeacefulFactions);
+
         Dirty(uid, faction);
 
         ClearExceptionHostiles(uid);
