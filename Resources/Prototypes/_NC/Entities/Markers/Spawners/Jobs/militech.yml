@@ -1,0 +1,206 @@
+- type: entity
+  id: SpawnPointMilitechChief
+  parent: SpawnPointJobBase
+  name: ent-SpawnPointMilitechChief
+  components:
+  - type: SpawnPoint
+    job_id: MilitechChief
+  - type: Sprite
+    layers:
+    - state: green
+
+- type: entity
+  id: SpawnPointMilitechChiefLateJoin
+  parent: SpawnPointJobBase
+  name: ent-SpawnPointMilitechChiefLateJoin
+  components:
+  - type: SpawnPoint
+    job_id: MilitechChief
+    spawn_type: LateJoin
+  - type: Sprite
+    layers:
+    - state: green
+
+- type: entity
+  id: SpawnPointMilitechOperativeLead
+  parent: SpawnPointJobBase
+  name: ent-SpawnPointMilitechOperativeLead
+  components:
+  - type: SpawnPoint
+    job_id: MilitechOperativeLead
+  - type: Sprite
+    layers:
+    - state: green
+
+- type: entity
+  id: SpawnPointMilitechOperativeLeadLateJoin
+  parent: SpawnPointJobBase
+  name: ent-SpawnPointMilitechOperativeLeadLateJoin
+  components:
+  - type: SpawnPoint
+    job_id: MilitechOperativeLead
+    spawn_type: LateJoin
+  - type: Sprite
+    layers:
+    - state: green
+
+- type: entity
+  id: SpawnPointMilitechOperative
+  parent: SpawnPointJobBase
+  name: ent-SpawnPointMilitechOperative
+  components:
+  - type: SpawnPoint
+    job_id: MilitechOperative
+  - type: Sprite
+    layers:
+    - state: green
+
+- type: entity
+  id: SpawnPointMilitechOperativeLateJoin
+  parent: SpawnPointJobBase
+  name: ent-SpawnPointMilitechOperativeLateJoin
+  components:
+  - type: SpawnPoint
+    job_id: MilitechOperative
+    spawn_type: LateJoin
+  - type: Sprite
+    layers:
+    - state: green
+
+- type: entity
+  id: SpawnPointMilitechNetrunner
+  parent: SpawnPointJobBase
+  name: ent-SpawnPointMilitechNetrunner
+  components:
+  - type: SpawnPoint
+    job_id: MilitechNetrunner
+  - type: Sprite
+    layers:
+    - state: green
+
+- type: entity
+  id: SpawnPointMilitechNetrunnerLateJoin
+  parent: SpawnPointJobBase
+  name: ent-SpawnPointMilitechNetrunnerLateJoin
+  components:
+  - type: SpawnPoint
+    job_id: MilitechNetrunner
+    spawn_type: LateJoin
+  - type: Sprite
+    layers:
+    - state: green
+
+- type: entity
+  id: SpawnPointMilitechSecuritySpecialist
+  parent: SpawnPointJobBase
+  name: ent-SpawnPointMilitechSecuritySpecialist
+  components:
+  - type: SpawnPoint
+    job_id: MilitechSecuritySpecialist
+  - type: Sprite
+    layers:
+    - state: green
+
+- type: entity
+  id: SpawnPointMilitechSecuritySpecialistLateJoin
+  parent: SpawnPointJobBase
+  name: ent-SpawnPointMilitechSecuritySpecialistLateJoin
+  components:
+  - type: SpawnPoint
+    job_id: MilitechSecuritySpecialist
+    spawn_type: LateJoin
+  - type: Sprite
+    layers:
+    - state: green
+
+- type: entity
+  id: SpawnPointMilitechCombatMedic
+  parent: SpawnPointJobBase
+  name: ent-SpawnPointMilitechCombatMedic
+  components:
+  - type: SpawnPoint
+    job_id: MilitechCombatMedic
+  - type: Sprite
+    layers:
+    - state: green
+
+- type: entity
+  id: SpawnPointMilitechCombatMedicLateJoin
+  parent: SpawnPointJobBase
+  name: ent-SpawnPointMilitechCombatMedicLateJoin
+  components:
+  - type: SpawnPoint
+    job_id: MilitechCombatMedic
+    spawn_type: LateJoin
+  - type: Sprite
+    layers:
+    - state: green
+
+- type: entity
+  id: SpawnPointMilitechTech
+  parent: SpawnPointJobBase
+  name: ent-SpawnPointMilitechTech
+  components:
+  - type: SpawnPoint
+    job_id: MilitechTech
+  - type: Sprite
+    layers:
+    - state: green
+
+- type: entity
+  id: SpawnPointMilitechTechLateJoin
+  parent: SpawnPointJobBase
+  name: ent-SpawnPointMilitechTechLateJoin
+  components:
+  - type: SpawnPoint
+    job_id: MilitechTech
+    spawn_type: LateJoin
+  - type: Sprite
+    layers:
+    - state: green
+
+- type: entity
+  id: SpawnPointMilitechQuartermaster
+  parent: SpawnPointJobBase
+  name: ent-SpawnPointMilitechQuartermaster
+  components:
+  - type: SpawnPoint
+    job_id: MilitechQuartermaster
+  - type: Sprite
+    layers:
+    - state: green
+
+- type: entity
+  id: SpawnPointMilitechQuartermasterLateJoin
+  parent: SpawnPointJobBase
+  name: ent-SpawnPointMilitechQuartermasterLateJoin
+  components:
+  - type: SpawnPoint
+    job_id: MilitechQuartermaster
+    spawn_type: LateJoin
+  - type: Sprite
+    layers:
+    - state: green
+
+- type: entity
+  id: SpawnPointMilitechRigger
+  parent: SpawnPointJobBase
+  name: ent-SpawnPointMilitechRigger
+  components:
+  - type: SpawnPoint
+    job_id: MilitechRigger
+  - type: Sprite
+    layers:
+    - state: green
+
+- type: entity
+  id: SpawnPointMilitechRiggerLateJoin
+  parent: SpawnPointJobBase
+  name: ent-SpawnPointMilitechRiggerLateJoin
+  components:
+  - type: SpawnPoint
+    job_id: MilitechRigger
+    spawn_type: LateJoin
+  - type: Sprite
+    layers:
+    - state: green

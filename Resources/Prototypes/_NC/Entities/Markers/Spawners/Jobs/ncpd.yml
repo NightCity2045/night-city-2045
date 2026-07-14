@@ -1,0 +1,264 @@
+- type: entity
+  id: SpawnPointNCPDCadet
+  parent: SpawnPointJobBase
+  name: ent-SpawnPointNCPDCadet
+  suffix: DO NOT MAP
+  components:
+  - type: SpawnPoint
+    job_id: NCPDOfficer
+  - type: Sprite
+    layers:
+    - state: green
+
+- type: entity
+  id: SpawnPointNCPDChief
+  parent: SpawnPointJobBase
+  name: ent-SpawnPointNCPDChief
+  components:
+  - type: SpawnPoint
+    job_id: NCPDChief
+  - type: Sprite
+    layers:
+    - state: green
+
+- type: entity
+  id: SpawnPointNCPDChiefLateJoin
+  parent: SpawnPointJobBase
+  name: ent-SpawnPointNCPDChiefLateJoin
+  components:
+  - type: SpawnPoint
+    job_id: NCPDChief
+    spawn_type: LateJoin
+  - type: Sprite
+    layers:
+    - state: green
+
+- type: entity
+  id: SpawnPointNCPDCommander
+  parent: SpawnPointJobBase
+  name: ent-SpawnPointNCPDCommander
+  components:
+  - type: SpawnPoint
+    job_id: NCPDCommander
+  - type: Sprite
+    layers:
+    - state: green
+
+- type: entity
+  id: SpawnPointNCPDCommanderLateJoin
+  parent: SpawnPointJobBase
+  name: ent-SpawnPointNCPDCommanderLateJoin
+  components:
+  - type: SpawnPoint
+    job_id: NCPDCommander
+    spawn_type: LateJoin
+  - type: Sprite
+    layers:
+    - state: green
+
+- type: entity
+  id: SpawnPointNCPDLieutenant
+  parent: SpawnPointJobBase
+  name: ent-SpawnPointNCPDLieutenant
+  components:
+  - type: SpawnPoint
+    job_id: NCPDLieutenant
+  - type: Sprite
+    layers:
+    - state: green
+
+- type: entity
+  id: SpawnPointNCPDLieutenantLateJoin
+  parent: SpawnPointJobBase
+  name: ent-SpawnPointNCPDLieutenantLateJoin
+  components:
+  - type: SpawnPoint
+    job_id: NCPDLieutenant
+    spawn_type: LateJoin
+  - type: Sprite
+    layers:
+    - state: green
+
+- type: entity
+  id: SpawnPointNCPDInspector
+  parent: SpawnPointJobBase
+  name: ent-SpawnPointNCPDInspector
+  components:
+  - type: SpawnPoint
+    job_id: NCPDInspector
+  - type: Sprite
+    layers:
+    - state: green
+
+- type: entity
+  id: SpawnPointNCPDInspectorLateJoin
+  parent: SpawnPointJobBase
+  name: ent-SpawnPointNCPDInspectorLateJoin
+  components:
+  - type: SpawnPoint
+    job_id: NCPDInspector
+    spawn_type: LateJoin
+  - type: Sprite
+    layers:
+    - state: green
+
+- type: entity
+  id: SpawnPointNCPDSergeant
+  parent: SpawnPointJobBase
+  name: ent-SpawnPointNCPDSergeant
+  components:
+  - type: SpawnPoint
+    job_id: NCPDSergeant
+  - type: Sprite
+    layers:
+    - state: green
+
+- type: entity
+  id: SpawnPointNCPDSergeantLateJoin
+  parent: SpawnPointJobBase
+  name: ent-SpawnPointNCPDSergeantLateJoin
+  components:
+  - type: SpawnPoint
+    job_id: NCPDSergeant
+    spawn_type: LateJoin
+  - type: Sprite
+    layers:
+    - state: green
+
+- type: entity
+  id: SpawnPointNCPDOfficer
+  parent: SpawnPointJobBase
+  name: ent-SpawnPointNCPDOfficer
+  components:
+  - type: SpawnPoint
+    job_id: NCPDOfficer
+  - type: Sprite
+    layers:
+    - state: green
+
+- type: entity
+  id: SpawnPointNCPDOfficerLateJoin
+  parent: SpawnPointJobBase
+  name: ent-SpawnPointNCPDOfficerLateJoin
+  components:
+  - type: SpawnPoint
+    job_id: NCPDOfficer
+    spawn_type: LateJoin
+  - type: Sprite
+    layers:
+    - state: green
+
+- type: entity
+  id: SpawnPointNCPDWatchAgent
+  parent: SpawnPointJobBase
+  name: ent-SpawnPointNCPDWatchAgent
+  components:
+  - type: SpawnPoint
+    job_id: NCPDWatchAgent
+  - type: Sprite
+    layers:
+    - state: green
+
+- type: entity
+  id: SpawnPointNCPDWatchAgentLateJoin
+  parent: SpawnPointJobBase
+  name: ent-SpawnPointNCPDWatchAgentLateJoin
+  components:
+  - type: SpawnPoint
+    job_id: NCPDWatchAgent
+    spawn_type: LateJoin
+  - type: Sprite
+    layers:
+    - state: green
+
+- type: entity
+  id: SpawnPointMaxTacCommander
+  parent: SpawnPointJobBase
+  name: ent-SpawnPointMaxTacCommander
+  components:
+  - type: SpawnPoint
+    job_id: MaxTacCommander
+  - type: Sprite
+    layers:
+    - state: green
+
+- type: entity
+  id: SpawnPointMaxTacCommanderLateJoin
+  parent: SpawnPointJobBase
+  name: ent-SpawnPointMaxTacCommanderLateJoin
+  components:
+  - type: SpawnPoint
+    job_id: MaxTacCommander
+    spawn_type: LateJoin
+  - type: Sprite
+    layers:
+    - state: green
+
+- type: entity
+  id: SpawnPointMaxTacEraser
+  parent: SpawnPointJobBase
+  name: ent-SpawnPointMaxTacEraser
+  components:
+  - type: SpawnPoint
+    job_id: MaxTacEraser
+  - type: Sprite
+    layers:
+    - state: green
+
+- type: entity
+  id: SpawnPointMaxTacEraserLateJoin
+  parent: SpawnPointJobBase
+  name: ent-SpawnPointMaxTacEraserLateJoin
+  components:
+  - type: SpawnPoint
+    job_id: MaxTacEraser
+    spawn_type: LateJoin
+  - type: Sprite
+    layers:
+    - state: green
+
+- type: entity
+  id: SpawnPointMaxTacNetrunner
+  parent: SpawnPointJobBase
+  name: ent-SpawnPointMaxTacNetrunner
+  components:
+  - type: SpawnPoint
+    job_id: MaxTacEraser
+  - type: Sprite
+    layers:
+    - state: green
+
+- type: entity
+  id: SpawnPointMaxTacNetrunnerLateJoin
+  parent: SpawnPointJobBase
+  name: ent-SpawnPointMaxTacNetrunnerLateJoin
+  components:
+  - type: SpawnPoint
+    job_id: MaxTacEraser
+    spawn_type: LateJoin
+  - type: Sprite
+    layers:
+    - state: green
+
+- type: entity
+  id: SpawnPointMaxTacOperative
+  parent: SpawnPointJobBase
+  name: ent-SpawnPointMaxTacOperative
+  components:
+  - type: SpawnPoint
+    job_id: MaxTacEraser
+  - type: Sprite
+    layers:
+    - state: green
+
+- type: entity
+  id: SpawnPointMaxTacOperativeLateJoin
+  parent: SpawnPointJobBase
+  name: ent-SpawnPointMaxTacOperativeLateJoin
+  components:
+  - type: SpawnPoint
+    job_id: MaxTacEraser
+    spawn_type: LateJoin
+  - type: Sprite
+    layers:
+    - state: green

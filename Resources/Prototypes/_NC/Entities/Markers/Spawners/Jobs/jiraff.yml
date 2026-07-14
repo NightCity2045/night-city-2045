@@ -1,0 +1,45 @@
+- type: entity
+  id: SpawnPointZhirafaEngeneer
+  parent: SpawnPointJobBase
+  name: ent-SpawnPointZhirafaEngeneer
+  components:
+  - type: SpawnPoint
+    job_id: ZhirafaEngeneer
+  - type: Sprite
+    layers:
+    - state: green
+
+- type: entity
+  id: SpawnPointZhirafaEngeneerLateJoin
+  parent: SpawnPointJobBase
+  name: ent-SpawnPointZhirafaEngeneerLateJoin
+  components:
+  - type: SpawnPoint
+    job_id: ZhirafaEngeneer
+    spawn_type: LateJoin
+  - type: Sprite
+    layers:
+    - state: green
+
+- type: entity
+  id: SpawnPointZhirafaJanitor
+  parent: SpawnPointJobBase
+  name: ent-SpawnPointZhirafaJanitor
+  components:
+  - type: SpawnPoint
+    job_id: ZhirafaJanitor
+  - type: Sprite
+    layers:
+    - state: green
+
+- type: entity
+  id: SpawnPointZhirafaJanitorLateJoin
+  parent: SpawnPointJobBase
+  name: ent-SpawnPointZhirafaJanitorLateJoin
+  components:
+  - type: SpawnPoint
+    job_id: ZhirafaJanitor
+    spawn_type: LateJoin
+  - type: Sprite
+    layers:
+    - state: green

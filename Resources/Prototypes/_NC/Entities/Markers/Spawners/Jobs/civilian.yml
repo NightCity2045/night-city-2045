@@ -1,0 +1,160 @@
+- type: entity
+  id: SpawnPointNCCitizen
+  parent: SpawnPointJobBase
+  name: ent-SpawnPointNCCitizen
+  components:
+  - type: SpawnPoint
+    job_id: NCCitizen
+  - type: Sprite
+    layers:
+    - state: green
+
+- type: entity
+  id: SpawnPointNCCitizenLateJoin
+  parent: SpawnPointJobBase
+  name: ent-SpawnPointNCCitizenLateJoin
+  components:
+  - type: SpawnPoint
+    job_id: NCCitizen
+    spawn_type: LateJoin
+  - type: Sprite
+    layers:
+    - state: green
+
+- type: entity
+  id: SpawnPointNCBooster
+  parent: SpawnPointJobBase
+  name: ent-SpawnPointNCBooster
+  components:
+  - type: SpawnPoint
+    job_id: NCBooster
+  - type: Sprite
+    layers:
+    - state: green
+
+- type: entity
+  id: SpawnPointNCBoosterLateJoin
+  parent: SpawnPointJobBase
+  name: ent-SpawnPointNCBoosterLateJoin
+  components:
+  - type: SpawnPoint
+    job_id: NCBooster
+    spawn_type: LateJoin
+  - type: Sprite
+    layers:
+    - state: green
+
+- type: entity
+  id: SpawnPointEdgeRunnerSolo
+  parent: SpawnPointJobBase
+  name: ent-SpawnPointEdgeRunnerSolo
+  components:
+  - type: SpawnPoint
+    job_id: EdgeRunnerSolo
+  - type: Sprite
+    layers:
+    - state: green
+
+- type: entity
+  id: SpawnPointEdgeRunnerSoloLateJoin
+  parent: SpawnPointJobBase
+  name: ent-SpawnPointEdgeRunnerSoloLateJoin
+  components:
+  - type: SpawnPoint
+    job_id: EdgeRunnerSolo
+    spawn_type: LateJoin
+  - type: Sprite
+    layers:
+    - state: green
+
+- type: entity
+  id: SpawnPointFixer
+  parent: SpawnPointJobBase
+  name: ent-SpawnPointFixer
+  components:
+  - type: SpawnPoint
+    job_id: Fixer
+  - type: Sprite
+    layers:
+    - state: green
+
+- type: entity
+  id: SpawnPointFixerLateJoin
+  parent: SpawnPointJobBase
+  name: ent-SpawnPointFixerLateJoin
+  components:
+  - type: SpawnPoint
+    job_id: Fixer
+    spawn_type: LateJoin
+  - type: Sprite
+    layers:
+    - state: green
+
+- type: entity
+  id: SpawnPointReaper
+  parent: SpawnPointJobBase
+  name: ent-SpawnPointReaper
+  components:
+  - type: SpawnPoint
+    job_id: Reaper
+  - type: Sprite
+    layers:
+    - state: green
+
+- type: entity
+  id: SpawnPointReaperLateJoin
+  parent: SpawnPointJobBase
+  name: ent-SpawnPointReaperLateJoin
+  components:
+  - type: SpawnPoint
+    job_id: Reaper
+    spawn_type: LateJoin
+  - type: Sprite
+    layers:
+    - state: green
+
+- type: entity
+  id: SpawnPointCafeOwner
+  parent: SpawnPointJobBase
+  name: ent-SpawnPointCafeOwner
+  components:
+  - type: SpawnPoint
+    job_id: CafeOwner
+  - type: Sprite
+    layers:
+    - state: green
+
+- type: entity
+  id: SpawnPointCafeOwnerLateJoin
+  parent: SpawnPointJobBase
+  name: ent-SpawnPointCafeOwnerLateJoin
+  components:
+  - type: SpawnPoint
+    job_id: CafeOwner
+    spawn_type: LateJoin
+  - type: Sprite
+    layers:
+    - state: green
+
+- type: entity
+  id: SpawnPointRestaurantOwner
+  parent: SpawnPointJobBase
+  name: ent-SpawnPointRestaurantOwner
+  components:
+  - type: SpawnPoint
+    job_id: RestaurantOwner
+  - type: Sprite
+    layers:
+    - state: green
+
+- type: entity
+  id: SpawnPointRestaurantOwnerLateJoin
+  parent: SpawnPointJobBase
+  name: ent-SpawnPointRestaurantOwnerLateJoin
+  components:
+  - type: SpawnPoint
+    job_id: RestaurantOwner
+    spawn_type: LateJoin
+  - type: Sprite
+    layers:
+    - state: green

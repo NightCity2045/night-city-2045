@@ -1,0 +1,206 @@
+- type: entity
+  id: SpawnPointBiotechnicaChief
+  parent: SpawnPointJobBase
+  name: ent-SpawnPointBiotechnicaChief
+  components:
+  - type: SpawnPoint
+    job_id: BiotechnicaChief
+  - type: Sprite
+    layers:
+    - state: green
+
+- type: entity
+  id: SpawnPointBiotechnicaChiefLateJoin
+  parent: SpawnPointJobBase
+  name: ent-SpawnPointBiotechnicaChiefLateJoin
+  components:
+  - type: SpawnPoint
+    job_id: BiotechnicaChief
+    spawn_type: LateJoin
+  - type: Sprite
+    layers:
+    - state: green
+
+- type: entity
+  id: SpawnPointBiotechnicaOperativeLead
+  parent: SpawnPointJobBase
+  name: ent-SpawnPointBiotechnicaOperativeLead
+  components:
+  - type: SpawnPoint
+    job_id: BiotechnicaOperativeLead
+  - type: Sprite
+    layers:
+    - state: green
+
+- type: entity
+  id: SpawnPointBiotechnicaOperativeLeadLateJoin
+  parent: SpawnPointJobBase
+  name: ent-SpawnPointBiotechnicaOperativeLeadLateJoin
+  components:
+  - type: SpawnPoint
+    job_id: BiotechnicaOperativeLead
+    spawn_type: LateJoin
+  - type: Sprite
+    layers:
+    - state: green
+
+- type: entity
+  id: SpawnPointBiotechnicaOperative
+  parent: SpawnPointJobBase
+  name: ent-SpawnPointBiotechnicaOperative
+  components:
+  - type: SpawnPoint
+    job_id: BiotechnicaOperative
+  - type: Sprite
+    layers:
+    - state: green
+
+- type: entity
+  id: SpawnPointBiotechnicaOperativeLateJoin
+  parent: SpawnPointJobBase
+  name: ent-SpawnPointBiotechnicaOperativeLateJoin
+  components:
+  - type: SpawnPoint
+    job_id: BiotechnicaOperative
+    spawn_type: LateJoin
+  - type: Sprite
+    layers:
+    - state: green
+
+- type: entity
+  id: SpawnPointBiotechnicaNetrunner
+  parent: SpawnPointJobBase
+  name: ent-SpawnPointBiotechnicaNetrunner
+  components:
+  - type: SpawnPoint
+    job_id: BiotechnicaNetrunner
+  - type: Sprite
+    layers:
+    - state: green
+
+- type: entity
+  id: SpawnPointBiotechnicaNetrunnerLateJoin
+  parent: SpawnPointJobBase
+  name: ent-SpawnPointBiotechnicaNetrunnerLateJoin
+  components:
+  - type: SpawnPoint
+    job_id: BiotechnicaNetrunner
+    spawn_type: LateJoin
+  - type: Sprite
+    layers:
+    - state: green
+
+- type: entity
+  id: SpawnPointBiotechnicaBotanist
+  parent: SpawnPointJobBase
+  name: ent-SpawnPointBiotechnicaBotanist
+  components:
+  - type: SpawnPoint
+    job_id: BiotechnicaBotanist
+  - type: Sprite
+    layers:
+    - state: green
+
+- type: entity
+  id: SpawnPointBiotechnicaBotanistLateJoin
+  parent: SpawnPointJobBase
+  name: ent-SpawnPointBiotechnicaBotanistLateJoin
+  components:
+  - type: SpawnPoint
+    job_id: BiotechnicaBotanist
+    spawn_type: LateJoin
+  - type: Sprite
+    layers:
+    - state: green
+
+- type: entity
+  id: SpawnPointBiotechnicaMedTech
+  parent: SpawnPointJobBase
+  name: ent-SpawnPointBiotechnicaMedTech
+  components:
+  - type: SpawnPoint
+    job_id: BiotechnicaMedTech
+  - type: Sprite
+    layers:
+    - state: green
+
+- type: entity
+  id: SpawnPointBiotechnicaMedTechLateJoin
+  parent: SpawnPointJobBase
+  name: ent-SpawnPointBiotechnicaMedTechLateJoin
+  components:
+  - type: SpawnPoint
+    job_id: BiotechnicaMedTech
+    spawn_type: LateJoin
+  - type: Sprite
+    layers:
+    - state: green
+
+- type: entity
+  id: SpawnPointBiotechnicaTech
+  parent: SpawnPointJobBase
+  name: ent-SpawnPointBiotechnicaTech
+  components:
+  - type: SpawnPoint
+    job_id: BiotechnicaTech
+  - type: Sprite
+    layers:
+    - state: green
+
+- type: entity
+  id: SpawnPointBiotechnicaTechLateJoin
+  parent: SpawnPointJobBase
+  name: ent-SpawnPointBiotechnicaTechLateJoin
+  components:
+  - type: SpawnPoint
+    job_id: BiotechnicaTech
+    spawn_type: LateJoin
+  - type: Sprite
+    layers:
+    - state: green
+
+- type: entity
+  id: SpawnPointBiotechnicaParamedic
+  parent: SpawnPointJobBase
+  name: ent-SpawnPointBiotechnicaParamedic
+  components:
+  - type: SpawnPoint
+    job_id: BiotechnicaParamedic
+  - type: Sprite
+    layers:
+    - state: green
+
+- type: entity
+  id: SpawnPointBiotechnicaParamedicLateJoin
+  parent: SpawnPointJobBase
+  name: ent-SpawnPointBiotechnicaParamedicLateJoin
+  components:
+  - type: SpawnPoint
+    job_id: BiotechnicaParamedic
+    spawn_type: LateJoin
+  - type: Sprite
+    layers:
+    - state: green
+
+- type: entity
+  id: SpawnPointBiotechnicaRigger
+  parent: SpawnPointJobBase
+  name: ent-SpawnPointBiotechnicaRigger
+  components:
+  - type: SpawnPoint
+    job_id: BiotechnicaRigger
+  - type: Sprite
+    layers:
+    - state: green
+
+- type: entity
+  id: SpawnPointBiotechnicaRiggerLateJoin
+  parent: SpawnPointJobBase
+  name: ent-SpawnPointBiotechnicaRiggerLateJoin
+  components:
+  - type: SpawnPoint
+    job_id: BiotechnicaRigger
+    spawn_type: LateJoin
+  - type: Sprite
+    layers:
+    - state: green

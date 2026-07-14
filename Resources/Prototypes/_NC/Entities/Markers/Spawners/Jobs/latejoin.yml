@@ -1,0 +1,10 @@
+- type: entity
+  id: SpawnPointNCLateJoin
+  parent: SpawnPointJobBase
+  name: ent-SpawnPointNCLateJoin
+  components:
+  - type: SpawnPoint
+    spawn_type: LateJoin
+  - type: Sprite
+    layers:
+    - state: green
