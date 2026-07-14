@@ -10,3 +10,7 @@ ent-CitiNetStreetDeadDrop = Старая мусорка
 ent-CitiNetStreetDeadDrop-desc = Грязный бак, забитый старыми газетами. Кажется, тут что-то припрятано.
 ent-CitiNetDeliveryChip = Навигационный чип 'QuickPath'
 ent-CitiNetDeliveryChip-desc = Одноразовый чип с координатами вашей посылки. Вставьте в КПК для активации GPS-метки.
+ent-NCCorporateDeliveryCrate = корпоративный ящик снабжения
+ent-NCCorporateDeliveryCrate-desc = Прочный ящик, доставленный через корпоративную цепочку выдачи за городом.
+ent-NCCorporateDeliveryZone = корпоративная зона выдачи
+ent-NCCorporateDeliveryZone-desc = Маркер для мапперов, где появляются отложенные корпоративные поставки.

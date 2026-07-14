@@ -96,6 +96,51 @@ citinet-store-category-industrial = Industrial Equipment
 citinet-store-category-chemistry = Chemistry
 citinet-store-category-seeds = Seeds
 
+citinet-store-cart-empty = Your cart is empty.
+citinet-store-cart-added = Added { $amount } item(s) to cart.
+citinet-store-cart-invalid = The cart contains unavailable listings. Clear it and try again.
+citinet-store-stock-insufficient = City stock is insufficient for that cart.
+citinet-store-corporate-account-unavailable = Corporate account route is unavailable.
+citinet-store-corporate-data-insufficient = Not enough corporate data on the faction account.
+citinet-store-corporate-funds-insufficient = Not enough eddies on the corporate account.
+citinet-store-personal-funds-insufficient = Not enough eddies on your account.
+citinet-store-delivery-failed-refunded = Delivery failed: { $reason } Funds and data were refunded.
+
+nc-delivery-map-marker = Package ready: { $location }
+nc-delivery-map-marker-pending = Package: { $location } ({ $seconds }s)
+citinet-delivery-no-drop-points = No delivery points are available. Try again later.
+citinet-delivery-no-corporate-zones = No corporate pickup zones are available. Try again later.
+citinet-delivery-packaging-error = Packaging failed. Contact technical support.
+citinet-delivery-corporate-dropbox-ready = Cargo crate ({ $count } item(s)) delivered to { $location }. PIN: { $pin }. Storage expires in 15 minutes. Navigation chip issued.
+citinet-delivery-dead-drop-ready = Order ({ $count } item(s)) was left at { $location }. Navigation chip issued.
+citinet-delivery-corporate-zone-scheduled = Corporate order ({ $count } item(s)) authorized. Pickup zone: { $location }. ETA: { $minutes } minute(s). Navigation chip issued.
+citinet-delivery-keypad-unlocked = Code accepted. Lock opened.
+citinet-delivery-keypad-access-granted = Access granted. Retrieve your cargo.
+citinet-delivery-keypad-wrong-pin = Incorrect code!
+citinet-delivery-chip-examine-ready = Pickup ready: { $location }.
+citinet-delivery-chip-examine-pending = Pickup route: { $location }. ETA: { $seconds } seconds.
+
+citinet-store-ui-balance = BALANCE: { $balance } ED
+citinet-store-ui-corp-funds = CORP FUNDS: { $balance } ED
+citinet-store-ui-corp-data = DATA: { $data }
+citinet-store-ui-corp-status-no-account = LINK STATUS: NO CORPORATE ACCOUNT ROUTE
+citinet-store-ui-corp-status-dropbox = LINK STATUS: SECURE DROPBOX ROUTE
+citinet-store-ui-corp-status-zone = LINK STATUS: OFF-CITY PICKUP ZONE ROUTE
+citinet-store-ui-stock = STOCK: { $count }
+citinet-store-ui-stock-depleted = STOCK: DEPLETED
+citinet-store-ui-sold-out = SOLD OUT
+citinet-store-ui-add-to-cart = ADD
+citinet-store-ui-price = { $price } ED + { $data } DATA
+citinet-store-ui-price-money = { $price } ED
+citinet-store-ui-cart-summary = CART: { $price } ED + { $data } DATA
+citinet-store-ui-cart-summary-money = CART: { $price } ED
+citinet-store-ui-cart-clear = CLEAR
+citinet-store-ui-cart-checkout = CHECKOUT
+citinet-store-ui-cart-empty = Cart is empty.
+citinet-store-ui-cart-line = { $name } x{ $amount }
+citinet-store-ui-cart-line-price = { $price } ED + { $data } DATA
+citinet-store-ui-cart-line-price-money = { $price } ED
+
 # Store Items
 citinet-pill-canister-desc = 10 pills, 10 units each.
 

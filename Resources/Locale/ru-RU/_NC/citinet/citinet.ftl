@@ -86,7 +86,8 @@ citinet-group-game-chat = [CitiNet/Мост] {$sender}: {$message}
 citinet-bbs-game-chat = [CitiNet/{$channel}] {$sender}: {$message}
 
 # Delivery
-nc-delivery-map-marker = Посылка: { $location }
+nc-delivery-map-marker = Посылка готова: { $location }
+nc-delivery-map-marker-pending = Посылка: { $location } ({ $seconds } с)
 
 # Store Categories
 citinet-store-category-tools = Инструменты
@@ -102,6 +103,49 @@ citinet-store-category-cyberware = Кибер-Импланты
 citinet-store-category-industrial = Пром. Оборудование
 citinet-store-category-chemistry = Химия
 citinet-store-category-seeds = Семена
+
+citinet-store-cart-empty = Корзина пуста.
+citinet-store-cart-added = Добавлено в корзину: { $amount } шт.
+citinet-store-cart-invalid = В корзине есть недоступные позиции. Очистите ее и попробуйте снова.
+citinet-store-stock-insufficient = На городском складе не хватает товара для этой корзины.
+citinet-store-corporate-account-unavailable = Корпоративный счет недоступен.
+citinet-store-corporate-data-insufficient = На счете фракции недостаточно корпоративных данных.
+citinet-store-corporate-funds-insufficient = На корпоративном счете недостаточно эдди.
+citinet-store-personal-funds-insufficient = На вашем счете недостаточно эдди.
+citinet-store-delivery-failed-refunded = Ошибка доставки: { $reason } Деньги и данные возвращены.
+
+citinet-delivery-no-drop-points = Нет доступных точек доставки. Попробуйте позже.
+citinet-delivery-no-corporate-zones = Нет доступных корпоративных зон выдачи. Попробуйте позже.
+citinet-delivery-packaging-error = Ошибка упаковки товара. Свяжитесь с техподдержкой.
+citinet-delivery-corporate-dropbox-ready = Грузовой ящик ({ $count } шт.) доставлен в { $location }. PIN: { $pin }. Срок хранения: 15 минут. Навигационный чип выдан.
+citinet-delivery-dead-drop-ready = Заказ ({ $count } шт.) оставлен в { $location }. Навигационный чип выдан.
+citinet-delivery-corporate-zone-scheduled = Корпоративный заказ ({ $count } шт.) подтвержден. Зона выдачи: { $location }. Ожидание: { $minutes } мин. Навигационный чип выдан.
+citinet-delivery-keypad-unlocked = Код верный. Замок открыт.
+citinet-delivery-keypad-access-granted = Доступ разрешен. Заберите ваш груз.
+citinet-delivery-keypad-wrong-pin = Неверный код!
+citinet-delivery-chip-examine-ready = Выдача готова: { $location }.
+citinet-delivery-chip-examine-pending = Маршрут выдачи: { $location }. Ожидание: { $seconds } сек.
+
+citinet-store-ui-balance = БАЛАНС: { $balance } ED
+citinet-store-ui-corp-funds = СРЕДСТВА: { $balance } ED
+citinet-store-ui-corp-data = ДАННЫЕ: { $data }
+citinet-store-ui-corp-status-no-account = СТАТУС: НЕТ МАРШРУТА К КОРПОРАТИВНОМУ СЧЕТУ
+citinet-store-ui-corp-status-dropbox = СТАТУС: МАРШРУТ ЧЕРЕЗ ЗАЩИЩЕННЫЙ ПОЧТОМАТ
+citinet-store-ui-corp-status-zone = СТАТУС: ВЫЕЗДНАЯ ЗОНА ВЫДАЧИ ЗА ГОРОДОМ
+citinet-store-ui-stock = СКЛАД: { $count }
+citinet-store-ui-stock-depleted = СКЛАД: ПУСТО
+citinet-store-ui-sold-out = НЕТ В НАЛИЧИИ
+citinet-store-ui-add-to-cart = В КОРЗИНУ
+citinet-store-ui-price = { $price } ED + { $data } DATA
+citinet-store-ui-price-money = { $price } ED
+citinet-store-ui-cart-summary = КОРЗИНА: { $price } ED + { $data } DATA
+citinet-store-ui-cart-summary-money = КОРЗИНА: { $price } ED
+citinet-store-ui-cart-clear = ОЧИСТИТЬ
+citinet-store-ui-cart-checkout = ЗАКАЗАТЬ
+citinet-store-ui-cart-empty = Корзина пуста.
+citinet-store-ui-cart-line = { $name } x{ $amount }
+citinet-store-ui-cart-line-price = { $price } ED + { $data } DATA
+citinet-store-ui-cart-line-price-money = { $price } ED
 
 # Store Items
 citinet-pill-canister-desc = 10 таблеток по 10 унций.

@@ -52,7 +52,7 @@
         priority: 2
         whitelist:
           tags:
-          - MagazineRifle
+          - MagazineRifleNowaki
       gun_chamber:
         name: Chamber
         startingItem: Cartridge556x45CL

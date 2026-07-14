@@ -1,4 +1,6 @@
 using Robust.Shared.GameStates;
+using Robust.Shared.Maths;
+using Robust.Shared.Prototypes;
 using Robust.Shared.Serialization;
 
 namespace Content.Shared._NC.CitiNet.Delivery;
@@ -7,7 +9,8 @@ namespace Content.Shared._NC.CitiNet.Delivery;
 public enum DropType : byte
 {
     Corporate,
-    DeadDrop
+    DeadDrop,
+    CorporateZone
 }
 
 [RegisterComponent, NetworkedComponent, AutoGenerateComponentState]
@@ -35,6 +38,28 @@ public sealed partial class DropPointComponent : Component
     public TimeSpan? DeliveryTime;
 }
 
+[RegisterComponent, NetworkedComponent, AutoGenerateComponentState]
+public sealed partial class CorporateDeliveryZoneComponent : Component
+{
+    [DataField, AutoNetworkedField]
+    public bool IsOccupied = false;
+
+    [DataField, AutoNetworkedField]
+    public string LocationName = "Unknown Corporate Pickup Zone";
+
+    [DataField]
+    public Vector2i Size = new(5, 5);
+
+    [DataField]
+    public TimeSpan DeliveryDelay = TimeSpan.FromMinutes(5);
+
+    [DataField]
+    public EntProtoId CratePrototype = "NCCorporateDeliveryCrate";
+
+    [DataField, AutoNetworkedField]
+    public EntityUid? DeliveredCrate;
+}
+
 [Serializable, NetSerializable]
 public enum OTPKeypadUiKey : byte
 {
@@ -49,6 +74,12 @@ public sealed partial class DeliveryChipComponent : Component
 
     [DataField, AutoNetworkedField]
     public string LocationName = string.Empty;
+
+    [DataField, AutoNetworkedField]
+    public TimeSpan? ReadyAt;
+
+    [DataField, AutoNetworkedField]
+    public bool IsReady = true;
 }
 
 [RegisterComponent, NetworkedComponent, AutoGenerateComponentState]

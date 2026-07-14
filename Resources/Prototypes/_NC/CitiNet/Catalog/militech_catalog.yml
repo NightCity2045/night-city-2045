@@ -34,7 +34,7 @@
 
 - type: citiNetStorePreset
   id: CorporateMilitechSupply
-  defaultDelivery: Corporate
+  defaultDelivery: CorporateZone
   bankAccount: Militech
   categories:
   - CorporateMilitechWeapons

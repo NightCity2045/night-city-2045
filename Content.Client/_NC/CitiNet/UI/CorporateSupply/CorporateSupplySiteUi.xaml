@@ -28,5 +28,16 @@
                           HorizontalExpand="True"
                           Margin="4" />
         </ScrollContainer>
+
+        <PanelContainer StyleClasses="NightCityPanelDark" MinHeight="104" Margin="0 4 0 0">
+            <BoxContainer Orientation="Vertical" Margin="8 6">
+                <BoxContainer Orientation="Horizontal">
+                    <Label Name="CartSummaryLabel" Text="" StyleClasses="NightCityStatusWarning" HorizontalExpand="True" />
+                    <Button Name="ClearCartButton" Text="" StyleClasses="NightCityButton" MinWidth="96" />
+                    <Button Name="CheckoutButton" Text="" StyleClasses="NightCityButton" MinWidth="128" Margin="6 0 0 0" />
+                </BoxContainer>
+                <BoxContainer Name="CartEntries" Orientation="Vertical" Margin="0 4 0 0" />
+            </BoxContainer>
+        </PanelContainer>
     </BoxContainer>
 </PanelContainer>

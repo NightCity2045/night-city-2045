@@ -122,7 +122,7 @@
 
 - type: citiNetStorePreset
   id: CorporateBiotechnicaSupply
-  defaultDelivery: Corporate
+  defaultDelivery: CorporateZone
   bankAccount: Biotechnica
   categories:
   - CorporateBiotechnicaMedical

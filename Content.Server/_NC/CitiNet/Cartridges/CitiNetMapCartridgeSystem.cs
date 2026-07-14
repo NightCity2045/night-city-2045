@@ -15,6 +15,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Numerics;
 using Robust.Shared.Map;
+using Robust.Shared.Timing;
 
 namespace Content.Server._NC.CitiNet.Cartridges;
 
@@ -28,6 +29,7 @@ public sealed class CitiNetMapCartridgeSystem : EntitySystem
     [Dependency] private readonly UserInterfaceSystem _uiSystem = default!;
     [Dependency] private readonly SharedTransformSystem _transform = default!;
     [Dependency] private readonly SharedContainerSystem _container = default!;
+    [Dependency] private readonly IGameTiming _timing = default!;
 
     private float _updateTimer = 0f;
     private const float UpdateInterval = 1.0f; 
@@ -259,10 +261,16 @@ public sealed class CitiNetMapCartridgeSystem : EntitySystem
                 if (chipGrid != gridUid) continue;
 
                 var targetPos = Vector2.Transform(_transform.GetWorldPosition(chip.TargetDropPoint.Value), _transform.GetInvWorldMatrix(gridUid.Value));
+                var label = chip.IsReady
+                    ? Loc.GetString("nc-delivery-map-marker", ("location", chip.LocationName))
+                    : Loc.GetString(
+                        "nc-delivery-map-marker-pending",
+                        ("location", chip.LocationName),
+                        ("seconds", GetRemainingDeliverySeconds(chip)));
 
                 beacons.Add(new CitiNetMapBeaconData(
                     GetNetEntity(cUid),
-                    Loc.GetString("nc-delivery-map-marker", ("location", chip.LocationName)),
+                    label,
                     new SpriteSpecifier.Rsi(new ResPath("/Textures/Interface/Misc/gps_icons.rsi"), "waypoint"),
                     Color.Yellow,
                     targetPos,
@@ -280,5 +288,13 @@ public sealed class CitiNetMapCartridgeSystem : EntitySystem
             _cartridge.UpdateCartridgeUiState(loader, state);
         else
             _uiSystem.SetUiState(loader, CitiNetMapUiKey.Key, state);
+    }
+
+    private int GetRemainingDeliverySeconds(DeliveryChipComponent chip)
+    {
+        if (chip.ReadyAt == null)
+            return 0;
+
+        return Math.Max(0, (int) Math.Ceiling((chip.ReadyAt.Value - _timing.CurTime).TotalSeconds));
     }
 }

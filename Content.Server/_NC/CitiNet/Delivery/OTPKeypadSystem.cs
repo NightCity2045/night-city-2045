@@ -52,18 +52,18 @@ public sealed class OTPKeypadSystem : EntitySystem
             component.CurrentPin = null;
             Dirty(uid, component);
 
-            _popup.PopupEntity("Код верный. Замок открыт.", uid);
+            _popup.PopupEntity(Loc.GetString("citinet-delivery-keypad-unlocked"), uid);
 
             if (TryComp<ActorComponent>(msg.Actor, out var actor))
             {
-                _chatManager.DispatchServerMessage(actor.PlayerSession, "Доступ разрешен. Заберите ваш товар.");
+                _chatManager.DispatchServerMessage(actor.PlayerSession, Loc.GetString("citinet-delivery-keypad-access-granted"));
             }
 
             _uiSystem.CloseUi(uid, OTPKeypadUiKey.Key);
         }
         else
         {
-            _popup.PopupEntity("Неверный код!", uid, msg.Actor, Content.Shared.Popups.PopupType.MediumCaution);
+            _popup.PopupEntity(Loc.GetString("citinet-delivery-keypad-wrong-pin"), uid, msg.Actor, Content.Shared.Popups.PopupType.MediumCaution);
         }
     }
 }

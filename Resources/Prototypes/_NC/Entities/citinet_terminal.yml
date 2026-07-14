@@ -89,6 +89,34 @@
     locationName: "In the ass"
 
 - type: entity
+  parent: CrateBaseSecure
+  id: NCCorporateDeliveryCrate
+  name: ent-NCCorporateDeliveryCrate
+  description: ent-NCCorporateDeliveryCrate-desc
+  components:
+  - type: AccessReader
+    access: []
+  - type: Lock
+    locked: false
+
+- type: entity
+  parent: MarkerBase
+  id: NCCorporateDeliveryZone
+  name: ent-NCCorporateDeliveryZone
+  description: ent-NCCorporateDeliveryZone-desc
+  placement:
+    mode: SnapgridCenter
+  components:
+  - type: Sprite
+    layers:
+    - state: pink
+  - type: CorporateDeliveryZone
+    locationName: "А тебя это ебать не доолжно"
+    size: 5,5
+    deliveryDelay: 300
+    cratePrototype: NCCorporateDeliveryCrate
+
+- type: entity
   parent: BaseItem
   id: CitiNetDeliveryChip
   name: ent-CitiNetDeliveryChip
