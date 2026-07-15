@@ -67,11 +67,13 @@ namespace Content.Shared.Verbs
     {
         public readonly NetEntity Target;
         public readonly Verb RequestedVerb;
+        public readonly string? CultureName;
 
-        public ExecuteVerbEvent(NetEntity target, Verb requestedVerb)
+        public ExecuteVerbEvent(NetEntity target, Verb requestedVerb, string? cultureName = null)
         {
             Target = target;
             RequestedVerb = requestedVerb;
+            CultureName = cultureName;
         }
     }
 

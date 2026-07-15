@@ -23,8 +23,6 @@
     - NCPDLieutenant
     - NCPDSergeant
     - NCPDOfficer
-    - MaxTacCommander
-    - MaxTacEraser
 
 - type: department
   id: TraumaTeam

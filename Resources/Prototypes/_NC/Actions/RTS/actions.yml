@@ -4,12 +4,7 @@
   description: Toggle RTS command mode for controllable NPCs.
   components:
   - type: Action
-    icon:
-      sprite: Interface/Actions/actions_ai.rsi
-      state: crew_monitor
-    iconOn:
-      sprite: Interface/Actions/actions_ai.rsi
-      state: crew_monitor
+    icon: { sprite: _NC/Objects/Cyberware/sandevistan.rsi, state: icon }
     checkCanInteract: false
     checkConsciousness: false
     priority: -5
@@ -22,9 +17,7 @@
   description: Return your mind to your body at the rigger console.
   components:
   - type: Action
-    icon:
-      sprite: Interface/Actions/actions_ai.rsi
-      state: ai_core
+    icon: { sprite: _NC/Objects/Cyberware/sandevistan.rsi, state: icon }
     checkCanInteract: false
     checkConsciousness: false
     priority: -3
@@ -37,12 +30,7 @@
   description: Toggle RTS command mode for linked rigger drones.
   components:
   - type: Action
-    icon:
-      sprite: Interface/Actions/actions_ai.rsi
-      state: crew_monitor
-    iconOn:
-      sprite: Interface/Actions/actions_ai.rsi
-      state: crew_monitor
+    icon: { sprite: _NC/Objects/Cyberware/sandevistan.rsi, state: icon }
     checkCanInteract: false
     checkConsciousness: false
     priority: -4
@@ -55,9 +43,7 @@
   description: List linked rigger drones and their current state.
   components:
   - type: Action
-    icon:
-      sprite: Interface/Actions/actions_ai.rsi
-      state: crew_monitor
+    icon: { sprite: _NC/Objects/Cyberware/sandevistan.rsi, state: icon }
     checkCanInteract: false
     checkConsciousness: false
     priority: -5
