@@ -29,6 +29,7 @@ public sealed class CitiNetMapCartridgeSystem : EntitySystem
     [Dependency] private readonly UserInterfaceSystem _uiSystem = default!;
     [Dependency] private readonly SharedTransformSystem _transform = default!;
     [Dependency] private readonly SharedContainerSystem _container = default!;
+    [Dependency] private readonly IMapManager _mapManager = default!;
     [Dependency] private readonly IGameTiming _timing = default!;
 
     private float _updateTimer = 0f;
@@ -85,12 +86,15 @@ public sealed class CitiNetMapCartridgeSystem : EntitySystem
 
     private void RefreshAllInterfaces()
     {
-        var query = EntityQueryEnumerator<CitiNetMapCartridgeComponent, CartridgeLoaderComponent>();
-        while (query.MoveNext(out var uid, out var cart, out var loader))
+        var query = EntityQueryEnumerator<CitiNetMapCartridgeComponent, CartridgeComponent>();
+        while (query.MoveNext(out var uid, out _, out var cartridge))
         {
+            if (cartridge.LoaderUid is not { } loaderUid)
+                continue;
+
             // Update if someone is looking at the PDA UI
-            if (_uiSystem.GetActors(uid, Content.Shared.PDA.PdaUiKey.Key).Any())
-                UpdateUI(uid, uid);
+            if (_uiSystem.GetActors(loaderUid, Content.Shared.PDA.PdaUiKey.Key).Any())
+                UpdateUI(uid, loaderUid);
         }
 
         var consoleQuery = EntityQueryEnumerator<CitiNetMapComponent, UserInterfaceComponent>();
@@ -161,21 +165,20 @@ public sealed class CitiNetMapCartridgeSystem : EntitySystem
             allowedGroups = mapConfig.VisibleGroups;
         }
 
-        var xform = Transform(loader);
-        var gridUid = xform.GridUid;
+        var mapId = ResolveMapId(viewer, loader);
+        var displayMap = mapId != null ? ResolveDisplayMap(mapId.Value, loader) : null;
 
-        if (gridUid != null)
+        if (displayMap != null)
         {
             // 2. Add SELF (Viewer) manually if they are on the grid
-            if (viewer != null && TryComp(viewer.Value, out TransformComponent? viewerXform) && viewerXform.GridUid == gridUid)
+            if (viewer != null && TryComp(viewer.Value, out TransformComponent? viewerXform) && IsOnMap(viewerXform, mapId!.Value))
             {
-                var viewerPos = Vector2.Transform(_transform.GetWorldPosition(viewer.Value), _transform.GetInvWorldMatrix(gridUid.Value));
                 beacons.Add(new CitiNetMapBeaconData(
                     GetNetEntity(viewer.Value),
                     "YOU",
                     null,
                     Color.FromHex("#00f2ff"),
-                    viewerPos,
+                    ToDisplayLocal(viewer.Value, displayMap.Value),
                     12,
                     false,
                     true
@@ -186,9 +189,9 @@ public sealed class CitiNetMapCartridgeSystem : EntitySystem
             var sectorQuery = EntityQueryEnumerator<MapSectorComponent, TransformComponent>();
             while (sectorQuery.MoveNext(out var sUid, out var sector, out var sXform))
             {
-                if (sXform.GridUid != gridUid) continue;
+                if (!IsOnMap(sXform, mapId!.Value)) continue;
 
-                var sectorPos = Vector2.Transform(_transform.GetWorldPosition(sUid), _transform.GetInvWorldMatrix(gridUid.Value));
+                var sectorPos = ToDisplayLocal(sUid, displayMap.Value);
                 sectors.Add(new CitiNetMapSectorData(sector.SectorName, sector.Color, sector.Bounds.Translated(sectorPos), sector.FontSize));
             }
 
@@ -196,7 +199,7 @@ public sealed class CitiNetMapCartridgeSystem : EntitySystem
             var beaconQuery = EntityQueryEnumerator<MapBeaconComponent, TransformComponent>();
             while (beaconQuery.MoveNext(out var bUid, out var beacon, out var bXform))
             {
-                if (bXform.GridUid != gridUid || !beacon.IsVisible) continue;
+                if (!IsOnMap(bXform, mapId!.Value) || !beacon.IsVisible) continue;
 
                 // Skip if this is the viewer (we already added them as 'YOU')
                 if (bUid == viewer) continue;
@@ -211,14 +214,13 @@ public sealed class CitiNetMapCartridgeSystem : EntitySystem
                 }
 
                 var label = string.IsNullOrWhiteSpace(beacon.Label) ? MetaData(bUid).EntityName : beacon.Label;
-                var beaconPos = Vector2.Transform(_transform.GetWorldPosition(bUid), _transform.GetInvWorldMatrix(gridUid.Value));
 
                 beacons.Add(new CitiNetMapBeaconData(
                     GetNetEntity(bUid),
                     label,
                     beacon.Icon,
                     beacon.Color,
-                    beaconPos,
+                    ToDisplayLocal(bUid, displayMap.Value),
                     beacon.FontSize,
                     isDead,
                     false
@@ -232,11 +234,10 @@ public sealed class CitiNetMapCartridgeSystem : EntitySystem
                 // Only show if the chip is inserted into a device with a CartridgeLoader (PDA, etc.)
                 if (!HasComp<CartridgeLoaderComponent>(cXform.ParentUid)) continue;
 
-                var chipGrid = _transform.GetGrid(cUid);
-                if (chipGrid != gridUid) continue;
+                if (!IsOnMap(cXform, mapId!.Value)) continue;
 
                 // Position extraction from NetCoordinates
-                var deathPos = chip.Coordinates.Position;
+                var deathPos = _transform.ToMapCoordinates(EntityManager.GetCoordinates(chip.Coordinates)).Position;
 
                 beacons.Add(new CitiNetMapBeaconData(
                     GetNetEntity(cUid),
@@ -257,10 +258,11 @@ public sealed class CitiNetMapCartridgeSystem : EntitySystem
                 if (!HasComp<CartridgeLoaderComponent>(cXform.ParentUid)) continue;
                 if (chip.TargetDropPoint == null) continue;
 
-                var chipGrid = _transform.GetGrid(cUid);
-                if (chipGrid != gridUid) continue;
+                if (!IsOnMap(cXform, mapId!.Value)) continue;
+                if (!TryComp(chip.TargetDropPoint.Value, out TransformComponent? targetXform) ||
+                    !IsOnMap(targetXform, mapId.Value))
+                    continue;
 
-                var targetPos = Vector2.Transform(_transform.GetWorldPosition(chip.TargetDropPoint.Value), _transform.GetInvWorldMatrix(gridUid.Value));
                 var label = chip.IsReady
                     ? Loc.GetString("nc-delivery-map-marker", ("location", chip.LocationName))
                     : Loc.GetString(
@@ -273,21 +275,64 @@ public sealed class CitiNetMapCartridgeSystem : EntitySystem
                     label,
                     new SpriteSpecifier.Rsi(new ResPath("/Textures/Interface/Misc/gps_icons.rsi"), "waypoint"),
                     Color.Yellow,
-                    targetPos,
+                    ToDisplayLocal(chip.TargetDropPoint.Value, displayMap.Value),
                     12,
                     false,
                     false
                 ));
             }
 
-            pings.AddRange(_citiNet.GetActivePings(gridUid.Value));
+            pings.AddRange(_citiNet.GetActivePings(displayMap.Value));
         }
 
-        var state = new CitiNetMapBoundUserInterfaceState(gridUid != null ? GetNetEntity(gridUid.Value) : null, sectors, beacons, pings);        
+        var state = new CitiNetMapBoundUserInterfaceState(displayMap != null ? GetNetEntity(displayMap.Value) : null, sectors, beacons, pings);
         if (HasComp<CitiNetMapCartridgeComponent>(uid))
             _cartridge.UpdateCartridgeUiState(loader, state);
         else
             _uiSystem.SetUiState(loader, CitiNetMapUiKey.Key, state);
+    }
+
+    private MapId? ResolveMapId(EntityUid? viewer, EntityUid loader)
+    {
+        if (viewer != null && TryComp(viewer.Value, out TransformComponent? viewerXform))
+            return viewerXform.MapID;
+
+        if (TryComp(loader, out TransformComponent? loaderXform))
+            return loaderXform.MapID;
+
+        return null;
+    }
+
+    private EntityUid? ResolveDisplayMap(MapId mapId, EntityUid loader)
+    {
+        // Prefer the city grid that owns CitiNet sectors so NavMap still has geometry,
+        // but keep all marker positions in map coordinates for cross-grid tracking.
+        var sectorQuery = EntityQueryEnumerator<MapSectorComponent, TransformComponent>();
+        while (sectorQuery.MoveNext(out _, out _, out var xform))
+        {
+            if (xform.MapID == mapId && xform.GridUid is { } gridUid)
+                return gridUid;
+        }
+
+        if (TryComp(loader, out TransformComponent? loaderXform) &&
+            loaderXform.MapID == mapId &&
+            loaderXform.GridUid is { } loaderGrid)
+        {
+            return loaderGrid;
+        }
+
+        return _mapManager.GetMapEntityId(mapId);
+    }
+
+    private bool IsOnMap(TransformComponent xform, MapId mapId)
+    {
+        return xform.MapID == mapId;
+    }
+
+    private Vector2 ToDisplayLocal(EntityUid uid, EntityUid displayMap)
+    {
+        // CitiNet map payloads use MapCoordinates so entities on sub-grids stay aligned with the city map.
+        return _transform.GetMapCoordinates(uid).Position;
     }
 
     private int GetRemainingDeliverySeconds(DeliveryChipComponent chip)

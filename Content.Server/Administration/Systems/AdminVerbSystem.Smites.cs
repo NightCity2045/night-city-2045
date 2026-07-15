@@ -932,7 +932,7 @@ public sealed partial class AdminVerbSystem
         // These smites create alerts on the Overwatch dispatch console.
         // The dispatcher then forwards them to NCPD tablets for real-time tracking.
 
-        var wantedName = Loc.GetString("admin-smite-wanted-name").ToLowerInvariant();
+        const string wantedName = "mark wanted";
         Verb wanted = new()
         {
             Text = wantedName,
@@ -953,7 +953,7 @@ public sealed partial class AdminVerbSystem
         };
         args.Verbs.Add(wanted);
 
-        var cyberpsychoName = Loc.GetString("admin-smite-cyberpsycho-name").ToLowerInvariant();
+        const string cyberpsychoName = "mark cyberpsycho";
         Verb cyberpsycho = new()
         {
             Text = cyberpsychoName,

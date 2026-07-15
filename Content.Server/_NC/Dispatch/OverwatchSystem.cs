@@ -89,11 +89,14 @@ namespace Content.Server._NC.Dispatch
             {
                 case OverwatchAlertAction.ConnectCamera:
                 {
+                    if (!TryResolveAlertCamera(alert, out var cameraUid))
+                        break;
+
                     // open the surveillance camera monitor UI for that user on this console
                     _ui.TryOpenUi(uid, SurveillanceCameraMonitorUiKey.Key, msg.Actor);
 
                     // switch the console's monitor to the selected camera
-                    _cameraMonitorSystem.SwitchCameraToUid(uid, EntityManager.GetEntity(alert.CameraUid));
+                    _cameraMonitorSystem.SwitchCameraToUid(uid, cameraUid);
                     break;
                 }
                 case OverwatchAlertAction.PrintTicket:
@@ -117,7 +120,7 @@ namespace Content.Server._NC.Dispatch
                         var targetEnt = EntityManager.GetEntity(targetNet);
                         if (EntityManager.EntityExists(targetEnt))
                         {
-                            dispatchNetCoords = GetNetCoordinates(_transform.GetMoverCoordinates(targetEnt));
+                            dispatchNetCoords = GetNetCoordinates(_transform.ToCoordinates(_transform.GetMapCoordinates(targetEnt)));
                             trackTarget = targetEnt;
                         }
                     }
@@ -237,7 +240,7 @@ namespace Content.Server._NC.Dispatch
             var sectorWithCoords = $"({gridPos.X}, {gridPos.Y}) {sector}";
             
             // NC Edit: Capture coordinates immediately so they remain valid even if camera is destroyed later.
-            var coordinates = GetNetCoordinates(_transform.GetMoverCoordinates(cameraUid));
+            var coordinates = GetNetCoordinates(_transform.ToCoordinates(_transform.GetMapCoordinates(cameraUid)));
 
             // update every console on station
             var consoles = EntityQueryEnumerator<OverwatchConsoleComponent>();
@@ -265,7 +268,16 @@ namespace Content.Server._NC.Dispatch
                     var id = comp.NextAlertId++;
                     // derive camera name from surveillance component if available
                     var camName = sector;
-                    comp.ActiveAlerts[id] = new OverwatchAlertData(id, type, sectorWithCoords, camName, timeStr, EntityManager.GetNetEntity(cameraUid), coordinates);
+                    var hasCamera = TryComp<SurveillanceCameraComponent>(cameraUid, out var camera) && camera.Active;
+                    comp.ActiveAlerts[id] = new OverwatchAlertData(
+                        id,
+                        type,
+                        sectorWithCoords,
+                        camName,
+                        timeStr,
+                        EntityManager.GetNetEntity(cameraUid),
+                        coordinates,
+                        hasCamera: hasCamera);
                     comp.LastAlertTime[cameraUid] = now;
 
                     // play alarm sound at the console if high priority
@@ -282,19 +294,47 @@ namespace Content.Server._NC.Dispatch
         /// that tracks a live entity instead of a surveillance camera.
         /// The alert appears on all Overwatch consoles. The dispatcher then forwards it to tablets.
         /// </summary>
-        public void AddEntityAlert(EntityUid targetUid, string type, string description)
+        public void AddEntityAlert(EntityUid targetUid, string type, string description, string sourceId = "")
         {
             var timeStr = _gameTicker.RoundDuration().ToString(@"hh\:mm\:ss");
             var transform = Transform(targetUid);
             var gridPos = _transform.GetGridOrMapTilePosition(targetUid, transform);
             var sectorWithCoords = $"({gridPos.X}, {gridPos.Y}) {description}";
             
-            // NC Edit: Capture coordinates immediately
-            var coordinates = GetNetCoordinates(_transform.GetMoverCoordinates(targetUid));
+            // NC Edit: Capture map-space coordinates so alerts survive targets on sub-grids.
+            var coordinates = GetNetCoordinates(_transform.ToCoordinates(_transform.GetMapCoordinates(targetUid, transform)));
 
             var consoles = EntityQueryEnumerator<OverwatchConsoleComponent>();
             while (consoles.MoveNext(out var uid, out var comp))
             {
+                var nearestCamera = FindNearestActiveCamera(_transform.GetMapCoordinates(targetUid, transform));
+                var nearestCameraNet = nearestCamera != null ? EntityManager.GetNetEntity(nearestCamera.Value) : default;
+                var hasCamera = nearestCamera != null;
+                var updated = false;
+                if (!string.IsNullOrEmpty(sourceId))
+                {
+                    foreach (var existing in comp.ActiveAlerts.Values)
+                    {
+                        if (existing.SourceId != sourceId)
+                            continue;
+
+                        existing.Sector = sectorWithCoords;
+                        existing.CameraName = description;
+                        existing.TimeStr = timeStr;
+                        existing.CameraUid = nearestCameraNet;
+                        existing.Coordinates = coordinates;
+                        existing.TargetUid = EntityManager.GetNetEntity(targetUid);
+                        existing.Dispatched = false;
+                        existing.HasCamera = hasCamera;
+                        UpdateConsoleUi(uid, comp);
+                        updated = true;
+                        break;
+                    }
+                }
+
+                if (updated)
+                    continue;
+
                 var id = comp.NextAlertId++;
                 comp.ActiveAlerts[id] = new OverwatchAlertData(
                     id,
@@ -302,16 +342,93 @@ namespace Content.Server._NC.Dispatch
                     sectorWithCoords,
                     description,
                     timeStr,
-                    EntityManager.GetNetEntity(targetUid),  // CameraUid doubles as position source
+                    nearestCameraNet,
                     coordinates,
                     dispatched: false,
-                    targetUid: EntityManager.GetNetEntity(targetUid)  // TargetUid for live tracking
+                    targetUid: EntityManager.GetNetEntity(targetUid),  // TargetUid for live tracking
+                    sourceId: sourceId,
+                    hasCamera: hasCamera
                 );
 
                 // Always play alarm for entity alerts (high priority)
                 _audio.PlayPvs(new SoundPathSpecifier("/Audio/Effects/alert.ogg"), uid);
                 UpdateConsoleUi(uid, comp);
             }
+        }
+
+        public void RemoveEntityAlert(string sourceId)
+        {
+            if (string.IsNullOrEmpty(sourceId))
+                return;
+
+            var consoles = EntityQueryEnumerator<OverwatchConsoleComponent>();
+            while (consoles.MoveNext(out var uid, out var comp))
+            {
+                var removed = comp.ActiveAlerts
+                    .Where(pair => pair.Value.SourceId == sourceId)
+                    .Select(pair => pair.Key)
+                    .ToList();
+
+                foreach (var alertId in removed)
+                    comp.ActiveAlerts.Remove(alertId);
+
+                if (removed.Count > 0)
+                    UpdateConsoleUi(uid, comp);
+            }
+        }
+
+        private bool TryResolveAlertCamera(OverwatchAlertData alert, out EntityUid cameraUid)
+        {
+            cameraUid = EntityUid.Invalid;
+
+            if (alert.HasCamera)
+            {
+                var storedCamera = EntityManager.GetEntity(alert.CameraUid);
+                if (IsUsableCamera(storedCamera))
+                {
+                    cameraUid = storedCamera;
+                    return true;
+                }
+            }
+
+            var alertCoords = EntityManager.GetCoordinates(alert.Coordinates);
+            if (!alertCoords.EntityId.Valid)
+                return false;
+
+            if (FindNearestActiveCamera(_transform.ToMapCoordinates(alertCoords)) is not { } nearest)
+                return false;
+
+            cameraUid = nearest;
+            return true;
+        }
+
+        private EntityUid? FindNearestActiveCamera(MapCoordinates origin)
+        {
+            EntityUid? best = null;
+            var bestDistance = float.MaxValue;
+            var query = EntityQueryEnumerator<SurveillanceCameraComponent, TransformComponent>();
+            while (query.MoveNext(out var uid, out var camera, out var xform))
+            {
+                if (!camera.Active || xform.MapID != origin.MapId)
+                    continue;
+
+                var cameraPos = _transform.GetMapCoordinates(uid, xform).Position;
+                var distance = (cameraPos - origin.Position).LengthSquared();
+                if (distance >= bestDistance)
+                    continue;
+
+                best = uid;
+                bestDistance = distance;
+            }
+
+            return best;
+        }
+
+        private bool IsUsableCamera(EntityUid uid)
+        {
+            return EntityManager.EntityExists(uid) &&
+                   TryComp<SurveillanceCameraComponent>(uid, out var camera) &&
+                   camera.Active;
         }
     }
 }
