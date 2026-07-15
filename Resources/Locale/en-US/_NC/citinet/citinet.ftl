@@ -123,6 +123,8 @@ citinet-delivery-chip-examine-pending = Pickup route: { $location }. ETA: { $sec
 citinet-store-ui-balance = BALANCE: { $balance } ED
 citinet-store-ui-corp-funds = CORP FUNDS: { $balance } ED
 citinet-store-ui-corp-data = DATA: { $data }
+citinet-store-ui-category = CATEGORY
+citinet-store-ui-no-categories = No categories available.
 citinet-store-ui-corp-status-no-account = LINK STATUS: NO CORPORATE ACCOUNT ROUTE
 citinet-store-ui-corp-status-dropbox = LINK STATUS: SECURE DROPBOX ROUTE
 citinet-store-ui-corp-status-zone = LINK STATUS: OFF-CITY PICKUP ZONE ROUTE
@@ -145,11 +147,22 @@ citinet-store-ui-cart-line-price-money = { $price } ED
 citinet-pill-canister-desc = 10 pills, 10 units each.
 
 # NetSites
+citinet-browser-title = CitiNet Terminal
+citinet-browser-bookmarks = Bookmarks
+citinet-browser-address-placeholder = Enter URL...
+citinet-browser-go = Go
+citinet-home-header = CITINET // HOME_PAGE
+citinet-home-services = AVAILABLE_SERVICES:
+citinet-home-news = LATEST_NEWS:
+citinet-home-news-trauma = - Trauma Team reports record response times.
+citinet-home-news-arasaka = - Arasaka Tower renovation completed.
 citinet-site-name-home = CitiNet Home
 citinet-site-name-comm = CitiNet Comm
 citinet-site-name-flatline = Flatline Database
 citinet-site-name-astrozon = Astrozon
 citinet-site-name-night-market = Night Market
+citinet-site-name-militech-supply = Militech Supply
+citinet-site-name-biotechnica-supply = Biotechnica Supply
 citinet-site-name-ncpd-records = NCPD Central Database
 citinet-site-name-trauma-monitor = Trauma Care Monitor
 

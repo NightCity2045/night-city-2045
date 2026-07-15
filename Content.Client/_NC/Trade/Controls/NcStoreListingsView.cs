@@ -13,12 +13,15 @@ namespace Content.Client._NC.Trade.Controls;
 [GenerateTypedNameReferences]
 public sealed partial class NcStoreListingsView : PanelContainer
 {
+    private readonly List<string> _categories = new();
     private readonly List<string> _visibleIds = new();
 
     private NcListingGrid? _grid;
     private StoreMode _mode;
+    private bool _syncingCategorySelect;
 
     private Func<string, string> _categoryDisplayName = static id => id;
+    private Func<string, string> _categoryToolTip = static id => id;
     private string _searchLower = string.Empty;
 
     private IReadOnlyList<StoreListingData> _items = Array.Empty<StoreListingData>();
@@ -63,11 +66,20 @@ public sealed partial class NcStoreListingsView : PanelContainer
         // Important UX rule for the store: switching category must never inherit scroll
         // from a previous category. The pane owns this policy.
         Pane.RememberScrollPerKey = false;
+        CategorySelect.PrefixMargin = false;
 
-        CategoryBar.OnSelectedChanged += catId =>
+        CategorySelect.OnItemSelected += args =>
         {
-            SelectedCategory = catId;
-            Pane.SetKey(catId);
+            if (_syncingCategorySelect)
+                return;
+
+            if (args.Id < 0 || args.Id >= _categories.Count)
+                return;
+
+            CategorySelect.SelectId(args.Id);
+            SelectedCategory = _categories[args.Id];
+            CategorySelect.ToolTip = _categoryToolTip(SelectedCategory);
+            Pane.SetKey(SelectedCategory);
             _grid.ResetPaging();
             Refresh();
             SelectedCategoryChanged?.Invoke(SelectedCategory);
@@ -77,13 +89,47 @@ public sealed partial class NcStoreListingsView : PanelContainer
     public void ConfigureCategories(Func<string, string> displayName, Func<string, string> toolTip)
     {
         _categoryDisplayName = displayName;
-        CategoryBar.Configure(displayName, toolTip);
+        _categoryToolTip = toolTip;
     }
 
     public void SetCategories(IReadOnlyList<string> categories)
     {
-        CategoryBar.SetCategories(categories, SelectedCategory);
-        SelectedCategory = CategoryBar.Selected;
+        _categories.Clear();
+        foreach (var category in categories)
+            _categories.Add(category);
+
+        if (_categories.Count == 0)
+        {
+            SelectedCategory = string.Empty;
+            CategorySelect.Clear();
+            CategorySelect.AddItem(Loc.GetString("nc-store-select-category"), 0);
+            CategorySelect.SelectId(0);
+            CategorySelect.Disabled = true;
+            Pane.SetKey(SelectedCategory);
+            Refresh();
+            return;
+        }
+
+        var selectedIndex = _categories.IndexOf(SelectedCategory);
+        if (selectedIndex < 0)
+        {
+            selectedIndex = 0;
+            SelectedCategory = _categories[0];
+        }
+
+        _syncingCategorySelect = true;
+        CategorySelect.Clear();
+        for (var i = 0; i < _categories.Count; i++)
+        {
+            var category = _categories[i];
+            CategorySelect.AddItem(_categoryDisplayName(category), i);
+        }
+
+        CategorySelect.SelectId(selectedIndex);
+        CategorySelect.Disabled = false;
+        CategorySelect.ToolTip = _categoryToolTip(SelectedCategory);
+        _syncingCategorySelect = false;
+
         Pane.SetKey(SelectedCategory);
         Refresh();
     }

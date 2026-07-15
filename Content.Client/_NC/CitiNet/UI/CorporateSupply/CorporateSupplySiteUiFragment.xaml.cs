@@ -20,20 +20,29 @@ public sealed partial class CorporateSupplySiteUi : PanelContainer
     public event Action? OnClearCart;
     public event Action? OnCheckoutCart;
 
+    private CitiNetStoreUpdateState? _lastState;
+    private string _selectedCategory = string.Empty;
+    private bool _syncingCategorySelect;
+
     public CorporateSupplySiteUi()
     {
         RobustXamlLoader.Load(this);
         Stylesheet = IoCManager.Resolve<IStylesheetManager>().SheetNightCity;
+        CategoryLabel.Text = Loc.GetString("citinet-store-ui-category");
+        CategorySelect.PrefixMargin = false;
+        CategorySelect.OnItemSelected += OnCategorySelected;
         ClearCartButton.OnPressed += _ => OnClearCart?.Invoke();
         CheckoutButton.OnPressed += _ => OnCheckoutCart?.Invoke();
     }
 
     public void UpdateState(CitiNetStoreUpdateState state)
     {
+        _lastState = state;
         FundsLabel.Text = Loc.GetString("citinet-store-ui-corp-funds", ("balance", state.Balance));
         DataLabel.Text = Loc.GetString("citinet-store-ui-corp-data", ("data", state.DataBalance));
         StatusLabel.Text = GetStatusText(state);
 
+        SyncCategorySelect(state);
         RenderCart(state);
         RenderListings(state);
     }
@@ -48,23 +57,73 @@ public sealed partial class CorporateSupplySiteUi : PanelContainer
             : Loc.GetString("citinet-store-ui-corp-status-dropbox");
     }
 
+    private void OnCategorySelected(OptionButton.ItemSelectedEventArgs args)
+    {
+        if (_syncingCategorySelect || _lastState == null)
+            return;
+
+        if (args.Id < 0 || args.Id >= _lastState.Categories.Count)
+            return;
+
+        CategorySelect.SelectId(args.Id);
+        _selectedCategory = _lastState.Categories[args.Id].Name;
+        RenderListings(_lastState);
+    }
+
+    private void SyncCategorySelect(CitiNetStoreUpdateState state)
+    {
+        if (state.Categories.Count == 0)
+        {
+            _selectedCategory = string.Empty;
+            CategorySelect.Clear();
+            CategorySelect.AddItem(Loc.GetString("citinet-store-ui-no-categories"), 0);
+            CategorySelect.SelectId(0);
+            CategorySelect.Disabled = true;
+            return;
+        }
+
+        var selectedIndex = state.Categories.FindIndex(category => category.Name == _selectedCategory);
+        if (selectedIndex < 0)
+        {
+            selectedIndex = 0;
+            _selectedCategory = state.Categories[0].Name;
+        }
+
+        _syncingCategorySelect = true;
+        CategorySelect.Clear();
+        for (var i = 0; i < state.Categories.Count; i++)
+            CategorySelect.AddItem(Localize(state.Categories[i].Name), i);
+
+        CategorySelect.SelectId(selectedIndex);
+        CategorySelect.Disabled = false;
+        _syncingCategorySelect = false;
+    }
+
     private void RenderListings(CitiNetStoreUpdateState state)
     {
         Listings.RemoveAllChildren();
 
-        foreach (var category in state.Categories)
+        var category = state.Categories.Find(category => category.Name == _selectedCategory);
+        if (category == null)
         {
             Listings.AddChild(new Label
             {
-                Text = Localize(category.Name).ToUpperInvariant(),
-                StyleClasses = { "NightCityGlowText" },
-                Margin = new Thickness(0, 8, 0, 2)
+                Text = Loc.GetString("citinet-store-ui-no-categories"),
+                StyleClasses = { "NightCityMutedText" }
             });
+            return;
+        }
 
-            foreach (var entry in category.Entries)
-            {
-                AddListingRow(state, entry);
-            }
+        Listings.AddChild(new Label
+        {
+            Text = Localize(category.Name).ToUpperInvariant(),
+            StyleClasses = { "NightCityGlowText" },
+            Margin = new Thickness(0, 4, 0, 2)
+        });
+
+        foreach (var entry in category.Entries)
+        {
+            AddListingRow(state, entry);
         }
     }
 

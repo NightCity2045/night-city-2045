@@ -22,6 +22,19 @@
                    Margin="8 4" />
         </PanelContainer>
 
+        <PanelContainer StyleClasses="NightCityPanelInset" MinHeight="40" Margin="0 0 0 4">
+            <BoxContainer Orientation="Horizontal" Margin="8 4">
+                <Label Name="CategoryLabel"
+                       Text="CATEGORY"
+                       StyleClasses="NightCityMutedText"
+                       VerticalAlignment="Center" />
+                <OptionButton Name="CategorySelect"
+                              MinWidth="260"
+                              HorizontalExpand="True"
+                              Margin="8 0 0 0" />
+            </BoxContainer>
+        </PanelContainer>
+
         <ScrollContainer VerticalExpand="True" HScrollEnabled="False">
             <BoxContainer Name="Listings"
                           Orientation="Vertical"

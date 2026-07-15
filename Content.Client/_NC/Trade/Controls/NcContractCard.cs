@@ -152,7 +152,7 @@ public sealed class NcContractCard : PanelContainer
             Margin = new(0, 0, 6, 0),
             HorizontalExpand = true
         };
-        titleLabel.StyleClasses.Add("LabelHeading");
+        titleLabel.StyleClasses.Add("NightCityGlowText");
         header.AddChild(titleLabel);
 
         header.AddChild(new() { HorizontalExpand = true, });
@@ -250,7 +250,7 @@ public sealed class NcContractCard : PanelContainer
             Text = Loc.GetString("nc-store-contract-reward-header"),
             Margin = new(0, 0, 0, 3)
         };
-        rewardsHeader.StyleClasses.Add("LabelHeading");
+        rewardsHeader.StyleClasses.Add("NightCityGlowText");
         rewardsCol.AddChild(rewardsHeader);
 
         PopulateRewards(rewardsCol, _data.Rewards);

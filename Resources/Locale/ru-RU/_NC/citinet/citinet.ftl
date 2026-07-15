@@ -129,6 +129,8 @@ citinet-delivery-chip-examine-pending = Маршрут выдачи: { $location
 citinet-store-ui-balance = БАЛАНС: { $balance } ED
 citinet-store-ui-corp-funds = СРЕДСТВА: { $balance } ED
 citinet-store-ui-corp-data = ДАННЫЕ: { $data }
+citinet-store-ui-category = КАТЕГОРИЯ
+citinet-store-ui-no-categories = Категории недоступны.
 citinet-store-ui-corp-status-no-account = СТАТУС: НЕТ МАРШРУТА К КОРПОРАТИВНОМУ СЧЕТУ
 citinet-store-ui-corp-status-dropbox = СТАТУС: МАРШРУТ ЧЕРЕЗ ЗАЩИЩЕННЫЙ ПОЧТОМАТ
 citinet-store-ui-corp-status-zone = СТАТУС: ВЫЕЗДНАЯ ЗОНА ВЫДАЧИ ЗА ГОРОДОМ
@@ -151,11 +153,22 @@ citinet-store-ui-cart-line-price-money = { $price } ED
 citinet-pill-canister-desc = 10 таблеток по 10 унций.
 
 # NetSites
+citinet-browser-title = Терминал CitiNet
+citinet-browser-bookmarks = Закладки
+citinet-browser-address-placeholder = Введите URL...
+citinet-browser-go = Перейти
+citinet-home-header = CITINET // ДОМАШНЯЯ_СТРАНИЦА
+citinet-home-services = ДОСТУПНЫЕ_СЕРВИСЫ:
+citinet-home-news = ПОСЛЕДНИЕ_НОВОСТИ:
+citinet-home-news-trauma = - Trauma Team сообщает о рекордном времени реагирования.
+citinet-home-news-arasaka = - Реконструкция башни Арасаки завершена.
 citinet-site-name-home = CitiNet Home
 citinet-site-name-comm = CitiNet Comm
 citinet-site-name-flatline = База данных Flatline
 citinet-site-name-astrozon = Astrozon
 citinet-site-name-night-market = Ночной рынок
+citinet-site-name-militech-supply = Снабжение Militech
+citinet-site-name-biotechnica-supply = Снабжение Biotechnica
 citinet-site-name-ncpd-records = NCPD Central Database
 citinet-site-name-trauma-monitor = Trauma Care Monitor
 

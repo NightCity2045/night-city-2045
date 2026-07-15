@@ -293,6 +293,75 @@
     price: 160
     count: 2
 
+- type: citiNetStoreCategory
+  id: AstrozonFood
+  name: FOOD & DRINKS
+  entries:
+  - proto: FoodSnackTacoWrapped
+    price: 45
+    count: 12
+  - proto: FoodSnackBurritoWrapped
+    price: 50
+    count: 12
+  - proto: FoodSnackShawarmaWrapped
+    price: 55
+    count: 10
+  - proto: FoodSnackBurgerWrapped
+    price: 60
+    count: 10
+  - proto: FoodSnackCheeseburgerWrapped
+    price: 70
+    count: 8
+  - proto: NCDrinkCanBiotechnica
+    price: 12
+    count: 30
+  - proto: NCDrinkCanCola
+    price: 18
+    count: 24
+  - proto: NCDrinkCanEnergy
+    price: 28
+    count: 18
+  - proto: NCDrinkCanEnergyPlus
+    price: 45
+    count: 10
+  - proto: NCDrinkBottleMultifruit
+    price: 60
+    count: 8
+  - proto: NCDrinkCartonMultifruit
+    price: 80
+    count: 6
+
+- type: citiNetStoreCategory
+  id: AstrozonUrbanEquipment
+  name: URBAN EQUIPMENT
+  entries:
+  - proto: NCBiomonitor
+    price: 250
+    count: 6
+  - proto: DrinkShakerAdvanced
+    price: 350
+    count: 3
+  - proto: DrinkKettleAdvanced
+    price: 300
+    count: 3
+
+- type: citiNetStoreCategory
+  id: AstrozonCollectibles
+  name: COLLECTIBLES
+  entries:
+  - proto: PlushieAlze
+    price: 300
+    count: 4
+  - proto: PlushieTrupozarka
+    price: 300
+    count: 4
+  - proto: PlushieOrchiDea
+    price: 300
+    count: 4
+  - proto: PlushieExperiment
+    price: 300
+    count: 4
+
 - type: citiNetStorePreset
   id: AstrozonMarket
   defaultDelivery: Corporate
@@ -303,6 +372,9 @@
   - AstrozonClothing
   - AstrozonBotanyEquipment
   - AstrozonWorkwear
+  - AstrozonFood
+  - AstrozonUrbanEquipment
+  - AstrozonCollectibles
 
 # дайте деняк :P
 

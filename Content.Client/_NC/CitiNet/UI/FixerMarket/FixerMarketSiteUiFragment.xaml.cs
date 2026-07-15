@@ -1,3 +1,4 @@
+using Content.Client.Stylesheets;
 using Content.Client.UserInterface.Fragments;
 using Content.Shared._NC.CitiNet.Components;
 using Content.Shared._NC.CitiNet.Store;
@@ -18,44 +19,104 @@ public sealed partial class FixerMarketSiteUi : PanelContainer
     public event Action? OnClearCart;
     public event Action? OnCheckoutCart;
 
+    private CitiNetStoreUpdateState? _lastState;
+    private string _selectedCategory = string.Empty;
+    private bool _syncingCategorySelect;
+
     public FixerMarketSiteUi()
     {
         RobustXamlLoader.Load(this);
+        Stylesheet = IoCManager.Resolve<IStylesheetManager>().SheetNightCity;
+        CategoryLabel.Text = Loc.GetString("citinet-store-ui-category");
+        CategorySelect.PrefixMargin = false;
+        CategorySelect.OnItemSelected += OnCategorySelected;
         ClearCartButton.OnPressed += _ => OnClearCart?.Invoke();
         CheckoutButton.OnPressed += _ => OnCheckoutCart?.Invoke();
     }
 
     public void UpdateState(CitiNetStoreUpdateState state)
     {
+        _lastState = state;
         BalanceLabel.Text = Loc.GetString("citinet-store-ui-balance", ("balance", state.Balance));
+        SyncCategorySelect(state);
         RenderCart(state);
         RenderListings(state);
     }
 
+    private void OnCategorySelected(OptionButton.ItemSelectedEventArgs args)
+    {
+        if (_syncingCategorySelect || _lastState == null)
+            return;
+
+        if (args.Id < 0 || args.Id >= _lastState.Categories.Count)
+            return;
+
+        CategorySelect.SelectId(args.Id);
+        _selectedCategory = _lastState.Categories[args.Id].Name;
+        RenderListings(_lastState);
+    }
+
+    private void SyncCategorySelect(CitiNetStoreUpdateState state)
+    {
+        if (state.Categories.Count == 0)
+        {
+            _selectedCategory = string.Empty;
+            CategorySelect.Clear();
+            CategorySelect.AddItem(Loc.GetString("citinet-store-ui-no-categories"), 0);
+            CategorySelect.SelectId(0);
+            CategorySelect.Disabled = true;
+            return;
+        }
+
+        var selectedIndex = state.Categories.FindIndex(category => category.Name == _selectedCategory);
+        if (selectedIndex < 0)
+        {
+            selectedIndex = 0;
+            _selectedCategory = state.Categories[0].Name;
+        }
+
+        _syncingCategorySelect = true;
+        CategorySelect.Clear();
+        for (var i = 0; i < state.Categories.Count; i++)
+            CategorySelect.AddItem(Localize(state.Categories[i].Name), i);
+
+        CategorySelect.SelectId(selectedIndex);
+        CategorySelect.Disabled = false;
+        _syncingCategorySelect = false;
+    }
+
     private void RenderListings(CitiNetStoreUpdateState state)
     {
-        Tabs.RemoveAllChildren();
+        Listings.RemoveAllChildren();
 
-        foreach (var category in state.Categories)
+        var category = state.Categories.Find(category => category.Name == _selectedCategory);
+        if (category == null)
         {
-            var scroll = new ScrollContainer { VerticalExpand = true, HScrollEnabled = false };
-            var list = new BoxContainer { Orientation = BoxContainer.LayoutOrientation.Vertical, SeparationOverride = 4, Margin = new Thickness(4) };
-
-            foreach (var entry in category.Entries)
+            Listings.AddChild(new Label
             {
-                var isOutOfStock = entry.RemainingCount.HasValue && entry.RemainingCount.Value <= 0;
-                list.AddChild(CreateListingRow(entry, isOutOfStock));
-            }
+                Text = Loc.GetString("citinet-store-ui-no-categories"),
+                StyleClasses = { "NightCityMutedText" }
+            });
+            return;
+        }
 
-            scroll.AddChild(list);
-            Tabs.AddChild(scroll);
-            Tabs.SetTabTitle(Tabs.ChildCount - 1, Localize(category.Name));
+        Listings.AddChild(new Label
+        {
+            Text = Localize(category.Name).ToUpperInvariant(),
+            StyleClasses = { "NightCityGlowText" },
+            Margin = new Thickness(0, 4, 0, 2)
+        });
+
+        foreach (var entry in category.Entries)
+        {
+            var isOutOfStock = entry.RemainingCount.HasValue && entry.RemainingCount.Value <= 0;
+            Listings.AddChild(CreateListingRow(entry, isOutOfStock));
         }
     }
 
     private Control CreateListingRow(CitiNetStoreEntryData entry, bool isOutOfStock)
     {
-        var row = new PanelContainer { StyleClasses = { "PanelBackgroundBaseDark" }, MinHeight = 60, Margin = new Thickness(2) };
+        var row = new PanelContainer { StyleClasses = { "NightCityPanelDark" }, MinHeight = 60, Margin = new Thickness(2) };
         if (isOutOfStock)
             row.Modulate = Color.FromHex("#333333");
 
@@ -66,8 +127,8 @@ public sealed partial class FixerMarketSiteUi : PanelContainer
         hBox.AddChild(icon);
 
         var details = new BoxContainer { Orientation = BoxContainer.LayoutOrientation.Vertical, HorizontalExpand = true, VerticalAlignment = VAlignment.Center };
-        details.AddChild(new Label { Text = Localize(entry.Name).ToUpperInvariant(), StyleClasses = { "LabelHeading" } });
-        details.AddChild(new Label { Text = Localize(entry.Description), FontColorOverride = Color.Gray, ClipText = true });
+        details.AddChild(new Label { Text = Localize(entry.Name).ToUpperInvariant(), StyleClasses = { "NightCityGlowText" } });
+        details.AddChild(new Label { Text = Localize(entry.Description), StyleClasses = { "NightCityMutedText" }, ClipText = true });
 
         if (entry.RemainingCount.HasValue)
         {
@@ -76,7 +137,7 @@ public sealed partial class FixerMarketSiteUi : PanelContainer
                 Text = isOutOfStock
                     ? Loc.GetString("citinet-store-ui-stock-depleted")
                     : Loc.GetString("citinet-store-ui-stock", ("count", entry.RemainingCount.Value)),
-                FontColorOverride = isOutOfStock ? Color.Red : Color.FromHex("#00ff00")
+                StyleClasses = { isOutOfStock ? "NightCityStatusDanger" : "NightCityStatusGood" }
             });
         }
 
@@ -84,9 +145,9 @@ public sealed partial class FixerMarketSiteUi : PanelContainer
 
         var amount = 1;
         var amountBox = new BoxContainer { Orientation = BoxContainer.LayoutOrientation.Horizontal, VerticalAlignment = VAlignment.Center, Margin = new Thickness(8, 0) };
-        var minusBtn = new Button { Text = "-", MinSize = new Vector2(24, 24), Disabled = isOutOfStock };
+        var minusBtn = new Button { Text = "-", MinSize = new Vector2(24, 24), Disabled = isOutOfStock, StyleClasses = { "NightCityButton" } };
         var amountLabel = new Label { Text = "1", MinWidth = 30, HorizontalAlignment = HAlignment.Center };
-        var plusBtn = new Button { Text = "+", MinSize = new Vector2(24, 24), Disabled = isOutOfStock };
+        var plusBtn = new Button { Text = "+", MinSize = new Vector2(24, 24), Disabled = isOutOfStock, StyleClasses = { "NightCityButton" } };
 
         minusBtn.OnPressed += _ =>
         {
@@ -118,7 +179,8 @@ public sealed partial class FixerMarketSiteUi : PanelContainer
             Text = Loc.GetString("citinet-store-ui-price-money", ("price", entry.Price)),
             VerticalAlignment = VAlignment.Center,
             Margin = new Thickness(8, 0),
-            MinWidth = 84
+            MinWidth = 84,
+            StyleClasses = { "NightCityStatusWarning" }
         });
 
         var addButton = new Button
@@ -126,7 +188,8 @@ public sealed partial class FixerMarketSiteUi : PanelContainer
             Text = isOutOfStock ? Loc.GetString("citinet-store-ui-sold-out") : Loc.GetString("citinet-store-ui-add-to-cart"),
             MinWidth = 100,
             VerticalAlignment = VAlignment.Center,
-            Disabled = isOutOfStock
+            Disabled = isOutOfStock,
+            StyleClasses = { "NightCityButton" }
         };
 
         addButton.OnPressed += _ => OnAddToCart?.Invoke(entry.Id, entry.ProtoId, amount);
@@ -154,7 +217,7 @@ public sealed partial class FixerMarketSiteUi : PanelContainer
             CartEntries.AddChild(new Label
             {
                 Text = Loc.GetString("citinet-store-ui-cart-empty"),
-                FontColorOverride = Color.Gray
+                StyleClasses = { "NightCityMutedText" }
             });
             return;
         }
@@ -165,15 +228,17 @@ public sealed partial class FixerMarketSiteUi : PanelContainer
             row.AddChild(new Label
             {
                 Text = Loc.GetString("citinet-store-ui-cart-line", ("name", Localize(entry.Name)), ("amount", entry.Amount)),
-                HorizontalExpand = true
+                HorizontalExpand = true,
+                StyleClasses = { "NightCityMutedText" }
             });
             row.AddChild(new Label
             {
                 Text = Loc.GetString("citinet-store-ui-cart-line-price-money", ("price", entry.TotalPrice)),
-                MinWidth = 120
+                MinWidth = 120,
+                StyleClasses = { "NightCityStatusWarning" }
             });
 
-            var removeButton = new Button { Text = "-", MinWidth = 28 };
+            var removeButton = new Button { Text = "-", MinWidth = 28, StyleClasses = { "NightCityButton" } };
             removeButton.OnPressed += _ => OnRemoveFromCart?.Invoke(entry.CategoryId, entry.ProtoId, 1);
             row.AddChild(removeButton);
 

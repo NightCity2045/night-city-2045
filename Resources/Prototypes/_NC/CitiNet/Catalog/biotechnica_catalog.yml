@@ -38,6 +38,357 @@
     price: 30
     dataPrice: 50
     count: 100
+  - proto: ClothingHeadEnvirohelmBiotechnicaBotany
+    price: 450
+    dataPrice: 60
+    count: 100
+  - proto: ClothingShoesEnviroshoesBiotechnicaBotany
+    price: 320
+    dataPrice: 40
+    count: 100
+  - proto: ClothingMaskBreathBiotechnicaBotany
+    price: 260
+    dataPrice: 35
+    count: 100
+  - proto: ClothingBeltBiotechnicaTechFilledFull
+    price: 750
+    dataPrice: 100
+    count: 60
+  - proto: ClothingBeltBiotechnicaMedTechFilledFull
+    price: 750
+    dataPrice: 100
+    count: 60
+  - proto: ClothingOuterCoatBiotechnica
+    price: 240
+    dataPrice: 25
+    count: 100
+  - proto: ClothingOuterCoatBiotechnicaRad
+    price: 650
+    dataPrice: 90
+    count: 60
+  - proto: ClothingOuterCoatBiotechnicaAdvanced
+    price: 900
+    dataPrice: 130
+    count: 40
+  - proto: ClothingBackpackBiotechnica
+    price: 160
+    dataPrice: 15
+    count: 100
+  - proto: ClothingBackpackSatchelBiotechnica
+    price: 160
+    dataPrice: 15
+    count: 100
+  - proto: ClothingBackpackDuffelBiotechnica
+    price: 190
+    dataPrice: 20
+    count: 100
+  - proto: ClothingHeadHatBiotechnicaCap
+    price: 80
+    dataPrice: 5
+    count: 100
+
+- type: citiNetStoreCategory
+  id: CorporateBiotechnicaGeneralSupply
+  name: GENERAL SUPPLY
+  entries:
+  - proto: BoxPillCanister
+    price: 60
+    dataPrice: 5
+    count: 100
+  - proto: ClothingEyesGlassesMesonBudget
+    price: 180
+    dataPrice: 15
+    count: 100
+  - proto: ClothingHandsGlovesColorGreen
+    price: 35
+    dataPrice: 0
+    count: 100
+  - proto: ClothingHeadHatGreensoft
+    price: 45
+    dataPrice: 0
+    count: 100
+  - proto: ClothingMaskBandGreen
+    price: 35
+    dataPrice: 0
+    count: 100
+  - proto: ClothingHeadBandGreen
+    price: 30
+    dataPrice: 0
+    count: 100
+  - proto: ClothingBackpackSatchelHydroponics
+    price: 140
+    dataPrice: 10
+    count: 100
+  - proto: BiotechnicaWrench
+    price: 120
+    dataPrice: 15
+    count: 100
+  - proto: IngotTungsten1
+    price: 220
+    dataPrice: 35
+    count: 100
+  - proto: BluespaceBeaker
+    price: 1200
+    dataPrice: 150
+    count: 100
+  - proto: BluespaceWateringCanExperimental
+    price: 2200
+    dataPrice: 250
+    count: 100
+  - proto: BiotechnicaPlantBagHolding
+    price: 1600
+    dataPrice: 200
+    count: 100
+  - proto: ClothingUniformEnvirosuitBiotechnicaBotany
+    price: 700
+    dataPrice: 75
+    count: 100
+  - proto: N14MaterialCircuitry1
+    price: 80
+    dataPrice: 10
+    count: 100
+  - proto: SheetPrinter1
+    price: 90
+    dataPrice: 10
+    count: 100
+  - proto: SheetPlasma1
+    price: 140
+    dataPrice: 20
+    count: 100
+  - proto: IngotSilver1
+    price: 180
+    dataPrice: 20
+    count: 100
+  - proto: SheetUranium1
+    price: 220
+    dataPrice: 35
+    count: 100
+  - proto: UnstableMutagenChemistryBottle
+    price: 450
+    dataPrice: 75
+    count: 100
+  - proto: MaterialDiamond1
+    price: 650
+    dataPrice: 100
+    count: 100
+  - proto: SheetClockworkGlass1
+    price: 250
+    dataPrice: 40
+    count: 100
+  - proto: SheetPlasteel1
+    price: 160
+    dataPrice: 25
+    count: 100
+  - proto: SheetSteel1
+    price: 25
+    dataPrice: 0
+    count: 100
+  - proto: Salt1
+    price: 15
+    dataPrice: 0
+    count: 100
+  - proto: RobustHarvestChemistryBottle
+    price: 180
+    dataPrice: 25
+    count: 100
+  - proto: SheetPaper1
+    price: 10
+    dataPrice: 0
+    count: 100
+  - proto: IngotGold1
+    price: 300
+    dataPrice: 50
+    count: 100
+  - proto: SheetPlastic1
+    price: 20
+    dataPrice: 0
+    count: 100
+  - proto: SheetGlass1
+    price: 20
+    dataPrice: 0
+    count: 100
+  - proto: BoxSteelWide
+    price: 120
+    dataPrice: 5
+    count: 100
+  - proto: ClothingOuterApronBiotechnicaBotany
+    price: 180
+    dataPrice: 15
+    count: 100
+  - proto: ClothingBackpackHydroponics
+    price: 120
+    dataPrice: 10
+    count: 100
+  - proto: ClothingBeltBiotechnicaBotanyFilledFull
+    price: 650
+    dataPrice: 75
+    count: 100
+  - proto: ClothingEyesGogglesBiotechnicaBotany
+    price: 280
+    dataPrice: 35
+    count: 100
+  - proto: ClothingHandsGlovesEnviroglovesBiotechnicaBotany
+    price: 320
+    dataPrice: 40
+    count: 100
+  - proto: ClothingHandsGlovesColorWhite
+    price: 35
+    dataPrice: 0
+    count: 100
+  - proto: N14IngotAluminium1
+    price: 70
+    dataPrice: 5
+    count: 100
+  - proto: SheetBrass1
+    price: 80
+    dataPrice: 5
+    count: 100
+  - proto: BoxTrashbag
+    price: 35
+    dataPrice: 0
+    count: 100
+  - proto: BoxBeaker
+    price: 120
+    dataPrice: 5
+    count: 100
+  - proto: BoxSterileMask
+    price: 90
+    dataPrice: 5
+    count: 100
+  - proto: BoxLatexGloves
+    price: 90
+    dataPrice: 5
+    count: 100
+  - proto: BoxBottle
+    price: 120
+    dataPrice: 5
+    count: 100
+  - proto: PlushieOrchiDea
+    price: 300
+    dataPrice: 10
+    count: 100
+  - proto: PlushieExperiment
+    price: 300
+    dataPrice: 10
+    count: 100
+  - proto: IngotCopper1
+    price: 80
+    dataPrice: 5
+    count: 100
+  - proto: BluespaceBucket
+    price: 1300
+    dataPrice: 150
+    count: 100
+  - proto: HydroponicsToolMiniHoe
+    price: 80
+    dataPrice: 5
+    count: 100
+  - proto: BiotechnicaClippers
+    price: 140
+    dataPrice: 15
+    count: 100
+  - proto: BoxSyringe
+    price: 120
+    dataPrice: 10
+    count: 100
+  - proto: ClothingHeadHatBiotechnicaSterile
+    price: 70
+    dataPrice: 5
+    count: 100
+  - proto: BoxMouthSwab
+    price: 220
+    dataPrice: 25
+    count: 100
+  - proto: ClothingEyesGlassesChemical
+    price: 450
+    dataPrice: 50
+    count: 100
+  - proto: BoxVial
+    price: 120
+    dataPrice: 10
+    count: 100
+
+- type: citiNetStoreCategory
+  id: CorporateBiotechnicaConsumables
+  name: BIO CONSUMABLES
+  entries:
+  - proto: NCDrinkCanBiotechnica
+    price: 10
+    dataPrice: 0
+    count: 300
+  - proto: NCDrinkCanBiotechnicaTonicMutagen
+    price: 120
+    dataPrice: 20
+    count: 100
+  - proto: NCDrinkCanBiotechnicaMultifruit
+    price: 35
+    dataPrice: 0
+    count: 200
+  - proto: NCDrinkCanBiotechnicaVitamins
+    price: 45
+    dataPrice: 5
+    count: 200
+  - proto: YeastChemistryBottle
+    price: 80
+    dataPrice: 5
+    count: 100
+  - proto: CornSmoothieChemistryBottle
+    price: 120
+    dataPrice: 10
+    count: 100
+  - proto: WheatSmoothieChemistryBottle
+    price: 120
+    dataPrice: 10
+    count: 100
+  - proto: BioEthanolChemistryBottle
+    price: 180
+    dataPrice: 25
+    count: 100
+  - proto: PrimeTimeChemistryBottle
+    price: 350
+    dataPrice: 60
+    count: 60
+  - proto: SixGunChemistryBottle
+    price: 300
+    dataPrice: 50
+    count: 60
+  - proto: NitroPolymerChemistryBottle
+    price: 450
+    dataPrice: 75
+    count: 50
+  - proto: WhiteMatterChemistryBottle
+    price: 600
+    dataPrice: 100
+    count: 30
+  - proto: NeuroStimChemistryBottle
+    price: 700
+    dataPrice: 120
+    count: 30
+
+- type: citiNetStoreCategory
+  id: CorporateBiotechnicaFabrication
+  name: FABRICATION
+  entries:
+  - proto: NCCyberwareFabCircuitboard
+    price: 1800
+    dataPrice: 300
+    count: 20
+  - proto: NCCyberwarePack
+    price: 1200
+    dataPrice: 200
+    count: 20
+  - proto: Civil3DPrinterFlatpack
+    price: 900
+    dataPrice: 120
+    count: 20
+  - proto: ChemDispenserFlatpack
+    price: 1600
+    dataPrice: 240
+    count: 15
+  - proto: ReagentGrinderFlatpack
+    price: 700
+    dataPrice: 80
+    count: 30
 
 - type: citiNetStoreCategory
   id: CorporateBiotechnicaCyberware
@@ -127,4 +478,7 @@
   categories:
   - CorporateBiotechnicaMedical
   - CorporateBiotechnicaFieldGear
+  - CorporateBiotechnicaGeneralSupply
+  - CorporateBiotechnicaConsumables
+  - CorporateBiotechnicaFabrication
   - CorporateBiotechnicaCyberware
