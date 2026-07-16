@@ -5,10 +5,17 @@
               HorizontalExpand="True" VerticalExpand="True"
               Margin="8">
 
-    <Label Text="{Loc 'citinet-home-header'}"
-           StyleClasses="NightCityGlowText"
-           HorizontalAlignment="Center" 
-           Margin="0 16 0 18"/>
+    <PanelContainer StyleClasses="NightCityPanelDark" HorizontalExpand="True" Margin="0 0 0 10">
+        <BoxContainer Orientation="Vertical" Margin="8">
+            <Label Text="{Loc 'citinet-home-header'}"
+                   StyleClasses="NightCityGlowText"
+                   HorizontalAlignment="Center" />
+            <Label Text="{Loc 'citinet-home-subheader'}"
+                   StyleClasses="NightCityMutedText"
+                   HorizontalAlignment="Center"
+                   Margin="0 2 0 0" />
+        </BoxContainer>
+    </PanelContainer>
 
     <PanelContainer StyleClasses="NightCityPanelDark" HorizontalExpand="True">
         <BoxContainer Orientation="Vertical" Margin="8" Name="SiteList">
@@ -16,7 +23,9 @@
         </BoxContainer>
     </PanelContainer>
 
-    <PanelContainer StyleClasses="NightCityPanelInset" Margin="0 16 0 0" VerticalAlignment="Bottom">
+    <Control VerticalExpand="True" />
+
+    <PanelContainer StyleClasses="NightCityPanelInset" Margin="0 10 0 0">
         <BoxContainer Orientation="Vertical" Margin="8">
             <Label Text="{Loc 'citinet-home-news'}" StyleClasses="NightCityMutedText"/>
             <Label Text="{Loc 'citinet-home-news-trauma'}" StyleClasses="NightCityMutedText"/>

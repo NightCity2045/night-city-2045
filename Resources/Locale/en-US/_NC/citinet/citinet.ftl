@@ -149,9 +149,14 @@ citinet-pill-canister-desc = 10 pills, 10 units each.
 # NetSites
 citinet-browser-title = CitiNet Terminal
 citinet-browser-bookmarks = Bookmarks
+citinet-browser-bookmarks-subtitle = indexed access nodes
+citinet-browser-link-status = LINK: ONLINE
+citinet-browser-address-label = ADDRESS ROUTE
 citinet-browser-address-placeholder = Enter URL...
 citinet-browser-go = Go
+citinet-browser-footer = NC-2045 civic mesh
 citinet-home-header = CITINET // HOME_PAGE
+citinet-home-subheader = Night City public access terminal
 citinet-home-services = AVAILABLE_SERVICES:
 citinet-home-news = LATEST_NEWS:
 citinet-home-news-trauma = - Trauma Team reports record response times.

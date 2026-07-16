@@ -6,12 +6,15 @@ using Robust.Client.UserInterface.Controls;
 using Robust.Client.UserInterface.CustomControls;
 using Robust.Client.UserInterface.XAML;
 using Robust.Shared.Prototypes;
+using System.Numerics;
 
 namespace Content.Client._NC.CitiNet.UI;
 
 [GenerateTypedNameReferences]
 public sealed partial class NetBrowserWindow : DefaultWindow
 {
+    private static readonly Vector2 BrowserSize = new(1100, 720);
+
     [Dependency] private readonly IPrototypeManager _prototypeManager = default!;
 
     public Action<string>? OnNavigate;
@@ -21,6 +24,7 @@ public sealed partial class NetBrowserWindow : DefaultWindow
         RobustXamlLoader.Load(this);
         IoCManager.InjectDependencies(this);
         Stylesheet = IoCManager.Resolve<IStylesheetManager>().SheetNightCity;
+        MinSize = SetSize = BrowserSize;
 
         GoButton.OnPressed += _ => OnNavigate?.Invoke(AddressBar.Text);
         AddressBar.OnTextEntered += args => OnNavigate?.Invoke(args.Text);
@@ -53,14 +57,16 @@ public sealed partial class NetBrowserWindow : DefaultWindow
             var btn = new Button
             {
                 Text = LocalizeSiteName(site.Name),
-                HorizontalAlignment = HAlignment.Left,
                 HorizontalExpand = true,
+                MinWidth = 220,
                 Margin = new Thickness(0, 0, 0, 2),
-                StyleClasses = { "NightCityButton" }
+                ClipText = true
             };
 
             if (site.URL == state.CurrentUrl)
-                btn.AddStyleClass("NightCityStatusWarning");
+                btn.AddStyleClass("NightCityButtonActive");
+            else
+                btn.AddStyleClass("NightCityButton");
 
             var url = site.URL;
             btn.OnPressed += _ => OnNavigate?.Invoke(url);

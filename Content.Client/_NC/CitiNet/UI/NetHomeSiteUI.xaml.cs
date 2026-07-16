@@ -53,7 +53,10 @@ public sealed partial class NetHomeSiteUI : BoxContainer
             var btn = new Button { 
                 Text = LocalizeSiteName(site.Name).ToUpperInvariant(),
                 MinWidth = 200,
+                HorizontalExpand = true,
                 HorizontalAlignment = HAlignment.Left,
+                ClipText = true,
+                Margin = new Thickness(0, 0, 0, 3),
                 StyleClasses = { "NightCityButton" }
             };
             

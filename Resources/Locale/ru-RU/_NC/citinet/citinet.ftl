@@ -155,9 +155,14 @@ citinet-pill-canister-desc = 10 таблеток по 10 унций.
 # NetSites
 citinet-browser-title = Терминал CitiNet
 citinet-browser-bookmarks = Закладки
+citinet-browser-bookmarks-subtitle = индекс узлов доступа
+citinet-browser-link-status = СВЯЗЬ: ОНЛАЙН
+citinet-browser-address-label = МАРШРУТ АДРЕСА
 citinet-browser-address-placeholder = Введите URL...
 citinet-browser-go = Перейти
+citinet-browser-footer = городская сеть NC-2045
 citinet-home-header = CITINET // ДОМАШНЯЯ_СТРАНИЦА
+citinet-home-subheader = публичный терминал доступа Найт-Сити
 citinet-home-services = ДОСТУПНЫЕ_СЕРВИСЫ:
 citinet-home-news = ПОСЛЕДНИЕ_НОВОСТИ:
 citinet-home-news-trauma = - Trauma Team сообщает о рекордном времени реагирования.

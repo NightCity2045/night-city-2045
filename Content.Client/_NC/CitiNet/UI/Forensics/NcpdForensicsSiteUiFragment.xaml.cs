@@ -36,7 +36,7 @@ public sealed partial class NcpdForensicsSiteUiFragment : BoxContainer
 
             var index = i;
             var rowPanel = new PanelContainer { Margin = new Thickness(2), MinHeight = 80 };
-            rowPanel.StyleClasses.Add("BorderedWindowPanel");
+            rowPanel.StyleClasses.Add("NightCityPanelInset");
             
             var row = new BoxContainer { Orientation = BoxContainer.LayoutOrientation.Vertical, Margin = new Thickness(8) };
             
@@ -45,7 +45,9 @@ public sealed partial class NcpdForensicsSiteUiFragment : BoxContainer
             
             var actions = new BoxContainer { Orientation = BoxContainer.LayoutOrientation.Horizontal, SeparationOverride = 4 };
             var archiveBtn = new Button { Text = Loc.GetString("nc-forensics-console-btn-archive"), MinWidth = 80 };
-            var printBtn = new Button { Text = Loc.GetString("nc-forensics-console-btn-print"), MinWidth = 80, Modulate = Color.FromHex("#4DD0E1") };
+            var printBtn = new Button { Text = Loc.GetString("nc-forensics-console-btn-print"), MinWidth = 80 };
+            archiveBtn.AddStyleClass("NightCityButton");
+            printBtn.AddStyleClass("NightCityButton");
 
             archiveBtn.OnPressed += _ => OnAlertAction?.Invoke(index, NcpdForensicsAlertAction.Archive);
             printBtn.OnPressed += _ => OnAlertAction?.Invoke(index, NcpdForensicsAlertAction.PrintTicket);

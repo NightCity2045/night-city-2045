@@ -8,10 +8,10 @@
               Margin="4">
 
     <!-- LEFT PANEL: List of alerts -->
-    <PanelContainer StyleClasses="BorderedWindowPanel" MinWidth="450" Margin="0 0 4 0">
+    <PanelContainer StyleClasses="NightCityPanelDark" MinWidth="320" Margin="0 0 4 0">
         <BoxContainer Orientation="Vertical" Margin="8">
-            <Label Text="{Loc 'nc-forensics-console-header'}" 
-                   FontColorOverride="#00E5FF" 
+            <Label Text="{Loc 'nc-forensics-console-header'}"
+                   StyleClasses="NightCityGlowText"
                    HorizontalAlignment="Center" 
                    Margin="0 0 0 8"/>
             
@@ -23,7 +23,7 @@
 
     <!-- RIGHT PANEL: Map -->
     <BoxContainer Orientation="Vertical" HorizontalExpand="True">
-        <PanelContainer StyleClasses="BorderedWindowPanel" VerticalExpand="True" RectClipContent="True">
+        <PanelContainer StyleClasses="NightCityPanelInset" VerticalExpand="True" RectClipContent="True">
             <controls:CitiNetMapControl Name="Map" HorizontalExpand="True" VerticalExpand="True"/>
         </PanelContainer>
     </BoxContainer>

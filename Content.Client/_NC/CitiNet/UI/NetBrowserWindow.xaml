@@ -2,45 +2,74 @@
                xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                x:Class="Content.Client._NC.CitiNet.UI.NetBrowserWindow"
                Title="{Loc 'citinet-browser-title'}"
-               MinWidth="800" MinHeight="600">
+               MinWidth="1100" MinHeight="720">
     <PanelContainer StyleClasses="NightCityTerminalPanel">
-        <BoxContainer Orientation="Horizontal" HorizontalExpand="True" VerticalExpand="True">
-            <PanelContainer StyleClasses="NightCityPanelDark" MinWidth="220" VerticalExpand="True">
-                <BoxContainer Orientation="Vertical" Name="Sidebar" VerticalExpand="True" HorizontalExpand="True">
-                    <Label Text="{Loc 'citinet-browser-bookmarks'}"
+        <BoxContainer Orientation="Vertical" HorizontalExpand="True" VerticalExpand="True">
+            <PanelContainer StyleClasses="NightCityPanelDark" MinHeight="42" Margin="0 0 0 6">
+                <BoxContainer Orientation="Horizontal" Margin="8 4">
+                    <Label Text="{Loc 'citinet-browser-title'}"
                            StyleClasses="NightCityGlowText"
-                           HorizontalAlignment="Center"
-                           Margin="0 0 0 6" />
-                    <PanelContainer StyleClasses="NightCityPanelInset" MinHeight="2" />
-                    <ScrollContainer VerticalExpand="True">
-                        <BoxContainer Orientation="Vertical" Name="SiteList" Margin="0 6 0 0" />
-                    </ScrollContainer>
+                           VerticalAlignment="Center"
+                           HorizontalExpand="True" />
+                    <Label Text="{Loc 'citinet-browser-link-status'}"
+                           StyleClasses="NightCityStatusGood"
+                           VerticalAlignment="Center" />
                 </BoxContainer>
             </PanelContainer>
 
-            <PanelContainer StyleClasses="NightCityPanelInset" MinWidth="2" Margin="4 0" />
-
-            <BoxContainer Orientation="Vertical" HorizontalExpand="True" VerticalExpand="True">
-                <PanelContainer StyleClasses="NightCityPanelDark" MinHeight="42">
-                    <BoxContainer Orientation="Horizontal" Margin="4">
-                        <LineEdit Name="AddressBar"
-                                  HorizontalExpand="True"
-                                  PlaceHolder="{Loc 'citinet-browser-address-placeholder'}" />
-                        <Button Name="GoButton"
-                                Text="{Loc 'citinet-browser-go'}"
-                                StyleClasses="NightCityButton"
-                                MinWidth="72"
-                                Margin="6 0 0 0" />
+            <BoxContainer Orientation="Horizontal" HorizontalExpand="True" VerticalExpand="True">
+                <PanelContainer StyleClasses="NightCityPanelDark" MinWidth="270" VerticalExpand="True">
+                    <BoxContainer Orientation="Vertical" Name="Sidebar" VerticalExpand="True" HorizontalExpand="True">
+                        <Label Text="{Loc 'citinet-browser-bookmarks'}"
+                               StyleClasses="NightCityGlowText"
+                               HorizontalAlignment="Center"
+                               Margin="0 0 0 2" />
+                        <Label Text="{Loc 'citinet-browser-bookmarks-subtitle'}"
+                               StyleClasses="NightCityMutedText"
+                               HorizontalAlignment="Center"
+                               Margin="0 0 0 8" />
+                        <PanelContainer StyleClasses="NightCityPanelInset" MinHeight="2" />
+                        <ScrollContainer VerticalExpand="True">
+                            <BoxContainer Orientation="Vertical" Name="SiteList" Margin="0 6 0 0" SeparationOverride="3" />
+                        </ScrollContainer>
+                        <PanelContainer StyleClasses="NightCityPanelInset" MinHeight="2" Margin="0 6 0 6" />
+                        <Label Text="{Loc 'citinet-browser-footer'}"
+                               StyleClasses="NightCityMutedText"
+                               HorizontalAlignment="Center" />
                     </BoxContainer>
                 </PanelContainer>
 
-                <PanelContainer StyleClasses="NightCityPanelInset" MinHeight="2" Margin="0 4" />
+                <PanelContainer StyleClasses="NightCityPanelInset" MinWidth="2" Margin="6 0" />
 
-                <PanelContainer Name="Viewport"
-                                Access="Public"
-                                StyleClasses="NightCityPanelInset"
-                                VerticalExpand="True"
-                                HorizontalExpand="True" />
+                <BoxContainer Orientation="Vertical" HorizontalExpand="True" VerticalExpand="True">
+                    <PanelContainer StyleClasses="NightCityPanelDark" MinHeight="52">
+                        <BoxContainer Orientation="Vertical" Margin="6 4">
+                            <Label Text="{Loc 'citinet-browser-address-label'}"
+                                   StyleClasses="NightCityMutedText"
+                                   Margin="0 0 0 2" />
+                            <BoxContainer Orientation="Horizontal">
+                                <LineEdit Name="AddressBar"
+                                          HorizontalExpand="True"
+                                          StyleClasses="NightCityInput"
+                                          PlaceHolder="{Loc 'citinet-browser-address-placeholder'}" />
+                                <Button Name="GoButton"
+                                        Text="{Loc 'citinet-browser-go'}"
+                                        StyleClasses="NightCityButton"
+                                        MinWidth="84"
+                                        Margin="6 0 0 0" />
+                            </BoxContainer>
+                        </BoxContainer>
+                    </PanelContainer>
+
+                    <PanelContainer StyleClasses="NightCityPanelInset" MinHeight="2" Margin="0 6" />
+
+                    <PanelContainer Name="Viewport"
+                                    Access="Public"
+                                    StyleClasses="NightCityPanelInset"
+                                    RectClipContent="True"
+                                    VerticalExpand="True"
+                                    HorizontalExpand="True" />
+                </BoxContainer>
             </BoxContainer>
         </BoxContainer>
     </PanelContainer>
