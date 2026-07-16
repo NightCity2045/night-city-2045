@@ -1,7 +1,7 @@
 ﻿- type: entity
   id: ActionNCRTSToggle
-  name: RTS Mode
-  description: Toggle RTS command mode for controllable NPCs.
+  name: action-nc-rts-toggle-name
+  description: action-nc-rts-toggle-desc
   components:
   - type: Action
     icon: { sprite: _NC/Objects/Cyberware/sandevistan.rsi, state: icon }
@@ -13,8 +13,8 @@
 
 - type: entity
   id: ActionNCRiggerExitConsole
-  name: Exit rigger console
-  description: Return your mind to your body at the rigger console.
+  name: action-nc-rigger-exit-console-name
+  description: action-nc-rigger-exit-console-desc
   components:
   - type: Action
     icon: { sprite: _NC/Objects/Cyberware/sandevistan.rsi, state: icon }
@@ -26,8 +26,8 @@
 
 - type: entity
   id: ActionNCRiggerToggleRTS
-  name: RTS Mode
-  description: Toggle RTS command mode for linked rigger drones.
+  name: action-nc-rigger-toggle-rts-name
+  description: action-nc-rigger-toggle-rts-desc
   components:
   - type: Action
     icon: { sprite: _NC/Objects/Cyberware/sandevistan.rsi, state: icon }
@@ -39,8 +39,8 @@
 
 - type: entity
   id: ActionNCRiggerDroneStatus
-  name: Drone status
-  description: List linked rigger drones and their current state.
+  name: action-nc-rigger-drone-status-name
+  description: action-nc-rigger-drone-status-desc
   components:
   - type: Action
     icon: { sprite: _NC/Objects/Cyberware/sandevistan.rsi, state: icon }

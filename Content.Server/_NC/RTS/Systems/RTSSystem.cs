@@ -7,13 +7,19 @@ using Content.Server.NPC.HTN;
 using Content.Server.NPC.Systems;
 using Content.Shared.Administration;
 using Content.Shared.CombatMode;
+using Content.Shared.Mobs;
+using Content.Shared.Mobs.Components;
 using Content.Shared._NC.Rigger.Components;
+using Content.Shared._NC.Rigger;
 using Content.Shared._NC.RTS.Components;
 using Content.Shared._NC.RTS.Events;
 using Content.Shared.NPC.Components;
 using Content.Shared.NPC.Prototypes;
 using Content.Shared.NPC.Systems;
+using Content.Shared.Popups;
 using Robust.Shared.Map;
+using Robust.Shared.Map.Components;
+using Robust.Shared.Physics;
 using Robust.Shared.Player;
 using Robust.Shared.Prototypes;
 
@@ -33,6 +39,10 @@ public sealed partial class RTSSystem : EntitySystem
     [Dependency] private SharedCombatModeSystem _combatMode = default!;
     [Dependency] private NpcFactionSystem _faction = default!;
     [Dependency] private HTNSystem _htn = default!;
+    [Dependency] private SharedMapSystem _map = default!;
+    [Dependency] private IMapManager _mapManager = default!;
+    [Dependency] private SharedPopupSystem _popup = default!;
+    [Dependency] private RiggerVisionSystem _riggerVision = default!;
     [Dependency] private NPCSteeringSystem _steering = default!;
     [Dependency] private SharedTransformSystem _transform = default!;
 
@@ -69,14 +79,22 @@ public sealed partial class RTSSystem : EntitySystem
         if (!isAdmin && rigger == null)
             return;
 
+        var accepted = 0;
+        var rejected = 0;
+
         foreach (var netEntity in ev.SelectedNpcs)
         {
             var uid = GetEntity(netEntity);
 
-            if (!Exists(uid) ||
-                !TryComp<RTSControllableComponent>(uid, out var rts) ||
-                rigger != null && !rigger.Value.Comp.LinkedDrones.Contains(uid))
+            if (!CanReceiveCommand(uid, isAdmin, rigger, out var rts))
             {
+                rejected++;
+                continue;
+            }
+
+            if (rigger != null && !CanRiggerCommandLocation(rigger.Value.Owner, uid, ev))
+            {
+                rejected++;
                 continue;
             }
 
@@ -91,7 +109,10 @@ public sealed partial class RTSSystem : EntitySystem
                 {
                     var coords = ResolveTargetCoordinates(uid, ev);
                     if (coords == null)
+                    {
+                        rejected++;
                         continue;
+                    }
 
                     rts.Destination = coords;
                     rts.ActiveCommand = ev.CommandType;
@@ -101,11 +122,18 @@ public sealed partial class RTSSystem : EntitySystem
                 case RTSCommandType.AttackTarget:
                 {
                     if (ev.TargetEntity == null)
-                        break;
+                    {
+                        rejected++;
+                        continue;
+                    }
 
                     var targetUid = GetEntity(ev.TargetEntity.Value);
-                    if (!Exists(targetUid))
-                        break;
+                    if (!IsValidTarget(targetUid) ||
+                        rigger != null && !CanRiggerAccessTarget(rigger.Value.Owner, uid, targetUid))
+                    {
+                        rejected++;
+                        continue;
+                    }
 
                     rts.TargetEntity = targetUid;
                     rts.ActiveCommand = RTSCommandType.AttackTarget;
@@ -134,6 +162,7 @@ public sealed partial class RTSSystem : EntitySystem
             }
 
             Dirty(uid, rts);
+            accepted++;
 
             if (!TryComp<HTNComponent>(uid, out var htn))
                 continue;
@@ -150,6 +179,122 @@ public sealed partial class RTSSystem : EntitySystem
             if (rts.ActiveCommand == null)
                 _htn.Replan(htn);
         }
+
+        PopupCommandResult(args.SenderSession, accepted, rejected);
+    }
+
+    private bool CanReceiveCommand(
+        EntityUid uid,
+        bool isAdmin,
+        Entity<RiggerConsoleUserComponent>? rigger,
+        out RTSControllableComponent rts)
+    {
+        rts = null!;
+
+        if (!Exists(uid) || !IsAlive(uid))
+            return false;
+
+        if (rigger != null)
+        {
+            if (!TryComp<RTSControllableComponent>(uid, out var existingRts) ||
+                !rigger.Value.Comp.LinkedDrones.Contains(uid))
+            {
+                return false;
+            }
+
+            rts = existingRts;
+            return true;
+        }
+
+        if (!isAdmin || !IsNCAdminCommandableMob(uid))
+            return false;
+
+        rts = EnsureComp<RTSControllableComponent>(uid);
+        return true;
+    }
+
+    private bool IsNCAdminCommandableMob(EntityUid uid)
+    {
+        if (!HasComp<MobStateComponent>(uid) ||
+            !HasComp<NpcFactionMemberComponent>(uid))
+        {
+            return false;
+        }
+
+        var prototypeId = MetaData(uid).EntityPrototype?.ID;
+        return prototypeId != null && prototypeId.StartsWith("MobNC", StringComparison.Ordinal);
+    }
+
+    private bool IsAlive(EntityUid uid)
+    {
+        return !TryComp<MobStateComponent>(uid, out var mobState) || mobState.CurrentState <= MobState.Alive;
+    }
+
+    private bool IsValidTarget(EntityUid uid)
+    {
+        return Exists(uid) && IsAlive(uid);
+    }
+
+    private bool CanRiggerCommandLocation(EntityUid riggerEye, EntityUid controlled, RTSCommandEvent ev)
+    {
+        if (ev.CommandType is RTSCommandType.HoldPosition
+            or RTSCommandType.Stop
+            or RTSCommandType.SetPeacefulMode
+            or RTSCommandType.SetNormalMode
+            or RTSCommandType.SetAggressiveMode)
+        {
+            return true;
+        }
+
+        if (ev.TargetEntity != null)
+            return CanRiggerAccessTarget(riggerEye, controlled, GetEntity(ev.TargetEntity.Value));
+
+        if (ev.TargetPosition == null)
+            return false;
+
+        return CanRiggerAccessMapPosition(riggerEye, controlled, ev.TargetPosition.Value);
+    }
+
+    private bool CanRiggerAccessTarget(EntityUid riggerEye, EntityUid controlled, EntityUid target)
+    {
+        if (!Exists(target))
+            return false;
+
+        return CanRiggerAccessMapCoordinates(riggerEye, _transform.GetMapCoordinates(target));
+    }
+
+    private bool CanRiggerAccessMapPosition(EntityUid riggerEye, EntityUid controlled, Vector2 position)
+    {
+        var mapId = Transform(controlled).MapID;
+        return CanRiggerAccessMapCoordinates(riggerEye, new MapCoordinates(position, mapId));
+    }
+
+    private bool CanRiggerAccessMapCoordinates(EntityUid riggerEye, MapCoordinates coordinates)
+    {
+        if (!_mapManager.TryFindGridAt(coordinates, out var gridUid, out var grid) ||
+            !TryComp<BroadphaseComponent>(gridUid, out var broadphase))
+        {
+            return false;
+        }
+
+        var tile = _map.GetTileRef(gridUid, grid, coordinates);
+        return _riggerVision.IsAccessible(riggerEye, (gridUid, broadphase, grid), tile.GridIndices);
+    }
+
+    private void PopupCommandResult(ICommonSession session, int accepted, int rejected)
+    {
+        var attached = session.AttachedEntity;
+        if (attached == null)
+            return;
+
+        if (accepted > 0)
+        {
+            _popup.PopupClient(Loc.GetString("nc-rts-command-accepted", ("count", accepted)), attached.Value, attached.Value);
+            return;
+        }
+
+        if (rejected > 0)
+            _popup.PopupClient(Loc.GetString("nc-rts-command-rejected"), attached.Value, attached.Value);
     }
 
     private Entity<RiggerConsoleUserComponent>? GetRiggerSession(ICommonSession session)

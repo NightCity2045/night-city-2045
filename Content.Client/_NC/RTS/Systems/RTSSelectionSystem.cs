@@ -10,6 +10,8 @@ using Content.Shared._NC.RTS.Components;
 using Content.Shared._NC.RTS.Events;
 using Content.Shared.Ghost;
 using Content.Shared.Input;
+using Content.Shared.Mobs.Components;
+using Content.Shared.NPC.Components;
 using Robust.Client.GameObjects;
 using Robust.Client.Graphics;
 using Robust.Client.Input;
@@ -178,7 +180,7 @@ public sealed class RTSSelectionSystem : EntitySystem
 
         var entities = _lookup
             .GetEntitiesIntersecting(startMap.MapId, box)
-            .Where(uid => HasComp<RTSControllableComponent>(uid) && IsSelectableByLocalUser(uid));
+            .Where(IsSelectableByLocalUser);
 
         foreach (var uid in entities)
         {
@@ -375,7 +377,21 @@ public sealed class RTSSelectionSystem : EntitySystem
         if (TryComp(attached.Value, out RiggerConsoleUserComponent? rigger))
             return rigger.LinkedDrones.Contains(uid);
 
-        return true;
+        return _adminManager.IsActive() &&
+               _adminManager.HasFlag(AdminFlags.Admin) &&
+               IsNCAdminCommandableMob(uid);
+    }
+
+    private bool IsNCAdminCommandableMob(EntityUid uid)
+    {
+        if (!HasComp<MobStateComponent>(uid) ||
+            !HasComp<NpcFactionMemberComponent>(uid))
+        {
+            return false;
+        }
+
+        var prototypeId = MetaData(uid).EntityPrototype?.ID;
+        return prototypeId != null && prototypeId.StartsWith("MobNC", StringComparison.Ordinal);
     }
 
     private EntityUid? GetEntityUnderPosition(MapCoordinates mapCoords)

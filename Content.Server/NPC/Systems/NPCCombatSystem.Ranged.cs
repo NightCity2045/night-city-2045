@@ -179,6 +179,13 @@ public sealed partial class NPCCombatSystem
                 continue;
             }
 
+            if (NCIsFriendlyInLineOfFire(uid, comp.Target, comp, xform, worldPos, targetSpot, out _))
+            {
+                comp.ShootAccumulator = 0f;
+                NCRepositionForFriendlyFire(uid, comp, xform, worldPos, targetSpot);
+                continue;
+            }
+
             // TODO: LOS
             // TODO: Ammo checks
             // TODO: Burst fire

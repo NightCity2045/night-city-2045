@@ -27,8 +27,6 @@ public sealed partial class GMCommandSystem : EntitySystem
     private const string ManualCommandKey = "InManualCommand";
     private const string TargetKey = "Target";
     private const string TargetCoordinatesKey = "TargetCoordinates";
-    private const float ArrivalRange = 0.5f;
-    private const float DefaultScanRadius = 14f;
 
     [Dependency] private SharedCombatModeSystem _combatMode = default!;
     [Dependency] private NpcFactionSystem _faction = default!;
@@ -78,7 +76,7 @@ public sealed partial class GMCommandSystem : EntitySystem
             return;
         }
 
-        if (xform.Coordinates.InRange(EntityManager, _transform, rts.Destination.Value, ArrivalRange))
+        if (xform.Coordinates.InRange(EntityManager, _transform, rts.Destination.Value, rts.ArrivalRange))
         {
             ClearCommand(uid, rts);
             return;
@@ -96,7 +94,7 @@ public sealed partial class GMCommandSystem : EntitySystem
             return;
         }
 
-        if (xform.Coordinates.InRange(EntityManager, _transform, rts.Destination.Value, ArrivalRange))
+        if (xform.Coordinates.InRange(EntityManager, _transform, rts.Destination.Value, rts.ArrivalRange))
         {
             ClearCommand(uid, rts);
             return;
@@ -104,7 +102,7 @@ public sealed partial class GMCommandSystem : EntitySystem
 
         if (rts.TargetEntity is { } currentTarget)
         {
-            if (CanEngageHostile(uid, currentTarget))
+            if (CanEngageHostile(uid, rts, currentTarget))
             {
                 ClearCommand(uid, rts);
                 return;
@@ -115,7 +113,7 @@ public sealed partial class GMCommandSystem : EntitySystem
             SuppressRangedCombat(uid);
         }
 
-        if (TryGetNearestHostile(uid, out var hostile))
+        if (TryGetNearestHostile(uid, rts, out var hostile))
         {
             ClearCommand(uid, rts);
             return;
@@ -166,20 +164,20 @@ public sealed partial class GMCommandSystem : EntitySystem
         _steering.Register(uid, target);
     }
 
-    private bool TryGetNearestHostile(EntityUid uid, out EntityUid hostile)
+    private bool TryGetNearestHostile(EntityUid uid, RTSControllableComponent rts, out EntityUid hostile)
     {
         hostile = EntityUid.Invalid;
 
         if (!_hands.TryGetActiveItem(uid, out var heldItem) || !HasComp<GunComponent>(heldItem))
             return false;
 
-        hostile = _faction.GetNearbyHostiles(uid, DefaultScanRadius)
-            .FirstOrDefault(h => CanEngageHostile(uid, h));
+        hostile = _faction.GetNearbyHostiles(uid, rts.ScanRadius)
+            .FirstOrDefault(h => CanEngageHostile(uid, rts, h));
 
         return hostile != EntityUid.Invalid && Exists(hostile);
     }
 
-    private bool CanEngageHostile(EntityUid uid, EntityUid hostile)
+    private bool CanEngageHostile(EntityUid uid, RTSControllableComponent rts, EntityUid hostile)
     {
         if (hostile == EntityUid.Invalid || !Exists(hostile))
             return false;
@@ -191,7 +189,7 @@ public sealed partial class GMCommandSystem : EntitySystem
             return false;
 
         var collisionGroup = CollisionGroup.Impassable | CollisionGroup.InteractImpassable;
-        return _interaction.InRangeUnobstructed(uid, hostile, DefaultScanRadius, collisionGroup);
+        return _interaction.InRangeUnobstructed(uid, hostile, rts.ScanRadius, collisionGroup);
     }
 
     /// <summary>

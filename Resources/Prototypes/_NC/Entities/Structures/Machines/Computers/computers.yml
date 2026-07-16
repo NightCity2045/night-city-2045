@@ -21,6 +21,7 @@
   description: ent-NCBiotechnicaRiggerConsole-desc
   components:
   - type: RiggerConsole
+    autoLinkRange: 0
     allowedDroneFactions:
     - NCBiotechnica
   - type: Sprite
