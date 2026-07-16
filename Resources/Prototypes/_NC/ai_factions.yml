@@ -5,18 +5,10 @@
   - NCCitizens
   - NCBiotechnica
   - NCMilitech
-  - NanoTrasen
   - SimpleHostile
-  - Syndicate
-  - Xeno
   - Zombie
-  - Revolutionary
   - AllHostile
-  - Wizard
-  - SAN
-  - Changeling
-  - Shadowling
-  - Blob
+
 
 - type: npcFaction
   id: NCNCPD
@@ -25,16 +17,8 @@
   hostile:
   - NCBandit
   - SimpleHostile
-  - Syndicate
-  - Xeno
   - Zombie
-  - Revolutionary
   - AllHostile
-  - Wizard
-  - SAN
-  - Changeling
-  - Shadowling
-  - Blob
 
 - type: npcFaction
   id: NCCitizens
@@ -43,16 +27,9 @@
   hostile:
   - NCBandit
   - SimpleHostile
-  - Syndicate
-  - Xeno
   - Zombie
-  - Revolutionary
   - AllHostile
-  - Wizard
-  - SAN
-  - Changeling
-  - Shadowling
-  - Blob
+
 
 - type: npcFaction
   id: NCBiotechnica
@@ -62,15 +39,9 @@
   - NanoTrasen
   - SimpleHostile
   - Syndicate
-  - Xeno
   - Zombie
-  - Revolutionary
   - AllHostile
-  - Wizard
-  - SAN
-  - Changeling
-  - Shadowling
-  - Blob
+
 
 - type: npcFaction
   id: NCMilitech
