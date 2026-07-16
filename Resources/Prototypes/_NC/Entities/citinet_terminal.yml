@@ -57,6 +57,7 @@
   name: ent-CitiNetCorporateDropBox
   description: ent-CitiNetCorporateDropBox-desc
   components:
+  - type: NCFixedWorldObject
   - type: Transform
     anchored: true
   - type: DropPoint
