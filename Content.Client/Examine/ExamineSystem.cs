@@ -3,6 +3,7 @@ using System.Numerics;
 using System.Threading;
 using Content.Client._NC.CharacterNotes;
 using Content.Client.Verbs;
+using Content.Shared.CCVar;
 using Content.Shared.Examine;
 using Content.Shared.IdentityManagement;
 using Content.Shared.Input;
@@ -379,7 +380,7 @@ namespace Content.Client.Examine
                     GetNetEntity(entity),
                     _idCounter,
                     true,
-                    _cfg.GetCVar(CVars.LocCultureName)));
+                    GetRequestedCultureName()));
             }
 
             RaiseLocalEvent(entity, new ClientExaminedEvent(entity, playerEnt.Value));
@@ -406,6 +407,14 @@ namespace Content.Client.Examine
                 _requestCancelTokenSource.Cancel();
                 _requestCancelTokenSource = null;
             }
+        }
+
+        private string GetRequestedCultureName()
+        {
+            var preferredCulture = _cfg.GetCVar(CCVars.NCPreferredCulture);
+            return string.IsNullOrWhiteSpace(preferredCulture)
+                ? _cfg.GetCVar(CVars.LocCultureName)
+                : preferredCulture;
         }
     }
 

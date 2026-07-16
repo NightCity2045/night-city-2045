@@ -178,7 +178,7 @@ namespace Content.Client.Verbs
                     target,
                     verbTypes,
                     adminRequest: force,
-                    cultureName: _cfg.GetCVar(CVars.LocCultureName)));
+                    cultureName: GetRequestedCultureName()));
 
             // Some admin menu interactions will try get verbs for entities that have not yet been sent to the player.
             if (!TryGetEntity(target, out var local))
@@ -227,12 +227,20 @@ namespace Content.Client.Verbs
                 // is this a client exclusive (gui) verb?
                 ExecuteVerb(verb, user, GetEntity(target));
             else
-                EntityManager.RaisePredictiveEvent(new ExecuteVerbEvent(target, verb, _cfg.GetCVar(CVars.LocCultureName)));
+                EntityManager.RaisePredictiveEvent(new ExecuteVerbEvent(target, verb, GetRequestedCultureName()));
         }
 
         private void HandleVerbResponse(VerbsResponseEvent msg)
         {
             OnVerbsResponse?.Invoke(msg);
+        }
+
+        private string GetRequestedCultureName()
+        {
+            var preferredCulture = _cfg.GetCVar(CCVars.NCPreferredCulture);
+            return string.IsNullOrWhiteSpace(preferredCulture)
+                ? _cfg.GetCVar(CVars.LocCultureName)
+                : preferredCulture;
         }
     }
 }
