@@ -69,7 +69,7 @@ public sealed partial class NPCCombatSystem
                 continue;
             }
 
-            if (TryComp<MobStateComponent>(entity, out var mobState) && mobState.CurrentState > MobState.Alive)
+            if (TryComp<MobStateComponent>(entity, out var mobState) && mobState.CurrentState >= MobState.Dead)
                 continue;
 
             var otherPos = _transform.GetWorldPosition(otherXform);
@@ -132,7 +132,7 @@ public sealed partial class NPCCombatSystem
 
     private bool NCIsLiveFriendly(EntityUid shooter, NpcFactionMemberComponent shooterFaction, EntityUid other)
     {
-        if (TryComp<MobStateComponent>(other, out var mobState) && mobState.CurrentState > MobState.Alive)
+        if (TryComp<MobStateComponent>(other, out var mobState) && mobState.CurrentState >= MobState.Dead)
             return false;
 
         return TryComp<NpcFactionMemberComponent>(other, out var otherFaction) &&

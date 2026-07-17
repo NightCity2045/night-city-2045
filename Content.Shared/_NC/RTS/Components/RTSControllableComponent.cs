@@ -36,6 +36,24 @@ public sealed partial class RTSControllableComponent : Component
     public float ArrivalRange = 0.5f;
 
     /// <summary>
+    /// Distance between destinations assigned to units receiving the same group order.
+    /// </summary>
+    [DataField, ViewVariables(VVAccess.ReadWrite), AutoNetworkedField]
+    public float FormationSpacing = 1.25f;
+
+    /// <summary>
+    /// Maximum unobstructed distance at which an ordered unit stops and fires.
+    /// </summary>
+    [DataField, ViewVariables(VVAccess.ReadWrite), AutoNetworkedField]
+    public float AttackRange = 8f;
+
+    /// <summary>
+    /// Pathfinding tolerance used while the unit is still outside a valid firing position.
+    /// </summary>
+    [DataField, ViewVariables(VVAccess.ReadWrite), AutoNetworkedField]
+    public float AttackApproachRange = 1.5f;
+
+    /// <summary>
     /// Radius used by RTS attack orders to scan and validate hostile targets.
     /// </summary>
     [DataField, ViewVariables(VVAccess.ReadWrite), AutoNetworkedField]

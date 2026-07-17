@@ -81,6 +81,7 @@
         - !type:ActiveHandComponentPrecondition
           components:
             - type: Gun
+        - !type:NCValidEntityTargetPrecondition
         - !type:TargetInLOSPrecondition
 
     # Circle target

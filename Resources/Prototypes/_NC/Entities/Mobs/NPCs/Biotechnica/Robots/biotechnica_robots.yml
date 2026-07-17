@@ -24,6 +24,8 @@
     droneFactions:
     - NCBiotechnica
   - type: RTSControllable
+    attackRange: 8
+    attackApproachRange: 1.5
   - type: HTN
     rootTask:
       task: NCBanditTier2RootCompound

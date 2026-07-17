@@ -28,6 +28,8 @@ namespace Content.Client._NC.RTS.Systems;
 
 public sealed class RTSSelectionSystem : EntitySystem
 {
+    private const float ClickSelectionDeadzoneSquared = 16f;
+
     [Dependency] private readonly IClientAdminManager _adminManager = default!;
     [Dependency] private readonly IEyeManager _eyeManager = default!;
     [Dependency] private readonly IInputManager _inputManager = default!;
@@ -174,10 +176,14 @@ public sealed class RTSSelectionSystem : EntitySystem
         if (startMap.MapId != endMap.MapId)
             return;
 
-        var box = Box2.FromTwoPoints(startMap.Position, endMap.Position);
-        if (box.Size.LengthSquared() < 0.01f)
-            box = box.Enlarged(0.1f);
+        // A click selects one unit; only an intentional drag performs group selection.
+        if ((DragEnd.Position - DragStart.Position).LengthSquared() <= ClickSelectionDeadzoneSquared)
+        {
+            SelectSingleEntity(startMap);
+            return;
+        }
 
+        var box = Box2.FromTwoPoints(startMap.Position, endMap.Position);
         var entities = _lookup
             .GetEntitiesIntersecting(startMap.MapId, box)
             .Where(IsSelectableByLocalUser);
@@ -186,6 +192,22 @@ public sealed class RTSSelectionSystem : EntitySystem
         {
             SelectedEntities.Add(uid);
             ApplyOutline(uid);
+        }
+
+        UpdateUI();
+    }
+
+    private void SelectSingleEntity(MapCoordinates coordinates)
+    {
+        var box = Box2.CenteredAround(coordinates.Position, new Vector2(0.4f, 0.4f));
+        var selected = _lookup
+            .GetEntitiesIntersecting(coordinates.MapId, box)
+            .FirstOrDefault(IsSelectableByLocalUser);
+
+        if (selected != EntityUid.Invalid)
+        {
+            SelectedEntities.Add(selected);
+            ApplyOutline(selected);
         }
 
         UpdateUI();
