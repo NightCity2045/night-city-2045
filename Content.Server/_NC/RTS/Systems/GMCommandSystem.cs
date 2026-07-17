@@ -127,15 +127,20 @@ public sealed partial class GMCommandSystem : EntitySystem
     {
         if (rts.TargetEntity == null ||
             !Exists(rts.TargetEntity.Value) ||
-            TryComp<MobStateComponent>(rts.TargetEntity.Value, out var mobState) &&
-            mobState.CurrentState > MobState.Alive)
+            !CanAttackMobState(uid, rts.TargetEntity.Value) ||
+            _faction.IsEntityFriendly(uid, rts.TargetEntity.Value))
         {
             ClearCommand(uid, rts);
             return;
         }
 
         var targetXform = Transform(rts.TargetEntity.Value);
-        EnsureSteering(uid, targetXform.Coordinates);
+        var collisionGroup = CollisionGroup.Impassable | CollisionGroup.InteractImpassable;
+        if (_interaction.InRangeUnobstructed(uid, rts.TargetEntity.Value, rts.AttackRange, collisionGroup))
+            _steering.Unregister(uid);
+        else
+            EnsureSteering(uid, targetXform.Coordinates, rts.AttackApproachRange);
+
         EngageTarget(uid, rts.TargetEntity.Value);
     }
 
@@ -149,19 +154,22 @@ public sealed partial class GMCommandSystem : EntitySystem
     /// Keeps the pathing target synced with the RTS order without spamming
     /// reregistration when the destination did not materially change.
     /// </summary>
-    private void EnsureSteering(EntityUid uid, EntityCoordinates target)
+    private void EnsureSteering(EntityUid uid, EntityCoordinates target, float range = 0.2f)
     {
         if (!TryComp<NPCSteeringComponent>(uid, out var steering))
         {
-            _steering.Register(uid, target);
+            steering = _steering.Register(uid, target);
+            steering.Range = range;
             return;
         }
 
+        steering.Range = range;
         if (steering.Coordinates.TryDistance(EntityManager, target, out var dist) && dist < 0.5f)
             return;
 
         _steering.Unregister(uid);
-        _steering.Register(uid, target);
+        steering = _steering.Register(uid, target);
+        steering.Range = range;
     }
 
     private bool TryGetNearestHostile(EntityUid uid, RTSControllableComponent rts, out EntityUid hostile)
@@ -182,7 +190,10 @@ public sealed partial class GMCommandSystem : EntitySystem
         if (hostile == EntityUid.Invalid || !Exists(hostile))
             return false;
 
-        if (TryComp<MobStateComponent>(hostile, out var mobState) && mobState.CurrentState > MobState.Alive)
+        if (!CanAttackMobState(uid, hostile))
+            return false;
+
+        if (_faction.IsEntityFriendly(uid, hostile))
             return false;
 
         if (Transform(hostile).MapID != Transform(uid).MapID)
@@ -190,6 +201,20 @@ public sealed partial class GMCommandSystem : EntitySystem
 
         var collisionGroup = CollisionGroup.Impassable | CollisionGroup.InteractImpassable;
         return _interaction.InRangeUnobstructed(uid, hostile, rts.ScanRadius, collisionGroup);
+    }
+
+    /// <summary>
+    /// Normal drones stop at incapacitation while aggressive drones continue until death.
+    /// </summary>
+    private bool CanAttackMobState(EntityUid uid, EntityUid target)
+    {
+        if (!TryComp<MobStateComponent>(target, out var mobState))
+            return true;
+
+        return TryComp<RTSAggressionModeComponent>(uid, out var aggression) &&
+               aggression.CurrentMode == RTSAggressionMode.Aggressive
+            ? mobState.CurrentState < MobState.Dead
+            : mobState.CurrentState <= MobState.Alive;
     }
 
     /// <summary>
@@ -213,6 +238,11 @@ public sealed partial class GMCommandSystem : EntitySystem
         combat.TargetInLOS = false;
     }
 
+    public void StopCommand(EntityUid uid, RTSControllableComponent rts)
+    {
+        ClearCommand(uid, rts);
+    }
+
     private void ClearCommand(EntityUid uid, RTSControllableComponent rts)
     {
         rts.ActiveCommand = null;
@@ -229,6 +259,10 @@ public sealed partial class GMCommandSystem : EntitySystem
         htn.Blackboard.Remove<object>(TargetKey);
         htn.Blackboard.Remove<object>(TargetCoordinatesKey);
         htn.Blackboard.Remove<object>(ManualCommandKey);
+
+        if (htn.Plan != null)
+            _htn.ShutdownPlan(htn);
+
         _htn.Replan(htn);
     }
 

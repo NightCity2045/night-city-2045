@@ -121,7 +121,7 @@ public sealed class NCNpcFriendlyFireGunSystem : EntitySystem
 
     private bool IsLiveFriendly(EntityUid shooter, NpcFactionMemberComponent shooterFaction, EntityUid other)
     {
-        if (TryComp<MobStateComponent>(other, out var mobState) && mobState.CurrentState > MobState.Alive)
+        if (TryComp<MobStateComponent>(other, out var mobState) && mobState.CurrentState >= MobState.Dead)
             return false;
 
         return IsFriendly(shooter, shooterFaction, other);

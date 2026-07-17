@@ -7,6 +7,7 @@ using Content.Shared._NC.RTS.Components;
 using Content.Shared._NC.RTS.Events;
 using Content.Shared.CombatMode;
 using Content.Shared.Damage;
+using Content.Shared.Mobs;
 using Content.Shared.Mobs.Components;
 using Content.Shared.NPC.Components;
 using Content.Shared.NPC.Systems;
@@ -20,6 +21,7 @@ namespace Content.Server._NC.RTS.Systems;
 /// </summary>
 public sealed class RTSRetaliationCombatSystem : EntitySystem
 {
+    private const string ManualCommandKey = "InManualCommand";
     private const string TargetKey = "Target";
     private const string TargetCoordinatesKey = "TargetCoordinates";
 
@@ -33,6 +35,58 @@ public sealed class RTSRetaliationCombatSystem : EntitySystem
     {
         base.Initialize();
         SubscribeLocalEvent<RTSControllableComponent, DamageChangedEvent>(OnDamageChanged);
+        SubscribeLocalEvent<MobStateChangedEvent>(OnMobStateChanged);
+    }
+
+    private void OnMobStateChanged(MobStateChangedEvent args)
+    {
+        if (args.NewMobState is not (MobState.Critical or MobState.SoftCritical))
+            return;
+
+        // State changes are rare, and matching the stored target reference avoids a per-frame world scan.
+        var query = EntityQueryEnumerator<RTSControllableComponent, RTSAggressionModeComponent>();
+        while (query.MoveNext(out var uid, out var rts, out var aggression))
+        {
+            if (aggression.CurrentMode != RTSAggressionMode.Aggressive ||
+                IsFriendlyAttacker(uid, args.Target) ||
+                !WasAttackingTarget(uid, rts, args.Target))
+            {
+                continue;
+            }
+
+            ContinueAttackUntilDead(uid, rts, args.Target);
+        }
+    }
+
+    private bool WasAttackingTarget(EntityUid uid, RTSControllableComponent rts, EntityUid target)
+    {
+        if (rts.TargetEntity == target)
+            return true;
+
+        if (TryComp<NPCRangedCombatComponent>(uid, out var ranged) && ranged.Target == target)
+            return true;
+
+        return TryComp<HTNComponent>(uid, out var htn) &&
+               htn.Blackboard.TryGetValue<EntityUid>(TargetKey, out var blackboardTarget, EntityManager) &&
+               blackboardTarget == target;
+    }
+
+    private void ContinueAttackUntilDead(EntityUid uid, RTSControllableComponent rts, EntityUid target)
+    {
+        rts.Destination = null;
+        rts.TargetEntity = target;
+        rts.ActiveCommand = RTSCommandType.AttackTarget;
+        Dirty(uid, rts);
+
+        if (!TryComp<HTNComponent>(uid, out var htn))
+            return;
+
+        htn.Blackboard.SetValue(ManualCommandKey, true);
+        htn.Blackboard.SetValue(TargetKey, target);
+        htn.Blackboard.SetValue(TargetCoordinatesKey, Transform(target).Coordinates);
+
+        if (htn.Plan != null)
+            _htn.ShutdownPlan(htn);
     }
 
     private void OnDamageChanged(Entity<RTSControllableComponent> ent, ref DamageChangedEvent args)

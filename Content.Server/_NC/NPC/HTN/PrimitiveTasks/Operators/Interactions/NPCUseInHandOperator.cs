@@ -62,6 +62,7 @@ public sealed partial class NPCUseInHandOperator : HTNOperator
 
         // 3. Find if anything STILL needs maintenance
         EntityUid? weaponToFix = null;
+        var weaponNeedsUnjam = false;
         foreach (var hand in hands.Hands.Values)
         {
             if (hand.HeldEntity is not { } held)
@@ -80,6 +81,7 @@ public sealed partial class NPCUseInHandOperator : HTNOperator
             if (needsUnjam || needsRack)
             {
                 weaponToFix = held;
+                weaponNeedsUnjam = needsUnjam;
                 break;
             }
         }
@@ -102,8 +104,21 @@ public sealed partial class NPCUseInHandOperator : HTNOperator
                 return HTNOperatorStatus.Finished;
             }
 
-            // Trigger for the first time
-            interactionSystem.UseInHandInteraction(owner, weaponToFix.Value, checkCanUse: false, checkCanInteract: false);
+            // Unjamming uses the weapon's normal interaction. Racking is performed directly so
+            // ItemSlotsSystem cannot interpret the interaction as a request to eject the magazine.
+            if (weaponNeedsUnjam)
+            {
+                interactionSystem.UseInHandInteraction(owner, weaponToFix.Value, checkCanUse: false, checkCanInteract: false);
+            }
+            else if (_entManager.TryGetComponent<ChamberMagazineAmmoProviderComponent>(weaponToFix.Value, out var chamber))
+            {
+                var gunSystem = _entManager.System<SharedGunSystem>();
+                if (chamber.BoltClosed == true)
+                    gunSystem.SetBoltClosed(weaponToFix.Value, chamber, false, owner);
+
+                gunSystem.SetBoltClosed(weaponToFix.Value, chamber, true, owner);
+            }
+
             blackboard.SetValue(MaintenanceTriggeredKey, true);
             blackboard.SetValue(WaitTicksKey, 0);
             return HTNOperatorStatus.Continuing;

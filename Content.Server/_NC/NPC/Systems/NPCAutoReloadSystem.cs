@@ -3,6 +3,7 @@
 
 using Content.Shared._NC.NPC;
 using Content.Server.NPC.Components;
+using Content.Shared.Containers.ItemSlots;
 using Content.Shared.Hands.Components;
 using Content.Shared.Weapons.Ranged;
 using Content.Shared.Weapons.Ranged.Components;
@@ -21,6 +22,7 @@ public sealed class NPCAutoReloadSystem : EntitySystem
 {
     [Dependency] private readonly SharedContainerSystem _container = default!;
     [Dependency] private readonly SharedGunSystem _gun = default!;
+    [Dependency] private readonly ItemSlotsSystem _itemSlots = default!;
 
     private const string MagazineSlot = "gun_magazine";
 
@@ -102,7 +104,7 @@ public sealed class NPCAutoReloadSystem : EntitySystem
 
     private bool ReloadChamberMagazineWeapon(EntityUid gun, ChamberMagazineAmmoProviderComponent chamberMagazine)
     {
-        var magEntity = GetMagazineEntity(gun);
+        var magEntity = EnsureMagazineEntity(gun);
         if (magEntity == null || !TryComp<BallisticAmmoProviderComponent>(magEntity.Value, out var magBallistic))
             return false;
 
@@ -130,6 +132,26 @@ public sealed class NPCAutoReloadSystem : EntitySystem
         }
 
         return slot.ContainedEntity;
+    }
+
+    private EntityUid? EnsureMagazineEntity(EntityUid gun)
+    {
+        if (GetMagazineEntity(gun) is { } existingMagazine)
+            return existingMagazine;
+
+        if (!_itemSlots.TryGetSlot(gun, MagazineSlot, out var magazineSlot) ||
+            string.IsNullOrEmpty(magazineSlot.StartingItem))
+        {
+            return null;
+        }
+
+        // Restore the magazine declared by the weapon prototype if normal interaction ejected it.
+        var magazine = Spawn(magazineSlot.StartingItem, Transform(gun).Coordinates);
+        if (_itemSlots.TryInsert(gun, magazineSlot, magazine, null, excludeUserAudio: true))
+            return magazine;
+
+        QueueDel(magazine);
+        return null;
     }
 
     private void ReactivateRangedCombat(EntityUid uid)

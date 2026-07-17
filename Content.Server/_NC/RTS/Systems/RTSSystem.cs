@@ -38,6 +38,7 @@ public sealed partial class RTSSystem : EntitySystem
     [Dependency] private IAdminManager _adminManager = default!;
     [Dependency] private SharedCombatModeSystem _combatMode = default!;
     [Dependency] private NpcFactionSystem _faction = default!;
+    [Dependency] private GMCommandSystem _gmCommands = default!;
     [Dependency] private HTNSystem _htn = default!;
     [Dependency] private SharedMapSystem _map = default!;
     [Dependency] private IMapManager _mapManager = default!;
@@ -82,8 +83,9 @@ public sealed partial class RTSSystem : EntitySystem
         var accepted = 0;
         var rejected = 0;
 
-        foreach (var netEntity in ev.SelectedNpcs)
+        for (var formationIndex = 0; formationIndex < ev.SelectedNpcs.Count; formationIndex++)
         {
+            var netEntity = ev.SelectedNpcs[formationIndex];
             var uid = GetEntity(netEntity);
 
             if (!CanReceiveCommand(uid, isAdmin, rigger, out var rts))
@@ -115,7 +117,10 @@ public sealed partial class RTSSystem : EntitySystem
                 case RTSCommandType.Move:
                 case RTSCommandType.AttackMove:
                 {
-                    var coords = ResolveTargetCoordinates(uid, ev);
+                    var coords = ResolveTargetCoordinates(
+                        uid,
+                        ev,
+                        GetFormationOffset(formationIndex, ev.SelectedNpcs.Count, rts.FormationSpacing));
                     if (coords == null)
                     {
                         rejected++;
@@ -136,7 +141,8 @@ public sealed partial class RTSSystem : EntitySystem
                     }
 
                     var targetUid = GetEntity(ev.TargetEntity.Value);
-                    if (!IsValidTarget(targetUid) ||
+                    if (!IsValidTarget(uid, targetUid) ||
+                        IsFriendlyTarget(uid, targetUid) ||
                         rigger != null && !CanRiggerAccessTarget(rigger.Value.Owner, uid, targetUid))
                     {
                         rejected++;
@@ -153,8 +159,9 @@ public sealed partial class RTSSystem : EntitySystem
                     break;
 
                 case RTSCommandType.Stop:
-                    _steering.Unregister(uid);
-                    break;
+                    _gmCommands.StopCommand(uid, rts);
+                    accepted++;
+                    continue;
 
             }
 
@@ -227,9 +234,27 @@ public sealed partial class RTSSystem : EntitySystem
         return !TryComp<MobStateComponent>(uid, out var mobState) || mobState.CurrentState <= MobState.Alive;
     }
 
-    private bool IsValidTarget(EntityUid uid)
+    private bool IsValidTarget(EntityUid controlled, EntityUid target)
     {
-        return Exists(uid) && IsAlive(uid);
+        if (!Exists(target) || !TryComp<MobStateComponent>(target, out var mobState))
+            return Exists(target);
+
+        return TryComp<RTSAggressionModeComponent>(controlled, out var aggression) &&
+               aggression.CurrentMode == RTSAggressionMode.Aggressive
+            ? mobState.CurrentState < MobState.Dead
+            : mobState.CurrentState <= MobState.Alive;
+    }
+
+    private bool IsFriendlyTarget(EntityUid controlled, EntityUid target)
+    {
+        if (TryComp<RiggerDroneComponent>(controlled, out var drone) &&
+            TryComp<NpcFactionMemberComponent>(target, out var targetFaction) &&
+            _faction.IsMemberOfAny((target, targetFaction), drone.DroneFactions))
+        {
+            return true;
+        }
+
+        return _faction.IsEntityFriendly(controlled, target);
     }
 
     private bool CanRiggerCommandLocation(EntityUid riggerEye, EntityUid controlled, RTSCommandEvent ev)
@@ -416,21 +441,47 @@ public sealed partial class RTSSystem : EntitySystem
     /// <summary>
     /// Resolves click target data into coordinates in the controlled NPC's parent space.
     /// </summary>
-    private EntityCoordinates? ResolveTargetCoordinates(EntityUid uid, RTSCommandEvent ev)
+    private EntityCoordinates? ResolveTargetCoordinates(EntityUid uid, RTSCommandEvent ev, Vector2 formationOffset)
     {
+        Vector2 targetPosition;
+
         if (ev.TargetEntity != null)
         {
             var targetUid = GetEntity(ev.TargetEntity.Value);
-            if (Exists(targetUid))
-                return Transform(targetUid).Coordinates;
-        }
+            if (!Exists(targetUid))
+                return null;
 
-        if (ev.TargetPosition == null)
-            return null;
+            targetPosition = _transform.GetMapCoordinates(targetUid).Position;
+        }
+        else
+        {
+            if (ev.TargetPosition == null)
+                return null;
+
+            targetPosition = ev.TargetPosition.Value;
+        }
 
         var xform = Transform(uid);
         var parentXform = Transform(xform.ParentUid);
-        var localPos = Vector2.Transform(ev.TargetPosition.Value, _transform.GetInvWorldMatrix(parentXform));
+        var localPos = Vector2.Transform(targetPosition + formationOffset, _transform.GetInvWorldMatrix(parentXform));
         return new EntityCoordinates(xform.ParentUid, localPos);
+    }
+
+    /// <summary>
+    /// Places group destinations on a centered square grid so units do not compete for one point.
+    /// </summary>
+    private static Vector2 GetFormationOffset(int index, int count, float spacing)
+    {
+        if (count <= 1 || spacing <= 0f)
+            return Vector2.Zero;
+
+        var columns = (int) MathF.Ceiling(MathF.Sqrt(count));
+        var rows = (int) MathF.Ceiling((float) count / columns);
+        var column = index % columns;
+        var row = index / columns;
+
+        return new Vector2(
+            (column - (columns - 1) * 0.5f) * spacing,
+            (row - (rows - 1) * 0.5f) * spacing);
     }
 }
