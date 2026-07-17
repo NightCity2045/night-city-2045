@@ -1,6 +1,5 @@
 using System.Linq;
 using System.Numerics;
-using Content.Client._NC.CharacterNotes;
 using Content.Shared.Atmos;
 using Content.Client.UserInterface.Controls;
 using Content.Shared._Shitmed.Targeting; // Shitmed
@@ -31,7 +30,6 @@ namespace Content.Client.HealthAnalyzer.UI
         private readonly SpriteSystem _spriteSystem;
         private readonly IPrototypeManager _prototypes;
         private readonly IResourceCache _cache;
-        private readonly NCCharacterNotesSystem _ncCharacterNotes;
 
         // Shitmed Change Start
         public event Action<TargetBodyPart?, EntityUid>? OnBodyPartSelected;
@@ -51,7 +49,6 @@ namespace Content.Client.HealthAnalyzer.UI
             var dependencies = IoCManager.Instance!;
             _entityManager = dependencies.Resolve<IEntityManager>();
             _spriteSystem = _entityManager.System<SpriteSystem>();
-            _ncCharacterNotes = _entityManager.System<NCCharacterNotesSystem>();
             _prototypes = dependencies.Resolve<IPrototypeManager>();
             _cache = dependencies.Resolve<IResourceCache>();
             // Shitmed Change Start
@@ -150,7 +147,7 @@ namespace Content.Client.HealthAnalyzer.UI
             var name = new FormattedMessage();
             name.PushColor(Color.White);
             name.AddText(_entityManager.HasComponent<MetaDataComponent>(_target.Value)
-                ? _ncCharacterNotes.GetLocalDisplayName(_target.Value)
+                ? Identity.Name(_target.Value, _entityManager)
                 : Loc.GetString("health-analyzer-window-entity-unknown-text"));
             NameLabel.SetMessage(name);
 

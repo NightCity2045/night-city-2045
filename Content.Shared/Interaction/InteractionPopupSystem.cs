@@ -4,7 +4,6 @@ using Content.Shared.Interaction.Components;
 using Content.Shared.Interaction.Events;
 using Content.Shared.Mobs.Components;
 using Content.Shared.Mobs.Systems;
-using Content.Shared._NC.CharacterNotes.Events;
 using Content.Shared.Popups;
 using Content.Shared.Mood;
 using Robust.Shared.Audio;
@@ -97,14 +96,7 @@ public sealed class InteractionPopupSystem : EntitySystem
         {
             if (component.InteractSuccessString != null)
             {
-                if (component.InteractSuccessString == "hugging-success-generic")
-                {
-                    msg = Loc.GetString("hugging-success-generic-custom", ("targetName", GetViewerDisplayName(uid, user)));
-                }
-                else
-                {
-                    msg = Loc.GetString(component.InteractSuccessString, ("target", Identity.Entity(uid, EntityManager))); // Success message (localized).
-                }
+                msg = Loc.GetString(component.InteractSuccessString, ("target", Identity.Entity(uid, EntityManager))); // Success message (localized).
 
                 if (component.InteractSuccessString == "hugging-success-generic")
                 {
@@ -180,14 +172,6 @@ public sealed class InteractionPopupSystem : EntitySystem
         {
             _audio.PlayEntity(sfx, Filter.Empty().FromEntities(target), target, false);
         }
-    }
-
-    private string GetViewerDisplayName(EntityUid target, EntityUid viewer)
-    {
-        var fallbackName = Identity.Name(target, EntityManager, viewer);
-        var ev = new NCResolveViewerDisplayNameEvent(target, viewer, fallbackName);
-        RaiseLocalEvent(target, ref ev, true);
-        return ev.DisplayName;
     }
 
     /// <summary>

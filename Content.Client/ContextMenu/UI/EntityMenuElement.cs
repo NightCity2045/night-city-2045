@@ -1,7 +1,6 @@
 using System.Linq;
 using Content.Client.Administration.Managers;
 using Content.Client.Administration.Systems;
-using Content.Client._NC.CharacterNotes;
 using Content.Client.UserInterface;
 using Content.Shared.Administration;
 using Content.Shared.IdentityManagement;
@@ -17,7 +16,6 @@ namespace Content.Client.ContextMenu.UI
         [Dependency] private readonly IPlayerManager _playerManager = default!;
 
         private AdminSystem _adminSystem;
-        private NCCharacterNotesSystem _characterNotes = default!;
 
         /// <summary>
         ///     The entity that can be accessed by interacting with this element.
@@ -34,7 +32,6 @@ namespace Content.Client.ContextMenu.UI
             IoCManager.InjectDependencies(this);
 
             _adminSystem = _entityManager.System<AdminSystem>();
-            _characterNotes = _entityManager.System<NCCharacterNotesSystem>();
 
             Entity = entity;
             if (Entity == null)
@@ -96,7 +93,7 @@ namespace Content.Client.ContextMenu.UI
                 return GetEntityDescriptionAdmin(entity);
             }
 
-            return _characterNotes.GetDisplayName(entity, _playerManager.LocalEntity!.Value);
+            return Identity.Name(entity, _entityManager, _playerManager.LocalEntity!);
         }
 
         /// <summary>
