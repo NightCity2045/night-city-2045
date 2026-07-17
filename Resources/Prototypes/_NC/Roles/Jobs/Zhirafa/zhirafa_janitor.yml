@@ -8,6 +8,7 @@
   startingGear: ZhirafaJanitorGear
   access:
     - NC_General
+    - Zhirafa_Janitor
 
 - type: startingGear
   id: ZhirafaJanitorGear

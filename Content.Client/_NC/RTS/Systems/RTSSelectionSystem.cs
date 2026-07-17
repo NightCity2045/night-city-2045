@@ -362,6 +362,9 @@ public sealed class RTSSelectionSystem : EntitySystem
         if (TryComp(attached.Value, out RiggerConsoleUserComponent? rigger))
             return rigger.RtsEnabled;
 
+        if (TryComp(attached.Value, out RiggerLaptopUserComponent? laptopRigger))
+            return laptopRigger.RtsEnabled;
+
         return _adminManager.IsActive() &&
                _adminManager.HasFlag(AdminFlags.Admin) &&
                TryComp(attached.Value, out RTSModeComponent? mode) &&
@@ -376,6 +379,9 @@ public sealed class RTSSelectionSystem : EntitySystem
 
         if (TryComp(attached.Value, out RiggerConsoleUserComponent? rigger))
             return rigger.LinkedDrones.Contains(uid);
+
+        if (TryComp(attached.Value, out RiggerLaptopUserComponent? laptopRigger))
+            return laptopRigger.LinkedDrones.Contains(uid);
 
         return _adminManager.IsActive() &&
                _adminManager.HasFlag(AdminFlags.Admin) &&

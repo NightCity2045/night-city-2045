@@ -5,6 +5,7 @@ using Content.Shared.Alert;
 using Content.Shared.Hands.Components;
 using Content.Shared.Hands.EntitySystems;
 using Content.Shared.Inventory;
+using Content.Shared.Inventory.VirtualItem;
 using Content.Shared.Item;
 using Content.Shared.Movement.Systems;
 using Content.Shared.Popups;
@@ -188,7 +189,9 @@ public sealed class SharedNCBodySystem : EntitySystem
 
     private float CalculateItemWeightRecursive(EntityUid uid, NCStatPrototype settings, HashSet<EntityUid> visited)
     {
-        if (!visited.Add(uid) || !TryComp<ItemComponent>(uid, out var item))
+        // Wielding creates a virtual item in the second hand. It only reserves the hand and
+        // must not contribute its Ginormous fallback item-size weight to carried mass.
+        if (!visited.Add(uid) || HasComp<VirtualItemComponent>(uid) || !TryComp<ItemComponent>(uid, out var item))
             return 0f;
 
         var total = GetItemWeight(uid, item, settings);

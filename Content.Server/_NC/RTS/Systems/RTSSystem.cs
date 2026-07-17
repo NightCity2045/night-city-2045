@@ -98,6 +98,14 @@ public sealed partial class RTSSystem : EntitySystem
                 continue;
             }
 
+            // Aggression is an autonomous-behaviour setting, not a manual order.
+            // Changing it must not erase an existing move, hold, or attack command.
+            if (TryHandleAggressionCommand(uid, ev.CommandType))
+            {
+                accepted++;
+                continue;
+            }
+
             rts.Destination = null;
             rts.TargetEntity = null;
             rts.ActiveCommand = null;
@@ -148,17 +156,6 @@ public sealed partial class RTSSystem : EntitySystem
                     _steering.Unregister(uid);
                     break;
 
-                case RTSCommandType.SetPeacefulMode:
-                    SetAggressionMode(uid, RTSAggressionMode.Peaceful);
-                    break;
-
-                case RTSCommandType.SetNormalMode:
-                    SetAggressionMode(uid, RTSAggressionMode.Normal);
-                    break;
-
-                case RTSCommandType.SetAggressiveMode:
-                    SetAggressionMode(uid, RTSAggressionMode.Aggressive);
-                    break;
             }
 
             Dirty(uid, rts);
@@ -186,7 +183,7 @@ public sealed partial class RTSSystem : EntitySystem
     private bool CanReceiveCommand(
         EntityUid uid,
         bool isAdmin,
-        Entity<RiggerConsoleUserComponent>? rigger,
+        RiggerCommandSession? rigger,
         out RTSControllableComponent rts)
     {
         rts = null!;
@@ -197,7 +194,7 @@ public sealed partial class RTSSystem : EntitySystem
         if (rigger != null)
         {
             if (!TryComp<RTSControllableComponent>(uid, out var existingRts) ||
-                !rigger.Value.Comp.LinkedDrones.Contains(uid))
+                !rigger.Value.LinkedDrones.Contains(uid))
             {
                 return false;
             }
@@ -297,17 +294,40 @@ public sealed partial class RTSSystem : EntitySystem
             _popup.PopupClient(Loc.GetString("nc-rts-command-rejected"), attached.Value, attached.Value);
     }
 
-    private Entity<RiggerConsoleUserComponent>? GetRiggerSession(ICommonSession session)
+    private RiggerCommandSession? GetRiggerSession(ICommonSession session)
     {
         var attached = session.AttachedEntity;
-        if (attached == null ||
-            !TryComp<RiggerConsoleUserComponent>(attached.Value, out var rigger) ||
-            !rigger.RtsEnabled)
-        {
+        if (attached == null)
             return null;
-        }
 
-        return (attached.Value, rigger);
+        if (TryComp<RiggerConsoleUserComponent>(attached.Value, out var consoleRigger) &&
+            consoleRigger.RtsEnabled)
+            return new RiggerCommandSession(attached.Value, consoleRigger.LinkedDrones);
+
+        if (TryComp<RiggerLaptopUserComponent>(attached.Value, out var laptopRigger) &&
+            laptopRigger.RtsEnabled)
+            return new RiggerCommandSession(attached.Value, laptopRigger.LinkedDrones);
+
+        return null;
+    }
+
+    private readonly record struct RiggerCommandSession(EntityUid Owner, List<EntityUid> LinkedDrones);
+
+    private bool TryHandleAggressionCommand(EntityUid uid, RTSCommandType command)
+    {
+        var mode = command switch
+        {
+            RTSCommandType.SetPeacefulMode => RTSAggressionMode.Peaceful,
+            RTSCommandType.SetNormalMode => RTSAggressionMode.Normal,
+            RTSCommandType.SetAggressiveMode => RTSAggressionMode.Aggressive,
+            _ => (RTSAggressionMode?) null
+        };
+
+        if (mode == null)
+            return false;
+
+        SetAggressionMode(uid, mode.Value);
+        return true;
     }
 
     private void SetAggressionMode(EntityUid uid, RTSAggressionMode mode)
@@ -351,10 +371,12 @@ public sealed partial class RTSSystem : EntitySystem
         Dirty(uid, faction);
 
         ClearExceptionHostiles(uid);
-        ClearCombatState(uid);
 
+        // Manual RTS execution owns steering and combat until its order completes.
         if (TryComp<RTSControllableComponent>(uid, out var rts) && rts.ActiveCommand != null)
             return;
+
+        ClearCombatState(uid);
 
         if (!TryComp<HTNComponent>(uid, out var htn))
             return;

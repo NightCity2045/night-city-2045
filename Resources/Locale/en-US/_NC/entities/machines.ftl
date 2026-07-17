@@ -76,3 +76,11 @@ ent-BiotechnicaVendingRestockPartial = Biotechnica restock kit
 ent-BiotechnicaVendingRestockPartial-desc = Box with a supply of soups for Biotechnica drink vending machines.
 ent-VendingMachineBiotechnicaBotanyChemicals = Biotechnica Farmer-mat
 ent-VendingMachineBiotechnicaBotanyChemicals-desc = The best chemical fertilizers for your garden!
+
+ent-NCZhirafaTrashRewardMachine = Zhirafa trash buyback machine
+ent-NCZhirafaTrashRewardMachine-desc = A corporate recycling unit that pays Zhirafa janitors for collected street trash.
+nc-trash-reward-machine-no-power = The machine has no power.
+nc-trash-reward-machine-access-denied = Access denied. Zhirafa janitor credentials required.
+nc-trash-reward-machine-invalid-item = The machine only accepts trash.
+nc-trash-reward-machine-empty-container = The trash bag contains no accepted trash.
+nc-trash-reward-machine-success = Recycled {$count} items. Payment: {$amount} eddies.

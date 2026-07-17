@@ -1,0 +1,30 @@
+- type: entity
+  id: NCZhirafaTrashRewardMachine
+  parent: BaseMachinePowered
+  name: ent-NCZhirafaTrashRewardMachine
+  description: ent-NCZhirafaTrashRewardMachine-desc
+  components:
+  - type: Transform
+    anchored: true
+  - type: NCFixedWorldObject
+  - type: Sprite
+    drawdepth: Doors
+    sprite: Structures/Machines/recycling.rsi
+    state: grinder-o0
+  - type: ApcPowerReceiver
+    powerLoad: 250
+  - type: LogicPowerReceiver
+    powerLoad: 250
+  - type: NCTrashRewardMachine
+    rewardPerItem: 5
+    currency: Credit
+    trashWhitelist:
+      components:
+      - Item
+    trashContainerWhitelist:
+      tags:
+      - TrashBag
+    processSound:
+      path: /Audio/Effects/saw.ogg
+      params:
+        volume: -3

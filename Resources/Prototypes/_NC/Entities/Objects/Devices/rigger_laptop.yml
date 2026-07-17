@@ -1,0 +1,25 @@
+- type: entity
+  parent: BaseHandheldComputer
+  id: NCMilitechRiggerLaptop
+  name: ent-NCMilitechRiggerLaptop
+  description: ent-NCMilitechRiggerLaptop-desc
+  components:
+  - type: Sprite
+    sprite: Objects/Devices/tablets.rsi
+    layers:
+    - state: tablet
+    - state: generic
+      shader: unshaded
+  - type: Item
+    size: Large
+  - type: Wieldable
+    autoWield: false
+    unwieldOnUse: false
+  - type: RiggerLaptop
+    autoLinkRange: 30
+    allowedDroneFactions:
+    - NCMilitech
+  - type: StaticPrice
+    price: 2500
+  - type: NCWeight
+    weight: 1.5

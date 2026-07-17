@@ -25,3 +25,6 @@
     id: MilitechRiggerPDA
     belt: ClothingBeltUtilityEngineering
     outerClothing: ClothingOuterArmorMilitechBulletproof
+  storage:
+    back:
+    - NCMilitechRiggerLaptop

@@ -94,6 +94,10 @@
   id: Restaurant
   name: access-level-restaurant
 
+- type: accessLevel
+  id: Zhirafa_Janitor
+  name: access-level-zhirafa-janitor
+
 - type: accessGroup
   id: NightCity
   tags:

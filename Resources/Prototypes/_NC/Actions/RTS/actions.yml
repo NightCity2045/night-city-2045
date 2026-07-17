@@ -3,12 +3,11 @@
   name: action-nc-rts-toggle-name
   description: action-nc-rts-toggle-desc
   components:
-  - type: Action
+  - type: InstantAction
     icon: { sprite: _NC/Objects/Cyberware/sandevistan.rsi, state: icon }
     checkCanInteract: false
     checkConsciousness: false
     priority: -5
-  - type: InstantAction
     event: !type:ToggleRTSModeActionEvent
 
 - type: entity
@@ -16,12 +15,11 @@
   name: action-nc-rigger-exit-console-name
   description: action-nc-rigger-exit-console-desc
   components:
-  - type: Action
+  - type: InstantAction
     icon: { sprite: _NC/Objects/Cyberware/sandevistan.rsi, state: icon }
     checkCanInteract: false
     checkConsciousness: false
     priority: -3
-  - type: InstantAction
     event: !type:RiggerExitConsoleActionEvent
 
 - type: entity
@@ -29,12 +27,11 @@
   name: action-nc-rigger-toggle-rts-name
   description: action-nc-rigger-toggle-rts-desc
   components:
-  - type: Action
+  - type: InstantAction
     icon: { sprite: _NC/Objects/Cyberware/sandevistan.rsi, state: icon }
     checkCanInteract: false
     checkConsciousness: false
     priority: -4
-  - type: InstantAction
     event: !type:RiggerToggleRTSModeActionEvent
 
 - type: entity
@@ -42,10 +39,9 @@
   name: action-nc-rigger-drone-status-name
   description: action-nc-rigger-drone-status-desc
   components:
-  - type: Action
+  - type: InstantAction
     icon: { sprite: _NC/Objects/Cyberware/sandevistan.rsi, state: icon }
     checkCanInteract: false
     checkConsciousness: false
     priority: -5
-  - type: InstantAction
     event: !type:RiggerDroneStatusActionEvent

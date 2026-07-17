@@ -191,6 +191,8 @@ ent-BiotechnicaTechIDCard = Biotechnica Tech ID card
 
 ent-PDAMilitechRigger = Militech Rigger PDA
 ent-PDAMilitechRigger-desc = Hardened field PDA for drone control, telemetry, and live tactical routing.
+ent-NCMilitechRiggerLaptop = Militech rigger laptop
+ent-NCMilitechRiggerLaptop-desc = A hardened tactical laptop for issuing RTS commands to nearby Militech robots while held in both hands.
 ent-MilitechRiggerIDCard = Militech Rigger ID card
 
 # Misc

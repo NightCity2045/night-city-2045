@@ -76,3 +76,11 @@ ent-BiotechnicaVendingRestockPartial = набор пополнения Biotechni
 ent-BiotechnicaVendingRestockPartial-desc = Коробка с запасом супов для торговых автоматов с напитками Biotechnica.
 ent-VendingMachineBiotechnicaBotanyChemicals = Фермеромат Biotechnica
 ent-VendingMachineBiotechnicaBotanyChemicals-desc = Лучшие хим. удобрения для вашего сада!
+
+ent-NCZhirafaTrashRewardMachine = аппарат выкупа мусора Жирафы
+ent-NCZhirafaTrashRewardMachine-desc = Корпоративный переработчик, который платит уборщикам Жирафы за собранный на улицах мусор.
+nc-trash-reward-machine-no-power = Аппарат не получает питание.
+nc-trash-reward-machine-access-denied = Доступ запрещён. Требуется удостоверение уборщика Жирафы.
+nc-trash-reward-machine-invalid-item = Аппарат принимает только мусор.
+nc-trash-reward-machine-empty-container = В мусорном мешке нет подходящего мусора.
+nc-trash-reward-machine-success = Переработано предметов: {$count}. Выплата: {$amount} эдди.
