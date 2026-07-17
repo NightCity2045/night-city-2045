@@ -9,9 +9,9 @@
   - type: Clothing
     sprite: _NC/Clothing/OuterClothing/Armor/militech_bulletproof.rsi
   - type: PhysicalArmor
-    stoppingPower: 18
-    maxDurability: 100
-    currentDurability: 100
+    stoppingPower: 60
+    maxDurability: 500
+    currentDurability: 500
     materialType: Kevlar
     bluntDamageMultiplier: 0.8
     durabilityDamageMultiplier: 1
