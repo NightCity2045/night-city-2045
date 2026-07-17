@@ -42,7 +42,7 @@ public sealed class NcStoreHeaderBar : BoxContainer
             HorizontalExpand = false,
             VerticalAlignment = VAlignment.Center
         };
-        _balanceInfo.AddStyleClass("LabelHeading");
+        _balanceInfo.AddStyleClass("NightCityStatusWarning");
 
         _searchBar = new()
         {

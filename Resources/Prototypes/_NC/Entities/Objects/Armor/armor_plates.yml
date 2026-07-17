@@ -9,8 +9,8 @@
     state: cglass
   - type: PhysicalArmor
     stoppingPower: 60
-    maxDurability: 90
-    currentDurability: 90
+    maxDurability: 180
+    currentDurability: 180
     materialType: Ceramic
     bluntDamageMultiplier: 0
     durabilityDamageMultiplier: 2
@@ -19,13 +19,15 @@
   - type: ArmorMaterial
     layerType: Plate
     grantedStoppingPower: 60
-    grantedDurability: 90
+    grantedDurability: 180
     materialType: Ceramic
     bluntDamageMultiplier: 0
     durabilityDamageMultiplier: 2
   - type: Item
     size: Normal
     heldPrefix: cglass
+  - type: NCWeight
+    weight: 2.5
 
 - type: entity
   parent: BaseItem
@@ -38,8 +40,8 @@
     state: steel
   - type: PhysicalArmor
     stoppingPower: 68
-    maxDurability: 250
-    currentDurability: 250
+    maxDurability: 350
+    currentDurability: 350
     materialType: Steel
     bluntDamageMultiplier: 0.4
     durabilityDamageMultiplier: 0.35
@@ -55,6 +57,8 @@
   - type: Item
     size: Normal
     heldPrefix: steel
+  - type: NCWeight
+    weight: 4.0
 
 - type: entity
   parent: BaseItem
@@ -84,3 +88,5 @@
   - type: Item
     size: Normal
     heldPrefix: durathread
+  - type: NCWeight
+    weight: 0.5

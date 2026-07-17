@@ -1,7 +1,6 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Numerics;
-using Content.Client._NC.CharacterNotes;
 using Content.Client.Hands.Systems;
 using Content.Client.Items.Systems;
 using Content.Client.Storage;
@@ -181,7 +180,7 @@ public sealed class StorageWindow : BaseWindow
 
         if (UserInterfaceManager.GetUIController<StorageUIController>().WindowTitle)
         {
-            _titleLabel.Text = _entity.System<NCCharacterNotesSystem>().GetLocalDisplayName(entity.Value);
+            _titleLabel.Text = Identity.Name(entity.Value, _entity);
             _titleContainer.Visible = true;
         }
         else

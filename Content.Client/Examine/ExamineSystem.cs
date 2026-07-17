@@ -1,8 +1,8 @@
 using System.Linq;
 using System.Numerics;
 using System.Threading;
-using Content.Client._NC.CharacterNotes;
 using Content.Client.Verbs;
+using Content.Shared.CCVar;
 using Content.Shared.Examine;
 using Content.Shared.IdentityManagement;
 using Content.Shared.Input;
@@ -33,7 +33,6 @@ namespace Content.Client.Examine
         [Dependency] private readonly IPlayerManager _playerManager = default!;
         [Dependency] private readonly IEyeManager _eyeManager = default!;
         [Dependency] private readonly VerbSystem _verbSystem = default!;
-        [Dependency] private readonly NCCharacterNotesSystem _ncCharacterNotes = default!;
         [Dependency] private readonly IConfigurationManager _cfg = default!;
 
         public const string StyleClassEntityTooltip = "entity-tooltip";
@@ -241,7 +240,7 @@ namespace Content.Client.Examine
 
             if (knowTarget)
             {
-                var itemName = FormattedMessage.EscapeText(_ncCharacterNotes.GetDisplayName(target, player));
+                var itemName = FormattedMessage.EscapeText(Identity.Name(target, EntityManager, player));
                 var labelMessage = FormattedMessage.FromMarkupPermissive($"[bold]{itemName}[/bold]");
                 var label = new RichTextLabel();
                 label.SetMessage(labelMessage);
@@ -379,7 +378,7 @@ namespace Content.Client.Examine
                     GetNetEntity(entity),
                     _idCounter,
                     true,
-                    _cfg.GetCVar(CVars.LocCultureName)));
+                    GetRequestedCultureName()));
             }
 
             RaiseLocalEvent(entity, new ClientExaminedEvent(entity, playerEnt.Value));
@@ -406,6 +405,14 @@ namespace Content.Client.Examine
                 _requestCancelTokenSource.Cancel();
                 _requestCancelTokenSource = null;
             }
+        }
+
+        private string GetRequestedCultureName()
+        {
+            var preferredCulture = _cfg.GetCVar(CCVars.NCPreferredCulture);
+            return string.IsNullOrWhiteSpace(preferredCulture)
+                ? _cfg.GetCVar(CVars.LocCultureName)
+                : preferredCulture;
         }
     }
 

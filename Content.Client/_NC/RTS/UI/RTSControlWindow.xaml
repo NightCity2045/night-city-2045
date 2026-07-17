@@ -1,21 +1,22 @@
 ﻿<DefaultWindow xmlns="https://spacestation14.io"
                xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-               Title="RTS Control Panel"
+               Title="{Loc nc-rts-window-title}"
                Resizable="False"
                MinWidth="220"
                MinHeight="140">
     <BoxContainer Orientation="Vertical" Margin="4" SeparationOverride="4">
-        <Label Name="SelectionCountLabel" Text="Units Selected: 0" HorizontalAlignment="Center" />
+        <Label Name="SelectionCountLabel" Text="" HorizontalAlignment="Center" />
         <GridContainer Columns="3" HorizontalAlignment="Center">
-            <Button Name="MoveButton" Text="Move" MinWidth="60" />
-            <Button Name="AttackMoveButton" Text="A-Move" MinWidth="60" />
-            <Button Name="AttackTargetButton" Text="Attack" MinWidth="60" />
+            <Button Name="MoveButton" Text="{Loc nc-rts-command-move}" MinWidth="60" ToggleMode="True" />
+            <Button Name="AttackMoveButton" Text="{Loc nc-rts-command-attack-move}" MinWidth="60" ToggleMode="True" />
+            <Button Name="AttackTargetButton" Text="{Loc nc-rts-command-attack-target}" MinWidth="60" ToggleMode="True" />
         </GridContainer>
-        <GridContainer Columns="2" HorizontalAlignment="Center">
-            <Button Name="PeacefulButton" Text="Peaceful" MinWidth="90" />
-            <Button Name="NormalButton" Text="Normal" MinWidth="90" />
+        <GridContainer Columns="3" HorizontalAlignment="Center">
+            <Button Name="PeacefulButton" Text="{Loc nc-rts-aggression-peaceful}" MinWidth="70" ToggleMode="True" />
+            <Button Name="NormalButton" Text="{Loc nc-rts-aggression-normal}" MinWidth="70" ToggleMode="True" />
+            <Button Name="AggressiveButton" Text="{Loc nc-rts-aggression-aggressive}" MinWidth="70" ToggleMode="True" />
         </GridContainer>
-        <Button Name="HoldButton" Text="Hold Position" HorizontalAlignment="Stretch" />
-        <Button Name="StopButton" Text="Stop (Clear Orders)" HorizontalAlignment="Stretch" />
+        <Button Name="HoldButton" Text="{Loc nc-rts-command-hold-position}" HorizontalAlignment="Stretch" ToggleMode="True" />
+        <Button Name="StopButton" Text="{Loc nc-rts-command-stop}" HorizontalAlignment="Stretch" />
     </BoxContainer>
 </DefaultWindow>

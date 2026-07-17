@@ -18,6 +18,7 @@ access-level-fixer = Fixer
 access-level-ripper = Ripper
 access-level-cafe = Cafe
 access-level-restaurant = Restaurant
+access-level-zhirafa-janitor = Zhirafa Janitor
 
 access-level-militech-command = Militech Command
 access-level-militech-operative = Militech Operatives

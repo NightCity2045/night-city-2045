@@ -10,3 +10,7 @@ ent-CitiNetStreetDeadDrop = Old Trash Can
 ent-CitiNetStreetDeadDrop-desc = A dirty bin stuffed with old newspapers. Looks like something's hidden here.
 ent-CitiNetDeliveryChip = 'QuickPath' Navi Chip
 ent-CitiNetDeliveryChip-desc = A disposable chip with your package coordinates. Insert into PDA to activate GPS marker.
+ent-NCCorporateDeliveryCrate = corporate procurement crate
+ent-NCCorporateDeliveryCrate-desc = A rugged crate routed through a corporate off-city pickup chain.
+ent-NCCorporateDeliveryZone = corporate pickup zone
+ent-NCCorporateDeliveryZone-desc = A mapper marker for delayed corporate supply drops.

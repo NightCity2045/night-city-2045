@@ -1,0 +1,183 @@
+- type: entity
+  id: SpawnPointTraumaTeamChief
+  parent: SpawnPointJobBase
+  name: ent-SpawnPointTraumaTeamChief
+  components:
+  - type: SpawnPoint
+    job_id: TraumaTeamChief
+  - type: Sprite
+    layers:
+    - state: green
+
+- type: entity
+  id: SpawnPointTraumaTeamChiefLateJoin
+  parent: SpawnPointJobBase
+  name: ent-SpawnPointTraumaTeamChiefLateJoin
+  components:
+  - type: SpawnPoint
+    job_id: TraumaTeamChief
+    spawn_type: LateJoin
+  - type: Sprite
+    layers:
+    - state: green
+
+- type: entity
+  id: SpawnPointTraumaTeamDoctor
+  parent: SpawnPointJobBase
+  name: ent-SpawnPointTraumaTeamDoctor
+  components:
+  - type: SpawnPoint
+    job_id: TraumaTeamDoctor
+  - type: Sprite
+    layers:
+    - state: green
+
+- type: entity
+  id: SpawnPointTraumaTeamDoctorLateJoin
+  parent: SpawnPointJobBase
+  name: ent-SpawnPointTraumaTeamDoctorLateJoin
+  components:
+  - type: SpawnPoint
+    job_id: TraumaTeamDoctor
+    spawn_type: LateJoin
+  - type: Sprite
+    layers:
+    - state: green
+
+- type: entity
+  id: SpawnPointTraumaTeamParamedic
+  parent: SpawnPointJobBase
+  name: ent-SpawnPointTraumaTeamParamedic
+  components:
+  - type: SpawnPoint
+    job_id: TraumaTeamParamedic
+  - type: Sprite
+    layers:
+    - state: green
+
+- type: entity
+  id: SpawnPointTraumaTeamParamedicLateJoin
+  parent: SpawnPointJobBase
+  name: ent-SpawnPointTraumaTeamParamedicLateJoin
+  components:
+  - type: SpawnPoint
+    job_id: TraumaTeamParamedic
+    spawn_type: LateJoin
+  - type: Sprite
+    layers:
+    - state: green
+
+- type: entity
+  id: SpawnPointTraumaTeamTech
+  parent: SpawnPointJobBase
+  name: ent-SpawnPointTraumaTeamTech
+  components:
+  - type: SpawnPoint
+    job_id: TraumaTeamTech
+  - type: Sprite
+    layers:
+    - state: green
+
+- type: entity
+  id: SpawnPointTraumaTeamTechLateJoin
+  parent: SpawnPointJobBase
+  name: ent-SpawnPointTraumaTeamTechLateJoin
+  components:
+  - type: SpawnPoint
+    job_id: TraumaTeamTech
+    spawn_type: LateJoin
+  - type: Sprite
+    layers:
+    - state: green
+
+- type: entity
+  id: SpawnPointTraumaTeamCoroner
+  parent: SpawnPointJobBase
+  name: ent-SpawnPointTraumaTeamCoroner
+  components:
+  - type: SpawnPoint
+    job_id: TraumaTeamCoroner
+  - type: Sprite
+    layers:
+    - state: green
+
+- type: entity
+  id: SpawnPointTraumaTeamCoronerLateJoin
+  parent: SpawnPointJobBase
+  name: ent-SpawnPointTraumaTeamCoronerLateJoin
+  components:
+  - type: SpawnPoint
+    job_id: TraumaTeamCoroner
+    spawn_type: LateJoin
+  - type: Sprite
+    layers:
+    - state: green
+
+- type: entity
+  id: SpawnPointTraumaTeamPsych
+  parent: SpawnPointJobBase
+  name: ent-SpawnPointTraumaTeamPsych
+  components:
+  - type: SpawnPoint
+    job_id: TraumaTeamPsych
+  - type: Sprite
+    layers:
+    - state: green
+
+- type: entity
+  id: SpawnPointTraumaTeamPsychLateJoin
+  parent: SpawnPointJobBase
+  name: ent-SpawnPointTraumaTeamPsychLateJoin
+  components:
+  - type: SpawnPoint
+    job_id: TraumaTeamPsych
+    spawn_type: LateJoin
+  - type: Sprite
+    layers:
+    - state: green
+
+- type: entity
+  id: SpawnPointTraumaTeamOperative
+  parent: SpawnPointJobBase
+  name: ent-SpawnPointTraumaTeamOperative
+  components:
+  - type: SpawnPoint
+    job_id: TraumaTeamOperative
+  - type: Sprite
+    layers:
+    - state: green
+
+- type: entity
+  id: SpawnPointTraumaTeamOperativeLateJoin
+  parent: SpawnPointJobBase
+  name: ent-SpawnPointTraumaTeamOperativeLateJoin
+  components:
+  - type: SpawnPoint
+    job_id: TraumaTeamOperative
+    spawn_type: LateJoin
+  - type: Sprite
+    layers:
+    - state: green
+
+- type: entity
+  id: SpawnPointTraumaTeamIntern
+  parent: SpawnPointJobBase
+  name: ent-SpawnPointTraumaTeamIntern
+  components:
+  - type: SpawnPoint
+    job_id: TraumaTeamIntern
+  - type: Sprite
+    layers:
+    - state: green
+
+- type: entity
+  id: SpawnPointTraumaTeamInternLateJoin
+  parent: SpawnPointJobBase
+  name: ent-SpawnPointTraumaTeamInternLateJoin
+  components:
+  - type: SpawnPoint
+    job_id: TraumaTeamIntern
+    spawn_type: LateJoin
+  - type: Sprite
+    layers:
+    - state: green

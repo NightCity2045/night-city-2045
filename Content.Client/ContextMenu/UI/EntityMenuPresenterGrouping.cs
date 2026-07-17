@@ -1,5 +1,4 @@
 using Content.Shared.IdentityManagement;
-using Content.Client._NC.CharacterNotes;
 using Robust.Client.GameObjects;
 using System.Linq;
 
@@ -19,9 +18,7 @@ namespace Content.Client.ContextMenu.UI
         {
             if (GroupingContextMenuType == 0)
             {
-                var notes = _entityManager.System<NCCharacterNotesSystem>();
-                var player = _playerManager.LocalEntity;
-                var newEntities = entities.GroupBy(e => player == null ? Identity.Name(e, _entityManager) : notes.GetDisplayName(e, player.Value)).ToList();
+                var newEntities = entities.GroupBy(e => Identity.Name(e, _entityManager)).ToList();
                 return newEntities.Select(grp => grp.ToList()).ToList();
             }
             else

@@ -27,6 +27,8 @@ namespace Content.Shared._NC.Dispatch
         public NetEntity CameraUid;
         public NetCoordinates Coordinates;
         public bool Dispatched;
+        public string SourceId;
+        public bool HasCamera;
 
         /// <summary>
         /// If set, this alert is tracking a live entity (wanted / cyberpsycho).
@@ -34,7 +36,7 @@ namespace Content.Shared._NC.Dispatch
         /// </summary>
         public NetEntity? TargetUid;
 
-        public OverwatchAlertData(int id, string type, string sector, string cameraName, string timeStr, NetEntity cameraUid, NetCoordinates coordinates, bool dispatched = false, NetEntity? targetUid = null)
+        public OverwatchAlertData(int id, string type, string sector, string cameraName, string timeStr, NetEntity cameraUid, NetCoordinates coordinates, bool dispatched = false, NetEntity? targetUid = null, string sourceId = "", bool hasCamera = true)
         {
             Id = id;
             Type = type;
@@ -45,6 +47,8 @@ namespace Content.Shared._NC.Dispatch
             Coordinates = coordinates;
             Dispatched = dispatched;
             TargetUid = targetUid;
+            SourceId = sourceId;
+            HasCamera = hasCamera;
         }
     }
 

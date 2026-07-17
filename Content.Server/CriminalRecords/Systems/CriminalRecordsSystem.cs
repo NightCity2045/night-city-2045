@@ -10,6 +10,7 @@ using Content.Server.GameTicking;
 using Content.Server.Station.Systems;
 using Content.Shared.CartridgeLoader;
 using Content.Shared.CartridgeLoader.Cartridges;
+using Content.Shared._NC.Ncpd;
 
 namespace Content.Server.CriminalRecords.Systems;
 
@@ -73,7 +74,11 @@ public sealed class CriminalRecordsSystem : SharedCriminalRecordsSystem
 
         var name = _records.RecordName(key);
         if (name != string.Empty)
+        {
             UpdateCriminalIdentity(name, status);
+            var ncStatusChanged = new NCCriminalRecordStatusChangedEvent(name, status, reason);
+            RaiseLocalEvent(ncStatusChanged);
+        }
 
         _records.Synchronize(key);
 

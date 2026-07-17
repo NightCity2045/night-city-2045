@@ -3,13 +3,13 @@ using System.Numerics;
 using Content.Client.Pinpointer.UI;
 using Content.Shared._NC.CitiNet;
 using Robust.Client.Graphics;
-using Robust.Client.Player;
 using Robust.Client.ResourceManagement;
 using Robust.Client.UserInterface;
 using Robust.Client.UserInterface.Controls;
 using Robust.Shared.GameObjects;
 using Robust.Shared.Input;
 using Robust.Shared.IoC;
+using Robust.Shared.Map;
 using Robust.Shared.Maths;
 
 namespace Content.Client._NC.CitiNet.UI;
@@ -17,16 +17,15 @@ namespace Content.Client._NC.CitiNet.UI;
 public sealed partial class CitiNetMapControl : NavMapControl
 {
     [Dependency] private readonly IResourceCache _cache = default!;
-    [Dependency] private readonly IPlayerManager _playerManager = default!;
 
-    public List<global::Content.Shared._NC.CitiNet.CitiNetMapSectorData> MapSectors = new();
-    public List<global::Content.Shared._NC.CitiNet.CitiNetMapBeaconData> MapBeacons = new();
-    public List<global::Content.Shared._NC.CitiNet.CitiNetMapPingData> MapPings = new();
+    public List<CitiNetMapSectorData> MapSectors = new();
+    public List<CitiNetMapBeaconData> MapBeacons = new();
+    public List<CitiNetMapPingData> MapPings = new();
 
     public bool ShowSectors = true;
 
-    private static readonly Color CitiNetBg = Color.FromHex("#05050a"); 
-    private static readonly Color CitiNetCyan = Color.FromHex("#00f2ff"); 
+    private static readonly Color CitiNetBg = Color.FromHex("#05050a");
+    private static readonly Color CitiNetCyan = Color.FromHex("#00f2ff");
     private static readonly Color CitiNetRed = Color.FromHex("#ff0033");
 
     public CitiNetMapControl()
@@ -36,14 +35,11 @@ public sealed partial class CitiNetMapControl : NavMapControl
         WallColor = CitiNetCyan;
         TileColor = Color.FromHex("#0a1a1a");
 
-        // Скрываем встроенную верхнюю панель NavMapControl (zoom, checkbox, recenter)
-        // и растягиваем topContainer на всё пространство
         foreach (var child in Children)
         {
             if (child is not BoxContainer box)
                 continue;
 
-            // Растягиваем topContainer по вертикали
             box.VerticalExpand = true;
 
             foreach (var boxChild in box.Children)
@@ -60,6 +56,12 @@ public sealed partial class CitiNetMapControl : NavMapControl
     }
 
     public void Recenter() => Recentering = true;
+
+    public void CenterToMapPosition(Vector2 mapPosition)
+    {
+        var localPosition = MapPositionToDisplayLocal(mapPosition);
+        CenterToCoordinates(new EntityCoordinates(MapUid ?? EntityUid.Invalid, localPosition));
+    }
 
     public float MapRange
     {
@@ -84,13 +86,14 @@ public sealed partial class CitiNetMapControl : NavMapControl
 
         var offset = GetOffset();
 
-        // 1. Draw Sectors
         if (ShowSectors)
         {
             foreach (var sector in MapSectors)
             {
-                var leftTop = ScalePositionFlipY(new Vector2(sector.Bounds.Left, sector.Bounds.Top) - offset);
-                var rightBottom = ScalePositionFlipY(new Vector2(sector.Bounds.Right, sector.Bounds.Bottom) - offset);
+                var leftTopLocal = MapPositionToDisplayLocal(new Vector2(sector.Bounds.Left, sector.Bounds.Top));
+                var rightBottomLocal = MapPositionToDisplayLocal(new Vector2(sector.Bounds.Right, sector.Bounds.Bottom));
+                var leftTop = ScalePositionFlipY(leftTopLocal - offset);
+                var rightBottom = ScalePositionFlipY(rightBottomLocal - offset);
                 var box = new UIBox2(leftTop, rightBottom);
 
                 handle.DrawRect(box, sector.Color.WithAlpha(0.15f));
@@ -102,20 +105,19 @@ public sealed partial class CitiNetMapControl : NavMapControl
             }
         }
 
-        // 2. Draw Dynamic Pings
         if (MapPings.Count > 0)
         {
             var timeInstance = IoCManager.Resolve<Robust.Shared.Timing.IGameTiming>().RealTime.TotalSeconds;
             foreach (var ping in MapPings)
             {
-                var pos = ScalePositionFlipY(ping.LocalPosition - offset);
-                var progress = (float)((timeInstance % 1.5) / 1.5); 
+                var localPosition = MapPositionToDisplayLocal(ping.LocalPosition);
+                var pos = ScalePositionFlipY(localPosition - offset);
+                var progress = (float)((timeInstance % 1.5) / 1.5);
                 handle.DrawCircle(pos, ping.Radius * MinimapScale * progress, ping.Color.WithAlpha(1f - progress), false);
                 handle.DrawCircle(pos, 2f, ping.Color);
             }
         }
 
-        // 3. Draw Beacons
         if (ClientBeaconsEnabled)
         {
             var spriteSys = EntManager.System<Robust.Client.GameObjects.SpriteSystem>();
@@ -127,18 +129,8 @@ public sealed partial class CitiNetMapControl : NavMapControl
 
     private void DrawBeacon(DrawingHandleScreen handle, CitiNetMapBeaconData beacon, Vector2 offset, Robust.Client.GameObjects.SpriteSystem spriteSys)
     {
-        var pos = ScalePositionFlipY(beacon.LocalPosition - offset);
-
-        // Smooth local position for 'SELF'
-        if (beacon.IsSelf && MapUid != null && _playerManager.LocalSession?.AttachedEntity is { } localPlayer)
-        {
-            if (EntManager.TryGetComponent<TransformComponent>(localPlayer, out var xform) && xform.GridUid == MapUid)
-            {
-                var transformSystem = EntManager.System<SharedTransformSystem>();
-                var localPos = Vector2.Transform(transformSystem.GetWorldPosition(localPlayer), transformSystem.GetInvWorldMatrix(MapUid.Value));
-                pos = ScalePositionFlipY(localPos - offset);
-            }
-        }
+        var localPosition = MapPositionToDisplayLocal(beacon.LocalPosition);
+        var pos = ScalePositionFlipY(localPosition - offset);
 
         var labelPos = pos + new Vector2(10, -5);
         var font = new VectorFont(_cache.GetResource<FontResource>("/Fonts/NotoSans/NotoSans-Bold.ttf"), (int)(beacon.FontSize * UIScale));
@@ -146,7 +138,6 @@ public sealed partial class CitiNetMapControl : NavMapControl
         var color = beacon.IsDead ? CitiNetRed : beacon.Color;
         var label = beacon.IsDead ? $"{beacon.Label} [SGNL LOST]" : beacon.Label;
 
-        // Visual enhancement for 'SELF'
         if (beacon.IsSelf)
         {
             handle.DrawCircle(pos, 8f, color.WithAlpha(0.3f));
@@ -164,10 +155,21 @@ public sealed partial class CitiNetMapControl : NavMapControl
                 return;
             }
         }
-        
-        if (!beacon.IsSelf) handle.DrawCircle(pos, 5f, color);
+
+        if (!beacon.IsSelf)
+            handle.DrawCircle(pos, 5f, color);
+
         handle.DrawString(font, labelPos, label, color);
     }
 
-    private Vector2 WorldToScreen(Vector2 worldPos) => ScalePositionFlipY(worldPos - GetOffset());
+    private Vector2 MapPositionToDisplayLocal(Vector2 mapPosition)
+    {
+        if (MapUid == null)
+            return mapPosition;
+
+        var transformSystem = EntManager.System<SharedTransformSystem>();
+        return Vector2.Transform(mapPosition, transformSystem.GetInvWorldMatrix(MapUid.Value));
+    }
+
+    private Vector2 WorldToScreen(Vector2 worldPos) => ScalePositionFlipY(MapPositionToDisplayLocal(worldPos) - GetOffset());
 }

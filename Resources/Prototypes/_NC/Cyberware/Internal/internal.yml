@@ -35,10 +35,12 @@
     category: Internal
     humanityCost: 10
     cyberFamily: Skeleton
+  - type: NCWeight
+    weight: 2.5
   - type: PhysicalArmor
-    stoppingPower: 0
-    maxDurability: 160
-    currentDurability: 160
+    stoppingPower: 18
+    maxDurability: 320
+    currentDurability: 320
     materialType: Subdermal
     bluntDamageMultiplier: 0.85
     durabilityDamageMultiplier: 0.35
@@ -57,10 +59,12 @@
     category: Internal
     humanityCost: 14
     cyberFamily: Skeleton
+  - type: NCWeight
+    weight: 4.5
   - type: PhysicalArmor
-    stoppingPower: 20
-    maxDurability: 220
-    currentDurability: 220
+    stoppingPower: 36
+    maxDurability: 600
+    currentDurability: 600
     materialType: Subdermal
     bluntDamageMultiplier: 0.75
     durabilityDamageMultiplier: 0.3
@@ -80,10 +84,12 @@
     category: Internal
     humanityCost: 28
     cyberFamily: Skeleton
+  - type: NCWeight
+    weight: 7.0
   - type: PhysicalArmor
-    stoppingPower: 35
-    maxDurability: 300
-    currentDurability: 300
+    stoppingPower: 48
+    maxDurability: 1500
+    currentDurability: 1500
     materialType: Subdermal
     bluntDamageMultiplier: 0.65
     durabilityDamageMultiplier: 0.25

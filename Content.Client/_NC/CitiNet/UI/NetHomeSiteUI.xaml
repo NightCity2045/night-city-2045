@@ -3,21 +3,33 @@
               x:Class="Content.Client._NC.CitiNet.UI.NetHomeSiteUI"
               Orientation="Vertical"
               HorizontalExpand="True" VerticalExpand="True"
-              StyleClasses="FixerSiteMain">
-    
-    <Label Text="CITINET // HOME_PAGE" 
-           FontColorOverride="#00f2ff"
-           HorizontalAlignment="Center" 
-           Margin="0 40"/>
-    
-    <BoxContainer Orientation="Vertical" Margin="20" Name="SiteList">
-        <Label Text="AVAILABLE_SERVICES:" FontColorOverride="#ff003c" Margin="0 0 0 10"/>
-        <!-- Dynamic buttons will be added here -->
-    </BoxContainer>
+              Margin="8">
 
-    <BoxContainer Orientation="Vertical" Margin="20" VerticalAlignment="Bottom">
-        <Label Text="LATEST_NEWS:" FontColorOverride="#666666"/>
-        <Label Text="- Trauma Team reports record response times." FontColorOverride="#444444"/>
-        <Label Text="- Arasaka Tower renovation completed." FontColorOverride="#444444"/>
-    </BoxContainer>
+    <PanelContainer StyleClasses="NightCityPanelDark" HorizontalExpand="True" Margin="0 0 0 10">
+        <BoxContainer Orientation="Vertical" Margin="8">
+            <Label Text="{Loc 'citinet-home-header'}"
+                   StyleClasses="NightCityGlowText"
+                   HorizontalAlignment="Center" />
+            <Label Text="{Loc 'citinet-home-subheader'}"
+                   StyleClasses="NightCityMutedText"
+                   HorizontalAlignment="Center"
+                   Margin="0 2 0 0" />
+        </BoxContainer>
+    </PanelContainer>
+
+    <PanelContainer StyleClasses="NightCityPanelDark" HorizontalExpand="True">
+        <BoxContainer Orientation="Vertical" Margin="8" Name="SiteList">
+            <Label Text="{Loc 'citinet-home-services'}" StyleClasses="NightCityStatusDanger" Margin="0 0 0 10"/>
+        </BoxContainer>
+    </PanelContainer>
+
+    <Control VerticalExpand="True" />
+
+    <PanelContainer StyleClasses="NightCityPanelInset" Margin="0 10 0 0">
+        <BoxContainer Orientation="Vertical" Margin="8">
+            <Label Text="{Loc 'citinet-home-news'}" StyleClasses="NightCityMutedText"/>
+            <Label Text="{Loc 'citinet-home-news-trauma'}" StyleClasses="NightCityMutedText"/>
+            <Label Text="{Loc 'citinet-home-news-arasaka'}" StyleClasses="NightCityMutedText"/>
+        </BoxContainer>
+    </PanelContainer>
 </BoxContainer>

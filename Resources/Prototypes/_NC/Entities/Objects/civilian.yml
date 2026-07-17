@@ -6,6 +6,8 @@
   name: ent-WateringCan
   description: ent-WateringCan-desc
   components:
+  - type: NCWeight
+    weight: 4.0
   - type: Clickable
   - type: Sprite
     sprite: _NC/Objects/Tools/watering_can.rsi
@@ -56,6 +58,8 @@
   name: ent-WateringCanAdvanced
   description: ent-WateringCanAdvanced-desc
   components:
+  - type: NCWeight
+    weight: 4.0
   - type: Sprite
     sprite: _NC/Objects/Tools/watering_can_experimental.rsi
   - type: SolutionContainerManager
@@ -84,6 +88,8 @@
   name: ent-WateringCanAdvancedLarge
   description: ent-WateringCanAdvancedLarge-desc
   components:
+  - type: NCWeight
+    weight: 3.0
   - type: Sprite
     state: icon_bluespace
   - type: SolutionContainerManager
@@ -109,6 +115,8 @@
   name: ent-DrinkShakerAdvanced
   description: ent-DrinkShakerAdvanced-desc
   components:
+  - type: NCWeight
+    weight: 1.6
   - type: SolutionContainerManager
     solutions:
       drink:
@@ -144,6 +152,8 @@
   name: ent-DrinkShakerAdvancedLarge
   description: ent-DrinkShakerAdvancedLarge-desc
   components:
+  - type: NCWeight
+    weight: 1.0
   - type: SolutionContainerManager
     solutions:
       drink:
@@ -164,6 +174,8 @@
   name: ent-DrinkKettleAdvanced
   description: ent-DrinkKettleAdvanced-desc
   components:
+  - type: NCWeight
+    weight: 1.6
   - type: SolutionContainerManager
     solutions:
       drink:
@@ -198,6 +210,8 @@
   name: ent-DrinkKettleAdvancedLarge
   description: ent-DrinkKettleAdvancedLarge-desc
   components:
+  - type: NCWeight
+    weight: 1.0
   - type: SolutionContainerManager
     solutions:
       drink:
@@ -218,6 +232,8 @@
   name: ent-BucketConstruction
   description: ent-BucketConstruction-desc
   components:
+  - type: NCWeight
+    weight: 5.8
   - type: Sprite
     sprite: &bucket_big_sprite _NC/Objects/Tools/bucket_big.rsi
   - type: Clothing
@@ -241,6 +257,8 @@
   name: ent-BucketAdvanced
   description: ent-BucketAdvanced-desc
   components:
+  - type: NCWeight
+    weight: 3.5
   - type: Sprite
     sprite: &bluespace_bucket_sprite _NC/Objects/Tools/Biotechnica/Botany/bluespace_bucket.rsi
   - type: Clothing

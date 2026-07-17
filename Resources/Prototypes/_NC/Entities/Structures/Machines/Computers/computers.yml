@@ -17,10 +17,13 @@
 - type: entity
   parent: BaseComputer
   id: NCRiggerConsole
-  name: ent-NCRiggerConsole
-  description: ent-NCRiggerConsole-desc
+  name: ent-NCBiotechnicaRiggerConsole
+  description: ent-NCBiotechnicaRiggerConsole-desc
   components:
   - type: RiggerConsole
+    autoLinkRange: 0
+    allowedDroneFactions:
+    - NCBiotechnica
   - type: Sprite
     layers:
     - map: ["computerLayerBody"]
@@ -41,6 +44,28 @@
     access:
       - ["Biotech_Tech"]
       - ["Biotech_Operative"]
+
+- type: entity
+  parent: NCRiggerConsole
+  id: NCBiotechnicaRiggerConsole
+  name: ent-NCBiotechnicaRiggerConsole
+  description: ent-NCBiotechnicaRiggerConsole-desc
+
+- type: entity
+  parent: NCRiggerConsole
+  id: NCMilitechRiggerConsole
+  name: ent-NCMilitechRiggerConsole
+  description: ent-NCMilitechRiggerConsole-desc
+  components:
+  - type: RiggerConsole
+    allowedDroneFactions:
+    - NCMilitech
+  - type: PointLight
+    color: "#d63a2f"
+  - type: AccessReader
+    access:
+      - ["Militech_Tech"]
+      - ["Militech_Operative"]
 
 - type: entity
   parent:
@@ -66,6 +91,8 @@
     interfaces:
       enum.ListViewSelectorUiKey.Key:
         type: ListViewSelectorBUI
+      enum.RiggerDroneStatusUiKey.Key:
+        type: RiggerDroneStatusBoundUserInterface
   - type: RiggerConsoleUser
 
 - type: entity

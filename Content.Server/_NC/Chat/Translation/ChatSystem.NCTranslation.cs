@@ -94,7 +94,7 @@ public sealed partial class ChatSystem
                 languageOverride: language,
                 wrapForListener: (listener, content) =>
                 {
-                    var displayName = FormattedMessage.EscapeText(_ncCharacterNotes.GetDisplayNameForViewer(source, listener, escapedName));
+                    var displayName = escapedName;
                     if (initialTranslation != null &&
                         content == message &&
                         TryComp<ActorComponent>(listener, out var actor) &&
@@ -255,8 +255,8 @@ public sealed partial class ChatSystem
 
             var canUnderstandLanguage = _language.CanUnderstand(listener, language.ID);
             var perceivedMessage = canUnderstandLanguage ? message : languageObfuscatedMessage;
-            var viewerName = FormattedMessage.EscapeText(_ncCharacterNotes.GetDisplayNameForViewer(source, listener, rawName));
-            var viewerNameIdentity = FormattedMessage.EscapeText(_ncCharacterNotes.GetDisplayNameForViewer(source, listener, rawIdentityName));
+            var viewerName = FormattedMessage.EscapeText(rawName);
+            var viewerNameIdentity = FormattedMessage.EscapeText(rawIdentityName);
 
             string result;
             string wrappedMessage;
@@ -359,7 +359,7 @@ public sealed partial class ChatSystem
                 languageOverride: LanguageSystem.Universal,
                 wrapForListener: (listener, content) =>
                 {
-                    var displayName = FormattedMessage.EscapeText(_ncCharacterNotes.GetDisplayNameForViewer(source, listener, escapedName));
+                    var displayName = escapedName;
                     if (initialTranslation != null &&
                         TryComp<ActorComponent>(listener, out var actor) &&
                         _ncPlayerCulture.TryResolveChatLanguageCode(actor.PlayerSession, out var recipientLanguage))
@@ -591,7 +591,7 @@ public sealed partial class ChatSystem
                     !_ncPlayerCulture.TryResolveChatLanguageCode(session, out var recipientLanguage))
                     continue;
 
-                var displayName = FormattedMessage.EscapeText(_ncCharacterNotes.GetDisplayNameForViewer(source, listener, escapedName));
+                var displayName = escapedName;
                 var preserveOriginal = IsSourceAuthorSession(source, session);
                 var visibleText = NCChatTranslationFormatting.ResolveVisibleText(
                     translation,
@@ -648,7 +648,7 @@ public sealed partial class ChatSystem
                     translation.SourceLanguage,
                     recipientLanguage,
                     preserveOriginal);
-                var displayName = FormattedMessage.EscapeText(_ncCharacterNotes.GetDisplayNameForViewer(source, listener, escapedName));
+                var displayName = escapedName;
                 var wrapped = NCChatTranslationFormatting.PrefixWithLanguageTag(
                     Loc.GetString("chat-manager-entity-looc-wrap-message",
                         ("entityName", displayName),
@@ -754,8 +754,8 @@ public sealed partial class ChatSystem
 
                 var canUnderstandLanguage = _language.CanUnderstand(listener, language.ID);
                 var perceivedMessage = canUnderstandLanguage ? message : languageObfuscatedMessage;
-                var viewerName = FormattedMessage.EscapeText(_ncCharacterNotes.GetDisplayNameForViewer(source, listener, rawName));
-                var viewerNameIdentity = FormattedMessage.EscapeText(_ncCharacterNotes.GetDisplayNameForViewer(source, listener, rawIdentityName));
+                var viewerName = FormattedMessage.EscapeText(rawName);
+                var viewerNameIdentity = FormattedMessage.EscapeText(rawIdentityName);
 
                 string result;
                 string wrappedMessage;

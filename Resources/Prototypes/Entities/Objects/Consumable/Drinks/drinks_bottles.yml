@@ -23,6 +23,8 @@
     sprite: Objects/Consumable/Drinks/generic_jug.rsi # fallback to generic plastic jug
   - type: Item
     size: Normal
+  - type: NCWeight
+    weight: 1.1
   - type: Damageable
     damageContainer: Inorganic
   - type: Destructible
@@ -52,6 +54,8 @@
   id: DrinkBottleGlassBaseFull
   abstract: true
   components:
+  - type: NCWeight
+    weight: 1.2
   - type: Sprite
     state: icon
   - type: MeleeWeapon

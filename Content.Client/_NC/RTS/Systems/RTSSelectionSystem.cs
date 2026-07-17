@@ -10,6 +10,8 @@ using Content.Shared._NC.RTS.Components;
 using Content.Shared._NC.RTS.Events;
 using Content.Shared.Ghost;
 using Content.Shared.Input;
+using Content.Shared.Mobs.Components;
+using Content.Shared.NPC.Components;
 using Robust.Client.GameObjects;
 using Robust.Client.Graphics;
 using Robust.Client.Input;
@@ -94,6 +96,9 @@ public sealed class RTSSelectionSystem : EntitySystem
 
         if (IsDragging)
             DragEnd = _inputManager.MouseScreenPosition;
+
+        if (SelectedEntities.Count > 0)
+            UpdateUI();
     }
 
     private bool HandleUse(in PointerInputCmdArgs args)
@@ -175,7 +180,7 @@ public sealed class RTSSelectionSystem : EntitySystem
 
         var entities = _lookup
             .GetEntitiesIntersecting(startMap.MapId, box)
-            .Where(uid => HasComp<RTSControllableComponent>(uid) && IsSelectableByLocalUser(uid));
+            .Where(IsSelectableByLocalUser);
 
         foreach (var uid in entities)
         {
@@ -211,18 +216,80 @@ public sealed class RTSSelectionSystem : EntitySystem
             _window = new RTSControlWindow();
             _window.OnCommandIssued += type =>
             {
-                if (type is RTSCommandType.HoldPosition or RTSCommandType.SetPeacefulMode or RTSCommandType.SetNormalMode)
+                if (type is RTSCommandType.HoldPosition or RTSCommandType.SetPeacefulMode or RTSCommandType.SetNormalMode or RTSCommandType.SetAggressiveMode)
+                {
+                    _pendingCommand = null;
                     IssueCommand(type, _inputManager.MouseScreenPosition);
+                }
                 else
+                {
                     _pendingCommand = type;
+                }
+
+                UpdateUI();
             };
-            _window.OnStopIssued += () => IssueCommand(RTSCommandType.Stop, _inputManager.MouseScreenPosition);
+            _window.OnStopIssued += () =>
+            {
+                _pendingCommand = null;
+                IssueCommand(RTSCommandType.Stop, _inputManager.MouseScreenPosition);
+                UpdateUI();
+            };
         }
 
         if (!_window.IsOpen)
             _window.OpenCentered();
 
         _window.UpdateSelectionCount(SelectedEntities.Count);
+        _window.UpdateCommandButtons(_pendingCommand, GetSharedActiveCommand());
+        _window.UpdateAggressionButtons(GetSharedAggressionMode());
+    }
+
+    private RTSCommandType? GetSharedActiveCommand()
+    {
+        RTSCommandType? command = null;
+        var hasCommand = false;
+
+        foreach (var uid in SelectedEntities)
+        {
+            if (!TryComp(uid, out RTSControllableComponent? rts))
+                return null;
+
+            if (!hasCommand)
+            {
+                command = rts.ActiveCommand;
+                hasCommand = true;
+                continue;
+            }
+
+            if (command != rts.ActiveCommand)
+                return null;
+        }
+
+        return command;
+    }
+
+    private RTSAggressionMode? GetSharedAggressionMode()
+    {
+        RTSAggressionMode? mode = null;
+        var hasMode = false;
+
+        foreach (var uid in SelectedEntities)
+        {
+            if (!TryComp(uid, out RTSAggressionModeComponent? aggression))
+                return null;
+
+            if (!hasMode)
+            {
+                mode = aggression.CurrentMode;
+                hasMode = true;
+                continue;
+            }
+
+            if (mode != aggression.CurrentMode)
+                return null;
+        }
+
+        return mode;
     }
 
     private void ApplyOutline(EntityUid uid)
@@ -295,6 +362,9 @@ public sealed class RTSSelectionSystem : EntitySystem
         if (TryComp(attached.Value, out RiggerConsoleUserComponent? rigger))
             return rigger.RtsEnabled;
 
+        if (TryComp(attached.Value, out RiggerLaptopUserComponent? laptopRigger))
+            return laptopRigger.RtsEnabled;
+
         return _adminManager.IsActive() &&
                _adminManager.HasFlag(AdminFlags.Admin) &&
                TryComp(attached.Value, out RTSModeComponent? mode) &&
@@ -310,7 +380,24 @@ public sealed class RTSSelectionSystem : EntitySystem
         if (TryComp(attached.Value, out RiggerConsoleUserComponent? rigger))
             return rigger.LinkedDrones.Contains(uid);
 
-        return true;
+        if (TryComp(attached.Value, out RiggerLaptopUserComponent? laptopRigger))
+            return laptopRigger.LinkedDrones.Contains(uid);
+
+        return _adminManager.IsActive() &&
+               _adminManager.HasFlag(AdminFlags.Admin) &&
+               IsNCAdminCommandableMob(uid);
+    }
+
+    private bool IsNCAdminCommandableMob(EntityUid uid)
+    {
+        if (!HasComp<MobStateComponent>(uid) ||
+            !HasComp<NpcFactionMemberComponent>(uid))
+        {
+            return false;
+        }
+
+        var prototypeId = MetaData(uid).EntityPrototype?.ID;
+        return prototypeId != null && prototypeId.StartsWith("MobNC", StringComparison.Ordinal);
     }
 
     private EntityUid? GetEntityUnderPosition(MapCoordinates mapCoords)

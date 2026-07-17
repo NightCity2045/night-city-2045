@@ -107,13 +107,14 @@ public sealed class RiggerVisionSystem : EntitySystem
 
         var localBounds = _lookup.GetLocalBounds(tile, grid.Comp2.TileSize);
         var expandedBounds = localBounds.Enlarged(expansionSize);
+        var expandedWorldBounds = _xforms.GetWorldMatrix(grid).TransformBox(expandedBounds);
 
         foreach (var droneUid in user.LinkedDrones)
         {
             if (!TryComp<RiggerDroneComponent>(droneUid, out var drone) ||
                 !drone.Enabled ||
                 Transform(droneUid).GridUid != grid.Owner ||
-                !_lookup.GetWorldAABB(droneUid).Intersects(expandedBounds))
+                !_lookup.GetWorldAABB(droneUid).Intersects(expandedWorldBounds))
             {
                 continue;
             }

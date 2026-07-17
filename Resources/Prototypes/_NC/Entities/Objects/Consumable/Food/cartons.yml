@@ -7,6 +7,8 @@
   description: Просто картонная упаковка для напитков.
   suffix: картонная упаковка
   components:
+  - type: NCWeight
+    weight: 0.55
   - type: SolutionContainerManager
     solutions:
       drink:

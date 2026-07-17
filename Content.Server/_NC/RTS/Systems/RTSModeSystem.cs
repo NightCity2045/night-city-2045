@@ -105,8 +105,8 @@ public sealed partial class RTSModeSystem : EntitySystem
         ent.Comp.Enabled = !ent.Comp.Enabled;
         Dirty(ent);
 
-        var text = ent.Comp.Enabled ? "RTS mode enabled" : "RTS mode disabled";
-        _popup.PopupClient(text, ent, ent);
+        var text = ent.Comp.Enabled ? "nc-rts-mode-enabled" : "nc-rts-mode-disabled";
+        _popup.PopupClient(Loc.GetString(text), ent, ent);
     }
 
     private void OnShutdown(Entity<RTSModeComponent> ent, ref ComponentShutdown args)

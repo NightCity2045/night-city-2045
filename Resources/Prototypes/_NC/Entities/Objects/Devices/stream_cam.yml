@@ -36,6 +36,8 @@
   - type: Item
     size: Small
     sprite: Objects/Devices/camera_bug.rsi
+  - type: NCWeight
+    weight: 0.15
 
   # Визуал — заглушка
   - type: Sprite

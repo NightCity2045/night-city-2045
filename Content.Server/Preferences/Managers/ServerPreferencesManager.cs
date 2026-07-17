@@ -102,21 +102,9 @@ namespace Content.Server.Preferences.Managers
                     existingProfile is Content.Shared.Preferences.HumanoidCharacterProfile oldHumanoid)
                 {
                     // Если персонаж уже существует, берем его текущий баланс с сервера
-                    var sanitized = newHumanoid.WithBankBalance(oldHumanoid.BankBalance);
-
-                    // Character creation budgets are one-time only. Any later save keeps the original
-                    // stat and skill layout even if the client attempts to resubmit different values.
-                    if (oldHumanoid.StatsAndSkillsLocked)
-                    {
-                        sanitized = sanitized
-                            .WithStats(oldHumanoid.Stats)
-                            .WithSkills(oldHumanoid.Skills)
-                            .WithStatsAndSkillsLocked(true);
-                    }
-                    else
-                    {
-                        sanitized = sanitized.WithStatsAndSkillsLocked(true);
-                    }
+                    var sanitized = newHumanoid
+                        .WithBankBalance(oldHumanoid.BankBalance)
+                        .WithStatsAndSkillsLocked(false);
 
                     profile = sanitized;
                 }
@@ -125,7 +113,7 @@ namespace Content.Server.Preferences.Managers
                     // Если это новый слот, выдаем стартовый баланс
                     profile = newHumanoid
                         .WithBankBalance(BankAccountComponent.StartingBalance)
-                        .WithStatsAndSkillsLocked(true);
+                        .WithStatsAndSkillsLocked(false);
                 }
             }
 

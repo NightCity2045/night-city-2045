@@ -8,6 +8,8 @@
   - type: Sprite
   - type: Item
     size: Ginormous
+  - type: NCWeight
+    weight: 22.0
   - type: Gun
     fireRate: 20
     selectedMode: FullAuto

@@ -5,7 +5,6 @@ using Content.Server._White.Animations.Systems;
 using Content.Server._White.Hearing;
 using Content.Server._White.TTS;
 using Content.Server._NC.Chat.Translation;
-using Content.Server._NC.CharacterNotes.Systems;
 using Content.Server._NC.Localization;
 using Content.Server.Administration.Logs;
 using Content.Server.Administration.Managers;
@@ -84,7 +83,6 @@ public sealed partial class ChatSystem : SharedChatSystem
     [Dependency] private readonly ExamineSystemShared _examineSystem = default!;
     [Dependency] private readonly HearingSystem _hearing = default!; // WD EDIT
     [Dependency] private readonly WhiteAnimationPlayerSystem _whiteAnimationPlayer = default!; // WD EDIT
-    [Dependency] private readonly NCCharacterNotesSystem _ncCharacterNotes = default!;
 
     public const int VoiceRange = 10; // how far voice goes in world units
     public const int WhisperClearRange = 2; // how far whisper goes while still being understandable, in world units
@@ -621,7 +619,7 @@ public sealed partial class ChatSystem : SharedChatSystem
                 languageOverride: language,
                 wrapForListener: (listener, content) =>
                 {
-                    var displayName = FormattedMessage.EscapeText(_ncCharacterNotes.GetDisplayNameForViewer(source, listener, name));
+                    var displayName = name;
                     return WrapPublicMessage(source, displayName, content, speech, language: language);
                 });
         }
@@ -727,8 +725,8 @@ public sealed partial class ChatSystem : SharedChatSystem
                 // Result is the intermediate message derived from the perceived one via obfuscation
                 // Wrapped message is the result wrapped in an "x says y" string
                 string result, wrappedMessage;
-                var viewerName = FormattedMessage.EscapeText(_ncCharacterNotes.GetDisplayNameForViewer(source, listener, rawName));
-                var viewerNameIdentity = FormattedMessage.EscapeText(_ncCharacterNotes.GetDisplayNameForViewer(source, listener, rawNameIdentity));
+                var viewerName = FormattedMessage.EscapeText(rawName);
+                var viewerNameIdentity = FormattedMessage.EscapeText(rawNameIdentity);
 
                 //If listener is too far and has no line of sight, they can't identify the whisperer's identity
                 if (data.Range <= (TryComp<ChatModifierComponent>(listener, out var modifier) ? modifier.WhisperListeningRange : WhisperClearRange)) // WWDP-Edit
@@ -817,7 +815,7 @@ public sealed partial class ChatSystem : SharedChatSystem
             author,
             wrapForListener: (listener, content) =>
             {
-                var displayName = FormattedMessage.EscapeText(_ncCharacterNotes.GetDisplayNameForViewer(source, listener, name));
+                var displayName = FormattedMessage.EscapeText(name);
                 return Loc.GetString("chat-manager-entity-me-wrap-message",
                     ("entityName", displayName),
                     ("entity", ent),
@@ -835,7 +833,7 @@ public sealed partial class ChatSystem : SharedChatSystem
             author,
             wrapForListener: (listener, content) =>
             {
-                var displayName = FormattedMessage.EscapeText(_ncCharacterNotes.GetDisplayNameForViewer(source, listener, name));
+                var displayName = FormattedMessage.EscapeText(name);
                 return Loc.GetString("chat-manager-entity-me-wrap-message",
                     ("entityName", displayName),
                     ("entity", ent),
@@ -877,7 +875,7 @@ public sealed partial class ChatSystem : SharedChatSystem
                 languageOverride: LanguageSystem.Universal,
                 wrapForListener: (listener, content) =>
                 {
-                    var displayName = FormattedMessage.EscapeText(_ncCharacterNotes.GetDisplayNameForViewer(source, listener, name));
+                    var displayName = FormattedMessage.EscapeText(name);
                     return Loc.GetString("chat-manager-entity-looc-wrap-message",
                         ("entityName", displayName),
                         ("message", FormattedMessage.EscapeText(content)));

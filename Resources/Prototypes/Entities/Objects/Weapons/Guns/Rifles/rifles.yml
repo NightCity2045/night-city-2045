@@ -12,6 +12,8 @@
     shape:
     - 0,0,7,1
     # WD EDIT END
+  - type: NCWeight
+    weight: 4.2
   - type: Clothing
     sprite: Objects/Weapons/Guns/Rifles/ak.rsi
     quickEquip: false

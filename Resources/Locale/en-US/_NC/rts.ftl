@@ -1,0 +1,23 @@
+nc-rts-window-title = RTS Control Panel
+nc-rts-selection-count = Units Selected: {$count}
+nc-rts-command-move = Move
+nc-rts-command-attack-move = A-Move
+nc-rts-command-attack-target = Attack
+nc-rts-command-hold-position = Hold Position
+nc-rts-command-stop = Stop (Clear Orders)
+nc-rts-aggression-peaceful = Peaceful
+nc-rts-aggression-normal = Normal
+nc-rts-aggression-aggressive = Aggressive
+nc-rts-mode-enabled = RTS mode enabled.
+nc-rts-mode-disabled = RTS mode disabled.
+nc-rts-command-accepted = Command accepted for {$count} unit(s).
+nc-rts-command-rejected = Command rejected.
+
+action-nc-rts-toggle-name = RTS Mode
+action-nc-rts-toggle-desc = Toggle RTS command mode for controllable NPCs.
+action-nc-rigger-exit-console-name = Exit rigger console
+action-nc-rigger-exit-console-desc = Return your mind to your body at the rigger console.
+action-nc-rigger-toggle-rts-name = RTS Mode
+action-nc-rigger-toggle-rts-desc = Toggle RTS command mode for linked rigger drones.
+action-nc-rigger-drone-status-name = Drone status
+action-nc-rigger-drone-status-desc = List linked rigger drones and their current state.

@@ -60,9 +60,37 @@
   nameKey: nc-stat-body-name
   shortNameKey: nc-stat-body-short
   descriptionKey: nc-stat-body-description
+  bodyKgPerPoint: 8
+  bodyLightThreshold: 0.60
+  bodyHeavyThreshold: 0.85
+  bodyOverloadedThreshold: 1.00
+  bodyLightWalkModifier: 0.8
+  bodyLightSprintModifier: 0.8
+  bodyHeavyWalkModifier: 0.6
+  bodyHeavySprintModifier: 0.0
+  bodyOverloadedWalkModifier: 0.1
+  bodyOverloadedSprintModifier: 0.0
+  bodyLoadAlert: NCBodyLoad
+  bodyItemSizeWeights:
+    Tiny: 0.1
+    Small: 0.5
+    Normal: 1.5
+    Large: 4.0
+    Huge: 10.0
+    Ginormous: 25.0
 
 - type: ncStat
   id: Empathy
   nameKey: nc-stat-empathy-name
   shortNameKey: nc-stat-empathy-short
   descriptionKey: nc-stat-empathy-description
+
+- type: alert
+  id: NCBodyLoad
+  icons:
+  - /Textures/Interface/Alerts/Weightless/weightless.png
+  - /Textures/Interface/Alerts/Weightless/weightless.png
+  - /Textures/Interface/Alerts/Weightless/weightless.png
+  maxSeverity: 3
+  name: nc-body-alert-name
+  description: nc-body-alert-desc

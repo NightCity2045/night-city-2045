@@ -40,6 +40,8 @@
   - type: NoSlip
   - type: StaminaDamageResistance
     coefficient: 0.8
+  - type: NCWeight
+    weight: 15.0
   - type: ClothingSpeedModifier
     walkModifier: 1
     sprintModifier: 1.2
@@ -87,6 +89,8 @@
     - RightLeg
     - LeftFoot
     - RightFoot
+  - type: NCWeight
+    weight: 22.0
   - type: ClothingSpeedModifier
     walkModifier: 0.85
     sprintModifier: 1

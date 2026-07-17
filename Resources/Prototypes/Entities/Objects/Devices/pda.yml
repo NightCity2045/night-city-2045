@@ -75,6 +75,8 @@
     size: Small
     shape:
     - 0,0,1,0
+  - type: NCWeight
+    weight: 0.7
   - type: ContainerContainer
     containers:
       PDA-id: !type:ContainerSlot {}

@@ -12,6 +12,8 @@
         maxVol: 30
   - type: Item
     sprite: _NC/Objects/Consumable/Food/Vending/cans.rsi
+  - type: NCWeight
+    weight: 0.35
   - type: Sprite
     sprite: _NC/Objects/Consumable/Food/Vending/cans.rsi
     state: icon

@@ -8,6 +8,8 @@
   - type: Sprite
   - type: Item
     size: Large
+  - type: NCWeight
+    weight: 2.8
   - type: Clothing
     sprite: Objects/Weapons/Guns/SMGs/atreides.rsi
     quickEquip: false

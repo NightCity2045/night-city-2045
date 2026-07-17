@@ -9,6 +9,8 @@
     category: Neuroport
     humanityCost: 3
     cyberFamily: Neuroport
+  - type: NCWeight
+    weight: 0.3
   - type: MovementSpeedModifier
     baseWalkSpeed: 1.1
     baseSprintSpeed: 2
@@ -24,6 +26,8 @@
     category: Neuroport
     humanityCost: 7
     cyberFamily: Neuroport
+  - type: NCWeight
+    weight: 0.3
   - type: MovementSpeedModifier
     baseWalkSpeed: 1.15
     baseSprintSpeed: 2.3
@@ -41,6 +45,8 @@
     category: Neuroport
     humanityCost: 14
     cyberFamily: Neuroport
+  - type: NCWeight
+    weight: 0.3
   - type: MovementSpeedModifier
     baseWalkSpeed: 1.25
     baseSprintSpeed: 2.5
@@ -58,6 +64,8 @@
     category: Neuroport
     humanityCost: 3
     cyberFamily: Neuroport
+  - type: NCWeight
+    weight: 0.3
   - type: MovementSpeedModifier
     baseWalkSpeed: 1.5
     baseSprintSpeed: 3

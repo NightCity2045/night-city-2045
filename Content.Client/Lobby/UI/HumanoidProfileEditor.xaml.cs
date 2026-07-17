@@ -2064,11 +2064,11 @@ namespace Content.Client.Lobby.UI
                 return;
             }
 
-            var spentStats = Profile.GetSpentStatPoints();
+            var spentStats = Profile.GetSpentStatPoints(_prototypeManager);
             var spentSkills = Profile.GetSpentSkillPoints(_prototypeManager);
             var statsRemaining = HumanoidCharacterProfile.StartingStatPoints - spentStats;
             var skillsRemaining = HumanoidCharacterProfile.StartingSkillPoints - spentSkills;
-            var lockedKey = Profile.StatsAndSkillsLocked
+            var lockedKey = IsRpgAllocationLocked()
                 ? "nc-profile-editor-rpg-locked"
                 : "nc-profile-editor-rpg-unlocked";
 
@@ -2115,8 +2115,9 @@ namespace Content.Client.Lobby.UI
 
         private Control CreateStatRow(NCStatEntry stat, NCStatPrototype proto, int remainingPoints)
         {
-            var canDecrease = !Profile!.StatsAndSkillsLocked && stat.Value.BaseValue > proto.MinValue;
-            var canIncrease = !Profile.StatsAndSkillsLocked &&
+            var isLocked = IsRpgAllocationLocked();
+            var canDecrease = !isLocked && stat.Value.BaseValue > proto.MinValue;
+            var canIncrease = !isLocked &&
                               stat.Value.BaseValue < proto.MaxValue &&
                               remainingPoints > 0;
 
@@ -2165,8 +2166,9 @@ namespace Content.Client.Lobby.UI
         private Control CreateSkillRow(NCSkillEntry skill, NCSkillPrototype proto, int remainingPoints)
         {
             var skillCost = proto.CostMultiplier;
-            var canDecrease = !Profile!.StatsAndSkillsLocked && skill.Value.BaseValue > proto.MinValue;
-            var canIncrease = !Profile.StatsAndSkillsLocked &&
+            var isLocked = IsRpgAllocationLocked();
+            var canDecrease = !isLocked && skill.Value.BaseValue > proto.MinValue;
+            var canIncrease = !isLocked &&
                               skill.Value.BaseValue < proto.MaxValue &&
                               remainingPoints >= skillCost;
 
@@ -2219,7 +2221,7 @@ namespace Content.Client.Lobby.UI
 
         private void ChangeStatValue(string statId, int delta)
         {
-            if (Profile == null || Profile.StatsAndSkillsLocked)
+            if (Profile == null || IsRpgAllocationLocked())
                 return;
 
             var stats = Profile.Stats.Select(stat => new NCStatEntry(stat.StatId, new NCTrackedValue
@@ -2238,7 +2240,7 @@ namespace Content.Client.Lobby.UI
             if (nextValue < proto.MinValue || nextValue > proto.MaxValue)
                 return;
 
-            if (delta > 0 && Profile.GetSpentStatPoints() >= HumanoidCharacterProfile.StartingStatPoints)
+            if (delta > 0 && Profile.GetSpentStatPoints(_prototypeManager) >= HumanoidCharacterProfile.StartingStatPoints)
                 return;
 
             entry.Value.BaseValue = nextValue;
@@ -2247,14 +2249,16 @@ namespace Content.Client.Lobby.UI
                 proto.MinValue,
                 proto.MaxValue);
 
-            Profile = Profile.WithStats(stats);
+            Profile = Profile
+                .WithStats(stats)
+                .WithStatsAndSkillsLocked(false);
             SetDirty();
             UpdateRpgEditors();
         }
 
         private void ChangeSkillValue(string skillId, int delta)
         {
-            if (Profile == null || Profile.StatsAndSkillsLocked || !_prototypeManager.TryIndex<NCSkillPrototype>(skillId, out var proto))
+            if (Profile == null || IsRpgAllocationLocked() || !_prototypeManager.TryIndex<NCSkillPrototype>(skillId, out var proto))
                 return;
 
             var skills = Profile.Skills.Select(skill => new NCSkillEntry(skill.SkillId, new NCTrackedValue
@@ -2283,9 +2287,16 @@ namespace Content.Client.Lobby.UI
                 proto.MinValue,
                 proto.MaxValue);
 
-            Profile = Profile.WithSkills(skills);
+            Profile = Profile
+                .WithSkills(skills)
+                .WithStatsAndSkillsLocked(false);
             SetDirty();
             UpdateRpgEditors();
+        }
+
+        private bool IsRpgAllocationLocked()
+        {
+            return false;
         }
 
         private void UpdateSaveButton()

@@ -98,7 +98,29 @@ namespace Content.Server.Verbs
             return previousCulture;
         }
 
-        private void RestoreCulture(CultureInfo? previousCulture)
+        protected override CultureInfo? ApplyRequestedCulture(string? requestedCultureName)
+        {
+            var previousCulture = _localization.DefaultCulture;
+
+            if (string.IsNullOrWhiteSpace(requestedCultureName))
+                return previousCulture;
+
+            try
+            {
+                // ExecuteVerbEvent is matched by the serialized Verb.Text, so the server must rebuild
+                // verbs in the same locale the client used when it displayed the menu.
+                _localization.SetCulture(CultureInfo.GetCultureInfo(requestedCultureName, predefinedOnly: false));
+                VerbCategory.RefreshStaticLocalizations();
+            }
+            catch (CultureNotFoundException)
+            {
+                // Keep server default culture if the client reports an invalid culture.
+            }
+
+            return previousCulture;
+        }
+
+        protected override void RestoreCulture(CultureInfo? previousCulture)
         {
             if (previousCulture == null)
                 return;

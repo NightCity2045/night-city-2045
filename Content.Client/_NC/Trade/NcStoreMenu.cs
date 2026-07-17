@@ -1,5 +1,6 @@
 using System.Linq;
 using Content.Client._NC.Trade.Controls;
+using Content.Client.Stylesheets;
 using Content.Client.UserInterface.Controls;
 using Content.Shared._NC.Trade;
 using Content.Shared.Stacks;
@@ -45,6 +46,7 @@ public sealed partial class NcStoreMenu : FancyWindow
     {
         RobustXamlLoader.Load(this);
         IoCManager.InjectDependencies(this);
+        Stylesheet = IoCManager.Resolve<IStylesheetManager>().SheetNightCity;
         TabContainer.SetTabTitle(TabBuy, Loc.GetString("nc-store-tab-buy"));
         TabContainer.SetTabTitle(TabSell, Loc.GetString("nc-store-tab-sell"));
         TabContainer.SetTabTitle(TabContracts, Loc.GetString("nc-store-tab-contracts"));

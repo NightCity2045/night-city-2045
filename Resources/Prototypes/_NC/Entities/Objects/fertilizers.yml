@@ -7,6 +7,8 @@
   description: ent-NCFertilizerBag-desc
   suffix: мешок удобрений
   components:
+  - type: NCWeight
+    weight: 2.0
   - type: SolutionContainerManager
     solutions:
       drink:

@@ -71,6 +71,7 @@
   name: trash bin
   description: A trash bin for putting rubbish in.
   components:
+  - type: NCFixedWorldObject
   - type: Icon
     sprite: Structures/Storage/Crates/trashbin.rsi
   - type: Sprite

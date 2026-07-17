@@ -28,4 +28,16 @@ public sealed partial class RTSControllableComponent : Component
     /// </summary>
     [DataField, ViewVariables(VVAccess.ReadWrite), AutoNetworkedField]
     public EntityUid? TargetEntity;
+
+    /// <summary>
+    /// Distance at which move-like RTS orders count as completed.
+    /// </summary>
+    [DataField, ViewVariables(VVAccess.ReadWrite), AutoNetworkedField]
+    public float ArrivalRange = 0.5f;
+
+    /// <summary>
+    /// Radius used by RTS attack orders to scan and validate hostile targets.
+    /// </summary>
+    [DataField, ViewVariables(VVAccess.ReadWrite), AutoNetworkedField]
+    public float ScanRadius = 14f;
 }

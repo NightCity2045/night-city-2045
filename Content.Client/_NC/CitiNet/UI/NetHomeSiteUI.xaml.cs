@@ -34,26 +34,40 @@ public sealed partial class NetHomeSiteUI : BoxContainer
             return;
 
         SiteList.RemoveAllChildren();
-        SiteList.AddChild(new Label { Text = "AVAILABLE_SERVICES:", FontColorOverride = Color.FromHex("#ff003c"), Margin = new Thickness(0, 0, 0, 10) });
+        SiteList.AddChild(new Label
+        {
+            Text = Loc.GetString("citinet-home-services"),
+            StyleClasses = { "NightCityStatusDanger" },
+            Margin = new Thickness(0, 0, 0, 10)
+        });
 
         foreach (var siteId in state.AvailableSiteIds)
         {
             if (!_protoManager.TryIndex<NetSitePrototype>(siteId, out var site))
                 continue;
 
-            // Skip home itself
+            // Skip home itself.
             if (site.URL == "nightcity.gov")
                 continue;
 
             var btn = new Button { 
-                Text = site.Name.ToUpper(), 
+                Text = LocalizeSiteName(site.Name).ToUpperInvariant(),
                 MinWidth = 200,
-                HorizontalAlignment = HAlignment.Left
+                HorizontalExpand = true,
+                HorizontalAlignment = HAlignment.Left,
+                ClipText = true,
+                Margin = new Thickness(0, 0, 0, 3),
+                StyleClasses = { "NightCityButton" }
             };
             
             var url = site.URL;
             btn.OnPressed += _ => OnNavigate?.Invoke(url);
             SiteList.AddChild(btn);
         }
+    }
+
+    private static string LocalizeSiteName(string name)
+    {
+        return Loc.TryGetString(name, out var localized) ? localized : name;
     }
 }

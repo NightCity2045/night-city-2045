@@ -1,0 +1,9 @@
+nspd-tablet-window-title = NSPD tactical terminal
+nspd-tablet-header = NSPD DISPATCH TERMINAL v4.0
+nspd-tablet-active-calls = ACTIVE CALLS
+nspd-tablet-case-label = CASE:{" "}
+nspd-tablet-sector-label = SECTOR:{" "}
+nspd-tablet-details-label = DETAILS:{" "}
+nspd-tablet-clear-btn = CLOSE CASE
+nspd-tablet-no-selection = SELECT A CALL FROM THE LIST
+nspd-tablet-self-label = YOU

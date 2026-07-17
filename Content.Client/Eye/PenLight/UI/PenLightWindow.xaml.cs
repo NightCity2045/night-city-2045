@@ -1,4 +1,3 @@
-using Content.Client._NC.CharacterNotes;
 using Content.Client.UserInterface.Controls;
 using Content.Shared.Damage;
 using Content.Shared.IdentityManagement;
@@ -14,7 +13,6 @@ namespace Content.Client.Eye.PenLight.UI
     public sealed partial class PenLightWindow : FancyWindow
     {
         private readonly IEntityManager _entityManager;
-        private readonly NCCharacterNotesSystem _ncCharacterNotes;
         private const int LightHeight = 150;
         private const int LightWidth = 900;
 
@@ -24,7 +22,6 @@ namespace Content.Client.Eye.PenLight.UI
 
             var dependencies = IoCManager.Instance!;
             _entityManager = dependencies.Resolve<IEntityManager>();
-            _ncCharacterNotes = _entityManager.System<NCCharacterNotesSystem>();
         }
         public void Diagnose(PenLightUserMessage msg)
         {
@@ -42,7 +39,7 @@ namespace Content.Client.Eye.PenLight.UI
 
             string entityName = Loc.GetString("pen-light-window-entity-unknown-text");
             if (_entityManager.HasComponent<MetaDataComponent>(target.Value))
-                entityName = _ncCharacterNotes.GetLocalDisplayName(target.Value);
+                entityName = Identity.Name(target.Value, _entityManager);
 
             var sb = new StringBuilder();
             sb.AppendLine(Loc.GetString("pen-light-window-entity-eyes-text", ("entityName", entityName)));

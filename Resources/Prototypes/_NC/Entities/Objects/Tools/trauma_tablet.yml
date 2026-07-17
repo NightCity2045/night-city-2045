@@ -24,6 +24,8 @@
             visible: false
   - type: Item
     size: Small
+  - type: NCWeight
+    weight: 0.8
   - type: TraumaTablet
   - type: StationMap
   - type: ActivatableUI

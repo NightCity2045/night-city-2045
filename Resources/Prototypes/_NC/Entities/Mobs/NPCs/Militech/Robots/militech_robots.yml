@@ -1,0 +1,64 @@
+# Militech rigger robots. These are IPC-based drones, not human operatives.
+
+- type: entity
+  name: ent-MobNCMilitechRobot
+  parent: MobIPC
+  id: MobNCMilitechRobot
+  description: ent-MobNCMilitechRobot-desc
+  abstract: true
+  IdleRange: !type:Single 10
+  components:
+  - type: NpcFactionMember
+    factions:
+    - NCMilitech
+  - type: FactionException
+  - type: NPCRetaliation
+    attackMemoryLength: 15
+  - type: RTSAggressionMode
+    currentMode: Normal
+    peacefulFactions:
+    - Passive
+    normalFactions:
+    - NCMilitech
+  - type: RiggerDrone
+    droneFactions:
+    - NCMilitech
+  - type: RTSControllable
+  - type: HTN
+    rootTask:
+      task: NCBanditTier3RootCompound
+  - type: NPCAutoReload
+  - type: InputMover
+  - type: MobMover
+
+- type: entity
+  parent: MobNCMilitechRobot
+  id: MobNCMilitechRobotAvenger
+  suffix: Militech Robot Avenger
+  components:
+  - type: Loadout
+    prototypes: [NCMilitechGearPistol]
+
+- type: entity
+  parent: MobNCMilitechRobot
+  id: MobNCMilitechRobotBoomer
+  suffix: Militech Robot Boomer
+  components:
+  - type: Loadout
+    prototypes: [NCMilitechGearBoomer]
+
+- type: entity
+  parent: MobNCMilitechRobot
+  id: MobNCMilitechRobotSaratoga
+  suffix: Militech Robot Saratoga
+  components:
+  - type: Loadout
+    prototypes: [NCMilitechGearSaratoga]
+
+- type: entity
+  parent: MobNCMilitechRobot
+  id: MobNCMilitechRobotCrusher
+  suffix: Militech Robot Crusher
+  components:
+  - type: Loadout
+    prototypes: [NCMilitechGearCrusher]

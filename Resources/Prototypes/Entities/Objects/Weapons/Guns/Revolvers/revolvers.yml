@@ -12,6 +12,8 @@
     shape:
     - 0,0,1,0
     - 0,1,0,1
+  - type: NCWeight
+    weight: 1.5
   - type: Tag
     tags:
     - Sidearm

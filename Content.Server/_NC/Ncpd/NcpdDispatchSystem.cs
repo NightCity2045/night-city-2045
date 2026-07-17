@@ -4,8 +4,10 @@ using Content.Shared.Paper;
 using Content.Server._NC.CitiNet;
 using Robust.Server.GameObjects;
 using Robust.Shared.Map;
+using Robust.Shared.Map.Components;
 using Robust.Shared.Timing;
 using Robust.Shared.GameObjects;
+using Content.Shared.Pinpointer;
 using System.Collections.Generic;
 using System.Linq;
 using System.Numerics;
@@ -71,8 +73,8 @@ namespace Content.Server._NC.Ncpd
                 if (!TryComp<TransformComponent>(targetEnt, out var xform))
                     continue;
 
-                // Overwrite the call's coordinates with the target's current position
-                call.Coordinates = GetNetCoordinates(xform.Coordinates);
+                // Store live target coordinates in map-space so tracking survives movers on sub-grids.
+                call.Coordinates = GetNetCoordinates(_transform.ToCoordinates(_transform.GetMapCoordinates(targetEnt, xform)));
                 _activeCalls[i] = call;
             }
         }
@@ -153,34 +155,34 @@ namespace Content.Server._NC.Ncpd
             if (!_ui.IsUiOpen(uid, NcpdTabletUiKey.Key))
                 return;
 
-            var gridUid = _transform.GetGrid(uid);
-            var mapUid = _transform.GetMap(uid);
-            var displayGrid = gridUid ?? mapUid ?? uid;
+            var displayMapId = Transform(uid).MapID;
 
-            // NC Edit Start: If we have an active call selected, use its grid for the map display
+            // NC Edit Start: If we have an active call selected, use its MapID for the map display.
             if (component.ActiveCallId is { } activeCallId)
             {
                 var activeCall = _activeCalls.FirstOrDefault(c => c.Id == activeCallId);
                 if (activeCall.Id != 0)
                 {
-                    var callCoords = EntityManager.GetCoordinates(activeCall.Coordinates);
-                    if (callCoords.EntityId.Valid)
-                    {
-                        displayGrid = callCoords.EntityId;
-                    }
+                    displayMapId = ResolveCallMapId(activeCall, displayMapId);
                 }
             }
             // NC Edit End
 
+            var displayGrid = ResolveDisplayMap(displayMapId, uid) ?? uid;
+
             var sectors = new List<CitiNetMapSectorData>();
-            var sectorQuery = EntityQueryEnumerator<MapSectorComponent>();
-            while (sectorQuery.MoveNext(out var sUid, out var sComp))
+            var sectorQuery = EntityQueryEnumerator<MapSectorComponent, TransformComponent>();
+            while (sectorQuery.MoveNext(out var sUid, out var sComp, out var sXform))
             {
-                // Only show sectors belonging to the current display grid
-                if (_transform.GetGrid(sUid) != displayGrid && _transform.GetMap(sUid) != displayGrid)
+                // Only show sectors belonging to the current map.
+                if (sXform.MapID != displayMapId)
                     continue;
 
-                sectors.Add(new CitiNetMapSectorData(sComp.SectorName, sComp.Color, sComp.Bounds, sComp.FontSize));
+                sectors.Add(new CitiNetMapSectorData(
+                    sComp.SectorName,
+                    sComp.Color,
+                    sComp.Bounds.Translated(_transform.GetMapCoordinates(sUid, sXform).Position),
+                    sComp.FontSize));
             }
 
             var beacons = new List<CitiNetMapBeaconData>();
@@ -189,21 +191,20 @@ namespace Content.Server._NC.Ncpd
             {
                 if (!bComp.IsVisible) continue;
 
-                // Only show beacons for the current grid
-                if (bXform.GridUid != displayGrid && bXform.MapID != MapId.Nullspace)
+                // Only show beacons on the current map; map-space keeps sub-grid entities aligned.
+                if (bXform.MapID != displayMapId)
                     continue;
                 
                 // SHOW ONLY PUBLIC BEACONS: No required role AND group is Public
                 if (!string.IsNullOrEmpty(bComp.RequiredRole)) continue;
                 if (bComp.Group != "Public") continue;
 
-                var bPos = _transform.GetGridOrMapTilePosition(bUid, bXform);
                 beacons.Add(new CitiNetMapBeaconData(
                     GetNetEntity(bUid),
                     bComp.Label,
                     bComp.Icon,
                     bComp.Color,
-                    bPos,
+                    _transform.GetMapCoordinates(bUid, bXform).Position,
                     bComp.FontSize
                 ));
             }
@@ -221,22 +222,20 @@ namespace Content.Server._NC.Ncpd
                     var targetEnt = GetEntity(targetNet);
                     if (EntityManager.EntityExists(targetEnt) && TryComp<TransformComponent>(targetEnt, out var targetXform))
                     {
-                        // Check if target is on the grid we are looking at
-                        if (targetXform.GridUid != displayGrid && targetXform.MapID != MapId.Nullspace)
+                        // Check if target is on the map we are looking at.
+                        if (targetXform.MapID != displayMapId)
                         {
-                            // Optional: could show an indicator that target is off-grid
+                            // Optional: could show an indicator that target is off-map.
                         }
                         else
                         {
-                            var targetPos = _transform.GetGridOrMapTilePosition(targetEnt, targetXform);
-
                             // Determine tracker color by call type:
                             // Cyberpsycho = bright red, Wanted = yellow
                             var isCP = activeCall.Title.Contains("CYBERPSYCHO", System.StringComparison.OrdinalIgnoreCase);
                             var trackerColor = isCP ? Color.Red : Color.Yellow;
 
                             pings.Add(new CitiNetMapPingData(
-                                targetPos,
+                                _transform.GetMapCoordinates(targetEnt, targetXform).Position,
                                 trackerColor,
                                 8f,  // large radius for visibility
                                 CitiNetPingType.Tracker
@@ -253,6 +252,52 @@ namespace Content.Server._NC.Ncpd
                 sectors, 
                 beacons, 
                 pings));
+        }
+
+        private MapId ResolveCallMapId(NcpdCallData call, MapId fallback)
+        {
+            if (call.TargetUid is { } targetNet)
+            {
+                var targetEnt = GetEntity(targetNet);
+                if (EntityManager.EntityExists(targetEnt))
+                    return Transform(targetEnt).MapID;
+            }
+
+            var callCoords = EntityManager.GetCoordinates(call.Coordinates);
+            if (!callCoords.EntityId.Valid)
+                return fallback;
+
+            return _transform.ToMapCoordinates(callCoords).MapId;
+        }
+
+        private EntityUid? ResolveDisplayMap(MapId mapId, EntityUid tabletUid)
+        {
+            // Prefer the city grid that owns CitiNet sectors so NavMap keeps city geometry,
+            // while all marker payloads are still map-space coordinates.
+            var sectorQuery = EntityQueryEnumerator<MapSectorComponent, TransformComponent>();
+            while (sectorQuery.MoveNext(out _, out _, out var xform))
+            {
+                if (xform.MapID == mapId && xform.GridUid is { } gridUid)
+                    return gridUid;
+            }
+
+            if (TryComp(tabletUid, out TransformComponent? tabletXform) &&
+                tabletXform.MapID == mapId &&
+                tabletXform.GridUid is { } tabletGrid &&
+                HasComp<MapGridComponent>(tabletGrid) &&
+                HasComp<NavMapComponent>(tabletGrid))
+            {
+                return tabletGrid;
+            }
+
+            var gridQuery = EntityQueryEnumerator<MapGridComponent, NavMapComponent, TransformComponent>();
+            while (gridQuery.MoveNext(out var gridUid, out _, out _, out var gridXform))
+            {
+                if (gridXform.MapID == mapId)
+                    return gridUid;
+            }
+
+            return _mapManager.GetMapEntityId(mapId);
         }
 
         public void SpawnDispatchTicket(EntityUid consoleUid, NcpdCallData call)

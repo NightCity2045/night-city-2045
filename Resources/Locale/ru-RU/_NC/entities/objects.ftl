@@ -191,6 +191,8 @@ ent-BiotechnicaTechIDCard = идентификационная карта тех
 
 ent-PDAMilitechRigger = КПК риггера Militech
 ent-PDAMilitechRigger-desc = Укреплённый полевой КПК для управления дронами, телеметрией и тактической маршрутизацией в реальном времени.
+ent-NCMilitechRiggerLaptop = ноутбук риггера Militech
+ent-NCMilitechRiggerLaptop-desc = Укреплённый тактический ноутбук для отдачи RTS-команд ближайшим роботам Militech, пока устройство удерживается обеими руками.
 ent-MilitechRiggerIDCard = идентификационная карта риггера Militech
 
 # Misc

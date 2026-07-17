@@ -18,6 +18,7 @@ access-level-fixer = Фиксер
 access-level-ripper = Рипер
 access-level-cafe = Кафе
 access-level-restaurant = Ресторан
+access-level-zhirafa-janitor = Уборщик Жирафы
 
 access-level-militech-command = Командование Militech
 access-level-militech-operative = Оперативники Militech

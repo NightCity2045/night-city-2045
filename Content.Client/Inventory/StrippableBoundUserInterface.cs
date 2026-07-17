@@ -1,6 +1,5 @@
 using System.Linq;
 using System.Numerics;
-using Content.Client._NC.CharacterNotes;
 using Content.Client.Examine;
 using Content.Client.Strip;
 using Content.Client.Stylesheets;
@@ -37,7 +36,6 @@ namespace Content.Client.Inventory
         private readonly ExamineSystem _examine;
         private readonly InventorySystem _inv;
         private readonly SharedCuffableSystem _cuffable;
-        private readonly NCCharacterNotesSystem _ncCharacterNotes;
         private readonly StrippableSystem _strippable;
 
         [ViewVariables]
@@ -57,7 +55,6 @@ namespace Content.Client.Inventory
             _examine = EntMan.System<ExamineSystem>();
             _inv = EntMan.System<InventorySystem>();
             _cuffable = EntMan.System<SharedCuffableSystem>();
-            _ncCharacterNotes = EntMan.System<NCCharacterNotesSystem>();
             _strippable = EntMan.System<StrippableSystem>();
 
             _virtualHiddenEntity = EntMan.SpawnEntity(HiddenPocketEntityId, MapCoordinates.Nullspace);
@@ -69,7 +66,7 @@ namespace Content.Client.Inventory
 
             _strippingMenu = this.CreateWindowCenteredLeft<StrippingMenu>();
             _strippingMenu.OnDirty += UpdateMenu;
-            _strippingMenu.Title = Loc.GetString("strippable-bound-user-interface-stripping-menu-title", ("ownerName", _ncCharacterNotes.GetLocalDisplayName(Owner)));
+            _strippingMenu.Title = Loc.GetString("strippable-bound-user-interface-stripping-menu-title", ("ownerName", Identity.Name(Owner, EntMan)));
         }
 
         protected override void Dispose(bool disposing)

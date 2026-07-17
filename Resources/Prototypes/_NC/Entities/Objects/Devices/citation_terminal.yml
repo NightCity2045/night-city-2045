@@ -9,6 +9,8 @@
     state: pda
   - type: Item
     size: Small
+  - type: NCWeight
+    weight: 0.7
   - type: CitationDevice
     captainLimit: 1000
     detectiveLimit: 1000

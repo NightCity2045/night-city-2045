@@ -5,14 +5,6 @@ ent-NCCyberwareFabMachine-desc = A specialized fabricator for cyberware componen
 ent-NCCyberwareFabCircuitboard = cyberware fabricator machine board
 ent-NCCyberwareFabCircuitboard-desc = A machine board for building a cyberware fabricator.
 
-ent-SpawnPointMilitechChiefLateJoin = Militech Chief latejoin spawn point
-ent-SpawnPointMilitechOperativeLeadLateJoin = Militech Operative Lead latejoin spawn point
-ent-SpawnPointMilitechOperativeLateJoin = Militech Operative latejoin spawn point
-ent-SpawnPointMilitechNetrunnerLateJoin = Militech Netrunner latejoin spawn point
-ent-SpawnPointMilitechSecuritySpecialistLateJoin = Militech Security Specialist latejoin spawn point
-ent-SpawnPointMilitechCombatMedicLateJoin = Militech Combat Medic latejoin spawn point
-ent-SpawnPointMilitechTechLateJoin = Militech Tech latejoin spawn point
-ent-SpawnPointMilitechQuartermasterLateJoin = Militech Quartermaster latejoin spawn point
 
 ent-NCDrinkBottle = bottled drink
 ent-NCDrinkBottle-desc = A sealed bottle filled with a ready-to-drink beverage.
@@ -146,6 +138,10 @@ ent-MobNCBiotechnicaAvengerLootable = { ent-MobNCBiotechnica }
 ent-MobNCBiotechnicaBoomerBusterLootable = { ent-MobNCBiotechnica }
 ent-MobNCBiotechnicaCrusherLootable = { ent-MobNCBiotechnica }
 ent-MobNCBiotechnicaSaratogaLootable = { ent-MobNCBiotechnica }
+ent-MobNCBiotechnicaRobotAvenger = { ent-MobNCBiotechnicaRobot }
+ent-MobNCBiotechnicaRobotBoomerBuster = { ent-MobNCBiotechnicaRobot }
+ent-MobNCBiotechnicaRobotCrusher = { ent-MobNCBiotechnicaRobot }
+ent-MobNCBiotechnicaRobotSaratoga = { ent-MobNCBiotechnicaRobot }
 
 ent-MobNCMilitechLootable = { ent-MobNCMilitech }
 ent-MobNCMilitechUnlootable = { ent-MobNCMilitech }
@@ -157,3 +153,7 @@ ent-MobNCMilitechCrusherLootable = { ent-MobNCMilitech }
 ent-MobNCMilitechCrusherUnlootable = { ent-MobNCMilitech }
 ent-MobNCMilitechSaratogaLootable = { ent-MobNCMilitech }
 ent-MobNCMilitechSaratogaUnlootable = { ent-MobNCMilitech }
+ent-MobNCMilitechRobotAvenger = { ent-MobNCMilitechRobot }
+ent-MobNCMilitechRobotBoomer = { ent-MobNCMilitechRobot }
+ent-MobNCMilitechRobotCrusher = { ent-MobNCMilitechRobot }
+ent-MobNCMilitechRobotSaratoga = { ent-MobNCMilitechRobot }

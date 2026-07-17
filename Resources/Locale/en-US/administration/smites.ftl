@@ -58,6 +58,10 @@ admin-smite-nyanify-name = Cat Ears
 admin-smite-kill-sign-name = Kill Sign
 admin-smite-omni-accent-name = Omni-Accent
 
+## Night City - NCPD Dispatch Smites
+admin-smite-wanted-name = Mark wanted
+admin-smite-cyberpsycho-name = Mark cyberpsycho
+
 ## Smite descriptions
 
 admin-smite-explode-description = Explode them.
@@ -101,6 +105,19 @@ admin-smite-super-bonk-lite-description= Slams them on every single table on the
 admin-smite-terminate-description = Creates a Terminator ghost role with the sole objective of killing them.
 admin-smite-super-slip-description = Slips them really, really hard.
 admin-smite-omni-accent-description = Makes the target speak with almost every accent available.
+
+## Night City - NCPD Dispatch Smite Descriptions
+admin-smite-wanted-description = Marks the target as wanted by NCPD. The alert appears on Overwatch consoles and can be dispatched to tactical tablets.
+admin-smite-cyberpsycho-description = Marks the target as a cyberpsycho. High-priority alert with live tracking for NCPD tactical tablets.
+
+## Night City - NCPD Dispatch Messages
+admin-smite-wanted-dispatch-title = WANTED
+admin-smite-wanted-dispatch-sector = Night City
+admin-smite-wanted-dispatch-description = ALERT: Suspect { $name } is wanted. Detain dead or alive.
+
+admin-smite-cyberpsycho-dispatch-title = CYBERPSYCHO ALERT
+admin-smite-cyberpsycho-dispatch-sector = Night City
+admin-smite-cyberpsycho-dispatch-description = EMERGENCY: { $name } is a confirmed cyberpsycho. Subject is extremely dangerous. MaxTac recommended.
 
 ## Tricks descriptions
 

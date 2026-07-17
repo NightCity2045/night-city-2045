@@ -8,6 +8,8 @@
     sprite: _NC/Clothing/Uniforms/Jumpsuits/armored_business_suit.rsi
   - type: Clothing
     sprite: _NC/Clothing/Uniforms/Jumpsuits/armored_business_suit.rsi
+  - type: NCWeight
+    weight: 1.8
   - type: PhysicalArmor
     stoppingPower: 25
     maxDurability: 90
@@ -33,6 +35,8 @@
     sprite: _NC/Clothing/Uniforms/Jumpsuits/militech_jumpsuit.rsi
   - type: Clothing
     sprite:  _NC/Clothing/Uniforms/Jumpsuits/militech_jumpsuit.rsi
+  - type: NCWeight
+    weight: 1.2
   - type: PhysicalArmor
     stoppingPower: 8
     maxDurability: 50
@@ -55,6 +59,8 @@
     sprite: _NC/Clothing/Uniforms/Jumpsuits/biotech_jumpsuit.rsi
   - type: Clothing
     sprite:  _NC/Clothing/Uniforms/Jumpsuits/biotech_jumpsuit.rsi
+  - type: NCWeight
+    weight: 1.2
   - type: PhysicalArmor
     stoppingPower: 8
     maxDurability: 50

@@ -36,7 +36,7 @@
 
 - type: netSite
   id: CorporateMilitechSupply
-  name: MILITECH SUPPLY
+  name: citinet-site-name-militech-supply
   url: "militech.corp/supply"
   uiKey: CorporateSupply
   requiredAccess:
@@ -45,7 +45,7 @@
 
 - type: netSite
   id: CorporateBiotechnicaSupply
-  name: BIOTECHNICA SUPPLY
+  name: citinet-site-name-biotechnica-supply
   url: "biotechnica.corp/supply"
   uiKey: CorporateSupply
   requiredAccess:

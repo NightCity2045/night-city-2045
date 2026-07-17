@@ -4,6 +4,7 @@ using Content.Shared.Interaction;
 using Content.Shared.Inventory.VirtualItem;
 using Robust.Shared.Containers;
 using Robust.Shared.Map;
+using System.Globalization;
 
 namespace Content.Shared.Verbs
 {
@@ -34,17 +35,35 @@ namespace Content.Shared.Verbs
             if (Deleted(user))
                 return;
 
-            // Get the list of verbs. This effectively also checks that the requested verb is in fact a valid verb that
-            // the user can perform.
-            var verbs = GetLocalVerbs(target.Value, user.Value, args.RequestedVerb.GetType());
+            var previousCulture = ApplyRequestedCulture(args.CultureName);
+            try
+            {
+                // Get the list of verbs. This effectively also checks that the requested verb is in fact a valid verb that
+                // the user can perform. The culture must match the server-side list sent to the client, because verbs are
+                // currently matched by their displayed Text.
+                var verbs = GetLocalVerbs(target.Value, user.Value, args.RequestedVerb.GetType());
 
-            // Note that GetLocalVerbs might waste time checking & preparing unrelated verbs even though we know
-            // precisely which one we want to run. However, MOST entities will only have 1 or 2 verbs of a given type.
-            // The one exception here is the "other" verb type, which has 3-4 verbs + all the debug verbs.
+                // Note that GetLocalVerbs might waste time checking & preparing unrelated verbs even though we know
+                // precisely which one we want to run. However, MOST entities will only have 1 or 2 verbs of a given type.
+                // The one exception here is the "other" verb type, which has 3-4 verbs + all the debug verbs.
 
-            // Find the requested verb.
-            if (verbs.TryGetValue(args.RequestedVerb, out var verb))
-                ExecuteVerb(verb, user.Value, target.Value);
+                // Find the requested verb.
+                if (verbs.TryGetValue(args.RequestedVerb, out var verb))
+                    ExecuteVerb(verb, user.Value, target.Value);
+            }
+            finally
+            {
+                RestoreCulture(previousCulture);
+            }
+        }
+
+        protected virtual CultureInfo? ApplyRequestedCulture(string? requestedCultureName)
+        {
+            return null;
+        }
+
+        protected virtual void RestoreCulture(CultureInfo? previousCulture)
+        {
         }
 
         /// <summary>

@@ -1,4 +1,4 @@
-﻿- type: entity
+- type: entity
   id: NeuralLinkCable
   name: Нейро-транслятор
   parent: BaseItem
@@ -9,4 +9,6 @@
     state: coilmv-30
   - type: Item
     size: Small
+  - type: NCWeight
+    weight: 0.5
   - type: NeuralLinkCable

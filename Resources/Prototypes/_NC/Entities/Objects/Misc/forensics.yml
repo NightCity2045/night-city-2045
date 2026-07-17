@@ -9,6 +9,8 @@
     layers:
     - state: base
       map: [ "enum.AmmoVisualLayers.Base" ]
+  - type: NCWeight
+    weight: 0.01
   - type: ForensicsBullet
 
 - type: entity

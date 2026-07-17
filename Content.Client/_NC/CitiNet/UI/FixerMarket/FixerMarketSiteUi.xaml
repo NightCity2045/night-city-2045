@@ -1,17 +1,39 @@
 <PanelContainer xmlns="https://spacestation14.io"
                 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                 x:Class="Content.Client._NC.CitiNet.UI.FixerMarket.FixerMarketSiteUi"
+                StyleClasses="NightCityTerminalPanel"
                 HorizontalExpand="True" VerticalExpand="True">
-    <BoxContainer Orientation="Vertical">
-        <PanelContainer StyleClasses="PanelBackgroundBaseDark" MinHeight="40">
+    <BoxContainer Orientation="Vertical" HorizontalExpand="True" VerticalExpand="True">
+        <PanelContainer StyleClasses="NightCityPanelDark" MinHeight="40">
             <BoxContainer Orientation="Horizontal" Margin="8 4">
-                <Label Text="NIGHT MARKET // SECURE_LISTINGS" VerticalAlignment="Center" HorizontalExpand="True" StyleClasses="LabelHeading"/>
-                <Label Name="BalanceLabel" Text="BALANCE: 0" VerticalAlignment="Center" FontColorOverride="#fcee0a"/>
+                <Label Text="NIGHT MARKET // SECURE_LISTINGS" VerticalAlignment="Center" HorizontalExpand="True" StyleClasses="NightCityGlowText"/>
+                <Label Name="BalanceLabel" Text="BALANCE: 0" VerticalAlignment="Center" StyleClasses="NightCityStatusWarning"/>
             </BoxContainer>
         </PanelContainer>
 
-        <TabContainer Name="Tabs" VerticalExpand="True" Margin="4">
-             <!-- Categories will be added as Tabs dynamically -->
-        </TabContainer>
+        <PanelContainer StyleClasses="NightCityPanelInset" MinHeight="40" Margin="0 4 0 4">
+            <BoxContainer Orientation="Horizontal" Margin="8 4">
+                <Label Name="CategoryLabel" Text="CATEGORY" StyleClasses="NightCityMutedText" VerticalAlignment="Center"/>
+                <OptionButton Name="CategorySelect" MinWidth="260" HorizontalExpand="True" Margin="8 0 0 0"/>
+            </BoxContainer>
+        </PanelContainer>
+
+        <ScrollContainer VerticalExpand="True" HScrollEnabled="False">
+            <BoxContainer Name="Listings"
+                          Orientation="Vertical"
+                          HorizontalExpand="True"
+                          Margin="4"/>
+        </ScrollContainer>
+
+        <PanelContainer StyleClasses="NightCityPanelDark" MinHeight="88" Margin="0 4 0 0">
+            <BoxContainer Orientation="Vertical" Margin="8 6">
+                <BoxContainer Orientation="Horizontal">
+                    <Label Name="CartSummaryLabel" Text="" HorizontalExpand="True" StyleClasses="NightCityStatusWarning"/>
+                    <Button Name="ClearCartButton" Text="" StyleClasses="NightCityButton" MinWidth="86"/>
+                    <Button Name="CheckoutButton" Text="" StyleClasses="NightCityButton" MinWidth="120" Margin="6 0 0 0"/>
+                </BoxContainer>
+                <BoxContainer Name="CartEntries" Orientation="Vertical" Margin="0 4 0 0"/>
+            </BoxContainer>
+        </PanelContainer>
     </BoxContainer>
 </PanelContainer>

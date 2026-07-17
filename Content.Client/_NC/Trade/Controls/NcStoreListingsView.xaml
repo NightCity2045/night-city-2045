@@ -3,29 +3,31 @@
                 xmlns:controls="clr-namespace:Content.Client._NC.Trade.Controls"
                 HorizontalExpand="True"
                 VerticalExpand="True"
-                StyleClasses="PanelBackgroundBaseDark">
+                StyleClasses="NightCityTerminalPanel">
 
-    <BoxContainer Orientation="Horizontal"
+    <BoxContainer Orientation="Vertical"
                   HorizontalExpand="True"
                   VerticalExpand="True">
 
-        <PanelContainer VerticalExpand="True"
-                        MinWidth="230"
-                        StyleClasses="PanelBackgroundBaseDark">
-            <BoxContainer Orientation="Vertical"
-                          VerticalExpand="True">
+        <PanelContainer StyleClasses="NightCityPanelDark"
+                        MinHeight="42"
+                        Margin="0 0 0 4">
+            <BoxContainer Orientation="Horizontal"
+                          HorizontalExpand="True"
+                          Margin="8 4">
                 <Label Name="TabHeading"
-                       StyleClasses="LabelHeading"
-                       Margin="6 6 6 6" />
-
-                <controls:NcCategoryBar Name="CategoryBar"
-                                        VerticalExpand="True"
-                                        HorizontalExpand="True" />
+                       StyleClasses="NightCityGlowText"
+                       VerticalAlignment="Center"
+                       HorizontalExpand="True" />
+                <Label Name="CategorySelectLabel"
+                       Text="{Loc 'nc-store-select-category'}"
+                       StyleClasses="NightCityMutedText"
+                       VerticalAlignment="Center"
+                       Margin="0 0 8 0" />
+                <OptionButton Name="CategorySelect"
+                              MinWidth="260" />
             </BoxContainer>
         </PanelContainer>
-
-        <PanelContainer MinWidth="1"
-                        StyleClasses="HighDivider" />
 
         <BoxContainer Orientation="Vertical"
                       VerticalExpand="True"
@@ -33,7 +35,7 @@
                       Margin="6 4 6 4">
 
             <Label Name="CategoryHeader"
-                   StyleClasses="LabelHeading"
+                   StyleClasses="NightCityGlowText"
                    Margin="0 0 0 6"
                    Text="{Loc 'nc-store-select-category'}" />
 
@@ -42,6 +44,7 @@
                           Margin="0 0 0 6"
                           Visible="False">
                 <Button Name="MassSellButton"
+                        StyleClasses="NightCityButton"
                         MinWidth="260" />
             </BoxContainer>
 

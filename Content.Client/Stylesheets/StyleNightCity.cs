@@ -18,7 +18,9 @@ public static class StyleNightCity
     public const string PanelInset = "NightCityPanelInset";
     public const string TerminalPanel = "NightCityTerminalPanel";
     public const string Button = "NightCityButton";
+    public const string ButtonActive = "NightCityButtonActive";
     public const string ButtonDanger = "NightCityButtonDanger";
+    public const string Input = "NightCityInput";
     public const string GlowText = "NightCityGlowText";
     public const string MutedText = "NightCityMutedText";
     public const string StatusGood = "NightCityStatusGood";
@@ -37,19 +39,19 @@ public sealed class NightCityStylesheet : StyleBase
     {
         var windowPanel = new StyleBoxFlat
         {
-            BackgroundColor = Color.FromHex("#111415"),
-            BorderColor = Color.FromHex("#00bfcf"),
+            BackgroundColor = Color.FromHex("#080b0d"),
+            BorderColor = Color.FromHex("#00d7e8"),
             BorderThickness = new Thickness(2),
-            ContentMarginLeftOverride = 8,
-            ContentMarginRightOverride = 8,
-            ContentMarginTopOverride = 8,
-            ContentMarginBottomOverride = 8
+            ContentMarginLeftOverride = 10,
+            ContentMarginRightOverride = 10,
+            ContentMarginTopOverride = 10,
+            ContentMarginBottomOverride = 10
         };
 
         var mainPanel = new StyleBoxFlat
         {
-            BackgroundColor = Color.FromHex("#171b1d"),
-            BorderColor = Color.FromHex("#2a3336"),
+            BackgroundColor = Color.FromHex("#121719"),
+            BorderColor = Color.FromHex("#26383b"),
             BorderThickness = new Thickness(1),
             ContentMarginLeftOverride = 8,
             ContentMarginRightOverride = 8,
@@ -59,8 +61,8 @@ public sealed class NightCityStylesheet : StyleBase
 
         var darkPanel = new StyleBoxFlat
         {
-            BackgroundColor = Color.FromHex("#0d1011"),
-            BorderColor = Color.FromHex("#212729"),
+            BackgroundColor = Color.FromHex("#090d0f"),
+            BorderColor = Color.FromHex("#183d43"),
             BorderThickness = new Thickness(1),
             ContentMarginLeftOverride = 8,
             ContentMarginRightOverride = 8,
@@ -70,8 +72,8 @@ public sealed class NightCityStylesheet : StyleBase
 
         var insetPanel = new StyleBoxFlat
         {
-            BackgroundColor = Color.FromHex("#090b0c"),
-            BorderColor = Color.FromHex("#3f2020"),
+            BackgroundColor = Color.FromHex("#050708"),
+            BorderColor = Color.FromHex("#3b232c"),
             BorderThickness = new Thickness(1),
             ContentMarginLeftOverride = 6,
             ContentMarginRightOverride = 6,
@@ -81,23 +83,36 @@ public sealed class NightCityStylesheet : StyleBase
 
         var normalButton = new StyleBoxFlat
         {
-            BackgroundColor = Color.FromHex("#203236"),
-            BorderColor = Color.FromHex("#00cfe0"),
+            BackgroundColor = Color.FromHex("#14272b"),
+            BorderColor = Color.FromHex("#0b8793"),
             BorderThickness = new Thickness(1),
-            ContentMarginLeftOverride = 8,
-            ContentMarginRightOverride = 8,
-            ContentMarginTopOverride = 4,
-            ContentMarginBottomOverride = 4
+            ContentMarginLeftOverride = 10,
+            ContentMarginRightOverride = 10,
+            ContentMarginTopOverride = 5,
+            ContentMarginBottomOverride = 5
         };
 
         var normalButtonHover = new StyleBoxFlat(normalButton)
         {
-            BackgroundColor = Color.FromHex("#294246")
+            BackgroundColor = Color.FromHex("#1b3a40"),
+            BorderColor = Color.FromHex("#22d7e6")
         };
 
         var normalButtonPressed = new StyleBoxFlat(normalButton)
         {
-            BackgroundColor = Color.FromHex("#162528")
+            BackgroundColor = Color.FromHex("#0c1b1f"),
+            BorderColor = Color.FromHex("#ff2f66")
+        };
+
+        var activeButton = new StyleBoxFlat
+        {
+            BackgroundColor = Color.FromHex("#2a1d12"),
+            BorderColor = Color.FromHex("#ffbf54"),
+            BorderThickness = new Thickness(1),
+            ContentMarginLeftOverride = 10,
+            ContentMarginRightOverride = 10,
+            ContentMarginTopOverride = 5,
+            ContentMarginBottomOverride = 5
         };
 
         var dangerButton = new StyleBoxFlat
@@ -123,9 +138,20 @@ public sealed class NightCityStylesheet : StyleBase
 
         var optionBackground = new StyleBoxFlat
         {
-            BackgroundColor = Color.FromHex("#0f1314"),
-            BorderColor = Color.FromHex("#00cfe0"),
+            BackgroundColor = Color.FromHex("#080c0e"),
+            BorderColor = Color.FromHex("#00d7e8"),
             BorderThickness = new Thickness(1)
+        };
+
+        var inputBox = new StyleBoxFlat
+        {
+            BackgroundColor = Color.FromHex("#030607"),
+            BorderColor = Color.FromHex("#00a8b8"),
+            BorderThickness = new Thickness(1),
+            ContentMarginLeftOverride = 8,
+            ContentMarginRightOverride = 8,
+            ContentMarginTopOverride = 5,
+            ContentMarginBottomOverride = 5
         };
 
         Stylesheet = new Stylesheet(BaseRules.Concat(new StyleRule[]
@@ -143,10 +169,10 @@ public sealed class NightCityStylesheet : StyleBase
                 .Prop(PanelContainer.StylePropertyPanel, insetPanel),
 
             Element<Label>().Class(StyleNightCity.GlowText)
-                .Prop(Label.StylePropertyFontColor, Color.FromHex("#86f7ff")),
+                .Prop(Label.StylePropertyFontColor, Color.FromHex("#78f6ff")),
 
             Element<Label>().Class(StyleNightCity.MutedText)
-                .Prop(Label.StylePropertyFontColor, Color.FromHex("#8a979a")),
+                .Prop(Label.StylePropertyFontColor, Color.FromHex("#829295")),
 
             Element<Label>().Class(StyleNightCity.StatusGood)
                 .Prop(Label.StylePropertyFontColor, Color.FromHex("#76ff8d")),
@@ -167,6 +193,13 @@ public sealed class NightCityStylesheet : StyleBase
             Element<Button>().Class(StyleNightCity.Button).Pseudo(Button.StylePseudoClassPressed)
                 .Prop(Button.StylePropertyStyleBox, normalButtonPressed),
 
+            Element<Button>().Class(StyleNightCity.ButtonActive)
+                .Prop(Button.StylePropertyStyleBox, activeButton)
+                .Prop(Label.StylePropertyFontColor, Color.FromHex("#ffe6a3")),
+
+            Element<Button>().Class(StyleNightCity.ButtonActive).Pseudo(Button.StylePseudoClassHover)
+                .Prop(Button.StylePropertyStyleBox, activeButton),
+
             Element<Button>().Class(StyleNightCity.ButtonDanger)
                 .Prop(Button.StylePropertyStyleBox, dangerButton)
                 .Prop(Label.StylePropertyFontColor, Color.FromHex("#ffe5e8")),
@@ -185,6 +218,13 @@ public sealed class NightCityStylesheet : StyleBase
 
             Element<OptionButton>().Pseudo(Button.StylePseudoClassPressed)
                 .Prop(ContainerButton.StylePropertyStyleBox, normalButtonPressed),
+
+            Element<LineEdit>().Class(StyleNightCity.Input)
+                .Prop(LineEdit.StylePropertyStyleBox, inputBox)
+                .Prop("font-color", Color.FromHex("#d7fdff")),
+
+            Element<LineEdit>().Class(StyleNightCity.Input).Pseudo(LineEdit.StylePseudoClassPlaceholder)
+                .Prop("font-color", Color.FromHex("#52666a")),
 
             Element<PanelContainer>().Class(OptionButton.StyleClassOptionsBackground)
                 .Prop(PanelContainer.StylePropertyPanel, optionBackground),
