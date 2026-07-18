@@ -1139,6 +1139,51 @@ INSERT INTO player_round (players_id, rounds_id) VALUES ({players[player]}, {id}
             return await db.DbContext.Whitelist.AnyAsync(w => w.UserId == player);
         }
 
+        public async Task<(List<WhitelistRecord> Entries, int Total)> GetWhitelistEntriesAsync(
+            string search,
+            int offset,
+            int limit,
+            CancellationToken cancel = default)
+        {
+            await using var db = await GetDb(cancel);
+
+            // A whitelist row can exist before the account has ever joined this server,
+            // so the player table must remain an optional part of the query.
+            var query = from whitelist in db.DbContext.Whitelist
+                        join player in db.DbContext.Player
+                            on whitelist.UserId equals player.UserId into players
+                        from player in players.DefaultIfEmpty()
+                        select new
+                        {
+                            whitelist.UserId,
+                            Username = player == null ? null : player.LastSeenUserName,
+                        };
+
+            var trimmedSearch = search.Trim();
+            if (Guid.TryParse(trimmedSearch, out var userId))
+            {
+                query = query.Where(entry => entry.UserId == userId);
+            }
+            else if (trimmedSearch.Length > 0)
+            {
+                var normalizedSearch = trimmedSearch.ToLower();
+                query = query.Where(entry =>
+                    entry.Username != null && entry.Username.ToLower().Contains(normalizedSearch));
+            }
+
+            var total = await query.CountAsync(cancel);
+            var rows = await query
+                .OrderBy(entry => entry.Username ?? string.Empty)
+                .ThenBy(entry => entry.UserId)
+                .Skip(offset)
+                .Take(limit)
+                .ToListAsync(cancel);
+
+            return (rows
+                .Select(entry => new WhitelistRecord(new NetUserId(entry.UserId), entry.Username))
+                .ToList(), total);
+        }
+
         public async Task AddToWhitelistAsync(NetUserId player)
         {
             await using var db = await GetDb();

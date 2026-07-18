@@ -263,6 +263,12 @@ namespace Content.Server.Database
 
         Task<bool> GetWhitelistStatusAsync(NetUserId player);
 
+        Task<(List<WhitelistRecord> Entries, int Total)> GetWhitelistEntriesAsync(
+            string search,
+            int offset,
+            int limit,
+            CancellationToken cancel = default);
+
         Task AddToWhitelistAsync(NetUserId player);
 
         Task RemoveFromWhitelistAsync(NetUserId player);
@@ -814,6 +820,16 @@ namespace Content.Server.Database
         {
             DbReadOpsMetric.Inc();
             return RunDbCommand(() => _db.GetWhitelistStatusAsync(player));
+        }
+
+        public Task<(List<WhitelistRecord> Entries, int Total)> GetWhitelistEntriesAsync(
+            string search,
+            int offset,
+            int limit,
+            CancellationToken cancel = default)
+        {
+            DbReadOpsMetric.Inc();
+            return RunDbCommand(() => _db.GetWhitelistEntriesAsync(search, offset, limit, cancel));
         }
 
         public Task AddToWhitelistAsync(NetUserId player)

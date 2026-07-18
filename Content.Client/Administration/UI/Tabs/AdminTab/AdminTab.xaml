@@ -17,6 +17,8 @@
             <cc:CommandButton Command="adminlogs" Text="{Loc admin-player-actions-window-admin-logs}"/>
             <cc:CommandButton Command="faxui" Text="{Loc admin-player-actions-window-admin-fax}"/>
             <cc:CommandButton Command="timetransferpanel" Text="{Loc admin-player-actions-window-time-transfer}"/>
+            <!-- NC: Opens the server whitelist manager without requiring manual console use. -->
+            <cc:CommandButton Command="whitelistpanel" Text="{Loc nc-whitelist-panel-open}"/>
         </GridContainer>
     </BoxContainer>
 </Control>
