@@ -1,0 +1,574 @@
+# Night City lighting palette from the visual design reference.
+# Fixtures reuse the stock PoweredLight ECS behavior and RSI states.
+
+- type: entity
+  id: NCBasePaletteLightTube
+  parent: BaseLightTube
+  abstract: true
+  components:
+  - type: LightBulb
+    bulb: Tube
+    lightEnergy: 1.5
+    lightRadius: 8
+    lightSoftness: 1.2
+    BurningTemperature: 350
+    PowerUse: 25
+
+- type: entity
+  id: NCBasePalettePoweredLight
+  parent: Poweredlight
+  abstract: true
+  components:
+  - type: PointLight
+    radius: 8
+    energy: 1.5
+    softness: 1.2
+
+# Replaceable light tubes.
+
+- type: entity
+  id: NCLightTubeC3FFFF
+  parent: NCBasePaletteLightTube
+  components:
+  - type: LightBulb
+    color: "#C3FFFF"
+
+- type: entity
+  id: NCLightTube9BC9EC
+  parent: NCBasePaletteLightTube
+  components:
+  - type: LightBulb
+    color: "#9BC9EC"
+
+- type: entity
+  id: NCLightTube5578C4
+  parent: NCBasePaletteLightTube
+  components:
+  - type: LightBulb
+    color: "#5578C4"
+
+- type: entity
+  id: NCLightTubeFFED9F
+  parent: NCBasePaletteLightTube
+  components:
+  - type: LightBulb
+    color: "#FFED9F"
+
+- type: entity
+  id: NCLightTubeFFBC86
+  parent: NCBasePaletteLightTube
+  components:
+  - type: LightBulb
+    color: "#FFBC86"
+
+- type: entity
+  id: NCLightTubeCA7B53
+  parent: NCBasePaletteLightTube
+  components:
+  - type: LightBulb
+    color: "#CA7B53"
+
+- type: entity
+  id: NCLightTubeF7B2A4
+  parent: NCBasePaletteLightTube
+  components:
+  - type: LightBulb
+    color: "#F7B2A4"
+
+- type: entity
+  id: NCLightTube736689
+  parent: NCBasePaletteLightTube
+  components:
+  - type: LightBulb
+    color: "#736689"
+
+- type: entity
+  id: NCLightTube99627B
+  parent: NCBasePaletteLightTube
+  components:
+  - type: LightBulb
+    color: "#99627B"
+
+- type: entity
+  id: NCLightTube2F3854
+  parent: NCBasePaletteLightTube
+  components:
+  - type: LightBulb
+    color: "#2F3854"
+
+- type: entity
+  id: NCLightTubeFF82EE
+  parent: NCBasePaletteLightTube
+  components:
+  - type: LightBulb
+    color: "#FF82EE"
+
+- type: entity
+  id: NCLightTubeEB3CFF
+  parent: NCBasePaletteLightTube
+  components:
+  - type: LightBulb
+    color: "#EB3CFF"
+
+- type: entity
+  id: NCLightTubeAA0FDF
+  parent: NCBasePaletteLightTube
+  components:
+  - type: LightBulb
+    color: "#AA0FDF"
+
+- type: entity
+  id: NCLightTubeFBFF88
+  parent: NCBasePaletteLightTube
+  components:
+  - type: LightBulb
+    color: "#FBFF88"
+
+- type: entity
+  id: NCLightTubeFFF142
+  parent: NCBasePaletteLightTube
+  components:
+  - type: LightBulb
+    color: "#FFF142"
+
+- type: entity
+  id: NCLightTubeFFCD47
+  parent: NCBasePaletteLightTube
+  components:
+  - type: LightBulb
+    color: "#FFCD47"
+
+- type: entity
+  id: NCLightTubeFF8C67
+  parent: NCBasePaletteLightTube
+  components:
+  - type: LightBulb
+    color: "#FF8C67"
+
+- type: entity
+  id: NCLightTubeFF6339
+  parent: NCBasePaletteLightTube
+  components:
+  - type: LightBulb
+    color: "#FF6339"
+
+- type: entity
+  id: NCLightTubeD61910
+  parent: NCBasePaletteLightTube
+  components:
+  - type: LightBulb
+    color: "#D61910"
+
+- type: entity
+  id: NCLightTube578DFF
+  parent: NCBasePaletteLightTube
+  components:
+  - type: LightBulb
+    color: "#578DFF"
+
+- type: entity
+  id: NCLightTube2262EC
+  parent: NCBasePaletteLightTube
+  components:
+  - type: LightBulb
+    color: "#2262EC"
+
+- type: entity
+  id: NCLightTube002ECD
+  parent: NCBasePaletteLightTube
+  components:
+  - type: LightBulb
+    color: "#002ECD"
+
+- type: entity
+  id: NCLightTube8BFFF6
+  parent: NCBasePaletteLightTube
+  components:
+  - type: LightBulb
+    color: "#8BFFF6"
+
+- type: entity
+  id: NCLightTube5BEDFF
+  parent: NCBasePaletteLightTube
+  components:
+  - type: LightBulb
+    color: "#5BEDFF"
+
+- type: entity
+  id: NCLightTube27D6FF
+  parent: NCBasePaletteLightTube
+  components:
+  - type: LightBulb
+    color: "#27D6FF"
+
+- type: entity
+  id: NCLightTubeB3FF6E
+  parent: NCBasePaletteLightTube
+  components:
+  - type: LightBulb
+    color: "#B3FF6E"
+
+- type: entity
+  id: NCLightTube74E747
+  parent: NCBasePaletteLightTube
+  components:
+  - type: LightBulb
+    color: "#74E747"
+
+- type: entity
+  id: NCLightTube34CD15
+  parent: NCBasePaletteLightTube
+  components:
+  - type: LightBulb
+    color: "#34CD15"
+
+- type: entity
+  id: NCLightTubeFF60CF
+  parent: NCBasePaletteLightTube
+  components:
+  - type: LightBulb
+    color: "#FF60CF"
+
+- type: entity
+  id: NCLightTubeFF3BA2
+  parent: NCBasePaletteLightTube
+  components:
+  - type: LightBulb
+    color: "#FF3BA2"
+
+- type: entity
+  id: NCLightTubeDC1E7F
+  parent: NCBasePaletteLightTube
+  components:
+  - type: LightBulb
+    color: "#DC1E7F"
+
+- type: entity
+  id: NCLightTubeE3FAFF
+  parent: NCBasePaletteLightTube
+  components:
+  - type: LightBulb
+    color: "#E3FAFF"
+
+- type: entity
+  id: NCLightTubeD3E2E7
+  parent: NCBasePaletteLightTube
+  components:
+  - type: LightBulb
+    color: "#D3E2E7"
+
+- type: entity
+  id: NCLightTubeB6C3CA
+  parent: NCBasePaletteLightTube
+  components:
+  - type: LightBulb
+    color: "#B6C3CA"
+
+# Powered wall fixtures supplied with matching tubes.
+
+- type: entity
+  id: NCPoweredLightC3FFFF
+  parent: NCBasePalettePoweredLight
+  components:
+  - type: PoweredLight
+    hasLampOnSpawn: NCLightTubeC3FFFF
+  - type: PointLight
+    color: "#C3FFFF"
+
+- type: entity
+  id: NCPoweredLight9BC9EC
+  parent: NCBasePalettePoweredLight
+  components:
+  - type: PoweredLight
+    hasLampOnSpawn: NCLightTube9BC9EC
+  - type: PointLight
+    color: "#9BC9EC"
+
+- type: entity
+  id: NCPoweredLight5578C4
+  parent: NCBasePalettePoweredLight
+  components:
+  - type: PoweredLight
+    hasLampOnSpawn: NCLightTube5578C4
+  - type: PointLight
+    color: "#5578C4"
+
+- type: entity
+  id: NCPoweredLightFFED9F
+  parent: NCBasePalettePoweredLight
+  components:
+  - type: PoweredLight
+    hasLampOnSpawn: NCLightTubeFFED9F
+  - type: PointLight
+    color: "#FFED9F"
+
+- type: entity
+  id: NCPoweredLightFFBC86
+  parent: NCBasePalettePoweredLight
+  components:
+  - type: PoweredLight
+    hasLampOnSpawn: NCLightTubeFFBC86
+  - type: PointLight
+    color: "#FFBC86"
+
+- type: entity
+  id: NCPoweredLightCA7B53
+  parent: NCBasePalettePoweredLight
+  components:
+  - type: PoweredLight
+    hasLampOnSpawn: NCLightTubeCA7B53
+  - type: PointLight
+    color: "#CA7B53"
+
+- type: entity
+  id: NCPoweredLightF7B2A4
+  parent: NCBasePalettePoweredLight
+  components:
+  - type: PoweredLight
+    hasLampOnSpawn: NCLightTubeF7B2A4
+  - type: PointLight
+    color: "#F7B2A4"
+
+- type: entity
+  id: NCPoweredLight736689
+  parent: NCBasePalettePoweredLight
+  components:
+  - type: PoweredLight
+    hasLampOnSpawn: NCLightTube736689
+  - type: PointLight
+    color: "#736689"
+
+- type: entity
+  id: NCPoweredLight99627B
+  parent: NCBasePalettePoweredLight
+  components:
+  - type: PoweredLight
+    hasLampOnSpawn: NCLightTube99627B
+  - type: PointLight
+    color: "#99627B"
+
+- type: entity
+  id: NCPoweredLight2F3854
+  parent: NCBasePalettePoweredLight
+  components:
+  - type: PoweredLight
+    hasLampOnSpawn: NCLightTube2F3854
+  - type: PointLight
+    color: "#2F3854"
+
+- type: entity
+  id: NCPoweredLightFF82EE
+  parent: NCBasePalettePoweredLight
+  components:
+  - type: PoweredLight
+    hasLampOnSpawn: NCLightTubeFF82EE
+  - type: PointLight
+    color: "#FF82EE"
+
+- type: entity
+  id: NCPoweredLightEB3CFF
+  parent: NCBasePalettePoweredLight
+  components:
+  - type: PoweredLight
+    hasLampOnSpawn: NCLightTubeEB3CFF
+  - type: PointLight
+    color: "#EB3CFF"
+
+- type: entity
+  id: NCPoweredLightAA0FDF
+  parent: NCBasePalettePoweredLight
+  components:
+  - type: PoweredLight
+    hasLampOnSpawn: NCLightTubeAA0FDF
+  - type: PointLight
+    color: "#AA0FDF"
+
+- type: entity
+  id: NCPoweredLightFBFF88
+  parent: NCBasePalettePoweredLight
+  components:
+  - type: PoweredLight
+    hasLampOnSpawn: NCLightTubeFBFF88
+  - type: PointLight
+    color: "#FBFF88"
+
+- type: entity
+  id: NCPoweredLightFFF142
+  parent: NCBasePalettePoweredLight
+  components:
+  - type: PoweredLight
+    hasLampOnSpawn: NCLightTubeFFF142
+  - type: PointLight
+    color: "#FFF142"
+
+- type: entity
+  id: NCPoweredLightFFCD47
+  parent: NCBasePalettePoweredLight
+  components:
+  - type: PoweredLight
+    hasLampOnSpawn: NCLightTubeFFCD47
+  - type: PointLight
+    color: "#FFCD47"
+
+- type: entity
+  id: NCPoweredLightFF8C67
+  parent: NCBasePalettePoweredLight
+  components:
+  - type: PoweredLight
+    hasLampOnSpawn: NCLightTubeFF8C67
+  - type: PointLight
+    color: "#FF8C67"
+
+- type: entity
+  id: NCPoweredLightFF6339
+  parent: NCBasePalettePoweredLight
+  components:
+  - type: PoweredLight
+    hasLampOnSpawn: NCLightTubeFF6339
+  - type: PointLight
+    color: "#FF6339"
+
+- type: entity
+  id: NCPoweredLightD61910
+  parent: NCBasePalettePoweredLight
+  components:
+  - type: PoweredLight
+    hasLampOnSpawn: NCLightTubeD61910
+  - type: PointLight
+    color: "#D61910"
+
+- type: entity
+  id: NCPoweredLight578DFF
+  parent: NCBasePalettePoweredLight
+  components:
+  - type: PoweredLight
+    hasLampOnSpawn: NCLightTube578DFF
+  - type: PointLight
+    color: "#578DFF"
+
+- type: entity
+  id: NCPoweredLight2262EC
+  parent: NCBasePalettePoweredLight
+  components:
+  - type: PoweredLight
+    hasLampOnSpawn: NCLightTube2262EC
+  - type: PointLight
+    color: "#2262EC"
+
+- type: entity
+  id: NCPoweredLight002ECD
+  parent: NCBasePalettePoweredLight
+  components:
+  - type: PoweredLight
+    hasLampOnSpawn: NCLightTube002ECD
+  - type: PointLight
+    color: "#002ECD"
+
+- type: entity
+  id: NCPoweredLight8BFFF6
+  parent: NCBasePalettePoweredLight
+  components:
+  - type: PoweredLight
+    hasLampOnSpawn: NCLightTube8BFFF6
+  - type: PointLight
+    color: "#8BFFF6"
+
+- type: entity
+  id: NCPoweredLight5BEDFF
+  parent: NCBasePalettePoweredLight
+  components:
+  - type: PoweredLight
+    hasLampOnSpawn: NCLightTube5BEDFF
+  - type: PointLight
+    color: "#5BEDFF"
+
+- type: entity
+  id: NCPoweredLight27D6FF
+  parent: NCBasePalettePoweredLight
+  components:
+  - type: PoweredLight
+    hasLampOnSpawn: NCLightTube27D6FF
+  - type: PointLight
+    color: "#27D6FF"
+
+- type: entity
+  id: NCPoweredLightB3FF6E
+  parent: NCBasePalettePoweredLight
+  components:
+  - type: PoweredLight
+    hasLampOnSpawn: NCLightTubeB3FF6E
+  - type: PointLight
+    color: "#B3FF6E"
+
+- type: entity
+  id: NCPoweredLight74E747
+  parent: NCBasePalettePoweredLight
+  components:
+  - type: PoweredLight
+    hasLampOnSpawn: NCLightTube74E747
+  - type: PointLight
+    color: "#74E747"
+
+- type: entity
+  id: NCPoweredLight34CD15
+  parent: NCBasePalettePoweredLight
+  components:
+  - type: PoweredLight
+    hasLampOnSpawn: NCLightTube34CD15
+  - type: PointLight
+    color: "#34CD15"
+
+- type: entity
+  id: NCPoweredLightFF60CF
+  parent: NCBasePalettePoweredLight
+  components:
+  - type: PoweredLight
+    hasLampOnSpawn: NCLightTubeFF60CF
+  - type: PointLight
+    color: "#FF60CF"
+
+- type: entity
+  id: NCPoweredLightFF3BA2
+  parent: NCBasePalettePoweredLight
+  components:
+  - type: PoweredLight
+    hasLampOnSpawn: NCLightTubeFF3BA2
+  - type: PointLight
+    color: "#FF3BA2"
+
+- type: entity
+  id: NCPoweredLightDC1E7F
+  parent: NCBasePalettePoweredLight
+  components:
+  - type: PoweredLight
+    hasLampOnSpawn: NCLightTubeDC1E7F
+  - type: PointLight
+    color: "#DC1E7F"
+
+- type: entity
+  id: NCPoweredLightE3FAFF
+  parent: NCBasePalettePoweredLight
+  components:
+  - type: PoweredLight
+    hasLampOnSpawn: NCLightTubeE3FAFF
+  - type: PointLight
+    color: "#E3FAFF"
+
+- type: entity
+  id: NCPoweredLightD3E2E7
+  parent: NCBasePalettePoweredLight
+  components:
+  - type: PoweredLight
+    hasLampOnSpawn: NCLightTubeD3E2E7
+  - type: PointLight
+    color: "#D3E2E7"
+
+- type: entity
+  id: NCPoweredLightB6C3CA
+  parent: NCBasePalettePoweredLight
+  components:
+  - type: PoweredLight
+    hasLampOnSpawn: NCLightTubeB6C3CA
+  - type: PointLight
+    color: "#B6C3CA"
+
