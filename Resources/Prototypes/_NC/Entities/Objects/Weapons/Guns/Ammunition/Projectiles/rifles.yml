@@ -108,11 +108,11 @@
   categories: [ HideSpawnMenu ]
   components:
   - type: BallisticProjectile
-    penetration: 85
+    penetration: 62
   - type: Projectile
     damage:
       types:
-        Piercing: 70
+        Piercing: 50
   - type: Sprite
     layers:
     - state: piercing
