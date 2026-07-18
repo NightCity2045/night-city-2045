@@ -45,13 +45,9 @@
   color: "#2ecc71"
   roles:
     - BiotechnicaChief
-    - BiotechnicaOperativeLead
-    - BiotechnicaOperative
     - BiotechnicaRigger
     - BiotechnicaBotanist
     - BiotechnicaMedTech
-    - BiotechnicaTech
-    - BiotechnicaParamedic
 
 - type: department
   id: Militech
