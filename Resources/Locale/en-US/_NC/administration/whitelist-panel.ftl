@@ -1,0 +1,22 @@
+cmd-whitelistpanel-desc = Opens the server whitelist management panel.
+cmd-whitelistpanel-help = Usage: whitelistpanel
+
+nc-whitelist-panel-open = Server Whitelist
+nc-whitelist-panel-title = Server Whitelist
+nc-whitelist-panel-search-placeholder = Search by username or User ID
+nc-whitelist-panel-search = Search
+nc-whitelist-panel-add-placeholder = Username or User ID to add
+nc-whitelist-panel-add = Add
+nc-whitelist-panel-remove = Remove
+nc-whitelist-panel-refresh = Refresh
+nc-whitelist-panel-previous = Previous
+nc-whitelist-panel-next = Next
+nc-whitelist-panel-empty = No whitelist entries match this search.
+nc-whitelist-panel-total = Total entries: { $count }
+nc-whitelist-panel-page = Page { $page } of { $pages }
+nc-whitelist-panel-status-added = { $player } was added to the whitelist.
+nc-whitelist-panel-status-removed = { $player } was removed from the whitelist.
+nc-whitelist-panel-status-existing = { $player } is already whitelisted.
+nc-whitelist-panel-status-missing = { $player } is no longer whitelisted.
+nc-whitelist-panel-status-not-found = Player { $player } could not be found.
+nc-whitelist-panel-status-error = The whitelist operation failed. Check the server log for details.

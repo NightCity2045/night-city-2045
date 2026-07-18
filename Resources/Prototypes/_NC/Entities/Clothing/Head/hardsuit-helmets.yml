@@ -32,7 +32,7 @@
   - type: NCWeight
     weight: 2.5
   - type: PhysicalArmor
-    stoppingPower: 42
+    stoppingPower: 44
     maxDurability: 120
     currentDurability: 120
     materialType: Ceramic
@@ -79,7 +79,7 @@
   - type: NCWeight
     weight: 4.0
   - type: PhysicalArmor
-    stoppingPower: 64
+    stoppingPower: 62
     maxDurability: 180
     currentDurability: 180
     materialType: Steel

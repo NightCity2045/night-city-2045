@@ -21,6 +21,10 @@
     - 0,0,6,3
     maxItemSize: Huge
     openDelay: 1.5
+  - type: NCContainerWeightModifier
+    contentWeightMultiplier: 0.5
+  - type: NCWeight
+    weight: 1.0
   - type: ContainerContainer
     containers:
       storagebase: !type:Container

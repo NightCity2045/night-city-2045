@@ -53,6 +53,15 @@ namespace Content.Client.Lobby.UI
     [GenerateTypedNameReferences]
     public sealed partial class HumanoidProfileEditor : BoxContainer, ILocalizedControl
     {
+        /// <summary>
+        /// Character creation exposes only stats that currently affect NC moment-to-moment gameplay.
+        /// Other stat data remains in profiles for save and server compatibility.
+        /// </summary>
+        private static bool IsVisibleCreationStat(string statId)
+        {
+            return statId is NCStatIds.Body or NCStatIds.Move;
+        }
+
         private readonly IClientPreferencesManager _preferencesManager;
         private readonly IConfigurationManager _cfgManager;
         private readonly IEntityManager _entManager;
@@ -218,7 +227,9 @@ namespace Content.Client.Lobby.UI
             StatsTab.Orphan();
             CTabContainer.AddTab(StatsTab, Loc.GetString("nc-profile-editor-stats-header"));
             SkillsTab.Orphan();
-            CTabContainer.AddTab(SkillsTab, Loc.GetString("nc-profile-editor-skills-header"));
+            var skillsTabId = CTabContainer.AddTab(SkillsTab, Loc.GetString("nc-profile-editor-skills-header"));
+            // Tab IDs are allocated by NeoTabContainer and are not zero-based list indices.
+            CTabContainer.SetTabVisible(skillsTabId, false);
 
             #region Sex
 
@@ -2064,62 +2075,28 @@ namespace Content.Client.Lobby.UI
                 return;
             }
 
-            var spentStats = Profile.GetSpentStatPoints(_prototypeManager);
-            var spentSkills = Profile.GetSpentSkillPoints(_prototypeManager);
-            var statsRemaining = HumanoidCharacterProfile.StartingStatPoints - spentStats;
-            var skillsRemaining = HumanoidCharacterProfile.StartingSkillPoints - spentSkills;
-            var lockedKey = IsRpgAllocationLocked()
-                ? "nc-profile-editor-rpg-locked"
-                : "nc-profile-editor-rpg-unlocked";
+            StatsBudgetLabel.Text = Loc.GetString("nc-profile-editor-maximize-visible-stats");
+            StatsLockLabel.Text = string.Empty;
+            SkillsBudgetLabel.Text = string.Empty;
+            SkillsLockLabel.Text = string.Empty;
 
-            StatsBudgetLabel.Text = Loc.GetString(
-                "nc-profile-editor-stats-budget",
-                ("spent", spentStats),
-                ("total", HumanoidCharacterProfile.StartingStatPoints),
-                ("remaining", statsRemaining));
-            StatsLockLabel.Text = Loc.GetString(lockedKey);
-            SkillsBudgetLabel.Text = Loc.GetString(
-                "nc-profile-editor-skills-budget",
-                ("spent", spentSkills),
-                ("total", HumanoidCharacterProfile.StartingSkillPoints),
-                ("remaining", skillsRemaining));
-            SkillsLockLabel.Text = Loc.GetString(lockedKey);
-
-            foreach (var stat in Profile.Stats.OrderBy(s => s.StatId))
+            foreach (var stat in Profile.Stats
+                         .Where(stat => IsVisibleCreationStat(stat.StatId))
+                         .OrderBy(stat => stat.StatId == NCStatIds.Body ? 0 : 1))
             {
                 if (!_prototypeManager.TryIndex<NCStatPrototype>(stat.StatId, out var proto))
                     continue;
 
-                StatsList.AddChild(CreateStatRow(stat, proto, statsRemaining));
-            }
-
-            foreach (var category in _prototypeManager.EnumeratePrototypes<NCSkillPrototype>()
-                         .GroupBy(skill => skill.CategoryKey)
-                         .OrderBy(group => Loc.GetString(group.Key)))
-            {
-                SkillsList.AddChild(new Label
-                {
-                    Text = Loc.GetString(category.Key),
-                    StyleClasses = { StyleBase.StyleClassLabelHeading },
-                    Margin = new Thickness(0, 6, 0, 2),
-                });
-
-                foreach (var proto in category.OrderBy(skill => Loc.GetString(skill.NameKey)))
-                {
-                    var skill = Profile.Skills.FirstOrDefault(s => s.SkillId == proto.ID)
-                        ?? new NCSkillEntry(proto.ID, new NCTrackedValue(proto.DefaultBaseValue));
-                    SkillsList.AddChild(CreateSkillRow(skill, proto, skillsRemaining));
-                }
+                StatsList.AddChild(CreateStatRow(stat, proto));
             }
         }
 
-        private Control CreateStatRow(NCStatEntry stat, NCStatPrototype proto, int remainingPoints)
+        private Control CreateStatRow(NCStatEntry stat, NCStatPrototype proto)
         {
             var isLocked = IsRpgAllocationLocked();
             var canDecrease = !isLocked && stat.Value.BaseValue > proto.MinValue;
             var canIncrease = !isLocked &&
-                              stat.Value.BaseValue < proto.MaxValue &&
-                              remainingPoints > 0;
+                              stat.Value.BaseValue < proto.MaxValue;
 
             var row = new BoxContainer
             {
@@ -2232,15 +2209,26 @@ namespace Content.Client.Lobby.UI
                 FinalValue = stat.Value.FinalValue,
             })).ToList();
 
+            // Hidden creation stats return to their minimum when BODY or MOVE is edited, so legacy allocations
+            // cannot consume the budget or be carried invisibly into a newly saved character.
+            foreach (var hiddenStat in stats.Where(stat => !IsVisibleCreationStat(stat.StatId)))
+            {
+                if (!_prototypeManager.TryIndex<NCStatPrototype>(hiddenStat.StatId, out var hiddenProto))
+                    continue;
+
+                hiddenStat.Value.BaseValue = hiddenProto.MinValue;
+                hiddenStat.Value.FinalValue = Math.Clamp(
+                    hiddenStat.Value.BaseValue + hiddenStat.Value.ProgressionValue + hiddenStat.Value.TemporaryValue,
+                    hiddenProto.MinValue,
+                    hiddenProto.MaxValue);
+            }
+
             var entry = stats.FirstOrDefault(stat => stat.StatId == statId);
             if (entry == null || !_prototypeManager.TryIndex<NCStatPrototype>(statId, out var proto))
                 return;
 
             var nextValue = entry.Value.BaseValue + delta;
             if (nextValue < proto.MinValue || nextValue > proto.MaxValue)
-                return;
-
-            if (delta > 0 && Profile.GetSpentStatPoints(_prototypeManager) >= HumanoidCharacterProfile.StartingStatPoints)
                 return;
 
             entry.Value.BaseValue = nextValue;

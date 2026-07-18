@@ -36,6 +36,7 @@ public sealed class SharedNCBodySystem : EntitySystem
         SubscribeLocalEvent<NCBodyComponent, RefreshMovementSpeedModifiersEvent>(OnRefreshMovementSpeed);
         SubscribeLocalEvent<NCBodyComponent, PickupAttemptEvent>(OnPickupAttempt);
         SubscribeLocalEvent<NCBodyComponent, NCStatChangedEvent>(OnStatChanged);
+        SubscribeLocalEvent<NCBodyComponent, NCStatsStateHandledEvent>(OnStatsStateHandled);
         SubscribeLocalEvent<NCBodyComponent, EntInsertedIntoContainerMessage>(OnContainerModified);
         SubscribeLocalEvent<NCBodyComponent, EntRemovedFromContainerMessage>(OnContainerModified);
         SubscribeLocalEvent<ItemComponent, EntInsertedIntoContainerMessage>(OnItemContainerModified);
@@ -59,6 +60,13 @@ public sealed class SharedNCBodySystem : EntitySystem
         if (!string.Equals(args.StatId, NCStatIds.Body, StringComparison.Ordinal))
             return;
 
+        RefreshBody(uid, component);
+    }
+
+    private void OnStatsStateHandled(EntityUid uid, NCBodyComponent component, NCStatsStateHandledEvent args)
+    {
+        // Component states can arrive after inventory events on the client. Recalculate once the
+        // stat cache is rebuilt so a valid BODY value replaces the temporary zero-weight limit.
         RefreshBody(uid, component);
     }
 
@@ -187,7 +195,11 @@ public sealed class SharedNCBodySystem : EntitySystem
         return total;
     }
 
-    private float CalculateItemWeightRecursive(EntityUid uid, NCStatPrototype settings, HashSet<EntityUid> visited)
+    private float CalculateItemWeightRecursive(
+        EntityUid uid,
+        NCStatPrototype settings,
+        HashSet<EntityUid> visited,
+        bool allowContainerWeightModifier = true)
     {
         // Wielding creates a virtual item in the second hand. It only reserves the hand and
         // must not contribute its Ginormous fallback item-size weight to carried mass.
@@ -199,15 +211,33 @@ public sealed class SharedNCBodySystem : EntitySystem
         if (!TryComp<ContainerManagerComponent>(uid, out var manager))
             return total;
 
+        var modifiesContents = false;
+        var contentsMultiplier = 1f;
+        if (allowContainerWeightModifier && TryComp<NCContainerWeightModifierComponent>(uid, out var modifier))
+        {
+            modifiesContents = true;
+            contentsMultiplier = MathF.Max(0f, modifier.ContentWeightMultiplier);
+        }
+
+        var contentsWeight = 0f;
+
         foreach (var container in manager.Containers.Values)
         {
             foreach (var entity in container.ContainedEntities)
             {
-                total += CalculateItemWeightRecursive(entity, settings, visited);
+                // Only one carrying modifier may apply along a containment chain. This prevents
+                // nested backpacks from reducing the same payload exponentially.
+                contentsWeight += CalculateItemWeightRecursive(entity,
+                    settings,
+                    visited,
+                    allowContainerWeightModifier && !modifiesContents);
             }
         }
 
-        return total;
+        if (modifiesContents)
+            contentsWeight *= contentsMultiplier;
+
+        return total + contentsWeight;
     }
 
     private float GetItemWeight(EntityUid uid, ItemComponent item, NCStatPrototype settings)

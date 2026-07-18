@@ -1,0 +1,119 @@
+# Base values represent a Cyberpunk RED light armorjack: useful street protection without a mobility penalty.
+- type: entity
+  abstract: true
+  parent: [ClothingOuterStorageBase, AllowSuitStorageClothing]
+  id: NCClothingOuterArmorJacketBase
+  suffix: NC
+  components:
+  - type: NCWeight
+    weight: 2.2
+  - type: PhysicalArmor
+    stoppingPower: 24
+    maxDurability: 220
+    currentDurability: 220
+    materialType: Kevlar
+    bluntDamageMultiplier: 0.8
+    durabilityDamageMultiplier: 1
+    coverage:
+    - Torso
+    - LeftArm
+    - RightArm
+  - type: NCClothingOverlay
+    clothingVisuals:
+      outerClothing:
+      - state: light
+        shader: unshaded
+
+# All jackets can roll their sleeves through an independent, networked NC clothing state.
+- type: entity
+  abstract: true
+  parent: NCClothingOuterArmorJacketBase
+  id: NCClothingOuterArmorJacketStateBase
+  components:
+  - type: Appearance
+  - type: NCJacketState
+    canRollSleeves: true
+    openPrefix: open
+    rolledPrefix: rolled
+    openRolledPrefix: open-rolled
+    openVerbText: nc-jacket-unzip-verb
+    closeVerbText: nc-jacket-zip-verb
+    rollSleevesVerbText: nc-jacket-roll-sleeves-verb
+    lowerSleevesVerbText: nc-jacket-lower-sleeves-verb
+  - type: Sprite
+    layers:
+    - state: icon
+      map: ["enum.NCJacketVisualLayers.Base"]
+  - type: GenericVisualizer
+    visuals:
+      enum.NCJacketVisuals.State:
+        enum.NCJacketVisualLayers.Base:
+          ClosedSleevesDown: { state: icon }
+          OpenSleevesDown: { state: icon-open }
+          ClosedSleevesRolled: { state: icon-rolled }
+          OpenSleevesRolled: { state: icon-open-rolled }
+
+# Colored jackets additionally expose an independent zip/unzip action.
+- type: entity
+  abstract: true
+  parent: NCClothingOuterArmorJacketStateBase
+  id: NCClothingOuterArmorJacketFoldableBase
+
+- type: entity
+  parent: NCClothingOuterArmorJacketStateBase
+  id: ClothingOuterArmorJacketNCBlack
+  name: ent-ClothingOuterArmorJacketNCBlack
+  description: ent-ClothingOuterArmorJacketNCBlack-desc
+  components:
+  - type: Sprite
+    sprite: _NC/Clothing/OuterClothing/Armor/Jackets/jacket_black.rsi
+  - type: Clothing
+    sprite: _NC/Clothing/OuterClothing/Armor/Jackets/jacket_black.rsi
+
+- type: entity
+  parent: NCClothingOuterArmorJacketFoldableBase
+  id: ClothingOuterArmorJacketNCMaroon
+  name: ent-ClothingOuterArmorJacketNCMaroon
+  description: ent-ClothingOuterArmorJacketNCMaroon-desc
+  components:
+  - type: NCJacketClosure
+  - type: Sprite
+    sprite: _NC/Clothing/OuterClothing/Armor/Jackets/jacket_maroon.rsi
+  - type: Clothing
+    sprite: _NC/Clothing/OuterClothing/Armor/Jackets/jacket_maroon.rsi
+
+- type: entity
+  parent: NCClothingOuterArmorJacketFoldableBase
+  id: ClothingOuterArmorJacketNCRed
+  name: ent-ClothingOuterArmorJacketNCRed
+  description: ent-ClothingOuterArmorJacketNCRed-desc
+  components:
+  - type: NCJacketClosure
+  - type: Sprite
+    sprite: _NC/Clothing/OuterClothing/Armor/Jackets/jacket_red.rsi
+  - type: Clothing
+    sprite: _NC/Clothing/OuterClothing/Armor/Jackets/jacket_red.rsi
+
+- type: entity
+  parent: NCClothingOuterArmorJacketFoldableBase
+  id: ClothingOuterArmorJacketNCTurquoise
+  name: ent-ClothingOuterArmorJacketNCTurquoise
+  description: ent-ClothingOuterArmorJacketNCTurquoise-desc
+  components:
+  - type: NCJacketClosure
+  - type: Sprite
+    sprite: _NC/Clothing/OuterClothing/Armor/Jackets/jacket_turquoise.rsi
+  - type: Clothing
+    sprite: _NC/Clothing/OuterClothing/Armor/Jackets/jacket_turquoise.rsi
+
+- type: entity
+  parent: NCClothingOuterArmorJacketFoldableBase
+  id: ClothingOuterArmorJacketNCViolet
+  name: ent-ClothingOuterArmorJacketNCViolet
+  description: ent-ClothingOuterArmorJacketNCViolet-desc
+  components:
+  - type: NCJacketClosure
+  - type: Sprite
+    sprite: _NC/Clothing/OuterClothing/Armor/Jackets/jacket_violet.rsi
+  - type: Clothing
+    sprite: _NC/Clothing/OuterClothing/Armor/Jackets/jacket_violet.rsi

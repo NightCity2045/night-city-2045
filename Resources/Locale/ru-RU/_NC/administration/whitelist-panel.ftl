@@ -1,0 +1,22 @@
+cmd-whitelistpanel-desc = Открывает панель управления серверным вайтлистом.
+cmd-whitelistpanel-help = Использование: whitelistpanel
+
+nc-whitelist-panel-open = Вайтлист сервера
+nc-whitelist-panel-title = Вайтлист сервера
+nc-whitelist-panel-search-placeholder = Поиск по имени или User ID
+nc-whitelist-panel-search = Найти
+nc-whitelist-panel-add-placeholder = Имя или User ID для добавления
+nc-whitelist-panel-add = Добавить
+nc-whitelist-panel-remove = Удалить
+nc-whitelist-panel-refresh = Обновить
+nc-whitelist-panel-previous = Назад
+nc-whitelist-panel-next = Далее
+nc-whitelist-panel-empty = Подходящих записей в вайтлисте нет.
+nc-whitelist-panel-total = Всего записей: { $count }
+nc-whitelist-panel-page = Страница { $page } из { $pages }
+nc-whitelist-panel-status-added = { $player } добавлен в вайтлист.
+nc-whitelist-panel-status-removed = { $player } удалён из вайтлиста.
+nc-whitelist-panel-status-existing = { $player } уже находится в вайтлисте.
+nc-whitelist-panel-status-missing = { $player } уже отсутствует в вайтлисте.
+nc-whitelist-panel-status-not-found = Игрок { $player } не найден.
+nc-whitelist-panel-status-error = Не удалось выполнить операцию. Подробности записаны в журнал сервера.

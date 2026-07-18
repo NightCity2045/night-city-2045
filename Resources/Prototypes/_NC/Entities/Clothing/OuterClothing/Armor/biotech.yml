@@ -9,9 +9,9 @@
   - type: Clothing
     sprite: _NC/Clothing/OuterClothing/Armor/biotech_bulletproof.rsi
   - type: PhysicalArmor
-    stoppingPower: 60
-    maxDurability: 500
-    currentDurability: 500
+    stoppingPower: 16
+    maxDurability: 160
+    currentDurability: 160
     materialType: Kevlar
     bluntDamageMultiplier: 0.8
     durabilityDamageMultiplier: 1

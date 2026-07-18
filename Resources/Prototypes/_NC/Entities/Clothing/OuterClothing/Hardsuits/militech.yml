@@ -22,7 +22,7 @@
         Caustic: 0.3
         Shock: 0.1
   - type: PhysicalArmor
-    stoppingPower: 85
+    stoppingPower: 82
     maxDurability: 450
     currentDurability: 450
     materialType: Steel
@@ -40,7 +40,7 @@
     - LeftFoot
     - RightFoot
   - type: NCWeight
-    weight: 25.0
+    weight: 15.0
   - type: ClothingSpeedModifier
     walkModifier: 0.75
     sprintModifier: 0.9

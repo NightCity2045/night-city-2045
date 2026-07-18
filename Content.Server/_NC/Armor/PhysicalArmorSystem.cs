@@ -36,16 +36,12 @@ public sealed class PhysicalArmorSystem : EntitySystem
             return;
         }
 
-        if (TryComp<ItemSlotsComponent>(ent, out var slots))
+        if (TryComp<ItemSlotsComponent>(ent, out var slots)
+            && TryGetBestPlate(slots, targetPart, out var plate))
         {
-            foreach (var slot in slots.Slots.Values)
+            // Front and rear plate pockets provide coverage, not additive SP for the same projectile.
+            if (TryApplyLayer(plate, targetPart, ref attack, out finalDamage))
             {
-                if (slot.Item is not { } plate || !TryComp<PhysicalArmorComponent>(plate, out var plateArmor))
-                    continue;
-
-                if (!TryApplyLayer((plate, plateArmor), targetPart, ref attack, out finalDamage))
-                    continue;
-
                 damageArgs.Damage = finalDamage;
                 return;
             }
@@ -82,16 +78,22 @@ public sealed class PhysicalArmorSystem : EntitySystem
         if (!IsActive(armor) || !Covers(armor, targetPart))
             return false;
 
-        DamageArmor(ent, attack.Damage);
-        attack.Modified = true;
-
         if (attack.Kind == PhysicalArmorAttackKind.Blunt)
         {
+            DamageArmor(ent, attack.Damage);
+            attack.Modified = true;
             finalDamage = ConvertToDamage(attack.Damage * armor.BluntDamageMultiplier, "Blunt");
             return true;
         }
 
+        // Snapshot SP before applying this hit's wear: a pristine layer must resist the first shot at full strength.
         var sp = GetEffectiveStoppingPower(armor);
+        if (sp <= 0f)
+            return false;
+
+        DamageArmor(ent, attack.Damage);
+        attack.Modified = true;
+
         if (attack.Penetration > sp)
         {
             attack.Penetration = MathF.Max(0f, attack.Penetration - sp);
@@ -101,6 +103,44 @@ public sealed class PhysicalArmorSystem : EntitySystem
         }
 
         finalDamage = ConvertToDamage(attack.Damage * armor.BluntDamageMultiplier, "Blunt");
+        return true;
+    }
+
+    private bool TryGetBestPlate(
+        ItemSlotsComponent slots,
+        TargetBodyPart targetPart,
+        out Entity<PhysicalArmorComponent> bestPlate)
+    {
+        EntityUid? bestUid = null;
+        PhysicalArmorComponent? bestArmor = null;
+        var bestSp = 0f;
+
+        foreach (var slot in slots.Slots.Values)
+        {
+            if (slot.Item is not { } plateUid
+                || !TryComp<PhysicalArmorComponent>(plateUid, out var plateArmor)
+                || !IsActive(plateArmor)
+                || !Covers(plateArmor, targetPart))
+            {
+                continue;
+            }
+
+            var plateSp = GetEffectiveStoppingPower(plateArmor);
+            if (bestArmor != null && plateSp <= bestSp)
+                continue;
+
+            bestUid = plateUid;
+            bestArmor = plateArmor;
+            bestSp = plateSp;
+        }
+
+        if (bestUid is not { } uid || bestArmor == null)
+        {
+            bestPlate = default;
+            return false;
+        }
+
+        bestPlate = (uid, bestArmor);
         return true;
     }
 

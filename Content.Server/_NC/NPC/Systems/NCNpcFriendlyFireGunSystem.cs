@@ -2,6 +2,7 @@ using System.Linq;
 using System.Numerics;
 using Content.Server.NPC.Components;
 using Content.Server.NPC.Systems;
+using Content.Shared._NC.Rigger.Components;
 using Content.Shared.CombatMode;
 using Content.Shared.Mobs;
 using Content.Shared.Mobs.Components;
@@ -129,6 +130,14 @@ public sealed class NCNpcFriendlyFireGunSystem : EntitySystem
 
     private bool IsFriendly(EntityUid shooter, NpcFactionMemberComponent shooterFaction, EntityUid other)
     {
+        // A peaceful drone temporarily belongs to Passive, but its corporate allies remain stable.
+        if (TryComp<RiggerDroneComponent>(shooter, out var drone) &&
+            TryComp<NpcFactionMemberComponent>(other, out var droneTargetFaction) &&
+            _faction.IsMemberOfAny((other, droneTargetFaction), drone.DroneFactions))
+        {
+            return true;
+        }
+
         return TryComp<NpcFactionMemberComponent>(other, out var otherFaction) &&
                _faction.IsEntityFriendly((shooter, shooterFaction), (other, otherFaction));
     }

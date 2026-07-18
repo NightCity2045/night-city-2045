@@ -172,6 +172,7 @@ nc-skill-playinstrument-description = Practical skill with musical instruments a
 nc-profile-editor-stats-header = Characteristics
 nc-profile-editor-skills-header = Skills
 nc-profile-editor-stats-budget = Characteristics: {$spent}/{$total} spent, {$remaining} remaining
+nc-profile-editor-maximize-visible-stats = You must raise BODY and MOVE to their maximum values.
 nc-profile-editor-skills-budget = Skills: {$spent}/{$total} spent, {$remaining} remaining
 nc-profile-editor-rpg-locked = Distribution is already locked.
 nc-profile-editor-rpg-unlocked = Distribution will lock after the first save.

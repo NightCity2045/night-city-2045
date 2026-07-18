@@ -1,0 +1,117 @@
+{
+    "version": 1,
+    "license": "CC-BY-SA-4.0",
+    "copyright": "Made by Nick_Wick (discord) for Night City 2045",
+    "size": {
+        "x": 32,
+        "y": 32
+    },
+    "states": [
+        {
+            "name": "icon"
+        },
+        {
+            "name": "icon-open"
+        },
+        {
+            "name": "icon-rolled"
+        },
+        {
+            "name": "icon-open-rolled"
+        },
+        {
+            "name": "equipped-OUTERCLOTHING",
+            "directions": 4
+        },
+        {
+            "name": "open-equipped-OUTERCLOTHING",
+            "directions": 4
+        },
+        {
+            "name": "rolled-equipped-OUTERCLOTHING",
+            "directions": 4
+        },
+        {
+            "name": "open-rolled-equipped-OUTERCLOTHING",
+            "directions": 4
+        },
+        {
+            "name": "inhand-left",
+            "directions": 4
+        },
+        {
+            "name": "inhand-right",
+            "directions": 4
+        },
+        {
+            "name": "open-inhand-left",
+            "directions": 4
+        },
+        {
+            "name": "open-inhand-right",
+            "directions": 4
+        },
+        {
+            "name": "rolled-inhand-left",
+            "directions": 4
+        },
+        {
+            "name": "rolled-inhand-right",
+            "directions": 4
+        },
+        {
+            "name": "open-rolled-inhand-left",
+            "directions": 4
+        },
+        {
+            "name": "open-rolled-inhand-right",
+            "directions": 4
+        },
+        {
+            "name": "closed_hands_down"
+        },
+        {
+            "name": "closed_hands_up"
+        },
+        {
+            "name": "inhand_left",
+            "directions": 4
+        },
+        {
+            "name": "inhand_right",
+            "directions": 4
+        },
+        {
+            "name": "light",
+            "directions": 4,
+            "delays": [
+                [0.1, 0.1, 0.1, 0.1],
+                [0.1, 0.1, 0.1, 0.1],
+                [0.1, 0.1, 0.1, 0.1],
+                [0.1, 0.1, 0.1, 0.1]
+            ]
+        },
+        {
+            "name": "open_hands_down"
+        },
+        {
+            "name": "open_hands_up"
+        },
+        {
+            "name": "wear_closed_hands_down",
+            "directions": 4
+        },
+        {
+            "name": "wear_closed_hands_up",
+            "directions": 4
+        },
+        {
+            "name": "wear_open_hands_down",
+            "directions": 4
+        },
+        {
+            "name": "wear_open_hands_up",
+            "directions": 4
+        }
+    ]
+}

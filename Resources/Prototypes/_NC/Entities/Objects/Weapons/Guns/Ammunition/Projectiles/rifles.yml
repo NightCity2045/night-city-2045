@@ -6,7 +6,7 @@
   categories: [ HideSpawnMenu ]
   components:
   - type: BallisticProjectile
-    penetration: 52
+    penetration: 54
   - type: Projectile
     damage:
       types:
@@ -23,7 +23,7 @@
   categories: [ HideSpawnMenu ]
   components:
   - type: BallisticProjectile
-    penetration: 68
+    penetration: 70
   - type: Projectile
     damage:
       types:
@@ -40,7 +40,7 @@
   categories: [ HideSpawnMenu ]
   components:
   - type: BallisticProjectile
-    penetration: 92
+    penetration: 94
   - type: Projectile
     damage:
       types:
@@ -57,7 +57,7 @@
   categories: [ HideSpawnMenu ]
   components:
   - type: BallisticProjectile
-    penetration: 75
+    penetration: 76
   - type: Projectile
     damage:
       types:
@@ -91,7 +91,7 @@
   categories: [ HideSpawnMenu ]
   components:
   - type: BallisticProjectile
-    penetration: 62
+    penetration: 60
   - type: Projectile
     damage:
       types:
@@ -108,11 +108,11 @@
   categories: [ HideSpawnMenu ]
   components:
   - type: BallisticProjectile
-    penetration: 85
+    penetration: 84
   - type: Projectile
     damage:
       types:
-        Piercing: 70
+        Piercing: 50
   - type: Sprite
     layers:
     - state: piercing

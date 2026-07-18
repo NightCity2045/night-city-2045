@@ -1,0 +1,102 @@
+# Trauma Team Hardsuits
+# Paramedic / Medic Hardsuit
+- type: entity
+  parent: ClothingOuterHardsuitBase
+  id: ClothingOuterHardsuitTraumaTeamMedic
+  name: Trauma Team medic hardsuit
+  description: A sealed Trauma Team medical hardsuit with ceramic ballistic sections and life-support hardware. It protects a medic long enough to reach the client and drag them out.
+  components:
+  - type: Sprite
+    sprite: _NC/Clothing/OuterClothing/Hardsuits/trauma_med_hardsuit.rsi
+  - type: Clothing
+    sprite: _NC/Clothing/OuterClothing/Hardsuits/trauma_med_hardsuit.rsi
+  - type: PressureProtection
+    highPressureMultiplier: 0.3
+    lowPressureMultiplier: 1000
+  - type: Armor
+    modifiers:
+      coefficients:
+        Heat: 0.5
+        Radiation: 0.5
+        Caustic: 0.3
+  - type: PhysicalArmor
+    stoppingPower: 50
+    maxDurability: 220
+    currentDurability: 220
+    materialType: Ceramic
+    bluntDamageMultiplier: 0.15
+    durabilityDamageMultiplier: 1.25
+    coverage:
+    - Torso
+    - Groin
+    - LeftArm
+    - RightArm
+    - LeftHand
+    - RightHand
+    - LeftLeg
+    - RightLeg
+    - LeftFoot
+    - RightFoot
+  - type: NoSlip
+  - type: StaminaDamageResistance
+    coefficient: 0.8
+  - type: NCWeight
+    weight: 15.0
+  - type: ClothingSpeedModifier
+    walkModifier: 1
+    sprintModifier: 1.2
+  - type: HeldSpeedModifier
+  - type: ToggleableClothing
+    clothingPrototype: ClothingHeadHelmetHardsuitTraumaTeamMedic
+
+# Operative / Armored Hardsuit
+- type: entity
+  parent: ClothingOuterHardsuitBaseMedium
+  id: ClothingOuterHardsuitTraumaTeamOperative
+  name: Trauma Team assault hardsuit
+  description: A reinforced Trauma Team combat hardsuit with steel armor coverage and pressure protection. It trades mobility for the ability to cross a kill zone during a premium extraction.
+  components:
+  - type: Sprite
+    sprite: _NC/Clothing/OuterClothing/Hardsuits/trauma_armored_hardsuit.rsi
+  - type: Clothing
+    sprite: _NC/Clothing/OuterClothing/Hardsuits/trauma_armored_hardsuit.rsi
+  - type: PressureProtection
+    highPressureMultiplier: 0.05
+    lowPressureMultiplier: 1000
+  - type: ExplosionResistance
+    damageCoefficient: 0.5
+  - type: Armor
+    modifiers:
+      coefficients:
+        Heat: 0.6
+        Radiation: 0.6
+        Caustic: 0.6
+  - type: PhysicalArmor
+    stoppingPower: 66
+    maxDurability: 320
+    currentDurability: 320
+    materialType: Steel
+    bluntDamageMultiplier: 0.35
+    durabilityDamageMultiplier: 0.5
+    coverage:
+    - Torso
+    - Groin
+    - LeftArm
+    - RightArm
+    - LeftHand
+    - RightHand
+    - LeftLeg
+    - RightLeg
+    - LeftFoot
+    - RightFoot
+  - type: NCWeight
+    weight: 11.0
+  - type: ClothingSpeedModifier
+    walkModifier: 0.85
+    sprintModifier: 1
+  - type: HeldSpeedModifier
+  - type: ToggleableClothing
+    clothingPrototype: ClothingHeadHelmetHardsuitTraumaTeamOperative
+  - type: StaminaDamageResistance
+    coefficient: 0.5 # 50%
+  - type: NoSlip

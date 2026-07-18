@@ -122,6 +122,11 @@ public sealed record PlayerRecord(
     IPAddress LastSeenAddress,
     ImmutableTypedHwid? HWId);
 
+/// <summary>
+/// A lightweight server whitelist row used by paginated administration interfaces.
+/// </summary>
+public sealed record WhitelistRecord(NetUserId UserId, string? LastSeenUserName);
+
 public sealed record RoundRecord(int Id, DateTimeOffset? StartDate, ServerRecord Server);
 
 public sealed record ServerRecord(int Id, string Name);
