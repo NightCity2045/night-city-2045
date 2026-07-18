@@ -273,4 +273,141 @@ ent-NCPoweredLightB6C3CA = NC powered light (#B6C3CA)
     .desc = { nc-palette-powered-light-desc }
     .suffix = NC palette, #B6C3CA
 
+nc-palette-powered-light-post-small-desc = A compact powered floor light supplied with a matching colored light tube.
+
+ent-NCPoweredLightPostSmallC3FFFF = NC powered floor light (#C3FFFF)
+    .desc = { nc-palette-powered-light-post-small-desc }
+    .suffix = NC palette, floor, #C3FFFF
+
+ent-NCPoweredLightPostSmall9BC9EC = NC powered floor light (#9BC9EC)
+    .desc = { nc-palette-powered-light-post-small-desc }
+    .suffix = NC palette, floor, #9BC9EC
+
+ent-NCPoweredLightPostSmall5578C4 = NC powered floor light (#5578C4)
+    .desc = { nc-palette-powered-light-post-small-desc }
+    .suffix = NC palette, floor, #5578C4
+
+ent-NCPoweredLightPostSmallFFED9F = NC powered floor light (#FFED9F)
+    .desc = { nc-palette-powered-light-post-small-desc }
+    .suffix = NC palette, floor, #FFED9F
+
+ent-NCPoweredLightPostSmallFFBC86 = NC powered floor light (#FFBC86)
+    .desc = { nc-palette-powered-light-post-small-desc }
+    .suffix = NC palette, floor, #FFBC86
+
+ent-NCPoweredLightPostSmallCA7B53 = NC powered floor light (#CA7B53)
+    .desc = { nc-palette-powered-light-post-small-desc }
+    .suffix = NC palette, floor, #CA7B53
+
+ent-NCPoweredLightPostSmallF7B2A4 = NC powered floor light (#F7B2A4)
+    .desc = { nc-palette-powered-light-post-small-desc }
+    .suffix = NC palette, floor, #F7B2A4
+
+ent-NCPoweredLightPostSmall736689 = NC powered floor light (#736689)
+    .desc = { nc-palette-powered-light-post-small-desc }
+    .suffix = NC palette, floor, #736689
+
+ent-NCPoweredLightPostSmall99627B = NC powered floor light (#99627B)
+    .desc = { nc-palette-powered-light-post-small-desc }
+    .suffix = NC palette, floor, #99627B
+
+ent-NCPoweredLightPostSmall2F3854 = NC powered floor light (#2F3854)
+    .desc = { nc-palette-powered-light-post-small-desc }
+    .suffix = NC palette, floor, #2F3854
+
+ent-NCPoweredLightPostSmallFF82EE = NC powered floor light (#FF82EE)
+    .desc = { nc-palette-powered-light-post-small-desc }
+    .suffix = NC palette, floor, #FF82EE
+
+ent-NCPoweredLightPostSmallEB3CFF = NC powered floor light (#EB3CFF)
+    .desc = { nc-palette-powered-light-post-small-desc }
+    .suffix = NC palette, floor, #EB3CFF
+
+ent-NCPoweredLightPostSmallAA0FDF = NC powered floor light (#AA0FDF)
+    .desc = { nc-palette-powered-light-post-small-desc }
+    .suffix = NC palette, floor, #AA0FDF
+
+ent-NCPoweredLightPostSmallFBFF88 = NC powered floor light (#FBFF88)
+    .desc = { nc-palette-powered-light-post-small-desc }
+    .suffix = NC palette, floor, #FBFF88
+
+ent-NCPoweredLightPostSmallFFF142 = NC powered floor light (#FFF142)
+    .desc = { nc-palette-powered-light-post-small-desc }
+    .suffix = NC palette, floor, #FFF142
+
+ent-NCPoweredLightPostSmallFFCD47 = NC powered floor light (#FFCD47)
+    .desc = { nc-palette-powered-light-post-small-desc }
+    .suffix = NC palette, floor, #FFCD47
+
+ent-NCPoweredLightPostSmallFF8C67 = NC powered floor light (#FF8C67)
+    .desc = { nc-palette-powered-light-post-small-desc }
+    .suffix = NC palette, floor, #FF8C67
+
+ent-NCPoweredLightPostSmallFF6339 = NC powered floor light (#FF6339)
+    .desc = { nc-palette-powered-light-post-small-desc }
+    .suffix = NC palette, floor, #FF6339
+
+ent-NCPoweredLightPostSmallD61910 = NC powered floor light (#D61910)
+    .desc = { nc-palette-powered-light-post-small-desc }
+    .suffix = NC palette, floor, #D61910
+
+ent-NCPoweredLightPostSmall578DFF = NC powered floor light (#578DFF)
+    .desc = { nc-palette-powered-light-post-small-desc }
+    .suffix = NC palette, floor, #578DFF
+
+ent-NCPoweredLightPostSmall2262EC = NC powered floor light (#2262EC)
+    .desc = { nc-palette-powered-light-post-small-desc }
+    .suffix = NC palette, floor, #2262EC
+
+ent-NCPoweredLightPostSmall002ECD = NC powered floor light (#002ECD)
+    .desc = { nc-palette-powered-light-post-small-desc }
+    .suffix = NC palette, floor, #002ECD
+
+ent-NCPoweredLightPostSmall8BFFF6 = NC powered floor light (#8BFFF6)
+    .desc = { nc-palette-powered-light-post-small-desc }
+    .suffix = NC palette, floor, #8BFFF6
+
+ent-NCPoweredLightPostSmall5BEDFF = NC powered floor light (#5BEDFF)
+    .desc = { nc-palette-powered-light-post-small-desc }
+    .suffix = NC palette, floor, #5BEDFF
+
+ent-NCPoweredLightPostSmall27D6FF = NC powered floor light (#27D6FF)
+    .desc = { nc-palette-powered-light-post-small-desc }
+    .suffix = NC palette, floor, #27D6FF
+
+ent-NCPoweredLightPostSmallB3FF6E = NC powered floor light (#B3FF6E)
+    .desc = { nc-palette-powered-light-post-small-desc }
+    .suffix = NC palette, floor, #B3FF6E
+
+ent-NCPoweredLightPostSmall74E747 = NC powered floor light (#74E747)
+    .desc = { nc-palette-powered-light-post-small-desc }
+    .suffix = NC palette, floor, #74E747
+
+ent-NCPoweredLightPostSmall34CD15 = NC powered floor light (#34CD15)
+    .desc = { nc-palette-powered-light-post-small-desc }
+    .suffix = NC palette, floor, #34CD15
+
+ent-NCPoweredLightPostSmallFF60CF = NC powered floor light (#FF60CF)
+    .desc = { nc-palette-powered-light-post-small-desc }
+    .suffix = NC palette, floor, #FF60CF
+
+ent-NCPoweredLightPostSmallFF3BA2 = NC powered floor light (#FF3BA2)
+    .desc = { nc-palette-powered-light-post-small-desc }
+    .suffix = NC palette, floor, #FF3BA2
+
+ent-NCPoweredLightPostSmallDC1E7F = NC powered floor light (#DC1E7F)
+    .desc = { nc-palette-powered-light-post-small-desc }
+    .suffix = NC palette, floor, #DC1E7F
+
+ent-NCPoweredLightPostSmallE3FAFF = NC powered floor light (#E3FAFF)
+    .desc = { nc-palette-powered-light-post-small-desc }
+    .suffix = NC palette, floor, #E3FAFF
+
+ent-NCPoweredLightPostSmallD3E2E7 = NC powered floor light (#D3E2E7)
+    .desc = { nc-palette-powered-light-post-small-desc }
+    .suffix = NC palette, floor, #D3E2E7
+
+ent-NCPoweredLightPostSmallB6C3CA = NC powered floor light (#B6C3CA)
+    .desc = { nc-palette-powered-light-post-small-desc }
+    .suffix = NC palette, floor, #B6C3CA
 

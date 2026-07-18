@@ -355,7 +355,7 @@ public sealed partial class RTSSystem : EntitySystem
         return true;
     }
 
-    private void SetAggressionMode(EntityUid uid, RTSAggressionMode mode)
+    public void SetAggressionMode(EntityUid uid, RTSAggressionMode mode)
     {
         if (!TryComp<RTSAggressionModeComponent>(uid, out var aggression))
             return;

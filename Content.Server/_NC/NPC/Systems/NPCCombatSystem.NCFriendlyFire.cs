@@ -1,6 +1,7 @@
 using System.Linq;
 using System.Numerics;
 using Content.Server.NPC.Components;
+using Content.Shared._NC.Rigger.Components;
 using Content.Shared.Mobs;
 using Content.Shared.Mobs.Components;
 using Content.Shared.NPC.Components;
@@ -134,6 +135,14 @@ public sealed partial class NPCCombatSystem
     {
         if (TryComp<MobStateComponent>(other, out var mobState) && mobState.CurrentState >= MobState.Dead)
             return false;
+
+        // Preserve corporate friendlies while peaceful RTS mode swaps the active faction to Passive.
+        if (TryComp<RiggerDroneComponent>(shooter, out var drone) &&
+            TryComp<NpcFactionMemberComponent>(other, out var droneTargetFaction) &&
+            _ncFaction.IsMemberOfAny((other, droneTargetFaction), drone.DroneFactions))
+        {
+            return true;
+        }
 
         return TryComp<NpcFactionMemberComponent>(other, out var otherFaction) &&
                _ncFaction.IsEntityFriendly((shooter, shooterFaction), (other, otherFaction));

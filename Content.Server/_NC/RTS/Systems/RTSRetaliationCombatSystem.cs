@@ -30,11 +30,13 @@ public sealed class RTSRetaliationCombatSystem : EntitySystem
     [Dependency] private readonly HandsSystem _hands = default!;
     [Dependency] private readonly HTNSystem _htn = default!;
     [Dependency] private readonly NPCSteeringSystem _steering = default!;
+    [Dependency] private readonly RTSSystem _rts = default!;
 
     public override void Initialize()
     {
         base.Initialize();
-        SubscribeLocalEvent<RTSControllableComponent, DamageChangedEvent>(OnDamageChanged);
+        SubscribeLocalEvent<RTSControllableComponent, DamageChangedEvent>(OnDamageChanged,
+            after: [typeof(NPCRetaliationSystem)]);
         SubscribeLocalEvent<MobStateChangedEvent>(OnMobStateChanged);
     }
 
@@ -99,16 +101,27 @@ public sealed class RTSRetaliationCombatSystem : EntitySystem
             return;
         }
 
-        // Manual RTS orders own the NPC until they end. Plain Move explicitly
-        // ignores aggression, and AttackTarget should not be retargeted by chip damage.
-        if (ent.Comp.ActiveCommand != null)
+        if (IsFriendlyAttacker(ent.Owner, attacker))
+        {
+            // Peaceful mode temporarily uses the Passive faction. Vanilla retaliation runs first
+            // and may treat a corporate ally as hostile, so remove that exception immediately.
+            ClearRetaliationAgainst(ent.Owner, attacker);
             return;
+        }
 
-        if (!HasComp<NPCRetaliationComponent>(ent.Owner) ||
-            IsFriendlyAttacker(ent.Owner, attacker))
-            return;
+        // A real attack wakes a peaceful drone into its normal corporate combat posture.
+        if (TryComp<RTSAggressionModeComponent>(ent.Owner, out var aggression) &&
+            aggression.CurrentMode == RTSAggressionMode.Peaceful)
+        {
+            _rts.SetAggressionMode(ent.Owner, RTSAggressionMode.Normal);
+        }
 
         _faction.AggroEntity(ent.Owner, attacker);
+
+        // Manual RTS orders remain authoritative, but the mode transition and hostile memory
+        // above are retained so autonomous combat can resume when the order ends.
+        if (ent.Comp.ActiveCommand != null)
+            return;
 
         if (!_hands.TryGetActiveItem(ent.Owner, out var heldItem) || !HasComp<GunComponent>(heldItem))
         {
@@ -132,6 +145,12 @@ public sealed class RTSRetaliationCombatSystem : EntitySystem
         }
 
         return _faction.IsEntityFriendly(uid, attacker);
+    }
+
+    private void ClearRetaliationAgainst(EntityUid uid, EntityUid attacker)
+    {
+        if (TryComp<FactionExceptionComponent>(uid, out var exceptions))
+            _faction.DeAggroEntity((uid, exceptions), attacker);
     }
 
     private void RetaliateWithRangedCombat(EntityUid uid, EntityUid attacker)
