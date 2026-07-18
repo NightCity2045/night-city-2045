@@ -12,9 +12,9 @@
   - type: NCWeight
     weight: 0.5
   - type: PhysicalArmor
-    stoppingPower: 24
-    maxDurability: 400
-    currentDurability: 400
+    stoppingPower: 20
+    maxDurability: 300
+    currentDurability: 300
     materialType: Subdermal
     bluntDamageMultiplier: 0.8
     durabilityDamageMultiplier: 0.5
@@ -36,9 +36,9 @@
   - type: NCWeight
     weight: 1.2
   - type: PhysicalArmor
-    stoppingPower: 32
-    maxDurability: 800
-    currentDurability: 800
+    stoppingPower: 30
+    maxDurability: 500
+    currentDurability: 500
     materialType: Subdermal
     bluntDamageMultiplier: 0.75
     durabilityDamageMultiplier: 0.45
@@ -60,9 +60,9 @@
   - type: NCWeight
     weight: 2.0
   - type: PhysicalArmor
-    stoppingPower: 48
-    maxDurability: 1200
-    currentDurability: 1200
+    stoppingPower: 42
+    maxDurability: 800
+    currentDurability: 800
     materialType: Subdermal
     bluntDamageMultiplier: 0.65
     durabilityDamageMultiplier: 0.4

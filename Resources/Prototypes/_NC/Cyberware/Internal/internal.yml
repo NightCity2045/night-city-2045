@@ -38,7 +38,7 @@
   - type: NCWeight
     weight: 2.5
   - type: PhysicalArmor
-    stoppingPower: 18
+    stoppingPower: 0
     maxDurability: 320
     currentDurability: 320
     materialType: Subdermal
@@ -62,11 +62,11 @@
   - type: NCWeight
     weight: 4.5
   - type: PhysicalArmor
-    stoppingPower: 36
+    stoppingPower: 0
     maxDurability: 600
     currentDurability: 600
     materialType: Subdermal
-    bluntDamageMultiplier: 0.75
+    bluntDamageMultiplier: 0.7
     durabilityDamageMultiplier: 0.3
     subdermal: true
     coverage:
@@ -87,11 +87,11 @@
   - type: NCWeight
     weight: 7.0
   - type: PhysicalArmor
-    stoppingPower: 48
+    stoppingPower: 0
     maxDurability: 1500
     currentDurability: 1500
     materialType: Subdermal
-    bluntDamageMultiplier: 0.65
+    bluntDamageMultiplier: 0.55
     durabilityDamageMultiplier: 0.25
     subdermal: true
     coverage:

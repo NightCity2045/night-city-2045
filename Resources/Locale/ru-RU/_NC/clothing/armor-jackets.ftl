@@ -1,17 +1,17 @@
-nc-clothing-outer-armor-jacket-black = чёрная лёгкая бронекуртка
-    .desc = Чёрная уличная куртка, усиленная гибким кевларом. Спокойный стиль для неспокойных районов.
+ent-ClothingOuterArmorJacketNCBlack = чёрная лёгкая бронекуртка
+ent-ClothingOuterArmorJacketNCBlack-desc = Чёрная уличная куртка, усиленная гибким кевларом. Спокойный стиль для неспокойных районов.
 
-nc-clothing-outer-armor-jacket-maroon = бордовая лёгкая бронекуртка
-    .desc = Бордовая уличная куртка со скрытой баллистической подкладкой. Подойдёт и для клуба, и для опасной дороги домой.
+ent-ClothingOuterArmorJacketNCMaroon = бордовая лёгкая бронекуртка
+ent-ClothingOuterArmorJacketNCMaroon-desc = Бордовая уличная куртка со скрытой баллистической подкладкой. Подойдёт и для клуба, и для опасной дороги домой.
 
-nc-clothing-outer-armor-jacket-red = красная лёгкая бронекуртка
-    .desc = Ярко-красная бронекуртка, усиленная гибким кевларом. Незаметность явно не входила в техническое задание.
+ent-ClothingOuterArmorJacketNCRed = красная лёгкая бронекуртка
+ent-ClothingOuterArmorJacketNCRed-desc = Ярко-красная бронекуртка, усиленная гибким кевларом. Незаметность явно не входила в техническое задание.
 
-nc-clothing-outer-armor-jacket-turquoise = бирюзовая лёгкая бронекуртка
-    .desc = Бирюзовая бронекуртка с гибким баллистическим усилением и яркими элементами уличной моды.
+ent-ClothingOuterArmorJacketNCTurquoise = бирюзовая лёгкая бронекуртка
+ent-ClothingOuterArmorJacketNCTurquoise-desc = Бирюзовая бронекуртка с гибким баллистическим усилением и яркими элементами уличной моды.
 
-nc-clothing-outer-armor-jacket-violet = фиолетовая лёгкая бронекуртка
-    .desc = Фиолетовая бронекуртка с кевларовой подкладкой. Неоновые вставки хорошо видны даже сквозь красную мглу.
+ent-ClothingOuterArmorJacketNCViolet = фиолетовая лёгкая бронекуртка
+ent-ClothingOuterArmorJacketNCViolet-desc = Фиолетовая бронекуртка с кевларовой подкладкой. Неоновые вставки хорошо видны даже сквозь красную мглу.
 
 nc-jacket-unzip-verb = Расстегнуть
 nc-jacket-zip-verb = Застегнуть

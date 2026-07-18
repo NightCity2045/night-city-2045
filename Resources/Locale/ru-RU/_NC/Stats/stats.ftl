@@ -170,6 +170,7 @@ nc-skill-playinstrument-description = Практическое владение 
 nc-profile-editor-stats-header = Характеристики
 nc-profile-editor-skills-header = Навыки
 nc-profile-editor-stats-budget = Характеристики: потрачено {$spent}/{$total}, осталось {$remaining}
+nc-profile-editor-maximize-visible-stats = Обязательно прокачайте BODY и MOVE до максимума.
 nc-profile-editor-skills-budget = Навыки: потрачено {$spent}/{$total}, осталось {$remaining}
 nc-profile-editor-rpg-locked = Распределение уже заблокировано.
 nc-profile-editor-rpg-unlocked = После первого сохранения перераспределение станет недоступно.

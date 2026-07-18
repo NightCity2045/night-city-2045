@@ -61,39 +61,84 @@ public sealed class SharedCyberwareCombatSystem : EntitySystem
         if (!TryGetArmorAttack(args, out var attack))
             return;
 
+        var targetPart = args.TargetPart ?? TargetBodyPart.Torso;
+        EntityUid? ballisticUid = null;
+        PhysicalArmorComponent? ballisticArmor = null;
+        EntityUid? traumaUid = null;
+        PhysicalArmorComponent? traumaArmor = null;
+        var bestSp = 0f;
+
         foreach (var implantUid in component.InstalledImplants.Values)
         {
             if (!_entManager.TryGetComponent<PhysicalArmorComponent>(implantUid, out var armor))
                 continue;
 
-            ApplySubdermalArmor(implantUid, armor, args, attack);
+            if (!IsActive(armor) || !Covers(armor, targetPart))
+                continue;
+
+            // Only the strongest ballistic implant protects a hit; separate implant families must not stack SP.
+            var sp = GetEffectiveStoppingPower(armor);
+            if (sp > bestSp)
+            {
+                ballisticUid = implantUid;
+                ballisticArmor = armor;
+                bestSp = sp;
+            }
+
+            // Skeleton reinforcement and armor backing may reduce transferred blunt trauma.
+            if (traumaArmor == null || armor.BluntDamageMultiplier < traumaArmor.BluntDamageMultiplier)
+            {
+                traumaUid = implantUid;
+                traumaArmor = armor;
+            }
         }
+
+        ApplySubdermalArmor(ballisticUid, ballisticArmor, traumaUid, traumaArmor, args, attack, bestSp);
     }
 
     private void ApplySubdermalArmor(
-        EntityUid implantUid,
-        PhysicalArmorComponent armor,
+        EntityUid? ballisticUid,
+        PhysicalArmorComponent? ballisticArmor,
+        EntityUid? traumaUid,
+        PhysicalArmorComponent? traumaArmor,
         DamageModifyEvent args,
-        PhysicalArmorAttack attack)
+        PhysicalArmorAttack attack,
+        float ballisticSp)
     {
-        var targetPart = args.TargetPart ?? TargetBodyPart.Torso;
-        if (!IsActive(armor) || !Covers(armor, targetPart))
-            return;
-
-        DamageArmor(armor, attack.Damage);
-        Dirty(implantUid, armor);
-
         if (attack.Kind == PhysicalArmorAttackKind.Blunt)
         {
-            // Per GDD, blunt force travels through subdermal chrome into bones and organs.
+            if (traumaUid is not { } bluntUid || traumaArmor == null)
+                return;
+
+            DamageArmor(bluntUid, traumaArmor, attack.Damage);
+            args.Damage = ConvertToDamage(attack.Damage * traumaArmor.BluntDamageMultiplier, "Blunt");
             return;
         }
 
-        var sp = GetEffectiveStoppingPower(armor);
-        if (attack.Penetration > sp)
-            args.Damage = ConvertToDamage(ApplyPenetrationDamageReduction(attack.Damage, sp), attack.Ballistic ? "Piercing" : attack.DamageType);
-        else
-            args.Damage = new DamageSpecifier();
+        if (ballisticUid is not { } armorUid || ballisticArmor == null || ballisticSp <= 0f)
+            return;
+
+        // Snapshot SP before wear so the first hit receives the implant's full advertised protection.
+        DamageArmor(armorUid, ballisticArmor, attack.Damage);
+
+        if (attack.Penetration > ballisticSp)
+        {
+            args.Damage = ConvertToDamage(
+                ApplyPenetrationDamageReduction(attack.Damage, ballisticSp),
+                attack.Ballistic ? "Piercing" : attack.DamageType);
+            return;
+        }
+
+        var bluntMultiplier = ballisticArmor.BluntDamageMultiplier;
+        if (traumaUid is { } backingUid && traumaArmor != null)
+        {
+            bluntMultiplier = MathF.Min(bluntMultiplier, traumaArmor.BluntDamageMultiplier);
+            if (backingUid != armorUid)
+                DamageArmor(backingUid, traumaArmor, attack.Damage);
+        }
+
+        // Stopping a projectile prevents penetration, but its kinetic energy still reaches flesh as blunt trauma.
+        args.Damage = ConvertToDamage(attack.Damage * bluntMultiplier, "Blunt");
     }
 
     private bool TryGetArmorAttack(DamageModifyEvent args, out PhysicalArmorAttack attack)
@@ -156,10 +201,11 @@ public sealed class SharedCyberwareCombatSystem : EntitySystem
         return armor.CurrentDurability > 0f && (armor.StoppingPower > 0f || armor.BluntDamageMultiplier < 1f);
     }
 
-    private static void DamageArmor(PhysicalArmorComponent armor, float impactDamage)
+    private void DamageArmor(EntityUid uid, PhysicalArmorComponent armor, float impactDamage)
     {
         var durabilityDamage = impactDamage * MathF.Max(armor.DurabilityDamageMultiplier, 0f);
         armor.CurrentDurability = MathF.Max(0f, armor.CurrentDurability - durabilityDamage);
+        Dirty(uid, armor);
     }
 
     private static float GetEffectiveStoppingPower(PhysicalArmorComponent armor)

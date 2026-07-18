@@ -20,7 +20,7 @@
         Radiation: 0.5
         Caustic: 0.3
   - type: PhysicalArmor
-    stoppingPower: 55
+    stoppingPower: 50
     maxDurability: 220
     currentDurability: 220
     materialType: Ceramic
@@ -72,7 +72,7 @@
         Radiation: 0.6
         Caustic: 0.6
   - type: PhysicalArmor
-    stoppingPower: 72
+    stoppingPower: 66
     maxDurability: 320
     currentDurability: 320
     materialType: Steel

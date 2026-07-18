@@ -11,7 +11,7 @@
   - type: NCWeight
     weight: 1.8
   - type: PhysicalArmor
-    stoppingPower: 25
+    stoppingPower: 22
     maxDurability: 90
     currentDurability: 90
     materialType: Kevlar

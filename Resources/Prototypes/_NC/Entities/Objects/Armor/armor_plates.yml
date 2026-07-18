@@ -8,21 +8,21 @@
     sprite: Objects/Materials/Sheets/glass.rsi
     state: cglass
   - type: PhysicalArmor
-    stoppingPower: 60
+    stoppingPower: 62
     maxDurability: 180
     currentDurability: 180
     materialType: Ceramic
-    bluntDamageMultiplier: 0
-    durabilityDamageMultiplier: 2
+    bluntDamageMultiplier: 0.2
+    durabilityDamageMultiplier: 1.4
     coverage:
     - Torso
   - type: ArmorMaterial
     layerType: Plate
-    grantedStoppingPower: 60
+    grantedStoppingPower: 62
     grantedDurability: 180
     materialType: Ceramic
-    bluntDamageMultiplier: 0
-    durabilityDamageMultiplier: 2
+    bluntDamageMultiplier: 0.2
+    durabilityDamageMultiplier: 1.4
   - type: Item
     size: Normal
     heldPrefix: cglass
@@ -39,20 +39,20 @@
     sprite: Objects/Materials/Sheets/metal.rsi
     state: steel
   - type: PhysicalArmor
-    stoppingPower: 68
-    maxDurability: 350
-    currentDurability: 350
+    stoppingPower: 50
+    maxDurability: 360
+    currentDurability: 360
     materialType: Steel
-    bluntDamageMultiplier: 0.4
+    bluntDamageMultiplier: 0.5
     durabilityDamageMultiplier: 0.35
     coverage:
     - Torso
   - type: ArmorMaterial
     layerType: Plate
-    grantedStoppingPower: 68
-    grantedDurability: 250
+    grantedStoppingPower: 50
+    grantedDurability: 360
     materialType: Steel
-    bluntDamageMultiplier: 0.4
+    bluntDamageMultiplier: 0.5
     durabilityDamageMultiplier: 0.35
   - type: Item
     size: Normal
@@ -70,21 +70,21 @@
     sprite: Objects/Materials/materials.rsi
     state: durathread
   - type: PhysicalArmor
-    stoppingPower: 32
-    maxDurability: 180
-    currentDurability: 180
+    stoppingPower: 30
+    maxDurability: 200
+    currentDurability: 200
     materialType: Kevlar
     bluntDamageMultiplier: 0.8
-    durabilityDamageMultiplier: 0.5
+    durabilityDamageMultiplier: 0.65
     coverage:
     - Torso
   - type: ArmorMaterial
     layerType: Plate
-    grantedStoppingPower: 32
-    grantedDurability: 180
+    grantedStoppingPower: 30
+    grantedDurability: 200
     materialType: Kevlar
     bluntDamageMultiplier: 0.8
-    durabilityDamageMultiplier: 0.5
+    durabilityDamageMultiplier: 0.65
   - type: Item
     size: Normal
     heldPrefix: durathread

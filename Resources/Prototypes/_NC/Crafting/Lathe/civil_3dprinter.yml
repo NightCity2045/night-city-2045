@@ -24,10 +24,43 @@
     unlitRunningState: getto_unlit-building
     staticPacks:
     - NCDebugAll
+    - NCArmorPlatesCivilian
     dynamicPacks:
     - AdvancedTools
 
 # region Civilian
+
+- type: latheRecipePack
+  id: NCArmorPlatesCivilian
+  recipes:
+  - NCRecipeArmorPlateKevlar
+  - NCRecipeArmorPlateSteel
+  - NCRecipeArmorPlateCeramic
+
+- type: latheRecipe
+  id: NCRecipeArmorPlateKevlar
+  result: NCArmorPlateKevlar
+  completetime: 8
+  materials:
+    Durathread: 800
+    Plastic: 200
+
+- type: latheRecipe
+  id: NCRecipeArmorPlateSteel
+  result: NCArmorPlateSteel
+  completetime: 12
+  materials:
+    Steel: 1600
+    Plasteel: 400
+
+- type: latheRecipe
+  id: NCRecipeArmorPlateCeramic
+  result: NCArmorPlateCeramic
+  completetime: 15
+  materials:
+    Glass: 1200
+    Plasteel: 500
+    Plastic: 200
 
 - type: latheRecipe
   id: ClothingEyesGogglesBotany

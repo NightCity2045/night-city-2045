@@ -8,7 +8,7 @@
   - type: NCWeight
     weight: 2.2
   - type: PhysicalArmor
-    stoppingPower: 25
+    stoppingPower: 24
     maxDurability: 220
     currentDurability: 220
     materialType: Kevlar
@@ -62,8 +62,8 @@
 - type: entity
   parent: NCClothingOuterArmorJacketStateBase
   id: ClothingOuterArmorJacketNCBlack
-  name: nc-clothing-outer-armor-jacket-black
-  description: nc-clothing-outer-armor-jacket-black-desc
+  name: ent-ClothingOuterArmorJacketNCBlack
+  description: ent-ClothingOuterArmorJacketNCBlack-desc
   components:
   - type: Sprite
     sprite: _NC/Clothing/OuterClothing/Armor/Jackets/jacket_black.rsi
@@ -73,8 +73,8 @@
 - type: entity
   parent: NCClothingOuterArmorJacketFoldableBase
   id: ClothingOuterArmorJacketNCMaroon
-  name: nc-clothing-outer-armor-jacket-maroon
-  description: nc-clothing-outer-armor-jacket-maroon-desc
+  name: ent-ClothingOuterArmorJacketNCMaroon
+  description: ent-ClothingOuterArmorJacketNCMaroon-desc
   components:
   - type: NCJacketClosure
   - type: Sprite
@@ -85,8 +85,8 @@
 - type: entity
   parent: NCClothingOuterArmorJacketFoldableBase
   id: ClothingOuterArmorJacketNCRed
-  name: nc-clothing-outer-armor-jacket-red
-  description: nc-clothing-outer-armor-jacket-red-desc
+  name: ent-ClothingOuterArmorJacketNCRed
+  description: ent-ClothingOuterArmorJacketNCRed-desc
   components:
   - type: NCJacketClosure
   - type: Sprite
@@ -97,8 +97,8 @@
 - type: entity
   parent: NCClothingOuterArmorJacketFoldableBase
   id: ClothingOuterArmorJacketNCTurquoise
-  name: nc-clothing-outer-armor-jacket-turquoise
-  description: nc-clothing-outer-armor-jacket-turquoise-desc
+  name: ent-ClothingOuterArmorJacketNCTurquoise
+  description: ent-ClothingOuterArmorJacketNCTurquoise-desc
   components:
   - type: NCJacketClosure
   - type: Sprite
@@ -109,8 +109,8 @@
 - type: entity
   parent: NCClothingOuterArmorJacketFoldableBase
   id: ClothingOuterArmorJacketNCViolet
-  name: nc-clothing-outer-armor-jacket-violet
-  description: nc-clothing-outer-armor-jacket-violet-desc
+  name: ent-ClothingOuterArmorJacketNCViolet
+  description: ent-ClothingOuterArmorJacketNCViolet-desc
   components:
   - type: NCJacketClosure
   - type: Sprite
