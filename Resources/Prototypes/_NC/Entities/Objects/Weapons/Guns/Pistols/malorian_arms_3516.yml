@@ -1,0 +1,72 @@
+- type: entity
+  id: WeaponPistolMalorianArms3516
+  name: ent-WeaponPistolMalorianArms3516
+  description: ent-WeaponPistolMalorianArms3516-desc
+  parent: [BaseWeaponPistol, NCBrandMalorianArms]
+  components:
+  - type: Sprite
+    sprite: _NC/Objects/Weapons/Guns/Pistol/malorian_arms/big.rsi
+    scale: 0.7, 0.7
+    layers:
+    - state: base
+      map: ["enum.GunVisualLayers.Base"]
+    - state: mag-0
+      map: ["enum.GunVisualLayers.Mag"]
+  - type: Item
+    sprite: _NC/Objects/Weapons/Guns/Pistol/malorian_arms/tiny.rsi
+    size: Normal
+  - type: Clothing
+    sprite: _NC/Objects/Weapons/Guns/Pistol/malorian_arms/tiny.rsi
+    slots:
+    - Belt
+    - SuitStorage
+  - type: ItemSlots
+    slots:
+      gun_magazine:
+        name: Magazine
+        startingItem: MagazinePistolBoomerBuster
+        insertSound: /Audio/Weapons/Guns/MagIn/pistol_magin.ogg
+        ejectSound: /Audio/Weapons/Guns/MagOut/pistol_magout.ogg
+        priority: 2
+        whitelist:
+          tags:
+          - MagazinePistolBoomerBuster
+        whitelistFailPopup: gun-magazine-whitelist-fail
+      gun_chamber:
+        name: Chamber
+        startingItem: Cartridge13x23CL
+        priority: 1
+        whitelist:
+          tags:
+          - Cartridge13x23CL
+  - type: Gun
+    fireRate: 3
+    selectedMode: SemiAuto
+    availableModes:
+    - SemiAuto
+    soundGunshot:
+      path: /Audio/Weapons/Guns/Gunshots/mateba.ogg
+    fireOnDropChance: 0.3
+
+- type: entity
+  id: WeaponPistolMalorianArms3516Empty
+  parent: WeaponPistolMalorianArms3516
+  suffix: Empty
+  components:
+  - type: ItemSlots
+    slots:
+      gun_magazine:
+        name: Magazine
+        insertSound: /Audio/Weapons/Guns/MagIn/pistol_magin.ogg
+        ejectSound: /Audio/Weapons/Guns/MagOut/pistol_magout.ogg
+        priority: 2
+        whitelist:
+          tags:
+          - MagazinePistolBoomerBuster
+        whitelistFailPopup: gun-magazine-whitelist-fail
+      gun_chamber:
+        name: Chamber
+        priority: 1
+        whitelist:
+          tags:
+          - Cartridge13x23CL

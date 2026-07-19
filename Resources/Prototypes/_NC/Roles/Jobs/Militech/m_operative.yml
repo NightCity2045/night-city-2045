@@ -5,7 +5,7 @@
   playTimeTracker: JobMilitechOperative
   weight: 70
   salary: 300
-  icon: "JobIconNCPDPolice"
+  icon: "JobIconMilitechOperative"
   startingGear: MilitechOperativeGear
   access:
     - Militech_Operative

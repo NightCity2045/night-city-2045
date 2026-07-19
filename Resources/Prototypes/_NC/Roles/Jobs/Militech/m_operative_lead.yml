@@ -5,7 +5,7 @@
   playTimeTracker: JobMilitechOperativeLead
   weight: 80
   salary: 400
-  icon: "JobIconNCPDCommander"
+  icon: "JobIconMilitechOperativeLead"
   startingGear: MilitechOperativeLeadGear
   access:
     - Militech_Command

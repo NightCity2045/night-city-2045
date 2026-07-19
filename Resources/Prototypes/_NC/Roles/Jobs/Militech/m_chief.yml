@@ -5,7 +5,7 @@
   playTimeTracker: JobMilitechChief
   weight: 100
   salary: 650
-  icon: "JobIconNCPDChief"
+  icon: "JobIconMilitechChief"
   startingGear: MilitechChiefGear
   access:
     - Militech_Command

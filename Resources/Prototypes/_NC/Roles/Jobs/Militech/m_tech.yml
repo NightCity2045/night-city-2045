@@ -5,7 +5,7 @@
   playTimeTracker: JobMilitechTech
   weight: 50
   salary: 250
-  icon: "JobIconTraumaTech"
+  icon: "JobIconMilitechTech"
   startingGear: MilitechTechGear
   access:
     - Militech_Tech

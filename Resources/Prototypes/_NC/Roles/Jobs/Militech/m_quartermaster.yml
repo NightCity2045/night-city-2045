@@ -5,7 +5,7 @@
   playTimeTracker: JobMilitechQuartermaster
   weight: 45
   salary: 300
-  icon: "JobIconQuarterMaster"
+  icon: "JobIconMilitechQuartermaster"
   startingGear: MilitechQuartermasterGear
   access:
     - Militech_Armory

@@ -5,7 +5,7 @@
   playTimeTracker: JobMilitechNetrunner
   weight: 60
   salary: 450
-  icon: "JobIconCivilNetrunner"
+  icon: "JobIconMilitechNetrunner"
   startingGear: MilitechNetrunnerGear
   access:
     - Militech_Command
