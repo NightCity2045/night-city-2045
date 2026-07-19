@@ -15797,39 +15797,6 @@ entities:
     - type: Transform
       pos: -77.1034,-71.347496
       parent: 2
-  entities:
-  - uid: 709
-    components:
-    - type: Transform
-      pos: -92.5,-67.5
-      parent: 2
-  - uid: 710
-    components:
-    - type: Transform
-      pos: -85.5,-58.5
-      parent: 2
-  - uid: 711
-    components:
-    - type: Transform
-      pos: -75.5,-60.5
-      parent: 2
-  - uid: 712
-    components:
-    - type: Transform
-      pos: -92.5,-60.5
-      parent: 2
-  - uid: 713
-    components:
-    - type: Transform
-      rot: 1.5707963267948966 rad
-      pos: -87.5,-62.5
-      parent: 2
-  - uid: 714
-    components:
-    - type: Transform
-      rot: 1.5707963267948966 rad
-      pos: -86.5,-62.5
-      parent: 2
 - proto: BlastDoor
   entities:
   - uid: 715
