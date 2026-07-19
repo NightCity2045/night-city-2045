@@ -1,0 +1,98 @@
+# Abstract faction bases keep the visual identity of packed rigger drones data-driven.
+- type: entity
+  abstract: true
+  parent: BaseFlatpack
+  id: NCBaseBiotechnicaRobotFlatpack
+  components:
+  - type: Sprite
+    layers:
+    - state: base
+    - state: overlay
+      color: "#61C49A"
+    - state: icon-default
+
+- type: entity
+  abstract: true
+  parent: BaseFlatpack
+  id: NCBaseMilitechRobotFlatpack
+  components:
+  - type: Sprite
+    layers:
+    - state: base
+    - state: overlay
+      color: "#596B3A"
+    - state: icon-default
+
+# Biotechnica rigger drone flatpacks.
+- type: entity
+  parent: NCBaseBiotechnicaRobotFlatpack
+  id: NCBiotechnicaRobotAvengerFlatpack
+  name: ent-NCBiotechnicaRobotAvengerFlatpack
+  description: ent-NCBiotechnicaRobotAvengerFlatpack-desc
+  components:
+  - type: Flatpack
+    entity: MobNCBiotechnicaRobotAvenger
+
+- type: entity
+  parent: NCBaseBiotechnicaRobotFlatpack
+  id: NCBiotechnicaRobotBoomerBusterFlatpack
+  name: ent-NCBiotechnicaRobotBoomerBusterFlatpack
+  description: ent-NCBiotechnicaRobotBoomerBusterFlatpack-desc
+  components:
+  - type: Flatpack
+    entity: MobNCBiotechnicaRobotBoomerBuster
+
+- type: entity
+  parent: NCBaseBiotechnicaRobotFlatpack
+  id: NCBiotechnicaRobotSaratogaFlatpack
+  name: ent-NCBiotechnicaRobotSaratogaFlatpack
+  description: ent-NCBiotechnicaRobotSaratogaFlatpack-desc
+  components:
+  - type: Flatpack
+    entity: MobNCBiotechnicaRobotSaratoga
+
+- type: entity
+  parent: NCBaseBiotechnicaRobotFlatpack
+  id: NCBiotechnicaRobotCrusherFlatpack
+  name: ent-NCBiotechnicaRobotCrusherFlatpack
+  description: ent-NCBiotechnicaRobotCrusherFlatpack-desc
+  components:
+  - type: Flatpack
+    entity: MobNCBiotechnicaRobotCrusher
+
+# Militech rigger drone flatpacks.
+- type: entity
+  parent: NCBaseMilitechRobotFlatpack
+  id: NCMilitechRobotAvengerFlatpack
+  name: ent-NCMilitechRobotAvengerFlatpack
+  description: ent-NCMilitechRobotAvengerFlatpack-desc
+  components:
+  - type: Flatpack
+    entity: MobNCMilitechRobotAvenger
+
+- type: entity
+  parent: NCBaseMilitechRobotFlatpack
+  id: NCMilitechRobotBoomerFlatpack
+  name: ent-NCMilitechRobotBoomerFlatpack
+  description: ent-NCMilitechRobotBoomerFlatpack-desc
+  components:
+  - type: Flatpack
+    entity: MobNCMilitechRobotBoomer
+
+- type: entity
+  parent: NCBaseMilitechRobotFlatpack
+  id: NCMilitechRobotSaratogaFlatpack
+  name: ent-NCMilitechRobotSaratogaFlatpack
+  description: ent-NCMilitechRobotSaratogaFlatpack-desc
+  components:
+  - type: Flatpack
+    entity: MobNCMilitechRobotSaratoga
+
+- type: entity
+  parent: NCBaseMilitechRobotFlatpack
+  id: NCMilitechRobotCrusherFlatpack
+  name: ent-NCMilitechRobotCrusherFlatpack
+  description: ent-NCMilitechRobotCrusherFlatpack-desc
+  components:
+  - type: Flatpack
+    entity: MobNCMilitechRobotCrusher

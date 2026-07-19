@@ -122,7 +122,8 @@ public sealed partial class ChatSystem
 
                     return WrapPublicMessage(source, displayName, content, speech, language: language);
                 },
-                serverMessageId: serverMessageId);
+                serverMessageId: serverMessageId,
+                translateObservers: true);
 
             if (translationDispatch.PendingTranslation != null && serverMessageId is { } pendingMessageId)
             {

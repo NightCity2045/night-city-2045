@@ -4,6 +4,8 @@
   id: BaseCrowbar
   abstract: true
   components:
+  - type: NCWeight
+    weight: 1.5
   - type: EmitSoundOnPickup
     sound:
       path: /Audio/SimpleStation14/Items/Handling/crowbar_pickup.ogg

@@ -130,10 +130,13 @@ public sealed class NCNpcFriendlyFireGunSystem : EntitySystem
 
     private bool IsFriendly(EntityUid shooter, NpcFactionMemberComponent shooterFaction, EntityUid other)
     {
-        // A peaceful drone temporarily belongs to Passive, but its corporate allies remain stable.
-        if (TryComp<RiggerDroneComponent>(shooter, out var drone) &&
-            TryComp<NpcFactionMemberComponent>(other, out var droneTargetFaction) &&
-            _faction.IsMemberOfAny((other, droneTargetFaction), drone.DroneFactions))
+        // RTS aggression temporarily replaces the active faction with Passive. Compare the stable
+        // command factions first so mixed passive/normal squads cannot fire through each other.
+        if (TryComp<RiggerDroneComponent>(shooter, out var shooterDrone) &&
+            ((TryComp<RiggerDroneComponent>(other, out var otherDrone) &&
+              shooterDrone.DroneFactions.Overlaps(otherDrone.DroneFactions)) ||
+             (TryComp<NpcFactionMemberComponent>(other, out var droneTargetFaction) &&
+              _faction.IsMemberOfAny((other, droneTargetFaction), shooterDrone.DroneFactions))))
         {
             return true;
         }

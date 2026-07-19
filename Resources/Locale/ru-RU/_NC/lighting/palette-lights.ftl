@@ -1,413 +1,413 @@
 nc-palette-light-tube-desc = Сменная цветная световая трубка из архитектурной палитры Найт-Сити.
 nc-palette-powered-light-desc = Настенный светильник с питанием и установленной цветной световой трубкой.
 
-ent-NCLightTubeC3FFFF = световая трубка NC (#C3FFFF)
+ent-NCLightTubePaleCyan = световая трубка NC (бледно-голубая)
     .desc = { nc-palette-light-tube-desc }
-    .suffix = палитра NC, #C3FFFF
+    .suffix = палитра NC, бледно-голубая
 
-ent-NCLightTube9BC9EC = световая трубка NC (#9BC9EC)
+ent-NCLightTubeSkyBlue = световая трубка NC (небесно-голубая)
     .desc = { nc-palette-light-tube-desc }
-    .suffix = палитра NC, #9BC9EC
+    .suffix = палитра NC, небесно-голубая
 
-ent-NCLightTube5578C4 = световая трубка NC (#5578C4)
+ent-NCLightTubeIndigoBlue = световая трубка NC (индиго-синяя)
     .desc = { nc-palette-light-tube-desc }
-    .suffix = палитра NC, #5578C4
+    .suffix = палитра NC, индиго-синяя
 
-ent-NCLightTubeFFED9F = световая трубка NC (#FFED9F)
+ent-NCLightTubeWarmIvory = световая трубка NC (тёплая слоновая кость)
     .desc = { nc-palette-light-tube-desc }
-    .suffix = палитра NC, #FFED9F
+    .suffix = палитра NC, тёплая слоновая кость
 
-ent-NCLightTubeFFBC86 = световая трубка NC (#FFBC86)
+ent-NCLightTubePeach = световая трубка NC (персиковая)
     .desc = { nc-palette-light-tube-desc }
-    .suffix = палитра NC, #FFBC86
+    .suffix = палитра NC, персиковая
 
-ent-NCLightTubeCA7B53 = световая трубка NC (#CA7B53)
+ent-NCLightTubeCopper = световая трубка NC (медная)
     .desc = { nc-palette-light-tube-desc }
-    .suffix = палитра NC, #CA7B53
+    .suffix = палитра NC, медная
 
-ent-NCLightTubeF7B2A4 = световая трубка NC (#F7B2A4)
+ent-NCLightTubeRose = световая трубка NC (розовая)
     .desc = { nc-palette-light-tube-desc }
-    .suffix = палитра NC, #F7B2A4
+    .suffix = палитра NC, розовая
 
-ent-NCLightTube736689 = световая трубка NC (#736689)
+ent-NCLightTubeMauve = световая трубка NC (лилово-серая)
     .desc = { nc-palette-light-tube-desc }
-    .suffix = палитра NC, #736689
+    .suffix = палитра NC, лилово-серая
 
-ent-NCLightTube99627B = световая трубка NC (#99627B)
+ent-NCLightTubeDustyPurple = световая трубка NC (пыльно-пурпурная)
     .desc = { nc-palette-light-tube-desc }
-    .suffix = палитра NC, #99627B
+    .suffix = палитра NC, пыльно-пурпурная
 
-ent-NCLightTube2F3854 = световая трубка NC (#2F3854)
+ent-NCLightTubeMidnightBlue = световая трубка NC (полуночная синяя)
     .desc = { nc-palette-light-tube-desc }
-    .suffix = палитра NC, #2F3854
+    .suffix = палитра NC, полуночная синяя
 
-ent-NCLightTubeFF82EE = световая трубка NC (#FF82EE)
+ent-NCLightTubeNeonPink = световая трубка NC (неоново-розовая)
     .desc = { nc-palette-light-tube-desc }
-    .suffix = палитра NC, #FF82EE
+    .suffix = палитра NC, неоново-розовая
 
-ent-NCLightTubeEB3CFF = световая трубка NC (#EB3CFF)
+ent-NCLightTubeNeonViolet = световая трубка NC (неоново-фиолетовая)
     .desc = { nc-palette-light-tube-desc }
-    .suffix = палитра NC, #EB3CFF
+    .suffix = палитра NC, неоново-фиолетовая
 
-ent-NCLightTubeAA0FDF = световая трубка NC (#AA0FDF)
+ent-NCLightTubeDeepViolet = световая трубка NC (глубокая фиолетовая)
     .desc = { nc-palette-light-tube-desc }
-    .suffix = палитра NC, #AA0FDF
+    .suffix = палитра NC, глубокая фиолетовая
 
-ent-NCLightTubeFBFF88 = световая трубка NC (#FBFF88)
+ent-NCLightTubeAcidYellow = световая трубка NC (кислотно-жёлтая)
     .desc = { nc-palette-light-tube-desc }
-    .suffix = палитра NC, #FBFF88
+    .suffix = палитра NC, кислотно-жёлтая
 
-ent-NCLightTubeFFF142 = световая трубка NC (#FFF142)
+ent-NCLightTubeBrightYellow = световая трубка NC (ярко-жёлтая)
     .desc = { nc-palette-light-tube-desc }
-    .suffix = палитра NC, #FFF142
+    .suffix = палитра NC, ярко-жёлтая
 
-ent-NCLightTubeFFCD47 = световая трубка NC (#FFCD47)
+ent-NCLightTubeAmberYellow = световая трубка NC (янтарно-жёлтая)
     .desc = { nc-palette-light-tube-desc }
-    .suffix = палитра NC, #FFCD47
+    .suffix = палитра NC, янтарно-жёлтая
 
-ent-NCLightTubeFF8C67 = световая трубка NC (#FF8C67)
+ent-NCLightTubeCoralOrange = световая трубка NC (кораллово-оранжевая)
     .desc = { nc-palette-light-tube-desc }
-    .suffix = палитра NC, #FF8C67
+    .suffix = палитра NC, кораллово-оранжевая
 
-ent-NCLightTubeFF6339 = световая трубка NC (#FF6339)
+ent-NCLightTubeSignalOrange = световая трубка NC (сигнально-оранжевая)
     .desc = { nc-palette-light-tube-desc }
-    .suffix = палитра NC, #FF6339
+    .suffix = палитра NC, сигнально-оранжевая
 
-ent-NCLightTubeD61910 = световая трубка NC (#D61910)
+ent-NCLightTubeSignalRed = световая трубка NC (сигнально-красная)
     .desc = { nc-palette-light-tube-desc }
-    .suffix = палитра NC, #D61910
+    .suffix = палитра NC, сигнально-красная
 
-ent-NCLightTube578DFF = световая трубка NC (#578DFF)
+ent-NCLightTubeElectricBlue = световая трубка NC (электрически-синяя)
     .desc = { nc-palette-light-tube-desc }
-    .suffix = палитра NC, #578DFF
+    .suffix = палитра NC, электрически-синяя
 
-ent-NCLightTube2262EC = световая трубка NC (#2262EC)
+ent-NCLightTubeCobaltBlue = световая трубка NC (кобальтово-синяя)
     .desc = { nc-palette-light-tube-desc }
-    .suffix = палитра NC, #2262EC
+    .suffix = палитра NC, кобальтово-синяя
 
-ent-NCLightTube002ECD = световая трубка NC (#002ECD)
+ent-NCLightTubeDeepBlue = световая трубка NC (глубокая синяя)
     .desc = { nc-palette-light-tube-desc }
-    .suffix = палитра NC, #002ECD
+    .suffix = палитра NC, глубокая синяя
 
-ent-NCLightTube8BFFF6 = световая трубка NC (#8BFFF6)
+ent-NCLightTubeAquaCyan = световая трубка NC (аквамариново-голубая)
     .desc = { nc-palette-light-tube-desc }
-    .suffix = палитра NC, #8BFFF6
+    .suffix = палитра NC, аквамариново-голубая
 
-ent-NCLightTube5BEDFF = световая трубка NC (#5BEDFF)
+ent-NCLightTubeCyanBlue = световая трубка NC (цианово-синяя)
     .desc = { nc-palette-light-tube-desc }
-    .suffix = палитра NC, #5BEDFF
+    .suffix = палитра NC, цианово-синяя
 
-ent-NCLightTube27D6FF = световая трубка NC (#27D6FF)
+ent-NCLightTubeNeonCyan = световая трубка NC (неоново-голубая)
     .desc = { nc-palette-light-tube-desc }
-    .suffix = палитра NC, #27D6FF
+    .suffix = палитра NC, неоново-голубая
 
-ent-NCLightTubeB3FF6E = световая трубка NC (#B3FF6E)
+ent-NCLightTubeLime = световая трубка NC (лаймовая)
     .desc = { nc-palette-light-tube-desc }
-    .suffix = палитра NC, #B3FF6E
+    .suffix = палитра NC, лаймовая
 
-ent-NCLightTube74E747 = световая трубка NC (#74E747)
+ent-NCLightTubeAcidGreen = световая трубка NC (кислотно-зелёная)
     .desc = { nc-palette-light-tube-desc }
-    .suffix = палитра NC, #74E747
+    .suffix = палитра NC, кислотно-зелёная
 
-ent-NCLightTube34CD15 = световая трубка NC (#34CD15)
+ent-NCLightTubeGreen = световая трубка NC (зелёная)
     .desc = { nc-palette-light-tube-desc }
-    .suffix = палитра NC, #34CD15
+    .suffix = палитра NC, зелёная
 
-ent-NCLightTubeFF60CF = световая трубка NC (#FF60CF)
+ent-NCLightTubeHotPink = световая трубка NC (ярко-розовая)
     .desc = { nc-palette-light-tube-desc }
-    .suffix = палитра NC, #FF60CF
+    .suffix = палитра NC, ярко-розовая
 
-ent-NCLightTubeFF3BA2 = световая трубка NC (#FF3BA2)
+ent-NCLightTubeMagentaPink = световая трубка NC (маджентово-розовая)
     .desc = { nc-palette-light-tube-desc }
-    .suffix = палитра NC, #FF3BA2
+    .suffix = палитра NC, маджентово-розовая
 
-ent-NCLightTubeDC1E7F = световая трубка NC (#DC1E7F)
+ent-NCLightTubeDeepMagenta = световая трубка NC (глубокая маджента)
     .desc = { nc-palette-light-tube-desc }
-    .suffix = палитра NC, #DC1E7F
+    .suffix = палитра NC, глубокая маджента
 
-ent-NCLightTubeE3FAFF = световая трубка NC (#E3FAFF)
+ent-NCLightTubeCoolWhite = световая трубка NC (холодная белая)
     .desc = { nc-palette-light-tube-desc }
-    .suffix = палитра NC, #E3FAFF
+    .suffix = палитра NC, холодная белая
 
-ent-NCLightTubeD3E2E7 = световая трубка NC (#D3E2E7)
+ent-NCLightTubeSteelWhite = световая трубка NC (стально-белая)
     .desc = { nc-palette-light-tube-desc }
-    .suffix = палитра NC, #D3E2E7
+    .suffix = палитра NC, стально-белая
 
-ent-NCLightTubeB6C3CA = световая трубка NC (#B6C3CA)
+ent-NCLightTubeBlueGray = световая трубка NC (сине-серая)
     .desc = { nc-palette-light-tube-desc }
-    .suffix = палитра NC, #B6C3CA
+    .suffix = палитра NC, сине-серая
 
-ent-NCPoweredLightC3FFFF = светильник NC (#C3FFFF)
+ent-NCPoweredLightPaleCyan = светильник NC (бледно-голубая)
     .desc = { nc-palette-powered-light-desc }
-    .suffix = палитра NC, #C3FFFF
+    .suffix = палитра NC, бледно-голубая
 
-ent-NCPoweredLight9BC9EC = светильник NC (#9BC9EC)
+ent-NCPoweredLightSkyBlue = светильник NC (небесно-голубая)
     .desc = { nc-palette-powered-light-desc }
-    .suffix = палитра NC, #9BC9EC
+    .suffix = палитра NC, небесно-голубая
 
-ent-NCPoweredLight5578C4 = светильник NC (#5578C4)
+ent-NCPoweredLightIndigoBlue = светильник NC (индиго-синяя)
     .desc = { nc-palette-powered-light-desc }
-    .suffix = палитра NC, #5578C4
+    .suffix = палитра NC, индиго-синяя
 
-ent-NCPoweredLightFFED9F = светильник NC (#FFED9F)
+ent-NCPoweredLightWarmIvory = светильник NC (тёплая слоновая кость)
     .desc = { nc-palette-powered-light-desc }
-    .suffix = палитра NC, #FFED9F
+    .suffix = палитра NC, тёплая слоновая кость
 
-ent-NCPoweredLightFFBC86 = светильник NC (#FFBC86)
+ent-NCPoweredLightPeach = светильник NC (персиковая)
     .desc = { nc-palette-powered-light-desc }
-    .suffix = палитра NC, #FFBC86
+    .suffix = палитра NC, персиковая
 
-ent-NCPoweredLightCA7B53 = светильник NC (#CA7B53)
+ent-NCPoweredLightCopper = светильник NC (медная)
     .desc = { nc-palette-powered-light-desc }
-    .suffix = палитра NC, #CA7B53
+    .suffix = палитра NC, медная
 
-ent-NCPoweredLightF7B2A4 = светильник NC (#F7B2A4)
+ent-NCPoweredLightRose = светильник NC (розовая)
     .desc = { nc-palette-powered-light-desc }
-    .suffix = палитра NC, #F7B2A4
+    .suffix = палитра NC, розовая
 
-ent-NCPoweredLight736689 = светильник NC (#736689)
+ent-NCPoweredLightMauve = светильник NC (лилово-серая)
     .desc = { nc-palette-powered-light-desc }
-    .suffix = палитра NC, #736689
+    .suffix = палитра NC, лилово-серая
 
-ent-NCPoweredLight99627B = светильник NC (#99627B)
+ent-NCPoweredLightDustyPurple = светильник NC (пыльно-пурпурная)
     .desc = { nc-palette-powered-light-desc }
-    .suffix = палитра NC, #99627B
+    .suffix = палитра NC, пыльно-пурпурная
 
-ent-NCPoweredLight2F3854 = светильник NC (#2F3854)
+ent-NCPoweredLightMidnightBlue = светильник NC (полуночная синяя)
     .desc = { nc-palette-powered-light-desc }
-    .suffix = палитра NC, #2F3854
+    .suffix = палитра NC, полуночная синяя
 
-ent-NCPoweredLightFF82EE = светильник NC (#FF82EE)
+ent-NCPoweredLightNeonPink = светильник NC (неоново-розовая)
     .desc = { nc-palette-powered-light-desc }
-    .suffix = палитра NC, #FF82EE
+    .suffix = палитра NC, неоново-розовая
 
-ent-NCPoweredLightEB3CFF = светильник NC (#EB3CFF)
+ent-NCPoweredLightNeonViolet = светильник NC (неоново-фиолетовая)
     .desc = { nc-palette-powered-light-desc }
-    .suffix = палитра NC, #EB3CFF
+    .suffix = палитра NC, неоново-фиолетовая
 
-ent-NCPoweredLightAA0FDF = светильник NC (#AA0FDF)
+ent-NCPoweredLightDeepViolet = светильник NC (глубокая фиолетовая)
     .desc = { nc-palette-powered-light-desc }
-    .suffix = палитра NC, #AA0FDF
+    .suffix = палитра NC, глубокая фиолетовая
 
-ent-NCPoweredLightFBFF88 = светильник NC (#FBFF88)
+ent-NCPoweredLightAcidYellow = светильник NC (кислотно-жёлтая)
     .desc = { nc-palette-powered-light-desc }
-    .suffix = палитра NC, #FBFF88
+    .suffix = палитра NC, кислотно-жёлтая
 
-ent-NCPoweredLightFFF142 = светильник NC (#FFF142)
+ent-NCPoweredLightBrightYellow = светильник NC (ярко-жёлтая)
     .desc = { nc-palette-powered-light-desc }
-    .suffix = палитра NC, #FFF142
+    .suffix = палитра NC, ярко-жёлтая
 
-ent-NCPoweredLightFFCD47 = светильник NC (#FFCD47)
+ent-NCPoweredLightAmberYellow = светильник NC (янтарно-жёлтая)
     .desc = { nc-palette-powered-light-desc }
-    .suffix = палитра NC, #FFCD47
+    .suffix = палитра NC, янтарно-жёлтая
 
-ent-NCPoweredLightFF8C67 = светильник NC (#FF8C67)
+ent-NCPoweredLightCoralOrange = светильник NC (кораллово-оранжевая)
     .desc = { nc-palette-powered-light-desc }
-    .suffix = палитра NC, #FF8C67
+    .suffix = палитра NC, кораллово-оранжевая
 
-ent-NCPoweredLightFF6339 = светильник NC (#FF6339)
+ent-NCPoweredLightSignalOrange = светильник NC (сигнально-оранжевая)
     .desc = { nc-palette-powered-light-desc }
-    .suffix = палитра NC, #FF6339
+    .suffix = палитра NC, сигнально-оранжевая
 
-ent-NCPoweredLightD61910 = светильник NC (#D61910)
+ent-NCPoweredLightSignalRed = светильник NC (сигнально-красная)
     .desc = { nc-palette-powered-light-desc }
-    .suffix = палитра NC, #D61910
+    .suffix = палитра NC, сигнально-красная
 
-ent-NCPoweredLight578DFF = светильник NC (#578DFF)
+ent-NCPoweredLightElectricBlue = светильник NC (электрически-синяя)
     .desc = { nc-palette-powered-light-desc }
-    .suffix = палитра NC, #578DFF
+    .suffix = палитра NC, электрически-синяя
 
-ent-NCPoweredLight2262EC = светильник NC (#2262EC)
+ent-NCPoweredLightCobaltBlue = светильник NC (кобальтово-синяя)
     .desc = { nc-palette-powered-light-desc }
-    .suffix = палитра NC, #2262EC
+    .suffix = палитра NC, кобальтово-синяя
 
-ent-NCPoweredLight002ECD = светильник NC (#002ECD)
+ent-NCPoweredLightDeepBlue = светильник NC (глубокая синяя)
     .desc = { nc-palette-powered-light-desc }
-    .suffix = палитра NC, #002ECD
+    .suffix = палитра NC, глубокая синяя
 
-ent-NCPoweredLight8BFFF6 = светильник NC (#8BFFF6)
+ent-NCPoweredLightAquaCyan = светильник NC (аквамариново-голубая)
     .desc = { nc-palette-powered-light-desc }
-    .suffix = палитра NC, #8BFFF6
+    .suffix = палитра NC, аквамариново-голубая
 
-ent-NCPoweredLight5BEDFF = светильник NC (#5BEDFF)
+ent-NCPoweredLightCyanBlue = светильник NC (цианово-синяя)
     .desc = { nc-palette-powered-light-desc }
-    .suffix = палитра NC, #5BEDFF
+    .suffix = палитра NC, цианово-синяя
 
-ent-NCPoweredLight27D6FF = светильник NC (#27D6FF)
+ent-NCPoweredLightNeonCyan = светильник NC (неоново-голубая)
     .desc = { nc-palette-powered-light-desc }
-    .suffix = палитра NC, #27D6FF
+    .suffix = палитра NC, неоново-голубая
 
-ent-NCPoweredLightB3FF6E = светильник NC (#B3FF6E)
+ent-NCPoweredLightLime = светильник NC (лаймовая)
     .desc = { nc-palette-powered-light-desc }
-    .suffix = палитра NC, #B3FF6E
+    .suffix = палитра NC, лаймовая
 
-ent-NCPoweredLight74E747 = светильник NC (#74E747)
+ent-NCPoweredLightAcidGreen = светильник NC (кислотно-зелёная)
     .desc = { nc-palette-powered-light-desc }
-    .suffix = палитра NC, #74E747
+    .suffix = палитра NC, кислотно-зелёная
 
-ent-NCPoweredLight34CD15 = светильник NC (#34CD15)
+ent-NCPoweredLightGreen = светильник NC (зелёная)
     .desc = { nc-palette-powered-light-desc }
-    .suffix = палитра NC, #34CD15
+    .suffix = палитра NC, зелёная
 
-ent-NCPoweredLightFF60CF = светильник NC (#FF60CF)
+ent-NCPoweredLightHotPink = светильник NC (ярко-розовая)
     .desc = { nc-palette-powered-light-desc }
-    .suffix = палитра NC, #FF60CF
+    .suffix = палитра NC, ярко-розовая
 
-ent-NCPoweredLightFF3BA2 = светильник NC (#FF3BA2)
+ent-NCPoweredLightMagentaPink = светильник NC (маджентово-розовая)
     .desc = { nc-palette-powered-light-desc }
-    .suffix = палитра NC, #FF3BA2
+    .suffix = палитра NC, маджентово-розовая
 
-ent-NCPoweredLightDC1E7F = светильник NC (#DC1E7F)
+ent-NCPoweredLightDeepMagenta = светильник NC (глубокая маджента)
     .desc = { nc-palette-powered-light-desc }
-    .suffix = палитра NC, #DC1E7F
+    .suffix = палитра NC, глубокая маджента
 
-ent-NCPoweredLightE3FAFF = светильник NC (#E3FAFF)
+ent-NCPoweredLightCoolWhite = светильник NC (холодная белая)
     .desc = { nc-palette-powered-light-desc }
-    .suffix = палитра NC, #E3FAFF
+    .suffix = палитра NC, холодная белая
 
-ent-NCPoweredLightD3E2E7 = светильник NC (#D3E2E7)
+ent-NCPoweredLightSteelWhite = светильник NC (стально-белая)
     .desc = { nc-palette-powered-light-desc }
-    .suffix = палитра NC, #D3E2E7
+    .suffix = палитра NC, стально-белая
 
-ent-NCPoweredLightB6C3CA = светильник NC (#B6C3CA)
+ent-NCPoweredLightBlueGray = светильник NC (сине-серая)
     .desc = { nc-palette-powered-light-desc }
-    .suffix = палитра NC, #B6C3CA
+    .suffix = палитра NC, сине-серая
 
 nc-palette-powered-light-post-small-desc = Компактный напольный светильник с питанием и установленной цветной световой трубкой.
 
-ent-NCPoweredLightPostSmallC3FFFF = напольный светильник NC (#C3FFFF)
+ent-NCPoweredLightPostSmallPaleCyan = напольный светильник NC (бледно-голубая)
     .desc = { nc-palette-powered-light-post-small-desc }
-    .suffix = палитра NC, напольный, #C3FFFF
+    .suffix = палитра NC, напольный, бледно-голубая
 
-ent-NCPoweredLightPostSmall9BC9EC = напольный светильник NC (#9BC9EC)
+ent-NCPoweredLightPostSmallSkyBlue = напольный светильник NC (небесно-голубая)
     .desc = { nc-palette-powered-light-post-small-desc }
-    .suffix = палитра NC, напольный, #9BC9EC
+    .suffix = палитра NC, напольный, небесно-голубая
 
-ent-NCPoweredLightPostSmall5578C4 = напольный светильник NC (#5578C4)
+ent-NCPoweredLightPostSmallIndigoBlue = напольный светильник NC (индиго-синяя)
     .desc = { nc-palette-powered-light-post-small-desc }
-    .suffix = палитра NC, напольный, #5578C4
+    .suffix = палитра NC, напольный, индиго-синяя
 
-ent-NCPoweredLightPostSmallFFED9F = напольный светильник NC (#FFED9F)
+ent-NCPoweredLightPostSmallWarmIvory = напольный светильник NC (тёплая слоновая кость)
     .desc = { nc-palette-powered-light-post-small-desc }
-    .suffix = палитра NC, напольный, #FFED9F
+    .suffix = палитра NC, напольный, тёплая слоновая кость
 
-ent-NCPoweredLightPostSmallFFBC86 = напольный светильник NC (#FFBC86)
+ent-NCPoweredLightPostSmallPeach = напольный светильник NC (персиковая)
     .desc = { nc-palette-powered-light-post-small-desc }
-    .suffix = палитра NC, напольный, #FFBC86
+    .suffix = палитра NC, напольный, персиковая
 
-ent-NCPoweredLightPostSmallCA7B53 = напольный светильник NC (#CA7B53)
+ent-NCPoweredLightPostSmallCopper = напольный светильник NC (медная)
     .desc = { nc-palette-powered-light-post-small-desc }
-    .suffix = палитра NC, напольный, #CA7B53
+    .suffix = палитра NC, напольный, медная
 
-ent-NCPoweredLightPostSmallF7B2A4 = напольный светильник NC (#F7B2A4)
+ent-NCPoweredLightPostSmallRose = напольный светильник NC (розовая)
     .desc = { nc-palette-powered-light-post-small-desc }
-    .suffix = палитра NC, напольный, #F7B2A4
+    .suffix = палитра NC, напольный, розовая
 
-ent-NCPoweredLightPostSmall736689 = напольный светильник NC (#736689)
+ent-NCPoweredLightPostSmallMauve = напольный светильник NC (лилово-серая)
     .desc = { nc-palette-powered-light-post-small-desc }
-    .suffix = палитра NC, напольный, #736689
+    .suffix = палитра NC, напольный, лилово-серая
 
-ent-NCPoweredLightPostSmall99627B = напольный светильник NC (#99627B)
+ent-NCPoweredLightPostSmallDustyPurple = напольный светильник NC (пыльно-пурпурная)
     .desc = { nc-palette-powered-light-post-small-desc }
-    .suffix = палитра NC, напольный, #99627B
+    .suffix = палитра NC, напольный, пыльно-пурпурная
 
-ent-NCPoweredLightPostSmall2F3854 = напольный светильник NC (#2F3854)
+ent-NCPoweredLightPostSmallMidnightBlue = напольный светильник NC (полуночная синяя)
     .desc = { nc-palette-powered-light-post-small-desc }
-    .suffix = палитра NC, напольный, #2F3854
+    .suffix = палитра NC, напольный, полуночная синяя
 
-ent-NCPoweredLightPostSmallFF82EE = напольный светильник NC (#FF82EE)
+ent-NCPoweredLightPostSmallNeonPink = напольный светильник NC (неоново-розовая)
     .desc = { nc-palette-powered-light-post-small-desc }
-    .suffix = палитра NC, напольный, #FF82EE
+    .suffix = палитра NC, напольный, неоново-розовая
 
-ent-NCPoweredLightPostSmallEB3CFF = напольный светильник NC (#EB3CFF)
+ent-NCPoweredLightPostSmallNeonViolet = напольный светильник NC (неоново-фиолетовая)
     .desc = { nc-palette-powered-light-post-small-desc }
-    .suffix = палитра NC, напольный, #EB3CFF
+    .suffix = палитра NC, напольный, неоново-фиолетовая
 
-ent-NCPoweredLightPostSmallAA0FDF = напольный светильник NC (#AA0FDF)
+ent-NCPoweredLightPostSmallDeepViolet = напольный светильник NC (глубокая фиолетовая)
     .desc = { nc-palette-powered-light-post-small-desc }
-    .suffix = палитра NC, напольный, #AA0FDF
+    .suffix = палитра NC, напольный, глубокая фиолетовая
 
-ent-NCPoweredLightPostSmallFBFF88 = напольный светильник NC (#FBFF88)
+ent-NCPoweredLightPostSmallAcidYellow = напольный светильник NC (кислотно-жёлтая)
     .desc = { nc-palette-powered-light-post-small-desc }
-    .suffix = палитра NC, напольный, #FBFF88
+    .suffix = палитра NC, напольный, кислотно-жёлтая
 
-ent-NCPoweredLightPostSmallFFF142 = напольный светильник NC (#FFF142)
+ent-NCPoweredLightPostSmallBrightYellow = напольный светильник NC (ярко-жёлтая)
     .desc = { nc-palette-powered-light-post-small-desc }
-    .suffix = палитра NC, напольный, #FFF142
+    .suffix = палитра NC, напольный, ярко-жёлтая
 
-ent-NCPoweredLightPostSmallFFCD47 = напольный светильник NC (#FFCD47)
+ent-NCPoweredLightPostSmallAmberYellow = напольный светильник NC (янтарно-жёлтая)
     .desc = { nc-palette-powered-light-post-small-desc }
-    .suffix = палитра NC, напольный, #FFCD47
+    .suffix = палитра NC, напольный, янтарно-жёлтая
 
-ent-NCPoweredLightPostSmallFF8C67 = напольный светильник NC (#FF8C67)
+ent-NCPoweredLightPostSmallCoralOrange = напольный светильник NC (кораллово-оранжевая)
     .desc = { nc-palette-powered-light-post-small-desc }
-    .suffix = палитра NC, напольный, #FF8C67
+    .suffix = палитра NC, напольный, кораллово-оранжевая
 
-ent-NCPoweredLightPostSmallFF6339 = напольный светильник NC (#FF6339)
+ent-NCPoweredLightPostSmallSignalOrange = напольный светильник NC (сигнально-оранжевая)
     .desc = { nc-palette-powered-light-post-small-desc }
-    .suffix = палитра NC, напольный, #FF6339
+    .suffix = палитра NC, напольный, сигнально-оранжевая
 
-ent-NCPoweredLightPostSmallD61910 = напольный светильник NC (#D61910)
+ent-NCPoweredLightPostSmallSignalRed = напольный светильник NC (сигнально-красная)
     .desc = { nc-palette-powered-light-post-small-desc }
-    .suffix = палитра NC, напольный, #D61910
+    .suffix = палитра NC, напольный, сигнально-красная
 
-ent-NCPoweredLightPostSmall578DFF = напольный светильник NC (#578DFF)
+ent-NCPoweredLightPostSmallElectricBlue = напольный светильник NC (электрически-синяя)
     .desc = { nc-palette-powered-light-post-small-desc }
-    .suffix = палитра NC, напольный, #578DFF
+    .suffix = палитра NC, напольный, электрически-синяя
 
-ent-NCPoweredLightPostSmall2262EC = напольный светильник NC (#2262EC)
+ent-NCPoweredLightPostSmallCobaltBlue = напольный светильник NC (кобальтово-синяя)
     .desc = { nc-palette-powered-light-post-small-desc }
-    .suffix = палитра NC, напольный, #2262EC
+    .suffix = палитра NC, напольный, кобальтово-синяя
 
-ent-NCPoweredLightPostSmall002ECD = напольный светильник NC (#002ECD)
+ent-NCPoweredLightPostSmallDeepBlue = напольный светильник NC (глубокая синяя)
     .desc = { nc-palette-powered-light-post-small-desc }
-    .suffix = палитра NC, напольный, #002ECD
+    .suffix = палитра NC, напольный, глубокая синяя
 
-ent-NCPoweredLightPostSmall8BFFF6 = напольный светильник NC (#8BFFF6)
+ent-NCPoweredLightPostSmallAquaCyan = напольный светильник NC (аквамариново-голубая)
     .desc = { nc-palette-powered-light-post-small-desc }
-    .suffix = палитра NC, напольный, #8BFFF6
+    .suffix = палитра NC, напольный, аквамариново-голубая
 
-ent-NCPoweredLightPostSmall5BEDFF = напольный светильник NC (#5BEDFF)
+ent-NCPoweredLightPostSmallCyanBlue = напольный светильник NC (цианово-синяя)
     .desc = { nc-palette-powered-light-post-small-desc }
-    .suffix = палитра NC, напольный, #5BEDFF
+    .suffix = палитра NC, напольный, цианово-синяя
 
-ent-NCPoweredLightPostSmall27D6FF = напольный светильник NC (#27D6FF)
+ent-NCPoweredLightPostSmallNeonCyan = напольный светильник NC (неоново-голубая)
     .desc = { nc-palette-powered-light-post-small-desc }
-    .suffix = палитра NC, напольный, #27D6FF
+    .suffix = палитра NC, напольный, неоново-голубая
 
-ent-NCPoweredLightPostSmallB3FF6E = напольный светильник NC (#B3FF6E)
+ent-NCPoweredLightPostSmallLime = напольный светильник NC (лаймовая)
     .desc = { nc-palette-powered-light-post-small-desc }
-    .suffix = палитра NC, напольный, #B3FF6E
+    .suffix = палитра NC, напольный, лаймовая
 
-ent-NCPoweredLightPostSmall74E747 = напольный светильник NC (#74E747)
+ent-NCPoweredLightPostSmallAcidGreen = напольный светильник NC (кислотно-зелёная)
     .desc = { nc-palette-powered-light-post-small-desc }
-    .suffix = палитра NC, напольный, #74E747
+    .suffix = палитра NC, напольный, кислотно-зелёная
 
-ent-NCPoweredLightPostSmall34CD15 = напольный светильник NC (#34CD15)
+ent-NCPoweredLightPostSmallGreen = напольный светильник NC (зелёная)
     .desc = { nc-palette-powered-light-post-small-desc }
-    .suffix = палитра NC, напольный, #34CD15
+    .suffix = палитра NC, напольный, зелёная
 
-ent-NCPoweredLightPostSmallFF60CF = напольный светильник NC (#FF60CF)
+ent-NCPoweredLightPostSmallHotPink = напольный светильник NC (ярко-розовая)
     .desc = { nc-palette-powered-light-post-small-desc }
-    .suffix = палитра NC, напольный, #FF60CF
+    .suffix = палитра NC, напольный, ярко-розовая
 
-ent-NCPoweredLightPostSmallFF3BA2 = напольный светильник NC (#FF3BA2)
+ent-NCPoweredLightPostSmallMagentaPink = напольный светильник NC (маджентово-розовая)
     .desc = { nc-palette-powered-light-post-small-desc }
-    .suffix = палитра NC, напольный, #FF3BA2
+    .suffix = палитра NC, напольный, маджентово-розовая
 
-ent-NCPoweredLightPostSmallDC1E7F = напольный светильник NC (#DC1E7F)
+ent-NCPoweredLightPostSmallDeepMagenta = напольный светильник NC (глубокая маджента)
     .desc = { nc-palette-powered-light-post-small-desc }
-    .suffix = палитра NC, напольный, #DC1E7F
+    .suffix = палитра NC, напольный, глубокая маджента
 
-ent-NCPoweredLightPostSmallE3FAFF = напольный светильник NC (#E3FAFF)
+ent-NCPoweredLightPostSmallCoolWhite = напольный светильник NC (холодная белая)
     .desc = { nc-palette-powered-light-post-small-desc }
-    .suffix = палитра NC, напольный, #E3FAFF
+    .suffix = палитра NC, напольный, холодная белая
 
-ent-NCPoweredLightPostSmallD3E2E7 = напольный светильник NC (#D3E2E7)
+ent-NCPoweredLightPostSmallSteelWhite = напольный светильник NC (стально-белая)
     .desc = { nc-palette-powered-light-post-small-desc }
-    .suffix = палитра NC, напольный, #D3E2E7
+    .suffix = палитра NC, напольный, стально-белая
 
-ent-NCPoweredLightPostSmallB6C3CA = напольный светильник NC (#B6C3CA)
+ent-NCPoweredLightPostSmallBlueGray = напольный светильник NC (сине-серая)
     .desc = { nc-palette-powered-light-post-small-desc }
-    .suffix = палитра NC, напольный, #B6C3CA
+    .suffix = палитра NC, напольный, сине-серая
 

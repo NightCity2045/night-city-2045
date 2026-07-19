@@ -108,6 +108,22 @@
     price: 1200
     dataPrice: 180
     count: 20
+  - proto: NCMilitechRobotAvengerFlatpack
+    price: 1800
+    dataPrice: 250
+    count: 10
+  - proto: NCMilitechRobotSaratogaFlatpack
+    price: 2000
+    dataPrice: 300
+    count: 10
+  - proto: NCMilitechRobotCrusherFlatpack
+    price: 2400
+    dataPrice: 350
+    count: 10
+  - proto: NCMilitechRobotBoomerFlatpack
+    price: 2600
+    dataPrice: 400
+    count: 10
   - proto: NCWeaponScrap
     price: 100
     dataPrice: 10

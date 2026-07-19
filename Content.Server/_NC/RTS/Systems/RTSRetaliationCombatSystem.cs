@@ -30,6 +30,7 @@ public sealed class RTSRetaliationCombatSystem : EntitySystem
     [Dependency] private readonly HandsSystem _hands = default!;
     [Dependency] private readonly HTNSystem _htn = default!;
     [Dependency] private readonly NPCSteeringSystem _steering = default!;
+    [Dependency] private readonly GMCommandSystem _gmCommands = default!;
     [Dependency] private readonly RTSSystem _rts = default!;
 
     public override void Initialize()
@@ -117,6 +118,11 @@ public sealed class RTSRetaliationCombatSystem : EntitySystem
         }
 
         _faction.AggroEntity(ent.Owner, attacker);
+
+        // Taking hostile damage releases a held NPC back to its normal HTN behavior,
+        // allowing the retaliation logic below to select the appropriate combat path.
+        if (ent.Comp.ActiveCommand == RTSCommandType.HoldPosition)
+            _gmCommands.StopCommand(ent.Owner, ent.Comp);
 
         // Manual RTS orders remain authoritative, but the mode transition and hostile memory
         // above are retained so autonomous combat can resume when the order ends.

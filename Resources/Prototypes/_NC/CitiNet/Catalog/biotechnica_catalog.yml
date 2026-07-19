@@ -389,6 +389,22 @@
     price: 700
     dataPrice: 80
     count: 30
+  - proto: NCBiotechnicaRobotAvengerFlatpack
+    price: 900
+    dataPrice: 125
+    count: 10
+  - proto: NCBiotechnicaRobotSaratogaFlatpack
+    price: 1000
+    dataPrice: 150
+    count: 10
+  - proto: NCBiotechnicaRobotCrusherFlatpack
+    price: 1200
+    dataPrice: 175
+    count: 10
+  - proto: NCBiotechnicaRobotBoomerBusterFlatpack
+    price: 1300
+    dataPrice: 200
+    count: 10
 
 - type: citiNetStoreCategory
   id: CorporateBiotechnicaCyberware

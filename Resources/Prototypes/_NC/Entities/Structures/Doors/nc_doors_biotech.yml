@@ -18,14 +18,14 @@
   - type: AccessReader
     access: [["Biotech_MedTech"], ["Biotech_Tech"]]
 
-# Шлюз оперативников Биотехники
+# Шлюз риггера Биотехники
 - type: entity
-  id: BiotechOperativeAirlock
+  id: BiotechRiggerAirlock
   parent: BaseNCAirlock
-  name: ent-NCDoorBiotechnicaOperative
+  name: ent-NCDoorBiotechnicaRigger
   components:
   - type: AccessReader
-    access: [["Biotech_Operative"]]
+    access: [["Biotech_Tech", "Biotech_Operative"]]
 
 # Шлюз персонала Биотехники
 - type: entity
