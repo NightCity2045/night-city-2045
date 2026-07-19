@@ -5,7 +5,7 @@
   playTimeTracker: JobMilitechCombatMedic
   weight: 60
   salary: 250
-  icon: "JobIconBrigmedic"
+  icon: "JobIconMilitechCombatMedic"
   startingGear: MilitechCombatMedicGear
   access:
     - Militech_Operative

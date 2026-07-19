@@ -63,6 +63,69 @@
 
 - type: jobIcon
   parent: JobIcon
+  id: JobIconMilitechChief
+  icon:
+    sprite: /Textures/_NC/Interface/Misc/job_icons.rsi
+    state: militeh_Fullwrite
+
+- type: jobIcon
+  parent: JobIcon
+  id: JobIconMilitechOperativeLead
+  icon:
+    sprite: /Textures/_NC/Interface/Misc/job_icons.rsi
+    state: militeh_Fullred
+
+- type: jobIcon
+  parent: JobIcon
+  id: JobIconMilitechOperative
+  icon:
+    sprite: /Textures/_NC/Interface/Misc/job_icons.rsi
+    state: militeh_red
+
+- type: jobIcon
+  parent: JobIcon
+  id: JobIconMilitechSecuritySpecialist
+  icon:
+    sprite: /Textures/_NC/Interface/Misc/job_icons.rsi
+    state: militeh_Fullblue
+
+- type: jobIcon
+  parent: JobIcon
+  id: JobIconMilitechCombatMedic
+  icon:
+    sprite: /Textures/_NC/Interface/Misc/job_icons.rsi
+    state: militeh_write-red
+
+- type: jobIcon
+  parent: JobIcon
+  id: JobIconMilitechNetrunner
+  icon:
+    sprite: /Textures/_NC/Interface/Misc/job_icons.rsi
+    state: militeh_netruner
+
+- type: jobIcon
+  parent: JobIcon
+  id: JobIconMilitechTech
+  icon:
+    sprite: /Textures/_NC/Interface/Misc/job_icons.rsi
+    state: militehnik
+
+- type: jobIcon
+  parent: JobIcon
+  id: JobIconMilitechQuartermaster
+  icon:
+    sprite: /Textures/_NC/Interface/Misc/job_icons.rsi
+    state: militeh_write-blue
+
+- type: jobIcon
+  parent: JobIcon
+  id: JobIconMilitechRigger
+  icon:
+    sprite: /Textures/_NC/Interface/Misc/job_icons.rsi
+    state: militehnik_write
+
+- type: jobIcon
+  parent: JobIcon
   id: JobIconCivilCitizen
   icon:
     sprite: /Textures/_NC/Interface/Misc/job_icons.rsi

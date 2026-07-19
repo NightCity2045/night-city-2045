@@ -15917,7 +15917,7 @@ entities:
     - type: Transform
       pos: -77.1034,-71.347496
       parent: 2
-- proto: BiotechOperativeAirlock
+- proto: BiotechRiggerAirlock
   entities:
   - uid: 711
     components:

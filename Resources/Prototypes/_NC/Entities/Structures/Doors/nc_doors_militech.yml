@@ -1,0 +1,46 @@
+# Militech - шлюзы
+
+# Шлюз командования Militech
+- type: entity
+  id: MilitechCommandAirlock
+  parent: BaseNCAirlock
+  name: ent-NCDoorMilitechCommand
+  components:
+  - type: AccessReader
+    access: [["Militech_Command"]]
+
+# Медицинский и технический шлюз Militech
+- type: entity
+  id: MilitechMedTechAirlock
+  parent: BaseNCAirlock
+  name: ent-NCDoorMilitechMedtech
+  components:
+  - type: AccessReader
+    access: [["Militech_Medical"], ["Militech_Tech"]]
+
+# Шлюз риггера Militech
+- type: entity
+  id: MilitechRiggerAirlock
+  parent: BaseNCAirlock
+  name: ent-NCDoorMilitechRigger
+  components:
+  - type: AccessReader
+    access: [["Militech_Tech", "Militech_Operative"]]
+
+# Шлюз персонала Militech
+- type: entity
+  id: MilitechStaffAirlock
+  parent: BaseNCAirlock
+  name: ent-NCDoorMilitechStaff
+  components:
+  - type: AccessReader
+    access: [["Militech_Staff"]]
+
+# Общий шлюз Militech
+- type: entity
+  id: MilitechGeneralAirlock
+  parent: BaseNCAirlock
+  name: ent-NCDoorMilitechGeneral
+  components:
+  - type: AccessReader
+    access: [["Militech_General"]]

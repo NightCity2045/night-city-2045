@@ -92,6 +92,21 @@
   - proto: ClothingOuterCoatLettermanRandomized
     price: 250
     count: 3
+  - proto: ClothingOuterArmorJacketNCBlack
+    price: 400
+    count: 5
+  - proto: ClothingOuterArmorJacketNCMaroon
+    price: 400
+    count: 5
+  - proto: ClothingOuterArmorJacketNCRed
+    price: 400
+    count: 5
+  - proto: ClothingOuterArmorJacketNCTurquoise
+    price: 400
+    count: 5
+  - proto: ClothingOuterArmorJacketNCViolet
+    price: 400
+    count: 5
   - proto: ClothingUniformJumpsuitNanotrasenRepresentative
     price: 800
     count: 1

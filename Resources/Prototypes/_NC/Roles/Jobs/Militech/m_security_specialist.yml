@@ -5,7 +5,7 @@
   playTimeTracker: JobMilitechSecuritySpecialist
   weight: 55
   salary: 350
-  icon: "JobIconNCPDInspector"
+  icon: "JobIconMilitechSecuritySpecialist"
   startingGear: MilitechSecuritySpecialistGear
   access:
     - Militech_Operative

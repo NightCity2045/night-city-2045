@@ -12,12 +12,23 @@ ent-NCDoorBiotechnicaChief = шлюз руководителя Биотехни�
 ent-NCDoorBiotechnicaChief-desc = Она открывается и закрывается.
 ent-NCDoorBiotechnicaMedtech = шлюз МедТех Биотехника
 ent-NCDoorBiotechnicaMedtech-desc = Она открывается и закрывается.
-ent-NCDoorBiotechnicaOperative = шлюз оперативников Биотехника
-ent-NCDoorBiotechnicaOperative-desc = Она открывается и закрывается.
+ent-NCDoorBiotechnicaRigger = шлюз риггера Биотехники
+ent-NCDoorBiotechnicaRigger-desc = Она открывается и закрывается.
 ent-NCDoorBiotechnicaStaff = шлюз персонала Биотехника
 ent-NCDoorBiotechnicaStaff-desc = Она открывается и закрывается.
 ent-NCDoorBiotechnicaGeneral = шлюз Биотехника общий
 ent-NCDoorBiotechnicaGeneral-desc = Она открывается и закрывается.
+
+ent-NCDoorMilitechCommand = шлюз командования Militech
+ent-NCDoorMilitechCommand-desc = Она открывается и закрывается.
+ent-NCDoorMilitechMedtech = медицинский и технический шлюз Militech
+ent-NCDoorMilitechMedtech-desc = Она открывается и закрывается.
+ent-NCDoorMilitechRigger = шлюз риггера Militech
+ent-NCDoorMilitechRigger-desc = Она открывается и закрывается.
+ent-NCDoorMilitechStaff = шлюз персонала Militech
+ent-NCDoorMilitechStaff-desc = Она открывается и закрывается.
+ent-NCDoorMilitechGeneral = общий шлюз Militech
+ent-NCDoorMilitechGeneral-desc = Она открывается и закрывается.
 
 ent-NCDoorMaxTacStaff = шлюз Макстак для персонала
 ent-NCDoorMaxTacStaff-desc = Она открывается и закрывается.

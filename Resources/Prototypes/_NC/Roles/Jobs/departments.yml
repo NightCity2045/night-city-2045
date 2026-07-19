@@ -9,7 +9,6 @@
     - Fixer
     - EdgeRunnerSolo
     - CafeOwner
-    - RestaurantOwner
 
 - type: department
   id: NCPD
@@ -18,7 +17,6 @@
   color: "#1e90ff"
   roles:
     - NCPDChief
-    - NCPDCommander
     - NCPDInspector
     - NCPDLieutenant
     - NCPDSergeant
@@ -35,7 +33,6 @@
     - TraumaTeamParamedic
     - TraumaTeamOperative
     - TraumaTeamCoroner
-    - TraumaTeamPsych
     - TraumaTeamIntern
 
 - type: department
@@ -59,16 +56,13 @@
     - MilitechOperativeLead
     - MilitechOperative
     - MilitechRigger
-    - MilitechNetrunner
-    - MilitechSecuritySpecialist
     - MilitechCombatMedic
     - MilitechTech
-    - MilitechQuartermaster
 
 - type: department
-  id: Jiraff
-  name: department-name-Jiraff
-  description: department-desc-Jiraff
+  id: Zhirafa
+  name: department-name-Zhirafa
+  description: department-desc-Zhirafa
   color: "#2ecc71"
   roles:
     - ZhirafaJanitor

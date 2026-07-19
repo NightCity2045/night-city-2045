@@ -5,7 +5,7 @@
   playTimeTracker: JobMilitechRigger
   weight: 55
   salary: 350
-  icon: "JobIconTraumaTech"
+  icon: "JobIconMilitechRigger"
   startingGear: MilitechRiggerGear
   access:
     - Militech_Operative

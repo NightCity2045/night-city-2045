@@ -57,5 +57,5 @@ public sealed partial class RTSControllableComponent : Component
     /// Radius used by RTS attack orders to scan and validate hostile targets.
     /// </summary>
     [DataField, ViewVariables(VVAccess.ReadWrite), AutoNetworkedField]
-    public float ScanRadius = 14f;
+    public float ScanRadius = 17f;
 }

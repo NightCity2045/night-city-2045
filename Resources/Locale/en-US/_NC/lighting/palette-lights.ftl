@@ -1,413 +1,413 @@
 nc-palette-light-tube-desc = A replaceable colored light tube from the Night City architectural palette.
 nc-palette-powered-light-desc = A powered wall fixture supplied with a matching colored light tube.
 
-ent-NCLightTubeC3FFFF = NC light tube (#C3FFFF)
+ent-NCLightTubePaleCyan = NC light tube (pale cyan)
     .desc = { nc-palette-light-tube-desc }
-    .suffix = NC palette, #C3FFFF
+    .suffix = NC palette, pale cyan
 
-ent-NCLightTube9BC9EC = NC light tube (#9BC9EC)
+ent-NCLightTubeSkyBlue = NC light tube (sky blue)
     .desc = { nc-palette-light-tube-desc }
-    .suffix = NC palette, #9BC9EC
+    .suffix = NC palette, sky blue
 
-ent-NCLightTube5578C4 = NC light tube (#5578C4)
+ent-NCLightTubeIndigoBlue = NC light tube (indigo blue)
     .desc = { nc-palette-light-tube-desc }
-    .suffix = NC palette, #5578C4
+    .suffix = NC palette, indigo blue
 
-ent-NCLightTubeFFED9F = NC light tube (#FFED9F)
+ent-NCLightTubeWarmIvory = NC light tube (warm ivory)
     .desc = { nc-palette-light-tube-desc }
-    .suffix = NC palette, #FFED9F
+    .suffix = NC palette, warm ivory
 
-ent-NCLightTubeFFBC86 = NC light tube (#FFBC86)
+ent-NCLightTubePeach = NC light tube (peach)
     .desc = { nc-palette-light-tube-desc }
-    .suffix = NC palette, #FFBC86
+    .suffix = NC palette, peach
 
-ent-NCLightTubeCA7B53 = NC light tube (#CA7B53)
+ent-NCLightTubeCopper = NC light tube (copper)
     .desc = { nc-palette-light-tube-desc }
-    .suffix = NC palette, #CA7B53
+    .suffix = NC palette, copper
 
-ent-NCLightTubeF7B2A4 = NC light tube (#F7B2A4)
+ent-NCLightTubeRose = NC light tube (rose)
     .desc = { nc-palette-light-tube-desc }
-    .suffix = NC palette, #F7B2A4
+    .suffix = NC palette, rose
 
-ent-NCLightTube736689 = NC light tube (#736689)
+ent-NCLightTubeMauve = NC light tube (mauve)
     .desc = { nc-palette-light-tube-desc }
-    .suffix = NC palette, #736689
+    .suffix = NC palette, mauve
 
-ent-NCLightTube99627B = NC light tube (#99627B)
+ent-NCLightTubeDustyPurple = NC light tube (dusty purple)
     .desc = { nc-palette-light-tube-desc }
-    .suffix = NC palette, #99627B
+    .suffix = NC palette, dusty purple
 
-ent-NCLightTube2F3854 = NC light tube (#2F3854)
+ent-NCLightTubeMidnightBlue = NC light tube (midnight blue)
     .desc = { nc-palette-light-tube-desc }
-    .suffix = NC palette, #2F3854
+    .suffix = NC palette, midnight blue
 
-ent-NCLightTubeFF82EE = NC light tube (#FF82EE)
+ent-NCLightTubeNeonPink = NC light tube (neon pink)
     .desc = { nc-palette-light-tube-desc }
-    .suffix = NC palette, #FF82EE
+    .suffix = NC palette, neon pink
 
-ent-NCLightTubeEB3CFF = NC light tube (#EB3CFF)
+ent-NCLightTubeNeonViolet = NC light tube (neon violet)
     .desc = { nc-palette-light-tube-desc }
-    .suffix = NC palette, #EB3CFF
+    .suffix = NC palette, neon violet
 
-ent-NCLightTubeAA0FDF = NC light tube (#AA0FDF)
+ent-NCLightTubeDeepViolet = NC light tube (deep violet)
     .desc = { nc-palette-light-tube-desc }
-    .suffix = NC palette, #AA0FDF
+    .suffix = NC palette, deep violet
 
-ent-NCLightTubeFBFF88 = NC light tube (#FBFF88)
+ent-NCLightTubeAcidYellow = NC light tube (acid yellow)
     .desc = { nc-palette-light-tube-desc }
-    .suffix = NC palette, #FBFF88
+    .suffix = NC palette, acid yellow
 
-ent-NCLightTubeFFF142 = NC light tube (#FFF142)
+ent-NCLightTubeBrightYellow = NC light tube (bright yellow)
     .desc = { nc-palette-light-tube-desc }
-    .suffix = NC palette, #FFF142
+    .suffix = NC palette, bright yellow
 
-ent-NCLightTubeFFCD47 = NC light tube (#FFCD47)
+ent-NCLightTubeAmberYellow = NC light tube (amber yellow)
     .desc = { nc-palette-light-tube-desc }
-    .suffix = NC palette, #FFCD47
+    .suffix = NC palette, amber yellow
 
-ent-NCLightTubeFF8C67 = NC light tube (#FF8C67)
+ent-NCLightTubeCoralOrange = NC light tube (coral orange)
     .desc = { nc-palette-light-tube-desc }
-    .suffix = NC palette, #FF8C67
+    .suffix = NC palette, coral orange
 
-ent-NCLightTubeFF6339 = NC light tube (#FF6339)
+ent-NCLightTubeSignalOrange = NC light tube (signal orange)
     .desc = { nc-palette-light-tube-desc }
-    .suffix = NC palette, #FF6339
+    .suffix = NC palette, signal orange
 
-ent-NCLightTubeD61910 = NC light tube (#D61910)
+ent-NCLightTubeSignalRed = NC light tube (signal red)
     .desc = { nc-palette-light-tube-desc }
-    .suffix = NC palette, #D61910
+    .suffix = NC palette, signal red
 
-ent-NCLightTube578DFF = NC light tube (#578DFF)
+ent-NCLightTubeElectricBlue = NC light tube (electric blue)
     .desc = { nc-palette-light-tube-desc }
-    .suffix = NC palette, #578DFF
+    .suffix = NC palette, electric blue
 
-ent-NCLightTube2262EC = NC light tube (#2262EC)
+ent-NCLightTubeCobaltBlue = NC light tube (cobalt blue)
     .desc = { nc-palette-light-tube-desc }
-    .suffix = NC palette, #2262EC
+    .suffix = NC palette, cobalt blue
 
-ent-NCLightTube002ECD = NC light tube (#002ECD)
+ent-NCLightTubeDeepBlue = NC light tube (deep blue)
     .desc = { nc-palette-light-tube-desc }
-    .suffix = NC palette, #002ECD
+    .suffix = NC palette, deep blue
 
-ent-NCLightTube8BFFF6 = NC light tube (#8BFFF6)
+ent-NCLightTubeAquaCyan = NC light tube (aqua cyan)
     .desc = { nc-palette-light-tube-desc }
-    .suffix = NC palette, #8BFFF6
+    .suffix = NC palette, aqua cyan
 
-ent-NCLightTube5BEDFF = NC light tube (#5BEDFF)
+ent-NCLightTubeCyanBlue = NC light tube (cyan blue)
     .desc = { nc-palette-light-tube-desc }
-    .suffix = NC palette, #5BEDFF
+    .suffix = NC palette, cyan blue
 
-ent-NCLightTube27D6FF = NC light tube (#27D6FF)
+ent-NCLightTubeNeonCyan = NC light tube (neon cyan)
     .desc = { nc-palette-light-tube-desc }
-    .suffix = NC palette, #27D6FF
+    .suffix = NC palette, neon cyan
 
-ent-NCLightTubeB3FF6E = NC light tube (#B3FF6E)
+ent-NCLightTubeLime = NC light tube (lime)
     .desc = { nc-palette-light-tube-desc }
-    .suffix = NC palette, #B3FF6E
+    .suffix = NC palette, lime
 
-ent-NCLightTube74E747 = NC light tube (#74E747)
+ent-NCLightTubeAcidGreen = NC light tube (acid green)
     .desc = { nc-palette-light-tube-desc }
-    .suffix = NC palette, #74E747
+    .suffix = NC palette, acid green
 
-ent-NCLightTube34CD15 = NC light tube (#34CD15)
+ent-NCLightTubeGreen = NC light tube (green)
     .desc = { nc-palette-light-tube-desc }
-    .suffix = NC palette, #34CD15
+    .suffix = NC palette, green
 
-ent-NCLightTubeFF60CF = NC light tube (#FF60CF)
+ent-NCLightTubeHotPink = NC light tube (hot pink)
     .desc = { nc-palette-light-tube-desc }
-    .suffix = NC palette, #FF60CF
+    .suffix = NC palette, hot pink
 
-ent-NCLightTubeFF3BA2 = NC light tube (#FF3BA2)
+ent-NCLightTubeMagentaPink = NC light tube (magenta pink)
     .desc = { nc-palette-light-tube-desc }
-    .suffix = NC palette, #FF3BA2
+    .suffix = NC palette, magenta pink
 
-ent-NCLightTubeDC1E7F = NC light tube (#DC1E7F)
+ent-NCLightTubeDeepMagenta = NC light tube (deep magenta)
     .desc = { nc-palette-light-tube-desc }
-    .suffix = NC palette, #DC1E7F
+    .suffix = NC palette, deep magenta
 
-ent-NCLightTubeE3FAFF = NC light tube (#E3FAFF)
+ent-NCLightTubeCoolWhite = NC light tube (cool white)
     .desc = { nc-palette-light-tube-desc }
-    .suffix = NC palette, #E3FAFF
+    .suffix = NC palette, cool white
 
-ent-NCLightTubeD3E2E7 = NC light tube (#D3E2E7)
+ent-NCLightTubeSteelWhite = NC light tube (steel white)
     .desc = { nc-palette-light-tube-desc }
-    .suffix = NC palette, #D3E2E7
+    .suffix = NC palette, steel white
 
-ent-NCLightTubeB6C3CA = NC light tube (#B6C3CA)
+ent-NCLightTubeBlueGray = NC light tube (blue gray)
     .desc = { nc-palette-light-tube-desc }
-    .suffix = NC palette, #B6C3CA
+    .suffix = NC palette, blue gray
 
-ent-NCPoweredLightC3FFFF = NC powered light (#C3FFFF)
+ent-NCPoweredLightPaleCyan = NC powered light (pale cyan)
     .desc = { nc-palette-powered-light-desc }
-    .suffix = NC palette, #C3FFFF
+    .suffix = NC palette, pale cyan
 
-ent-NCPoweredLight9BC9EC = NC powered light (#9BC9EC)
+ent-NCPoweredLightSkyBlue = NC powered light (sky blue)
     .desc = { nc-palette-powered-light-desc }
-    .suffix = NC palette, #9BC9EC
+    .suffix = NC palette, sky blue
 
-ent-NCPoweredLight5578C4 = NC powered light (#5578C4)
+ent-NCPoweredLightIndigoBlue = NC powered light (indigo blue)
     .desc = { nc-palette-powered-light-desc }
-    .suffix = NC palette, #5578C4
+    .suffix = NC palette, indigo blue
 
-ent-NCPoweredLightFFED9F = NC powered light (#FFED9F)
+ent-NCPoweredLightWarmIvory = NC powered light (warm ivory)
     .desc = { nc-palette-powered-light-desc }
-    .suffix = NC palette, #FFED9F
+    .suffix = NC palette, warm ivory
 
-ent-NCPoweredLightFFBC86 = NC powered light (#FFBC86)
+ent-NCPoweredLightPeach = NC powered light (peach)
     .desc = { nc-palette-powered-light-desc }
-    .suffix = NC palette, #FFBC86
+    .suffix = NC palette, peach
 
-ent-NCPoweredLightCA7B53 = NC powered light (#CA7B53)
+ent-NCPoweredLightCopper = NC powered light (copper)
     .desc = { nc-palette-powered-light-desc }
-    .suffix = NC palette, #CA7B53
+    .suffix = NC palette, copper
 
-ent-NCPoweredLightF7B2A4 = NC powered light (#F7B2A4)
+ent-NCPoweredLightRose = NC powered light (rose)
     .desc = { nc-palette-powered-light-desc }
-    .suffix = NC palette, #F7B2A4
+    .suffix = NC palette, rose
 
-ent-NCPoweredLight736689 = NC powered light (#736689)
+ent-NCPoweredLightMauve = NC powered light (mauve)
     .desc = { nc-palette-powered-light-desc }
-    .suffix = NC palette, #736689
+    .suffix = NC palette, mauve
 
-ent-NCPoweredLight99627B = NC powered light (#99627B)
+ent-NCPoweredLightDustyPurple = NC powered light (dusty purple)
     .desc = { nc-palette-powered-light-desc }
-    .suffix = NC palette, #99627B
+    .suffix = NC palette, dusty purple
 
-ent-NCPoweredLight2F3854 = NC powered light (#2F3854)
+ent-NCPoweredLightMidnightBlue = NC powered light (midnight blue)
     .desc = { nc-palette-powered-light-desc }
-    .suffix = NC palette, #2F3854
+    .suffix = NC palette, midnight blue
 
-ent-NCPoweredLightFF82EE = NC powered light (#FF82EE)
+ent-NCPoweredLightNeonPink = NC powered light (neon pink)
     .desc = { nc-palette-powered-light-desc }
-    .suffix = NC palette, #FF82EE
+    .suffix = NC palette, neon pink
 
-ent-NCPoweredLightEB3CFF = NC powered light (#EB3CFF)
+ent-NCPoweredLightNeonViolet = NC powered light (neon violet)
     .desc = { nc-palette-powered-light-desc }
-    .suffix = NC palette, #EB3CFF
+    .suffix = NC palette, neon violet
 
-ent-NCPoweredLightAA0FDF = NC powered light (#AA0FDF)
+ent-NCPoweredLightDeepViolet = NC powered light (deep violet)
     .desc = { nc-palette-powered-light-desc }
-    .suffix = NC palette, #AA0FDF
+    .suffix = NC palette, deep violet
 
-ent-NCPoweredLightFBFF88 = NC powered light (#FBFF88)
+ent-NCPoweredLightAcidYellow = NC powered light (acid yellow)
     .desc = { nc-palette-powered-light-desc }
-    .suffix = NC palette, #FBFF88
+    .suffix = NC palette, acid yellow
 
-ent-NCPoweredLightFFF142 = NC powered light (#FFF142)
+ent-NCPoweredLightBrightYellow = NC powered light (bright yellow)
     .desc = { nc-palette-powered-light-desc }
-    .suffix = NC palette, #FFF142
+    .suffix = NC palette, bright yellow
 
-ent-NCPoweredLightFFCD47 = NC powered light (#FFCD47)
+ent-NCPoweredLightAmberYellow = NC powered light (amber yellow)
     .desc = { nc-palette-powered-light-desc }
-    .suffix = NC palette, #FFCD47
+    .suffix = NC palette, amber yellow
 
-ent-NCPoweredLightFF8C67 = NC powered light (#FF8C67)
+ent-NCPoweredLightCoralOrange = NC powered light (coral orange)
     .desc = { nc-palette-powered-light-desc }
-    .suffix = NC palette, #FF8C67
+    .suffix = NC palette, coral orange
 
-ent-NCPoweredLightFF6339 = NC powered light (#FF6339)
+ent-NCPoweredLightSignalOrange = NC powered light (signal orange)
     .desc = { nc-palette-powered-light-desc }
-    .suffix = NC palette, #FF6339
+    .suffix = NC palette, signal orange
 
-ent-NCPoweredLightD61910 = NC powered light (#D61910)
+ent-NCPoweredLightSignalRed = NC powered light (signal red)
     .desc = { nc-palette-powered-light-desc }
-    .suffix = NC palette, #D61910
+    .suffix = NC palette, signal red
 
-ent-NCPoweredLight578DFF = NC powered light (#578DFF)
+ent-NCPoweredLightElectricBlue = NC powered light (electric blue)
     .desc = { nc-palette-powered-light-desc }
-    .suffix = NC palette, #578DFF
+    .suffix = NC palette, electric blue
 
-ent-NCPoweredLight2262EC = NC powered light (#2262EC)
+ent-NCPoweredLightCobaltBlue = NC powered light (cobalt blue)
     .desc = { nc-palette-powered-light-desc }
-    .suffix = NC palette, #2262EC
+    .suffix = NC palette, cobalt blue
 
-ent-NCPoweredLight002ECD = NC powered light (#002ECD)
+ent-NCPoweredLightDeepBlue = NC powered light (deep blue)
     .desc = { nc-palette-powered-light-desc }
-    .suffix = NC palette, #002ECD
+    .suffix = NC palette, deep blue
 
-ent-NCPoweredLight8BFFF6 = NC powered light (#8BFFF6)
+ent-NCPoweredLightAquaCyan = NC powered light (aqua cyan)
     .desc = { nc-palette-powered-light-desc }
-    .suffix = NC palette, #8BFFF6
+    .suffix = NC palette, aqua cyan
 
-ent-NCPoweredLight5BEDFF = NC powered light (#5BEDFF)
+ent-NCPoweredLightCyanBlue = NC powered light (cyan blue)
     .desc = { nc-palette-powered-light-desc }
-    .suffix = NC palette, #5BEDFF
+    .suffix = NC palette, cyan blue
 
-ent-NCPoweredLight27D6FF = NC powered light (#27D6FF)
+ent-NCPoweredLightNeonCyan = NC powered light (neon cyan)
     .desc = { nc-palette-powered-light-desc }
-    .suffix = NC palette, #27D6FF
+    .suffix = NC palette, neon cyan
 
-ent-NCPoweredLightB3FF6E = NC powered light (#B3FF6E)
+ent-NCPoweredLightLime = NC powered light (lime)
     .desc = { nc-palette-powered-light-desc }
-    .suffix = NC palette, #B3FF6E
+    .suffix = NC palette, lime
 
-ent-NCPoweredLight74E747 = NC powered light (#74E747)
+ent-NCPoweredLightAcidGreen = NC powered light (acid green)
     .desc = { nc-palette-powered-light-desc }
-    .suffix = NC palette, #74E747
+    .suffix = NC palette, acid green
 
-ent-NCPoweredLight34CD15 = NC powered light (#34CD15)
+ent-NCPoweredLightGreen = NC powered light (green)
     .desc = { nc-palette-powered-light-desc }
-    .suffix = NC palette, #34CD15
+    .suffix = NC palette, green
 
-ent-NCPoweredLightFF60CF = NC powered light (#FF60CF)
+ent-NCPoweredLightHotPink = NC powered light (hot pink)
     .desc = { nc-palette-powered-light-desc }
-    .suffix = NC palette, #FF60CF
+    .suffix = NC palette, hot pink
 
-ent-NCPoweredLightFF3BA2 = NC powered light (#FF3BA2)
+ent-NCPoweredLightMagentaPink = NC powered light (magenta pink)
     .desc = { nc-palette-powered-light-desc }
-    .suffix = NC palette, #FF3BA2
+    .suffix = NC palette, magenta pink
 
-ent-NCPoweredLightDC1E7F = NC powered light (#DC1E7F)
+ent-NCPoweredLightDeepMagenta = NC powered light (deep magenta)
     .desc = { nc-palette-powered-light-desc }
-    .suffix = NC palette, #DC1E7F
+    .suffix = NC palette, deep magenta
 
-ent-NCPoweredLightE3FAFF = NC powered light (#E3FAFF)
+ent-NCPoweredLightCoolWhite = NC powered light (cool white)
     .desc = { nc-palette-powered-light-desc }
-    .suffix = NC palette, #E3FAFF
+    .suffix = NC palette, cool white
 
-ent-NCPoweredLightD3E2E7 = NC powered light (#D3E2E7)
+ent-NCPoweredLightSteelWhite = NC powered light (steel white)
     .desc = { nc-palette-powered-light-desc }
-    .suffix = NC palette, #D3E2E7
+    .suffix = NC palette, steel white
 
-ent-NCPoweredLightB6C3CA = NC powered light (#B6C3CA)
+ent-NCPoweredLightBlueGray = NC powered light (blue gray)
     .desc = { nc-palette-powered-light-desc }
-    .suffix = NC palette, #B6C3CA
+    .suffix = NC palette, blue gray
 
 nc-palette-powered-light-post-small-desc = A compact powered floor light supplied with a matching colored light tube.
 
-ent-NCPoweredLightPostSmallC3FFFF = NC powered floor light (#C3FFFF)
+ent-NCPoweredLightPostSmallPaleCyan = NC powered floor light (pale cyan)
     .desc = { nc-palette-powered-light-post-small-desc }
-    .suffix = NC palette, floor, #C3FFFF
+    .suffix = NC palette, floor, pale cyan
 
-ent-NCPoweredLightPostSmall9BC9EC = NC powered floor light (#9BC9EC)
+ent-NCPoweredLightPostSmallSkyBlue = NC powered floor light (sky blue)
     .desc = { nc-palette-powered-light-post-small-desc }
-    .suffix = NC palette, floor, #9BC9EC
+    .suffix = NC palette, floor, sky blue
 
-ent-NCPoweredLightPostSmall5578C4 = NC powered floor light (#5578C4)
+ent-NCPoweredLightPostSmallIndigoBlue = NC powered floor light (indigo blue)
     .desc = { nc-palette-powered-light-post-small-desc }
-    .suffix = NC palette, floor, #5578C4
+    .suffix = NC palette, floor, indigo blue
 
-ent-NCPoweredLightPostSmallFFED9F = NC powered floor light (#FFED9F)
+ent-NCPoweredLightPostSmallWarmIvory = NC powered floor light (warm ivory)
     .desc = { nc-palette-powered-light-post-small-desc }
-    .suffix = NC palette, floor, #FFED9F
+    .suffix = NC palette, floor, warm ivory
 
-ent-NCPoweredLightPostSmallFFBC86 = NC powered floor light (#FFBC86)
+ent-NCPoweredLightPostSmallPeach = NC powered floor light (peach)
     .desc = { nc-palette-powered-light-post-small-desc }
-    .suffix = NC palette, floor, #FFBC86
+    .suffix = NC palette, floor, peach
 
-ent-NCPoweredLightPostSmallCA7B53 = NC powered floor light (#CA7B53)
+ent-NCPoweredLightPostSmallCopper = NC powered floor light (copper)
     .desc = { nc-palette-powered-light-post-small-desc }
-    .suffix = NC palette, floor, #CA7B53
+    .suffix = NC palette, floor, copper
 
-ent-NCPoweredLightPostSmallF7B2A4 = NC powered floor light (#F7B2A4)
+ent-NCPoweredLightPostSmallRose = NC powered floor light (rose)
     .desc = { nc-palette-powered-light-post-small-desc }
-    .suffix = NC palette, floor, #F7B2A4
+    .suffix = NC palette, floor, rose
 
-ent-NCPoweredLightPostSmall736689 = NC powered floor light (#736689)
+ent-NCPoweredLightPostSmallMauve = NC powered floor light (mauve)
     .desc = { nc-palette-powered-light-post-small-desc }
-    .suffix = NC palette, floor, #736689
+    .suffix = NC palette, floor, mauve
 
-ent-NCPoweredLightPostSmall99627B = NC powered floor light (#99627B)
+ent-NCPoweredLightPostSmallDustyPurple = NC powered floor light (dusty purple)
     .desc = { nc-palette-powered-light-post-small-desc }
-    .suffix = NC palette, floor, #99627B
+    .suffix = NC palette, floor, dusty purple
 
-ent-NCPoweredLightPostSmall2F3854 = NC powered floor light (#2F3854)
+ent-NCPoweredLightPostSmallMidnightBlue = NC powered floor light (midnight blue)
     .desc = { nc-palette-powered-light-post-small-desc }
-    .suffix = NC palette, floor, #2F3854
+    .suffix = NC palette, floor, midnight blue
 
-ent-NCPoweredLightPostSmallFF82EE = NC powered floor light (#FF82EE)
+ent-NCPoweredLightPostSmallNeonPink = NC powered floor light (neon pink)
     .desc = { nc-palette-powered-light-post-small-desc }
-    .suffix = NC palette, floor, #FF82EE
+    .suffix = NC palette, floor, neon pink
 
-ent-NCPoweredLightPostSmallEB3CFF = NC powered floor light (#EB3CFF)
+ent-NCPoweredLightPostSmallNeonViolet = NC powered floor light (neon violet)
     .desc = { nc-palette-powered-light-post-small-desc }
-    .suffix = NC palette, floor, #EB3CFF
+    .suffix = NC palette, floor, neon violet
 
-ent-NCPoweredLightPostSmallAA0FDF = NC powered floor light (#AA0FDF)
+ent-NCPoweredLightPostSmallDeepViolet = NC powered floor light (deep violet)
     .desc = { nc-palette-powered-light-post-small-desc }
-    .suffix = NC palette, floor, #AA0FDF
+    .suffix = NC palette, floor, deep violet
 
-ent-NCPoweredLightPostSmallFBFF88 = NC powered floor light (#FBFF88)
+ent-NCPoweredLightPostSmallAcidYellow = NC powered floor light (acid yellow)
     .desc = { nc-palette-powered-light-post-small-desc }
-    .suffix = NC palette, floor, #FBFF88
+    .suffix = NC palette, floor, acid yellow
 
-ent-NCPoweredLightPostSmallFFF142 = NC powered floor light (#FFF142)
+ent-NCPoweredLightPostSmallBrightYellow = NC powered floor light (bright yellow)
     .desc = { nc-palette-powered-light-post-small-desc }
-    .suffix = NC palette, floor, #FFF142
+    .suffix = NC palette, floor, bright yellow
 
-ent-NCPoweredLightPostSmallFFCD47 = NC powered floor light (#FFCD47)
+ent-NCPoweredLightPostSmallAmberYellow = NC powered floor light (amber yellow)
     .desc = { nc-palette-powered-light-post-small-desc }
-    .suffix = NC palette, floor, #FFCD47
+    .suffix = NC palette, floor, amber yellow
 
-ent-NCPoweredLightPostSmallFF8C67 = NC powered floor light (#FF8C67)
+ent-NCPoweredLightPostSmallCoralOrange = NC powered floor light (coral orange)
     .desc = { nc-palette-powered-light-post-small-desc }
-    .suffix = NC palette, floor, #FF8C67
+    .suffix = NC palette, floor, coral orange
 
-ent-NCPoweredLightPostSmallFF6339 = NC powered floor light (#FF6339)
+ent-NCPoweredLightPostSmallSignalOrange = NC powered floor light (signal orange)
     .desc = { nc-palette-powered-light-post-small-desc }
-    .suffix = NC palette, floor, #FF6339
+    .suffix = NC palette, floor, signal orange
 
-ent-NCPoweredLightPostSmallD61910 = NC powered floor light (#D61910)
+ent-NCPoweredLightPostSmallSignalRed = NC powered floor light (signal red)
     .desc = { nc-palette-powered-light-post-small-desc }
-    .suffix = NC palette, floor, #D61910
+    .suffix = NC palette, floor, signal red
 
-ent-NCPoweredLightPostSmall578DFF = NC powered floor light (#578DFF)
+ent-NCPoweredLightPostSmallElectricBlue = NC powered floor light (electric blue)
     .desc = { nc-palette-powered-light-post-small-desc }
-    .suffix = NC palette, floor, #578DFF
+    .suffix = NC palette, floor, electric blue
 
-ent-NCPoweredLightPostSmall2262EC = NC powered floor light (#2262EC)
+ent-NCPoweredLightPostSmallCobaltBlue = NC powered floor light (cobalt blue)
     .desc = { nc-palette-powered-light-post-small-desc }
-    .suffix = NC palette, floor, #2262EC
+    .suffix = NC palette, floor, cobalt blue
 
-ent-NCPoweredLightPostSmall002ECD = NC powered floor light (#002ECD)
+ent-NCPoweredLightPostSmallDeepBlue = NC powered floor light (deep blue)
     .desc = { nc-palette-powered-light-post-small-desc }
-    .suffix = NC palette, floor, #002ECD
+    .suffix = NC palette, floor, deep blue
 
-ent-NCPoweredLightPostSmall8BFFF6 = NC powered floor light (#8BFFF6)
+ent-NCPoweredLightPostSmallAquaCyan = NC powered floor light (aqua cyan)
     .desc = { nc-palette-powered-light-post-small-desc }
-    .suffix = NC palette, floor, #8BFFF6
+    .suffix = NC palette, floor, aqua cyan
 
-ent-NCPoweredLightPostSmall5BEDFF = NC powered floor light (#5BEDFF)
+ent-NCPoweredLightPostSmallCyanBlue = NC powered floor light (cyan blue)
     .desc = { nc-palette-powered-light-post-small-desc }
-    .suffix = NC palette, floor, #5BEDFF
+    .suffix = NC palette, floor, cyan blue
 
-ent-NCPoweredLightPostSmall27D6FF = NC powered floor light (#27D6FF)
+ent-NCPoweredLightPostSmallNeonCyan = NC powered floor light (neon cyan)
     .desc = { nc-palette-powered-light-post-small-desc }
-    .suffix = NC palette, floor, #27D6FF
+    .suffix = NC palette, floor, neon cyan
 
-ent-NCPoweredLightPostSmallB3FF6E = NC powered floor light (#B3FF6E)
+ent-NCPoweredLightPostSmallLime = NC powered floor light (lime)
     .desc = { nc-palette-powered-light-post-small-desc }
-    .suffix = NC palette, floor, #B3FF6E
+    .suffix = NC palette, floor, lime
 
-ent-NCPoweredLightPostSmall74E747 = NC powered floor light (#74E747)
+ent-NCPoweredLightPostSmallAcidGreen = NC powered floor light (acid green)
     .desc = { nc-palette-powered-light-post-small-desc }
-    .suffix = NC palette, floor, #74E747
+    .suffix = NC palette, floor, acid green
 
-ent-NCPoweredLightPostSmall34CD15 = NC powered floor light (#34CD15)
+ent-NCPoweredLightPostSmallGreen = NC powered floor light (green)
     .desc = { nc-palette-powered-light-post-small-desc }
-    .suffix = NC palette, floor, #34CD15
+    .suffix = NC palette, floor, green
 
-ent-NCPoweredLightPostSmallFF60CF = NC powered floor light (#FF60CF)
+ent-NCPoweredLightPostSmallHotPink = NC powered floor light (hot pink)
     .desc = { nc-palette-powered-light-post-small-desc }
-    .suffix = NC palette, floor, #FF60CF
+    .suffix = NC palette, floor, hot pink
 
-ent-NCPoweredLightPostSmallFF3BA2 = NC powered floor light (#FF3BA2)
+ent-NCPoweredLightPostSmallMagentaPink = NC powered floor light (magenta pink)
     .desc = { nc-palette-powered-light-post-small-desc }
-    .suffix = NC palette, floor, #FF3BA2
+    .suffix = NC palette, floor, magenta pink
 
-ent-NCPoweredLightPostSmallDC1E7F = NC powered floor light (#DC1E7F)
+ent-NCPoweredLightPostSmallDeepMagenta = NC powered floor light (deep magenta)
     .desc = { nc-palette-powered-light-post-small-desc }
-    .suffix = NC palette, floor, #DC1E7F
+    .suffix = NC palette, floor, deep magenta
 
-ent-NCPoweredLightPostSmallE3FAFF = NC powered floor light (#E3FAFF)
+ent-NCPoweredLightPostSmallCoolWhite = NC powered floor light (cool white)
     .desc = { nc-palette-powered-light-post-small-desc }
-    .suffix = NC palette, floor, #E3FAFF
+    .suffix = NC palette, floor, cool white
 
-ent-NCPoweredLightPostSmallD3E2E7 = NC powered floor light (#D3E2E7)
+ent-NCPoweredLightPostSmallSteelWhite = NC powered floor light (steel white)
     .desc = { nc-palette-powered-light-post-small-desc }
-    .suffix = NC palette, floor, #D3E2E7
+    .suffix = NC palette, floor, steel white
 
-ent-NCPoweredLightPostSmallB6C3CA = NC powered floor light (#B6C3CA)
+ent-NCPoweredLightPostSmallBlueGray = NC powered floor light (blue gray)
     .desc = { nc-palette-powered-light-post-small-desc }
-    .suffix = NC palette, floor, #B6C3CA
+    .suffix = NC palette, floor, blue gray
 

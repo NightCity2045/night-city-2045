@@ -4,6 +4,8 @@
   id: Welder
   description: "Melts anything as long as it's fueled, don't forget your eye protection!"
   components:
+  - type: NCWeight
+    weight: 2.0
   - type: EmitSoundOnPickup
     sound: /Audio/SimpleStation14/Items/Handling/welder_pickup.ogg
   - type: EmitSoundOnDrop
@@ -244,6 +246,8 @@
   id: WelderMini
   description: "A miniature welder used during emergencies."
   components:
+  - type: NCWeight
+    weight: 1.0
   - type: Sprite
     sprite: Objects/Tools/welder_mini.rsi
   - type: Item

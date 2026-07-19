@@ -3,6 +3,8 @@
   parent: Clothing
   id: UnsensoredClothingUniformBase
   components:
+  - type: NCWeight
+    weight: 0.7
   - type: Sprite
     state: icon
   - type: Clothing

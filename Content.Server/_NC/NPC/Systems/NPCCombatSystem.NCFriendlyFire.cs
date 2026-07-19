@@ -64,13 +64,7 @@ public sealed partial class NPCCombatSystem
                 continue;
             }
 
-            if (!TryComp<NpcFactionMemberComponent>(entity, out var otherFaction) ||
-                !_ncFaction.IsEntityFriendly((shooter, shooterFaction), (entity, otherFaction)))
-            {
-                continue;
-            }
-
-            if (TryComp<MobStateComponent>(entity, out var mobState) && mobState.CurrentState >= MobState.Dead)
+            if (!NCIsLiveFriendly(shooter, shooterFaction, entity))
                 continue;
 
             var otherPos = _transform.GetWorldPosition(otherXform);
@@ -136,10 +130,13 @@ public sealed partial class NPCCombatSystem
         if (TryComp<MobStateComponent>(other, out var mobState) && mobState.CurrentState >= MobState.Dead)
             return false;
 
-        // Preserve corporate friendlies while peaceful RTS mode swaps the active faction to Passive.
-        if (TryComp<RiggerDroneComponent>(shooter, out var drone) &&
-            TryComp<NpcFactionMemberComponent>(other, out var droneTargetFaction) &&
-            _ncFaction.IsMemberOfAny((other, droneTargetFaction), drone.DroneFactions))
+        // RTS aggression temporarily replaces the active faction with Passive. Two drones from the
+        // same permanent command faction must remain allies even while their mode changes differ.
+        if (TryComp<RiggerDroneComponent>(shooter, out var shooterDrone) &&
+            ((TryComp<RiggerDroneComponent>(other, out var otherDrone) &&
+              shooterDrone.DroneFactions.Overlaps(otherDrone.DroneFactions)) ||
+             (TryComp<NpcFactionMemberComponent>(other, out var droneTargetFaction) &&
+              _ncFaction.IsMemberOfAny((other, droneTargetFaction), shooterDrone.DroneFactions))))
         {
             return true;
         }

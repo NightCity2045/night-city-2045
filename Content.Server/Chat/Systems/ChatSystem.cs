@@ -962,7 +962,7 @@ public sealed partial class ChatSystem : SharedChatSystem
     /// <summary>
     ///     Sends a chat message to the given players in range of the source entity.
     /// </summary>
-    private void SendInVoiceRange(ChatChannel channel, string name, string message, string wrappedMessage, string obfuscated, string obfuscatedWrappedMessage, EntityUid source, ChatTransmitRange range, NetUserId? author = null, LanguagePrototype? languageOverride = null, Func<EntityUid, string, string>? wrapForListener = null, uint? serverMessageId = null)
+    private void SendInVoiceRange(ChatChannel channel, string name, string message, string wrappedMessage, string obfuscated, string obfuscatedWrappedMessage, EntityUid source, ChatTransmitRange range, NetUserId? author = null, LanguagePrototype? languageOverride = null, Func<EntityUid, string, string>? wrapForListener = null, uint? serverMessageId = null, bool translateObservers = false)
     {
         var language = languageOverride ?? _language.GetLanguage(source);
         foreach (var (session, data) in GetRecipients(source, Transform(source).GridUid == null ? 0.3f : VoiceRange))
@@ -988,7 +988,11 @@ public sealed partial class ChatSystem : SharedChatSystem
 
 
             // If the channel does not support languages, or the entity can understand the message, send the original message, otherwise send the obfuscated version
-            if (channel == ChatChannel.LOOC || channel == ChatChannel.Emotes || _language.CanUnderstand(listener, language.ID))
+            // NC translation: observers must receive the unobfuscated text so the per-listener translation wrapper can process it.
+            if (channel == ChatChannel.LOOC ||
+                channel == ChatChannel.Emotes ||
+                _language.CanUnderstand(listener, language.ID) ||
+                translateObservers && data.Observer)
             {
                 var viewerWrappedMessage = wrapForListener?.Invoke(listener, message) ?? wrappedMessage;
                 _chatManager.ChatMessageToOne(channel, message, viewerWrappedMessage, source, entHideChat, session.Channel, author: author, serverMessageId: serverMessageId);
