@@ -8,7 +8,7 @@
   - type: Fish
     difficulty: 0.030
   - type: StaticPrice
-    price: 250
+    price: 100
   - type: Butcherable
     spawned:
     - id: FoodMeatFish

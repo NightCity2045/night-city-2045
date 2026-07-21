@@ -30,7 +30,7 @@
           True: {state: icon-on}
           False: {state: icon}
   - type: StaticPrice
-    price: 200
+    price: 100
   - type: Tag
     tags:
     - WhitelistChameleon
@@ -58,7 +58,7 @@
     - WhitelistChameleon
     - HighRiskItem
   - type: StaticPrice
-    price: 750
+    price: 500
   - type: StealTarget
     stealGroup: ClothingShoesBootsMagAdv
   - type: DamageOtherOnHit
@@ -77,7 +77,7 @@
     walkModifier: 1.10 #PVS isn't too much of an issue when you are blind...
     sprintModifier: 1.10
   - type: StaticPrice
-    price: 3000
+    price: 1000
 
 - type: entity
   parent: [ClothingShoesBootsMagBase, BaseJetpack, BaseSyndicateContraband]

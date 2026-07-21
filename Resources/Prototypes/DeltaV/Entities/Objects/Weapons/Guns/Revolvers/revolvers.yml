@@ -127,7 +127,7 @@
     chambers: [ True, True, True, True, True, True ]
     ammoSlots: [ null, null, null, null, null, null ]
   - type: StaticPrice
-    price: 750
+    price: 500
 
 - type: entity
   name: faith
@@ -154,4 +154,4 @@
     chambers: [ True, True, True, True ]
     ammoSlots: [ null, null, null, null ]
   - type: StaticPrice
-    price: 1500
+    price: 1000

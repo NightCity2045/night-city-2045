@@ -16,16 +16,16 @@
     DrinkSportsYellowBottleFull: 3
   startingItemPrices:
     FoodSnackProteinbar: 20
-    FoodCondimentPacketProtein: 15
-    DrinkMilkCartonMini: 30
-    DrinkMilkCartonMiniChocolate: 30
-    DrinkOatMilkCartonMini: 30
-    DrinkSoyMilkCartonMini: 30
-    DrinkWaterBottleFull: 15
-    DrinkFitnessShakerBlack: 40
-    DrinkFitnessShakerRed: 40
-    DrinkFitnessShakerBlue: 40
-    DrinkSportsYellowBottleFull: 15
+    FoodCondimentPacketProtein: 10
+    DrinkMilkCartonMini: 20
+    DrinkMilkCartonMiniChocolate: 20
+    DrinkOatMilkCartonMini: 20
+    DrinkSoyMilkCartonMini: 20
+    DrinkWaterBottleFull: 50
+    DrinkFitnessShakerBlack: 50
+    DrinkFitnessShakerRed: 50
+    DrinkFitnessShakerBlue: 50
+    DrinkSportsYellowBottleFull: 10
   contrabandInventory:
     DrinkSportsBlueBottleFull: 2 # they never took the drinks out when cryanobalamin got banned
     DrinkSportsRedBottleFull: 1

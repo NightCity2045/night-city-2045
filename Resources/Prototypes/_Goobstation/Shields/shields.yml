@@ -82,7 +82,7 @@
     - type: Damageable
       damageContainer: Shield
     - type: StaticPrice
-      price: 350
+      price: 500
     - type: Battery
       maxCharge: 180
       startingCharge: 180

@@ -4,7 +4,7 @@
   description: job-description-ncpd-watch-agent
   playTimeTracker: JobNCPDWatchAgent
   weight: 50
-  salary: 200
+  salary: 100
   icon: "JobIconWatchAgent"
   startingGear: NCPDWatchAgentGear
   supervisors: Начальник департамента полиции

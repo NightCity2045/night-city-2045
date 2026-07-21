@@ -18,14 +18,14 @@
     ClothingUniformJumpskirtJanitor: 50
     ClothingHandsGlovesJanitor: 20
     ClothingShoesColorBlack: 50
-    ClothingHeadHatPurplesoft: 30
+    ClothingHeadHatPurplesoft: 20
     ClothingBeltJanitor: 50
     ClothingHeadsetService: 100
     ClothingOuterWinterJani: 100
     ClothingNeckScarfStripedPurple: 20
     ClothingShoesBootsWinterJani: 50
-    ClothingUniformJumpskirtJanimaid: 200
-    ClothingUniformJumpskirtJanimaidmini: 200
+    ClothingUniformJumpskirtJanimaid: 100
+    ClothingUniformJumpskirtJanimaidmini: 100
 
   emaggedInventory: # Delta V: tactical maid outfit set is now the emagg reward.
     ClothingHandsTacticalMaidGloves: 1
@@ -33,5 +33,5 @@
     ClothingHeadHatTacticalMaidHeadband: 1
   emaggedItemPrices:
     ClothingHandsTacticalMaidGloves: 50
-    ClothingUniformJumpskirtTacticalMaid: 200
+    ClothingUniformJumpskirtTacticalMaid: 100
     ClothingHeadHatTacticalMaidHeadband: 100

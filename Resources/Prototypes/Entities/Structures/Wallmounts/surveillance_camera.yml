@@ -70,7 +70,7 @@
       enum.WiresUiKey.Key:
         type: WiresBoundUserInterface
   - type: StaticPrice
-    price: 200
+    price: 100
   - type: Destructible
     thresholds:
       - trigger:

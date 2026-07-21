@@ -217,15 +217,15 @@
     NCDrinkBottlePineapple: 100
     NCDrinkBottleBluePumpkin: 100
     NCDrinkBottlePoison: 100
-    DrinkSodaWaterBottleFull: 75
-    DrinkTonicWaterBottleFull: 75
+    DrinkSodaWaterBottleFull: 50
+    DrinkTonicWaterBottleFull: 50
     NCDrinkBottleSupermax: 100
-    DrinkColaBottleFull: 80
-    DrinkGrenadineBottleFull: 80
+    DrinkColaBottleFull: 100
+    DrinkGrenadineBottleFull: 100
   contrabandInventory:
     NCDrinkBottlePumpkin: 2
   contrabandItemPrices:
-    NCDrinkBottlePumpkin: 80
+    NCDrinkBottlePumpkin: 100
 
 - type: entity
   parent: VendingMachineColaBlack

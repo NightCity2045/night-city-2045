@@ -70,15 +70,15 @@
     MimePDA: 50
     MusicianPDA: 50
     ClothingHeadsetGrey: 50
-    ClothingHeadsetService: 50
-    ClothingHeadsetCargo: 50
-    ClothingHeadsetEngineering: 50
-    ClothingHeadsetMedical: 50
-    ClothingHeadsetScience: 50
+    ClothingHeadsetService: 100
+    ClothingHeadsetCargo: 100
+    ClothingHeadsetEngineering: 100
+    ClothingHeadsetMedical: 100
+    ClothingHeadsetScience: 100
     RubberStampApproved: 20
     RubberStampDenied: 20
-    Paper: 5
-    Envelope: 5
+    Paper: 10
+    Envelope: 10
     EncryptionKeyCargo: 50
     EncryptionKeyEngineering: 50
     EncryptionKeyMedical: 50
@@ -92,6 +92,6 @@
     SyndiPDA: 2
   emaggedItemPrices:
     EncryptionKeySyndie: 500
-    RubberStampSyndicate: 200
+    RubberStampSyndicate: 100
     SyndiPDA: 500
   #WWDP edit end

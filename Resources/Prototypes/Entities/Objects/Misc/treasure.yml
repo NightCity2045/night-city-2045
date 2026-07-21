@@ -39,7 +39,7 @@
         harddisk_mini: ""
         harddisk_micro: ""
   - type: StaticPrice
-    price: 275
+    price: 100
 
 - type: entity
   parent: BaseItem
@@ -54,7 +54,7 @@
   - type: Item
     storedRotation: -90
   - type: StaticPrice
-    price: 350
+    price: 500
 
 - type: entity
   parent: BaseItem
@@ -69,7 +69,7 @@
   - type: Item
     storedRotation: -90
   - type: StaticPrice
-    price: 300
+    price: 100
 
 - type: entity
   parent: BaseItem
@@ -89,7 +89,7 @@
       Glass: 1000
       Silver: 300
   - type: StaticPrice
-    price: 750
+    price: 500
 
 - type: entity
   parent: BaseItem
@@ -112,7 +112,7 @@
         synchronizer: ""
         stabilizer: ""
   - type: StaticPrice
-    price: 120
+    price: 100
 
 - type: entityTable
   id: TreasureCoinPile
@@ -159,7 +159,7 @@
     materialComposition:
       Steel: 300
   - type: StaticPrice
-    price: 75
+    price: 50
 
 - type: entity
   parent: TreasureCoinIron
@@ -172,7 +172,7 @@
       Steel: 100 # coins are fake on the inside
       Silver: 200
   - type: StaticPrice
-    price: 140
+    price: 100
 
 - type: entity
   parent: TreasureCoinIron
@@ -185,7 +185,7 @@
       Steel: 100
       Gold: 200
   - type: StaticPrice
-    price: 175
+    price: 100
 
 - type: entity
   parent: TreasureCoinIron
@@ -198,7 +198,7 @@
       Steel: 400
       Diamond: 5
   - type: StaticPrice
-    price: 250
+    price: 100
 
 - type: entity
   parent: TreasureCoinIron

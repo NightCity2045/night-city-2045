@@ -40,7 +40,7 @@
         - ReagentId: Ketchup
           Quantity: 30
   - type: StaticPrice
-    price: 30
+    price: 20
 
 - type: entity
   parent: NCCondimentBottle
@@ -70,7 +70,7 @@
         - ReagentId: Hotsauce
           Quantity: 30
   - type: StaticPrice
-    price: 40
+    price: 50
 
 - type: entity
   parent: NCCondimentBottle
@@ -85,7 +85,7 @@
         - ReagentId: Ketchunaise
           Quantity: 30
   - type: StaticPrice
-    price: 46
+    price: 50
 
 - type: entity
   parent: NCCondimentBottle
@@ -100,7 +100,7 @@
         - ReagentId: Mayo
           Quantity: 30
   - type: StaticPrice
-    price: 38
+    price: 50
 
 - type: entity
   parent: NCCondimentBottle
@@ -115,7 +115,7 @@
         - ReagentId: Mustard
           Quantity: 30
   - type: StaticPrice
-    price: 32
+    price: 20
 
 - type: entity
   parent: NCCondimentBottle
@@ -145,7 +145,7 @@
         - ReagentId: Pesto
           Quantity: 30
   - type: StaticPrice
-    price: 58
+    price: 50
 
 - type: entity
   parent: NCCondimentBottle
@@ -160,7 +160,7 @@
         - ReagentId: Bechamel
           Quantity: 30
   - type: StaticPrice
-    price: 62
+    price: 50
 
 - type: entity
   parent: NCCondimentBottle
@@ -175,7 +175,7 @@
         - ReagentId: TomatoSauce
           Quantity: 30
   - type: StaticPrice
-    price: 55
+    price: 50
 
 # region Ingredients
 
@@ -192,7 +192,7 @@
         - ReagentId: Enzyme
           Quantity: 30
   - type: StaticPrice
-    price: 38
+    price: 50
 
 - type: entity
   parent: NCCondimentBottle
@@ -207,7 +207,7 @@
         - ReagentId: Vinegar
           Quantity: 30
   - type: StaticPrice
-    price: 24
+    price: 20
 
 - type: entity
   parent: NCCondimentBottle
@@ -222,7 +222,7 @@
         - ReagentId: Vinaigrette
           Quantity: 30
   - type: StaticPrice
-    price: 62
+    price: 50
 
 - type: entity
   parent: NCCondimentBottle
@@ -237,7 +237,7 @@
         - ReagentId: HorseradishSauce
           Quantity: 30
   - type: StaticPrice
-    price: 60
+    price: 50
 
 - type: entity
   parent: NCCondimentBottle
@@ -252,7 +252,7 @@
         - ReagentId: Syrup
           Quantity: 30
   - type: StaticPrice
-    price: 72
+    price: 50
 
 - type: entity
   parent: NCCondimentBottle
@@ -267,7 +267,7 @@
         - ReagentId: Blackpepper
           Quantity: 30
   - type: StaticPrice
-    price: 40
+    price: 50
 
 - type: entity
   parent: NCCondimentBottle
@@ -282,7 +282,7 @@
         - ReagentId: TonicWater
           Quantity: 30
   - type: StaticPrice
-    price: 24
+    price: 20
 
 - type: entity
   parent: NCCondimentBottle
@@ -297,7 +297,7 @@
         - ReagentId: Grenadine
           Quantity: 30
   - type: StaticPrice
-    price: 40
+    price: 50
 
 - type: entity
   parent: NCCondimentBottle
@@ -312,7 +312,7 @@
         - ReagentId: TeaPowder
           Quantity: 30
   - type: StaticPrice
-    price: 12
+    price: 10
 
 # region Mixes
 
@@ -335,7 +335,7 @@
         - ReagentId: Allicin
           Quantity: 3
   - type: StaticPrice
-    price: 70
+    price: 50
 
 - type: entity
   parent: NCCondimentBottle
@@ -356,7 +356,7 @@
         - ReagentId: Enzyme
           Quantity: 5
   - type: StaticPrice
-    price: 88
+    price: 100
 
 - type: entity
   parent: NCCondimentBottle
@@ -377,7 +377,7 @@
         - ReagentId: Allicin
           Quantity: 3
   - type: StaticPrice
-    price: 90
+    price: 100
 
 # region Oils
 
@@ -415,7 +415,7 @@
         - ReagentId: OilOlive
           Quantity: 30
   - type: StaticPrice
-    price: 25
+    price: 20
 
 - type: entity
   parent: NCCondimentBottle
@@ -430,7 +430,7 @@
         - ReagentId: CapsaicinOil
           Quantity: 30
   - type: StaticPrice
-    price: 35
+    price: 20
 
 - type: entity
   parent: NCCondimentBottle
@@ -445,7 +445,7 @@
         - ReagentId: Frostoil
           Quantity: 30
   - type: StaticPrice
-    price: 40
+    price: 50
 
 - type: entity
   parent: NCCondimentBottle
@@ -460,7 +460,7 @@
         - ReagentId: Cornoil
           Quantity: 30
   - type: StaticPrice
-    price: 25
+    price: 20
 
 - type: entity
   parent: NCCondimentBottle
@@ -475,7 +475,7 @@
         - ReagentId: Oil
           Quantity: 30
   - type: StaticPrice
-    price: 30
+    price: 20
 
 # region Special condiments
 
@@ -492,7 +492,7 @@
         - ReagentId: Astrotame
           Quantity: 30
   - type: StaticPrice
-    price: 65
+    price: 50
 
 - type: entity
   parent: NCCondimentBottle
@@ -507,7 +507,7 @@
         - ReagentId: LaughinSyrup
           Quantity: 30
   - type: StaticPrice
-    price: 80
+    price: 100
 
 # region Random Spawner
 
@@ -600,31 +600,31 @@
     NCCondimentBottleCornOil: 5
     NCCondimentBottleOilRefined: 5
   startingItemPrices:
-    NCCondimentBottleKetchup: 30
+    NCCondimentBottleKetchup: 20
     NCCondimentBottleBbqSauce: 50
-    NCCondimentBottleHotSauce: 40
-    NCCondimentBottleKetchunaise: 46
-    NCCondimentBottleMayo: 38
-    NCCondimentBottleMustard: 32
+    NCCondimentBottleHotSauce: 50
+    NCCondimentBottleKetchunaise: 50
+    NCCondimentBottleMayo: 50
+    NCCondimentBottleMustard: 20
     NCCondimentBottleSoySauce: 50
-    NCCondimentBottlePesto: 58
-    NCCondimentBottleBechamel: 62
-    NCCondimentBottleTomatoSauce: 55
-    NCCondimentBottleEnzyme: 38
-    NCCondimentBottleVinegar: 24
-    NCCondimentBottleVinaigrette: 62
-    NCCondimentBottleHorseradishSauce: 60
-    NCCondimentBottleSyrup: 72
-    NCCondimentBottleBlackpepper: 40
-    NCCondimentBottleTonic: 24
-    NCCondimentBottleGrenadine: 40
-    NCCondimentBottleTeaPowder: 12
+    NCCondimentBottlePesto: 50
+    NCCondimentBottleBechamel: 50
+    NCCondimentBottleTomatoSauce: 50
+    NCCondimentBottleEnzyme: 50
+    NCCondimentBottleVinegar: 20
+    NCCondimentBottleVinaigrette: 50
+    NCCondimentBottleHorseradishSauce: 50
+    NCCondimentBottleSyrup: 50
+    NCCondimentBottleBlackpepper: 50
+    NCCondimentBottleTonic: 20
+    NCCondimentBottleGrenadine: 50
+    NCCondimentBottleTeaPowder: 10
     NCCondimentBottleOil: 20
-    NCCondimentBottleOilOlive: 25
-    NCCondimentBottleCapsaicinOil: 35
-    NCCondimentBottleFrostOil: 40
-    NCCondimentBottleCornOil: 25
-    NCCondimentBottleOilRefined: 30
+    NCCondimentBottleOilOlive: 20
+    NCCondimentBottleCapsaicinOil: 20
+    NCCondimentBottleFrostOil: 50
+    NCCondimentBottleCornOil: 20
+    NCCondimentBottleOilRefined: 20
   contrabandInventory:
     NCCondimentBottleExoticBitter: 2
     NCCondimentBottleTeriyaki: 2
@@ -632,11 +632,11 @@
     NCCondimentBottleAstro: 2
     NCCondimentBottleLaughinSyrup: 2
   contrabandItemPrices:
-    NCCondimentBottleExoticBitter: 88
-    NCCondimentBottleTeriyaki: 70
-    NCCondimentBottleVodkaSauce: 90
-    NCCondimentBottleAstro: 65
-    NCCondimentBottleLaughinSyrup: 80
+    NCCondimentBottleExoticBitter: 100
+    NCCondimentBottleTeriyaki: 50
+    NCCondimentBottleVodkaSauce: 100
+    NCCondimentBottleAstro: 50
+    NCCondimentBottleLaughinSyrup: 100
 
 - type: vendingMachineInventory
   id: NCDrinkOMatInventory
@@ -666,36 +666,36 @@
     DrinkOatMilkCarton: 5
     DrinkJuiceLemonCarton: 5
   startingItemPrices:
-    NCCondimentBottleSyrup: 72
-    NCCondimentBottleTonic: 24
-    NCCondimentBottleGrenadine: 40
-    NCCondimentBottleTeaPowder: 12
-    NCCondimentBottleExoticBitter: 88
-    NCDrinkBottleBluemax: 90
-    DrinkSodaWaterBottleFull: 60
-    DrinkColaBottleFull: 80
-    DrinkEnergyDrinkCan: 30
-    DrinkGrenadineBottleFull: 50
+    NCCondimentBottleSyrup: 50
+    NCCondimentBottleTonic: 20
+    NCCondimentBottleGrenadine: 50
+    NCCondimentBottleTeaPowder: 10
+    NCCondimentBottleExoticBitter: 100
+    NCDrinkBottleBluemax: 100
+    DrinkSodaWaterBottleFull: 50
+    DrinkColaBottleFull: 100
+    DrinkEnergyDrinkCan: 20
+    DrinkGrenadineBottleFull: 100
     DrinkSolDryCan: 20
-    DrinkSpaceMountainWindBottleFull: 30
-    DrinkSpaceUpBottleFull: 30
+    DrinkSpaceMountainWindBottleFull: 20
+    DrinkSpaceUpBottleFull: 20
     NCDrinkCartonPineapple: 50
-    NCDrinkCartonMultifruit: 50
+    NCDrinkCartonMultifruit: 100
     DrinkJuiceLimeCarton: 50
     DrinkJuiceOrangeCarton: 50
     DrinkJuiceTomatoCarton: 50
     DrinkCoconutWaterCarton: 50
     DrinkCreamCarton: 20
-    DrinkMilkCarton: 30
-    DrinkSoyMilkCarton: 30
-    DrinkOatMilkCarton: 30
+    DrinkMilkCarton: 20
+    DrinkSoyMilkCarton: 20
+    DrinkOatMilkCarton: 20
     DrinkJuiceLemonCarton: 50
   contrabandInventory:
     NCDrinkCartonBluePumpkin: 2
     NCDrinkCartonWine: 2
     NCCondimentBottleLaughinSyrup: 3
   contrabandItemPrices:
-    NCCondimentBottleLaughinSyrup: 80
+    NCCondimentBottleLaughinSyrup: 100
     NCDrinkCartonBluePumpkin: 50
     NCDrinkCartonWine: 100
 
@@ -725,36 +725,36 @@
     DrinkMugRainbow: 2
     DrinkMugRed: 2
   startingItemPrices:
-    DrinkGlass: 5
-    DrinkShotGlass: 5
-    DrinkGlassCoupeShaped: 5
+    DrinkGlass: 10
+    DrinkShotGlass: 10
+    DrinkGlassCoupeShaped: 10
     DrinkVacuumFlask: 20
     DrinkShaker: 20
-    DrinkShakerAdvanced: 180
-    DrinkKettleAdvanced: 180
+    DrinkShakerAdvanced: 500
+    DrinkKettleAdvanced: 100
     DrinkJigger: 10
     DrinkIceBucket: 20
-    BarSpoon: 5
-    CustomDrinkJug: 10
+    BarSpoon: 10
+    CustomDrinkJug: 20
     Pitcher: 10
-    DrinkMug: 5
-    DrinkMugBlack: 5
-    DrinkMugBlue: 5
-    DrinkMugGreen: 5
-    DrinkMugHeart: 5
-    DrinkMugMetal: 5
-    DrinkMugMoebius: 5
-    DrinkMugOne: 5
-    DrinkMugRainbow: 5
-    DrinkMugRed: 5
+    DrinkMug: 10
+    DrinkMugBlack: 10
+    DrinkMugBlue: 10
+    DrinkMugGreen: 10
+    DrinkMugHeart: 10
+    DrinkMugMetal: 10
+    DrinkMugMoebius: 10
+    DrinkMugOne: 10
+    DrinkMugRainbow: 10
+    DrinkMugRed: 10
   contrabandInventory:
     DrinkFlaskBar: 5
     BluespaceDrinkShakerAdvanced: 1
     BluespaceDrinkKettleAdvanced: 1
   contrabandItemPrices:
     DrinkFlaskBar: 20
-    BluespaceDrinkShakerAdvanced: 600
-    BluespaceDrinkKettleAdvanced: 600
+    BluespaceDrinkShakerAdvanced: 500
+    BluespaceDrinkKettleAdvanced: 500
 
 - type: vendingMachineInventory
   id: NCSauceOMatInventory
@@ -773,25 +773,25 @@
     NCCondimentBottleHorseradishSauce: 2
     NCCondimentBottleTeriyaki: 2
   startingItemPrices:
-    NCCondimentBottleKetchup: 30
+    NCCondimentBottleKetchup: 20
     NCCondimentBottleBbqSauce: 50
-    NCCondimentBottleHotSauce: 40
-    NCCondimentBottleKetchunaise: 46
-    NCCondimentBottleMayo: 38
-    NCCondimentBottleMustard: 32
+    NCCondimentBottleHotSauce: 50
+    NCCondimentBottleKetchunaise: 50
+    NCCondimentBottleMayo: 50
+    NCCondimentBottleMustard: 20
     NCCondimentBottleSoySauce: 50
-    NCCondimentBottlePesto: 58
-    NCCondimentBottleBechamel: 62
-    NCCondimentBottleTomatoSauce: 55
-    NCCondimentBottleVinaigrette: 62
-    NCCondimentBottleHorseradishSauce: 60
-    NCCondimentBottleTeriyaki: 70
+    NCCondimentBottlePesto: 50
+    NCCondimentBottleBechamel: 50
+    NCCondimentBottleTomatoSauce: 50
+    NCCondimentBottleVinaigrette: 50
+    NCCondimentBottleHorseradishSauce: 50
+    NCCondimentBottleTeriyaki: 50
   contrabandInventory:
     NCCondimentBottleAstro: 2
     NCCondimentBottleVodkaSauce: 2
   contrabandItemPrices:
-    NCCondimentBottleAstro: 65
-    NCCondimentBottleVodkaSauce: 90
+    NCCondimentBottleAstro: 50
+    NCCondimentBottleVodkaSauce: 100
 
 - type: reagentDispenserInventory
   id: NCCondimentDispenserInventory

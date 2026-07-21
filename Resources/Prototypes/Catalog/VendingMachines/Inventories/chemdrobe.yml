@@ -31,12 +31,12 @@
     ClothingBackpackDuffelChemistry: 50
     ChemBag: 20
     ClothingBeltMedical: 50
-    ClothingHandsGlovesLatex: 10
+    ClothingHandsGlovesLatex: 50
     ClothingHeadsetMedical: 100
     ClothingOuterWinterChem: 100
     ClothingUniformJumpsuitChemShirt: 50
     ClothingNeckTieChem: 20
-    ClothingShoesEnclosedChem: 50
-    ClothingOuterApronChemist: 50
+    ClothingShoesEnclosedChem: 100
+    ClothingOuterApronChemist: 500
     ClothingEyesGlassesChemist: 50
     ClothingHandsGlovesChemist: 50

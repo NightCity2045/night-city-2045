@@ -53,7 +53,7 @@
             sound:
               collection: MetalBreak
     - type: StaticPrice
-      price: 300
+      price: 100
     - type: GuideHelp
       guides:
       - ShuttleCraft
@@ -202,7 +202,7 @@
     damageContainer: StructuralInorganic
     damageModifierSet: Electronic
   - type: StaticPrice
-    price: 2000
+    price: 1000
 
 - type: entity
   id: GyroscopeUnanchored

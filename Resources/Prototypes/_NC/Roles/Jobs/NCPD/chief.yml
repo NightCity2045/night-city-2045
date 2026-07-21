@@ -4,7 +4,7 @@
   description: job-description-ncpd-chief
   playTimeTracker: JobNCPDChief
   weight: 100
-  salary: 450
+  salary: 125
   icon: "JobIconNCPDChief"
   startingGear: NCPDChiefGear
   access:

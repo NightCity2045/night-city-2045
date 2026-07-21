@@ -50,47 +50,47 @@
   startingItemPrices:
     # NC edit start: NightCity FastFood
     NCCondimentPacketKetchup: 10
-    NCCondimentPacketHotKetchup: 12
-    NCCondimentPacketBbqSauce: 18
-    NCCondimentPacketCornoil: 8
+    NCCondimentPacketHotKetchup: 10
+    NCCondimentPacketBbqSauce: 20
+    NCCondimentPacketCornoil: 10
     NCCondimentPacketHorseradishSauce: 20
-    NCCondimentPacketVasabi: 35
-    NCCondimentPacketHotSauce: 14
-    NCCondimentPacketKetchunaise: 16
-    NCCondimentPacketMayo: 13
-    NCCondimentPacketMustard: 11
-    NCCondimentPacketVinaigrette: 22
-    NCCondimentPacketSoySauce: 17
-    NCCondimentPacketSyrup: 25
-    NCCondimentPacketGarlic: 28
-    NCCondimentPacketSourGreenSauce: 32
-    NCCondimentPacketCarrot: 26
-    NCCondimentPacketHollandaise: 42
-    NCCondimentPacketTomatoSauce: 19
-    NCCondimentPacketTomatoDressing: 24
-    NCCondimentPacketTartarSauce: 38
+    NCCondimentPacketVasabi: 20
+    NCCondimentPacketHotSauce: 10
+    NCCondimentPacketKetchunaise: 20
+    NCCondimentPacketMayo: 10
+    NCCondimentPacketMustard: 10
+    NCCondimentPacketVinaigrette: 20
+    NCCondimentPacketSoySauce: 20
+    NCCondimentPacketSyrup: 20
+    NCCondimentPacketGarlic: 20
+    NCCondimentPacketSourGreenSauce: 20
+    NCCondimentPacketCarrot: 20
+    NCCondimentPacketHollandaise: 50
+    NCCondimentPacketTomatoSauce: 20
+    NCCondimentPacketTomatoDressing: 20
+    NCCondimentPacketTartarSauce: 50
     NCCondimentPacketPesto: 20
-    NCCondimentPacketBechamel: 21
-    NCCondimentPacketLasagnaSauce: 36
-    NCCondimentPacketBananaSauce: 33
-    NCCondimentPacketCherryJam: 29
-    NCCondimentPacketBerryJam: 31
-    NCCondimentPacketAppleJam: 27
-    NCCondimentPacketOrangeJam: 30
-    NCCondimentPacketMustardSauce: 15
-    NCCondimentPacketSatsibili: 25
-    NCCondimentPacketCheeseSauce: 35
-    NCCondimentPacketCarbonaraSauce: 40
-    NCCondimentPacketSweetChili: 30
-    NCCondimentPacketBurgerSauce: 45
+    NCCondimentPacketBechamel: 20
+    NCCondimentPacketLasagnaSauce: 50
+    NCCondimentPacketBananaSauce: 20
+    NCCondimentPacketCherryJam: 20
+    NCCondimentPacketBerryJam: 20
+    NCCondimentPacketAppleJam: 20
+    NCCondimentPacketOrangeJam: 20
+    NCCondimentPacketMustardSauce: 10
+    NCCondimentPacketSatsibili: 20
+    NCCondimentPacketCheeseSauce: 20
+    NCCondimentPacketCarbonaraSauce: 50
+    NCCondimentPacketSweetChili: 20
+    NCCondimentPacketBurgerSauce: 50
     NCCondimentPacketGolfSauce: 50
-    NCCondimentPacketVodkaSauce: 60
-    FoodCondimentPacketPepper: 5
-    FoodCondimentPacketSalt: 5
-    FoodCondimentPacketSugar: 5
+    NCCondimentPacketVodkaSauce: 50
+    FoodCondimentPacketPepper: 10
+    FoodCondimentPacketSalt: 10
+    FoodCondimentPacketSugar: 10
     # NC edit end: NightCity FastFood
-    ForkPlastic: 2
-    SpoonPlastic: 2
-    KnifePlastic: 2
-    FoodPlatePlastic: 5
-    FoodPlateSmallPlastic: 5
+    ForkPlastic: 10
+    SpoonPlastic: 10
+    KnifePlastic: 10
+    FoodPlatePlastic: 10
+    FoodPlateSmallPlastic: 10

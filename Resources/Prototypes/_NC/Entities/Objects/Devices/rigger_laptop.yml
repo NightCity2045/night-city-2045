@@ -24,6 +24,6 @@
     - ["Militech_Tech"]
     - ["Militech_Operative"]
   - type: StaticPrice
-    price: 2500
+    price: 1000
   - type: NCWeight
     weight: 1.5

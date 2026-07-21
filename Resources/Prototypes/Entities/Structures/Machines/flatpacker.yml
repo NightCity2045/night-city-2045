@@ -79,7 +79,7 @@
     - machine_board
     - board_slot
   - type: StaticPrice
-    price: 2000
+    price: 1000
 
 - type: entity
   id: FlatpackerNoBoardEffect

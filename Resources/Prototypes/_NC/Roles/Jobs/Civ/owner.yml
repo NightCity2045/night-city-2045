@@ -4,7 +4,7 @@
   description: job-description-cafe-owner
   playTimeTracker: JobCafeOwner
   icon: "JobIconCivilCitizen"
-  salary: 70
+  salary: 50
   startingGear: CafeOwnerGear
   access:
     - NC_General
@@ -16,7 +16,7 @@
   description: job-description-restaurant-owner
   playTimeTracker: JobRestaurantOwner
   icon: "JobIconCivilCitizen"
-  salary: 100
+  salary: 60
   startingGear: RestaurantOwnerGear
   access:
     - NC_General

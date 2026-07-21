@@ -29,16 +29,16 @@
     DrinkMREFlask: 20
     FoodSnackNutribrick: 10
     FoodSnackMREBrownie: 10
-    FoodCondimentPacketKetchup: 2
-    FoodCondimentPacketPepper: 2
-    FoodCondimentPacketSalt: 2
+    FoodCondimentPacketKetchup: 10
+    FoodCondimentPacketPepper: 10
+    FoodCondimentPacketSalt: 10
     ReagentTinPowderedMilkSoy: 10
     ReagentTinPowderedJuiceOrange: 10
-    FoodBowlBig: 5
-    FoodPlateTin: 5
-    ForkPlastic: 2
-    SpoonPlastic: 2
-    KnifePlastic: 2
+    FoodBowlBig: 10
+    FoodPlateTin: 10
+    ForkPlastic: 10
+    SpoonPlastic: 10
+    KnifePlastic: 10
   emaggedItemPrices:
     EnergyDagger: 500
     ClothingOuterHardsuitSyndicate: 1000

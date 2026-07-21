@@ -47,7 +47,7 @@
     materialComposition:
       Steel: 100
   - type: StaticPrice
-    price: 22
+    price: 20
   - type: Prying
   - type: Clothing
     quickEquip: false

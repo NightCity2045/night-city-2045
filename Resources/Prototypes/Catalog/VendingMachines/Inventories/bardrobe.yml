@@ -19,7 +19,7 @@
   startingItemPrices:
     ClothingHeadHatBowlerHat: 100
     ClothingHeadHatTophat: 100
-    ClothingEyesHudBeer: 100
+    ClothingEyesHudBeer: 500
     ClothingEyesEyepatchHudBeer: 100
     ClothingHeadsetService: 100
     ClothingOuterApronBar: 20
@@ -31,7 +31,7 @@
     ClothingOuterArmorDuraVest: 500
     ClothingOuterVest: 100
     ClothingBeltBandolier: 50
-    ClothingEyesGlassesSunglasses: 20
+    ClothingEyesGlassesSunglasses: 100
   #WWDP edit start
   emaggedInventory:
     WeaponRevolverPython: 1

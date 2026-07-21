@@ -55,7 +55,7 @@
     materialComposition:
       Steel: 100
   - type: StaticPrice
-    price: 30
+    price: 20
   - type: Retractor
     speed: 0.35
   - type: Hemostat
@@ -108,7 +108,7 @@
     materialComposition:
       Steel: 100
   - type: StaticPrice
-    price: 30
+    price: 1000
   - type: Retractor
     speed: 0.45
   - type: Tending
@@ -199,7 +199,7 @@
       Steel: 100
       Plastic: 100
   - type: StaticPrice
-    price: 56
+    price: 50
   - type: Sprite
     sprite: _Shitmed/Objects/Specific/Abductor/multitool.rsi
     state: abductor

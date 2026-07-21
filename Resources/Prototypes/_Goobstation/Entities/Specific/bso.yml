@@ -11,5 +11,5 @@
   - type: Item
     size: Small
   - type: StaticPrice
-    price: 3000
+    price: 1000
   - type: GrantCqc

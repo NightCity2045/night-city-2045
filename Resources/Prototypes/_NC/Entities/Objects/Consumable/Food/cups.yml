@@ -42,7 +42,7 @@
         - ReagentId: EggCooked
           Quantity: 20
   - type: StaticPrice
-    price: 22
+    price: 20
 
 - type: entity
   parent: NCDrinkCup
@@ -57,7 +57,7 @@
         - ReagentId: HotRamen
           Quantity: 20
   - type: StaticPrice
-    price: 26
+    price: 20
 
 - type: entity
   parent: NCDrinkCup
@@ -78,7 +78,7 @@
         - ReagentId: Oil
           Quantity: 2
   - type: StaticPrice
-    price: 34
+    price: 20
 
 - type: entity
   parent: NCDrinkCup
@@ -97,7 +97,7 @@
         - ReagentId: CapsaicinOil
           Quantity: 5
   - type: StaticPrice
-    price: 34
+    price: 20
 
 - type: entity
   parent: NCDrinkCup
@@ -118,7 +118,7 @@
         - ReagentId: Blackpepper
           Quantity: 2
   - type: StaticPrice
-    price: 40
+    price: 20
 
 - type: entity
   parent: NCDrinkCup
@@ -139,7 +139,7 @@
         - ReagentId: Pesto
           Quantity: 6
   - type: StaticPrice
-    price: 40
+    price: 20
 
 # region Drinks
 
@@ -158,7 +158,7 @@
         - ReagentId: CafeLatte
           Quantity: 14
   - type: StaticPrice
-    price: 30
+    price: 20
 
 - type: entity
   parent: NCDrinkCup
@@ -173,7 +173,7 @@
         - ReagentId: CafeLatte
           Quantity: 20
   - type: StaticPrice
-    price: 28
+    price: 20
 
 - type: entity
   parent: NCDrinkCup
@@ -188,7 +188,7 @@
         - ReagentId: HotCocoa
           Quantity: 20
   - type: StaticPrice
-    price: 25
+    price: 20
 
 - type: entity
   parent: NCDrinkCup
@@ -203,7 +203,7 @@
         - ReagentId: Coffee
           Quantity: 20
   - type: StaticPrice
-    price: 22
+    price: 20
 
 - type: entity
   parent: NCDrinkCup
@@ -248,7 +248,7 @@
         - ReagentId: Lean
           Quantity: 20
   - type: StaticPrice
-    price: 30
+    price: 20
 
 - type: entity
   parent: NCDrinkCup
@@ -263,7 +263,7 @@
         - ReagentId: SoyLatte
           Quantity: 20
   - type: StaticPrice
-    price: 26
+    price: 20
 
 - type: entity
   parent: NCDrinkCup
@@ -278,7 +278,7 @@
         - ReagentId: CreamOfCoconut
           Quantity: 20
   - type: StaticPrice
-    price: 24
+    price: 20
 
 - type: entity
   parent: NCDrinkCup
@@ -293,7 +293,7 @@
         - ReagentId: Cream
           Quantity: 20
   - type: StaticPrice
-    price: 22
+    price: 20
 
 - type: entity
   parent: NCDrinkCup
@@ -308,7 +308,7 @@
         - ReagentId: MilkChoco
           Quantity: 20
   - type: StaticPrice
-    price: 26
+    price: 20
 
 - type: entity
   parent: NCDrinkCup
@@ -327,7 +327,7 @@
         - ReagentId: Cream
           Quantity: 5
   - type: StaticPrice
-    price: 24
+    price: 20
 
 # region Random Spawner
 
@@ -388,12 +388,12 @@
     NCDrinkPumpkinSoup: 5
     NCDrinkGarlicSoup: 5
   startingItemPrices:
-    NCDrinkEggCooked: 25
-    NCDrinkHotRamen: 30
-    NCDrinkMisoSoup: 25
-    NCDrinkTomYamSoup: 28
-    NCDrinkPumpkinSoup: 26
-    NCDrinkGarlicSoup: 24
+    NCDrinkEggCooked: 20
+    NCDrinkHotRamen: 20
+    NCDrinkMisoSoup: 20
+    NCDrinkTomYamSoup: 20
+    NCDrinkPumpkinSoup: 20
+    NCDrinkGarlicSoup: 20
 
 - type: entity
   parent: VendingMachineCoffee

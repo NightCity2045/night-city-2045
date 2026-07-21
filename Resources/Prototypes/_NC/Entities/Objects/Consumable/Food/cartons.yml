@@ -175,10 +175,10 @@
     DrinkOatMilkCartonMini: 4
     DrinkSoyMilkCartonMini: 4
   startingItemPrices:
-    DrinkMilkCartonMini: 30
-    DrinkMilkCartonMiniChocolate: 30
-    DrinkOatMilkCartonMini: 30
-    DrinkSoyMilkCartonMini: 30
+    DrinkMilkCartonMini: 20
+    DrinkMilkCartonMiniChocolate: 20
+    DrinkOatMilkCartonMini: 20
+    DrinkSoyMilkCartonMini: 20
 
 - type: entity
   parent: VendingMachineColaBlack

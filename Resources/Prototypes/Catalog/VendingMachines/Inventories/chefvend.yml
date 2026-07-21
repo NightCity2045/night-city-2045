@@ -31,22 +31,22 @@
     ReagentContainerCornmeal: 10
     ReagentContainerSugar: 10
     ReagentContainerRice: 10
-    NCCondimentBottleEnzyme: 38
-    NCCondimentBottleVinegar: 24
-    NCCondimentBottleBlackpepper: 40
+    NCCondimentBottleEnzyme: 50
+    NCCondimentBottleVinegar: 20
+    NCCondimentBottleBlackpepper: 50
     NCCondimentBottleOil: 20
-    NCCondimentBottleOilOlive: 25
-    NCCondimentBottleCapsaicinOil: 35
-    NCCondimentBottleFrostOil: 40
-    NCCondimentBottleCornOil: 25
-    NCCondimentBottleOilRefined: 30
-    NCDrinkBottlePumpkin: 60
+    NCCondimentBottleOilOlive: 20
+    NCCondimentBottleCapsaicinOil: 20
+    NCCondimentBottleFrostOil: 50
+    NCCondimentBottleCornOil: 20
+    NCCondimentBottleOilRefined: 20
+    NCDrinkBottlePumpkin: 100
     FoodContainerEgg: 20
     DrinkMilkCarton: 20
     DrinkSoyMilkCarton: 20
     DrinkCreamCarton: 20
     FoodButter: 20
-    FoodCheese: 30
+    FoodCheese: 20
     FoodMeat: 20
     ReagentContainerSalt: 20
     ReagentContainerPepper: 20

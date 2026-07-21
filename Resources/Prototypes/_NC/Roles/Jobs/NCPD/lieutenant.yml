@@ -4,7 +4,7 @@
   description: job-description-ncpd-lieutenant
   playTimeTracker: JobNCPDLieutenant
   weight: 85
-  salary: 220
+  salary: 100
   icon: "JobIconNCPDLiutenant"
   startingGear: NCPDLieutenantGear
   supervisors: Коммандер

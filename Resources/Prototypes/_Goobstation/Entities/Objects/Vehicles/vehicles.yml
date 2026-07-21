@@ -101,7 +101,7 @@
           params:
             volume: -3
   - type: StaticPrice
-    price: 2500
+    price: 1000
   - type: Tag
     tags:
     - DoorBumpOpener
@@ -255,7 +255,7 @@
     baseSprintSpeed: 3.5
     baseWalkSpeed: 2.5
   - type: StaticPrice
-    price: 75
+    price: 50
 
 - type: entity
   parent: VehicleWheelchair

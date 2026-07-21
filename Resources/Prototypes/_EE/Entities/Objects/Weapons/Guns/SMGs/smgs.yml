@@ -52,7 +52,7 @@
             - CartridgeCaselessRifle
   - type: Appearance
   - type: StaticPrice
-    price: 200
+    price: 100
   - type: Item
     size: Large
     shape: null
@@ -134,7 +134,7 @@
     zeroVisible: true
   - type: Appearance
   - type: StaticPrice
-    price: 1500
+    price: 1000
   - type: ItemSlots
     slots:
       gun_magazine:

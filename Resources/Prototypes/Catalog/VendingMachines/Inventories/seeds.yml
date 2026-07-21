@@ -43,44 +43,44 @@
     FlyAmanitaSeeds: 1
     NettleSeeds: 1 #WWDP edit start
   startingItemPrices:
-    AloeSeeds: 300
-    AmbrosiaVulgarisSeeds: 800
+    AloeSeeds: 100
+    AmbrosiaVulgarisSeeds: 1000
     AppleSeeds: 500
     BananaSeeds: 500
-    BerrySeeds: 400
-    CarrotSeeds: 250
-    CabbageSeeds: 250
-    ChanterelleSeeds: 350
+    BerrySeeds: 500
+    CarrotSeeds: 100
+    CabbageSeeds: 100
+    ChanterelleSeeds: 500
     CherrySeeds: 500
-    ChiliSeeds: 350
-    CocoaSeeds: 800
-    CornSeeds: 150
-    CottonSeeds: 200
-    EggplantSeeds: 300
-    EggySeeds: 300
-    GalaxythistleSeeds: 600
-    GarlicSeeds: 300
-    GrapeSeeds: 450
-    LemonSeeds: 400
-    LimeSeeds: 400
+    ChiliSeeds: 500
+    CocoaSeeds: 1000
+    CornSeeds: 100
+    CottonSeeds: 100
+    EggplantSeeds: 100
+    EggySeeds: 1000
+    GalaxythistleSeeds: 500
+    GarlicSeeds: 100
+    GrapeSeeds: 500
+    LemonSeeds: 500
+    LimeSeeds: 500
     PineappleSeeds: 500
-    LingzhiSeeds: 600
-    OatSeeds: 150
-    OnionSeeds: 250
-    OnionRedSeeds: 300
+    LingzhiSeeds: 500
+    OatSeeds: 100
+    OnionSeeds: 100
+    OnionRedSeeds: 100
     OrangeSeeds: 500
-    PeaSeeds: 200
-    PoppySeeds: 800
-    PotatoSeeds: 150
-    PumpkinSeeds: 300
-    RiceSeeds: 150
-    SoybeanSeeds: 150
-    SugarcaneSeeds: 300
-    TeaPlantSeeds: 600
-    TomatoSeeds: 350
-    TowercapSeeds: 400
-    WheatSeeds: 150
-    WatermelonSeeds: 400
+    PeaSeeds: 100
+    PoppySeeds: 1000
+    PotatoSeeds: 100
+    PumpkinSeeds: 100
+    RiceSeeds: 100
+    SoybeanSeeds: 100
+    SugarcaneSeeds: 100
+    TeaPlantSeeds: 500
+    TomatoSeeds: 500
+    TowercapSeeds: 500
+    WheatSeeds: 100
+    WatermelonSeeds: 500
   emaggedItemPrices:
-    FlyAmanitaSeeds: 1500
+    FlyAmanitaSeeds: 1000
     NettleSeeds: 1000

@@ -137,4 +137,4 @@
     lightRadiusMin: 0.75
     lightRadiusMax: 2.5
   - type: StaticPrice
-    price: 2000
+    price: 1000

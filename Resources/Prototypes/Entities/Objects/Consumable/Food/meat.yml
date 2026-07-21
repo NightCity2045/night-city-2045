@@ -305,7 +305,7 @@
         - ReagentId: Bicaridine
           Quantity: 20
   - type: StaticPrice
-    price: 750
+    price: 500
   - type: StealTarget
     stealGroup: FoodMeatCorgi
 
@@ -760,7 +760,7 @@
         - ReagentId: Iron
           Quantity: 10
   - type: StaticPrice
-    price: 3000 #It has so much Omnizin in it
+    price: 1000 #It has so much Omnizin in it
   - type: Tag
     tags:
     - Meat
@@ -1470,7 +1470,7 @@
     state: salami-slice
     color: red
   - type: StaticPrice
-    price: 30
+    price: 20
 
 - type: entity
   name: salami slice

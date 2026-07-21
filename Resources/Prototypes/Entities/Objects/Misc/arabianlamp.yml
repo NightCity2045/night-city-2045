@@ -132,7 +132,7 @@
     color: orange
   - type: ItemTogglePointLight
   - type: StaticPrice
-    price: 1500
+    price: 1000
   - type: Prayable
     sentMessage: prayer-popup-notify-lamp-sent
     notificationPrefix: prayer-chat-notify-lamp

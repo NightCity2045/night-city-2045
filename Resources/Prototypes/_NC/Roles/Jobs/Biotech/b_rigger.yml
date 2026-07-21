@@ -4,7 +4,7 @@
   description: job-description-biotechnica-rigger
   playTimeTracker: JobBiotechnicaRigger
   weight: 55
-  salary: 300
+  salary: 100
   icon: "JobIconBiotechTechnician"
   startingGear: BiotechnicaRiggerGear
   access:

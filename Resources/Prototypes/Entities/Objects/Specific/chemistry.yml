@@ -92,7 +92,7 @@
       types:
         Blunt: 5
   - type: StaticPrice
-    price: 30
+    price: 20
   - type: DnaSubstanceTrace
 
 - type: entity
@@ -155,7 +155,7 @@
     damageContainer: Inorganic
     damageModifierSet: Glass
   - type: StaticPrice
-    price: 30
+    price: 20
   - type: DnaSubstanceTrace
 
 - type: entity
@@ -167,7 +167,7 @@
   - type: Spillable
     solution: beaker
   - type: StaticPrice
-    price: 10
+    price: 20
   - type: PhysicalComposition
     materialComposition:
       Glass: 50
@@ -224,7 +224,7 @@
     materialComposition:
       Glass: 100
   - type: StaticPrice
-    price: 20
+    price: 50
 
 - type: entity
   name: cryostasis beaker
@@ -315,7 +315,7 @@
     inHandsMaxFillLevels: 1
     inHandsFillBaseName: -fill-
   - type: StaticPrice
-    price: 40
+    price: 10
   - type: DnaSubstanceTrace
   - type: Tag
     tags:

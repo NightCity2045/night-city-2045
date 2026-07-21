@@ -19,12 +19,12 @@
     CigPackRed: 10
     CigPackBlue: 10
     CigPackBlack: 10
-    CigPackMixed: 10
+    CigPackMixed: 20
     CigarCase: 50
     SmokingPipeFilledTobacco: 50
-    Matchbox: 2
-    PackPaperRollingFilters: 5
-    CheapLighter: 5
+    Matchbox: 10
+    PackPaperRollingFilters: 10
+    CheapLighter: 10
     Lighter: 10
     FlippoLighter: 20
   emaggedInventory:

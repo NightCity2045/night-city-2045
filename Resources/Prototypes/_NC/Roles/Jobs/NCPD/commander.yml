@@ -4,7 +4,7 @@
   description: job-description-ncpd-commander
   playTimeTracker: JobNCPDCommander
   weight: 90
-  salary: 300
+  salary: 100
   icon: "JobIconNCPDCommander"
   startingGear: NCPDCommanderGear
   supervisors: Начальник департамента полиции

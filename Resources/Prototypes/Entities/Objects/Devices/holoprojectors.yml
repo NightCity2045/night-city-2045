@@ -44,7 +44,7 @@
     tags:
       - HolofanProjector
   - type: StaticPrice
-    price: 80
+    price: 100
   - type: ReverseEngineering # Nyano
     difficulty: 3
     recipes:
@@ -70,7 +70,7 @@
       tags:
         - HolofanProjector
     - type: StaticPrice
-      price: 130
+      price: 100
     - type: ReverseEngineering # Nyano
       difficulty: 3
       recipes:
@@ -92,4 +92,4 @@
         - HolofanProjector
         - SecBeltEquip
     - type: StaticPrice
-      price: 50
+      price: 500

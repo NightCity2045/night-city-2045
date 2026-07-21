@@ -154,7 +154,7 @@
     materialComposition:
       Plastic: 100
   - type: StaticPrice
-    price: 25
+    price: 10
 
 - type: entity
   parent: ClothingHeadBase
@@ -312,7 +312,7 @@
     tags:
       - WhitelistChameleon
   - type: StaticPrice
-    price: 1
+    price: 10
 
 - type: entity
   parent: ClothingHeadBase

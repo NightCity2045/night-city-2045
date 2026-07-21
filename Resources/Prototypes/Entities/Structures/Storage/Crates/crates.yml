@@ -394,7 +394,7 @@
     containers:
     - entity_storage
   - type: StaticPrice
-    price: 125
+    price: 100
 
 - type: entity
   parent: CrateGeneric
@@ -446,7 +446,7 @@
         layer:
         - LargeMobLayer
   - type: StaticPrice
-    price: 75
+    price: 50
 
 - type: entity
   parent: CrateGeneric

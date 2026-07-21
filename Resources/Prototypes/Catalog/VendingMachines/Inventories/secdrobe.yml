@@ -66,17 +66,17 @@
     # ClothingOuterStasecSweater: 80
     # ClothingOuterArmorBasic: 500
     ClothingEyesGlassesSunglasses: 100
-    ClothingUniformNSPDCool: 350
-    ClothingUniformNSPDNormis: 250
-    ClothingOuterCoatJacketLeather: 400
-    ClothingShoesBootsJack: 150
-    ClothingBackpackSecurity: 150
-    ClothingBackpackDuffelSecurity: 150
-    ClothingBackpackSatchelSecurity: 150
-    ClothingOuterArmorBulletproof: 800
+    ClothingUniformNSPDCool: 500
+    ClothingUniformNSPDNormis: 100
+    ClothingOuterCoatJacketLeather: 500
+    ClothingShoesBootsJack: 100
+    ClothingBackpackSecurity: 100
+    ClothingBackpackDuffelSecurity: 100
+    ClothingBackpackSatchelSecurity: 100
+    ClothingOuterArmorBulletproof: 1000
     ClothingHandsGlovesFingerless: 100
     ClothingHandsGlovesColorBlack: 100
-    ClothingHandsGlovesCombat: 250
-    ClothingBeltSecurity: 150
+    ClothingHandsGlovesCombat: 100
+    ClothingBeltSecurity: 100
   contrabandInventory:
     ClothingMaskClownSecurity: 1

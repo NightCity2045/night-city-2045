@@ -12,11 +12,11 @@
     DrinkFourteenLokoCan: 2
   startingItemPrices:
     DrinkPwrGameCan: 10
-    DrinkEnergyDrinkCan: 10
+    DrinkEnergyDrinkCan: 20
     DrinkGrapeCan: 10
     DrinkRootBeerCan: 10
     DrinkIcedTeaCan: 10
-    DrinkSolDryCan: 10
+    DrinkSolDryCan: 20
     DrinkLemonLimeCan: 10
     DrinkLemonLimeCranberryCan: 10
     DrinkFourteenLokoCan: 10

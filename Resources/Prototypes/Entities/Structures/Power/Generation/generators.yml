@@ -203,7 +203,7 @@
     graph: WallmountGenerator
     node: generator
   - type: StaticPrice
-    price: 14
+    price: 10
   - type: ContainerFill
     containers:
       board: [ WallmountGeneratorElectronics ]
@@ -224,7 +224,7 @@
     graph: WallmountGenerator
     node: APU
   - type: StaticPrice
-    price: 38
+    price: 50
   - type: ContainerFill
     containers:
       board: [ WallmountGeneratorAPUElectronics ]

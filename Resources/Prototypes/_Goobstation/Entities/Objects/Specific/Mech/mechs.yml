@@ -137,7 +137,7 @@
   - type: CanMoveInAir
   - type: MovementAlwaysTouching
   - type: StaticPrice
-    price: 1500
+    price: 1000
   - type: Tag
     tags:
     - DoorBumpOpener
@@ -209,7 +209,7 @@
     baseWalkSpeed: 2
     baseSprintSpeed: 2.6
   - type: StaticPrice
-    price: 3000
+    price: 1000
   - type: Tag
     tags:
     - DoorBumpOpener

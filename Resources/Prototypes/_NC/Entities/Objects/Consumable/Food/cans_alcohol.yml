@@ -19,7 +19,7 @@
         map: ["enum.OpenableVisuals.Layer"]
       - state: text
   - type: StaticPrice
-    price: 15
+    price: 10
   - type: Tag
     tags:
     - DrinkCan
@@ -44,7 +44,7 @@
         map: ["enum.OpenableVisuals.Layer"]
       - state: text_cool
   - type: StaticPrice
-    price: 18
+    price: 20
   - type: Tag
     tags:
     - DrinkCan
@@ -77,7 +77,7 @@
         map: ["enum.OpenableVisuals.Layer"]
       - state: text_purple
   - type: StaticPrice
-    price: 12
+    price: 10
 
 - type: entity
   parent: NCDrinkCan
@@ -102,7 +102,7 @@
         map: ["enum.OpenableVisuals.Layer"]
       - state: mango
   - type: StaticPrice
-    price: 13
+    price: 10
 
 - type: entity
   parent: NCDrinkCan
@@ -131,7 +131,7 @@
         map: ["enum.OpenableVisuals.Layer"]
       - state: cola
   - type: StaticPrice
-    price: 15
+    price: 10
 
 - type: entity
   parent: NCDrinkCan
@@ -156,7 +156,7 @@
         map: ["enum.OpenableVisuals.Layer"]
       - state: blood
   - type: StaticPrice
-    price: 25
+    price: 20
 
 - type: entity
   parent: NCDrinkCan
@@ -181,7 +181,7 @@
         map: ["enum.OpenableVisuals.Layer"]
       - state: pumpkin
   - type: StaticPrice
-    price: 30
+    price: 20
 
 - type: entity
   parent: NCDrinkCan
@@ -218,7 +218,7 @@
         map: ["enum.OpenableVisuals.Layer"]
       - state: poison
   - type: StaticPrice
-    price: 35
+    price: 20
 
 - type: entity
   parent: NCDrinkCan
@@ -243,7 +243,7 @@
         map: ["enum.OpenableVisuals.Layer"]
       - state: egg
   - type: StaticPrice
-    price: 36
+    price: 50
 
 - type: entity
   parent: NCDrinkCan
@@ -272,7 +272,7 @@
         map: ["enum.OpenableVisuals.Layer"]
       - state: death
   - type: StaticPrice
-    price: 40
+    price: 50
 
 - type: entity
   parent: NCDrinkCan
@@ -296,7 +296,7 @@
       - state: icon
         map: ["enum.OpenableVisuals.Layer"]
   - type: StaticPrice
-    price: 27
+    price: 20
 
 - type: entity
   parent: NCDrinkCan
@@ -319,7 +319,7 @@
         map: ["enum.OpenableVisuals.Layer"]
       - state: pilk
   - type: StaticPrice
-    price: 30
+    price: 20
 
 - type: entity
   parent: NCDrinkCan
@@ -346,7 +346,7 @@
         map: ["enum.OpenableVisuals.Layer"]
       - state: tonic_fake
   - type: StaticPrice
-    price: 31
+    price: 20
 
 - type: entity
   parent: NCDrinkCan
@@ -371,7 +371,7 @@
         map: ["enum.OpenableVisuals.Layer"]
       - state: tonic
   - type: StaticPrice
-    price: 33
+    price: 20
 
 - type: entity
   parent: NCDrinkCan
@@ -392,7 +392,7 @@
         map: ["enum.OpenableVisuals.Layer"]
       - state: coffee
   - type: StaticPrice
-    price: 38
+    price: 50
 
 - type: entity
   parent: NCDrinkCan
@@ -478,25 +478,25 @@
     NCDrinkCanFourteenLoko: 3
     NCDrinkCanMojito: 3
   startingItemPrices:
-    NCDrinkCanBeer: 15
-    NCDrinkCanNegativiePlus: 12
-    NCDrinkCanNegativie: 13
-    NCDrinkCanRumCola: 15
-    NCDrinkCanRipperRefill: 25
-    NCDrinkCanRustedPleasure: 30
-    NCDrinkCanWine: 18
-    NCDrinkCanBlindHappiness: 36
-    NCDrinkCanCubasNightmare: 40
-    NCDrinkCanInnardsProsecco: 27
-    NCDrinkCanChocowhirl: 30
-    NCDrinkCanPatron: 31
-    NCDrinkCanKonrev: 33
-    NCDrinkCanFourteenLoko: 38
+    NCDrinkCanBeer: 10
+    NCDrinkCanNegativiePlus: 10
+    NCDrinkCanNegativie: 10
+    NCDrinkCanRumCola: 10
+    NCDrinkCanRipperRefill: 20
+    NCDrinkCanRustedPleasure: 20
+    NCDrinkCanWine: 20
+    NCDrinkCanBlindHappiness: 50
+    NCDrinkCanCubasNightmare: 50
+    NCDrinkCanInnardsProsecco: 20
+    NCDrinkCanChocowhirl: 20
+    NCDrinkCanPatron: 20
+    NCDrinkCanKonrev: 20
+    NCDrinkCanFourteenLoko: 50
     NCDrinkCanMojito: 50
   contrabandInventory:
     NCDrinkCanBurningCorp: 10
   contrabandItemPrices:
-    NCDrinkCanBurningCorp: 35
+    NCDrinkCanBurningCorp: 20
 
 - type: entity
   parent: VendingMachineColaBlack

@@ -59,7 +59,7 @@
   - type: Sprite
     sprite: Objects/Consumable/Drinks/golden_cup.rsi
   - type: StaticPrice
-    price: 125
+    price: 100
 
 - type: entity
   parent: DrinkBaseCup

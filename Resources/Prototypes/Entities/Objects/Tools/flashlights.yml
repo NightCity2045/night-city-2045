@@ -76,7 +76,7 @@
     netsync: false
   - type: Appearance
   - type: StaticPrice
-    price: 40
+    price: 50
   - type: StealTarget
     stealGroup: LAMP
   - type: Clothing

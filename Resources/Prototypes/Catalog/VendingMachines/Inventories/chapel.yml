@@ -38,7 +38,7 @@
     ClothingHeadHatPlaguedoctor: 100
     ClothingHeadHatWitch: 100
     ClothingHeadHatWitch1: 100
-    ClothingOuterPlagueSuit: 200
+    ClothingOuterPlagueSuit: 100
     ClothingMaskPlague: 50
     ClothingNeckScarfChaplainStole: 20
     ClothingHeadsetService: 100
@@ -60,8 +60,8 @@
     BibleNecronomicon: 1 #WWDP edit
   emaggedItemPrices:
     ClothingOuterArmorCult: 500
-    ClothingHeadHelmetCult: 200
-    ClothingOuterRobesCult: 200
+    ClothingHeadHelmetCult: 100
+    ClothingOuterRobesCult: 100
     ClothingShoesCult: 50
     BedsheetCult: 100
     ClothingNeckScarfStripedBlack: 20

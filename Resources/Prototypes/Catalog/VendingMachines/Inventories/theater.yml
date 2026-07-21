@@ -137,8 +137,8 @@
     ClothingUniformJumpsuitKilt: 50
     ClothingEyesEyepatch: 20
     ClothingUniformJumpsuitBlackTurtleneck : 50
-    ClothingHeadHatPwig: 50
-    ClothingOuterRobesJudge: 100
+    ClothingHeadHatPwig: 100
+    ClothingOuterRobesJudge: 500
     ClothingOuterPoncho: 50
     ClothingHeadHatSantahat: 20
     ClothingOuterSanta: 50
@@ -153,8 +153,8 @@
     ClothingOuterSuitShrineMaiden: 100
     Gohei: 20
     ClothingOuterSuitWitchRobes: 100
-    ClothingHeadHatWitch1: 50
-    ClothingHeadHatWitch: 50
+    ClothingHeadHatWitch1: 100
+    ClothingHeadHatWitch: 100
     ClothingHeadHatRedRacoon: 50
     ClothingOuterRedRacoon: 100
     ClothingHeadPaperSack: 10
@@ -202,7 +202,7 @@
     ClothingUniformJumpskirtPerformer: 50
     ClothingShoesBootsPerformer: 50
     ClothingNeckCloakMoth: 50
-    ClothingUniformJumpskirtJanimaid: 200
+    ClothingUniformJumpskirtJanimaid: 100
     ClothingNeckCloakVoid: 50
     ClothingHeadBandRed: 20
     ClothingHeadHatPirate: 50

@@ -803,7 +803,7 @@
       Steel: 30
       Plastic: 30
   - type: StaticPrice
-    price: 15
+    price: 10
 
 - type: entity
   id: PowerCageRechargerCircuitboard
@@ -826,7 +826,7 @@
       Steel: 30
       Plastic: 30
   - type: StaticPrice
-    price: 30
+    price: 20
 
 - type: entity
   id: BorgChargerCircuitboard
@@ -848,7 +848,7 @@
       Steel: 30
       Plastic: 30
   - type: StaticPrice
-    price: 15
+    price: 10
 
 - type: entity
   id: WeaponCapacitorRechargerCircuitboard
@@ -870,7 +870,7 @@
       Steel: 30
       Plastic: 30
   - type: StaticPrice
-    price: 15
+    price: 10
 
 - type: entity
   id: TurboItemRechargerCircuitboard
@@ -916,7 +916,7 @@
     chemicalComposition:
       Silicon: 20
   - type: StaticPrice
-    price: 58
+    price: 50
 
 - type: entity
   parent: BaseMachineCircuitboard
@@ -974,7 +974,7 @@
     chemicalComposition:
       Silicon: 20
   - type: StaticPrice
-    price: 40
+    price: 50
   - type: ReverseEngineering # Nyano
     difficulty: 2
     recipes:
@@ -1032,7 +1032,7 @@
     chemicalComposition:
       Silicon: 20
   - type: StaticPrice
-    price: 40
+    price: 50
   - type: ReverseEngineering # Nyano
     difficulty: 2
     recipes:
@@ -1057,7 +1057,7 @@
     chemicalComposition:
       Silicon: 20
   - type: StaticPrice
-    price: 40
+    price: 50
   - type: ReverseEngineering # Nyano
     difficulty: 2
     recipes:

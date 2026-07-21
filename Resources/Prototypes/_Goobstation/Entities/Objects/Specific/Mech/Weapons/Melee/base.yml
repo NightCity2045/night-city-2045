@@ -5,7 +5,7 @@
   components:
   - type: Appearance
   - type: StaticPrice
-    price: 1
+    price: 10
   - type: Item
     size: Ginormous
   - type: MultiHandedItem

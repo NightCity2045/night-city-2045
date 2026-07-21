@@ -70,7 +70,7 @@
     canCollide: false
     bodyType: static
   - type: StaticPrice
-    price: 30
+    price: 20
 
 # Goobstation - Allow device-on-pipe stacking
 

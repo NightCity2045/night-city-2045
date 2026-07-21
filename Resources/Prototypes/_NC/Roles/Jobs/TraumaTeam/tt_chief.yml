@@ -4,7 +4,7 @@
   description: job-description-trauma-team-chief
   playTimeTracker: JobTraumaTeamChief
   weight: 100
-  salary: 650
+  salary: 150
   icon: "JobIconTraumaCMO"
   startingGear: TraumaTeamChiefGear
   access:

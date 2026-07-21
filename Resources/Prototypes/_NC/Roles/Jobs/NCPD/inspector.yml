@@ -4,7 +4,7 @@
   description: job-description-ncpd-inspector
   playTimeTracker: JobNCPDInspector
   weight: 80
-  salary: 200
+  salary: 100
   icon: "JobIconNCPDInspector"
   startingGear: NCPDInspectorGear
   supervisors: Коммандер

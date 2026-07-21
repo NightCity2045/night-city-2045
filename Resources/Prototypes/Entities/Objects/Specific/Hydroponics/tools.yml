@@ -142,7 +142,7 @@
     slots:
     - back
   - type: StaticPrice
-    price: 40
+    price: 100
   - type: Execution # WWDP
   - type: EmitSoundOnPickup # White Dream
     sound: /Audio/Items/unsheath.ogg

@@ -4,7 +4,7 @@
   description: job-description-ripper
   playTimeTracker: JobReaper
   icon: "JobIconCivilRipper"
-  salary: 40
+  salary: 30
   access:
     - NC_General
     - Ripper

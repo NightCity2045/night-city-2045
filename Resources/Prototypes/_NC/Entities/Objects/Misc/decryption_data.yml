@@ -12,7 +12,7 @@
   - type: RawData
     dataPoints: 100
   - type: StaticPrice
-    price: 120
+    price: 100
 
 - type: entity
   parent: NCRawDataBase
@@ -50,4 +50,4 @@
     - state: datadisk_base
     - state: datadisk_encrypted
   - type: StaticPrice
-    price: 1
+    price: 10

@@ -51,7 +51,7 @@
     delay: 8
     fx: EffectRCDDeconstruct8
   - type: StaticPrice
-    price: 75
+    price: 50
   - type: RadiationBlocker
     resistance: 2
   - type: BlockWeather
@@ -614,7 +614,7 @@
           5: { state: reinf_construct-5, visible: true}
   - type: ReinforcedWallReplacementMarker
   - type: StaticPrice
-    price: 250
+    price: 100
   - type: RadiationBlocker
     resistance: 5
 
@@ -716,7 +716,7 @@
     key: walls
     base: riveted
   - type: StaticPrice
-    price: 150
+    price: 100
 
 - type: entity
   parent: BaseWall
@@ -898,7 +898,7 @@
       - !type:DoActsBehavior
         acts: ["Destruction"]
   - type: StaticPrice
-    price: 250
+    price: 100
   - type: RadiationBlocker
     resistance: 5
   - type: Sprite

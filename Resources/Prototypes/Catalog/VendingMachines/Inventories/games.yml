@@ -20,8 +20,8 @@
     BoxPlaysetEvacPod: 1 # WD EDIT
   startingItemPrices:
     DiceBag: 20
-    Paper: 5
-    d6Dice: 5
+    Paper: 10
+    d6Dice: 10
     ChessBoard: 50
     BackgammonBoard: 50
     ParchisBoard: 50

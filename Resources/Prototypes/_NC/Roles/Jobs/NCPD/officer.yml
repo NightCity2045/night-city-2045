@@ -4,7 +4,7 @@
   description: job-description-ncpd-officer
   playTimeTracker: JobNCPDOfficer
   weight: 40
-  salary: 120
+  salary: 60
   icon: "JobIconNCPDPolice"
   startingGear: NCPDOfficerGear
   supervisors: Старший патрульный

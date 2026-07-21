@@ -140,7 +140,7 @@
         tags:
         - Book
   - type: StaticPrice
-    price: 450
+    price: 500
   # Goobstation Change End
 
 - type: entity

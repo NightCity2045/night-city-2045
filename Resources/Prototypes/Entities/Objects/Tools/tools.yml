@@ -67,7 +67,7 @@
     materialComposition:
       Steel: 100
   - type: StaticPrice
-    price: 30
+    price: 50
   # Shitmed Change
   - type: Retractor
     speed: 0.35
@@ -163,7 +163,7 @@
     materialComposition:
       Steel: 100
   - type: StaticPrice
-    price: 30
+    price: 100
   # Shitmed Change
   - type: Retractor
     speed: 0.45
@@ -244,7 +244,7 @@
     materialComposition:
       Steel: 100
   - type: StaticPrice
-    price: 22
+    price: 50
   - type: Fixtures
     fixtures:
       fix1:
@@ -324,7 +324,7 @@
       Plastic: 50
       Circuitry: 25
   - type: StaticPrice
-    price: 56
+    price: 500
   - type: Fixtures
     fixtures:
       fix1:
@@ -391,7 +391,7 @@
       enum.NetworkConfiguratorUiKey.Link:
         type: NetworkConfiguratorBoundUserInterface
   - type: StaticPrice
-    price: 56
+    price: 100
   - type: GuideHelp
     guides:
     - Networking
@@ -540,7 +540,7 @@
       Plastic: 100
       Circuitry: 50
   - type: StaticPrice
-    price: 110
+    price: 100
   - type: UserInterface
     interfaces:
       enum.RcdUiKey.Key:
@@ -831,7 +831,7 @@
       Steel: 100
       Wood: 50
   - type: StaticPrice
-    price: 25
+    price: 20
   # Delta V: Adds tool quality for digging
   - type: Tool
     qualities:

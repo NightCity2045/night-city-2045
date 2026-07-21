@@ -105,7 +105,7 @@
             - GasTank
             - BorgJetpack
     - type: StaticPrice
-      price: 200
+      price: 100
     - type: AccessReader
       access: [["Atmospherics"], ["Engineering"], ["Research"]]
     - type: Lock
@@ -785,7 +785,7 @@
       materialComposition:
         Steel: 500
     - type: StaticPrice
-      price: 125
+      price: 100
 
 - type: entity
   parent: GasCanisterBrokenBase

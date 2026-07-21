@@ -15,10 +15,10 @@
     ClothingEyesGlassesMeson: 100
     ClothingHeadHatWelding: 50
     CrowbarYellow: 20
-    Multitool: 100
+    Multitool: 500
     NetworkConfigurator: 100
-    PowerCellMedium: 20
-    ClothingHandsGlovesColorYellow: 200
+    PowerCellMedium: 100
+    ClothingHandsGlovesColorYellow: 100
     BoxInflatable: 50
     ClothingHeadHatCone: 10
     AccessConfigurator: 500

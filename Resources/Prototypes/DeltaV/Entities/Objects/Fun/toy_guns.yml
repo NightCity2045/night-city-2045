@@ -39,7 +39,7 @@
         ents: []
   - type: Appearance
   - type: StaticPrice
-    price: 275
+    price: 100
   - type: Item # WWDP guns resize
     storedRotation: -45
     shape:

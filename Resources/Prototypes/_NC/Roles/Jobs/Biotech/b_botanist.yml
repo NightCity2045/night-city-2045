@@ -4,7 +4,7 @@
   description: job-description-biotechnica-botanist
   playTimeTracker: JobBiotechnicaBotanist
   weight: 10
-  salary: 150
+  salary: 75
   icon: "JobIconBiotechAgrarian"
   startingGear: BiotechnicaBotanistGear
   access:

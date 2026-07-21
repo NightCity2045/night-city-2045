@@ -38,7 +38,7 @@
   contrabandItemPrices:
     FoodBagel: 10
     FoodBagelPoppy: 10
-    FoodDonutHomer: 10
+    FoodDonutHomer: 50
     FoodDonutBluePumpkin: 10
   emaggedItemPrices:
     FoodDonutPoison: 100

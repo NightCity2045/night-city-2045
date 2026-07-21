@@ -359,7 +359,7 @@
           Primed: { state: primed }
           # Unprimed: <Use state determined by enum.ConstructionVisuals.Layer>
   - type: StaticPrice
-    price: 75
+    price: 50
 
 - type: entity
   name: EMP grenade
@@ -485,7 +485,7 @@
     spreadAmount: 13
     smokePrototype: AluminiumMetalFoam
   - type: StaticPrice
-    price: 350
+    price: 500
 
 # Non-explosive "dummy" grenades to use as a distraction.
 

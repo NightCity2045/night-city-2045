@@ -343,7 +343,7 @@
     fireCost: 6.25
   # WD EDIT END
   - type: StaticPrice
-    price: 300
+    price: 100
   - type: MeleeWeapon
     damage:
       types:
@@ -368,7 +368,7 @@
   description: Favoured by Nanotrasen Security for being cheap and easy to use.
   components:
   - type: StaticPrice
-    price: 420
+    price: 500
   # WD EDIT START
   - type: ProjectileBatteryAmmoProvider # Projectile > Hitscan
     proto: BulletLaser
@@ -879,7 +879,7 @@
     zeroVisible: true
   - type: Appearance
   - type: StaticPrice
-    price: 260
+    price: 100
   - type: MeleeWeapon
     damage:
       types:
@@ -969,7 +969,7 @@
     - Sidearm
     - WeaponAntiqueLaser
   - type: StaticPrice
-    price: 750
+    price: 500
   - type: StealTarget
     stealGroup: WeaponAntiqueLaser
   - type: SentienceTarget # I hope this is only the captain's gun
@@ -1025,7 +1025,7 @@
     zeroVisible: true
   - type: Appearance
   - type: StaticPrice
-    price: 63
+    price: 50
   - type: MeleeWeapon
     damage:
       types:
@@ -1122,7 +1122,7 @@
     autoRecharge: true
     autoRechargeRate: 40
   - type: StaticPrice
-    price: 750
+    price: 500
 
 - type: entity
   name: energy shotgun

@@ -11,12 +11,12 @@
     WeaponGrapplingGun: 2
     WeaponProtoKineticAccelerator: 4
   startingItemPrices:
-    Crowbar: 20
+    Crowbar: 50
     Pickaxe: 50
     OreBag: 20
     Flare: 10
-    FlashlightLantern: 20
-    HandheldGPSBasic: 100
+    FlashlightLantern: 50
+    HandheldGPSBasic: 500
     RadioHandheld: 50
     WeaponProtoKineticAccelerator: 500
   # WD EDIT START

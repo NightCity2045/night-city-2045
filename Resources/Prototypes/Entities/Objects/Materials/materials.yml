@@ -906,7 +906,7 @@
     - tooth_2
     - tooth_3
   - type: StackPrice
-    price: 150
+    price: 100
   - type: Tag
     tags:
     - Knife
@@ -1012,7 +1012,7 @@
   - type: StaticPrice
     price: 0
   - type: StackPrice
-    price: 1500
+    price: 1000
   - type: Appearance
   - type: Stack
     stackType: GoliathHide
