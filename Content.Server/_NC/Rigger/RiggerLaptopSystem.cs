@@ -1,6 +1,8 @@
 using System.Linq;
 using Content.Shared._NC.Rigger.Components;
 using Content.Shared._NC.Rigger.Events;
+using Content.Shared.Access.Components;
+using Content.Shared.Access.Systems;
 using Content.Shared.Actions;
 using Content.Shared.Mobs.Systems;
 using Content.Shared.Popups;
@@ -8,6 +10,7 @@ using Content.Shared.Wieldable;
 using Robust.Server.GameStates;
 using Robust.Server.Player;
 using Robust.Shared.Player;
+using Robust.Shared.Map;
 using Robust.Shared.Timing;
 
 namespace Content.Server._NC.Rigger;
@@ -18,6 +21,8 @@ namespace Content.Server._NC.Rigger;
 public sealed class RiggerLaptopSystem : EntitySystem
 {
     [Dependency] private readonly SharedActionsSystem _actions = default!;
+    [Dependency] private readonly AccessReaderSystem _access = default!;
+    [Dependency] private readonly EntityLookupSystem _lookup = default!;
     [Dependency] private readonly MobStateSystem _mobState = default!;
     [Dependency] private readonly SharedPopupSystem _popup = default!;
     [Dependency] private readonly IPlayerManager _player = default!;
@@ -64,6 +69,12 @@ public sealed class RiggerLaptopSystem : EntitySystem
 
     private void OnLaptopWielded(Entity<RiggerLaptopComponent> ent, ref ItemWieldedEvent args)
     {
+        if (TryComp<AccessReaderComponent>(ent, out var access) && !_access.IsAllowed(args.User, ent, access))
+        {
+            _popup.PopupEntity(Loc.GetString("nc-rigger-laptop-access-denied"), ent, args.User);
+            return;
+        }
+
         var user = EnsureComp<RiggerLaptopUserComponent>(args.User);
         user.Laptop = ent.Owner;
         user.ToggleRtsAction = ent.Comp.ToggleRtsAction;
@@ -126,24 +137,67 @@ public sealed class RiggerLaptopSystem : EntitySystem
 
     private void OnUserShutdown(Entity<RiggerLaptopUserComponent> ent, ref ComponentShutdown args)
     {
+        ReleaseLinkedDrones(ent);
         RemoveSessionOverrides(ent);
         _actions.RemoveAction(ent.Owner, ent.Comp.ToggleRtsActionEntity);
     }
 
     private void RefreshLinkedDrones(Entity<RiggerLaptopUserComponent> user, Entity<RiggerLaptopComponent> laptop)
     {
-        user.Comp.LinkedDrones.Clear();
+        var linked = new List<EntityUid>();
 
-        var query = EntityQueryEnumerator<RiggerDroneComponent>();
-        while (query.MoveNext(out var droneUid, out var drone))
+        if (laptop.Comp.AutoLinkRange > 0f)
         {
-            if (!BelongsToLaptop(droneUid, drone, user.Owner, laptop))
-                continue;
-
-            user.Comp.LinkedDrones.Add(droneUid);
+            var coordinates = _transform.GetMapCoordinates(user.Owner);
+            foreach (var drone in _lookup.GetEntitiesInRange<RiggerDroneComponent>(
+                         coordinates,
+                         laptop.Comp.AutoLinkRange,
+                         LookupFlags.Dynamic | LookupFlags.Approximate))
+            {
+                TryLinkDrone(drone, user.Owner, laptop, linked);
+            }
+        }
+        else
+        {
+            var query = EntityQueryEnumerator<RiggerDroneComponent>();
+            while (query.MoveNext(out var droneUid, out var drone))
+            {
+                TryLinkDrone((droneUid, drone), user.Owner, laptop, linked);
+            }
         }
 
+        foreach (var previous in user.Comp.LinkedDrones)
+        {
+            if (linked.Contains(previous) ||
+                !TryComp<RiggerDroneComponent>(previous, out var drone) ||
+                drone.Controller != laptop.Owner)
+            {
+                continue;
+            }
+
+            drone.Controller = null;
+            Dirty(previous, drone);
+        }
+
+        user.Comp.LinkedDrones.Clear();
+        user.Comp.LinkedDrones.AddRange(linked);
         Dirty(user);
+    }
+
+    private void TryLinkDrone(
+        Entity<RiggerDroneComponent> drone,
+        EntityUid user,
+        Entity<RiggerLaptopComponent> laptop,
+        List<EntityUid> linked)
+    {
+        ClearInvalidController(drone);
+
+        if (!BelongsToLaptop(drone.Owner, drone.Comp, user, laptop))
+            return;
+
+        drone.Comp.Controller = laptop.Owner;
+        linked.Add(drone.Owner);
+        Dirty(drone);
     }
 
     private bool BelongsToLaptop(
@@ -152,7 +206,9 @@ public sealed class RiggerLaptopSystem : EntitySystem
         EntityUid user,
         Entity<RiggerLaptopComponent> laptop)
     {
-        if (!drone.Enabled || !HasAllowedDroneFaction(drone, laptop.Comp))
+        if (!drone.Enabled ||
+            !HasAllowedDroneFaction(drone, laptop.Comp) ||
+            drone.Controller != null && drone.Controller != laptop.Owner)
             return false;
 
         var userMap = Transform(user).MapUid;
@@ -167,6 +223,48 @@ public sealed class RiggerLaptopSystem : EntitySystem
         }
 
         return true;
+    }
+
+    private void ClearInvalidController(Entity<RiggerDroneComponent> drone)
+    {
+        if (drone.Comp.Controller == null)
+        {
+            if (drone.Comp.Console is { } legacyConsole &&
+                Exists(legacyConsole) &&
+                HasComp<RiggerConsoleComponent>(legacyConsole))
+            {
+                drone.Comp.Controller = legacyConsole;
+                Dirty(drone);
+            }
+
+            return;
+        }
+
+        var controller = drone.Comp.Controller.Value;
+        if (
+            Exists(controller) &&
+            (HasComp<RiggerLaptopComponent>(controller) || HasComp<RiggerConsoleComponent>(controller)))
+        {
+            return;
+        }
+
+        drone.Comp.Controller = null;
+        drone.Comp.Console = null;
+        Dirty(drone);
+    }
+
+    private void ReleaseLinkedDrones(Entity<RiggerLaptopUserComponent> user)
+    {
+        foreach (var droneUid in user.Comp.LinkedDrones)
+        {
+            if (!TryComp<RiggerDroneComponent>(droneUid, out var drone) || drone.Controller != user.Comp.Laptop)
+                continue;
+
+            drone.Controller = null;
+            Dirty(droneUid, drone);
+        }
+
+        user.Comp.LinkedDrones.Clear();
     }
 
     private bool HasAllowedDroneFaction(RiggerDroneComponent drone, RiggerLaptopComponent laptop)

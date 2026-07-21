@@ -54,13 +54,7 @@
   - Syndicate
   - Xeno
   - Zombie
-  - Revolutionary
   - AllHostile
-  - Wizard
-  - SAN
-  - Changeling
-  - Shadowling
-  - Blob
 
 - type: ncDepartmentFaction
   id: NCDepartmentFactionCitizens

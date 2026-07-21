@@ -23,6 +23,7 @@
   - type: RiggerDrone
     droneFactions:
     - NCBiotechnica
+    commandRange: 17
   - type: RTSControllable
     attackRange: 8
     attackApproachRange: 1.5

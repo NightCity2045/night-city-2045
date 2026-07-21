@@ -140,17 +140,7 @@ public sealed class RTSRetaliationCombatSystem : EntitySystem
 
     private bool IsFriendlyAttacker(EntityUid uid, EntityUid attacker)
     {
-        // DroneFactions remain stable even when RTS peaceful mode temporarily
-        // swaps the active NPC faction to Passive.
-        if (TryComp<RiggerDroneComponent>(uid, out var drone) &&
-            drone.DroneFactions.Count != 0 &&
-            TryComp<NpcFactionMemberComponent>(attacker, out var attackerFaction) &&
-            _faction.IsMemberOfAny((attacker, attackerFaction), drone.DroneFactions))
-        {
-            return true;
-        }
-
-        return _faction.IsEntityFriendly(uid, attacker);
+        return _faction.NCIsRtsFriendly(uid, attacker);
     }
 
     private void ClearRetaliationAgainst(EntityUid uid, EntityUid attacker)

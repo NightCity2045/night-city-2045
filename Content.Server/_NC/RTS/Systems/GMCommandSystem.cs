@@ -128,7 +128,7 @@ public sealed partial class GMCommandSystem : EntitySystem
         if (rts.TargetEntity == null ||
             !Exists(rts.TargetEntity.Value) ||
             !CanAttackMobState(uid, rts.TargetEntity.Value) ||
-            _faction.IsEntityFriendly(uid, rts.TargetEntity.Value))
+            _faction.NCIsRtsFriendly(uid, rts.TargetEntity.Value))
         {
             ClearCommand(uid, rts);
             return;
@@ -193,7 +193,7 @@ public sealed partial class GMCommandSystem : EntitySystem
         if (!CanAttackMobState(uid, hostile))
             return false;
 
-        if (_faction.IsEntityFriendly(uid, hostile))
+        if (_faction.NCIsRtsFriendly(uid, hostile))
             return false;
 
         if (Transform(hostile).MapID != Transform(uid).MapID)

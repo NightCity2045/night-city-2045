@@ -20,7 +20,7 @@ public sealed partial class NPCRangedCombatComponent
     /// Nearby entities inside this distance from the shooter are ignored so clustered squads do not deadlock.
     /// </summary>
     [DataField]
-    public float NCFriendlyFireIgnoreRange = 0.45f;
+    public float NCFriendlyFireIgnoreRange = 0.1f;
 
     /// <summary>
     /// Lateral distance the NPC tries to move when a friendly blocks its shot.

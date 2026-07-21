@@ -19,6 +19,10 @@
     autoLinkRange: 30
     allowedDroneFactions:
     - NCMilitech
+  - type: AccessReader
+    access:
+    - ["Militech_Tech"]
+    - ["Militech_Operative"]
   - type: StaticPrice
     price: 2500
   - type: NCWeight

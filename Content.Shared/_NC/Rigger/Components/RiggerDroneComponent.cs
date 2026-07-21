@@ -24,4 +24,17 @@ public sealed partial class RiggerDroneComponent : Component
 
     [DataField, AutoNetworkedField]
     public float VisionRange = 7.5f;
+
+    /// <summary>
+    /// Maximum distance from this drone at which its controller may issue a world-position command.
+    /// This is intentionally independent from the rendered camera vision radius.
+    /// </summary>
+    [DataField, AutoNetworkedField]
+    public float CommandRange = 17f;
+
+    /// <summary>
+    /// The controller that currently owns this drone. A drone can only be linked to one controller.
+    /// </summary>
+    [DataField, AutoNetworkedField]
+    public EntityUid? Controller;
 }

@@ -179,7 +179,7 @@ public sealed partial class NPCCombatSystem
                 continue;
             }
 
-            if (NCIsFriendlyInLineOfFire(uid, comp.Target, comp, xform, worldPos, targetSpot, out _))
+            if (NCIsFriendlyInLineOfFire(uid, comp.Target, comp, gun, xform, worldPos, targetSpot, out _))
             {
                 comp.ShootAccumulator = 0f;
                 NCRepositionForFriendlyFire(uid, comp, xform, worldPos, targetSpot);

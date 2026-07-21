@@ -2,7 +2,6 @@ using System.Linq;
 using System.Numerics;
 using Content.Server.NPC.Components;
 using Content.Server.NPC.Systems;
-using Content.Shared._NC.Rigger.Components;
 using Content.Shared.CombatMode;
 using Content.Shared.Mobs;
 using Content.Shared.Mobs.Components;
@@ -130,19 +129,7 @@ public sealed class NCNpcFriendlyFireGunSystem : EntitySystem
 
     private bool IsFriendly(EntityUid shooter, NpcFactionMemberComponent shooterFaction, EntityUid other)
     {
-        // RTS aggression temporarily replaces the active faction with Passive. Compare the stable
-        // command factions first so mixed passive/normal squads cannot fire through each other.
-        if (TryComp<RiggerDroneComponent>(shooter, out var shooterDrone) &&
-            ((TryComp<RiggerDroneComponent>(other, out var otherDrone) &&
-              shooterDrone.DroneFactions.Overlaps(otherDrone.DroneFactions)) ||
-             (TryComp<NpcFactionMemberComponent>(other, out var droneTargetFaction) &&
-              _faction.IsMemberOfAny((other, droneTargetFaction), shooterDrone.DroneFactions))))
-        {
-            return true;
-        }
-
-        return TryComp<NpcFactionMemberComponent>(other, out var otherFaction) &&
-               _faction.IsEntityFriendly((shooter, shooterFaction), (other, otherFaction));
+        return _faction.NCIsRtsFriendly(shooter, other);
     }
 
     private void Reposition(EntityUid shooter, NPCRangedCombatComponent ranged, MapCoordinates from, MapCoordinates to)

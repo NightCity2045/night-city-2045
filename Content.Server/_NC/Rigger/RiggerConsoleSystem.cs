@@ -125,6 +125,8 @@ public sealed class RiggerConsoleSystem : EntitySystem
 
     private void OnConsoleShutdown(Entity<RiggerConsoleComponent> ent, ref ComponentShutdown args)
     {
+        ReleaseControlledDrones(ent);
+
         if (ent.Comp.ActiveEye is { } eye && TryComp<RiggerConsoleUserComponent>(eye, out var user))
             ReturnRigger(new Entity<RiggerConsoleUserComponent>(eye, user));
     }
@@ -274,39 +276,50 @@ public sealed class RiggerConsoleSystem : EntitySystem
 
     private void RefreshLinkedDrones(Entity<RiggerConsoleComponent> console)
     {
-        console.Comp.LinkedDrones.Clear();
+        var linked = new List<EntityUid>();
 
         var query = EntityQueryEnumerator<RiggerDroneComponent>();
         while (query.MoveNext(out var droneUid, out var drone))
         {
-            if (drone.Console is { } linkedConsole &&
-                (!Exists(linkedConsole) || !HasComp<RiggerConsoleComponent>(linkedConsole)))
-            {
-                drone.Console = null;
-                Dirty(droneUid, drone);
-            }
+            ClearInvalidController((droneUid, drone));
 
             if (!Exists(droneUid) || !BelongsToConsole(droneUid, drone, console))
                 continue;
 
+            drone.Controller = console.Owner;
             drone.Console = console.Owner;
-            console.Comp.LinkedDrones.Add(droneUid);
+            linked.Add(droneUid);
             Dirty(droneUid, drone);
         }
 
+        foreach (var previous in console.Comp.LinkedDrones)
+        {
+            if (linked.Contains(previous) ||
+                !TryComp<RiggerDroneComponent>(previous, out var drone) ||
+                drone.Controller != console.Owner)
+            {
+                continue;
+            }
+
+            drone.Controller = null;
+            drone.Console = null;
+            Dirty(previous, drone);
+        }
+
+        console.Comp.LinkedDrones.Clear();
+        console.Comp.LinkedDrones.AddRange(linked);
         Dirty(console);
     }
 
     private bool BelongsToConsole(EntityUid droneUid, RiggerDroneComponent drone, Entity<RiggerConsoleComponent> console)
     {
-        if (!drone.Enabled || !HasAllowedDroneFaction(drone, console.Comp))
+        if (!drone.Enabled ||
+            !HasAllowedDroneFaction(drone, console.Comp) ||
+            drone.Controller != null && drone.Controller != console.Owner)
             return false;
 
-        if (drone.Console == console.Owner)
+        if (drone.Controller == console.Owner)
             return true;
-
-        if (drone.Console != null)
-            return false;
 
         var consoleMap = Transform(console).MapUid;
         var droneMap = Transform(droneUid).MapUid;
@@ -320,6 +333,49 @@ public sealed class RiggerConsoleSystem : EntitySystem
         }
 
         return true;
+    }
+
+    private void ClearInvalidController(Entity<RiggerDroneComponent> drone)
+    {
+        if (drone.Comp.Controller == null)
+        {
+            if (drone.Comp.Console is { } legacyConsole &&
+                Exists(legacyConsole) &&
+                HasComp<RiggerConsoleComponent>(legacyConsole))
+            {
+                drone.Comp.Controller = legacyConsole;
+                Dirty(drone);
+            }
+
+            return;
+        }
+
+        var controller = drone.Comp.Controller.Value;
+        if (
+            Exists(controller) &&
+            (HasComp<RiggerConsoleComponent>(controller) || HasComp<RiggerLaptopComponent>(controller)))
+        {
+            return;
+        }
+
+        drone.Comp.Controller = null;
+        drone.Comp.Console = null;
+        Dirty(drone);
+    }
+
+    private void ReleaseControlledDrones(Entity<RiggerConsoleComponent> console)
+    {
+        foreach (var droneUid in console.Comp.LinkedDrones)
+        {
+            if (!TryComp<RiggerDroneComponent>(droneUid, out var drone) || drone.Controller != console.Owner)
+                continue;
+
+            drone.Controller = null;
+            drone.Console = null;
+            Dirty(droneUid, drone);
+        }
+
+        console.Comp.LinkedDrones.Clear();
     }
 
     private bool HasAllowedDroneFaction(RiggerDroneComponent drone, RiggerConsoleComponent console)
