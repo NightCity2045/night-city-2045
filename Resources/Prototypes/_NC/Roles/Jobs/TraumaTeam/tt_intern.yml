@@ -4,7 +4,7 @@
   description: job-description-trauma-team-intern
   playTimeTracker: JobTraumaTeamIntern
   weight: 20
-  salary: 170
+  salary: 75
   icon: "JobIconTraumaIntern"
   startingGear: TraumaTeamInternGear
   supervisors: Главный врач Trauma Team, Ваш наставник и прочие сотрудники Trauma Team

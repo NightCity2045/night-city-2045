@@ -17,16 +17,16 @@
   startingItemPrices:
     NCDrinkTea: 20
     NCDrinkGreenTea: 20
-    NCDrinkHotCocoa: 25
-    NCDrinkCoffee: 22
-    NCDrinkCreamCoffee: 24
-    NCDrinkLatte: 28
-    NCDrinkSoyLatte: 26
-    NCDrinkMilkChoco: 26
-    NCDrinkLean: 30
-    NCDrinkCreamOfCoconut: 24
-    NCDrinkCream: 22
-    NCDrinkPumpkinSpiceLatte: 30
+    NCDrinkHotCocoa: 20
+    NCDrinkCoffee: 20
+    NCDrinkCreamCoffee: 20
+    NCDrinkLatte: 20
+    NCDrinkSoyLatte: 20
+    NCDrinkMilkChoco: 20
+    NCDrinkLean: 20
+    NCDrinkCreamOfCoconut: 20
+    NCDrinkCream: 20
+    NCDrinkPumpkinSpiceLatte: 20
   contrabandInventory:
     DrinkNothing: 2
   contrabandItemPrices:

@@ -80,7 +80,7 @@
   - type: AmmoCounter
 
   - type: StaticPrice
-    price: 2500
+    price: 1000
 
 - type: entity
   name: Штейнмейер М-04

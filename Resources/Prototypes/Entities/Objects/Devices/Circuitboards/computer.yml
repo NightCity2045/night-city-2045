@@ -109,7 +109,7 @@
   - type: ComputerBoard
     prototype: ComputerCargoOrders
   - type: StaticPrice
-    price: 750
+    price: 500
 
 - type: entity
   parent: BaseComputerCircuitboard
@@ -284,7 +284,7 @@
   - type: ComputerBoard
     prototype: ComputerId
   - type: StaticPrice
-    price: 750
+    price: 500
   - type: Tag
     tags:
     - HighRiskItem
@@ -464,7 +464,7 @@
   - type: Sprite
     state: cpu_service
   - type: StaticPrice
-    price: 150
+    price: 100
   - type: ComputerBoard
     prototype: ComputerMassMedia
 

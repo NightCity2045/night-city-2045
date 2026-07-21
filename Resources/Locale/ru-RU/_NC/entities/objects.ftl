@@ -193,6 +193,8 @@ ent-PDAMilitechRigger = КПК риггера Militech
 ent-PDAMilitechRigger-desc = Укреплённый полевой КПК для управления дронами, телеметрией и тактической маршрутизацией в реальном времени.
 ent-NCMilitechRiggerLaptop = планшет риггера Militech
 ent-NCMilitechRiggerLaptop-desc = Укреплённый тактический планшет для отдачи RTS-команд ближайшим роботам Militech, пока устройство удерживается обеими руками.
+ent-NCBiotechnicaRiggerLaptop = планшет риггера Biotechnica
+ent-NCBiotechnicaRiggerLaptop-desc = Укреплённый тактический планшет для отдачи RTS-команд ближайшим роботам Biotechnica, пока устройство удерживается обеими руками.
 ent-MilitechRiggerIDCard = идентификационная карта риггера Militech
 
 # Misc

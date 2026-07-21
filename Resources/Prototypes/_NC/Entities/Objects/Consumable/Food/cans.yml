@@ -58,7 +58,7 @@
         map: ["enum.OpenableVisuals.Layer"]
       - state: multifruit
   - type: StaticPrice
-    price: 12
+    price: 10
 
 - type: entity
   parent: NCDrinkCan
@@ -82,7 +82,7 @@
         map: ["enum.OpenableVisuals.Layer"]
       - state: tea_bio_plus
   - type: StaticPrice
-    price: 12
+    price: 10
 
 - type: entity
   parent: NCDrinkCan
@@ -104,7 +104,7 @@
         map: ["enum.OpenableVisuals.Layer"]
       - state: tonic_bio_plus
   - type: StaticPrice
-    price: 12
+    price: 100
 
 # region Biotechnica - Neutral drinks
 
@@ -156,7 +156,7 @@
         map: ["enum.OpenableVisuals.Layer"]
       - state: soda_fake
   - type: StaticPrice
-    price: 12
+    price: 10
 
 - type: entity
   parent: NCDrinkCan
@@ -178,7 +178,7 @@
         map: ["enum.OpenableVisuals.Layer"]
       - state: tonic_fake
   - type: StaticPrice
-    price: 14
+    price: 10
 
 # region Cola
 
@@ -205,7 +205,7 @@
         map: ["enum.OpenableVisuals.Layer"]
       - state: cola_nc
   - type: StaticPrice
-    price: 15
+    price: 20
 
 - type: entity
   parent: NCDrinkCan
@@ -225,7 +225,7 @@
         map: ["enum.OpenableVisuals.Layer"]
       - state: cola_classic
   - type: StaticPrice
-    price: 17
+    price: 20
 
 - type: entity
   parent: NCDrinkCan
@@ -247,7 +247,7 @@
         map: ["enum.OpenableVisuals.Layer"]
       - state: cola_nc_max
   - type: StaticPrice
-    price: 18
+    price: 20
 
 - type: entity
   parent: NCDrinkCan
@@ -269,7 +269,7 @@
         map: ["enum.OpenableVisuals.Layer"]
       - state: cola_grape
   - type: StaticPrice
-    price: 16
+    price: 20
 
 - type: entity
   parent: NCDrinkCan
@@ -289,7 +289,7 @@
         map: ["enum.OpenableVisuals.Layer"]
       - state: dr_ripper
   - type: StaticPrice
-    price: 18
+    price: 20
 
 - type: entity
   parent: NCDrinkCan
@@ -309,7 +309,7 @@
         map: ["enum.OpenableVisuals.Layer"]
       - state: soda
   - type: StaticPrice
-    price: 14
+    price: 10
 
 - type: entity
   parent: NCDrinkCan
@@ -331,7 +331,7 @@
         map: ["enum.OpenableVisuals.Layer"]
       - state: soda_accelerate
   - type: StaticPrice
-    price: 15
+    price: 10
 
 - type: entity
   parent: NCDrinkCanCola
@@ -340,7 +340,7 @@
   description: Кола от знакомого но давно забытого бренда.
   components:
   - type: StaticPrice
-    price: 13
+    price: 10
   - type: Sprite
     layers:
       - state: icon
@@ -365,7 +365,7 @@
         map: ["enum.OpenableVisuals.Layer"]
       - state: dr_ripper_red
   - type: StaticPrice
-    price: 13
+    price: 10
 
 # region Cafe
 
@@ -411,7 +411,7 @@
         map: ["enum.OpenableVisuals.Layer"]
       - state: pilk
   - type: StaticPrice
-    price: 26
+    price: 20
 
 - type: entity
   parent: NCDrinkCan
@@ -431,7 +431,7 @@
         map: ["enum.OpenableVisuals.Layer"]
       - state: tonic
   - type: StaticPrice
-    price: 22
+    price: 20
 
 # Sodas
 
@@ -453,7 +453,7 @@
         map: ["enum.OpenableVisuals.Layer"]
       - state: lemon_lime
   - type: StaticPrice
-    price: 24
+    price: 20
 
 - type: entity
   parent: NCDrinkCan
@@ -473,7 +473,7 @@
         map: ["enum.OpenableVisuals.Layer"]
       - state: lemon_lime_cranberry
   - type: StaticPrice
-    price: 24
+    price: 20
 
 - type: entity
   parent: NCDrinkCan
@@ -493,7 +493,7 @@
         map: ["enum.OpenableVisuals.Layer"]
       - state: orange_lime
   - type: StaticPrice
-    price: 24
+    price: 20
 
 # region Cafe - Premium drinks
 
@@ -522,7 +522,7 @@
         map: ["enum.OpenableVisuals.Layer"]
       - state: soda_lemonade
   - type: StaticPrice
-    price: 28
+    price: 20
 
 - type: entity
   parent: NCDrinkCan
@@ -542,7 +542,7 @@
         map: ["enum.OpenableVisuals.Layer"]
       - state: soda_citrus
   - type: StaticPrice
-    price: 28
+    price: 20
 
 - type: entity
   parent: NCDrinkCan
@@ -562,7 +562,7 @@
         map: ["enum.OpenableVisuals.Layer"]
       - state: soda_grape
   - type: StaticPrice
-    price: 28
+    price: 20
 
 - type: entity
   parent: NCDrinkCan
@@ -582,7 +582,7 @@
         map: ["enum.OpenableVisuals.Layer"]
       - state: soda_ginger
   - type: StaticPrice
-    price: 28
+    price: 20
 
 - type: entity
   parent: NCDrinkCan
@@ -602,7 +602,7 @@
         map: ["enum.OpenableVisuals.Layer"]
       - state: space_up_blue
   - type: StaticPrice
-    price: 26
+    price: 20
 
 - type: entity
   parent: NCDrinkCan
@@ -622,7 +622,7 @@
         map: ["enum.OpenableVisuals.Layer"]
       - state: mountain
   - type: StaticPrice
-    price: 30
+    price: 20
 
 # Iced
 
@@ -644,7 +644,7 @@
         map: ["enum.OpenableVisuals.Layer"]
       - state: fantax
   - type: StaticPrice
-    price: 30
+    price: 20
 
 - type: entity
   parent: NCDrinkCan
@@ -664,7 +664,7 @@
         map: ["enum.OpenableVisuals.Layer"]
       - state: spritex
   - type: StaticPrice
-    price: 30
+    price: 20
 
 - type: entity
   parent: NCDrinkCan
@@ -684,7 +684,7 @@
         map: ["enum.OpenableVisuals.Layer"]
       - state: coffee
   - type: StaticPrice
-    price: 32
+    price: 20
 
 # region Restaurant drinks
 
@@ -706,7 +706,7 @@
         map: ["enum.OpenableVisuals.Layer"]
       - state: soda_orange
   - type: StaticPrice
-    price: 32
+    price: 20
 
 - type: entity
   parent: NCDrinkCan
@@ -726,7 +726,7 @@
         map: ["enum.OpenableVisuals.Layer"]
       - state: soda_grenadine
   - type: StaticPrice
-    price: 32
+    price: 20
 
 # region Energy drinks
 
@@ -748,7 +748,7 @@
         map: ["enum.OpenableVisuals.Layer"]
       - state: blood
   - type: StaticPrice
-    price: 18
+    price: 20
 
 - type: entity
   parent: NCDrinkCan
@@ -772,7 +772,7 @@
         map: ["enum.OpenableVisuals.Layer"]
       - state: protein
   - type: StaticPrice
-    price: 18
+    price: 20
 
 - type: entity
   parent: NCDrinkCan
@@ -796,7 +796,7 @@
         map: ["enum.OpenableVisuals.Layer"]
       - state: nutriment
   - type: StaticPrice
-    price: 32
+    price: 50
 
 - type: entity
   parent: NCDrinkCan
@@ -820,7 +820,7 @@
         map: ["enum.OpenableVisuals.Layer"]
       - state: poison
   - type: StaticPrice
-    price: 64
+    price: 50
 
 - type: entity
   parent: NCDrinkCan
@@ -846,7 +846,7 @@
         map: ["enum.OpenableVisuals.Layer"]
       - state: death
   - type: StaticPrice
-    price: 120
+    price: 100
 
 # region Biotechnica - Healthy drinks
 
@@ -870,7 +870,7 @@
         map: ["enum.OpenableVisuals.Layer"]
       - state: berry
   - type: StaticPrice
-    price: 25
+    price: 20
 
 - type: entity
   parent: NCDrinkCan
@@ -892,7 +892,7 @@
         map: ["enum.OpenableVisuals.Layer"]
       - state: cherry
   - type: StaticPrice
-    price: 25
+    price: 20
 
 - type: entity
   parent: NCDrinkCan
@@ -914,7 +914,7 @@
         map: ["enum.OpenableVisuals.Layer"]
       - state: blue_pumpkin
   - type: StaticPrice
-    price: 28
+    price: 20
 
 - type: entity
   parent: NCDrinkCan
@@ -938,7 +938,7 @@
         map: ["enum.OpenableVisuals.Layer"]
       - state: multifruit
   - type: StaticPrice
-    price: 28
+    price: 20
 
 - type: entity
   parent: NCDrinkCan
@@ -960,7 +960,7 @@
         map: ["enum.OpenableVisuals.Layer"]
       - state: mango
   - type: StaticPrice
-    price: 27
+    price: 20
 
 - type: entity
   parent: NCDrinkCan
@@ -984,7 +984,7 @@
         map: ["enum.OpenableVisuals.Layer"]
       - state: potato
   - type: StaticPrice
-    price: 26
+    price: 20
 
 # region Biotechnica - Super healthy drinks
 
@@ -1006,7 +1006,7 @@
         map: ["enum.OpenableVisuals.Layer"]
       - state: vitamin
   - type: StaticPrice
-    price: 40
+    price: 50
 
 # region Random Spawner
 
@@ -1133,60 +1133,60 @@
     NCDrinkCanBiotechnicaVeggie: 3
     NCDrinkCanBiotechnicaVitamins: 2
   startingItemPrices:
-    NCDrinkCanBiotechnicaMultifruitFake: 12
-    NCDrinkCanBiotechnicaTeaFake: 12
-    NCDrinkCanBiotechnicaTonicMutagen: 12
+    NCDrinkCanBiotechnicaMultifruitFake: 10
+    NCDrinkCanBiotechnicaTeaFake: 10
+    NCDrinkCanBiotechnicaTonicMutagen: 100
     NCDrinkCanBiotechnica: 10
-    NCDrinkCanBiotechnicaRespawn: 12
-    NCDrinkCanBiotechnicaTonicFake: 14
-    NCDrinkCanCola: 15
-    NCDrinkCanClassicCola: 17
-    NCDrinkCanSweetCola: 18
-    NCDrinkCanBerryCola: 16
-    NCDrinkCanRipperCola: 18
-    NCDrinkCanSoda: 14
-    NCDrinkCanSodaAccelerate: 15
-    NCDrinkCanAltCola: 13
-    NCDrinkCanRipperRedCola: 13
+    NCDrinkCanBiotechnicaRespawn: 10
+    NCDrinkCanBiotechnicaTonicFake: 10
+    NCDrinkCanCola: 20
+    NCDrinkCanClassicCola: 20
+    NCDrinkCanSweetCola: 20
+    NCDrinkCanBerryCola: 20
+    NCDrinkCanRipperCola: 20
+    NCDrinkCanSoda: 10
+    NCDrinkCanSodaAccelerate: 10
+    NCDrinkCanAltCola: 10
+    NCDrinkCanRipperRedCola: 10
     NCDrinkCanLemonade: 20
-    NCDrinkCanRootBeer: 26
-    NCDrinkCanTonic: 22
-    NCDrinkCanLemonLime: 24
-    NCDrinkCanLemonLimeCranberry: 24
-    NCDrinkCanOrangeLime: 24
-    NCDrinkCanLemonadeSoda: 28
-    NCDrinkCanCitrusSoda: 28
-    NCDrinkCanGrapeSoda: 28
-    NCDrinkCanGingerSoda: 28
-    NCDrinkCanOrbitalAirCola: 26
-    NCDrinkCanMountainDew: 30
-    NCDrinkCanIcedTea: 30
-    NCDrinkCanIcedGreenTea: 30
-    NCDrinkCanIcedCoffee: 32
-    NCDrinkCanOrangeSoda: 32
-    NCDrinkCanGrenadineSoda: 32
-    NCDrinkCanEnergy: 18
-    NCDrinkCanEnergySugar: 18
-    NCDrinkCanEnergyPlus: 32
-    NCDrinkCanBiotechnicaBerry: 25
-    NCDrinkCanBiotechnicaCherry: 25
-    NCDrinkCanBiotechnicaBluePumpkin: 28
-    NCDrinkCanBiotechnicaMultifruit: 28
-    NCDrinkCanBiotechnicaBungo: 27
-    NCDrinkCanBiotechnicaVeggie: 26
-    NCDrinkCanBiotechnicaVitamins: 40
+    NCDrinkCanRootBeer: 20
+    NCDrinkCanTonic: 20
+    NCDrinkCanLemonLime: 20
+    NCDrinkCanLemonLimeCranberry: 20
+    NCDrinkCanOrangeLime: 20
+    NCDrinkCanLemonadeSoda: 20
+    NCDrinkCanCitrusSoda: 20
+    NCDrinkCanGrapeSoda: 20
+    NCDrinkCanGingerSoda: 20
+    NCDrinkCanOrbitalAirCola: 20
+    NCDrinkCanMountainDew: 20
+    NCDrinkCanIcedTea: 20
+    NCDrinkCanIcedGreenTea: 20
+    NCDrinkCanIcedCoffee: 20
+    NCDrinkCanOrangeSoda: 20
+    NCDrinkCanGrenadineSoda: 20
+    NCDrinkCanEnergy: 20
+    NCDrinkCanEnergySugar: 20
+    NCDrinkCanEnergyPlus: 50
+    NCDrinkCanBiotechnicaBerry: 20
+    NCDrinkCanBiotechnicaCherry: 20
+    NCDrinkCanBiotechnicaBluePumpkin: 20
+    NCDrinkCanBiotechnicaMultifruit: 20
+    NCDrinkCanBiotechnicaBungo: 20
+    NCDrinkCanBiotechnicaVeggie: 20
+    NCDrinkCanBiotechnicaVitamins: 50
   contrabandInventory:
     NCDrinkCanEnergyMax: 2
     NCDrinkCanEnergyInsane: 1
   contrabandItemPrices:
-    NCDrinkCanEnergyMax: 64
-    NCDrinkCanEnergyInsane: 120
+    NCDrinkCanEnergyMax: 50
+    NCDrinkCanEnergyInsane: 100
   emaggedInventory:
     NCDrinkCanEnergyMax: 3
     NCDrinkCanEnergyInsane: 2
   emaggedItemPrices:
-    NCDrinkCanEnergyMax: 64
-    NCDrinkCanEnergyInsane: 120
+    NCDrinkCanEnergyMax: 50
+    NCDrinkCanEnergyInsane: 100
 
 - type: vendingMachineInventory
   id: NCDrinkCanCafeMachineInventory
@@ -1208,26 +1208,26 @@
     NCDrinkCanIcedCoffee: 3
   startingItemPrices:
     NCDrinkCanLemonade: 20
-    NCDrinkCanRootBeer: 26
-    NCDrinkCanTonic: 22
-    NCDrinkCanLemonLime: 24
-    NCDrinkCanLemonLimeCranberry: 24
-    NCDrinkCanOrangeLime: 24
-    NCDrinkCanLemonadeSoda: 28
-    NCDrinkCanCitrusSoda: 28
-    NCDrinkCanGrapeSoda: 28
-    NCDrinkCanGingerSoda: 28
-    NCDrinkCanOrbitalAirCola: 26
-    NCDrinkCanMountainDew: 30
-    NCDrinkCanIcedTea: 30
-    NCDrinkCanIcedGreenTea: 30
-    NCDrinkCanIcedCoffee: 32
+    NCDrinkCanRootBeer: 20
+    NCDrinkCanTonic: 20
+    NCDrinkCanLemonLime: 20
+    NCDrinkCanLemonLimeCranberry: 20
+    NCDrinkCanOrangeLime: 20
+    NCDrinkCanLemonadeSoda: 20
+    NCDrinkCanCitrusSoda: 20
+    NCDrinkCanGrapeSoda: 20
+    NCDrinkCanGingerSoda: 20
+    NCDrinkCanOrbitalAirCola: 20
+    NCDrinkCanMountainDew: 20
+    NCDrinkCanIcedTea: 20
+    NCDrinkCanIcedGreenTea: 20
+    NCDrinkCanIcedCoffee: 20
   contrabandInventory:
     NCDrinkCanOrangeSoda: 2
     NCDrinkCanGrenadineSoda: 2
   contrabandItemPrices:
-    NCDrinkCanOrangeSoda: 32
-    NCDrinkCanGrenadineSoda: 32
+    NCDrinkCanOrangeSoda: 20
+    NCDrinkCanGrenadineSoda: 20
 
 - type: vendingMachineInventory
   id: NCDrinkCanEnergyMachineInventory
@@ -1238,11 +1238,11 @@
     NCDrinkCanEnergyMax: 2
     NCDrinkCanEnergyInsane: 1
   startingItemPrices:
-    NCDrinkCanEnergy: 18
-    NCDrinkCanEnergySugar: 18
-    NCDrinkCanEnergyPlus: 32
-    NCDrinkCanEnergyMax: 64
-    NCDrinkCanEnergyInsane: 120
+    NCDrinkCanEnergy: 20
+    NCDrinkCanEnergySugar: 20
+    NCDrinkCanEnergyPlus: 50
+    NCDrinkCanEnergyMax: 50
+    NCDrinkCanEnergyInsane: 100
   contrabandInventory:
     NCDrinkCanEnergyMax: 2
     NCDrinkCanEnergyInsane: 1

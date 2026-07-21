@@ -109,7 +109,7 @@
     node: tintedWindow
   - type: Occluder
   - type: StaticPrice
-    price: 70
+    price: 50
 
 - type: entity
   id: WindowRCDResistant
@@ -208,7 +208,7 @@
     damageOverlay:
       sprite: Structures/Windows/cracks_directional.rsi
   - type: StaticPrice
-    price: 15
+    price: 10
   - type: InteractionVerbs
     allowedVerbs:
     - KnockOn
@@ -238,7 +238,7 @@
     sprite: Structures/Windows/directional.rsi
     state: frosted_window
   - type: StaticPrice
-    price: 35
+    price: 20
 
 - type: entity
   parent: Window

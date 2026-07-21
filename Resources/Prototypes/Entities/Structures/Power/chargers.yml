@@ -36,7 +36,7 @@
         sound:
           collection: MetalBreak
   - type: StaticPrice
-    price: 75
+    price: 50
 
 - type: entity
   abstract: true

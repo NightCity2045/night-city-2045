@@ -22,20 +22,20 @@
     ButchCleaver: 20
     KitchenKnife: 20
     RollingPin: 10
-    Spoon: 5
-    Fork: 5
-    PairedChopsticks: 5
-    FoodBowlBig: 5
-    FoodPlate: 5
-    FoodPlateSmall: 5
-    FoodPlateTin: 5
-    FoodPlateMuffinTin: 5
-    FoodKebabSkewer: 5
-    DrinkGlass: 5
-    Beaker: 5
-    LargeBeaker: 10
-    FoodShakerSalt: 5
-    FoodShakerPepper: 5
+    Spoon: 10
+    Fork: 10
+    PairedChopsticks: 10
+    FoodBowlBig: 10
+    FoodPlate: 10
+    FoodPlateSmall: 10
+    FoodPlateTin: 10
+    FoodPlateMuffinTin: 10
+    FoodKebabSkewer: 10
+    DrinkGlass: 10
+    Beaker: 20
+    LargeBeaker: 50
+    FoodShakerSalt: 10
+    FoodShakerPepper: 10
   contrabandInventory:
     Whetstone: 2
     LunchboxGeneric: 10

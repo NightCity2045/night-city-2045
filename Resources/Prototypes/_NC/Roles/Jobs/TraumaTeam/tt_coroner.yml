@@ -4,7 +4,7 @@
   description: job-description-trauma-team-coroner
   playTimeTracker: JobTraumaTeamCoroner
   weight: 90
-  salary: 280
+  salary: 100
   icon: "JobIconTraumaCoroner"
   startingGear: TraumaTeamCoronerGear
   supervisors: Главный врач Trauma Team

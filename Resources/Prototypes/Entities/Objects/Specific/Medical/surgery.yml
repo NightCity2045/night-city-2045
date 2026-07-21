@@ -7,7 +7,7 @@
   components:
   - type: Sprite
   - type: StaticPrice
-    price: 60
+    price: 50
   - type: Tag
     tags:
     - SurgeryTool
@@ -84,7 +84,7 @@
   - type: ThrowingAngle
     angle: 90
   - type: StaticPrice
-    price: 40
+    price: 50
   # Shitmed Change
   - type: SurgeryTool
     startSound:

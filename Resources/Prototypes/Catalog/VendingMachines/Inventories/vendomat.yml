@@ -15,11 +15,11 @@
     Snatcherprod: 1
   #WWDP edit end
   startingItemPrices:
-    RemoteSignaller: 20
+    RemoteSignaller: 500
     Igniter: 20
-    Wirecutter: 20
+    Wirecutter: 50
     CableApcStack: 10
-    FlashlightLantern: 20
+    FlashlightLantern: 50
     PowerCellSmallPrinted: 20
     MatterBinStockPart: 50
     CapacitorStockPart: 50

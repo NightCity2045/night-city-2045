@@ -4,7 +4,7 @@
   description: job-description-biotechnica-netrunner
   playTimeTracker: JobBiotechnicaNetrunner
   weight: 60
-  salary: 400
+  salary: 125
   icon: "JobIconBiotechNetrunner"
   startingGear: BiotechnicaNetrunnerGear
   access:

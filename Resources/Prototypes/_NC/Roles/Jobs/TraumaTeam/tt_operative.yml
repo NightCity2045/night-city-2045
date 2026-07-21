@@ -4,7 +4,7 @@
   description: job-description-trauma-team-operative
   playTimeTracker: JobTraumaTeamOperative
   weight: 60
-  salary: 400
+  salary: 125
   icon: "JobIconTraumaOperator"
   startingGear: TraumaTeamOperativeGear
   supervisors: Главный врач Trauma Team и Парамедик Trauma Team

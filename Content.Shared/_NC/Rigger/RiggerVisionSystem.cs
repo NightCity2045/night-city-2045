@@ -1,3 +1,5 @@
+using System.Numerics;
+using Robust.Shared.Map;
 using Content.Shared._NC.Rigger.Components;
 using Robust.Shared.Map.Components;
 using Robust.Shared.Physics;
@@ -18,7 +20,6 @@ public sealed class RiggerVisionSystem : EntitySystem
     private readonly HashSet<Entity<OccluderComponent>> _occluders = new();
     private readonly HashSet<Vector2i> _viewportTiles = new();
     private readonly HashSet<Vector2i> _opaque = new();
-    private readonly HashSet<Vector2i> _singleTiles = new();
     private readonly List<Entity<RiggerDroneComponent>> _seeds = new();
 
     private EntityQuery<OccluderComponent> _occluderQuery;
@@ -93,46 +94,45 @@ public sealed class RiggerVisionSystem : EntitySystem
         _parallel.ProcessNow(_job, _job.Data.Count);
     }
 
-    public bool IsAccessible(EntityUid viewer, Entity<BroadphaseComponent, MapGridComponent> grid, Vector2i tile, float expansionSize = 8.5f)
+    /// <summary>
+    /// Validates a command against the dedicated command radius of any drone linked to the controller.
+    /// Both portable laptop users and remote console eyes use the same authoritative rule.
+    /// </summary>
+    public bool IsCommandAccessible(EntityUid viewer, EntityUid controlled, MapCoordinates coordinates)
     {
-        if (!TryComp<RiggerConsoleUserComponent>(viewer, out var user))
-            return false;
-
-        _viewportTiles.Clear();
-        _opaque.Clear();
-        _seeds.Clear();
-        _singleTiles.Clear();
-        _viewportTiles.Add(tile);
-        _fastPath = true;
-
-        var localBounds = _lookup.GetLocalBounds(tile, grid.Comp2.TileSize);
-        var expandedBounds = localBounds.Enlarged(expansionSize);
-        var expandedWorldBounds = _xforms.GetWorldMatrix(grid).TransformBox(expandedBounds);
-
-        foreach (var droneUid in user.LinkedDrones)
+        if (!TryGetLinkedDrones(viewer, out var linkedDrones) ||
+            !linkedDrones.Contains(controlled) ||
+            !TryComp<RiggerDroneComponent>(controlled, out var drone) ||
+            !drone.Enabled ||
+            drone.CommandRange <= 0f)
         {
-            if (!TryComp<RiggerDroneComponent>(droneUid, out var drone) ||
-                !drone.Enabled ||
-                Transform(droneUid).GridUid != grid.Owner ||
-                !_lookup.GetWorldAABB(droneUid).Intersects(expandedWorldBounds))
-            {
-                continue;
-            }
-
-            _seeds.Add((droneUid, drone));
+            return false;
         }
 
-        if (_seeds.Count == 0)
+        var droneCoordinates = _xforms.GetMapCoordinates(controlled);
+        if (droneCoordinates.MapId != coordinates.MapId)
             return false;
 
-        EnsureJobCapacity();
-        _job.Grid = (grid.Owner, grid.Comp2);
-        _job.VisibleTiles = _singleTiles;
-        _job.Data.Clear();
-        _job.Data.AddRange(_seeds);
-        _parallel.ProcessNow(_job, _job.Data.Count);
+        return Vector2.DistanceSquared(droneCoordinates.Position, coordinates.Position) <=
+               drone.CommandRange * drone.CommandRange;
+    }
 
-        return _singleTiles.Contains(tile);
+    private bool TryGetLinkedDrones(EntityUid viewer, out List<EntityUid> linkedDrones)
+    {
+        if (TryComp<RiggerConsoleUserComponent>(viewer, out var consoleUser))
+        {
+            linkedDrones = consoleUser.LinkedDrones;
+            return true;
+        }
+
+        if (TryComp<RiggerLaptopUserComponent>(viewer, out var laptopUser))
+        {
+            linkedDrones = laptopUser.LinkedDrones;
+            return true;
+        }
+
+        linkedDrones = null!;
+        return false;
     }
 
     private void EnsureJobCapacity()

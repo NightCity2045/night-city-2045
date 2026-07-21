@@ -4,7 +4,7 @@
   description: job-description-militech-tech
   playTimeTracker: JobMilitechTech
   weight: 50
-  salary: 250
+  salary: 100
   icon: "JobIconMilitechTech"
   startingGear: MilitechTechGear
   access:

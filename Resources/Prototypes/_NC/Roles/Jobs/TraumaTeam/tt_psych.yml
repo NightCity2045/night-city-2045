@@ -4,7 +4,7 @@
   description: job-description-trauma-team-psych
   playTimeTracker: JobTraumaTeamPsych
   weight: 80
-  salary: 320
+  salary: 100
   icon: "JobIconTraumaPsiholog"
   startingGear: TraumaTeamPsychGear
   supervisors: Главный врач Trauma Team

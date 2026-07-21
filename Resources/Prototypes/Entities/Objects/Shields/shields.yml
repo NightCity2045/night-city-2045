@@ -70,7 +70,7 @@
   description: A large tower shield. Good for controlling crowds.
   components:
     - type: StaticPrice
-      price: 90
+      price: 500
     - type: Blocking
       passiveBlockModifier:
         coefficients:
@@ -179,7 +179,7 @@
                   min: 5
                   max: 5
     - type: StaticPrice
-      price: 150
+      price: 100
 
 - type: entity
   name: makeshift shield
@@ -474,7 +474,7 @@
   #               max: 1
   # WD EDIT END
     - type: StaticPrice
-      price: 350
+      price: 500
   # WD EDIT START
     - type: MeleeBlock
     - type: Battery
@@ -568,4 +568,4 @@
                   min: 2
                   max: 2
     - type: StaticPrice
-      price: 250
+      price: 100

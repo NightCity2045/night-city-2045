@@ -16,13 +16,13 @@
   name: "Оборудование"
   entries:
   - proto: SeedExtractorFlatpack
-    price: 800
+    price: 1000
     count: 2
   - proto: HydroponicsTrayFlatpack
-    price: 300
+    price: 100
     count: 6
   - proto: WaterTankHighCapacity
-    price: 400
+    price: 500
     count: 3
 
 - type: storeCategoryStructured
@@ -30,37 +30,37 @@
   name: "Инструменты"
   entries:
   - proto: Dropper
-    price: 15
+    price: 10
     count: 5
   - proto: PlantAnalyzer
-    price: 400
+    price: 500
     count: 2
   - proto: HydroponicsToolHatchet
-    price: 80
+    price: 100
     count: 2
   - proto: HydroponicsToolClippers
-    price: 60
+    price: 50
     count: 3
   - proto: HydroponicsToolScythe
-    price: 120
+    price: 100
     count: 2
   - proto: HydroponicsToolSpade
     price: 50
     count: 3
   - proto: HydroponicsToolMiniHoe
-    price: 50
+    price: 100
     count: 3
   - proto: WateringCan
-    price: 140
+    price: 100
     count: 3
   - proto: Bucket
-    price: 30
+    price: 20
     count: 5
   - proto: BucketBig
-    price: 200
+    price: 100
     count: 2
   - proto: BoxMouthSwab
-    price: 200
+    price: 100
     count: 2
   - proto: PlantBag
     price: 100
@@ -71,28 +71,28 @@
   name: "Агрохимия"
   entries:
   - proto: PlantBGoneSpray
-    price: 60
+    price: 50
     count: 5
   - proto: PestSpray
-    price: 50
+    price: 100
     count: 5
   - proto: WeedSpray
-    price: 50
+    price: 100
     count: 5
   - proto: NCFertilizerBagNutriment
-    price: 80
+    price: 100
     count: 5
   - proto: NCFertilizerBagPotency
-    price: 120
+    price: 100
     count: 3
   - proto: UnstableMutagenChemistryBottle
-    price: 300
+    price: 500
     count: 2
   - proto: Left4ZedChemistryBottle
-    price: 400
+    price: 500
     count: 2
   - proto: SeedEmUpSpray
-    price: 400
+    price: 500
     count: 2
 
 - type: storeCategoryStructured
@@ -100,19 +100,19 @@
   name: "Спецодежда"
   entries:
   - proto: ClothingBeltPlant
-    price: 120
+    price: 100
     count: 2
   - proto: ClothingOuterApronBotanist
     price: 100
     count: 2
   - proto: ClothingHandsGlovesLeather
-    price: 60
+    price: 50
     count: 2
   - proto: ClothingHeadHatTrucker
-    price: 40
+    price: 50
     count: 2
   - proto: ClothingEyesGogglesBotany
-    price: 160
+    price: 100
     count: 2
 
 - type: storeCategoryStructured
@@ -120,49 +120,49 @@
   name: "Семена"
   entries:
   - proto: AloeSeeds
-    price: 300
+    price: 100
     count: 5
   - proto: AmbrosiaVulgarisSeeds
-    price: 800
+    price: 1000
     count: 2
   - proto: ChiliSeeds
-    price: 350
+    price: 500
     count: 5
   - proto: CocoaSeeds
-    price: 800
+    price: 1000
     count: 1
   - proto: CornSeeds
-    price: 150
+    price: 100
     count: 10
   - proto: GarlicSeeds
-    price: 300
+    price: 100
     count: 5
   - proto: OnionSeeds
-    price: 250
+    price: 100
     count: 5
   - proto: OnionRedSeeds
-    price: 300
+    price: 100
     count: 5
   - proto: PoppySeeds
-    price: 800
+    price: 1000
     count: 3
   - proto: PotatoSeeds
-    price: 150
+    price: 100
     count: 10
   - proto: RiceSeeds
-    price: 150
+    price: 100
     count: 10
   - proto: SoybeanSeeds
-    price: 150
+    price: 100
     count: 10
   - proto: TeaPlantSeeds
-    price: 600
+    price: 500
     count: 1
   - proto: TomatoSeeds
-    price: 350
+    price: 500
     count: 5
   - proto: WheatSeeds
-    price: 150
+    price: 100
     count: 10
 
 - type: storeCategoryStructured
@@ -174,35 +174,35 @@
   - proto: FoodPotato
     price: 50
   - proto: FoodCarrot
-    price: 70
+    price: 50
   - proto: FoodGarlic
-    price: 90
+    price: 100
   - proto: FoodOnion
-    price: 70
+    price: 50
   - proto: FoodOnionRed
-    price: 90
+    price: 100
   - proto: FoodChiliPepper
     price: 100
   - proto: FoodAloe
-    price: 90
+    price: 100
   - proto: RiceBushel
-    price: 40
+    price: 50
   - proto: FoodSoybeans
-    price: 40
+    price: 50
   - proto: FoodCorn
-    price: 40
+    price: 50
   - proto: WheatBushel
-    price: 40
+    price: 50
   - proto: OatBushel
-    price: 40
+    price: 50
   - proto: Sugarcane
-    price: 80
+    price: 100
   - proto: Log
-    price: 150
+    price: 100
   - proto: FoodAmbrosiaVulgaris
-    price: 250
+    price: 100
   - proto: FoodPoppy
-    price: 250
+    price: 10
 
 - type: storePresetStructured
   id: TradeBotany_Buy

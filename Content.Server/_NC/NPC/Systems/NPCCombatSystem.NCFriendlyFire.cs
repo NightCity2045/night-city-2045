@@ -1,12 +1,12 @@
 using System.Linq;
 using System.Numerics;
 using Content.Server.NPC.Components;
-using Content.Shared._NC.Rigger.Components;
 using Content.Shared.Mobs;
 using Content.Shared.Mobs.Components;
 using Content.Shared.NPC.Components;
 using Content.Shared.NPC.Systems;
 using Content.Shared.Physics;
+using Content.Shared.Weapons.Ranged.Components;
 using Robust.Shared.Map;
 using Robust.Shared.Physics;
 using Robust.Shared.Random;
@@ -26,6 +26,7 @@ public sealed partial class NPCCombatSystem
         EntityUid shooter,
         EntityUid target,
         NPCRangedCombatComponent ranged,
+        GunComponent gun,
         TransformComponent shooterXform,
         Vector2 shooterWorldPos,
         Vector2 targetWorldPos,
@@ -47,11 +48,19 @@ public sealed partial class NPCCombatSystem
 
         var direction = shotVector / shotLength;
 
+        // Protect the complete dispersion cone rather than only the intended center ray.
+        // BonusAngle includes movement/turning inaccuracy, which is especially relevant while repositioning.
+        var spreadAngle = Math.Min(
+            Math.Abs(gun.CurrentAngle.Theta + gun.BonusAngle.Theta),
+            Math.PI / 3d);
+        var protectedRadius = ranged.NCFriendlyFireLineRadius +
+                              MathF.Tan((float) spreadAngle) * shotLength;
+
         if (NCTryGetFriendlyOnShotRay(shooter, target, shooterFaction, shooterXform.MapID, shooterWorldPos, direction, shotLength, out blockingFriendly))
             return true;
 
         var searchBox = Box2.FromTwoPoints(shooterWorldPos, targetWorldPos)
-            .Enlarged(ranged.NCFriendlyFireLineRadius);
+            .Enlarged(protectedRadius);
 
         foreach (var entity in _ncLookup.GetEntitiesIntersecting(shooterXform.MapID, searchBox, LookupFlags.Dynamic))
         {
@@ -78,7 +87,7 @@ public sealed partial class NPCCombatSystem
             }
 
             var closestPoint = shooterWorldPos + direction * forwardDistance;
-            if ((otherPos - closestPoint).LengthSquared() <= ranged.NCFriendlyFireLineRadius * ranged.NCFriendlyFireLineRadius)
+            if ((otherPos - closestPoint).LengthSquared() <= protectedRadius * protectedRadius)
             {
                 blockingFriendly = entity;
                 return true;
@@ -130,19 +139,7 @@ public sealed partial class NPCCombatSystem
         if (TryComp<MobStateComponent>(other, out var mobState) && mobState.CurrentState >= MobState.Dead)
             return false;
 
-        // RTS aggression temporarily replaces the active faction with Passive. Two drones from the
-        // same permanent command faction must remain allies even while their mode changes differ.
-        if (TryComp<RiggerDroneComponent>(shooter, out var shooterDrone) &&
-            ((TryComp<RiggerDroneComponent>(other, out var otherDrone) &&
-              shooterDrone.DroneFactions.Overlaps(otherDrone.DroneFactions)) ||
-             (TryComp<NpcFactionMemberComponent>(other, out var droneTargetFaction) &&
-              _ncFaction.IsMemberOfAny((other, droneTargetFaction), shooterDrone.DroneFactions))))
-        {
-            return true;
-        }
-
-        return TryComp<NpcFactionMemberComponent>(other, out var otherFaction) &&
-               _ncFaction.IsEntityFriendly((shooter, shooterFaction), (other, otherFaction));
+        return _ncFaction.NCIsRtsFriendly(shooter, other);
     }
 
     private void NCRepositionForFriendlyFire(

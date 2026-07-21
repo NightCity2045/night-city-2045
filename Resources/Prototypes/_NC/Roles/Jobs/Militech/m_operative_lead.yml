@@ -4,7 +4,7 @@
   description: job-description-militech-operative-lead
   playTimeTracker: JobMilitechOperativeLead
   weight: 80
-  salary: 400
+  salary: 125
   icon: "JobIconMilitechOperativeLead"
   startingGear: MilitechOperativeLeadGear
   access:

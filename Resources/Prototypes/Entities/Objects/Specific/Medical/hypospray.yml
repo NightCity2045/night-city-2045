@@ -22,7 +22,7 @@
   - type: UseDelay
     delay: 0.5
   - type: StaticPrice
-    price: 750
+    price: 500
   - type: Tag
     tags:
     - HighRiskItem
@@ -130,7 +130,7 @@
       Plastic: 50
   - type: SpaceGarbage
   - type: StaticPrice
-    price: 75 # These are limited supply items.
+    price: 50 # These are limited supply items.
   - type: TrashOnSolutionEmpty
     solution: pen
 
@@ -468,7 +468,7 @@
     changeColor: false
     emptySpriteName: microstimpen_empty
   - type: StaticPrice
-    price: 100
+    price: 1000
   - type: Tag
     tags: []
 
@@ -502,7 +502,7 @@
     onlyAffectsMobs: false
     injectOnly: true
   - type: StaticPrice
-    price: 500
+    price: 100
   - type: Tag
     tags: []
 
@@ -527,7 +527,7 @@
   - type: UseDelay
     delay: 0.5
   - type: StaticPrice # A new shitcurity meta
-    price: 75
+    price: 50
   - type: EmitSoundOnUse
     handle: false # don't want the sound to stop the self-inject from triggering
 

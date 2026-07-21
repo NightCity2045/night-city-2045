@@ -18,8 +18,6 @@ using Content.Shared.NPC.Prototypes;
 using Content.Shared.NPC.Systems;
 using Content.Shared.Popups;
 using Robust.Shared.Map;
-using Robust.Shared.Map.Components;
-using Robust.Shared.Physics;
 using Robust.Shared.Player;
 using Robust.Shared.Prototypes;
 
@@ -40,8 +38,6 @@ public sealed partial class RTSSystem : EntitySystem
     [Dependency] private NpcFactionSystem _faction = default!;
     [Dependency] private GMCommandSystem _gmCommands = default!;
     [Dependency] private HTNSystem _htn = default!;
-    [Dependency] private SharedMapSystem _map = default!;
-    [Dependency] private IMapManager _mapManager = default!;
     [Dependency] private SharedPopupSystem _popup = default!;
     [Dependency] private RiggerVisionSystem _riggerVision = default!;
     [Dependency] private NPCSteeringSystem _steering = default!;
@@ -236,8 +232,11 @@ public sealed partial class RTSSystem : EntitySystem
 
     private bool IsValidTarget(EntityUid controlled, EntityUid target)
     {
-        if (!Exists(target) || !TryComp<MobStateComponent>(target, out var mobState))
-            return Exists(target);
+        if (!Exists(target))
+            return false;
+
+        if (!TryComp<MobStateComponent>(target, out var mobState))
+            return HasComp<RTSAttackableComponent>(target);
 
         return TryComp<RTSAggressionModeComponent>(controlled, out var aggression) &&
                aggression.CurrentMode == RTSAggressionMode.Aggressive
@@ -247,14 +246,7 @@ public sealed partial class RTSSystem : EntitySystem
 
     private bool IsFriendlyTarget(EntityUid controlled, EntityUid target)
     {
-        if (TryComp<RiggerDroneComponent>(controlled, out var drone) &&
-            TryComp<NpcFactionMemberComponent>(target, out var targetFaction) &&
-            _faction.IsMemberOfAny((target, targetFaction), drone.DroneFactions))
-        {
-            return true;
-        }
-
-        return _faction.IsEntityFriendly(controlled, target);
+        return _faction.NCIsRtsFriendly(controlled, target);
     }
 
     private bool CanRiggerCommandLocation(EntityUid riggerEye, EntityUid controlled, RTSCommandEvent ev)
@@ -282,25 +274,18 @@ public sealed partial class RTSSystem : EntitySystem
         if (!Exists(target))
             return false;
 
-        return CanRiggerAccessMapCoordinates(riggerEye, _transform.GetMapCoordinates(target));
+        return CanRiggerAccessMapCoordinates(riggerEye, controlled, _transform.GetMapCoordinates(target));
     }
 
     private bool CanRiggerAccessMapPosition(EntityUid riggerEye, EntityUid controlled, Vector2 position)
     {
         var mapId = Transform(controlled).MapID;
-        return CanRiggerAccessMapCoordinates(riggerEye, new MapCoordinates(position, mapId));
+        return CanRiggerAccessMapCoordinates(riggerEye, controlled, new MapCoordinates(position, mapId));
     }
 
-    private bool CanRiggerAccessMapCoordinates(EntityUid riggerEye, MapCoordinates coordinates)
+    private bool CanRiggerAccessMapCoordinates(EntityUid riggerEye, EntityUid controlled, MapCoordinates coordinates)
     {
-        if (!_mapManager.TryFindGridAt(coordinates, out var gridUid, out var grid) ||
-            !TryComp<BroadphaseComponent>(gridUid, out var broadphase))
-        {
-            return false;
-        }
-
-        var tile = _map.GetTileRef(gridUid, grid, coordinates);
-        return _riggerVision.IsAccessible(riggerEye, (gridUid, broadphase, grid), tile.GridIndices);
+        return _riggerVision.IsCommandAccessible(riggerEye, controlled, coordinates);
     }
 
     private void PopupCommandResult(ICommonSession session, int accepted, int rejected)
@@ -387,7 +372,14 @@ public sealed partial class RTSSystem : EntitySystem
         };
 
         var faction = EnsureComp<NpcFactionMemberComponent>(uid);
-        _faction.ClearFactions((uid, faction), dirty: false);
+
+        // RTS owns only the factions declared by its aggression prototype. Preserve antagonist,
+        // event and other system memberships instead of clearing the entire faction component.
+        foreach (var managedFaction in aggression.PeacefulFactions.Concat(aggression.NormalFactions).Distinct())
+        {
+            _faction.RemoveFaction((uid, faction), managedFaction, dirty: false);
+        }
+
         _faction.AddFactions((uid, faction), targetFactions, dirty: true);
 
         if (mode == RTSAggressionMode.Aggressive)

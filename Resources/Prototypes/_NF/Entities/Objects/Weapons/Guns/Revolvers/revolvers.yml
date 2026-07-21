@@ -22,7 +22,7 @@
     chambers: [ True, True, True, True, True, True, True, True ]
     ammoSlots: [ null, null, null, null, null, null, null, null ]
   - type: StaticPrice
-    price: 200
+    price: 100
 
 - type: entity
   parent: WeaponRevolverArgenti

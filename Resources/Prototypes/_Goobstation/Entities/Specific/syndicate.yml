@@ -11,7 +11,7 @@
   - type: Item
     size: Small
   - type: StaticPrice
-    price: 3000
+    price: 1000
   - type: GrantCqc
 
 - type: entity
@@ -28,5 +28,5 @@
     sprite: _Goobstation/Wizard/Objects/scroll.rsi
     size: Small
   - type: StaticPrice
-    price: 3000
+    price: 1000
   - type: GrantSleepingCarp

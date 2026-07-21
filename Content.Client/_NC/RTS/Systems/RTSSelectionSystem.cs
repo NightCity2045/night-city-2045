@@ -133,7 +133,7 @@ public sealed class RTSSelectionSystem : EntitySystem
             return false;
 
         var mapCoords = _eyeManager.ScreenToMap(args.ScreenCoordinates);
-        var targetEntity = GetEntityUnderPosition(mapCoords);
+        var targetEntity = GetAttackTargetUnderPosition(mapCoords);
         var pendingCommand = _pendingCommand;
         _pendingCommand = null;
 
@@ -145,7 +145,6 @@ public sealed class RTSSelectionSystem : EntitySystem
                     IssueCommand(RTSCommandType.AttackTarget, args.ScreenCoordinates, targetEntity);
                     break;
                 case RTSCommandType.AttackTarget:
-                    IssueCommand(RTSCommandType.Move, args.ScreenCoordinates);
                     break;
                 case RTSCommandType.Move:
                 case RTSCommandType.AttackMove:
@@ -159,10 +158,9 @@ public sealed class RTSSelectionSystem : EntitySystem
             return true;
         }
 
-        if (targetEntity != null)
-            IssueCommand(RTSCommandType.AttackTarget, args.ScreenCoordinates, targetEntity);
-        else
-            IssueCommand(RTSCommandType.Move, args.ScreenCoordinates);
+        // A plain right click is always movement. Attacking requires the explicit attack command,
+        // so floor entities such as puddles and decals cannot turn movement into gunfire.
+        IssueCommand(RTSCommandType.Move, args.ScreenCoordinates);
 
         return true;
     }
@@ -348,7 +346,9 @@ public sealed class RTSSelectionSystem : EntitySystem
             return;
 
         var mapCoords = _eyeManager.ScreenToMap(screenCoords);
-        var targetEntity = target ?? GetEntityUnderPosition(mapCoords);
+        var targetEntity = type == RTSCommandType.AttackTarget
+            ? target ?? GetAttackTargetUnderPosition(mapCoords)
+            : null;
         var netEntities = new List<NetEntity>();
 
         foreach (var uid in SelectedEntities)
@@ -422,7 +422,7 @@ public sealed class RTSSelectionSystem : EntitySystem
         return prototypeId != null && prototypeId.StartsWith("MobNC", StringComparison.Ordinal);
     }
 
-    private EntityUid? GetEntityUnderPosition(MapCoordinates mapCoords)
+    private EntityUid? GetAttackTargetUnderPosition(MapCoordinates mapCoords)
     {
         var box = Box2.CenteredAround(mapCoords.Position, new Vector2(0.4f, 0.4f));
 
@@ -430,6 +430,7 @@ public sealed class RTSSelectionSystem : EntitySystem
         {
             if (SelectedEntities.Contains(uid) ||
                 !HasComp<SpriteComponent>(uid) ||
+                !HasComp<MobStateComponent>(uid) && !HasComp<RTSAttackableComponent>(uid) ||
                 HasComp<GhostComponent>(uid))
             {
                 continue;

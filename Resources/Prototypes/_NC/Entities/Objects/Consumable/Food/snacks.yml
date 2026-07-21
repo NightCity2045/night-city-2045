@@ -393,23 +393,23 @@
     FoodFrozenSnowconeMime: 5
     FoodFrozenSnowconeRainbow: 5
   startingItemPrices:
-    DrinkIceCreamGlass: 28
-    DoubleIceCreamGlass: 36
-    FoodFrozenSandwich: 32
-    FoodFrozenSandwichStrawberry: 32
-    FoodFrozenFreezy: 32
-    FoodFrozenSundae: 32
-    FoodFrozenCornuto: 32
-    FoodFrozenPopsicleOrange: 32
-    FoodFrozenPopsicleBerry: 32
-    FoodFrozenPopsicleJumbo: 32
-    FoodFrozenSnowconeBase: 32
-    FoodFrozenSnowcone: 32
-    FoodFrozenSnowconeBerry: 32
-    FoodFrozenSnowconeFruit: 32
-    FoodFrozenSnowconeClown: 48
-    FoodFrozenSnowconeMime: 48
-    FoodFrozenSnowconeRainbow: 48
+    DrinkIceCreamGlass: 20
+    DoubleIceCreamGlass: 50
+    FoodFrozenSandwich: 20
+    FoodFrozenSandwichStrawberry: 20
+    FoodFrozenFreezy: 20
+    FoodFrozenSundae: 20
+    FoodFrozenCornuto: 20
+    FoodFrozenPopsicleOrange: 20
+    FoodFrozenPopsicleBerry: 20
+    FoodFrozenPopsicleJumbo: 20
+    FoodFrozenSnowconeBase: 20
+    FoodFrozenSnowcone: 20
+    FoodFrozenSnowconeBerry: 20
+    FoodFrozenSnowconeFruit: 20
+    FoodFrozenSnowconeClown: 50
+    FoodFrozenSnowconeMime: 50
+    FoodFrozenSnowconeRainbow: 50
 
 - type: entity
   parent: VendingMachineColaBlack

@@ -4,7 +4,7 @@
   description: job-description-trauma-team-doctor
   playTimeTracker: JobTraumaTeamDoctor
   weight: 50
-  salary: 300
+  salary: 100
   icon: "JobIconTraumaDoctor"
   startingGear: TraumaTeamDoctorGear
   supervisors: Главный врач Trauma Team

@@ -4,7 +4,7 @@
   description: job-description-militech-chief
   playTimeTracker: JobMilitechChief
   weight: 100
-  salary: 650
+  salary: 150
   icon: "JobIconMilitechChief"
   startingGear: MilitechChiefGear
   access:

@@ -21,20 +21,20 @@
     ClothingNeckCloakCentcom: 3
   startingItemPrices:
     ClothingShoesBootsLaceup: 50
-    ClothingShoesBootsJack: 50
-    ClothingHandsGlovesCombat: 50
-    ClothingEyesGlassesSunglasses: 20
-    ClothingUniformJumpsuitCentcomOfficer: 200
-    ClothingUniformJumpsuitCentcomOfficial: 200
-    ClothingUniformJumpsuitCentcomAgent: 200
-    ClothingUniformJumpsuitCentcomFormal: 200
-    ClothingUniformJumpskirtCentcomFormalDress: 200
+    ClothingShoesBootsJack: 100
+    ClothingHandsGlovesCombat: 100
+    ClothingEyesGlassesSunglasses: 100
+    ClothingUniformJumpsuitCentcomOfficer: 100
+    ClothingUniformJumpsuitCentcomOfficial: 100
+    ClothingUniformJumpsuitCentcomAgent: 100
+    ClothingUniformJumpsuitCentcomFormal: 100
+    ClothingUniformJumpskirtCentcomFormalDress: 100
     ClothingHeadHatCentcom: 100
     ClothingHeadHatCentcomcap: 100
     ClothingMaskGasCentcom: 100
-    ClothingHeadsetCentCom: 200
-    ClothingOuterWinterCentcom: 200
+    ClothingHeadsetCentCom: 100
+    ClothingOuterWinterCentcom: 100
     ClothingOuterCoatExpensive: 500
     ClothingNeckScarfStripedCentcom: 50
     ClothingShoesBootsWinterCentCom: 100
-    ClothingNeckCloakCentcom: 200
+    ClothingNeckCloakCentcom: 100

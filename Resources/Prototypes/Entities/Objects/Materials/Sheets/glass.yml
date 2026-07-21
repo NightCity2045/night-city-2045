@@ -55,7 +55,7 @@
       - Silicon
       - SiliconUnshielded
   - type: StackPrice
-    price: 2
+    price: 10
 
 - type: entity
   parent: SheetGlassBase

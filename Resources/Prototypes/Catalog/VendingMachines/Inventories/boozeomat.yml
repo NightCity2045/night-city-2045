@@ -27,26 +27,26 @@
     DrinkAbsintheBottleFull: 50
     DrinkAleBottleFull: 20
     DrinkBeerBottleFull: 20
-    DrinkBlueCuracaoBottleFull: 30
+    DrinkBlueCuracaoBottleFull: 20
     DrinkCognacBottleFull: 50
-    DrinkGinBottleFull: 30
+    DrinkGinBottleFull: 20
     DrinkGildlagerBottleFull: 50
-    DrinkCoffeeLiqueurBottleFull: 30
-    DrinkMelonLiquorBottleFull: 30
-    DrinkPatronBottleFull: 40
-    DrinkRumBottleFull: 30
-    DrinkTequilaBottleFull: 30
-    DrinkVermouthBottleFull: 30
+    DrinkCoffeeLiqueurBottleFull: 20
+    DrinkMelonLiquorBottleFull: 20
+    DrinkPatronBottleFull: 50
+    DrinkRumBottleFull: 20
+    DrinkTequilaBottleFull: 20
+    DrinkVermouthBottleFull: 20
     DrinkVodkaBottleFull: 20
-    DrinkWhiskeyBottleFull: 30
+    DrinkWhiskeyBottleFull: 20
     DrinkWineBottleFull: 20
     DrinkChampagneBottleFull: 100
-    DrinkSakeBottleFull: 30
+    DrinkSakeBottleFull: 20
     DrinkSojuBottleFull: 20
     DrinkBeerCan: 10
     DrinkWineCan: 10
   contrabandInventory:
     DrinkPoisonWinebottleFull: 2
   contrabandItemPrices:
-    DrinkPoisonWinebottleFull: 200
+    DrinkPoisonWinebottleFull: 100
   # NC edit end: NightCity FastFood

@@ -193,6 +193,8 @@ ent-PDAMilitechRigger = Militech Rigger PDA
 ent-PDAMilitechRigger-desc = Hardened field PDA for drone control, telemetry, and live tactical routing.
 ent-NCMilitechRiggerLaptop = Militech rigger tablet
 ent-NCMilitechRiggerLaptop-desc = A hardened tactical tablet for issuing RTS commands to nearby Militech robots while held in both hands.
+ent-NCBiotechnicaRiggerLaptop = Biotechnica rigger tablet
+ent-NCBiotechnicaRiggerLaptop-desc = A hardened tactical tablet for issuing RTS commands to nearby Biotechnica robots while held in both hands.
 ent-MilitechRiggerIDCard = Militech Rigger ID card
 
 # Misc

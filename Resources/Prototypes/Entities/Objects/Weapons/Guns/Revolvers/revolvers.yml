@@ -116,7 +116,7 @@
     zeroVisible: true
   - type: Appearance
   - type: StaticPrice
-    price: 1500
+    price: 1000
 
 - type: entity
   name: Deckard

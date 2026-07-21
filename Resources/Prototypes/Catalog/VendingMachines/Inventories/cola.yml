@@ -11,18 +11,18 @@
     NCDrinkCanSodaAccelerate: 3
     NCDrinkCanRipperRedCola: 3
   startingItemPrices:
-    NCDrinkCanCola: 15
-    NCDrinkCanClassicCola: 17
-    NCDrinkCanSweetCola: 18
-    NCDrinkCanBerryCola: 16
-    NCDrinkCanRipperCola: 18
-    NCDrinkCanSoda: 14
-    NCDrinkCanSodaAccelerate: 15
-    NCDrinkCanRipperRedCola: 13
+    NCDrinkCanCola: 20
+    NCDrinkCanClassicCola: 20
+    NCDrinkCanSweetCola: 20
+    NCDrinkCanBerryCola: 20
+    NCDrinkCanRipperCola: 20
+    NCDrinkCanSoda: 10
+    NCDrinkCanSodaAccelerate: 10
+    NCDrinkCanRipperRedCola: 10
   contrabandInventory:
     NCDrinkCanAltCola: 3
     NCDrinkCanOrbitalAirCola: 3
   contrabandItemPrices:
-    NCDrinkCanAltCola: 13
-    NCDrinkCanOrbitalAirCola: 26
+    NCDrinkCanAltCola: 10
+    NCDrinkCanOrbitalAirCola: 20
   # NC edit end: NightCity FastFood

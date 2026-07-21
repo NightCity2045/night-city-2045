@@ -24,4 +24,4 @@
     containers:
     - board
   - type: StaticPrice
-    price: 165
+    price: 100

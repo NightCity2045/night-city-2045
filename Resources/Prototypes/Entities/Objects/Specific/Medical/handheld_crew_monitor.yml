@@ -62,7 +62,7 @@
   - type: PowerCellDraw
     useRate: 10
   - type: StaticPrice
-    price: 750
+    price: 500
 
 - type: entity
   id: SpyCrewMonitorEmpty

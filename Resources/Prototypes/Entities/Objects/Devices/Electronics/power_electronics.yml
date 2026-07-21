@@ -18,7 +18,7 @@
       chemicalComposition:
         Silicon: 20
     - type: StaticPrice
-      price: 34
+      price: 20
 
 # Wallmount Substation
 - type: entity
@@ -31,7 +31,7 @@
       sprite: Objects/Misc/module.rsi
       state: charger_APC
     - type: StaticPrice
-      price: 40
+      price: 50
     - type: Tag
       tags:
         - WallmountSubstationElectronics
@@ -66,7 +66,7 @@
       sprite: Objects/Misc/module.rsi
       state: charger_APC
     - type: StaticPrice
-      price: 40
+      price: 50
     - type: Tag
       tags:
         - WallmountGeneratorAPUElectronics
@@ -82,7 +82,7 @@
       sprite: Objects/Misc/module.rsi
       state: engineering
     - type: StaticPrice
-      price: 85
+      price: 100
     - type: Tag
       tags:
         - SolarTrackerElectronics

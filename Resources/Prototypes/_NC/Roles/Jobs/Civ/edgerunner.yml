@@ -4,7 +4,7 @@
   description: job-description-edgerunner
   playTimeTracker: JobEdgeRunnerSolo
   icon: "JobIconCivilEdgerunner"
-  salary: 15
+  salary: 20
   access:
     - NC_General
     - EdgeRunner

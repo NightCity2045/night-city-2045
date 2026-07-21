@@ -172,7 +172,7 @@
     containers:
     - board
   - type: StaticPrice
-    price: 150
+    price: 100
   - type: PryUnpowered
   - type: InteractionVerbs
     allowedVerbs:
@@ -247,7 +247,7 @@
     graph: Windoor
     node: windoorSecure
   - type: StaticPrice
-    price: 350
+    price: 500
   - type: Tag
     tags:
     - SecureWindoor
@@ -466,7 +466,7 @@
     graph: Windoor
     node: uwindoor
   - type: StaticPrice
-    price: 560
+    price: 500
   - type: RadiationBlocker
     resistance: 5
 
@@ -537,7 +537,7 @@
     graph: Windoor
     node: uwindoorSecure
   - type: StaticPrice
-    price: 750
+    price: 500
   - type: RadiationBlocker
     resistance: 8
   - type: Tag

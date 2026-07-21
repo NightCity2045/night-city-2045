@@ -75,7 +75,6 @@ public sealed partial class NPCCombatSystem
             if (_steeringQuery.TryGetComponent(uid, out var steering) && steering.Status == SteeringStatus.NoPath)
             {
                 comp.Status = CombatStatus.TargetUnreachable;
-                comp.ShootAccumulator = 0f;
                 continue;
             }
 
@@ -83,14 +82,12 @@ public sealed partial class NPCCombatSystem
                 !_physicsQuery.TryGetComponent(comp.Target, out var targetBody))
             {
                 comp.Status = CombatStatus.TargetUnreachable;
-                comp.ShootAccumulator = 0f;
                 continue;
             }
 
             if (targetXform.MapID != xform.MapID)
             {
                 comp.Status = CombatStatus.TargetUnreachable;
-                comp.ShootAccumulator = 0f;
                 continue;
             }
 
@@ -102,7 +99,6 @@ public sealed partial class NPCCombatSystem
             if (!_gun.TryGetGun(uid, out var gunUid, out var gun))
             {
                 comp.Status = CombatStatus.NoWeapon;
-                comp.ShootAccumulator = 0f;
                 continue;
             }
 
@@ -118,7 +114,6 @@ public sealed partial class NPCCombatSystem
                 }
 
                 comp.Status = CombatStatus.Unspecified;
-                comp.ShootAccumulator = 0f;
                 continue;
             }
 
@@ -144,7 +139,6 @@ public sealed partial class NPCCombatSystem
 
             if (!comp.TargetInLOS)
             {
-                comp.ShootAccumulator = 0f;
                 comp.Status = CombatStatus.NotInSight;
 
                 if (TryComp(uid, out steering))
@@ -160,13 +154,6 @@ public sealed partial class NPCCombatSystem
                 _audio.PlayPvs(comp.SoundTargetInLOS, uid);
             }
 
-            comp.ShootAccumulator += frameTime;
-
-            if (comp.ShootAccumulator < comp.ShootDelay)
-            {
-                continue;
-            }
-
             var mapVelocity = targetBody.LinearVelocity;
             var targetSpot = targetPos + mapVelocity * distance / ShootSpeed;
 
@@ -179,9 +166,8 @@ public sealed partial class NPCCombatSystem
                 continue;
             }
 
-            if (NCIsFriendlyInLineOfFire(uid, comp.Target, comp, xform, worldPos, targetSpot, out _))
+            if (NCIsFriendlyInLineOfFire(uid, comp.Target, comp, gun, xform, worldPos, targetSpot, out _))
             {
-                comp.ShootAccumulator = 0f;
                 NCRepositionForFriendlyFire(uid, comp, xform, worldPos, targetSpot);
                 continue;
             }

@@ -42,7 +42,7 @@
     materialComposition:
       Cloth: 100
   - type: StaticPrice
-    price: 5
+    price: 10
   - type: Food
     requiresSpecialDigestion: true
     useSound:
@@ -1408,7 +1408,7 @@
     materialComposition:
       Plastic: 100
   - type: StaticPrice
-    price: 25
+    price: 20
   - type: Tag
     tags:
     - Figurine

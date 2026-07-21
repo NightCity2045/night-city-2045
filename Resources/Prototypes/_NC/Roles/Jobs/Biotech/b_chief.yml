@@ -4,7 +4,7 @@
   description: job-description-biotechnica-chief
   playTimeTracker: JobBiotechnicaChief
   weight: 100
-  salary: 600
+  salary: 150
   icon: "JobIconBiotechChief"
   startingGear: BiotechnicaChiefGear
   access:

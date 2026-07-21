@@ -30,32 +30,32 @@
     RollerBedSpawnFolded: 2
   #NC EDIT START
   startingItemPrices:
-    HandheldHealthAnalyzer: 150
-    Brutepack: 30
-    Ointment: 30
-    Gauze: 10
+    HandheldHealthAnalyzer: 1000
+    Brutepack: 100
+    Ointment: 100
+    Gauze: 50
     RegenerativeMesh: 50
     MedicatedSuture: 50
-    PainMedipen: 80
-    MedicalPatchPrefilledBicaridine: 80
-    MedicalPatchPrefilledDermaline: 80
-    Bloodpack: 60
+    PainMedipen: 100
+    MedicalPatchPrefilledBicaridine: 100
+    MedicalPatchPrefilledDermaline: 100
+    Bloodpack: 50
     EpinephrineChemistryBottle: 100
-    Syringe: 10
+    Syringe: 20
     Defibrillator: 500
-    CartridgeEpinephrine: 150
-    CartridgeAtropine: 150
-    SyringeCase: 25
-    BoxSyringe: 50
+    CartridgeEpinephrine: 100
+    CartridgeAtropine: 100
+    SyringeCase: 20
+    BoxSyringe: 100
     EmergencyMedipen: 100
-    PowerCellMedium: 80
-    RollerBedSpawnFolded: 200
-    EmergencyRollerBedSpawnFolded: 200
-    VehicleWheelchairFolded: 300
+    PowerCellMedium: 100
+    RollerBedSpawnFolded: 100
+    EmergencyRollerBedSpawnFolded: 100
+    VehicleWheelchairFolded: 100
   #NC EDIT END
   # WD EDIT START
   emaggedInventory:
     StimpackMini: 1
   emaggedItemPrices:
-    StimpackMini: 800
+    StimpackMini: 1000
   # WD EDIT END

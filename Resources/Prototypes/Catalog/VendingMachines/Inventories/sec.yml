@@ -58,28 +58,28 @@
     # BreachingCharge: 100
     SecurityWhistle: 20
     Handcuffs: 100
-    WeaponSecurityRiotLauncher: 1250
-    GrenadeFlashBang: 250
-    GrenadeBarrier: 300
-    TearGasGrenade: 250
-    ClusterBangFull: 750
-    GrenadeStinger: 300
-    Flash: 150
+    WeaponSecurityRiotLauncher: 1000
+    GrenadeFlashBang: 100
+    GrenadeBarrier: 100
+    TearGasGrenade: 100
+    ClusterBangFull: 500
+    GrenadeStinger: 100
+    Flash: 100
     Tourniquet: 50
     FlashlightSeclite: 100
-    HoloprojectorSecurity: 400
+    HoloprojectorSecurity: 500
     ClothingEyesGlassesSunglasses: 100
     ClothingEyesGlassesSecurity: 500
-    ClothingBeltSecurityWebbing: 250
-    CombatKnife: 200
-    Truncheon: 300
+    ClothingBeltSecurityWebbing: 100
+    CombatKnife: 100
+    Truncheon: 100
     Zipties: 20
-    BolaEnergy: 450
-    RiotShield: 750
-    RiotLaserShield: 1100
-    RiotBulletShield: 1400
-    RadioHandheldSecurity: 200
-    BreachingCharge: 600
+    BolaEnergy: 500
+    RiotShield: 500
+    RiotLaserShield: 1000
+    RiotBulletShield: 1000
+    RadioHandheldSecurity: 100
+    BreachingCharge: 500
     NcpdTablet: 100
     NcpdCitationTerminal: 100
   # security officers need to follow a diet regimen!
@@ -87,14 +87,14 @@
     FoodDonutHomer: 12
     FoodBoxDonut: 2
   contrabandItemPrices:
-    FoodDonutHomer: 40
-    FoodBoxDonut: 150
+    FoodDonutHomer: 50
+    FoodBoxDonut: 100
     #box evidence
   #WWDP edit start
   emaggedInventory:
     GrenadeShrapnel: 1
     EmpGrenade: 1
   emaggedItemPrices:
-    GrenadeShrapnel: 800
+    GrenadeShrapnel: 1000
     EmpGrenade: 1000
   #WWDP edit end

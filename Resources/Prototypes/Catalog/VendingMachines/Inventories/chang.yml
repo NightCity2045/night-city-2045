@@ -9,10 +9,10 @@
     FoodSnackDanDanNoodles: 3
     PairedChopsticks: 3
   startingItemPrices:
-    FoodCondimentPacketSoy: 15
+    FoodCondimentPacketSoy: 10
     FoodSnackCookieFortune: 10
-    DrinkRamen: 30
-    DrinkHellRamen: 30
-    FoodSnackChowMein: 30
-    FoodSnackDanDanNoodles: 30
+    DrinkRamen: 20
+    DrinkHellRamen: 20
+    FoodSnackChowMein: 20
+    FoodSnackDanDanNoodles: 20
     PairedChopsticks: 10

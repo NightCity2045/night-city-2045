@@ -33,32 +33,32 @@
 
   startingItemPrices:
     # External
-    CyberwareExternalKevlarSublayer: 150
-    CyberwareExternalThermoplasticArmor: 400
-    CyberwareExternalReactiveSublayer: 1500
+    CyberwareExternalKevlarSublayer: 100
+    CyberwareExternalThermoplasticArmor: 500
+    CyberwareExternalReactiveSublayer: 1000
     # Internal
     CyberwareInternalPolymerSkeleton: 100
-    CyberwareInternalTitaniumReinforcement: 300
-    CyberwareInternalArmyEndoskeleton: 1500
-    CyberwareInternalNasalFilters: 250
-    CyberwareInternalEnhancedAntibodies: 450
+    CyberwareInternalTitaniumReinforcement: 1000
+    CyberwareInternalArmyEndoskeleton: 1000
+    CyberwareInternalNasalFilters: 100
+    CyberwareInternalEnhancedAntibodies: 500
     # Neuro
-    CyberwareNeuroBlockerAegis: 120
-    CyberwareNeuroBioInhibitorStoic: 300
-    CyberwareNeuroKerenzikovMk1: 100
-    CyberwareNeuroKerenzikovMk2: 250
-    CyberwareNeuroKerenzikovMk3: 700
-    CyberwareNeuroSandevistanMk1: 1200
+    CyberwareNeuroBlockerAegis: 500
+    CyberwareNeuroBioInhibitorStoic: 100
+    CyberwareNeuroKerenzikovMk1: 500
+    CyberwareNeuroKerenzikovMk2: 500
+    CyberwareNeuroKerenzikovMk3: 500
+    CyberwareNeuroSandevistanMk1: 1000
     # Optic
-    CyberwareImplantAntiglare: 200
+    CyberwareImplantAntiglare: 100
     CyberwareImplantInfraredVision: 500
     CyberwareImplantMicroVideo: 100
-    CyberwareImplantMicroOptics: 250
+    CyberwareImplantMicroOptics: 100
     # Human Organs
-    OrganHumanHeart: 150
+    OrganHumanHeart: 100
     OrganHumanLungs: 100
     OrganHumanLiver: 100
     OrganHumanKidneys: 100
     OrganHumanEyes: 50
-    OrganHumanBrain: 200
+    OrganHumanBrain: 100
 

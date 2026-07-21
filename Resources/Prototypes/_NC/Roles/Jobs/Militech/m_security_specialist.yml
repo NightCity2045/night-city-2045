@@ -4,7 +4,7 @@
   description: job-description-militech-security-specialist
   playTimeTracker: JobMilitechSecuritySpecialist
   weight: 55
-  salary: 350
+  salary: 125
   icon: "JobIconMilitechSecuritySpecialist"
   startingGear: MilitechSecuritySpecialistGear
   access:

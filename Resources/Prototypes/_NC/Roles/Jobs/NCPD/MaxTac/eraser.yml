@@ -4,7 +4,7 @@
   description: job-description-maxtac-eraser
   playTimeTracker: JobMaxTacEraser
   weight: 60
-  salary: 350
+  salary: 125
   icon: "JobIconMaxTacOperator"
   startingGear: MaxTacEraserGear
   supervisors: Штурм командир

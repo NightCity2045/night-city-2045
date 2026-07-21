@@ -16,7 +16,7 @@
   - type: LogicPowerReceiver
     powerLoad: 250
   - type: NCTrashRewardMachine
-    rewardPerItem: 5
+    rewardPerItem: 10
     currency: Credit
     trashWhitelist:
       components:

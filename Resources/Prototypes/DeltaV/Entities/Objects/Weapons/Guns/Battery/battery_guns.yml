@@ -133,7 +133,7 @@
     - HighRiskItem
     - Sidearm
   - type: StaticPrice
-    price: 750
+    price: 500
   - type: StealTarget
     stealGroup: HoSAntiqueWeapon
 
@@ -269,7 +269,7 @@
     tags:
     - Sidearm
   - type: StaticPrice
-    price: 750
+    price: 500
   - type: MeleeWeapon
     attackRate: 1.2
     damage:

@@ -95,7 +95,7 @@
     maxFillLevels: 2
     fillBaseName: packet-solid-
   - type: StaticPrice
-    price: 12
+    price: 10
 
 - type: entity
   parent: NCCondimentPacket
@@ -114,7 +114,7 @@
     maxFillLevels: 2
     fillBaseName: packet-solid-
   - type: StaticPrice
-    price: 18
+    price: 20
 
 - type: entity
   parent: NCCondimentPacket
@@ -133,7 +133,7 @@
     maxFillLevels: 2
     fillBaseName: packet-trans-
   - type: StaticPrice
-    price: 8
+    price: 10
 
 - type: entity
   parent: NCCondimentPacket
@@ -175,7 +175,7 @@
     maxFillLevels: 2
     fillBaseName: packet-solid-
   - type: StaticPrice
-    price: 35
+    price: 20
 
 - type: entity
   parent: NCCondimentPacket
@@ -194,7 +194,7 @@
     maxFillLevels: 2
     fillBaseName: packet-solid-
   - type: StaticPrice
-    price: 14
+    price: 10
 
 - type: entity
   parent: NCCondimentPacket
@@ -213,7 +213,7 @@
     maxFillLevels: 2
     fillBaseName: packet-solid-
   - type: StaticPrice
-    price: 16
+    price: 20
 
 - type: entity
   parent: NCCondimentPacket
@@ -232,7 +232,7 @@
     maxFillLevels: 2
     fillBaseName: packet-solid-
   - type: StaticPrice
-    price: 13
+    price: 10
 
 - type: entity
   parent: NCCondimentPacket
@@ -251,7 +251,7 @@
     maxFillLevels: 2
     fillBaseName: packet-solid-
   - type: StaticPrice
-    price: 11
+    price: 10
 
 - type: entity
   parent: NCCondimentPacket
@@ -270,7 +270,7 @@
     maxFillLevels: 2
     fillBaseName: packet-solid-
   - type: StaticPrice
-    price: 22
+    price: 20
 
 - type: entity
   parent: NCCondimentPacket
@@ -289,7 +289,7 @@
     maxFillLevels: 2
     fillBaseName: packet-trans-
   - type: StaticPrice
-    price: 17
+    price: 20
 
 - type: entity
   parent: NCCondimentPacket
@@ -308,7 +308,7 @@
     maxFillLevels: 2
     fillBaseName: packet-trans-
   - type: StaticPrice
-    price: 25
+    price: 20
 
 # region Exotic
 
@@ -333,7 +333,7 @@
     maxFillLevels: 2
     fillBaseName: packet-solid-
   - type: StaticPrice
-    price: 28
+    price: 20
 
 - type: entity
   parent: NCCondimentPacket
@@ -356,7 +356,7 @@
     maxFillLevels: 2
     fillBaseName: packet-solid-
   - type: StaticPrice
-    price: 32
+    price: 20
 
 - type: entity
   parent: NCCondimentPacket
@@ -379,7 +379,7 @@
     maxFillLevels: 2
     fillBaseName: packet-solid-
   - type: StaticPrice
-    price: 26
+    price: 20
 
 - type: entity
   parent: NCCondimentPacket
@@ -400,7 +400,7 @@
     maxFillLevels: 2
     fillBaseName: packet-solid-
   - type: StaticPrice
-    price: 42
+    price: 50
 
 - type: entity
   parent: NCCondimentPacket
@@ -419,7 +419,7 @@
     maxFillLevels: 2
     fillBaseName: packet-solid-
   - type: StaticPrice
-    price: 19
+    price: 20
 
 - type: entity
   parent: NCCondimentPacket
@@ -442,7 +442,7 @@
     maxFillLevels: 2
     fillBaseName: packet-solid-
   - type: StaticPrice
-    price: 24
+    price: 20
 
 - type: entity
   parent: NCCondimentPacket
@@ -480,7 +480,7 @@
     maxFillLevels: 2
     fillBaseName: packet-solid-
   - type: StaticPrice
-    price: 21
+    price: 20
 
 - type: entity
   parent: NCCondimentPacket
@@ -501,7 +501,7 @@
     maxFillLevels: 2
     fillBaseName: packet-solid-
   - type: StaticPrice
-    price: 36
+    price: 50
 
 - type: entity
   parent: NCCondimentPacket
@@ -524,7 +524,7 @@
     maxFillLevels: 2
     fillBaseName: packet-solid-
   - type: StaticPrice
-    price: 38
+    price: 50
 
 - type: entity
   parent: NCCondimentPacket
@@ -549,7 +549,7 @@
     maxFillLevels: 2
     fillBaseName: packet-solid-
   - type: StaticPrice
-    price: 33
+    price: 20
 
 - type: entity
   parent: NCCondimentPacket
@@ -574,7 +574,7 @@
     maxFillLevels: 2
     fillBaseName: packet-solid-
   - type: StaticPrice
-    price: 15
+    price: 10
 
 - type: entity
   parent: NCCondimentPacket
@@ -599,7 +599,7 @@
     maxFillLevels: 2
     fillBaseName: packet-solid-
   - type: StaticPrice
-    price: 25
+    price: 20
 
 - type: entity
   parent: NCCondimentPacket
@@ -624,7 +624,7 @@
     maxFillLevels: 2
     fillBaseName: packet-solid-
   - type: StaticPrice
-    price: 35
+    price: 20
 
 - type: entity
   parent: NCCondimentPacket
@@ -647,7 +647,7 @@
     maxFillLevels: 2
     fillBaseName: packet-solid-
   - type: StaticPrice
-    price: 40
+    price: 50
 
 - type: entity
   parent: NCCondimentPacket
@@ -670,7 +670,7 @@
     maxFillLevels: 2
     fillBaseName: packet-solid-
   - type: StaticPrice
-    price: 30
+    price: 20
 
 - type: entity
   parent: NCCondimentPacket
@@ -691,7 +691,7 @@
     maxFillLevels: 2
     fillBaseName: packet-solid-
   - type: StaticPrice
-    price: 45
+    price: 50
 
 - type: entity
   parent: NCCondimentPacket
@@ -739,7 +739,7 @@
     maxFillLevels: 2
     fillBaseName: packet-solid-
   - type: StaticPrice
-    price: 60
+    price: 50
 
 # region Jams
 
@@ -764,7 +764,7 @@
     maxFillLevels: 2
     fillBaseName: packet-trans-
   - type: StaticPrice
-    price: 29
+    price: 20
 
 - type: entity
   parent: NCCondimentPacket
@@ -787,7 +787,7 @@
     maxFillLevels: 2
     fillBaseName: packet-trans-
   - type: StaticPrice
-    price: 31
+    price: 20
 
 - type: entity
   parent: NCCondimentPacket
@@ -810,7 +810,7 @@
     maxFillLevels: 2
     fillBaseName: packet-trans-
   - type: StaticPrice
-    price: 27
+    price: 20
 
 - type: entity
   parent: NCCondimentPacket
@@ -833,7 +833,7 @@
     maxFillLevels: 2
     fillBaseName: packet-trans-
   - type: StaticPrice
-    price: 30
+    price: 20
 
 # region Random Spawner
 

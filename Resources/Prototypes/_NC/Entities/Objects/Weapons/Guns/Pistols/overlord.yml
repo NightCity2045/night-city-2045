@@ -47,7 +47,7 @@
   - type: AmmoCounter
 
   - type: StaticPrice
-    price: 1500
+    price: 100
 
 
 # Пустой вариант

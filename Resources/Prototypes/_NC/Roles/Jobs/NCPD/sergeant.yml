@@ -4,7 +4,7 @@
   description: job-description-ncpd-sergeant
   playTimeTracker: JobNCPDSergeant
   weight: 45
-  salary: 160
+  salary: 75
   icon: "JobIconNCPDPoliceSerg"
   startingGear: NCPDSergeantGear
   supervisors: Лейтенант

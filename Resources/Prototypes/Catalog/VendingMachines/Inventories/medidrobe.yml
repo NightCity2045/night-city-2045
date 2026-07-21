@@ -78,18 +78,18 @@
     # ClothingEyesGlasses: 50
     # ClothingEyesHudMedical: 100
     # ClothingEyesEyepatchHudMedical: 100
-    ClothingOuterHardsuitTraumaTeamMedic: 1500
+    ClothingOuterHardsuitTraumaTeamMedic: 1000
     ClothingOuterHardsuitTraumaTeamOperative: 1000
-    ClothingEyesNightVisionMedicalGoggles: 800
-    ClothingUniformJumpsuitMedicalGreen: 150
-    ClothingUniformJumpsuitParamedicUniform: 300
-    ClothingBackpackSatchelMedical: 150
+    ClothingEyesNightVisionMedicalGoggles: 1000
+    ClothingUniformJumpsuitMedicalGreen: 100
+    ClothingUniformJumpsuitParamedicUniform: 100
+    ClothingBackpackSatchelMedical: 100
     ClothingHeadHatBeretBrigmedic: 100
-    ClothingBackpackDuffelMedical: 150
-    ClothingShoesBootsJack: 150
+    ClothingBackpackDuffelMedical: 100
+    ClothingShoesBootsJack: 100
     ClothingHandsGlovesEnviroglovesNitrile: 100
-    ClothingHandsGlovesLatex: 40
-    ClothingBeltMedicalEMT: 250
+    ClothingHandsGlovesLatex: 50
+    ClothingBeltMedicalEMT: 100
   contrabandInventory: #DeltaV
     UniformScrubsColorCybersun: 1 #DeltaV
     ClothingHeadHatSurgcapCybersun: 1 #DeltaV

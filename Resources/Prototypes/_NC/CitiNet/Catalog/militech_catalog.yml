@@ -4,39 +4,39 @@
   entries:
   - proto: WeaponSubMachineGunMilitechSaratoga
     name: Militech Saratoga
-    price: 300
+    price: 100
     dataPrice: 50
     count: 100
   - proto: WeaponSubMachineGunMilitechSaratogaNCPD
-    price: 400
+    price: 1000
     dataPrice: 50
     count: 300
   - proto: WeaponSubMachineGunMilitechSaratogaRED
-    price: 400
+    price: 1000
     dataPrice: 50
     count: 300
   - proto: WeaponShotgunMilitechCrusher
-    price: 550
+    price: 1000
     dataPrice: 75
     count: 100
   - proto: WeaponPistolAvenger
-    price: 450
+    price: 500
     dataPrice: 70
     count: 100
   - proto: WeaponPistolBoomerBuster
-    price: 700
+    price: 500
     dataPrice: 100
     count: 50
   - proto: MagazinePistolAvenger
-    price: 60
+    price: 50
     dataPrice: 10
     count: 300
   - proto: MagazinePistolBoomerBuster
-    price: 80
+    price: 100
     dataPrice: 15
     count: 200
   - proto: MagazinePistolSubMachineGunSaratoga
-    price: 75
+    price: 50
     dataPrice: 15
     count: 300
   - proto: MagazineShotgunMilitechCrusher
@@ -44,15 +44,15 @@
     dataPrice: 20
     count: 200
   - proto: AmmoBox9x19
-    price: 120
+    price: 100
     dataPrice: 15
     count: 200
   - proto: AmmoBox11x20
-    price: 180
+    price: 100
     dataPrice: 20
     count: 150
   - proto: AmmoBox13x23
-    price: 240
+    price: 100
     dataPrice: 30
     count: 100
 
@@ -63,27 +63,27 @@
   - proto: ClothingOuterArmorMilitechBulletproof
     name: Militech Ballistic Vest
     description: Restricted Militech composite armor for licensed corporate security teams.
-    price: 75
+    price: 50
     dataPrice: 15
     count: 100
   - proto: ClothingOuterHardsuitMilitech
-    price: 2500
+    price: 1000
     dataPrice: 350
     count: 20
   - proto: NCArmorPlateCeramic
-    price: 350
+    price: 500
     dataPrice: 60
     count: 100
   - proto: NCArmorPlateSteel
-    price: 220
+    price: 100
     dataPrice: 35
     count: 150
   - proto: NCArmorPlateKevlar
-    price: 180
+    price: 100
     dataPrice: 25
     count: 200
   - proto: NCArmorBlueprintMilitechVest
-    price: 900
+    price: 1000
     dataPrice: 150
     count: 30
 
@@ -92,11 +92,11 @@
   name: UNIFORMS
   entries:
   - proto: ClothingUniformJumpsuitMilitech
-    price: 180
+    price: 100
     dataPrice: 15
     count: 100
   - proto: ClothingHeadHatMilitechCap
-    price: 80
+    price: 100
     dataPrice: 5
     count: 100
 
@@ -105,23 +105,23 @@
   name: TECH SUPPLY
   entries:
   - proto: WeaponWorkbenchFlatpack
-    price: 1200
+    price: 1000
     dataPrice: 180
     count: 20
   - proto: NCMilitechRobotAvengerFlatpack
-    price: 1800
+    price: 1000
     dataPrice: 250
     count: 10
   - proto: NCMilitechRobotSaratogaFlatpack
-    price: 2000
+    price: 1000
     dataPrice: 300
     count: 10
   - proto: NCMilitechRobotCrusherFlatpack
-    price: 2400
+    price: 1000
     dataPrice: 350
     count: 10
   - proto: NCMilitechRobotBoomerFlatpack
-    price: 2600
+    price: 1000
     dataPrice: 400
     count: 10
   - proto: NCWeaponScrap
@@ -129,23 +129,23 @@
     dataPrice: 10
     count: 200
   - proto: NCBlankBarrelPipe
-    price: 90
+    price: 100
     dataPrice: 10
     count: 100
   - proto: NCBlankBarrelAlloy
-    price: 250
+    price: 100
     dataPrice: 35
     count: 80
   - proto: NCBlankBarrelTungsten
-    price: 650
+    price: 500
     dataPrice: 100
     count: 40
   - proto: NCBlankFramePlastic
-    price: 90
+    price: 100
     dataPrice: 10
     count: 100
   - proto: NCBlankFrameMilled
-    price: 300
+    price: 100
     dataPrice: 45
     count: 80
   - proto: NCBlankInternalsScrap
@@ -153,15 +153,15 @@
     dataPrice: 10
     count: 100
   - proto: NCBlankInternalsBolt
-    price: 300
+    price: 100
     dataPrice: 45
     count: 80
   - proto: NCBlankElectronicsCircuit
-    price: 350
+    price: 500
     dataPrice: 60
     count: 60
   - proto: NCBlankDrive
-    price: 600
+    price: 500
     dataPrice: 100
     count: 30
 
@@ -170,103 +170,103 @@
   name: GENERAL SUPPLY
   entries:
   - proto: BoxPillCanister
-    price: 60
+    price: 50
     dataPrice: 5
     count: 100
   - proto: ClothingEyesGlassesMesonBudget
-    price: 180
+    price: 100
     dataPrice: 15
     count: 100
   - proto: ClothingHandsGlovesColorGreen
-    price: 35
+    price: 20
     dataPrice: 0
     count: 100
   - proto: ClothingHeadHatGreensoft
-    price: 45
+    price: 50
     dataPrice: 0
     count: 100
   - proto: ClothingMaskBandGreen
-    price: 35
+    price: 20
     dataPrice: 0
     count: 100
   - proto: ClothingHeadBandGreen
-    price: 30
+    price: 20
     dataPrice: 0
     count: 100
   - proto: ClothingBackpackSatchelHydroponics
-    price: 140
+    price: 100
     dataPrice: 10
     count: 100
   - proto: BiotechnicaWrench
-    price: 120
+    price: 100
     dataPrice: 15
     count: 100
   - proto: IngotTungsten1
-    price: 220
+    price: 100
     dataPrice: 35
     count: 100
   - proto: BluespaceBeaker
-    price: 1200
+    price: 1000
     dataPrice: 150
     count: 100
   - proto: BluespaceWateringCanExperimental
-    price: 2200
+    price: 1000
     dataPrice: 250
     count: 100
   - proto: BiotechnicaPlantBagHolding
-    price: 1600
+    price: 1000
     dataPrice: 200
     count: 100
   - proto: ClothingUniformEnvirosuitBiotechnicaBotany
-    price: 700
+    price: 500
     dataPrice: 75
     count: 100
   - proto: N14MaterialCircuitry1
-    price: 80
+    price: 100
     dataPrice: 10
     count: 100
   - proto: SheetPrinter1
-    price: 90
+    price: 100
     dataPrice: 10
     count: 100
   - proto: SheetPlasma1
-    price: 140
+    price: 100
     dataPrice: 20
     count: 100
   - proto: IngotSilver1
-    price: 180
+    price: 100
     dataPrice: 20
     count: 100
   - proto: SheetUranium1
-    price: 220
+    price: 100
     dataPrice: 35
     count: 100
   - proto: UnstableMutagenChemistryBottle
-    price: 450
+    price: 500
     dataPrice: 75
     count: 100
   - proto: MaterialDiamond1
-    price: 650
+    price: 500
     dataPrice: 100
     count: 100
   - proto: SheetClockworkGlass1
-    price: 250
+    price: 100
     dataPrice: 40
     count: 100
   - proto: SheetPlasteel1
-    price: 160
+    price: 100
     dataPrice: 25
     count: 100
   - proto: SheetSteel1
-    price: 25
+    price: 20
     dataPrice: 0
     count: 100
   - proto: Salt1
-    price: 15
+    price: 10
     dataPrice: 0
     count: 100
   - proto: RobustHarvestChemistryBottle
-    price: 180
+    price: 100
     dataPrice: 25
     count: 100
   - proto: SheetPaper1
@@ -274,7 +274,7 @@
     dataPrice: 0
     count: 100
   - proto: IngotGold1
-    price: 300
+    price: 100
     dataPrice: 50
     count: 100
   - proto: SheetPlastic1
@@ -286,103 +286,103 @@
     dataPrice: 0
     count: 100
   - proto: BoxSteelWide
-    price: 120
+    price: 100
     dataPrice: 5
     count: 100
   - proto: ClothingOuterApronBiotechnicaBotany
-    price: 180
+    price: 100
     dataPrice: 15
     count: 100
   - proto: ClothingBackpackHydroponics
-    price: 120
+    price: 100
     dataPrice: 10
     count: 100
   - proto: ClothingBeltBiotechnicaBotanyFilledFull
-    price: 650
+    price: 500
     dataPrice: 75
     count: 100
   - proto: ClothingEyesGogglesBiotechnicaBotany
-    price: 280
+    price: 100
     dataPrice: 35
     count: 100
   - proto: ClothingHandsGlovesEnviroglovesBiotechnicaBotany
-    price: 320
+    price: 500
     dataPrice: 40
     count: 100
   - proto: ClothingHandsGlovesColorWhite
-    price: 35
+    price: 20
     dataPrice: 0
     count: 100
   - proto: N14IngotAluminium1
-    price: 70
+    price: 50
     dataPrice: 5
     count: 100
   - proto: SheetBrass1
-    price: 80
+    price: 100
     dataPrice: 5
     count: 100
   - proto: BoxTrashbag
-    price: 35
+    price: 20
     dataPrice: 0
     count: 100
   - proto: BoxBeaker
-    price: 120
+    price: 100
     dataPrice: 5
     count: 100
   - proto: BoxSterileMask
-    price: 90
+    price: 100
     dataPrice: 5
     count: 100
   - proto: BoxLatexGloves
-    price: 90
+    price: 100
     dataPrice: 5
     count: 100
   - proto: BoxBottle
-    price: 120
+    price: 100
     dataPrice: 5
     count: 100
   - proto: PlushieOrchiDea
-    price: 300
+    price: 100
     dataPrice: 10
     count: 100
   - proto: PlushieExperiment
-    price: 300
+    price: 100
     dataPrice: 10
     count: 100
   - proto: IngotCopper1
-    price: 80
+    price: 100
     dataPrice: 5
     count: 100
   - proto: BluespaceBucket
-    price: 1300
+    price: 1000
     dataPrice: 150
     count: 100
   - proto: HydroponicsToolMiniHoe
-    price: 80
+    price: 100
     dataPrice: 5
     count: 100
   - proto: BiotechnicaClippers
-    price: 140
+    price: 100
     dataPrice: 15
     count: 100
   - proto: BoxSyringe
-    price: 120
+    price: 100
     dataPrice: 10
     count: 100
   - proto: ClothingHeadHatBiotechnicaSterile
-    price: 70
+    price: 50
     dataPrice: 5
     count: 100
   - proto: BoxMouthSwab
-    price: 220
+    price: 100
     dataPrice: 25
     count: 100
   - proto: ClothingEyesGlassesChemical
-    price: 450
+    price: 500
     dataPrice: 50
     count: 100
   - proto: BoxVial
-    price: 120
+    price: 100
     dataPrice: 10
     count: 100
 

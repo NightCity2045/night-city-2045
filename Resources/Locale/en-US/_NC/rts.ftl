@@ -12,12 +12,13 @@ nc-rts-mode-enabled = RTS mode enabled.
 nc-rts-mode-disabled = RTS mode disabled.
 nc-rts-command-accepted = Command accepted for {$count} unit(s).
 nc-rts-command-rejected = Command rejected.
+nc-rigger-laptop-access-denied = The tablet rejects your credentials.
 
 action-nc-rts-toggle-name = RTS Mode
 action-nc-rts-toggle-desc = Toggle RTS command mode for controllable NPCs.
 action-nc-rigger-exit-console-name = Exit rigger console
 action-nc-rigger-exit-console-desc = Return your mind to your body at the rigger console.
 action-nc-rigger-toggle-rts-name = RTS Mode
-action-nc-rigger-toggle-rts-desc = Toggle RTS command mode for linked rigger drones.
+action-nc-rigger-toggle-rts-desc = Toggle command mode for linked drones. Right-click moves; use the Attack command to fire.
 action-nc-rigger-drone-status-name = Drone status
 action-nc-rigger-drone-status-desc = List linked rigger drones and their current state.

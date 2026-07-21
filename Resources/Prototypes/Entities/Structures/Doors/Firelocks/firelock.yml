@@ -107,7 +107,7 @@
   - type: WallMount
     arc: 360
   - type: StaticPrice
-    price: 150
+    price: 100
   - type: AccessReader
     access: [ [ "Engineering" ] ]
   - type: PryUnpowered

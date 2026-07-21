@@ -12,13 +12,13 @@
   - proto: Defibrillator
     name: Defibrillator Unit
     description: Corporate clinic resuscitation hardware with audited custody.
-    price: 70
+    price: 500
     dataPrice: 30
     count: 100
   - proto: Bloodpack
     name: Synthetic Blood Pack
     description: Stabilized blood substitute for field medtech response.
-    price: 20
+    price: 50
     dataPrice: 10
     count: 100
 
@@ -35,55 +35,55 @@
   - proto: BiotechnicaChemBagHolding
     name: Biotechnica Chemical Satchel
     description: Expanded field chemistry bag for sample recovery and containment.
-    price: 30
+    price: 500
     dataPrice: 50
     count: 100
   - proto: ClothingHeadEnvirohelmBiotechnicaBotany
-    price: 450
+    price: 500
     dataPrice: 60
     count: 100
   - proto: ClothingShoesEnviroshoesBiotechnicaBotany
-    price: 320
+    price: 500
     dataPrice: 40
     count: 100
   - proto: ClothingMaskBreathBiotechnicaBotany
-    price: 260
+    price: 100
     dataPrice: 35
     count: 100
   - proto: ClothingBeltBiotechnicaTechFilledFull
-    price: 750
+    price: 500
     dataPrice: 100
     count: 60
   - proto: ClothingBeltBiotechnicaMedTechFilledFull
-    price: 750
+    price: 500
     dataPrice: 100
     count: 60
   - proto: ClothingOuterCoatBiotechnica
-    price: 240
+    price: 100
     dataPrice: 25
     count: 100
   - proto: ClothingOuterCoatBiotechnicaRad
-    price: 650
+    price: 500
     dataPrice: 90
     count: 60
   - proto: ClothingOuterCoatBiotechnicaAdvanced
-    price: 900
+    price: 1000
     dataPrice: 130
     count: 40
   - proto: ClothingBackpackBiotechnica
-    price: 160
+    price: 100
     dataPrice: 15
     count: 100
   - proto: ClothingBackpackSatchelBiotechnica
-    price: 160
+    price: 100
     dataPrice: 15
     count: 100
   - proto: ClothingBackpackDuffelBiotechnica
-    price: 190
+    price: 100
     dataPrice: 20
     count: 100
   - proto: ClothingHeadHatBiotechnicaCap
-    price: 80
+    price: 100
     dataPrice: 5
     count: 100
 
@@ -92,103 +92,103 @@
   name: GENERAL SUPPLY
   entries:
   - proto: BoxPillCanister
-    price: 60
+    price: 50
     dataPrice: 5
     count: 100
   - proto: ClothingEyesGlassesMesonBudget
-    price: 180
+    price: 100
     dataPrice: 15
     count: 100
   - proto: ClothingHandsGlovesColorGreen
-    price: 35
+    price: 20
     dataPrice: 0
     count: 100
   - proto: ClothingHeadHatGreensoft
-    price: 45
+    price: 50
     dataPrice: 0
     count: 100
   - proto: ClothingMaskBandGreen
-    price: 35
+    price: 20
     dataPrice: 0
     count: 100
   - proto: ClothingHeadBandGreen
-    price: 30
+    price: 20
     dataPrice: 0
     count: 100
   - proto: ClothingBackpackSatchelHydroponics
-    price: 140
+    price: 100
     dataPrice: 10
     count: 100
   - proto: BiotechnicaWrench
-    price: 120
+    price: 100
     dataPrice: 15
     count: 100
   - proto: IngotTungsten1
-    price: 220
+    price: 100
     dataPrice: 35
     count: 100
   - proto: BluespaceBeaker
-    price: 1200
+    price: 1000
     dataPrice: 150
     count: 100
   - proto: BluespaceWateringCanExperimental
-    price: 2200
+    price: 1000
     dataPrice: 250
     count: 100
   - proto: BiotechnicaPlantBagHolding
-    price: 1600
+    price: 1000
     dataPrice: 200
     count: 100
   - proto: ClothingUniformEnvirosuitBiotechnicaBotany
-    price: 700
+    price: 500
     dataPrice: 75
     count: 100
   - proto: N14MaterialCircuitry1
-    price: 80
+    price: 100
     dataPrice: 10
     count: 100
   - proto: SheetPrinter1
-    price: 90
+    price: 100
     dataPrice: 10
     count: 100
   - proto: SheetPlasma1
-    price: 140
+    price: 100
     dataPrice: 20
     count: 100
   - proto: IngotSilver1
-    price: 180
+    price: 100
     dataPrice: 20
     count: 100
   - proto: SheetUranium1
-    price: 220
+    price: 100
     dataPrice: 35
     count: 100
   - proto: UnstableMutagenChemistryBottle
-    price: 450
+    price: 500
     dataPrice: 75
     count: 100
   - proto: MaterialDiamond1
-    price: 650
+    price: 500
     dataPrice: 100
     count: 100
   - proto: SheetClockworkGlass1
-    price: 250
+    price: 100
     dataPrice: 40
     count: 100
   - proto: SheetPlasteel1
-    price: 160
+    price: 100
     dataPrice: 25
     count: 100
   - proto: SheetSteel1
-    price: 25
+    price: 20
     dataPrice: 0
     count: 100
   - proto: Salt1
-    price: 15
+    price: 10
     dataPrice: 0
     count: 100
   - proto: RobustHarvestChemistryBottle
-    price: 180
+    price: 100
     dataPrice: 25
     count: 100
   - proto: SheetPaper1
@@ -196,7 +196,7 @@
     dataPrice: 0
     count: 100
   - proto: IngotGold1
-    price: 300
+    price: 100
     dataPrice: 50
     count: 100
   - proto: SheetPlastic1
@@ -208,103 +208,103 @@
     dataPrice: 0
     count: 100
   - proto: BoxSteelWide
-    price: 120
+    price: 100
     dataPrice: 5
     count: 100
   - proto: ClothingOuterApronBiotechnicaBotany
-    price: 180
+    price: 100
     dataPrice: 15
     count: 100
   - proto: ClothingBackpackHydroponics
-    price: 120
+    price: 100
     dataPrice: 10
     count: 100
   - proto: ClothingBeltBiotechnicaBotanyFilledFull
-    price: 650
+    price: 500
     dataPrice: 75
     count: 100
   - proto: ClothingEyesGogglesBiotechnicaBotany
-    price: 280
+    price: 100
     dataPrice: 35
     count: 100
   - proto: ClothingHandsGlovesEnviroglovesBiotechnicaBotany
-    price: 320
+    price: 500
     dataPrice: 40
     count: 100
   - proto: ClothingHandsGlovesColorWhite
-    price: 35
+    price: 20
     dataPrice: 0
     count: 100
   - proto: N14IngotAluminium1
-    price: 70
+    price: 50
     dataPrice: 5
     count: 100
   - proto: SheetBrass1
-    price: 80
+    price: 100
     dataPrice: 5
     count: 100
   - proto: BoxTrashbag
-    price: 35
+    price: 20
     dataPrice: 0
     count: 100
   - proto: BoxBeaker
-    price: 120
+    price: 100
     dataPrice: 5
     count: 100
   - proto: BoxSterileMask
-    price: 90
+    price: 100
     dataPrice: 5
     count: 100
   - proto: BoxLatexGloves
-    price: 90
+    price: 100
     dataPrice: 5
     count: 100
   - proto: BoxBottle
-    price: 120
+    price: 100
     dataPrice: 5
     count: 100
   - proto: PlushieOrchiDea
-    price: 300
+    price: 100
     dataPrice: 10
     count: 100
   - proto: PlushieExperiment
-    price: 300
+    price: 100
     dataPrice: 10
     count: 100
   - proto: IngotCopper1
-    price: 80
+    price: 100
     dataPrice: 5
     count: 100
   - proto: BluespaceBucket
-    price: 1300
+    price: 1000
     dataPrice: 150
     count: 100
   - proto: HydroponicsToolMiniHoe
-    price: 80
+    price: 100
     dataPrice: 5
     count: 100
   - proto: BiotechnicaClippers
-    price: 140
+    price: 100
     dataPrice: 15
     count: 100
   - proto: BoxSyringe
-    price: 120
+    price: 100
     dataPrice: 10
     count: 100
   - proto: ClothingHeadHatBiotechnicaSterile
-    price: 70
+    price: 50
     dataPrice: 5
     count: 100
   - proto: BoxMouthSwab
-    price: 220
+    price: 100
     dataPrice: 25
     count: 100
   - proto: ClothingEyesGlassesChemical
-    price: 450
+    price: 500
     dataPrice: 50
     count: 100
   - proto: BoxVial
-    price: 120
+    price: 100
     dataPrice: 10
     count: 100
 
@@ -317,51 +317,51 @@
     dataPrice: 0
     count: 300
   - proto: NCDrinkCanBiotechnicaTonicMutagen
-    price: 120
+    price: 100
     dataPrice: 20
     count: 100
   - proto: NCDrinkCanBiotechnicaMultifruit
-    price: 35
+    price: 20
     dataPrice: 0
     count: 200
   - proto: NCDrinkCanBiotechnicaVitamins
-    price: 45
+    price: 50
     dataPrice: 5
     count: 200
   - proto: YeastChemistryBottle
-    price: 80
+    price: 100
     dataPrice: 5
     count: 100
   - proto: CornSmoothieChemistryBottle
-    price: 120
+    price: 100
     dataPrice: 10
     count: 100
   - proto: WheatSmoothieChemistryBottle
-    price: 120
+    price: 100
     dataPrice: 10
     count: 100
   - proto: BioEthanolChemistryBottle
-    price: 180
+    price: 100
     dataPrice: 25
     count: 100
   - proto: PrimeTimeChemistryBottle
-    price: 350
+    price: 500
     dataPrice: 60
     count: 60
   - proto: SixGunChemistryBottle
-    price: 300
+    price: 100
     dataPrice: 50
     count: 60
   - proto: NitroPolymerChemistryBottle
-    price: 450
+    price: 500
     dataPrice: 75
     count: 50
   - proto: WhiteMatterChemistryBottle
-    price: 600
+    price: 500
     dataPrice: 100
     count: 30
   - proto: NeuroStimChemistryBottle
-    price: 700
+    price: 500
     dataPrice: 120
     count: 30
 
@@ -370,27 +370,27 @@
   name: FABRICATION
   entries:
   - proto: NCCyberwareFabCircuitboard
-    price: 1800
+    price: 1000
     dataPrice: 300
     count: 20
   - proto: NCCyberwarePack
-    price: 1200
+    price: 1000
     dataPrice: 200
     count: 20
   - proto: Civil3DPrinterFlatpack
-    price: 900
+    price: 1000
     dataPrice: 120
     count: 20
   - proto: ChemDispenserFlatpack
-    price: 1600
+    price: 1000
     dataPrice: 240
     count: 15
   - proto: ReagentGrinderFlatpack
-    price: 700
+    price: 500
     dataPrice: 80
     count: 30
   - proto: NCBiotechnicaRobotAvengerFlatpack
-    price: 900
+    price: 1000
     dataPrice: 125
     count: 10
   - proto: NCBiotechnicaRobotSaratogaFlatpack
@@ -398,11 +398,11 @@
     dataPrice: 150
     count: 10
   - proto: NCBiotechnicaRobotCrusherFlatpack
-    price: 1200
+    price: 1000
     dataPrice: 175
     count: 10
   - proto: NCBiotechnicaRobotBoomerBusterFlatpack
-    price: 1300
+    price: 1000
     dataPrice: 200
     count: 10
 
@@ -411,11 +411,11 @@
   name: citinet-store-category-cyberware
   entries:
   - proto: CyberwareImplantAntiglare
-    price: 200
+    price: 100
     dataPrice: 100
     count: 100
   - proto: CyberwareImplantInfraredVision
-    price: 200
+    price: 500
     dataPrice: 200
     count: 100
   - proto: CyberwareImplantMicroVideo
@@ -423,23 +423,23 @@
     dataPrice: 50
     count: 100
   - proto: CyberwareImplantMicroOptics
-    price: 250
+    price: 100
     dataPrice: 100
     count: 100
   - proto: CyberwareNeuroKerenzikovMk1
-    price: 400
+    price: 500
     dataPrice: 230
     count: 100
   - proto: CyberwareNeuroKerenzikovMk2
-    price: 450
+    price: 500
     dataPrice: 350
     count: 100
   - proto: CyberwareNeuroKerenzikovMk3
-    price: 600
+    price: 500
     dataPrice: 800
     count: 100
   - proto: CyberwareNeuroBioInhibitorStoic
-    price: 300
+    price: 100
     dataPrice: 280
     count: 100
   - proto: CyberwareNeuroBlockerAegis
@@ -447,43 +447,43 @@
     dataPrice: 320
     count: 100
   - proto: CyberwareNeuroTacticalSpartan
-    price: 750
+    price: 1000
     dataPrice: 500
     count: 100
   - proto: CyberwareNeuroSandevistanMk1
-    price: 300
+    price: 1000
     dataPrice: 180
     count: 100
   - proto: CyberwareInternalPolymerSkeleton
-    price: 300
+    price: 100
     dataPrice: 300
     count: 100
   - proto: CyberwareInternalTitaniumReinforcement
-    price: 600
+    price: 1000
     dataPrice: 450
     count: 100
   - proto: CyberwareInternalArmyEndoskeleton
-    price: 800
+    price: 1000
     dataPrice: 1000
     count: 100
   - proto: CyberwareInternalNasalFilters
-    price: 200
+    price: 100
     dataPrice: 100
     count: 100
   - proto: CyberwareInternalEnhancedAntibodies
-    price: 100
+    price: 500
     dataPrice: 600
     count: 100
   - proto: CyberwareExternalKevlarSublayer
-    price: 200
+    price: 100
     dataPrice: 100
     count: 100
   - proto: CyberwareExternalThermoplasticArmor
-    price: 250
+    price: 500
     dataPrice: 300
     count: 100
   - proto: CyberwareExternalReactiveSublayer
-    price: 400
+    price: 1000
     dataPrice: 400
     count: 100
 

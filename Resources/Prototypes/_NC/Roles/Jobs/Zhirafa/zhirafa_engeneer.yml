@@ -3,7 +3,7 @@
   name: job-name-zhirafa-engineer
   description: job-description-zhirafa-engineer
   playTimeTracker: JobZhirafaEngeneer
-  salary: 180
+  salary: 75
   icon: "JobIconCivilRipper"
   access:
     - NC_General

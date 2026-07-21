@@ -162,7 +162,6 @@ public sealed class NPCAutoReloadSystem : EntitySystem
         // Vanilla ranged combat parks itself as Unspecified on dry ammo.
         // After our abstract reload succeeds, revive the existing target state.
         ranged.Status = CombatStatus.Normal;
-        ranged.ShootAccumulator = 0f;
         ranged.LOSAccumulator = 0f;
         ranged.TargetInLOS = false;
     }

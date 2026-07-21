@@ -27,7 +27,7 @@
   - type: Wieldable
     autoWield: false
   - type: StaticPrice
-    price: 350
+    price: 100
 
 - type: entity
   name: Сваха

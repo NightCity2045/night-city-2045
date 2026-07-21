@@ -49,7 +49,7 @@
     inHandsMaxFillLevels: 5
     inHandsFillBaseName: -fill-
   - type: StaticPrice
-    price: 60
+    price: 10
   - type: Damageable
     damageContainer: Inorganic
   - type: Destructible

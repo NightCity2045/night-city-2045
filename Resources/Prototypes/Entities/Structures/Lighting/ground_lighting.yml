@@ -64,7 +64,7 @@
         sound:
           collection: MetalGlassBreak
   - type: StaticPrice
-    price: 75
+    price: 50
   - type: RequireProjectileTarget
 
 - type: entity

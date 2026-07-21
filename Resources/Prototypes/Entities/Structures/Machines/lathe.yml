@@ -48,7 +48,7 @@
     anchored: true
   - type: Pullable
   - type: StaticPrice
-    price: 800
+    price: 1000
   - type: ResearchClient
   - type: TechnologyDatabase
   - type: Speech # Goobstation - Lathe message on recipes update

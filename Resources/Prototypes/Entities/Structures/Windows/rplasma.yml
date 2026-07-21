@@ -54,7 +54,7 @@
     damageOverlay:
       sprite: Structures/Windows/cracks.rsi
   - type: StaticPrice
-    price: 132
+    price: 100
   - type: ExplosionResistance
     damageCoefficient: 0.2
 
@@ -112,7 +112,7 @@
       - !type:DoActsBehavior
         acts: [ "Destruction" ]
   - type: StaticPrice
-    price: 66
+    price: 50
 
 - type: entity
   parent: ReinforcedPlasmaWindow

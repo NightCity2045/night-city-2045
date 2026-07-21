@@ -3,7 +3,7 @@
   name: job-name-zhirafa-janitor
   description: job-description-zhirafa-janitor
   playTimeTracker: JobZhirafaJanitor
-  salary: 80
+  salary: 50
   icon: "JobIconCivilCitizen"
   startingGear: ZhirafaJanitorGear
   access:

@@ -4,7 +4,7 @@
   description: job-description-militech-combat-medic
   playTimeTracker: JobMilitechCombatMedic
   weight: 60
-  salary: 250
+  salary: 100
   icon: "JobIconMilitechCombatMedic"
   startingGear: MilitechCombatMedicGear
   access:

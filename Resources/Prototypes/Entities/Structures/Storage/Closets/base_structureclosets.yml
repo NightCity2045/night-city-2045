@@ -120,7 +120,7 @@
     stateDoorOpen: generic_open
     stateDoorClosed: generic_door
   - type: StaticPrice
-    price: 75
+    price: 50
   - type: DamageOtherOnHit
     damage:
       types:
@@ -159,7 +159,7 @@
   - type: WallMount
     arc: 175
   - type: StaticPrice
-    price: 75
+    price: 50
   - type: Transform
     #noRot: false   WD Edit
   - type: Sprite
@@ -255,7 +255,7 @@
   - type: Anchorable
     delay: 2
   - type: StaticPrice
-    price: 80
+    price: 100
   - type: ResistLocker
   - type: Transform
     noRot: true

@@ -1,3 +1,4 @@
+using Content.Shared._NC.Rigger.Components;
 using Content.Shared.NPC.Components;
 using Content.Shared.NPC.Prototypes;
 using Robust.Shared.Prototypes;
@@ -6,6 +7,30 @@ namespace Content.Shared.NPC.Systems;
 
 public sealed partial class NpcFactionSystem
 {
+    /// <summary>
+    /// Uses a drone's stable command faction before its temporary aggression faction.
+    /// Every RTS combat path must use this method so targeting, retaliation and shot safety agree.
+    /// </summary>
+    public bool NCIsRtsFriendly(EntityUid source, EntityUid target)
+    {
+        if (TryComp<RiggerDroneComponent>(source, out var sourceDrone))
+        {
+            if (TryComp<RiggerDroneComponent>(target, out var targetDrone) &&
+                sourceDrone.DroneFactions.Overlaps(targetDrone.DroneFactions))
+            {
+                return true;
+            }
+
+            if (TryComp<NpcFactionMemberComponent>(target, out var targetFaction) &&
+                IsMemberOfAny((target, targetFaction), sourceDrone.DroneFactions))
+            {
+                return true;
+            }
+        }
+
+        return IsEntityFriendly(source, target);
+    }
+
     /// <summary>
     /// Adds temporary RTS hostility against every known NPC faction except the
     /// entity's own factions. The entity keeps its normal faction membership so

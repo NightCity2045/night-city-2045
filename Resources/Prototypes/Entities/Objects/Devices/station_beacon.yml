@@ -76,7 +76,7 @@
         - !type:DoActsBehavior
           acts: ["Breakage"]
   - type: StaticPrice
-    price: 25
+    price: 20
   - type: GiftIgnore # WD EDIT
 
 - type: entity

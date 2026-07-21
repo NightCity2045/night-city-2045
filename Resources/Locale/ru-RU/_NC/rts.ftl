@@ -12,12 +12,13 @@ nc-rts-mode-enabled = RTS-режим включён.
 nc-rts-mode-disabled = RTS-режим выключен.
 nc-rts-command-accepted = Команда принята для юнитов: {$count}.
 nc-rts-command-rejected = Команда отклонена.
+nc-rigger-laptop-access-denied = Планшет отклоняет ваши права доступа.
 
 action-nc-rts-toggle-name = RTS-режим
 action-nc-rts-toggle-desc = Переключить RTS-режим командования управляемыми NPC.
 action-nc-rigger-exit-console-name = Выйти из консоли риггера
 action-nc-rigger-exit-console-desc = Вернуть сознание в тело у консоли риггера.
 action-nc-rigger-toggle-rts-name = RTS-режим
-action-nc-rigger-toggle-rts-desc = Переключить RTS-режим командования привязанными дронами риггера.
+action-nc-rigger-toggle-rts-desc = Переключить режим управления привязанными дронами. ПКМ перемещает; для стрельбы выберите команду «Атака».
 action-nc-rigger-drone-status-name = Статус дронов
 action-nc-rigger-drone-status-desc = Показать привязанных дронов риггера и их текущее состояние.

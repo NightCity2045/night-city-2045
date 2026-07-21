@@ -3,40 +3,40 @@
   name: citinet-store-category-weapons
   entries:
   - proto: WeaponPistolOverlord
-    price: 80
+    price: 100
     count: 1
   - proto: WeaponPistolFederalX9
-    price: 150
+    price: 100
     count: 1
   - proto: WeaponPistolBoomerBuster
-    price: 250
+    price: 500
     count: 1
   - proto: WeaponShotgunSvakha
-    price: 120
+    price: 100
     count: 7
   - proto: WeaponSubMachineGunMilitechSaratogaNCPD
-    price: 1600
+    price: 1000
     count: 1
   - proto: WeaponSubMachineGunMilitechSaratogaRED
-    price: 1200
+    price: 1000
     count: 2
   - proto: WeaponShotgunMilitechCrusher
-    price: 1400
+    price: 1000
     count: 1
   - proto: WeaponPistolHelloCutie
-    price: 120
+    price: 100
     count: 3
   - proto: WeaponPistolStreetMaster
-    price: 180
+    price: 100
     count: 3
   - proto: WeaponPistolCheesemaker
-    price: 220
+    price: 100
     count: 2
   - proto: WeaponPistolAvenger
-    price: 450
+    price: 500
     count: 2
   - proto: WeaponPistolMarkIII
-    price: 350
+    price: 500
     count: 2
   - proto: WeaponPistolStukachTommy
     price: 1000
@@ -48,16 +48,16 @@
     price: 500
     count: 2
   - proto: WeaponRifleNokotaD5Copperhead
-    price: 1200
+    price: 1000
     count: 1
   - proto: WeaponRifleM04
-    price: 2500
+    price: 1000
     count: 1
   - proto: WeaponSubMachineGunArasakaShingen
-    price: 1800
+    price: 1000
     count: 1
   - proto: WeaponRifleArasakaNOWAKI
-    price: 2200
+    price: 1000
     count: 1
   - proto: WeaponRifleArasakaProto
     price: 15000
@@ -68,22 +68,22 @@
   name: citinet-store-category-melee
   entries:
   - proto: CombatKnife
-    price: 50
+    price: 100
     count: 5
   - proto: SurvivalKnife
-    price: 80
+    price: 100
     count: 3
   - proto: Machete
     price: 100
     count: 3
   - proto: KukriKnife
-    price: 150
+    price: 100
     count: 2
   - proto: FireAxe
-    price: 200
+    price: 100
     count: 1
   - proto: Katana
-    price: 600
+    price: 500
     count: 1
 
 - type: citiNetStoreCategory
@@ -91,28 +91,28 @@
   name: citinet-store-category-armor
   entries:
   - proto: ClothingOuterArmorBasic
-    price: 150
+    price: 100
     count: 5
   - proto: ClothingOuterVestWebMerc
-    price: 250
+    price: 100
     count: 3
   - proto: ClothingOuterVestDetective
-    price: 200
+    price: 100
     count: 3
   - proto: ClothingOuterArmorRiot
-    price: 400
+    price: 500
     count: 2
   - proto: ClothingOuterArmorBulletproof
-    price: 600
+    price: 1000
     count: 2
   - proto: ClothingHeadHelmetBasic
-    price: 80
+    price: 100
     count: 5
   - proto: ClothingHeadHelmetMerc
-    price: 150
+    price: 100
     count: 3
   - proto: ClothingHeadHelmetRiot
-    price: 250
+    price: 100
     count: 2
 
 - type: citiNetStoreCategory
@@ -123,40 +123,40 @@
     price: 20
     count: 15
   - proto: MagazinePistolOverlord
-    price: 25
+    price: 20
     count: 15
   - proto: MagazinePistolStreetMaster
-    price: 30
+    price: 20
     count: 10
   - proto: MagazinePistolMarkIII
-    price: 30
+    price: 20
     count: 10
   - proto: MagazinePistolFederalX9
-    price: 35
+    price: 20
     count: 10
   - proto: MagazinePistolCheesemaker
-    price: 40
-    count: 10
-  - proto: MagazinePistolAvenger
-    price: 45
-    count: 10
-  - proto: MagazinePistolBoomerBuster
     price: 50
     count: 10
+  - proto: MagazinePistolAvenger
+    price: 50
+    count: 10
+  - proto: MagazinePistolBoomerBuster
+    price: 100
+    count: 10
   - proto: MagazinePistolStukach
-    price: 60
+    price: 50
     count: 5
   - proto: MagazineRifleNowaki
-    price: 90
+    price: 100
     count: 8
   - proto: MagazineRifleNokota
-    price: 75
+    price: 50
     count: 8
   - proto: MagazineRifleNomad
-    price: 60
+    price: 50
     count: 8
   - proto: MagazineRifleM04
-    price: 90
+    price: 100
     count: 5
   - proto: CartridgeArasakaRailgun
     price: 50
@@ -165,43 +165,43 @@
     price: 100
     count: 5
   - proto: AmmoBox11x20
-    price: 150
+    price: 100
     count: 5
   - proto: AmmoBox13x23
-    price: 200
+    price: 100
     count: 3
   - proto: AmmoBox556x45CL
-    price: 250
+    price: 100
     count: 2
   - proto: AmmoBox152mm
-    price: 300
+    price: 100
     count: 2
   - proto: AmmoBoxNomadSpike
     price: 100
     count: 5
   - proto: BoxShotgunSlug
-    price: 60
+    price: 50
     count: 4
   - proto: MagazinePistolSubMachineGunSaratoga
     price: 50
     count: 10
   - proto: MagazinePistolSubMachineGunShingen
-    price: 60
+    price: 50
     count: 10
   - proto: MagazineShotgunMilitechCrusher
-    price: 75
+    price: 100
     count: 5
   - proto: MagazineRifleArasaka
-    price: 120
+    price: 100
     count: 4
   - proto: AmmoBox622mmCaseless
     price: 500
     count: 1
   - proto: Cartridge127mm
-    price: 75
+    price: 50
     count: 15
   - proto: Cartridge622mmCaseless
-    price: 120
+    price: 100
     count: 10
 
 - type: citiNetStoreCategory
@@ -209,61 +209,61 @@
   name: citinet-store-category-cyberware
   entries:
   - proto: CyberwareImplantAntiglare
-    price: 150
+    price: 100
     count: 5
   - proto: CyberwareImplantInfraredVision
-    price: 150
+    price: 500
     count: 4
   - proto: CyberwareImplantMicroVideo
-    price: 40
+    price: 100
     count: 6
   - proto: CyberwareImplantMicroOptics
-    price: 200
+    price: 100
     count: 4
   - proto: CyberwareNeuroKerenzikovMk1
-    price: 350
+    price: 500
     count: 4
   - proto: CyberwareNeuroKerenzikovMk2
     price: 500
     count: 3
   - proto: CyberwareNeuroKerenzikovMk3
-    price: 700
+    price: 500
     count: 2
   - proto: CyberwareNeuroBioInhibitorStoic
-    price: 180
+    price: 100
     count: 5
   - proto: CyberwareNeuroBlockerAegis
-    price: 300
+    price: 500
     count: 6
   - proto: CyberwareNeuroTacticalSpartan
-    price: 1200
+    price: 1000
     count: 4
   - proto: CyberwareNeuroSandevistanMk1
-    price: 800
+    price: 1000
     count: 3
   - proto: CyberwareInternalPolymerSkeleton
-    price: 250
+    price: 100
     count: 5
   - proto: CyberwareInternalTitaniumReinforcement
-    price: 800
+    price: 1000
     count: 3
   - proto: CyberwareInternalArmyEndoskeleton
-    price: 1800
+    price: 1000
     count: 2
   - proto: CyberwareInternalNasalFilters
-    price: 120
+    price: 100
     count: 7
   - proto: CyberwareInternalEnhancedAntibodies
-    price: 350
+    price: 500
     count: 5
   - proto: CyberwareExternalKevlarSublayer
-    price: 200
+    price: 100
     count: 8
   - proto: CyberwareExternalThermoplasticArmor
-    price: 600
+    price: 500
     count: 4
   - proto: CyberwareExternalReactiveSublayer
-    price: 1400
+    price: 1000
     count: 2
 
 - type: citiNetStoreCategory
@@ -271,28 +271,28 @@
   name: citinet-store-category-medical
   entries:
   - proto: HandheldHealthAnalyzer
-    price: 150
+    price: 1000
     count: 6
   - proto: EmergencyRollerBedSpawnFolded
-    price: 200
+    price: 100
     count: 3
   - proto: Brutepack
-    price: 120
+    price: 100
     count: 20
   - proto: Ointment
     price: 100
     count: 20
   - proto: Bloodpack
-    price: 60
+    price: 50
     count: 10
   - proto: Defibrillator
-    price: 400
+    price: 500
     count: 2
   - proto: EpinephrineChemistryBottle
     price: 100
     count: 6
   - proto: Syringe
-    price: 10
+    price: 20
     count: 3
 
 
@@ -301,10 +301,10 @@
   name: citinet-store-category-botany
   entries:
   - proto: SeedExtractorFlatpack
-    price: 800
+    price: 1000
     count: 1
   - proto: HydroponicsTrayFlatpack
-    price: 150
+    price: 100
     count: 3
 
 - type: citiNetStoreCategory
@@ -312,19 +312,19 @@
   name: citinet-store-category-industrial
   entries:
   - proto: WeaponWorkbenchFlatpack
-    price: 500
+    price: 1000
     count: 2
   - proto: ConsoleCompilerFlatpack
     price: 500
     count: 2
   - proto: Civil3DPrinterFlatpack
-    price: 450
+    price: 1000
     count: 2
   - proto: ChemDispenserFlatpack
     price: 1000
     count: 2
   - proto: ReagentGrinderFlatpack
-    price: 300
+    price: 500
     count: 2
 
 - type: citiNetStoreCategory
@@ -332,46 +332,46 @@
   name: citinet-store-category-chemistry
   entries:
   - proto: PrimeTimeChemistryBottle
-    price: 150
+    price: 500
     count: 5
   - proto: NitroPolymerChemistryBottle
-    price: 200
+    price: 500
     count: 3
   - proto: SixGunChemistryBottle
-    price: 120
+    price: 100
     count: 4
   - proto: OmnizineChemistryBottle
     price: 500
     count: 1
   - proto: EphedrineChemistryBottle
-    price: 80
+    price: 100
     count: 5
   - proto: MorphineChemistryBottle
     price: 100
     count: 4
   - proto: NocturineChemistryBottle
-    price: 150
+    price: 100
     count: 3
   - proto: UnstableMutagenChemistryBottle
-    price: 150
+    price: 500
     count: 3
   - proto: WhiteMatterChemistryBottle
-    price: 300
+    price: 500
     count: 2
   - proto: NeuroStimChemistryBottle
-    price: 350
+    price: 500
     count: 2
   - proto: ChemistryBottleStardust
-    price: 600
+    price: 500
     count: 1
   - proto: FoodSnackStardust
-    price: 250
+    price: 100
     count: 2
   - proto: DrinkStardust
-    price: 250
+    price: 100
     count: 2
   - proto: RecipeJointStardust
-    price: 1200
+    price: 1000
     count: 1
 
 - type: citiNetStoreCategory
@@ -379,7 +379,7 @@
   name: citinet-store-category-tech
   entries:
   - proto: Multitool
-    price: 250
+    price: 500
     count: 2
   - proto: Welder
     price: 100
@@ -388,7 +388,7 @@
     price: 10
     count: 10
   - proto: NCBiomonitor
-    price: 200
+    price: 100
     count: 3
 
 - type: citiNetStoreCategory
@@ -396,31 +396,31 @@
   name: WEAPON PARTS
   entries:
   - proto: NCWeaponScrap
-    price: 120
+    price: 100
     count: 8
   - proto: NCBlankBarrelPipe
     price: 100
     count: 4
   - proto: NCBlankBarrelAlloy
-    price: 250
+    price: 100
     count: 3
   - proto: NCBlankBarrelTungsten
-    price: 600
+    price: 500
     count: 2
   - proto: NCBlankFramePlastic
     price: 100
     count: 4
   - proto: NCBlankFrameMilled
-    price: 300
+    price: 100
     count: 3
   - proto: NCBlankInternalsScrap
-    price: 120
+    price: 100
     count: 4
   - proto: NCBlankInternalsBolt
-    price: 300
+    price: 100
     count: 3
   - proto: NCBlankElectronicsCircuit
-    price: 350
+    price: 500
     count: 3
   - proto: NCBlankDrive
     price: 500
@@ -431,13 +431,13 @@
   name: RAW DATA
   entries:
   - proto: NCRawDataTier1
-    price: 150
+    price: 100
     count: 8
   - proto: NCRawDataTier2
-    price: 450
+    price: 500
     count: 4
   - proto: NCRawDataTier3
-    price: 1200
+    price: 1000
     count: 2
 
 
@@ -446,49 +446,49 @@
   name: citinet-store-category-seeds
   entries:
   - proto: AloeSeeds
-    price: 300
+    price: 100
     count: 5
   - proto: AmbrosiaVulgarisSeeds
-    price: 800
+    price: 1000
     count: 5
   - proto: ChiliSeeds
-    price: 350
+    price: 500
     count: 3
   - proto: CocoaSeeds
-    price: 800
+    price: 1000
     count: 1
   - proto: CornSeeds
-    price: 150
+    price: 100
     count: 5
   - proto: GarlicSeeds
-    price: 300
+    price: 100
     count: 4
   - proto: OnionSeeds
-    price: 250
+    price: 100
     count: 4
   - proto: OnionRedSeeds
-    price: 300
+    price: 100
     count: 3
   - proto: PoppySeeds
-    price: 800
+    price: 1000
     count: 2
   - proto: PotatoSeeds
-    price: 150
+    price: 100
     count: 5
   - proto: RiceSeeds
-    price: 150
+    price: 100
     count: 5
   - proto: SoybeanSeeds
-    price: 150
+    price: 100
     count: 5
   - proto: TeaPlantSeeds
-    price: 600
+    price: 500
     count: 1
   - proto: TomatoSeeds
-    price: 350
+    price: 500
     count: 4
   - proto: WheatSeeds
-    price: 150
+    price: 100
     count: 5
 
 
@@ -497,34 +497,34 @@
   name: citinet-store-category-tools
   entries:
   - proto: Dropper
-    price: 15
+    price: 10
     count: 5
   - proto: PlantAnalyzer
-    price: 400
+    price: 500
     count: 2
   - proto: HydroponicsToolHatchet
-    price: 80
+    price: 100
     count: 2
   - proto: HydroponicsToolClippers
-    price: 60
+    price: 50
     count: 3
   - proto: HydroponicsToolScythe
-    price: 120
+    price: 100
     count: 2
   - proto: HydroponicsToolSpade
     price: 50
     count: 3
   - proto: HydroponicsToolMiniHoe
-    price: 50
+    price: 100
     count: 3
   - proto: Bucket
-    price: 30
+    price: 20
     count: 5
   - proto: BucketBig
-    price: 200
+    price: 100
     count: 2
   - proto: BoxMouthSwab
-    price: 200
+    price: 100
     count: 2
   - proto: PlantBag
     price: 100
