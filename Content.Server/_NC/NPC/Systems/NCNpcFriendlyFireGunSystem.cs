@@ -62,7 +62,6 @@ public sealed class NCNpcFriendlyFireGunSystem : EntitySystem
             return;
 
         args.Cancelled = true;
-        ranged.ShootAccumulator = 0f;
         ranged.LOSAccumulator = 0f;
         Reposition(args.User, ranged, from, to);
 

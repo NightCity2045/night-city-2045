@@ -48,15 +48,6 @@ public sealed partial class NPCRangedCombatComponent : Component
     public bool UseOpaqueForLOSChecks = false;
 
     /// <summary>
-    /// Delay after target is in LOS before we start shooting.
-    /// </summary>
-    [ViewVariables(VVAccess.ReadWrite)]
-    public float ShootDelay = 0.2f;
-
-    [ViewVariables(VVAccess.ReadWrite)]
-    public float ShootAccumulator;
-
-    /// <summary>
     /// Sound to play if the target enters line of sight.
     /// </summary>
     [ViewVariables(VVAccess.ReadWrite)]

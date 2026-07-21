@@ -157,7 +157,6 @@ public sealed class RTSRetaliationCombatSystem : EntitySystem
         var ranged = EnsureComp<NPCRangedCombatComponent>(uid);
         ranged.Target = attacker;
         ranged.Status = CombatStatus.Normal;
-        ranged.ShootAccumulator = 0f;
         ranged.LOSAccumulator = 0f;
         ranged.TargetInLOS = false;
 

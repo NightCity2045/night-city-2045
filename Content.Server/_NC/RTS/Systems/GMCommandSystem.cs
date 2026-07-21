@@ -233,7 +233,6 @@ public sealed partial class GMCommandSystem : EntitySystem
             return;
 
         combat.Status = CombatStatus.Normal;
-        combat.ShootAccumulator = 0f;
         combat.LOSAccumulator = 0f;
         combat.TargetInLOS = false;
     }
