@@ -1,8 +1,8 @@
 - type: entity
   id: Trademachine
   abstract: true
-  name: Торговый автомат Города
-  description: Нужно срочно — он рядом. Выбирай, плати, забирай.
+  name: ent-Trademachine
+  description: ent-Trademachine-desc
   suffix: vendor, normal
   components:
   - type: UserInterface
@@ -49,8 +49,8 @@
 - type: entity
   id: TrademachineCity
   parent: Trademachine
-  name: Торговый автомат Города
-  description: Нужно срочно — он рядом. Выбирай, плати, забирай.
+  name: ent-TrademachineCity
+  description: ent-TrademachineCity-desc
   suffix: vendor, normal
   components:
   - type: NcStore
@@ -60,8 +60,8 @@
 - type: entity
   id: TrademachineTickets
   parent: Trademachine
-  name: торговый автомат каравана
-  description: Специфичный по своей сути торговый автомат, который принимает талоны каравана, взамен предоставляя отличное снаряжение.
+  name: ent-TrademachineTickets
+  description: ent-TrademachineTickets-desc
   suffix: vendor, Tickets
   components:
   - type: NcStore
@@ -84,7 +84,7 @@
 
 - type: storeCategoryStructured
   id: Cat_City_Melee
-  name: "Ближний Бой"
+  name: nc-store-category-city-melee
   entries:
   - proto: Stunbaton
     price: 100
@@ -92,7 +92,7 @@
 
 - type: storeCategoryStructured
   id: Cat_City_Medical
-  name: "Медикаменты"
+  name: nc-store-category-city-medical
   entries:
   - proto: MedkitFilled
     price: 100
@@ -124,7 +124,7 @@
 
 - type: storeCategoryStructured
   id: Cat_City_Apparel
-  name: "Снаряжение"
+  name: nc-store-category-city-apparel
   entries:
   - proto: ClothingOuterArmorBasic
     price: 100
@@ -144,7 +144,7 @@
 
 - type: storeCategoryStructured
   id: Cat_City_Clothing
-  name: "Одежда"
+  name: nc-store-category-city-clothing
   entries:
   - proto: ClothingUniformRandomShirt
     price: 50
@@ -200,7 +200,7 @@
 
 - type: storeCategoryStructured
   id: Cat_City_Equipment
-  name: "Оборудование"
+  name: nc-store-category-city-equipment
   entries:
   - proto: StreamCamNC
     price: 100
@@ -208,7 +208,7 @@
 
 - type: storeCategoryStructured
   id: Cat_City_TechStyles
-  name: "Стиль и Мода"
+  name: nc-store-category-city-techstyles
   entries:
   - proto: ClothingUniformJumpsuitSuitAristocratic
     price: 500
@@ -234,7 +234,7 @@
 
 - type: storeCategoryStructured
   id: Cat_City_Weapons_Sell
-  name: "Скупка оружия"
+  name: nc-store-category-city-weapons-sell
   entries:
   - proto: WeaponPistolStreetMaster
     price: 100
@@ -275,9 +275,9 @@
 
 - type: storeCategoryStructured
   id: Cat_City_Ammo_Sell
-  name: "Скупка патронов"
+  name: nc-store-category-city-ammo-sell
   entries:
-  - proto: Magazine622mmCaseless
+  - proto: AmmoBox622mmCaseless
     price: 10
   - proto: MagazinePistolStukach
     price: 50
@@ -322,7 +322,7 @@
 
 - type: storeCategoryStructured
   id: Cat_City_Crafting_Sell
-  name: "Скупка запчастей"
+  name: nc-store-category-city-crafting-sell
   entries:
   - proto: NCWeaponScrap
     price: 100
@@ -465,7 +465,7 @@
 
 - type: storeCategoryStructured
   id: Cat_City_Clothing_Extra_Sell
-  name: "Скупка спецснаряжения"
+  name: nc-store-category-city-clothing-extra-sell
   entries:
   - proto: ClothingHeadHatMilitechCap
     price: 100
@@ -502,7 +502,7 @@
 
 - type: storeCategoryStructured
   id: Cat_City_Chemistry_Sell
-  name: "Скупка химии"
+  name: nc-store-category-city-chemistry-sell
   entries:
   - proto: YeastChemistryBottle
     price: 100
@@ -525,7 +525,7 @@
 
 - type: storeCategoryStructured
   id: Cat_City_Devices_Sell
-  name: "Скупка оборудования"
+  name: nc-store-category-city-devices-sell
   entries:
   - proto: BurnerChip
     price: 10

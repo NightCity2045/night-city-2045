@@ -1,6 +1,7 @@
 - type: entity
   id: AmmoBox11x20
-  name: коробка патронов (11x20)
+  name: ent-AmmoBox11x20
+  description: ent-AmmoBox11x20-desc
   parent: BaseMagazineBoxPistol
   components:
   - type: BallisticAmmoProvider
@@ -15,7 +16,8 @@
 
 - type: entity
   id: AmmoBox13x23
-  name: коробка патронов (13x23)
+  name: ent-AmmoBox13x23
+  description: ent-AmmoBox13x23-desc
   parent: BaseMagazineBoxPistol
   components:
   - type: BallisticAmmoProvider
@@ -30,7 +32,8 @@
 
 - type: entity
   id: AmmoBox556x45CL
-  name: коробка патронов (5.56×45 CL)
+  name: ent-AmmoBox556x45CL
+  description: ent-AmmoBox556x45CL-desc
   parent: BaseMagazineBoxRifle
   components:
   - type: BallisticAmmoProvider
@@ -45,7 +48,8 @@
 
 - type: entity
   id: AmmoBox152mm
-  name: коробка патронов (15.2мм)
+  name: ent-AmmoBox152mm
+  description: ent-AmmoBox152mm-desc
   parent: BaseMagazineBoxAntiMateriel
   components:
   - type: BallisticAmmoProvider
@@ -60,8 +64,8 @@
 
 - type: entity
   id: AmmoBoxNomadSpike
-  name: коробка заточенных штырей
-  description: Тяжелая металлическая коробка, наполненная заточенной арматурой для пневматического оружия.
+  name: ent-AmmoBoxNomadSpike
+  description: ent-AmmoBoxNomadSpike-desc
   parent: BaseMagazineBoxRifle
   components:
   - type: BallisticAmmoProvider
@@ -76,7 +80,8 @@
 
 - type: entity
   id: AmmoBox622mmCaseless
-  name: коробка патронов (6.22мм без оболочки)
+  name: ent-AmmoBox622mmCaseless
+  description: ent-AmmoBox622mmCaseless-desc
   parent: BaseMagazineBoxRifle
   components:
   - type: BallisticAmmoProvider
@@ -91,7 +96,8 @@
 
 - type: entity
   id: AmmoBox9x19
-  name: коробка патронов (9x19)
+  name: ent-AmmoBox9x19
+  description: ent-AmmoBox9x19-desc
   parent: BaseMagazineBoxPistol
   components:
   - type: BallisticAmmoProvider

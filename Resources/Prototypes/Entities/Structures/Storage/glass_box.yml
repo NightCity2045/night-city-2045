@@ -105,8 +105,6 @@
   parent: GlassBox
   suffix: AntiqueLaser
   components:
-  - type: AccessReader
-    access: [["Captain"]]
   - type: Construction
     graph: GlassBox
     node: glassBox

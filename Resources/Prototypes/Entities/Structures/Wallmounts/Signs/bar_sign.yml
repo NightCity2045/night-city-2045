@@ -17,8 +17,6 @@
   - type: ApcPowerReceiver
   - type: BarSign
   - type: InteractionOutline
-  - type: AccessReader
-    access: [["Bar"]]
   - type: ActivatableUIRequiresPower
   - type: ActivatableUIRequiresAccess
   - type: ActivatableUI

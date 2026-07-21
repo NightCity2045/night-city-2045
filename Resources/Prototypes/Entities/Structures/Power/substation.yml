@@ -140,8 +140,6 @@
     netsync: false
     castShadows: false
   - type: Clickable
-  - type: AccessReader
-    access: [["Engineering"]]
   - type: ContainerFill
     containers:
       board: [ WallmountSubstationElectronics ]

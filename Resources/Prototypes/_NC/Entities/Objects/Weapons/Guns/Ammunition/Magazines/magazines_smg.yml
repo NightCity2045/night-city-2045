@@ -1,7 +1,7 @@
 - type: entity
   id: MagazinePistolSubMachineGunShingen
-  name: магазин Arasaka TKI20 Shingen (11x20 CL)
-  description: Удлинённый магазин для ПП Arasaka TKI20 Shingen. Вмещает 40 патронов калибра 9мм.
+  name: ent-MagazinePistolSubMachineGunShingen
+  description: ent-MagazinePistolSubMachineGunShingen-desc
   parent: BaseMagazinePistolSubMachineGun
   components:
   - type: BallisticAmmoProvider
@@ -26,8 +26,8 @@
 
 - type: entity
   id: MagazinePistolSubMachineGunSaratoga
-  name: магазин Militech Saratoga (9x19 CL)
-  description: Магазин для ПП Militech Saratoga. Вмещает 30 патронов калибра 9мм.
+  name: ent-MagazinePistolSubMachineGunSaratoga
+  description: ent-MagazinePistolSubMachineGunSaratoga-desc
   parent: BaseMagazinePistolSubMachineGun
   components:
   - type: BallisticAmmoProvider

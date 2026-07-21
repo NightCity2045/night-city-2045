@@ -86,8 +86,6 @@
   - type: LockVisuals
   - type: LockedAnchorable
   - type: LockedWiresPanel
-  - type: AccessReader
-    access: [[ "Engineering" ]]
   - type: Machine
     board: EmitterCircuitboard
   - type: GuideHelp

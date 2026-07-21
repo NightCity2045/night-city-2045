@@ -1,7 +1,7 @@
 - type: entity
   id: MagazinePistolStukach
-  name: магазин Стукача Томми (11x20 CL)
-  description: Вместительный магазин для тяжелого пистолета Стукач Томми. Заряжен убойными патронами 12.7мм. Вмещает 8 патронов.
+  name: ent-MagazinePistolStukach
+  description: ent-MagazinePistolStukach-desc
   parent: BaseMagazinePistol
   components:
   - type: BallisticAmmoProvider
@@ -24,8 +24,8 @@
 
 - type: entity
   id: MagazinePistolOverlord
-  name: магазин Оверлорда (13x23)
-  description: Магазин для ручной пушки Оверлорд. Вмещает 6 чудовищно мощных патронов калибра 12.7мм.
+  name: ent-MagazinePistolOverlord
+  description: ent-MagazinePistolOverlord-desc
   parent: BaseMagazinePistol
   components:
   - type: BallisticAmmoProvider
@@ -48,8 +48,8 @@
 
 - type: entity
   id: MagazinePistolAvenger
-  name: магазин Militech "AVENGER" (9x19 CL)
-  description: Стандартный магазин для армейского пистолета Militech "AVENGER". Вмещает 10 патронов калибра 11.4мм.
+  name: ent-MagazinePistolAvenger
+  description: ent-MagazinePistolAvenger-desc
   parent: BaseMagazinePistol
   components:
   - type: BallisticAmmoProvider
@@ -72,8 +72,8 @@
 
 - type: entity
   id: MagazinePistolHelloCutie
-  name: магазин Hello Cutie (9x19)
-  description: Яркий магазин, скрывающий в себе серьезную мощь калибра 11.4мм. Вмещает 12 патронов.
+  name: ent-MagazinePistolHelloCutie
+  description: ent-MagazinePistolHelloCutie-desc
   parent: [ BaseItem, BaseRestrictedContraband ]
   components:
   - type: Tag
@@ -105,8 +105,8 @@
 
 - type: entity
   id: MagazinePistolStreetMaster
-  name: магазин Dai Lung "StreetMaster" (9x19)
-  description: Магазин для уличного пистолета StreetMaster. Вмещает 12 надежных патронов калибра 11.4мм.
+  name: ent-MagazinePistolStreetMaster
+  description: ent-MagazinePistolStreetMaster-desc
   parent: BaseMagazinePistol
   components:
   - type: BallisticAmmoProvider
@@ -129,8 +129,8 @@
 
 - type: entity
   id: MagazinePistolMarkIII
-  name: магазин Mark III (11x20 CL)
-  description: Вместительный магазин для тяжелого пистолета Mark III. Заряжен убойными патронами 12.7мм. Вмещает 8 патронов.
+  name: ent-MagazinePistolMarkIII
+  description: ent-MagazinePistolMarkIII-desc
   parent: BaseMagazinePistol
   components:
   - type: BallisticAmmoProvider
@@ -153,8 +153,8 @@
 
 - type: entity
   id: MagazinePistolCheesemaker
-  name: магазин FedArms "Cheesemaker" (11x20 CL)
-  description: Магазин для тяжелого пистолета Cheesemaker. Вмещает 8 мощных патронов калибра 12.7мм.
+  name: ent-MagazinePistolCheesemaker
+  description: ent-MagazinePistolCheesemaker-desc
   parent: BaseMagazinePistol
   components:
   - type: BallisticAmmoProvider
@@ -177,8 +177,8 @@
 
 - type: entity
   id: MagazinePistolFederalX9
-  name: магазин Federal Hand X9 (9x19 CL)
-  description: Магазин для компактного пистолета Federal Hand X9. Вмещает 12 патронов калибра 9мм.
+  name: ent-MagazinePistolFederalX9
+  description: ent-MagazinePistolFederalX9-desc
   parent: BaseMagazinePistol
   components:
   - type: BallisticAmmoProvider
@@ -201,8 +201,8 @@
 
 - type: entity
   id: MagazinePistolBoomerBuster
-  name: магазин Militech "Boomer Buster" (13x23 CL)
-  description: Магазин для тяжелого пистолета Boomer Buster. Вмещает 8 мощных патронов калибра 12.7мм.
+  name: ent-MagazinePistolBoomerBuster
+  description: ent-MagazinePistolBoomerBuster-desc
   parent: BaseMagazinePistol
   components:
   - type: BallisticAmmoProvider

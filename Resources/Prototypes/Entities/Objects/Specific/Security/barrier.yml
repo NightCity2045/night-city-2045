@@ -39,8 +39,6 @@
         - WallLayer
   - type: DeployableBarrier
     fixture: barrier
-  - type: AccessReader
-    access: [["Security"]]
   - type: Lock
     locked: false
     lockOnClick: true # toggle lock just by clicking on barrier

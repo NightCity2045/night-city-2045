@@ -1,7 +1,7 @@
 - type: entity
   id: MagazineRifleNomad
-  name: магазин пневматического гвоздемета (штыри)
-  description: Самодельный магазин для пневматического гвоздемета Кочевников. Вмещает 12 тяжелых штырей.
+  name: ent-MagazineRifleNomad
+  description: ent-MagazineRifleNomad-desc
   parent: BaseMagazineRifle
   components:
   - type: BallisticAmmoProvider
@@ -24,8 +24,8 @@
 
 - type: entity
   id: MagazineRifleArasaka
-  name: магазин штурмовой винтовки Арасака (5.56×45 CL)
-  description: Высокотехнологичный магазин для винтовки Арасака. Вмещает 30 безгильзовых патронов калибра 6.22мм.
+  name: ent-MagazineRifleArasaka
+  description: ent-MagazineRifleArasaka-desc
   parent: BaseMagazineRifle
   components:
   - type: BallisticAmmoProvider
@@ -48,8 +48,8 @@
 
 - type: entity
   id: MagazineRifleM04
-  name: магазин М-04 (5.56×45 CL)
-  description: Высокотехнологичный магазин для карабина Штейнмейер М-04. Вмещает 20 безгильзовых патронов калибра 6.22мм.
+  name: ent-MagazineRifleM04
+  description: ent-MagazineRifleM04-desc
   parent: BaseMagazineRifle
   components:
   - type: BallisticAmmoProvider
@@ -72,8 +72,8 @@
 
 - type: entity
   id: MagazineRifleNokota
-  name: магазин Nokota (5.56×45 CL)
-  description: Стандартный магазин для винтовок Nokota D5. Вмещает 30 безгильзовых патронов калибра 6.22мм.
+  name: ent-MagazineRifleNokota
+  description: ent-MagazineRifleNokota-desc
   parent: BaseMagazineRifle
   components:
   - type: BallisticAmmoProvider
@@ -97,8 +97,8 @@
 
 - type: entity
   id: MagazineRifleNowaki
-  name: магазин NOWAKI (5.56×45 CL)
-  description: Стандартный магазин для винтовок Nokota D5. Вмещает 30 безгильзовых патронов калибра 6.22мм.
+  name: ent-MagazineRifleNowaki
+  description: ent-MagazineRifleNowaki-desc
   parent: BaseMagazineRifle
   components:
   - type: BallisticAmmoProvider

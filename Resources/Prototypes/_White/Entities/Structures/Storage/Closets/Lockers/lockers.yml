@@ -8,9 +8,6 @@
     stateBaseClosed: brigmedic
     stateDoorOpen: armory_open
     stateDoorClosed: brigmedic_door
-  - type: AccessReader
-    access: [["Security"], ["Medical"]]
-
 - type: entity
   abstract: true
   id: AlertLevelLock

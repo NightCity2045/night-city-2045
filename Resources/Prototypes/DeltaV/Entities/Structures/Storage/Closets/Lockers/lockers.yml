@@ -8,9 +8,6 @@
     stateBaseClosed: cj 
     stateDoorOpen: cj_open
     stateDoorClosed: cj_door
-  - type: AccessReader
-    access: [["ChiefJustice"]]
-    
 - type: entity
   id: LockerClerk
   parent: LockerBaseSecure
@@ -21,5 +18,3 @@
     stateBaseClosed: clerk
     stateDoorOpen: clerk_open
     stateDoorClosed: clerk_door
-  - type: AccessReader
-    access: [["Clerk"]]

@@ -5,9 +5,6 @@
   description: Why the heck won't this piece of junk open!?
   components:
   - type: Appearance
-  - type: AccessReader
-    access: [ [ "CentralCommand" ] ]
-    breakOnAccessBreaker: false
   - type: Lock
     lockOnClick: false
     breakOnAccessBreaker: false

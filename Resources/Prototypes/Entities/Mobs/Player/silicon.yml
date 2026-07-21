@@ -814,8 +814,6 @@
       enum.HolopadUiKey.AiActionWindow:
         type: HolopadBoundUserInterface
   # WD edit start
-  - type: AccessReader
-    access: [ [ "Command" ], [ "Research" ] ]
   - type: Lock
   - type: WiresPanel
   - type: LockedWiresPanel

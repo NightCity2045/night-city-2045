@@ -113,9 +113,6 @@
     - id: ClothingShoesBootsMagEng
     - id: ClothingOuterHardsuitEngineering
     - id: ClothingMaskBreath
-  - type: AccessReader
-    access: [["Engineering"]]
-
 #Atmospherics hardsuit
 - type: entity
   id: SuitStorageAtmos
@@ -127,9 +124,6 @@
     - id: OxygenTankFilled
     - id: ClothingOuterHardsuitAtmos
     - id: ClothingMaskBreath
-  - type: AccessReader
-    access: [["Atmospherics"]]
-
 #Security hardsuit
 - type: entity
   id: SuitStorageSec
@@ -148,9 +142,6 @@
     # - id: ClothingShoesBootsMagSec
     #   amount: 2
     # WD EDIT END
-  - type: AccessReader
-    access: [["Security"]]
-
 #CE's hardsuit
 - type: entity
   id: SuitStorageCE
@@ -161,9 +152,6 @@
     containers:
       entity_storage: !type:NestedSelector
         tableId: FillChiefEngineerHardsuit
-  - type: AccessReader
-    access: [["ChiefEngineer"]]
-
 #CMO's hardsuit
 - type: entity
   id: SuitStorageCMO
@@ -174,9 +162,6 @@
     containers:
       entity_storage: !type:NestedSelector
         tableId: FillChiefMedicalOfficerHardsuit
-  - type: AccessReader
-    access: [ [ "ChiefMedicalOfficer" ] ]
-
 #RD's hardsuit
 - type: entity
   id: SuitStorageRD
@@ -187,9 +172,6 @@
     containers:
       entity_storage: !type:NestedSelector
         tableId: FillResearchDirectorHardsuit
-  - type: AccessReader
-    access: [ [ "ResearchDirector" ] ]
-
 #HOS's hardsuit
 - type: entity
   id: SuitStorageHOS
@@ -200,9 +182,6 @@
     containers:
       entity_storage: !type:NestedSelector
         tableId: FillHeadOfSecurityHardsuit
-  - type: AccessReader
-    access: [["HeadOfSecurity"]]
-
 #Warden's hardsuit
 - type: entity
   id: SuitStorageWarden
@@ -215,9 +194,6 @@
     - id: ClothingOuterHardsuitWarden # WD EDIT: ClothingOuterHardsuitCombatWarden -> ClothingOuterHardsuitWarden
     - id: ClothingMaskBreath
     # - id: ClothingShoesBootsMagSec - WD EDIT
-  - type: AccessReader
-    access: [["Armory"]]
-
 #Captain's hardsuit
 - type: entity
   id: SuitStorageCaptain
@@ -228,9 +204,6 @@
     containers:
       entity_storage: !type:NestedSelector
         tableId: FillCaptainHardsuit
-  - type: AccessReader
-    access: [["Captain"]]
-
 #Salvage hardsuit
 - type: entity
   id: SuitStorageSalv
@@ -241,9 +214,6 @@
     containers:
       entity_storage: !type:NestedSelector
         tableId: FillSalvageSpecialistHardsuitSpatio
-  - type: AccessReader
-    access: [["Salvage"]]
-
 # DeltaV - Adding Paramedic Suit Storage Unit
 #Paramedic hardsuit
 - type: entity
@@ -257,9 +227,6 @@
     - id: OxygenTankFilled
     - id: ClothingOuterHardsuitVoidParamed
     - id: ClothingMaskBreathMedical
-  - type: AccessReader
-    access: [ [ "Paramedic" ] ]
-
 # DeltaV - Adding Corpsman Suit Storage Unit
 - type: entity
   id: SuitStorageCorpsman
@@ -272,9 +239,6 @@
     - id: OxygenTankFilled
     - id: ClothingOuterHardsuitCombatCorpsman
     - id: ClothingMaskBreath
-  - type: AccessReader
-    access: [ [ "Corpsman" ] ]
-
 # DeltaV - End Changes
 
 #Blood-red hardsuit

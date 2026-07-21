@@ -5,8 +5,6 @@
   description: Used to purchase and sell shuttles
   components:
   - type: ShipyardConsole
-  - type: AccessReader
-    access: [[ Captain ]]
   - type: ActivatableUI
     key: enum.ShipyardConsoleUiKey.Key
   - type: UserInterface
