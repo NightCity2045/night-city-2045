@@ -19,11 +19,33 @@
     autoLinkRange: 30
     allowedDroneFactions:
     - NCMilitech
-  - type: AccessReader
-    access:
-    - ["Militech_Tech"]
-    - ["Militech_Operative"]
   - type: StaticPrice
     price: 1000
   - type: NCWeight
-    weight: 1.5
+    weight: 0.5
+
+- type: entity
+  parent: BaseHandheldComputer
+  id: NCBiotechnicaRiggerLaptop
+  name: ent-NCBiotechnicaRiggerLaptop
+  description: ent-NCBiotechnicaRiggerLaptop-desc
+  components:
+  - type: Sprite
+    sprite: Objects/Devices/tablets.rsi
+    layers:
+    - state: tablet
+    - state: generic
+      shader: unshaded
+  - type: Item
+    size: Large
+  - type: Wieldable
+    autoWield: false
+    unwieldOnUse: false
+  - type: RiggerLaptop
+    autoLinkRange: 30
+    allowedDroneFactions:
+    - NCBiotechnica
+  - type: StaticPrice
+    price: 1000
+  - type: NCWeight
+    weight: 0.5

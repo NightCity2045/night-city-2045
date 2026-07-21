@@ -51,7 +51,6 @@
   completetime: 12
   materials:
     Steel: 1600
-    Plasteel: 400
 
 - type: latheRecipe
   id: NCRecipeArmorPlateCeramic
@@ -59,7 +58,6 @@
   completetime: 15
   materials:
     Glass: 1200
-    Plasteel: 500
     Plastic: 200
 
 - type: latheRecipe
@@ -86,7 +84,6 @@
   materials:
     Steel: 100
     Plastic: 500
-    Plasma: 150
     Bluespace: 50
 
 - type: latheRecipe
@@ -104,7 +101,6 @@
   materials:
     Steel: 500
     Plastic: 500
-    Plasma: 250
     Bluespace: 50
 
 - type: latheRecipe
@@ -114,7 +110,6 @@
   materials:
     Steel: 500
     Plastic: 500
-    Plasma: 250
 
 - type: latheRecipe
   id: DrinkShakerAdvanced
@@ -138,7 +133,6 @@
     Steel: 200
     Plastic: 500
     Glass: 50
-    Plasma: 50
     Bluespace: 50
 
 - type: latheRecipe

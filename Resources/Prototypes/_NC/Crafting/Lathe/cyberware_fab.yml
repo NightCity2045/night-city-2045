@@ -145,7 +145,6 @@
     Glass: 700
     Plastic: 700
     Gold: 400
-    Plasma: 200
 
 - type: latheRecipe
   id: NCCyberwareNeuroBioInhibitorStoic
@@ -176,7 +175,6 @@
     Glass: 600
     Plastic: 600
     Gold: 200
-    Plasma: 200
 
 - type: latheRecipe
   id: NCCyberwareNeuroSandevistanMk1
@@ -197,7 +195,6 @@
     Glass: 900
     Plastic: 800
     Gold: 400
-    Plasma: 300
 
 - type: latheRecipe
   id: NCCyberwareNeuroSandevistanMaxTac
@@ -208,7 +205,6 @@
     Glass: 800
     Plastic: 700
     Gold: 300
-    Plasma: 400
 
 - type: latheRecipe
   id: NCCyberwareInternalVampireFangs
@@ -257,7 +253,6 @@
     Plastic: 1200
     Glass: 500
     Gold: 300
-    Plasma: 300
 
 - type: latheRecipe
   id: NCCyberwareInternalNasalFilters
@@ -288,7 +283,6 @@
     Glass: 400
     Plastic: 300
     Cloth: 300
-    Plasma: 150
 
 - type: latheRecipe
   id: NCCyberwareExternalKevlarSublayer
@@ -317,4 +311,3 @@
     Plastic: 1400
     Glass: 600
     Gold: 200
-    Plasma: 300

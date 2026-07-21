@@ -48,15 +48,14 @@
   result: NCBlankBarrelAlloy
   # comms: true
   materials:
-    Plasteel: 750
+    Steel: 750
 
 - type: latheRecipe
   id: NCBlankBarrelTungsten
   result: NCBlankBarrelTungsten
   # comms: true
   materials:
-    Plasteel: 1000
-    Uranium: 200
+    Steel: 1000
 
 # Рамки
 - type: latheRecipe
@@ -79,7 +78,6 @@
   result: NCBlankFrameCarbon
   # comms: true
   materials:
-    Plasteel: 1000
     Glass: 500
     Plastic: 500
 
@@ -97,14 +95,12 @@
   # comms: true
   materials:
     Steel: 500
-    Plasteel: 500
 
 - type: latheRecipe
   id: NCBlankInternalsEM
   result: NCBlankInternalsEM
   # comms: true
   materials:
-    Plasteel: 1000
     Gold: 100
 
 # Электроника
@@ -130,8 +126,8 @@
   result: NCBlankDrive
   # comms: true
   materials:
-    Plasteel: 1500
-    Gold: 500
+    Steel: 100
+    Plastic: 100
 
 
 # ==========================================
@@ -270,7 +266,6 @@
   materials:
     Steel: 300
     Plastic: 200
-    Plasteel: 100
 
 - type: latheRecipe
   id: NCRecipeMagazineSMGSaratoga
