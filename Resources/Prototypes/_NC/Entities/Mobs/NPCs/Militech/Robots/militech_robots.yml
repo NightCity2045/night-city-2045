@@ -1,5 +1,30 @@
 # Militech rigger robots. These are IPC-based drones, not human operatives.
 
+# Robot-only loadouts inherit the combat equipment and add a corporate PDA for door access.
+- type: startingGear
+  id: NCMilitechRobotGearAvenger
+  parent: NCMilitechGearPistol
+  equipment:
+    id: MilitechRiggerPDA
+
+- type: startingGear
+  id: NCMilitechRobotGearBoomer
+  parent: NCMilitechGearBoomer
+  equipment:
+    id: MilitechRiggerPDA
+
+- type: startingGear
+  id: NCMilitechRobotGearSaratoga
+  parent: NCMilitechGearSaratoga
+  equipment:
+    id: MilitechRiggerPDA
+
+- type: startingGear
+  id: NCMilitechRobotGearCrusher
+  parent: NCMilitechGearCrusher
+  equipment:
+    id: MilitechRiggerPDA
+
 - type: entity
   name: ent-MobNCMilitechRobot
   parent: MobIPC
@@ -40,7 +65,7 @@
   suffix: Militech Robot Avenger
   components:
   - type: Loadout
-    prototypes: [NCMilitechGearPistol]
+    prototypes: [NCMilitechRobotGearAvenger]
 
 - type: entity
   parent: MobNCMilitechRobot
@@ -48,7 +73,7 @@
   suffix: Militech Robot Boomer
   components:
   - type: Loadout
-    prototypes: [NCMilitechGearBoomer]
+    prototypes: [NCMilitechRobotGearBoomer]
 
 - type: entity
   parent: MobNCMilitechRobot
@@ -56,7 +81,7 @@
   suffix: Militech Robot Saratoga
   components:
   - type: Loadout
-    prototypes: [NCMilitechGearSaratoga]
+    prototypes: [NCMilitechRobotGearSaratoga]
 
 - type: entity
   parent: MobNCMilitechRobot
@@ -64,4 +89,4 @@
   suffix: Militech Robot Crusher
   components:
   - type: Loadout
-    prototypes: [NCMilitechGearCrusher]
+    prototypes: [NCMilitechRobotGearCrusher]

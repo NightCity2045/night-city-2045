@@ -1,5 +1,30 @@
 # Biotechnica rigger robots. These are IPC-based drones, not human operatives.
 
+# Robot-only loadouts inherit the combat equipment and add a corporate PDA for door access.
+- type: startingGear
+  id: NCBiotechnicaRobotGearAvenger
+  parent: NCBiotechnicaGearAvenger
+  equipment:
+    id: BiotechnicaRiggerPDA
+
+- type: startingGear
+  id: NCBiotechnicaRobotGearBoomerBuster
+  parent: NCBiotechnicaGearBoomerBuster
+  equipment:
+    id: BiotechnicaRiggerPDA
+
+- type: startingGear
+  id: NCBiotechnicaRobotGearSaratoga
+  parent: NCBiotechnicaGearSaratoga
+  equipment:
+    id: BiotechnicaRiggerPDA
+
+- type: startingGear
+  id: NCBiotechnicaRobotGearCrusher
+  parent: NCBiotechnicaGearCrusher
+  equipment:
+    id: BiotechnicaRiggerPDA
+
 - type: entity
   name: ent-MobNCBiotechnicaRobot
   parent: MobIPC
@@ -40,7 +65,7 @@
   suffix: Biotechnica Robot Avenger
   components:
   - type: Loadout
-    prototypes: [NCBiotechnicaGearAvenger]
+    prototypes: [NCBiotechnicaRobotGearAvenger]
 
 - type: entity
   parent: MobNCBiotechnicaRobot
@@ -48,7 +73,7 @@
   suffix: Biotechnica Robot Boomer
   components:
   - type: Loadout
-    prototypes: [NCBiotechnicaGearBoomerBuster]
+    prototypes: [NCBiotechnicaRobotGearBoomerBuster]
 
 - type: entity
   parent: MobNCBiotechnicaRobot
@@ -56,7 +81,7 @@
   suffix: Biotechnica Robot Saratoga
   components:
   - type: Loadout
-    prototypes: [NCBiotechnicaGearSaratoga]
+    prototypes: [NCBiotechnicaRobotGearSaratoga]
 
 - type: entity
   parent: MobNCBiotechnicaRobot
@@ -64,4 +89,4 @@
   suffix: Biotechnica Robot Crusher
   components:
   - type: Loadout
-    prototypes: [NCBiotechnicaGearCrusher]
+    prototypes: [NCBiotechnicaRobotGearCrusher]
