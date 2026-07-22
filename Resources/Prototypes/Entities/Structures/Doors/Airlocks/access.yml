@@ -222,10 +222,6 @@
   parent: AirlockMedical
   id: AirlockParamedicLocked
   suffix: Paramedic, Locked
-  components:
-  - type: AccessReader
-    access: [["Paramedic"]]
-
 - type: entity
   parent: AirlockVirology
   id: AirlockVirologyLocked
@@ -625,10 +621,6 @@
   parent: AirlockMedicalGlass
   id: AirlockParamedicGlassLocked
   suffix: Paramedic, Locked
-  components:
-  - type: AccessReader
-    access: [["Paramedic"]]
-
 - type: entity
   parent: AirlockVirologyGlass
   id: AirlockVirologyGlassLocked

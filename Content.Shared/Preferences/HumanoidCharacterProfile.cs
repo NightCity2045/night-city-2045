@@ -385,7 +385,7 @@ public sealed partial class HumanoidCharacterProfile : ICharacterProfile
         ).ID;
         // WD EDIT END
 
-        var name = GetName(species, gender);
+        var name = GetNCEnglishName(gender);
 
         var profile = new HumanoidCharacterProfile() // WD EDIT
         {
@@ -630,6 +630,9 @@ public sealed partial class HumanoidCharacterProfile : ICharacterProfile
 
         name = name.Trim();
 
+        // NC: character profiles only accept Latin names, regardless of client or CVar state.
+        name = SanitizeNCName(name);
+
         if (configManager.GetCVar(CCVars.RestrictedNames))
         {
             name = RestrictedNameRegex.Replace(name, string.Empty);
@@ -649,9 +652,9 @@ public sealed partial class HumanoidCharacterProfile : ICharacterProfile
                     ? FormattedMessage.RemoveMarkupPermissive(Customspeciename)[..MaxNameLength]
                     : FormattedMessage.RemoveMarkupPermissive(Customspeciename);
 
-        if (string.IsNullOrEmpty(name))
+        if (!HasNCEnglishLetter(name))
         {
-            name = GetName(Species, gender);
+            name = GetNCEnglishName(gender);
         }
 
         string flavortext;

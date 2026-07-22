@@ -9,10 +9,10 @@ namespace Content.Shared._NC.Stats;
 public sealed partial class NCStatEntry
 {
     [DataField("statId", required: true)]
-    public string StatId = string.Empty;
+    public string StatId { get; set; } = string.Empty;
 
     [DataField("value", required: true)]
-    public NCTrackedValue Value = new();
+    public NCTrackedValue Value { get; set; } = new();
 
     public NCStatEntry()
     {

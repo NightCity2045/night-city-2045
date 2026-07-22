@@ -9,16 +9,16 @@ namespace Content.Shared._NC.Stats;
 public sealed partial class NCTrackedValue
 {
     [DataField("base")]
-    public int BaseValue;
+    public int BaseValue { get; set; }
 
     [DataField("progression")]
-    public int ProgressionValue;
+    public int ProgressionValue { get; set; }
 
     [DataField("temporary")]
-    public int TemporaryValue;
+    public int TemporaryValue { get; set; }
 
     [DataField("final")]
-    public int FinalValue;
+    public int FinalValue { get; set; }
 
     public NCTrackedValue()
     {

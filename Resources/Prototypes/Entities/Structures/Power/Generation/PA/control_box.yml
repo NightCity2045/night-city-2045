@@ -24,8 +24,6 @@
   - type: Wires
     boardName: wires-board-name-pa
     layoutId: ParticleAccelerator
-  - type: AccessReader
-    access: [["Engineering"]]
   - type: StationAiWhitelist
 
 # Unfinished

@@ -196,9 +196,6 @@
     sprite: Structures/Storage/Crates/sec_gear.rsi
   - type: Sprite
     sprite: Structures/Storage/Crates/sec_gear.rsi
-  - type: AccessReader
-    access: [["Security"]]
-
 - type: entity
   parent: CrateBaseSecure
   id: CrateEngineeringSecure
@@ -208,9 +205,6 @@
     sprite: Structures/Storage/Crates/engicrate_secure.rsi
   - type: Sprite
     sprite: Structures/Storage/Crates/engicrate_secure.rsi
-  - type: AccessReader
-    access: [["Engineering"]]
-
 - type: entity
   parent: CrateBaseSecure
   id: CrateMedicalSecure
@@ -220,9 +214,6 @@
     sprite: Structures/Storage/Crates/medicalcrate_secure.rsi
   - type: Sprite
     sprite: Structures/Storage/Crates/medicalcrate_secure.rsi
-  - type: AccessReader
-    access: [["Medical"]]
-
 - type: entity
   parent: CrateBaseSecure
   id: CrateChemistrySecure
@@ -232,9 +223,6 @@
     sprite: Structures/Storage/Crates/chemcrate_secure.rsi
   - type: Sprite
     sprite: Structures/Storage/Crates/chemcrate_secure.rsi
-  - type: AccessReader
-    access: [["Chemistry"]]
-
 - type: entity
   parent: CrateBaseSecure
   id: CratePrivateSecure
@@ -254,9 +242,6 @@
     sprite: Structures/Storage/Crates/scicrate_secure.rsi
   - type: Sprite
     sprite: Structures/Storage/Crates/scicrate_secure.rsi
-  - type: AccessReader
-    access: [["Research"]]
-
 - type: entity
   parent: CrateBaseSecure
   id: CratePlasma
@@ -266,9 +251,6 @@
     sprite: Structures/Storage/Crates/plasma.rsi
   - type: Sprite
     sprite: Structures/Storage/Crates/plasma.rsi
-  - type: AccessReader
-    access: [["Engineering"], ["Research"], ["Chemistry"]]
-
 - type: entity
   parent: CrateBaseSecure
   id: CrateUranium
@@ -278,9 +260,6 @@
     sprite: Structures/Storage/Crates/uranium.rsi
   - type: Sprite
     sprite: Structures/Storage/Crates/uranium.rsi
-  - type: AccessReader
-    access: [["Engineering"], ["Research"]]
-
 - type: entity
   parent: CrateBaseSecure
   id: CrateSecure
@@ -300,9 +279,6 @@
     sprite: Structures/Storage/Crates/hydro_secure.rsi
   - type: Sprite
     sprite: Structures/Storage/Crates/hydro_secure.rsi
-  - type: AccessReader
-    access: [["Hydroponics"]]
-
 - type: entity
   parent: CrateBaseSecureReinforced
   id: CrateWeaponSecure
@@ -312,9 +288,6 @@
     sprite: Structures/Storage/Crates/weapon.rsi
   - type: Sprite
     sprite: Structures/Storage/Crates/weapon.rsi
-  - type: AccessReader
-    access: [["Armory"]]
-
 - type: entity
   parent: [ CrateBaseSecureReinforced, BaseSecurityContraband ]
   suffix: Armory, Secure, Reinforced
@@ -324,9 +297,6 @@
   components:
   - type: Sprite
     sprite: Structures/Storage/Crates/sec_gear.rsi
-  - type: AccessReader
-    access: [["Armory"]]
-
 - type: entity
   parent: CrateBaseSecure
   id: CrateCommandSecure
@@ -336,9 +306,6 @@
     sprite: Structures/Storage/Crates/command.rsi
   - type: Sprite
     sprite: Structures/Storage/Crates/command.rsi
-  - type: AccessReader
-    access: [["Command"]]
-
 - type: entity
   parent: CrateGeneric
   id: CrateLivestock
@@ -662,9 +629,6 @@
       sprite: Structures/Storage/Crates/labels.rsi
       offset: "0.0,0.03125"
       map: ["enum.PaperLabelVisuals.Layer"]
-  - type: AccessReader
-    access: [["Janitor"]]
-
 - type: entity
   parent: CrateBaseWeldable
   id: InvisibleCrate

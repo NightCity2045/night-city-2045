@@ -10,9 +10,16 @@
                     OverrideDirection="South"
                     Name="View"
                     SetSize="64 64"/>
-        <Label Name="DescriptionLabel"
-               ClipText="True"
-               HorizontalExpand="True"/>
+        <BoxContainer Orientation="Vertical"
+                      VerticalAlignment="Center"
+                      HorizontalExpand="True">
+            <Label Name="DescriptionLabel"
+                   ClipText="True"
+                   HorizontalExpand="True"/>
+            <Label Name="BalanceLabel"
+                   ClipText="True"
+                   Visible="False"/>
+        </BoxContainer>
         <Button Name="DeleteButton"
                 Text="{Loc 'character-setup-gui-character-picker-button-delete-button'}"/>
         <Button Name="ConfirmDeleteButton"

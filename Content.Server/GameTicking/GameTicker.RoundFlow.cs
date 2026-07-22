@@ -599,6 +599,7 @@ namespace Content.Server.GameTicking
                 listOfPlayerInfoFinal,
                 sound
             );
+            AttachNCRoundEconomyStats(roundEndMessageEvent); // NC: add round-local economy manifest before networking.
             RaiseNetworkEvent(roundEndMessageEvent);
             RaiseLocalEvent(roundEndMessageEvent);
 

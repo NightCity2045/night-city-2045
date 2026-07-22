@@ -5,9 +5,13 @@ using Content.Server.NPC;
 using Content.Server.NPC.Components;
 using Content.Server.NPC.HTN;
 using Content.Server.NPC.Systems;
+using Content.Shared._NC.Rigger.Components;
 using Content.Shared._NC.RTS.Components;
 using Content.Shared._NC.RTS.Events;
+using Content.Shared.Access.Systems;
 using Content.Shared.CombatMode;
+using Content.Shared.Doors.Components;
+using Content.Shared.Doors.Systems;
 using Content.Shared.Mobs;
 using Content.Shared.Mobs.Components;
 using Content.Shared.NPC.Systems;
@@ -29,6 +33,9 @@ public sealed partial class GMCommandSystem : EntitySystem
     private const string TargetCoordinatesKey = "TargetCoordinates";
 
     [Dependency] private SharedCombatModeSystem _combatMode = default!;
+    [Dependency] private AccessReaderSystem _access = default!;
+    [Dependency] private SharedDoorSystem _doors = default!;
+    [Dependency] private EntityLookupSystem _lookup = default!;
     [Dependency] private NpcFactionSystem _faction = default!;
     [Dependency] private SharedGunSystem _gun = default!;
     [Dependency] private HandsSystem _hands = default!;
@@ -36,6 +43,14 @@ public sealed partial class GMCommandSystem : EntitySystem
     [Dependency] private InteractionSystem _interaction = default!;
     [Dependency] private NPCSteeringSystem _steering = default!;
     [Dependency] private SharedTransformSystem _transform = default!;
+
+    public override void Initialize()
+    {
+        base.Initialize();
+
+        // Accessible doors must begin opening before steering evaluates the next obstacle.
+        UpdatesBefore.Add(typeof(NPCSteeringSystem));
+    }
 
     public override void Update(float frameTime)
     {
@@ -46,6 +61,9 @@ public sealed partial class GMCommandSystem : EntitySystem
         {
             if (rts.ActiveCommand == null)
                 continue;
+
+            if (rts.ActiveCommand is RTSCommandType.Move or RTSCommandType.AttackMove or RTSCommandType.AttackTarget)
+                PrepareRiggerDoorNavigation(uid, rts, xform);
 
             switch (rts.ActiveCommand)
             {
@@ -65,6 +83,38 @@ public sealed partial class GMCommandSystem : EntitySystem
                     ClearCommand(uid, rts);
                     break;
             }
+        }
+    }
+
+    /// <summary>
+    /// Lets manually ordered rigger drones route through access-controlled doors and opens only
+    /// doors authorized by the ID card in the drone's PDA. NavPry is used solely because the
+    /// vanilla pathfinder otherwise rejects every access-controlled door before reaching it.
+    /// The drone has no prying component, so this does not grant forced entry.
+    /// </summary>
+    private void PrepareRiggerDoorNavigation(
+        EntityUid uid,
+        RTSControllableComponent rts,
+        TransformComponent xform)
+    {
+        if (!HasComp<RiggerDroneComponent>(uid))
+            return;
+
+        if (TryComp<HTNComponent>(uid, out var htn))
+        {
+            htn.Blackboard.SetValue(NPCBlackboard.NavInteract, true);
+            htn.Blackboard.SetValue(NPCBlackboard.NavPry, true);
+        }
+
+        foreach (var door in _lookup.GetEntitiesInRange<DoorComponent>(xform.Coordinates, rts.DoorInteractionRange))
+        {
+            if (door.Comp.State is not (DoorState.Closed or DoorState.Denying) ||
+                !_access.IsAllowed(uid, door.Owner, null))
+            {
+                continue;
+            }
+
+            _doors.TryOpen(door.Owner, door.Comp, uid, quiet: true);
         }
     }
 
@@ -258,6 +308,12 @@ public sealed partial class GMCommandSystem : EntitySystem
         htn.Blackboard.Remove<object>(TargetKey);
         htn.Blackboard.Remove<object>(TargetCoordinatesKey);
         htn.Blackboard.Remove<object>(ManualCommandKey);
+
+        if (HasComp<RiggerDroneComponent>(uid))
+        {
+            htn.Blackboard.Remove<bool>(NPCBlackboard.NavInteract);
+            htn.Blackboard.Remove<bool>(NPCBlackboard.NavPry);
+        }
 
         if (htn.Plan != null)
             _htn.ShutdownPlan(htn);

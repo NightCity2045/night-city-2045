@@ -314,8 +314,6 @@
     - AllAccessBorg
     tags:
     - Borg
-  - type: AccessReader
-    access: [["Command"], ["Research"]]
   - type: SlavedBorg # DeltaV: NT borgs are enslaved to the AI by default
     law: ObeyAI
   - type: ShowJobIcons
@@ -335,8 +333,6 @@
     tags:
     - NuclearOperative
     - SyndicateAgent
-  - type: AccessReader
-    access: [["SyndicateAgent"], ["NuclearOperative"]]
   - type: SiliconLawProvider
     laws: SyndicateStatic
   - type: IntrinsicRadioTransmitter
@@ -375,8 +371,6 @@
     enabled: false
     groups:
     - AllAccess #Randomized access would be fun. AllAccess is the best i can think of right now that does make it too hard for it to enter the station or navigate it..
-  - type: AccessReader
-    access: [["Command"], ["Research"]]
   - type: StartIonStormed
     ionStormAmount: 3
   - type: IonStormTarget

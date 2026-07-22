@@ -121,7 +121,8 @@
                                     <Label Text="{Loc 'humanoid-profile-editor-name-label'}" />
                                     <Control HorizontalExpand="True"/>
                                     <Button Name="NameRandomize" Text="{Loc 'humanoid-profile-editor-name-random-button'}" StyleClasses="OpenRight" />
-                                    <LineEdit Name="NameEdit" MinSize="270 0" HorizontalAlignment="Right" />
+                                    <LineEdit Name="NameEdit" MinSize="270 0" HorizontalAlignment="Right"
+                                              ToolTip="{Loc 'nc-character-name-english-only-tooltip'}" />
                                 </BoxContainer>
                                 <!-- Station AI name -->
                                 <BoxContainer Name="StationAiNameContainer" HorizontalExpand="True">

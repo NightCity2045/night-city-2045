@@ -417,8 +417,6 @@
   suffix: Vault, Locked
   parent: LockerFreezerBase
   components:
-  - type: AccessReader
-    access: [ [ "Command" ] ]
   - type: StorageFill
     contents:
     - id: WeaponRevolverDeckard

@@ -6,8 +6,6 @@
   components:
     - type: Transform
       noRot: true
-    - type: AccessReader
-      access: [["Research"], ["Cargo"]]
     - type: Lock
     - type: ResistLocker
     - type: Sprite

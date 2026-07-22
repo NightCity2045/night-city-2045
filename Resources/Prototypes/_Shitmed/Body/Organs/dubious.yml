@@ -44,9 +44,6 @@
       enabled: true
       groups:
       - AllAccess
-    - type: AccessReader
-      access: [["Command"], ["Research"]]
-
 - type: entity
   id: OrganDubiousShock
   parent: OrganDubiousBase

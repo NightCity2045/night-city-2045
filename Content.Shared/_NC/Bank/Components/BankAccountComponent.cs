@@ -11,7 +11,7 @@ namespace Content.Shared._NC.Bank.Components
         /// Баланс, который выдается новому персонажу.
         /// Измените это число здесь, чтобы поменять его во всем проекте.
         /// </summary>
-        public const int StartingBalance = 500;
+        public const int StartingBalance = 2850;
 
         /// <summary>
         /// Текущий баланс.

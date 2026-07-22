@@ -1,0 +1,16 @@
+round-end-economy-players-tab = Игроки
+round-end-economy-factions-tab = Организации
+round-end-economy-top-earned = Топ-10 игроков по заработанным деньгам
+round-end-economy-top-lost = Топ-10 игроков по потерянным деньгам
+round-end-economy-no-transactions = Банковские операции не зарегистрированы.
+round-end-economy-player-row = #{ $rank } { $character } ({ $ooc })
+round-end-economy-earned-amount = +{ $amount } €$
+round-end-economy-lost-amount = −{ $amount } €$
+round-end-economy-faction-net-positive = +{ $amount } €$
+round-end-economy-faction-net-negative = −{ $amount } €$
+round-end-economy-faction-net-zero = 0 €$
+round-end-economy-faction-biotechnica = Биотехника
+round-end-economy-faction-trauma-team = Траума-Тим
+round-end-economy-faction-militech = Милитех
+round-end-economy-faction-ncpd = НСПД
+round-end-economy-faction-unknown = Неизвестная организация

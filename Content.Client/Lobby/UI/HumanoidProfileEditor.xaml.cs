@@ -208,6 +208,7 @@ namespace Content.Client.Lobby.UI
 
             #region Name
 
+            NameEdit.IsValid = HumanoidCharacterProfile.IsValidNCNameInput;
             NameEdit.OnTextChanged += args => { SetName(args.Text); };
             NameRandomize.OnPressed += _ => RandomizeName();
             RandomizeEverything.OnPressed += _ => { RandomizeProfile(); };
@@ -2305,7 +2306,7 @@ namespace Content.Client.Lobby.UI
             if (Profile == null)
                 return;
 
-            var name = HumanoidCharacterProfile.GetName(Profile.Species, Profile.Gender);
+            var name = HumanoidCharacterProfile.GetNCEnglishName(Profile.Gender);
             SetName(name);
             UpdateNameEdit();
         }

@@ -54,6 +54,12 @@ public sealed partial class RTSControllableComponent : Component
     public float AttackApproachRange = 1.5f;
 
     /// <summary>
+    /// Radius in which a manually ordered rigger drone may open an accessible door.
+    /// </summary>
+    [DataField, ViewVariables(VVAccess.ReadWrite), AutoNetworkedField]
+    public float DoorInteractionRange = 1.1f;
+
+    /// <summary>
     /// Radius used by RTS attack orders to scan and validate hostile targets.
     /// </summary>
     [DataField, ViewVariables(VVAccess.ReadWrite), AutoNetworkedField]

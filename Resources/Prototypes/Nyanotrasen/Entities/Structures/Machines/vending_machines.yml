@@ -47,9 +47,6 @@
       shader: unshaded
     - state: panel
       map: ["enum.WiresVisualLayers.MaintenancePanel"]
-  - type: AccessReader
-    access: [["Boxer"]]
-
 - type: entity
   parent: VendingMachine
   id: VendingMachineRepDrobe
@@ -71,9 +68,6 @@
     - state: panel
       map: ["enum.WiresVisualLayers.MaintenancePanel"]
   - type: WiresVisuals
-  - type: AccessReader
-    access: [["Reporter"]]
-
 - type: entity
   parent: VendingMachine
   id: VendingMachineMNKDrobe

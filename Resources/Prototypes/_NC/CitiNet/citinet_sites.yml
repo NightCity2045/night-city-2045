@@ -16,7 +16,7 @@
   url: "ncpd.gov/forensics"
   uiKey: NcpdForensics
   requiredAccess:
-  - Security
+  - NCPD_Patrol
 
 - type: netSite
   id: AstrozonHome
@@ -40,7 +40,7 @@
   url: "militech.corp/supply"
   uiKey: CorporateSupply
   requiredAccess:
-  - Security
+  - Militech_Command
   storePreset: CorporateMilitechSupply
 
 - type: netSite

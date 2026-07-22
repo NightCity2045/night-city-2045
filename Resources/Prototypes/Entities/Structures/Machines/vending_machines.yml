@@ -2153,9 +2153,6 @@
     radius: 1.5
     energy: 1.6
     color: "#d82929"
-  - type: AccessReader
-    access: [["NuclearOperative"], ["SyndicateAgent"]]
-
 - type: entity
   parent: VendingMachine
   id: VendingMachineRoboDrobe
@@ -2372,9 +2369,6 @@
     normalState: normal
     denyState: deny
     ejectDelay: 2
-  - type: AccessReader
-    access: [["SyndicateAgent"]]
-
 - type: entity
   id: VendingMachineFitness
   parent: VendingMachine

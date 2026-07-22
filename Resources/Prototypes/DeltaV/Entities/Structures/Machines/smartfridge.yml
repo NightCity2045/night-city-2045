@@ -94,6 +94,3 @@
   id: DVSmartFridgeMedical
   name: Medical SmartFridge
   description: A refrigerated storage unit for keeping lifesaving medications cold and fresh.
-  components:
-  - type: AccessReader
-    access: [["Medical"]]

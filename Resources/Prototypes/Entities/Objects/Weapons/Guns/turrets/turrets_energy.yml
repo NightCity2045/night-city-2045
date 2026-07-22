@@ -76,8 +76,6 @@
     - type: NpcFactionMember
       factions:
       - AllHostile
-    - type: AccessReader
-      access: [["Security"]]
     # Weapon systems
     - type: ProjectileBatteryAmmoProvider
       proto: BulletEnergyTurretDisabler
@@ -160,8 +158,6 @@
   name: AI sentry turret
   description: A high-tech autonomous weapons system under the direct control of a local artifical intelligence.
   components:
-  - type: AccessReader
-    access: [["StationAi"], ["Captain"], ["ResearchDirector"]]
   - type: TurretTargetSettings
     exemptAccessLevels:
     - Captain

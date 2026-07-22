@@ -9,13 +9,13 @@ namespace Content.Shared._NC.Stats;
 public sealed partial class NCSkillEntry
 {
     [DataField("skillId", required: true)]
-    public string SkillId = string.Empty;
+    public string SkillId { get; set; } = string.Empty;
 
     [DataField("specialization")]
-    public string? Specialization;
+    public string? Specialization { get; set; }
 
     [DataField("value", required: true)]
-    public NCTrackedValue Value = new();
+    public NCTrackedValue Value { get; set; } = new();
 
     public NCSkillEntry()
     {

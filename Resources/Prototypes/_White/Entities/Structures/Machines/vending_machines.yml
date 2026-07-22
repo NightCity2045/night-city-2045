@@ -21,5 +21,3 @@
       map: ["enum.WiresVisualLayers.MaintenancePanel"]
   - type: PointLight
     color: "#05DAF2"
-  - type: AccessReader
-    access: [["Captain"]]

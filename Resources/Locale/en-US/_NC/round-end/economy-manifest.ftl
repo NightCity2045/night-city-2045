@@ -1,0 +1,16 @@
+round-end-economy-players-tab = Players
+round-end-economy-factions-tab = Organizations
+round-end-economy-top-earned = Top 10 players by money earned
+round-end-economy-top-lost = Top 10 players by money lost
+round-end-economy-no-transactions = No bank transactions were recorded.
+round-end-economy-player-row = #{ $rank } { $character } ({ $ooc })
+round-end-economy-earned-amount = +{ $amount } €$
+round-end-economy-lost-amount = −{ $amount } €$
+round-end-economy-faction-net-positive = +{ $amount } €$
+round-end-economy-faction-net-negative = −{ $amount } €$
+round-end-economy-faction-net-zero = 0 €$
+round-end-economy-faction-biotechnica = Biotechnica
+round-end-economy-faction-trauma-team = Trauma Team
+round-end-economy-faction-militech = Militech
+round-end-economy-faction-ncpd = NCPD
+round-end-economy-faction-unknown = Unknown organization

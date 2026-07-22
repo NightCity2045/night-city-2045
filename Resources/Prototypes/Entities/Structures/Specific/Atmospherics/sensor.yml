@@ -84,8 +84,6 @@
   - type: Clickable
   - type: InteractionOutline
   - type: ApcPowerReceiver
-  - type: AccessReader
-    access: [ [ "Atmospherics" ] ]
   - type: Construction
     graph: AirSensor
     node: sensor

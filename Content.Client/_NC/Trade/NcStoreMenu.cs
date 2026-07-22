@@ -102,7 +102,8 @@ public sealed partial class NcStoreMenu : FancyWindow
         {
             NcStoreClientCatalogModel.CatIdReady => Loc.GetString("nc-store-cat-ready-short"),
             NcStoreClientCatalogModel.CatIdCrate => Loc.GetString("nc-store-cat-crate-short"),
-            _ => catId
+            // Structured catalogs may provide either a locale key or legacy display text.
+            _ => Loc.TryGetString(catId, out var localized) ? localized : catId
         };
 
     private string GetCategoryToolTip(string catId) =>
@@ -110,7 +111,8 @@ public sealed partial class NcStoreMenu : FancyWindow
         {
             NcStoreClientCatalogModel.CatIdReady => Loc.GetString("nc-store-cat-ready-full"),
             NcStoreClientCatalogModel.CatIdCrate => Loc.GetString("nc-store-cat-crate-full"),
-            _ => catId
+            // Keep untranslated legacy categories readable while new catalogs use locale keys.
+            _ => Loc.TryGetString(catId, out var localized) ? localized : catId
         };
 
     public event Action<string>? OnSearchChanged;

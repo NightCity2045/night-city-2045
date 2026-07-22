@@ -12,11 +12,12 @@
       map: ["enum.CitiNetNodeVisuals.State"]
       shader: unshaded
       color: "#00FF00" # Зеленый по умолчанию (Idle)
+  - type: NCFixedWorldObject
   - type: CitiNetNode
     downloadDuration: 30
     cooldownDuration: 15
-    idlePower: 100
-    activePower: 500
+    idlePower: 0
+    activePower: 0
 
     # --- Настройки взаимодействия ---
     connectDelay: 5.0 # Время в секундах на подключение диска

@@ -50,9 +50,6 @@
       shader: unshaded
     - state: panel
       map: ["enum.WiresVisualLayers.MaintenancePanel"]
-  - type: AccessReader
-    access: [["Mail"]]
-
 - type: entity
   parent: VendingMachineBooze
   id: VendingMachineBoozeUnlocked

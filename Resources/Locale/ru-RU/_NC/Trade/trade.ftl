@@ -1,3 +1,23 @@
+ent-Trademachine = торговый терминал
+ent-Trademachine-desc = Автоматизированный терминал для городских торговых операций.
+ent-TrademachineCity = терминал скупки Города
+ent-TrademachineCity-desc = Этот терминал только принимает разрешённые предметы у жителей и выплачивает за них евродоллары. Купить здесь ничего нельзя.
+ent-TrademachineTickets = торговый автомат каравана
+ent-TrademachineTickets-desc = Торговый автомат, который принимает талоны каравана и выдаёт взамен снаряжение.
+
+nc-store-category-city-melee = Ближний бой
+nc-store-category-city-medical = Медикаменты
+nc-store-category-city-apparel = Снаряжение
+nc-store-category-city-clothing = Одежда
+nc-store-category-city-equipment = Оборудование
+nc-store-category-city-techstyles = Стиль и мода
+nc-store-category-city-weapons-sell = Скупка оружия
+nc-store-category-city-ammo-sell = Скупка боеприпасов
+nc-store-category-city-crafting-sell = Скупка запчастей
+nc-store-category-city-clothing-extra-sell = Скупка специального снаряжения
+nc-store-category-city-chemistry-sell = Скупка химикатов
+nc-store-category-city-devices-sell = Скупка устройств
+
 ent-NCPrizeTicket = талон каравана
 ent-NCPrizeTicket-desc = Талон, используемый для обмена при помощи специального "торгового автомата". Позволяет заполучить довольно мощное оружие, если конечно хватит талончиков.
 ent-NCPrizeTicket1 = { ent-NCPrizeTicket }
