@@ -48,6 +48,10 @@ public sealed partial class CharacterPickerButton : ContainerButton
             _previewDummy = UserInterfaceManager.GetUIController<LobbyUIController>()
                 .LoadProfileEntity(humanoid, null, true, true);
 
+            // BankBalance is already synchronized as part of the character profile.
+            BalanceLabel.Text = Loc.GetString("nc-character-bank-balance", ("balance", humanoid.BankBalance));
+            BalanceLabel.Visible = true;
+
             var highPriorityJob = humanoid.JobPriorities.SingleOrDefault(p => p.Value == JobPriority.High).Key;
             if (highPriorityJob != default)
             {

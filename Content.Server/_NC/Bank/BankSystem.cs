@@ -1,6 +1,8 @@
 using System.Threading.Tasks;
+using System.Linq;
 using Content.Shared._NC.Bank;
 using Content.Shared._NC.Bank.Components;
+using Content.Shared._NC.Bank.Manifest;
 using Content.Server.Preferences.Managers;
 using Content.Shared.Preferences;
 using Content.Server.Database;
@@ -12,6 +14,8 @@ using Content.Shared.Roles.Jobs;
 using Content.Shared.Mind;
 using Content.Shared.Ghost;
 using Content.Server.Popups;
+using Content.Server.GameTicking.Events;
+using Robust.Shared.Network;
 
 namespace Content.Server._NC.Bank
 {
@@ -34,6 +38,10 @@ namespace Content.Server._NC.Bank
 
         private Dictionary<int, int> _factionBalances = new();
 
+        // Round-only gross bank movement. Persistent balances remain owned by character profiles and the database.
+        private readonly Dictionary<NetUserId, PlayerRoundEconomy> _playerRoundEconomy = new();
+        private readonly Dictionary<SectorBankAccount, FactionRoundEconomy> _factionRoundEconomy = new();
+
         // === НАСТРОЙКИ ТАЙМЕРА ===
         private const float PaydayInterval = 1800.0f;
         private float _paydayTimer = 0.0f;
@@ -46,9 +54,16 @@ namespace Content.Server._NC.Bank
 
             SubscribeLocalEvent<StationBankComponent, MapInitEvent>(OnStationBankInit);
             SubscribeLocalEvent<PlayerSpawnCompleteEvent>(OnPlayerSpawn);
+            SubscribeLocalEvent<RoundStartingEvent>(OnRoundStarting);
             SubscribeLocalEvent<BankAccountComponent, Content.Shared.Verbs.GetVerbsEvent<Content.Shared.Verbs.ActivationVerb>>(OnGetVerbs);
 
             LoadFactionBalances();
+        }
+
+        private void OnRoundStarting(RoundStartingEvent ev)
+        {
+            _playerRoundEconomy.Clear();
+            _factionRoundEconomy.Clear();
         }
 
         private async void LoadFactionBalances()
@@ -168,6 +183,7 @@ namespace Content.Server._NC.Bank
             if (account.Balance < amount) return false;
 
             account.Balance -= amount;
+            TrackFactionTransaction(accountType, -amount);
             _factionBalances[(int)accountType] = account.Balance;
             _db.SaveFactionBankBalanceAsync((int)accountType, account.Balance);
             Dirty(stationUid, bank);
@@ -183,6 +199,7 @@ namespace Content.Server._NC.Bank
             if (!bank.Accounts.TryGetValue(accountType, out var account)) return false;
 
             account.Balance += amount;
+            TrackFactionTransaction(accountType, amount);
             _factionBalances[(int)accountType] = account.Balance;
             _db.SaveFactionBankBalanceAsync((int)accountType, account.Balance);
             Dirty(stationUid, bank);
@@ -308,7 +325,120 @@ namespace Content.Server._NC.Bank
                 }
             }
 
+            if (session != null)
+                TrackPlayerTransaction(session, bankComp.ProfileSlot, mobUid, delta);
+
             return true;
+        }
+
+        /// <summary>
+        /// Builds an immutable network snapshot after all round transactions have finished.
+        /// </summary>
+        public NCRoundEconomyStats BuildRoundEconomyStats()
+        {
+            var stats = new NCRoundEconomyStats();
+
+            stats.TopEarned.AddRange(_playerRoundEconomy.Values
+                .Where(entry => entry.Earned > 0)
+                .OrderByDescending(entry => entry.Earned)
+                .ThenBy(entry => entry.OocName, StringComparer.OrdinalIgnoreCase)
+                .Take(10)
+                .Select(CreatePlayerEntry));
+
+            stats.TopLost.AddRange(_playerRoundEconomy.Values
+                .Where(entry => entry.Lost > 0)
+                .OrderByDescending(entry => entry.Lost)
+                .ThenBy(entry => entry.OocName, StringComparer.OrdinalIgnoreCase)
+                .Take(10)
+                .Select(CreatePlayerEntry));
+
+            foreach (var account in new[]
+                     {
+                         SectorBankAccount.Biotechnica,
+                         SectorBankAccount.TraumaTeam,
+                         SectorBankAccount.Militech,
+                         SectorBankAccount.Ncpd,
+                     })
+            {
+                _factionRoundEconomy.TryGetValue(account, out var totals);
+                stats.Factions.Add(new NCRoundFactionEconomyEntry
+                {
+                    Account = account,
+                    Earned = totals?.Earned ?? 0,
+                    Lost = totals?.Lost ?? 0,
+                });
+            }
+
+            return stats;
+        }
+
+        private void TrackPlayerTransaction(ICommonSession session, int profileSlot, EntityUid accountEntity, int delta)
+        {
+            if (!_playerRoundEconomy.TryGetValue(session.UserId, out var totals))
+            {
+                totals = new PlayerRoundEconomy();
+                _playerRoundEconomy.Add(session.UserId, totals);
+            }
+
+            totals.OocName = session.Name;
+            totals.CharacterName = ResolveCharacterName(session, profileSlot, accountEntity);
+
+            if (delta > 0)
+                totals.Earned += delta;
+            else
+                totals.Lost += -delta;
+        }
+
+        private string ResolveCharacterName(ICommonSession session, int profileSlot, EntityUid accountEntity)
+        {
+            var preferences = _prefsManager.GetPreferences(session.UserId);
+            if (profileSlot >= 0 &&
+                preferences.Characters.TryGetValue(profileSlot, out var profile) &&
+                profile is HumanoidCharacterProfile humanoid)
+            {
+                return humanoid.Name;
+            }
+
+            return Name(accountEntity);
+        }
+
+        private void TrackFactionTransaction(SectorBankAccount account, int delta)
+        {
+            if (!_factionRoundEconomy.TryGetValue(account, out var totals))
+            {
+                totals = new FactionRoundEconomy();
+                _factionRoundEconomy.Add(account, totals);
+            }
+
+            if (delta > 0)
+                totals.Earned += delta;
+            else
+                totals.Lost += -delta;
+        }
+
+        private static NCRoundPlayerEconomyEntry CreatePlayerEntry(PlayerRoundEconomy entry)
+        {
+            return new NCRoundPlayerEconomyEntry
+            {
+                OocName = entry.OocName,
+                CharacterName = entry.CharacterName,
+                Earned = entry.Earned,
+                Lost = entry.Lost,
+            };
+        }
+
+        private sealed class PlayerRoundEconomy
+        {
+            public string OocName = string.Empty;
+            public string CharacterName = string.Empty;
+            public int Earned;
+            public int Lost;
+        }
+
+        private sealed class FactionRoundEconomy
+        {
+            public int Earned;
+            public int Lost;
         }
 
         /// <summary>

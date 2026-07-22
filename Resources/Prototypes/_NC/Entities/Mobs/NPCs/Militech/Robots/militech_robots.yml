@@ -52,6 +52,7 @@
   - type: RTSControllable
     attackRange: 8
     attackApproachRange: 1.5
+    doorInteractionRange: 1.1
   - type: HTN
     rootTask:
       task: NCBanditTier3RootCompound

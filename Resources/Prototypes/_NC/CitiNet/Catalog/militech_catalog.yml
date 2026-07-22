@@ -8,23 +8,23 @@
     dataPrice: 50
     count: 100
   - proto: WeaponSubMachineGunMilitechSaratogaNCPD
-    price: 1000
+    price: 500
     dataPrice: 50
     count: 300
   - proto: WeaponSubMachineGunMilitechSaratogaRED
-    price: 1000
+    price: 500
     dataPrice: 50
     count: 300
   - proto: WeaponShotgunMilitechCrusher
-    price: 1000
+    price: 500
     dataPrice: 75
     count: 100
   - proto: WeaponPistolAvenger
-    price: 500
+    price: 100
     dataPrice: 70
     count: 100
   - proto: WeaponPistolBoomerBuster
-    price: 500
+    price: 100
     dataPrice: 100
     count: 50
   - proto: MagazinePistolAvenger
@@ -67,11 +67,11 @@
     dataPrice: 15
     count: 100
   - proto: ClothingOuterHardsuitMilitech
-    price: 1000
+    price: 500
     dataPrice: 350
     count: 20
   - proto: NCArmorPlateCeramic
-    price: 500
+    price: 100
     dataPrice: 60
     count: 100
   - proto: NCArmorPlateSteel
@@ -83,7 +83,7 @@
     dataPrice: 25
     count: 200
   - proto: NCArmorBlueprintMilitechVest
-    price: 1000
+    price: 50
     dataPrice: 150
     count: 30
 

@@ -11,6 +11,7 @@
 
             </BoxContainer>
             <Label StyleClasses="MenuLabel15" Name="Summary" HorizontalAlignment="Center" Margin="3 3"/>
+            <Label StyleClasses="MenuLabel15" Name="Balance" HorizontalAlignment="Center" Margin="3 0 3 3"/>
             <!-- <controls:VSpacer/> -->
             <!-- <Button Name="CharacterSetup" Text="{Loc 'lobby-character-preview-panel-character-setup-button'}" -->
             <!--     HorizontalAlignment="Center" Margin="0 5 0 0"/> -->
