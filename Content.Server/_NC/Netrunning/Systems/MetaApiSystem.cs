@@ -6,6 +6,7 @@ using Robust.Shared.IoC;
 using Robust.Shared.Maths;
 using Robust.Shared.GameObjects;
 using Content.Server.Doors.Systems;
+using Content.Server._NC.Netrunning.Components;
 using Content.Server.Power.Components;
 using Content.Server.Power.EntitySystems;
 using Content.Server.VendingMachines;
@@ -161,10 +162,10 @@ public sealed class MetaApiSystem : EntitySystem, IMetaRuntimeApi
         return meta.EntityPrototype?.ID ?? meta.EntityName;
     }
 
-    public bool Inject(EntityUid attacker, EntityUid target, int damage)
+    public MetaIntrusionWait? Inject(EntityUid attacker, EntityUid target, int damage, bool bypassDefense = false)
     {
         if (!TryComp<IceHealthComponent>(target, out var ice))
-            return false;
+            return null;
 
         if (TryComp<CyberdeckComponent>(attacker, out var deck))
         {
@@ -172,10 +173,19 @@ public sealed class MetaApiSystem : EntitySystem, IMetaRuntimeApi
             Dirty(attacker, deck);
         }
 
-        _daemon.NotifyIntrusion(target, attacker);
+        if (!bypassDefense && _daemon.TryBeginIntrusion(
+                target,
+                attacker,
+                MetaIntrusionOperationKind.Inject,
+                damage,
+                out var wait))
+        {
+            return wait;
+        }
+
         ice.CurrentHealth = Math.Max(0, ice.CurrentHealth - Math.Max(0, damage));
         Dirty(target, ice);
-        return true;
+        return null;
     }
 
     public bool Override(EntityUid target, string key, int value)
@@ -335,6 +345,13 @@ public sealed class MetaApiSystem : EntitySystem, IMetaRuntimeApi
 
     public void Disconnect(EntityUid target)
     {
+        _daemon.CancelIntrusions(target);
+        if (TryComp<CyberdeckComponent>(target, out var deck))
+        {
+            deck.ActiveTarget = null;
+            Dirty(target, deck);
+        }
+
         var feedbackTarget = ResolveFeedbackTarget(target);
         _stun.TryParalyze(feedbackTarget, TimeSpan.FromSeconds(1.5), true);
         SendNetrunningFeedback(feedbackTarget, "DUMPSHOCK", "Connection forcibly severed.", true);
@@ -355,17 +372,58 @@ public sealed class MetaApiSystem : EntitySystem, IMetaRuntimeApi
         _eventSources[hostUid] = source;
     }
 
-    public bool Breach(EntityUid attacker, EntityUid target)
+    public MetaIntrusionWait? Breach(EntityUid attacker, EntityUid target, bool bypassDefense = false)
     {
         if (!TryComp<NetFirewallComponent>(target, out var firewall))
+            return null;
+
+        if (!bypassDefense && _daemon.TryBeginIntrusion(
+                target,
+                attacker,
+                MetaIntrusionOperationKind.Breach,
+                0,
+                out var wait))
+        {
+            return wait;
+        }
+
+        QueueDel(target);
+        MetaLog(attacker, $"BREACH SUCCESSFUL: Firewall at {target} bypassed.");
+        return null;
+    }
+
+    public bool CompleteIntrusion(MetaIntrusionTransaction transaction)
+    {
+        if (Deleted(transaction.Target))
             return false;
 
-        // In a full implementation, this would involve a progress bar or minigame.
-        // For prototype: Immediate removal.
-        QueueDel(target);
-        
-        MetaLog(attacker, $"BREACH SUCCESSFUL: Firewall at {target} bypassed.");
-        return true;
+        switch (transaction.Operation)
+        {
+            case MetaIntrusionOperationKind.Inject:
+                if (!TryComp<IceHealthComponent>(transaction.Target, out var ice))
+                    return false;
+
+                ice.CurrentHealth = Math.Max(0, ice.CurrentHealth - Math.Max(0, transaction.Value));
+                Dirty(transaction.Target, ice);
+                return true;
+
+            case MetaIntrusionOperationKind.Breach:
+                if (!HasComp<NetFirewallComponent>(transaction.Target))
+                    return false;
+
+                QueueDel(transaction.Target);
+                MetaLog(transaction.Intruder,
+                    $"BREACH SUCCESSFUL: Firewall at {transaction.Target} bypassed.");
+                return true;
+
+            case MetaIntrusionOperationKind.Program:
+            case MetaIntrusionOperationKind.Immersion:
+            case MetaIntrusionOperationKind.Admin:
+                return true;
+
+            default:
+                return false;
+        }
     }
 
     public bool HasRoot(EntityUid deckUid, EntityUid serverUid)
@@ -458,7 +516,7 @@ public sealed class MetaApiSystem : EntitySystem, IMetaRuntimeApi
         SendNetrunningFeedback(physicalTarget, "NEURAL BURN", $"Digital feedback scorches your link for {amount}.", true);
     }
 
-    private EntityUid ResolveFeedbackTarget(EntityUid target)
+    public EntityUid ResolveFeedbackTarget(EntityUid target)
     {
         if (TryComp<NetAvatarComponent>(target, out var avatar) &&
             avatar.PhysicalBody is { } body &&
@@ -468,9 +526,27 @@ public sealed class MetaApiSystem : EntitySystem, IMetaRuntimeApi
         if (_activeUsers.TryGetValue(target, out var activeUser) &&
             activeUser is { } user &&
             !Deleted(user))
+        {
+            if (TryComp<NetAvatarComponent>(user, out var activeAvatar) &&
+                activeAvatar.PhysicalBody is { } activeBody &&
+                !Deleted(activeBody))
+            {
+                return activeBody;
+            }
+
             return user;
+        }
 
         return target;
+    }
+
+    public void SendDefenseWarning(EntityUid target, EntityUid defenseHost)
+    {
+        SendNetrunningFeedback(
+            target,
+            Loc.GetString("netrunning-defense-warning-title"),
+            Loc.GetString("netrunning-defense-warning-message", ("defense", Name(defenseHost))),
+            true);
     }
 
     private EntityUid? ResolveServer(EntityUid uid)

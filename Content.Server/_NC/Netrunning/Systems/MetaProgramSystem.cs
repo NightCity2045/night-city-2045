@@ -43,6 +43,7 @@ public sealed class MetaProgramSystem : EntitySystem
     [Dependency] private readonly SharedDoAfterSystem _doAfter = default!;
     [Dependency] private readonly DamageableSystem _damageable = default!;
     [Dependency] private readonly SharedStunSystem _stun = default!;
+    [Dependency] private readonly MetaDaemonSystem _daemon = default!;
 
     private float _ramRecoveryTimer;
 
@@ -52,6 +53,8 @@ public sealed class MetaProgramSystem : EntitySystem
         SubscribeLocalEvent<DataShardComponent, MapInitEvent>(OnShardMapInit);
         SubscribeLocalEvent<DataShardComponent, GetVerbsEvent<ActivationVerb>>(OnShardVerbs);
         SubscribeLocalEvent<CyberdeckComponent, ComponentInit>(OnDeckInit);
+        SubscribeLocalEvent<CyberdeckComponent, EntInsertedIntoContainerMessage>(OnDeckContainerModified);
+        SubscribeLocalEvent<CyberdeckComponent, EntRemovedFromContainerMessage>(OnDeckContainerModified);
         SubscribeLocalEvent<CyberdeckComponent, UseInHandEvent>(OnDeckUse);
         SubscribeLocalEvent<CyberdeckComponent, InteractUsingEvent>(OnDeckInteractUsing);
         SubscribeLocalEvent<CyberdeckComponent, AfterInteractEvent>(OnDeckAfterInteract);
@@ -59,6 +62,7 @@ public sealed class MetaProgramSystem : EntitySystem
         SubscribeLocalEvent<CyberdeckComponent, CyberdeckCompileMessage>(OnDeckCompile);
         SubscribeLocalEvent<CyberdeckComponent, CyberdeckEjectMessage>(OnDeckEject);
         SubscribeLocalEvent<CyberdeckComponent, CyberdeckExecuteMessage>(OnDeckExecute);
+        SubscribeLocalEvent<CyberdeckComponent, MetaDefenseResponseRequestedEvent>(OnDefenseResponseRequested);
     }
 
     private void OnShardMapInit(EntityUid uid, DataShardComponent component, MapInitEvent args)
@@ -106,6 +110,37 @@ public sealed class MetaProgramSystem : EntitySystem
     private void OnDeckInit(EntityUid uid, CyberdeckComponent component, ComponentInit args)
     {
         _containers.EnsureContainer<Container>(uid, CyberdeckComponent.ShardContainerId);
+        SyncInstalledShards(uid, component);
+    }
+
+    private void OnDefenseResponseRequested(
+        EntityUid uid,
+        CyberdeckComponent component,
+        MetaDefenseResponseRequestedEvent args)
+    {
+        if (!IsDeckControlledBy(uid, args.Actor))
+            return;
+
+        TryExecuteDefenseResponse(uid, args.Shard);
+    }
+
+    private void OnDeckContainerModified(EntityUid uid, CyberdeckComponent component, ContainerModifiedMessage args)
+    {
+        SyncInstalledShards(uid, component);
+        UpdateUi(uid, component);
+    }
+
+    private void SyncInstalledShards(EntityUid uid, CyberdeckComponent component)
+    {
+        component.InstalledShards.Clear();
+        if (!_containers.TryGetContainer(uid, CyberdeckComponent.ShardContainerId, out var container))
+            return;
+
+        foreach (var shardUid in container.ContainedEntities)
+        {
+            if (HasComp<DataShardComponent>(shardUid))
+                component.InstalledShards.Add(shardUid);
+        }
     }
 
     private void OnDeckUiOpened(EntityUid uid, CyberdeckComponent component, BoundUIOpenedEvent args)
@@ -119,6 +154,14 @@ public sealed class MetaProgramSystem : EntitySystem
         {
             if (!UpdateRunningExecution(deckUid, deck, shardUid, runResult.Result, user))
                 return;
+
+            if (runResult.Result.SuspensionReason == MetaSuspensionReason.DefenseResponse)
+            {
+                EnsureComp<ActiveMetaProcessComponent>(deckUid).SuspendedProcesses.Add(runResult.Continuation);
+                _popup.PopupEntity(Loc.GetString("netrunning-meta-defense-wait"), deckUid, user,
+                    PopupType.MediumCaution);
+                return;
+            }
 
             if (runResult.Result.SuspensionReason == MetaSuspensionReason.SchedulerPreemption)
             {
@@ -408,7 +451,8 @@ public sealed class MetaProgramSystem : EntitySystem
         {
             serverUsedLoad = server.UsedLoad;
             serverMaxLoad = server.MaxLoad;
-            hasServerAdminAccess = component.ActiveTarget == serverUid || component.HackedNetworks.Contains(serverUid);
+            hasServerAdminAccess = component.AdminNetworks.Contains(serverUid) ||
+                                   component.HackedNetworks.Contains(serverUid);
 
             var coreGridUid = server.DigitalGrid.Value;
             var xformQuery = GetEntityQuery<TransformComponent>();
@@ -482,6 +526,7 @@ public sealed class MetaProgramSystem : EntitySystem
         if (HasComp<NetServerComponent>(target))
         {
             component.ActiveServer = target;
+            component.ActiveTarget = target;
             Dirty(uid, component);
             
             _ui.OpenUi(uid, CyberdeckUiKey.Key, args.User);
@@ -524,6 +569,16 @@ public sealed class MetaProgramSystem : EntitySystem
 
     public MetaExecutionResult Execute(EntityUid deckUid, CyberdeckComponent deck, EntityUid shardUid, DataShardComponent shard)
     {
+        return ExecuteInternal(deckUid, deck, shardUid, shard, false);
+    }
+
+    private MetaExecutionResult ExecuteInternal(
+        EntityUid deckUid,
+        CyberdeckComponent deck,
+        EntityUid shardUid,
+        DataShardComponent shard,
+        bool defenseResponse)
+    {
         if (shard.Bytecode == null)
             return RejectedExecution(shardUid, Loc.GetString("netrunning-error-no-bytecode"));
         if (shard.ProgramKind == MetaProgramKind.DaemonDefensive)
@@ -543,10 +598,60 @@ public sealed class MetaProgramSystem : EntitySystem
         deck.CurrentRam -= shard.RequiredRam;
         deck.ReservedRam += shard.RequiredRam;
         Dirty(deckUid, deck);
-        var runResult = _vm.Execute(deckUid, user, shardUid, shard.Bytecode, deck.GasLimit);
+
+        var target = deck.ActiveTarget.Value;
+        MetaVmRunResult runResult;
+        if (!defenseResponse &&
+            _daemon.TryBeginIntrusion(
+                target,
+                deckUid,
+                MetaIntrusionOperationKind.Program,
+                0,
+                out var wait,
+                user))
+        {
+            runResult = _vm.PrepareProtectedExecution(
+                deckUid,
+                user,
+                shardUid,
+                shard.Bytecode,
+                deck.GasLimit,
+                target,
+                wait);
+        }
+        else
+        {
+            runResult = _vm.Execute(
+                deckUid,
+                user,
+                shardUid,
+                shard.Bytecode,
+                deck.GasLimit,
+                target);
+        }
+
         HandleVmResult(deckUid, deck, shardUid, runResult, user);
         UpdateUi(deckUid, deck, user);
         return runResult.Result;
+    }
+
+    public bool IsDeckControlledBy(EntityUid deckUid, EntityUid actor)
+    {
+        return TryGetDeckUser(deckUid, out var user) && user == actor;
+    }
+
+    public bool TryExecuteDefenseResponse(EntityUid deckUid, EntityUid shardUid)
+    {
+        if (!TryComp<CyberdeckComponent>(deckUid, out var deck) ||
+            !deck.InstalledShards.Contains(shardUid) ||
+            !TryComp<DataShardComponent>(shardUid, out var shard) ||
+            shard.ProgramKind != MetaProgramKind.Standard ||
+            shard.RuntimeState != MetaProgramRuntimeState.Ready)
+        {
+            return false;
+        }
+
+        return ExecuteInternal(deckUid, deck, shardUid, shard, true).Failure != MetaExecutionFailure.Rejected;
     }
 
     private MetaExecutionResult RejectedExecution(EntityUid shardUid, string error)

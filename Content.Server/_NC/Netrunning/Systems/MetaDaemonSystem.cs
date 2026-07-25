@@ -1,9 +1,12 @@
 using Content.Server._NC.Netrunning.Components;
+using Content.Shared._NC.Netrunning;
 using Content.Shared._NC.Netrunning.Components;
 using Content.Shared._NC.Netrunning.Meta;
 using Robust.Shared.Containers;
 using Robust.Shared.GameObjects;
+using Robust.Shared.Player;
 using Robust.Shared.Timing;
+using System.Linq;
 
 namespace Content.Server._NC.Netrunning.Systems;
 
@@ -11,13 +14,26 @@ public sealed class MetaServerRuntimeChangedEvent : EntityEventArgs
 {
 }
 
+public sealed class MetaDefenseResponseRequestedEvent : EntityEventArgs
+{
+    public readonly EntityUid Actor;
+    public readonly EntityUid Shard;
+
+    public MetaDefenseResponseRequestedEvent(EntityUid actor, EntityUid shard)
+    {
+        Actor = actor;
+        Shard = shard;
+    }
+}
+
 public sealed class MetaDaemonSystem : EntitySystem
 {
     [Dependency] private readonly MetaVirtualMachineSystem _vm = default!;
     [Dependency] private readonly MetaApiSystem _api = default!;
     [Dependency] private readonly SharedContainerSystem _containers = default!;
-    [Dependency] private readonly MetaProgramSystem _program = default!;
     [Dependency] private readonly IGameTiming _timing = default!;
+
+    private int _nextTransactionId = 1;
 
     public override void Initialize()
     {
@@ -25,6 +41,9 @@ public sealed class MetaDaemonSystem : EntitySystem
         SubscribeLocalEvent<DefensiveDaemonComponent, ComponentStartup>(OnStartup);
         SubscribeLocalEvent<DefensiveDaemonComponent, EntInsertedIntoContainerMessage>(OnContainerModified);
         SubscribeLocalEvent<DefensiveDaemonComponent, EntRemovedFromContainerMessage>(OnContainerModified);
+        SubscribeLocalEvent<ActiveMetaDaemonProcessComponent, ComponentShutdown>(OnActiveProcessShutdown);
+        SubscribeLocalEvent<CyberdeckComponent, ComponentShutdown>(OnDeckShutdown);
+        SubscribeNetworkEvent<NetrunningDefenseResponseEvent>(OnDefenseResponse);
     }
 
     private void OnStartup(EntityUid uid, DefensiveDaemonComponent component, ComponentStartup args)
@@ -37,96 +56,261 @@ public sealed class MetaDaemonSystem : EntitySystem
         SyncShard(uid, component);
     }
 
+    private void OnActiveProcessShutdown(
+        EntityUid uid,
+        ActiveMetaDaemonProcessComponent component,
+        ComponentShutdown args)
+    {
+        if (!component.Completed)
+        {
+            _api.SetUser(component.Intruder, null);
+            ReleaseDaemonRuntime(uid, component.Server, component.Shard);
+        }
+    }
+
+    private void OnDeckShutdown(EntityUid uid, CyberdeckComponent component, ComponentShutdown args)
+    {
+        CancelIntrusions(uid);
+    }
+
     private void SyncShard(EntityUid uid, DefensiveDaemonComponent component)
     {
-        EntityUid? foundShard = null;
-        foreach (var container in _containers.GetAllContainers(uid))
+        var foundShards = new List<EntityUid>();
+        foreach (var slotId in component.Slots)
         {
+            if (!_containers.TryGetContainer(uid, slotId, out var container))
+                continue;
+
             foreach (var ent in container.ContainedEntities)
             {
                 if (HasComp<DataShardComponent>(ent))
-                {
-                    foundShard = ent;
-                    break;
-                }
+                    foundShards.Add(ent);
+            }
+        }
+
+        if (component.Shards.SequenceEqual(foundShards))
+            return;
+
+        component.Shards.Clear();
+        component.Shards.AddRange(foundShards);
+    }
+
+    public void NotifyIntrusion(
+        EntityUid protectedNode,
+        EntityUid intruder,
+        EntityUid? explicitFeedbackTarget = null)
+    {
+        QueueDefenseChain(protectedNode, intruder, 0, out _, explicitFeedbackTarget);
+    }
+
+    public bool TryBeginIntrusion(
+        EntityUid protectedNode,
+        EntityUid intruder,
+        MetaIntrusionOperationKind operation,
+        int value,
+        out MetaIntrusionWait wait,
+        EntityUid? explicitFeedbackTarget = null)
+    {
+        var transactionId = _nextTransactionId++;
+        var feedbackTarget = explicitFeedbackTarget ?? _api.ResolveFeedbackTarget(intruder);
+        if (!QueueDefenseChain(
+                protectedNode,
+                intruder,
+                transactionId,
+                out var serverUid,
+                feedbackTarget))
+        {
+            wait = default;
+            return false;
+        }
+
+        var defenseQueue = EnsureComp<MetaDefenseQueueComponent>(serverUid);
+        defenseQueue.Transactions[transactionId] = new MetaIntrusionTransaction
+        {
+            Id = transactionId,
+            Intruder = intruder,
+            FeedbackTarget = feedbackTarget,
+            Target = protectedNode,
+            Operation = operation,
+            Value = value,
+        };
+        SendDefenseWindow(serverUid, defenseQueue, transactionId);
+        TryCompleteTransaction(serverUid, defenseQueue, transactionId);
+        wait = new MetaIntrusionWait(GetNetEntity(serverUid), transactionId);
+        return true;
+    }
+
+    private bool QueueDefenseChain(
+        EntityUid protectedNode,
+        EntityUid intruder,
+        int transactionId,
+        out EntityUid resolvedServer,
+        EntityUid? explicitFeedbackTarget = null)
+    {
+        var serverUid = ResolveServer(protectedNode);
+        if (serverUid is not { } server || !TryComp<NetServerComponent>(server, out _))
+        {
+            resolvedServer = EntityUid.Invalid;
+            return false;
+        }
+
+        var feedbackTarget = explicitFeedbackTarget ?? _api.ResolveFeedbackTarget(intruder);
+        var invocations = new List<MetaDefenseInvocation>();
+        var uniqueShards = new HashSet<EntityUid>();
+        AddDefenseInvocations(
+            protectedNode,
+            intruder,
+            feedbackTarget,
+            transactionId,
+            invocations,
+            uniqueShards);
+
+        if (invocations.Count == 0)
+        {
+            resolvedServer = server;
+            return false;
+        }
+
+        var defenseQueue = EnsureComp<MetaDefenseQueueComponent>(server);
+        defenseQueue.Pending.AddRange(invocations);
+
+        TryStartNextDefense(server, defenseQueue);
+        resolvedServer = server;
+        return true;
+    }
+
+    private void AddDefenseInvocations(
+        EntityUid hostUid,
+        EntityUid intruder,
+        EntityUid feedbackTarget,
+        int transactionId,
+        List<MetaDefenseInvocation> invocations,
+        HashSet<EntityUid> uniqueShards)
+    {
+        if (!TryComp<DefensiveDaemonComponent>(hostUid, out var daemon))
+            return;
+
+        foreach (var shardUid in daemon.Shards)
+        {
+            if (uniqueShards.Add(shardUid))
+                invocations.Add(new MetaDefenseInvocation(
+                    hostUid,
+                    shardUid,
+                    intruder,
+                    feedbackTarget,
+                    transactionId));
+        }
+    }
+
+    private void TryStartNextDefense(EntityUid serverUid, MetaDefenseQueueComponent defenseQueue)
+    {
+        if (defenseQueue.ActiveHost != null)
+            return;
+
+        while (defenseQueue.Pending.Count > 0)
+        {
+            var invocation = defenseQueue.Pending[0];
+            var status = CanStartDaemon(serverUid, invocation, out var shard, out var server);
+            if (status == DaemonStartStatus.Blocked)
+                return;
+
+            defenseQueue.Pending.RemoveAt(0);
+            if (status == DaemonStartStatus.Invalid)
+            {
+                TryCompleteTransaction(serverUid, defenseQueue, invocation.TransactionId);
+                continue;
             }
 
-            if (foundShard != null)
-                break;
+            defenseQueue.ActiveHost = invocation.Host;
+            defenseQueue.ActiveTransactionId = invocation.TransactionId;
+            StartDaemon(serverUid, server!, invocation, invocation.Shard, shard!);
+            return;
         }
 
-        if (component.Shard == foundShard)
-            return;
-
-        component.Shard = foundShard;
+        // The empty queue component is retained to avoid structural changes while
+        // defensive processes are being advanced from the system update.
     }
 
-    public void NotifyIntrusion(EntityUid protectedNode, EntityUid intruder)
+    private DaemonStartStatus CanStartDaemon(
+        EntityUid serverUid,
+        MetaDefenseInvocation invocation,
+        out DataShardComponent? shard,
+        out NetServerComponent? server)
     {
-        if (TryComp<DefensiveDaemonComponent>(protectedNode, out var daemon))
-            TriggerDaemon(protectedNode, daemon, intruder);
+        shard = null;
+        var hostUid = invocation.Host;
+        var shardUid = invocation.Shard;
 
-        var serverUid = ResolveServer(protectedNode);
-        if (serverUid == null)
-            return;
-
-        var query = EntityQueryEnumerator<DefensiveDaemonComponent, TransformComponent>();
-        while (query.MoveNext(out var daemonUid, out var serverDaemon, out var xform))
+        if (Deleted(hostUid) ||
+            Deleted(shardUid) ||
+            ResolveServer(hostUid) != serverUid ||
+            !TryComp<DefensiveDaemonComponent>(hostUid, out var daemon) ||
+            !daemon.Shards.Contains(shardUid) ||
+            !TryComp<DataShardComponent>(shardUid, out shard) ||
+            shard.Bytecode == null ||
+            shard.ProgramKind != MetaProgramKind.DaemonDefensive)
         {
-            if (daemonUid == protectedNode)
-                continue;
-
-            if (ResolveServer(daemonUid, xform) != serverUid)
-                continue;
-
-            TriggerDaemon(daemonUid, serverDaemon, intruder);
+            server = null;
+            return DaemonStartStatus.Invalid;
         }
+
+        if (!TryComp<NetServerComponent>(serverUid, out server))
+            return DaemonStartStatus.Invalid;
+
+        if (HasComp<ActiveMetaDaemonProcessComponent>(hostUid) ||
+            shard.RuntimeState != MetaProgramRuntimeState.Ready ||
+            server.ActiveMetaPrograms >= Math.Max(1, server.MaxConcurrentMetaPrograms))
+        {
+            return DaemonStartStatus.Blocked;
+        }
+
+        return DaemonStartStatus.Ready;
     }
 
-    private void TriggerDaemon(EntityUid hostUid, DefensiveDaemonComponent daemon, EntityUid intruder)
+    private void StartDaemon(
+        EntityUid serverUid,
+        NetServerComponent server,
+        MetaDefenseInvocation invocation,
+        EntityUid shardUid,
+        DataShardComponent shard)
     {
-        if (HasComp<ActiveMetaDaemonProcessComponent>(hostUid))
-            return;
-
-        if (daemon.Shard == null || !TryComp<DataShardComponent>(daemon.Shard.Value, out var shard))
-            return;
-
-        if (shard.Bytecode == null || shard.ProgramKind != MetaProgramKind.DaemonDefensive)
-            return;
-
-        var serverUid = ResolveServer(hostUid);
-        if (serverUid is not { } resolvedServer ||
-            !TryComp<NetServerComponent>(resolvedServer, out var server) ||
-            _program.GetRuntimeState(daemon.Shard.Value, shard) != MetaProgramRuntimeState.Ready ||
-            server.ActiveMetaPrograms >= Math.Max(1, server.MaxConcurrentMetaPrograms))
-            return;
+        var hostUid = invocation.Host;
 
         shard.RuntimeState = MetaProgramRuntimeState.Running;
         server.ActiveMetaPrograms++;
-        Dirty(daemon.Shard.Value, shard);
-        Dirty(resolvedServer, server);
-        RaiseLocalEvent(resolvedServer, new MetaServerRuntimeChangedEvent());
+        Dirty(shardUid, shard);
+        Dirty(serverUid, server);
+        RaiseLocalEvent(serverUid, new MetaServerRuntimeChangedEvent());
+        _api.SendDefenseWarning(invocation.FeedbackTarget, hostUid);
 
         try
         {
-            _api.SetIntruder(hostUid, intruder);
-            var result = _vm.ExecuteEvent(hostUid, daemon.Shard.Value, shard.Bytecode, "INTRUSION", intruder,
+            _api.SetIntruder(hostUid, invocation.Intruder);
+            var result = _vm.ExecuteEvent(hostUid, shardUid, shard.Bytecode!, "INTRUSION", invocation.Intruder,
                 Math.Max(1, server.MetaGasLimit));
             _api.SetIntruder(hostUid, null);
             _api.SetEventSource(hostUid, null);
 
             if (result.Continuation != null)
             {
-                StoreContinuation(hostUid, resolvedServer, daemon.Shard.Value, result);
+                StoreContinuation(
+                    hostUid,
+                    serverUid,
+                    shardUid,
+                    result,
+                    invocation.Intruder,
+                    invocation.FeedbackTarget);
+                SendDefenseWindow(serverUid, EnsureComp<MetaDefenseQueueComponent>(serverUid),
+                    invocation.TransactionId);
                 return;
             }
 
-            FinishDaemon(hostUid, resolvedServer, daemon.Shard.Value);
+            FinishDaemon(hostUid, serverUid, shardUid);
         }
         catch (Exception exception)
         {
             Logger.ErrorS("meta", $"Defensive daemon on {ToPrettyString(hostUid)} failed safely: {exception}");
-            FinishDaemon(hostUid, resolvedServer, daemon.Shard.Value);
+            FinishDaemon(hostUid, serverUid, shardUid);
         }
     }
 
@@ -149,19 +333,31 @@ public sealed class MetaDaemonSystem : EntitySystem
 
             try
             {
+                // Restore the physical operator mapping while daemon SYS calls
+                // resolve the intruder deck after a YIELD.
+                _api.SetUser(active.Intruder, active.FeedbackTarget);
                 var result = _vm.Resume(active.Continuation);
+                _api.SetUser(active.Intruder, null);
                 if (result.Continuation != null)
                 {
-                    StoreContinuation(hostUid, active.Server, active.Shard, result, active);
+                    StoreContinuation(hostUid, active.Server, active.Shard, result, active: active);
                     continue;
                 }
             }
             catch (Exception exception)
             {
+                _api.SetUser(active.Intruder, null);
                 Logger.ErrorS("meta", $"Defensive daemon on {ToPrettyString(hostUid)} failed safely: {exception}");
             }
 
             FinishDaemon(hostUid, active.Server, active.Shard);
+        }
+
+        var queueQuery = EntityQueryEnumerator<MetaDefenseQueueComponent>();
+        while (queueQuery.MoveNext(out var serverUid, out var defenseQueue))
+        {
+            if (defenseQueue.ActiveHost == null)
+                TryStartNextDefense(serverUid, defenseQueue);
         }
     }
 
@@ -170,6 +366,8 @@ public sealed class MetaDaemonSystem : EntitySystem
         EntityUid serverUid,
         EntityUid shardUid,
         MetaVmRunResult result,
+        EntityUid intruder = default,
+        EntityUid feedbackTarget = default,
         ActiveMetaDaemonProcessComponent? active = null)
     {
         if (result.Continuation == null)
@@ -179,6 +377,10 @@ public sealed class MetaDaemonSystem : EntitySystem
         active.Continuation = result.Continuation;
         active.Server = serverUid;
         active.Shard = shardUid;
+        if (intruder != default)
+            active.Intruder = intruder;
+        if (feedbackTarget != default)
+            active.FeedbackTarget = feedbackTarget;
         active.ResumeAtTime = result.Result.SuspensionReason == MetaSuspensionReason.Yield
             ? _timing.CurTime.TotalSeconds + result.Continuation.ResumeAtTime / 1000.0
             : _timing.CurTime.TotalSeconds;
@@ -188,7 +390,21 @@ public sealed class MetaDaemonSystem : EntitySystem
     {
         _api.SetIntruder(hostUid, null);
         _api.SetEventSource(hostUid, null);
+
+        if (TryComp<ActiveMetaDaemonProcessComponent>(hostUid, out var active))
+        {
+            active.Completed = true;
+            _api.SetUser(active.Intruder, null);
+        }
+
         RemComp<ActiveMetaDaemonProcessComponent>(hostUid);
+        ReleaseDaemonRuntime(hostUid, serverUid, shardUid);
+    }
+
+    private void ReleaseDaemonRuntime(EntityUid hostUid, EntityUid serverUid, EntityUid shardUid)
+    {
+        _api.SetIntruder(hostUid, null);
+        _api.SetEventSource(hostUid, null);
 
         if (TryComp<NetServerComponent>(serverUid, out var server))
         {
@@ -202,12 +418,219 @@ public sealed class MetaDaemonSystem : EntitySystem
             shard.RuntimeState = MetaProgramRuntimeState.Ready;
             Dirty(shardUid, shard);
         }
+
+        if (TryComp<MetaDefenseQueueComponent>(serverUid, out var defenseQueue) &&
+            defenseQueue.ActiveHost == hostUid)
+        {
+            var transactionId = defenseQueue.ActiveTransactionId;
+            defenseQueue.ActiveHost = null;
+            defenseQueue.ActiveTransactionId = 0;
+            TryCompleteTransaction(serverUid, defenseQueue, transactionId);
+        }
+    }
+
+    private void TryCompleteTransaction(
+        EntityUid serverUid,
+        MetaDefenseQueueComponent defenseQueue,
+        int transactionId)
+    {
+        if (transactionId == 0 || defenseQueue.ActiveTransactionId == transactionId)
+            return;
+
+        if (defenseQueue.Pending.Any(invocation => invocation.TransactionId == transactionId))
+            return;
+
+        if (!defenseQueue.Transactions.TryGetValue(transactionId, out var transaction))
+            return;
+
+        if (transaction.Completed)
+            return;
+
+        transaction.Completed = true;
+        if (!transaction.Cancelled)
+            transaction.Applied = _api.CompleteIntrusion(transaction);
+
+        if (Deleted(transaction.Intruder))
+        {
+            defenseQueue.Transactions.Remove(transaction.Id);
+            return;
+        }
+
+        var feedbackTarget = Deleted(transaction.FeedbackTarget)
+            ? _api.ResolveFeedbackTarget(transaction.Intruder)
+            : transaction.FeedbackTarget;
+        RaiseNetworkEvent(new NetrunningDefenseResolvedEvent(transaction.Id, transaction.Applied), feedbackTarget);
+    }
+
+    private void OnDefenseResponse(NetrunningDefenseResponseEvent ev, EntitySessionEventArgs args)
+    {
+        if (args.SenderSession.AttachedEntity is not { } actor)
+            return;
+
+        var deckUid = GetEntity(ev.Deck);
+        var serverUid = GetEntity(ev.Server);
+        var shardUid = GetEntity(ev.Shard);
+        if (!TryComp<MetaDefenseQueueComponent>(serverUid, out var queue) ||
+            !queue.Transactions.TryGetValue(ev.TransactionId, out var transaction) ||
+            transaction.Completed ||
+            transaction.Intruder != deckUid)
+        {
+            return;
+        }
+
+        RaiseLocalEvent(deckUid, new MetaDefenseResponseRequestedEvent(actor, shardUid));
+    }
+
+    private void SendDefenseWindow(
+        EntityUid serverUid,
+        MetaDefenseQueueComponent queue,
+        int transactionId)
+    {
+        if (transactionId == 0 ||
+            queue.ActiveTransactionId != transactionId ||
+            queue.ActiveHost is not { } hostUid ||
+            !queue.Transactions.TryGetValue(transactionId, out var transaction) ||
+            !TryComp<ActiveMetaDaemonProcessComponent>(hostUid, out var active) ||
+            !TryComp<DataShardComponent>(active.Shard, out var defenseShard) ||
+            !TryComp<CyberdeckComponent>(transaction.Intruder, out var deck))
+        {
+            return;
+        }
+
+        var responseMilliseconds = Math.Max(0,
+            (int) Math.Ceiling((active.ResumeAtTime - _timing.CurTime.TotalSeconds) * 1000.0));
+        var shards = new List<NetrunningResponseShardInfo>();
+        foreach (var shardUid in deck.InstalledShards)
+        {
+            if (!TryComp<DataShardComponent>(shardUid, out var shard) ||
+                shard.ProgramKind != MetaProgramKind.Standard ||
+                shard.RuntimeState != MetaProgramRuntimeState.Ready)
+            {
+                continue;
+            }
+
+            shards.Add(new NetrunningResponseShardInfo(
+                GetNetEntity(shardUid),
+                Name(shardUid),
+                shard.RequiredRam));
+        }
+
+        var consequences = CollectConsequences(defenseShard.Bytecode);
+        var feedbackTarget = Deleted(transaction.FeedbackTarget)
+            ? _api.ResolveFeedbackTarget(transaction.Intruder)
+            : transaction.FeedbackTarget;
+        RaiseNetworkEvent(new NetrunningDefenseWindowEvent(
+            GetNetEntity(transaction.Intruder),
+            GetNetEntity(serverUid),
+            transactionId,
+            Name(active.Shard),
+            responseMilliseconds,
+            consequences,
+            shards), feedbackTarget);
+    }
+
+    private static List<NetrunningDefenseConsequence> CollectConsequences(MetaBytecode? bytecode)
+    {
+        var consequences = new HashSet<NetrunningDefenseConsequence>();
+        if (bytecode != null)
+            CollectConsequences(bytecode.Instructions, consequences);
+
+        if (consequences.Count == 0)
+            consequences.Add(NetrunningDefenseConsequence.Unknown);
+
+        return consequences.ToList();
+    }
+
+    private static void CollectConsequences(
+        IEnumerable<MetaInstruction> instructions,
+        HashSet<NetrunningDefenseConsequence> consequences)
+    {
+        foreach (var instruction in instructions)
+        {
+            switch (instruction)
+            {
+                case MetaSysInjectInstruction:
+                    consequences.Add(NetrunningDefenseConsequence.IceDamage);
+                    break;
+                case MetaSysOverrideInstruction:
+                    consequences.Add(NetrunningDefenseConsequence.Override);
+                    break;
+                case MetaSysSimpleInstruction simple when simple.Name == "BURN_NEUROPORT":
+                    consequences.Add(NetrunningDefenseConsequence.NeuralBurn);
+                    break;
+                case MetaSysSimpleInstruction simple when simple.Name == "DISCONNECT":
+                    consequences.Add(NetrunningDefenseConsequence.Disconnect);
+                    break;
+                case MetaOnEventInstruction onEvent:
+                    CollectConsequences(onEvent.Body, consequences);
+                    break;
+                case MetaIfInstruction conditional:
+                    CollectConsequences(conditional.ThenBody, consequences);
+                    if (conditional.ElseBody != null)
+                        CollectConsequences(conditional.ElseBody, consequences);
+                    break;
+                case MetaWhileInstruction loop:
+                    CollectConsequences(loop.Body, consequences);
+                    break;
+                case MetaForInstruction loop:
+                    CollectConsequences(loop.Body, consequences);
+                    break;
+            }
+        }
+    }
+
+    public bool TryConsumeIntrusionResult(EntityUid serverUid, int transactionId, out bool applied)
+    {
+        applied = false;
+        if (!TryComp<MetaDefenseQueueComponent>(serverUid, out var defenseQueue) ||
+            !defenseQueue.Transactions.TryGetValue(transactionId, out var transaction) ||
+            !transaction.Completed)
+        {
+            return false;
+        }
+
+        applied = transaction.Applied;
+        defenseQueue.Transactions.Remove(transactionId);
+        return true;
+    }
+
+    public bool HasIntrusionTransaction(EntityUid serverUid, int transactionId)
+    {
+        return TryComp<MetaDefenseQueueComponent>(serverUid, out var queue) &&
+               queue.Transactions.ContainsKey(transactionId);
+    }
+
+    public void CancelIntrusions(EntityUid intruder)
+    {
+        var query = EntityQueryEnumerator<MetaDefenseQueueComponent>();
+        while (query.MoveNext(out var serverUid, out var defenseQueue))
+        {
+            foreach (var transaction in defenseQueue.Transactions.Values)
+            {
+                if (transaction.Intruder == intruder && !transaction.Completed)
+                    transaction.Cancelled = true;
+            }
+
+            // The active invocation is no longer in Pending. Once the link is cut,
+            // no later defensive program should spend server load on that intruder.
+            defenseQueue.Pending.RemoveAll(invocation => invocation.Intruder == intruder);
+
+            foreach (var transaction in defenseQueue.Transactions.Values)
+                TryCompleteTransaction(serverUid, defenseQueue, transaction.Id);
+        }
     }
 
     private EntityUid? ResolveServer(EntityUid uid, TransformComponent? xform = null)
     {
         if (HasComp<NetServerComponent>(uid))
             return uid;
+
+        if (TryComp<DefensiveDaemonComponent>(uid, out var daemon) &&
+            daemon.Server is { } daemonServer &&
+            !Deleted(daemonServer))
+        {
+            return daemonServer;
+        }
 
         if (TryComp<NetDeviceNodeComponent>(uid, out var node) && node.Server is { } nodeServer && !Deleted(nodeServer))
             return nodeServer;
@@ -229,5 +652,12 @@ public sealed class MetaDaemonSystem : EntitySystem
             return server;
 
         return null;
+    }
+
+    private enum DaemonStartStatus : byte
+    {
+        Invalid,
+        Blocked,
+        Ready,
     }
 }

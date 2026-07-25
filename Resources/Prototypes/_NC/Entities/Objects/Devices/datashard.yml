@@ -40,9 +40,11 @@
       ON_EVENT("INTRUSION") {
           DEF PTR intr = SYS.GET_INTRUDER();
           IF (SYS.IS_VALID(intr) == 1) {
-              SYS.LOG("INTRUSION DETECTED. Executing Neuro-burn...");
+              SYS.LOG("INTRUSION DETECTED. Charging Neuro-burn...");
+              YIELD [1500];
               SYS.BURN_NEUROPORT(intr, 15);
-              SYS.LOG("Initiating forced Dumpshock...");
+              SYS.LOG("Neuro-burn delivered. Preparing forced Dumpshock...");
+              YIELD [750];
               SYS.DISCONNECT(intr);
           }
       }
@@ -98,6 +100,20 @@
       }
       
       EXIT [0];
+
+- type: entity
+  parent: NCDataShard
+  id: NCDataShardEmergencyDisconnect
+  name: "META: Emergency Disconnect"
+  description: A last-resort response script that cuts the active link before hostile ICE completes its chain.
+  components:
+  - type: DataShard
+    sourceCode: |
+      // Emergency Disconnect - cancels the pending intrusion at the cost of dumpshock.
+      DEF PTR deck = SYS.GET_SELF();
+      SYS.LOG("Emergency link termination requested.");
+      SYS.DISCONNECT(deck);
+      EXIT [1];
 
 - type: entity
   parent: NCDataShard

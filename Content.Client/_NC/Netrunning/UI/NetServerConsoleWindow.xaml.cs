@@ -33,6 +33,8 @@ public sealed partial class NetServerConsoleWindow : DefaultWindow
     private float _moduleRatio;
     private float _deviceRatio;
     private bool _hasDaemon;
+    private int _daemonShardCount;
+    private int _daemonSlotCount;
     private MetaProgramRuntimeState _daemonRuntimeState;
     private bool _hasTopologyAdminAccess;
 
@@ -50,7 +52,7 @@ public sealed partial class NetServerConsoleWindow : DefaultWindow
         RuntimeLabel.Text = Loc.GetString("netrunning-ui-label-runtime", ("active", 0), ("max", 0));
         ModuleLabel.Text = Loc.GetString("netrunning-ui-label-modules", ("count", 0), ("limit", 0));
         DeviceCountLabel.Text = Loc.GetString("netrunning-ui-label-nodes", ("count", 0));
-        DaemonLabel.Text = Loc.GetString("netrunning-ui-daemon-empty");
+        DaemonLabel.Text = Loc.GetString("netrunning-ui-daemon-empty-count", ("count", 0), ("slots", 0));
         DevicesTitleLabel.Text = Loc.GetString("netrunning-server-devices-title");
         DevicesHintLabel.Text = Loc.GetString("netrunning-server-devices-hint");
         RefreshButton.Text = Loc.GetString("netrunning-server-refresh");
@@ -117,6 +119,8 @@ public sealed partial class NetServerConsoleWindow : DefaultWindow
         ModuleLabel.Text = Loc.GetString("netrunning-ui-label-modules", ("count", state.ModuleCount), ("limit", state.ModuleLimit));
         DeviceCountLabel.Text = Loc.GetString("netrunning-ui-label-nodes", ("count", state.ConnectedDeviceCount));
         _hasDaemon = state.HasDaemonShard;
+        _daemonShardCount = state.DaemonShardCount;
+        _daemonSlotCount = state.DaemonSlotCount;
         _daemonRuntimeState = state.DaemonRuntimeState;
         RefreshDaemonLabel();
         AccessLabel.Text = state.AccessStatus;
@@ -204,14 +208,20 @@ public sealed partial class NetServerConsoleWindow : DefaultWindow
     {
         if (!_hasDaemon)
         {
-            DaemonLabel.Text = Loc.GetString("netrunning-ui-daemon-empty");
+            DaemonLabel.Text = Loc.GetString("netrunning-ui-daemon-empty-count",
+                ("count", _daemonShardCount),
+                ("slots", _daemonSlotCount));
             return;
         }
 
         DaemonLabel.Text = _daemonRuntimeState switch
         {
-            MetaProgramRuntimeState.Running => Loc.GetString("netrunning-ui-daemon-running"),
-            _ => Loc.GetString("netrunning-ui-daemon-ready")
+            MetaProgramRuntimeState.Running => Loc.GetString("netrunning-ui-daemon-running-count",
+                ("count", _daemonShardCount),
+                ("slots", _daemonSlotCount)),
+            _ => Loc.GetString("netrunning-ui-daemon-ready-count",
+                ("count", _daemonShardCount),
+                ("slots", _daemonSlotCount))
         };
     }
 

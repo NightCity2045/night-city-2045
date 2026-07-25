@@ -23,3 +23,82 @@ public sealed class NetrunningFeedbackEvent : EntityEventArgs
         Critical = critical;
     }
 }
+
+[Serializable, NetSerializable]
+public sealed record NetrunningResponseShardInfo(NetEntity Shard, string Name, int RamCost);
+
+[Serializable, NetSerializable]
+public enum NetrunningDefenseConsequence : byte
+{
+    Unknown,
+    NeuralBurn,
+    Disconnect,
+    IceDamage,
+    Override,
+}
+
+/// <summary>
+/// Opens or refreshes the netrunner's response window for an active intrusion transaction.
+/// </summary>
+[Serializable, NetSerializable]
+public sealed class NetrunningDefenseWindowEvent : EntityEventArgs
+{
+    public readonly NetEntity Deck;
+    public readonly NetEntity Server;
+    public readonly int TransactionId;
+    public readonly string DefenseName;
+    public readonly int ResponseMilliseconds;
+    public readonly List<NetrunningDefenseConsequence> Consequences;
+    public readonly List<NetrunningResponseShardInfo> Shards;
+
+    public NetrunningDefenseWindowEvent(
+        NetEntity deck,
+        NetEntity server,
+        int transactionId,
+        string defenseName,
+        int responseMilliseconds,
+        List<NetrunningDefenseConsequence> consequences,
+        List<NetrunningResponseShardInfo> shards)
+    {
+        Deck = deck;
+        Server = server;
+        TransactionId = transactionId;
+        DefenseName = defenseName;
+        ResponseMilliseconds = responseMilliseconds;
+        Consequences = consequences;
+        Shards = shards;
+    }
+}
+
+/// <summary>
+/// Requests execution of one installed deck script while a defensive chain is active.
+/// </summary>
+[Serializable, NetSerializable]
+public sealed class NetrunningDefenseResponseEvent : EntityEventArgs
+{
+    public readonly NetEntity Deck;
+    public readonly NetEntity Server;
+    public readonly int TransactionId;
+    public readonly NetEntity Shard;
+
+    public NetrunningDefenseResponseEvent(NetEntity deck, NetEntity server, int transactionId, NetEntity shard)
+    {
+        Deck = deck;
+        Server = server;
+        TransactionId = transactionId;
+        Shard = shard;
+    }
+}
+
+[Serializable, NetSerializable]
+public sealed class NetrunningDefenseResolvedEvent : EntityEventArgs
+{
+    public readonly int TransactionId;
+    public readonly bool AttackApplied;
+
+    public NetrunningDefenseResolvedEvent(int transactionId, bool attackApplied)
+    {
+        TransactionId = transactionId;
+        AttackApplied = attackApplied;
+    }
+}

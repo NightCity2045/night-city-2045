@@ -155,7 +155,21 @@ public enum MetaSuspensionReason : byte
 {
     None,
     Yield,
-    SchedulerPreemption
+    SchedulerPreemption,
+    DefenseResponse
+}
+
+[Serializable, NetSerializable]
+public readonly record struct MetaIntrusionWait(NetEntity Server, int Id);
+
+[Serializable, NetSerializable]
+public enum MetaIntrusionOperationKind : byte
+{
+    Inject,
+    Breach,
+    Program,
+    Immersion,
+    Admin
 }
 
 [Serializable, NetSerializable]
@@ -201,7 +215,7 @@ public interface IMetaRuntimeApi
     int GetIce(EntityUid target);
     IReadOnlyList<EntityUid> GetConnected(EntityUid target);
     string GetClass(EntityUid target);
-    bool Inject(EntityUid attacker, EntityUid target, int damage);
+    MetaIntrusionWait? Inject(EntityUid attacker, EntityUid target, int damage, bool bypassDefense = false);
     int GetTrace(EntityUid deckUid);
     void Cloak(EntityUid deckUid, int strength);
     bool Override(EntityUid target, string key, int value);
@@ -219,7 +233,7 @@ public interface IMetaRuntimeApi
     IReadOnlyList<int> GetVitals(EntityUid target);
     void SetUser(EntityUid deckUid, EntityUid? userUid);
     void SetEventSource(EntityUid hostUid, EntityUid? source);
-    bool Breach(EntityUid attacker, EntityUid target);
+    MetaIntrusionWait? Breach(EntityUid attacker, EntityUid target, bool bypassDefense = false);
     bool HasRoot(EntityUid deckUid, EntityUid serverUid);
     bool TryRoot(EntityUid deckUid, EntityUid serverUid, int strength);
     EntityUid? SpawnIce(EntityUid deckUid, EntityUid anchor, int strength, bool blackIce);

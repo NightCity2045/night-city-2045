@@ -19,16 +19,35 @@
     metaGasLimit: 5000
     maxConcurrentMetaPrograms: 1
   - type: DefensiveDaemon
+    slots:
+    - daemon_shard
+    - daemon_shard_2
+    - daemon_shard_3
   - type: ItemSlots
     slots:
       daemon_shard:
         name: Daemon Shard
+        insertOnInteract: false
+        whitelist:
+          components:
+          - DataShard
+      daemon_shard_2:
+        name: Daemon Shard
+        insertOnInteract: false
+        whitelist:
+          components:
+          - DataShard
+      daemon_shard_3:
+        name: Daemon Shard
+        insertOnInteract: false
         whitelist:
           components:
           - DataShard
   - type: ContainerContainer
     containers:
       daemon_shard: !type:ContainerSlot
+      daemon_shard_2: !type:ContainerSlot
+      daemon_shard_3: !type:ContainerSlot
   - type: ApcPowerReceiver
     powerLoad: 500
   - type: LogicPowerReceiver

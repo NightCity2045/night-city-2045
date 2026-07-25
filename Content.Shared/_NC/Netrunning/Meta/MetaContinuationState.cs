@@ -115,6 +115,9 @@ public sealed class MetaContinuationState
     public string? Error;
     public MetaExecutionFailure Failure;
     public MetaSuspensionReason SuspensionReason;
+    public NetEntity AwaitedIntrusionServer;
+    public int AwaitedIntrusionId;
+    public NetEntity DefenseClearedTarget;
 
     // --- YIELD timing ---
 

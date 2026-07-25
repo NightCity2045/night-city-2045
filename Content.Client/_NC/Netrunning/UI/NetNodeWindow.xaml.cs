@@ -26,11 +26,15 @@ public sealed partial class NetNodeWindow : DefaultWindow
 
     public event Action<string>? OnControlAction;
     public event Action<NetEntity>? OnExecuteShard;
+    public event Action<NetEntity>? OnEjectDefense;
 
     private readonly ScalingViewport _viewport;
     private readonly FixedEye _syntheticEye = new();
     private readonly List<NetNodeShardInfo> _shards = new();
+    private readonly List<NetNodeDefenseInfo> _defenses = new();
     private bool _hasLinkedDeck;
+    private bool _canManageDefense;
+    private int _defenseSlotCount;
     private EntityUid? _physicalUid;
     private NetDeviceNodeKind _deviceKind;
 
@@ -46,6 +50,8 @@ public sealed partial class NetNodeWindow : DefaultWindow
         ScriptsTitleLabel.Text = Loc.GetString("netrunning-node-scripts-title");
         ShardStatusLabel.Text = Loc.GetString("netrunning-node-scripts-default");
         ExecuteShardButton.Text = Loc.GetString("netrunning-node-execute");
+        DefenseTitleLabel.Text = Loc.GetString("netrunning-node-defense-title");
+        EjectDefenseButton.Text = Loc.GetString("netrunning-node-defense-eject");
         ControlTitleLabel.Text = Loc.GetString("netrunning-node-control-title");
         ToggleButton.Text = Loc.GetString("netrunning-node-toggle");
         ScanButton.Text = Loc.GetString("netrunning-node-rescan");
@@ -72,7 +78,14 @@ public sealed partial class NetNodeWindow : DefaultWindow
             if (selected?.Metadata is NetEntity shard)
                 OnExecuteShard?.Invoke(shard);
         };
+        EjectDefenseButton.OnPressed += _ =>
+        {
+            var selected = DefenseList.GetSelected().FirstOrDefault();
+            if (selected?.Metadata is NetEntity shard)
+                OnEjectDefense?.Invoke(shard);
+        };
         ShardList.OnItemSelected += _ => RefreshButtons();
+        DefenseList.OnItemSelected += _ => RefreshButtons();
     }
 
     public void UpdateState(NetNodeUiState state)
@@ -88,6 +101,8 @@ public sealed partial class NetNodeWindow : DefaultWindow
         ShardList.Clear();
         _shards.Clear();
         _shards.AddRange(state.AvailableShards);
+        _defenses.Clear();
+        _defenses.AddRange(state.InstalledDefenses);
 
         foreach (var shard in _shards.OrderBy(s => s.Name))
         {
@@ -97,6 +112,15 @@ public sealed partial class NetNodeWindow : DefaultWindow
             ShardList.AddItem(GetShardDisplayName(shard, kind), metadata: shard.Uid);
         }
 
+        DefenseList.Clear();
+        foreach (var defense in _defenses.OrderBy(d => d.Name))
+        {
+            var runtime = defense.RuntimeState == MetaProgramRuntimeState.Running
+                ? Loc.GetString("netrunning-program-state-running")
+                : Loc.GetString("netrunning-program-state-ready");
+            DefenseList.AddItem($"{defense.Name} [{runtime}]", metadata: defense.Uid);
+        }
+
         ShardStatusLabel.Text = state.HasLinkedDeck
             ? _shards.Count > 0
                 ? Loc.GetString("netrunning-node-shard-ready")
@@ -104,6 +128,11 @@ public sealed partial class NetNodeWindow : DefaultWindow
             : Loc.GetString("netrunning-node-shard-no-deck");
 
         _hasLinkedDeck = state.HasLinkedDeck;
+        _canManageDefense = state.CanManageDefense;
+        _defenseSlotCount = state.DefenseSlotCount;
+        DefenseStatusLabel.Text = Loc.GetString("netrunning-node-defense-status",
+            ("count", _defenses.Count),
+            ("slots", _defenseSlotCount));
         _physicalUid = IoCManager.Resolve<IEntityManager>().GetEntity(state.PhysicalDevice);
         _deviceKind = state.Kind;
 
@@ -117,8 +146,21 @@ public sealed partial class NetNodeWindow : DefaultWindow
         var selectedShard = selected?.Metadata is NetEntity uid
             ? _shards.FirstOrDefault(shard => shard.Uid == uid)
             : null;
+        var installingDefense = selectedShard?.Kind == MetaProgramKind.DaemonDefensive;
+        ExecuteShardButton.Text = installingDefense
+            ? Loc.GetString("netrunning-node-defense-install")
+            : Loc.GetString("netrunning-node-execute");
         ExecuteShardButton.Disabled = !_hasLinkedDeck || selectedShard == null ||
-                                      selectedShard.RuntimeState != MetaProgramRuntimeState.Ready;
+                                      selectedShard.RuntimeState != MetaProgramRuntimeState.Ready ||
+                                      installingDefense && (!_canManageDefense || _defenses.Count >= _defenseSlotCount);
+
+        var selectedDefense = DefenseList.GetSelected().FirstOrDefault();
+        var installed = selectedDefense?.Metadata is NetEntity defenseUid
+            ? _defenses.FirstOrDefault(defense => defense.Uid == defenseUid)
+            : null;
+        EjectDefenseButton.Disabled = !_canManageDefense ||
+                                      installed == null ||
+                                      installed.RuntimeState != MetaProgramRuntimeState.Ready;
     }
 
     private static string GetKindLabel(NetDeviceNodeKind kind)

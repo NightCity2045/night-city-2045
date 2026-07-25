@@ -18,6 +18,7 @@ public sealed class MetaSchedulerSystem : EntitySystem
     [Dependency] private readonly SharedDoAfterSystem _doAfter = default!;
     [Dependency] private readonly MetaProgramSystem _program = default!;
     [Dependency] private readonly SharedPopupSystem _popup = default!;
+    [Dependency] private readonly MetaDaemonSystem _daemon = default!;
 
     public override void Update(float frameTime)
     {
@@ -31,6 +32,35 @@ public sealed class MetaSchedulerSystem : EntitySystem
             for (var i = active.SuspendedProcesses.Count - 1; i >= 0; i--)
             {
                 var proc = active.SuspendedProcesses[i];
+
+                if (proc.SuspensionReason == MetaSuspensionReason.DefenseResponse)
+                {
+                    var serverUid = GetEntity(proc.AwaitedIntrusionServer);
+                    if (Deleted(serverUid) ||
+                        !_daemon.HasIntrusionTransaction(serverUid, proc.AwaitedIntrusionId))
+                    {
+                        active.SuspendedProcesses.RemoveAt(i);
+                        ReleaseRam(uid, proc);
+                        continue;
+                    }
+
+                    if (!_daemon.TryConsumeIntrusionResult(serverUid, proc.AwaitedIntrusionId, out _))
+                        continue;
+
+                    if (!HasActiveLink(uid, deck))
+                    {
+                        active.SuspendedProcesses.RemoveAt(i);
+                        ReleaseRam(uid, proc);
+                        continue;
+                    }
+
+                    active.SuspendedProcesses.RemoveAt(i);
+                    proc.AwaitedIntrusionId = 0;
+                    proc.AwaitedIntrusionServer = default;
+                    var intrusionResult = _vm.Resume(proc);
+                    HandleVmResult(uid, GetEntity(proc.ShardUid), intrusionResult, GetEntity(proc.UserUid));
+                    continue;
+                }
 
                 if (proc.DoAfterIndex != null)
                 {
@@ -87,6 +117,12 @@ public sealed class MetaSchedulerSystem : EntitySystem
             {
                 if (!_program.UpdateRunningExecution(deckUid, runningDeck, shardUid, runResult.Result, user))
                     return;
+            }
+
+            if (runResult.Result.SuspensionReason == MetaSuspensionReason.DefenseResponse)
+            {
+                EnsureComp<ActiveMetaProcessComponent>(deckUid).SuspendedProcesses.Add(runResult.Continuation);
+                return;
             }
 
             if (runResult.Result.SuspensionReason == MetaSuspensionReason.SchedulerPreemption)

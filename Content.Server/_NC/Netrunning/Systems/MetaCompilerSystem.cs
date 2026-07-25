@@ -160,9 +160,9 @@ public sealed class MetaCompilerSystem : EntitySystem
                     error = $"Compilation Error: Unsupported event '{evt.EventName}'.";
                     return false;
                 }
-                if (ContainsYield(evt.Body))
+                if (!ContainsYield(evt.Body))
                 {
-                    error = "Compilation Error: YIELD is not allowed inside ON_EVENT handlers.";
+                    error = Loc.GetString("netrunning-meta-error-defensive-yield");
                     return false;
                 }
                 if (!ValidateInstructions(evt.Body, ctx.PushLoop(ctx.LoopDepth), kind, out error))

@@ -27,6 +27,12 @@
                         <ItemList Name="ShardList" VerticalExpand="True" />
                     </PanelContainer>
                     <Button Name="ExecuteShardButton" Text="" StyleClasses="NetTerminalActionButton" />
+                    <Label Name="DefenseTitleLabel" Text="" StyleClasses="NetTerminalSectionTitle" />
+                    <Label Name="DefenseStatusLabel" Text="" StyleClasses="NetTerminalSectionText" ClipText="True" />
+                    <PanelContainer StyleClasses="NetTerminalInset" MinHeight="72">
+                        <ItemList Name="DefenseList" MinHeight="64" />
+                    </PanelContainer>
+                    <Button Name="EjectDefenseButton" Text="" StyleClasses="NetTerminalButton" />
                     <Label Name="ControlTitleLabel" Text="" StyleClasses="NetTerminalSectionTitle" />
                     <BoxContainer Orientation="Horizontal" SeparationOverride="6">
                         <Button Name="ToggleButton" Text="" StyleClasses="NetTerminalButton" HorizontalExpand="True" />

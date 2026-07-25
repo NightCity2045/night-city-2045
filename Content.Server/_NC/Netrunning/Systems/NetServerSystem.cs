@@ -1,5 +1,6 @@
 using Content.Server.Power.Components;
 using Content.Server.Power.NodeGroups;
+using Content.Server._NC.Netrunning.Components;
 using Content.Shared._NC.Netrunning.Components;
 using Robust.Server.GameObjects;
 using Robust.Shared.Map;
@@ -57,6 +58,7 @@ public sealed class NetServerSystem : EntitySystem
     [Dependency] private readonly MetaProgramSystem _metaProgram = default!;
     [Dependency] private readonly ViewSubscriberSystem _viewSubscribers = default!;
     [Dependency] private readonly SurveillanceCameraSystem _surveillanceCameras = default!;
+    [Dependency] private readonly MetaDaemonSystem _daemon = default!;
 
     public override void Initialize()
     {
@@ -82,6 +84,7 @@ public sealed class NetServerSystem : EntitySystem
         SubscribeLocalEvent<NetDeviceNodeComponent, ComponentShutdown>(OnNodeShutdown);
         SubscribeLocalEvent<NetDeviceNodeComponent, NetNodeControlMessage>(OnControlMessage);
         SubscribeLocalEvent<NetDeviceNodeComponent, NetNodeExecuteShardMessage>(OnExecuteShardMessage);
+        SubscribeLocalEvent<NetDeviceNodeComponent, NetNodeEjectDefenseMessage>(OnEjectDefenseMessage);
     }
 
     private void OnServerActivate(EntityUid uid, NetServerComponent component, ActivateInWorldEvent args)
@@ -112,9 +115,6 @@ public sealed class NetServerSystem : EntitySystem
         if (!TryComp<DataShardComponent>(args.Used, out var shard) || shard.ProgramKind != MetaProgramKind.DaemonDefensive)
             return;
 
-        if (!_containers.TryGetContainer(uid, NetServerComponent.DaemonShardContainerId, out var container))
-            return;
-
         if (shard.Bytecode == null && !_metaProgram.TryCompile(args.Used, shard, args.User, out var compileError))
         {
             _popup.PopupEntity(Loc.GetString("netrunning-popup-compile-error", ("error", compileError ?? string.Empty)), uid, args.User, PopupType.MediumCaution);
@@ -122,7 +122,18 @@ public sealed class NetServerSystem : EntitySystem
             return;
         }
 
-        if (container.ContainedEntities.Count > 0)
+        BaseContainer? targetContainer = null;
+        foreach (var slotId in GetDefensiveSlots(uid))
+        {
+            if (_containers.TryGetContainer(uid, slotId, out var candidate) &&
+                candidate.ContainedEntities.Count == 0)
+            {
+                targetContainer = candidate;
+                break;
+            }
+        }
+
+        if (targetContainer == null)
         {
             _popup.PopupEntity(Loc.GetString("netrunning-popup-daemon-slot-occupied"), uid, args.User, PopupType.MediumCaution);
             args.Handled = true;
@@ -145,7 +156,7 @@ public sealed class NetServerSystem : EntitySystem
             return;
         }
 
-        if (_containers.Insert(args.Used, container))
+        if (_containers.Insert(args.Used, targetContainer))
         {
             _popup.PopupEntity(Loc.GetString("netrunning-popup-daemon-installed"), uid, args.User);
             UpdateServerUi(uid, component, args.User);
@@ -164,30 +175,37 @@ public sealed class NetServerSystem : EntitySystem
             Act = () => OpenServerUi(uid, component, args.User)
         });
 
-        if (!_containers.TryGetContainer(uid, NetServerComponent.DaemonShardContainerId, out var container) ||
-            container.ContainedEntities.Count == 0)
-            return;
-
-        var installed = container.ContainedEntities[0];
-        args.Verbs.Add(new ActivationVerb
+        foreach (var slotId in GetDefensiveSlots(uid))
         {
-            Text = Loc.GetString("netrunning-verb-eject-defensive-shard"),
-            Act = () =>
+            if (!_containers.TryGetContainer(uid, slotId, out var container) ||
+                container.ContainedEntities.Count == 0)
             {
-                if (TryComp<DataShardComponent>(installed, out var shard) &&
-                    _metaProgram.GetRuntimeState(installed, shard) != MetaProgramRuntimeState.Ready)
-                {
-                    _popup.PopupEntity(Loc.GetString("netrunning-popup-program-busy"), uid, args.User, PopupType.MediumCaution);
-                    return;
-                }
-
-                if (_containers.Remove(installed, container))
-                {
-                    _popup.PopupEntity(Loc.GetString("netrunning-popup-daemon-ejected"), uid, args.User);
-                    UpdateServerUi(uid, component, args.User);
-                }
+                continue;
             }
-        });
+
+            var installed = container.ContainedEntities[0];
+            args.Verbs.Add(new ActivationVerb
+            {
+                Text = Loc.GetString("netrunning-verb-eject-defensive-shard-named",
+                    ("name", Name(installed))),
+                Act = () =>
+                {
+                    if (TryComp<DataShardComponent>(installed, out var shard) &&
+                        _metaProgram.GetRuntimeState(installed, shard) != MetaProgramRuntimeState.Ready)
+                    {
+                        _popup.PopupEntity(Loc.GetString("netrunning-popup-program-busy"), uid, args.User,
+                            PopupType.MediumCaution);
+                        return;
+                    }
+
+                    if (_containers.Remove(installed, container))
+                    {
+                        _popup.PopupEntity(Loc.GetString("netrunning-popup-daemon-ejected"), uid, args.User);
+                        UpdateServerUi(uid, component, args.User);
+                    }
+                }
+            });
+        }
     }
 
     private void OnServerScanMessage(EntityUid uid, NetServerComponent component, NetServerScanMessage args)
@@ -222,7 +240,7 @@ public sealed class NetServerSystem : EntitySystem
             return;
         }
 
-        if (deck.ActiveTarget == uid)
+        if (deck.AdminNetworks.Contains(uid))
         {
             _popup.PopupEntity(Loc.GetString("netrunning-popup-local-admin-active"), uid, args.Actor);
             UpdateServerUi(uid, component, args.Actor);
@@ -234,9 +252,86 @@ public sealed class NetServerSystem : EntitySystem
         deck.ActiveTarget = uid;
         Dirty(deckUid, deck);
 
-        _popup.PopupEntity(Loc.GetString("netrunning-popup-local-admin-opened"), uid, args.Actor);
-        UpdateServerUi(uid, component, args.Actor);
-        _metaProgram.UpdateUi(deckUid, deck, args.Actor);
+        if (_daemon.TryBeginIntrusion(
+                uid,
+                deckUid,
+                MetaIntrusionOperationKind.Admin,
+                0,
+                out var wait,
+                args.Actor))
+        {
+            var pending = EnsureComp<PendingNetAdminComponent>(deckUid);
+            pending.User = args.Actor;
+            pending.Server = uid;
+            pending.TransactionServer = GetEntity(wait.Server);
+            pending.TransactionId = wait.Id;
+            _popup.PopupEntity(Loc.GetString("netrunning-admin-defense-pending"), uid, args.Actor,
+                PopupType.MediumCaution);
+            return;
+        }
+
+        if (HasComp<PendingNetAdminComponent>(deckUid))
+            return;
+
+        GrantLocalAdmin(uid, component, deckUid, deck, args.Actor);
+    }
+
+    public override void Update(float frameTime)
+    {
+        base.Update(frameTime);
+
+        var query = EntityQueryEnumerator<PendingNetAdminComponent, CyberdeckComponent>();
+        while (query.MoveNext(out var deckUid, out var pending, out var deck))
+        {
+            if (Deleted(pending.TransactionServer) ||
+                !_daemon.HasIntrusionTransaction(pending.TransactionServer, pending.TransactionId))
+            {
+                RemComp<PendingNetAdminComponent>(deckUid);
+                continue;
+            }
+
+            if (!_daemon.TryConsumeIntrusionResult(
+                    pending.TransactionServer,
+                    pending.TransactionId,
+                    out var applied))
+            {
+                continue;
+            }
+
+            var user = pending.User;
+            var serverUid = pending.Server;
+            RemComp<PendingNetAdminComponent>(deckUid);
+
+            if (!applied ||
+                Deleted(user) ||
+                Deleted(serverUid) ||
+                deck.ActiveTarget != serverUid ||
+                !TryComp<NetServerComponent>(serverUid, out var server))
+            {
+                if (!Deleted(user))
+                {
+                    _popup.PopupEntity(Loc.GetString("netrunning-admin-defense-denied"), deckUid, user,
+                        PopupType.LargeCaution);
+                }
+                continue;
+            }
+
+            GrantLocalAdmin(serverUid, server, deckUid, deck, user);
+        }
+    }
+
+    private void GrantLocalAdmin(
+        EntityUid serverUid,
+        NetServerComponent server,
+        EntityUid deckUid,
+        CyberdeckComponent deck,
+        EntityUid user)
+    {
+        deck.AdminNetworks.Add(serverUid);
+        Dirty(deckUid, deck);
+        _popup.PopupEntity(Loc.GetString("netrunning-popup-local-admin-opened"), serverUid, user);
+        UpdateServerUi(serverUid, server, user);
+        _metaProgram.UpdateUi(deckUid, deck, user);
     }
 
     private void OnServerTopologyMoveMessage(EntityUid uid, NetServerComponent component, NetServerTopologyMoveMessage args)
@@ -266,6 +361,7 @@ public sealed class NetServerSystem : EntitySystem
             deck.ActiveTarget = physical;
             Dirty(deckUid, deck);
             _metaProgram.UpdateUi(deckUid, deck, args.User);
+            _daemon.NotifyIntrusion(physical, deckUid, args.User);
         }
 
         _ui.OpenUi(uid, NetNodeUiKey.Key, args.User);
@@ -310,13 +406,9 @@ public sealed class NetServerSystem : EntitySystem
 
     private void SyncDaemonReservation(EntityUid uid, NetServerComponent component)
     {
-        var desiredLoad = 0;
-        if (_containers.TryGetContainer(uid, NetServerComponent.DaemonShardContainerId, out var container) &&
-            container.ContainedEntities.Count > 0 &&
-            TryComp<DataShardComponent>(container.ContainedEntities[0], out var shard))
-        {
-            desiredLoad = Math.Max(0, shard.RequiredRam);
-        }
+        var desiredLoad = GetDefenseLoad(uid);
+        foreach (var deviceUid in CollectNetworkDevices(uid))
+            desiredLoad += GetDefenseLoad(deviceUid);
 
         if (desiredLoad == component.DaemonReservedLoad)
             return;
@@ -324,6 +416,30 @@ public sealed class NetServerSystem : EntitySystem
         component.UsedLoad = Math.Max(0, component.UsedLoad - component.DaemonReservedLoad + desiredLoad);
         component.DaemonReservedLoad = desiredLoad;
         Dirty(uid, component);
+    }
+
+    private int GetDefenseLoad(EntityUid hostUid)
+    {
+        var load = 0;
+        foreach (var slotId in GetDefensiveSlots(hostUid))
+        {
+            if (!_containers.TryGetContainer(hostUid, slotId, out var container))
+                continue;
+
+            foreach (var shardUid in container.ContainedEntities)
+            {
+                if (TryComp<DataShardComponent>(shardUid, out var shard))
+                    load += Math.Max(0, shard.RequiredRam);
+            }
+        }
+        return load;
+    }
+
+    private IReadOnlyList<string> GetDefensiveSlots(EntityUid uid)
+    {
+        return TryComp<DefensiveDaemonComponent>(uid, out var defense)
+            ? defense.Slots
+            : Array.Empty<string>();
     }
 
     private void OnNodeShutdown(EntityUid uid, NetDeviceNodeComponent component, ComponentShutdown args)
@@ -341,16 +457,36 @@ public sealed class NetServerSystem : EntitySystem
             ? $"Управление камерами ({component.PhysicalDevices.Count})"
             : Name(physical);
         var hasLinkedDeck = false;
+        var canManageDefense = false;
         var shards = new List<NetNodeShardInfo>();
+        var installedDefenses = new List<NetNodeDefenseInfo>();
+        var defenseSlotCount = 0;
+
+        if (TryComp<DefensiveDaemonComponent>(physical, out var defenseHost))
+        {
+            defenseSlotCount = defenseHost.Slots.Count;
+            foreach (var shardUid in defenseHost.Shards)
+            {
+                if (!TryComp<DataShardComponent>(shardUid, out var shard))
+                    continue;
+
+                installedDefenses.Add(new NetNodeDefenseInfo(
+                    GetNetEntity(shardUid),
+                    Name(shardUid),
+                    shard.RuntimeState));
+            }
+        }
 
         if (user is { } actor && TryResolveActorDeck(actor, out var deckUid, out _))
         {
             hasLinkedDeck = true;
+            canManageDefense = component.Server is { } serverUid &&
+                               TryHasNodeAdminAccess(actor, serverUid);
             if (_containers.TryGetContainer(deckUid, CyberdeckComponent.ShardContainerId, out var shardContainer))
             {
                 foreach (var shardUid in shardContainer.ContainedEntities)
                 {
-                    if (!TryComp<DataShardComponent>(shardUid, out var shard) || shard.ProgramKind == MetaProgramKind.DaemonDefensive)
+                    if (!TryComp<DataShardComponent>(shardUid, out var shard))
                         continue;
 
                     var runtimeState = _metaProgram.GetRuntimeState(shardUid, shard);
@@ -366,7 +502,10 @@ public sealed class NetServerSystem : EntitySystem
             component.Kind,
             Math.Max(1, component.PhysicalDevices.Count),
             hasLinkedDeck,
-            shards);
+            canManageDefense,
+            defenseSlotCount,
+            shards,
+            installedDefenses);
         _ui.SetUiState(uid, NetNodeUiKey.Key, state);
     }
 
@@ -404,14 +543,24 @@ public sealed class NetServerSystem : EntitySystem
             devices.Add(new NetServerDeviceInfo(GetNetEntity(deviceUid), Name(deviceUid), GetDeviceClass(deviceUid)));
         }
 
-        var hasDaemonShard =
-            _containers.TryGetContainer(uid, NetServerComponent.DaemonShardContainerId, out var daemonContainer) &&
-            daemonContainer.ContainedEntities.Count > 0;
-        var daemonRuntimeState = MetaProgramRuntimeState.Ready;
-        if (hasDaemonShard &&
-            TryComp<DataShardComponent>(daemonContainer!.ContainedEntities[0], out var daemonShard))
+        var daemonShards = new List<EntityUid>();
+        var activeDefensiveSlots = GetDefensiveSlots(uid);
+        foreach (var slotId in activeDefensiveSlots)
         {
-            daemonRuntimeState = _metaProgram.GetRuntimeState(daemonContainer.ContainedEntities[0], daemonShard);
+            if (_containers.TryGetContainer(uid, slotId, out var container))
+                daemonShards.AddRange(container.ContainedEntities);
+        }
+
+        var hasDaemonShard = daemonShards.Count > 0;
+        var daemonRuntimeState = MetaProgramRuntimeState.Ready;
+        foreach (var shardUid in daemonShards)
+        {
+            if (TryComp<DataShardComponent>(shardUid, out var daemonShard) &&
+                _metaProgram.GetRuntimeState(shardUid, daemonShard) == MetaProgramRuntimeState.Running)
+            {
+                daemonRuntimeState = MetaProgramRuntimeState.Running;
+                break;
+            }
         }
 
         var providerLabel = Loc.GetString("netrunning-server-provider-none");
@@ -429,11 +578,11 @@ public sealed class NetServerSystem : EntitySystem
         {
             canRequestAdmin = true;
             hasPersistentRoot = deck.HackedNetworks.Contains(uid);
-            hasAdminAccess = deck.ActiveTarget == uid || hasPersistentRoot;
+            hasAdminAccess = deck.AdminNetworks.Contains(uid) || hasPersistentRoot;
 
             accessStatus = hasPersistentRoot
                 ? Loc.GetString("netrunning-server-access-root")
-                : deck.ActiveTarget == uid
+                : deck.AdminNetworks.Contains(uid)
                     ? Loc.GetString("netrunning-server-access-local")
                     : Loc.GetString("netrunning-server-access-linked");
         }
@@ -449,6 +598,8 @@ public sealed class NetServerSystem : EntitySystem
             component.MaxModules,
             devices.Count,
             hasDaemonShard,
+            daemonShards.Count,
+            activeDefensiveSlots.Count,
             daemonRuntimeState,
             component.ActiveMetaPrograms,
             component.MaxConcurrentMetaPrograms,
@@ -471,11 +622,16 @@ public sealed class NetServerSystem : EntitySystem
         var physical = component.PhysicalDevice;
         if (Deleted(physical)) return;
 
+        var hasAdminAccess = component.Server is { } serverUid &&
+                             TryHasNodeAdminAccess(args.Actor, serverUid);
+        if (TryResolveActorDeck(args.Actor, out var deckUid, out _))
+            _daemon.NotifyIntrusion(physical, deckUid, args.Actor);
+
         switch (args.Action)
         {
             case "scan":
                 if (component.Server is { } scanServer &&
-                    TryHasNodeAdminAccess(args.Actor, scanServer) &&
+                    hasAdminAccess &&
                     TryComp<NetServerComponent>(scanServer, out var serverComp))
                 {
                     RefreshNetwork(scanServer, serverComp);
@@ -483,7 +639,7 @@ public sealed class NetServerSystem : EntitySystem
                 break;
 
             case "toggle":
-                if (TryComp<DoorComponent>(physical, out var door))
+                if (hasAdminAccess && TryComp<DoorComponent>(physical, out var door))
                 {
                     _door.TryToggleDoor(physical, door);
                 }
@@ -519,12 +675,138 @@ public sealed class NetServerSystem : EntitySystem
             return;
         }
 
+        if (shard.ProgramKind == MetaProgramKind.DaemonDefensive)
+        {
+            TryInstallNodeDefense(uid, component, args.Actor, deckUid, deck, shardUid, shard);
+            return;
+        }
+
         var result = _metaProgram.Execute(deckUid, deck, shardUid, shard);
         if (result.FatalError != null)
             _popup.PopupEntity(result.FatalError, uid, args.Actor, PopupType.MediumCaution);
 
         _metaProgram.UpdateUi(deckUid, deck, args.Actor);
         UpdateNodeUi(uid, component, args.Actor);
+    }
+
+    private void TryInstallNodeDefense(
+        EntityUid nodeUid,
+        NetDeviceNodeComponent node,
+        EntityUid actor,
+        EntityUid deckUid,
+        CyberdeckComponent deck,
+        EntityUid shardUid,
+        DataShardComponent shard)
+    {
+        if (node.Server is not { } serverUid ||
+            !TryHasNodeAdminAccess(actor, serverUid) ||
+            !TryComp<NetServerComponent>(serverUid, out var server))
+        {
+            _popup.PopupEntity(Loc.GetString("netrunning-popup-defense-admin-required"), nodeUid, actor,
+                PopupType.MediumCaution);
+            return;
+        }
+
+        var physical = node.PhysicalDevice;
+        if (!TryComp<DefensiveDaemonComponent>(physical, out var defense))
+            return;
+
+        BaseContainer? targetContainer = null;
+        foreach (var slotId in defense.Slots)
+        {
+            if (_containers.TryGetContainer(physical, slotId, out var candidate) &&
+                candidate.ContainedEntities.Count == 0)
+            {
+                targetContainer = candidate;
+                break;
+            }
+        }
+
+        if (targetContainer == null)
+        {
+            _popup.PopupEntity(Loc.GetString("netrunning-popup-defense-slots-full"), nodeUid, actor,
+                PopupType.MediumCaution);
+            return;
+        }
+
+        if (shard.RuntimeState != MetaProgramRuntimeState.Ready)
+        {
+            _popup.PopupEntity(Loc.GetString("netrunning-popup-program-busy"), nodeUid, actor,
+                PopupType.MediumCaution);
+            return;
+        }
+
+        SyncDaemonReservation(serverUid, server);
+        if (server.UsedLoad + shard.RequiredRam > server.MaxLoad)
+        {
+            _popup.PopupEntity(Loc.GetString("netrunning-popup-server-overload",
+                    ("load", server.UsedLoad + shard.RequiredRam),
+                    ("max", server.MaxLoad)),
+                nodeUid, actor, PopupType.MediumCaution);
+            return;
+        }
+
+        if (!_containers.TryGetContainer(deckUid, CyberdeckComponent.ShardContainerId, out var deckContainer) ||
+            !deckContainer.Contains(shardUid) ||
+            !_containers.Remove(shardUid, deckContainer))
+        {
+            return;
+        }
+
+        if (!_containers.Insert(shardUid, targetContainer))
+        {
+            _containers.Insert(shardUid, deckContainer);
+            return;
+        }
+
+        SyncDaemonReservation(serverUid, server);
+        _popup.PopupEntity(Loc.GetString("netrunning-popup-defense-installed",
+            ("device", Name(physical))), nodeUid, actor);
+        _metaProgram.UpdateUi(deckUid, deck, actor);
+        UpdateNodeUi(nodeUid, node, actor);
+        UpdateServerUi(serverUid, server);
+    }
+
+    private void OnEjectDefenseMessage(
+        EntityUid nodeUid,
+        NetDeviceNodeComponent node,
+        NetNodeEjectDefenseMessage args)
+    {
+        if (!args.Actor.Valid ||
+            node.Server is not { } serverUid ||
+            !TryHasNodeAdminAccess(args.Actor, serverUid) ||
+            !TryResolveActorDeck(args.Actor, out var deckUid, out var deck) ||
+            !TryComp<NetServerComponent>(serverUid, out var server))
+        {
+            return;
+        }
+
+        var shardUid = GetEntity(args.Shard);
+        if (!TryComp<DataShardComponent>(shardUid, out var shard) ||
+            shard.ProgramKind != MetaProgramKind.DaemonDefensive ||
+            shard.RuntimeState != MetaProgramRuntimeState.Ready ||
+            !_containers.TryGetContainingContainer((shardUid, null, null), out var defenseContainer) ||
+            defenseContainer.Owner != node.PhysicalDevice ||
+            !_containers.TryGetContainer(deckUid, CyberdeckComponent.ShardContainerId, out var deckContainer) ||
+            deckContainer.ContainedEntities.Count >= deck.MaxShards)
+        {
+            return;
+        }
+
+        if (!_containers.Remove(shardUid, defenseContainer))
+            return;
+
+        if (!_containers.Insert(shardUid, deckContainer))
+        {
+            _containers.Insert(shardUid, defenseContainer);
+            return;
+        }
+
+        SyncDaemonReservation(serverUid, server);
+        _popup.PopupEntity(Loc.GetString("netrunning-popup-defense-ejected"), nodeUid, args.Actor);
+        _metaProgram.UpdateUi(deckUid, deck, args.Actor);
+        UpdateNodeUi(nodeUid, node, args.Actor);
+        UpdateServerUi(serverUid, server);
     }
 
     private void SubscribeNodeViewer(EntityUid nodeUid, NetDeviceNodeComponent component, EntityUid viewer)
@@ -779,7 +1061,7 @@ public sealed class NetServerSystem : EntitySystem
         if (!TryComp<CyberdeckComponent>(deckUid, out var deck))
             return false;
 
-        return deck.ActiveTarget == serverUid || deck.HackedNetworks.Contains(serverUid);
+        return deck.AdminNetworks.Contains(serverUid) || deck.HackedNetworks.Contains(serverUid);
     }
 
     private bool TryResolveLinkedDeck(EntityUid actor, EntityUid serverUid, out EntityUid deckUid, out CyberdeckComponent deck)
@@ -1165,6 +1447,7 @@ public sealed class NetServerSystem : EntitySystem
 
     private void SpawnNodeForDevice(EntityUid serverUid, NetServerComponent server, EntityUid gridUid, EntityUid device, NetDeviceNodeKind kind, int index)
     {
+        EnsureDeviceDefenseHost(device, serverUid);
         var spawnTile = GetNodeSpawnTile(server, $"device:{device}", index);
         var coords = _mapSystem.GridTileToLocal(gridUid, Comp<MapGridComponent>(gridUid), spawnTile);
         var nodeUid = Spawn("NetDeviceNode", coords); 
@@ -1185,6 +1468,8 @@ public sealed class NetServerSystem : EntitySystem
 
     private void SpawnCameraGroupNode(EntityUid serverUid, NetServerComponent server, EntityUid gridUid, List<EntityUid> cameras, int index)
     {
+        // Cameras are represented by one logical local-network device and therefore share one slot.
+        EnsureDeviceDefenseHost(cameras[0], serverUid);
         var spawnTile = GetNodeSpawnTile(server, "camera_group", index);
         var coords = _mapSystem.GridTileToLocal(gridUid, Comp<MapGridComponent>(gridUid), spawnTile);
         var nodeUid = Spawn("NetDeviceNode", coords);
@@ -1199,6 +1484,14 @@ public sealed class NetServerSystem : EntitySystem
 
         _metaData.SetEntityName(nodeUid, $"Node: Camera Control ({cameras.Count})");
         server.SpawnedNodes.Add(nodeUid);
+    }
+
+    private void EnsureDeviceDefenseHost(EntityUid device, EntityUid serverUid)
+    {
+        var defense = EnsureComp<DefensiveDaemonComponent>(device);
+        defense.Server = serverUid;
+        foreach (var slotId in defense.Slots)
+            _containers.EnsureContainer<Container>(device, slotId);
     }
 }
 

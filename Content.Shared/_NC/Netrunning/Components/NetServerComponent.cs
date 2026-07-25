@@ -13,8 +13,6 @@ namespace Content.Shared._NC.Netrunning.Components;
 [RegisterComponent, NetworkedComponent]
 public sealed partial class NetServerComponent : Component
 {
-    public const string DaemonShardContainerId = "daemon_shard";
-
     /// <summary>
     ///     Maximum number of digital modules (rooms) this server can support.
     /// </summary>
@@ -155,6 +153,8 @@ public sealed class NetServerUiState : BoundUserInterfaceState
     public readonly int ModuleLimit;
     public readonly int ConnectedDeviceCount;
     public readonly bool HasDaemonShard;
+    public readonly int DaemonShardCount;
+    public readonly int DaemonSlotCount;
     public readonly MetaProgramRuntimeState DaemonRuntimeState;
     public readonly int ActiveMetaPrograms;
     public readonly int MaxConcurrentMetaPrograms;
@@ -178,6 +178,8 @@ public sealed class NetServerUiState : BoundUserInterfaceState
         int moduleLimit,
         int connectedDeviceCount,
         bool hasDaemonShard,
+        int daemonShardCount,
+        int daemonSlotCount,
         MetaProgramRuntimeState daemonRuntimeState,
         int activeMetaPrograms,
         int maxConcurrentMetaPrograms,
@@ -200,6 +202,8 @@ public sealed class NetServerUiState : BoundUserInterfaceState
         ModuleLimit = moduleLimit;
         ConnectedDeviceCount = connectedDeviceCount;
         HasDaemonShard = hasDaemonShard;
+        DaemonShardCount = daemonShardCount;
+        DaemonSlotCount = daemonSlotCount;
         DaemonRuntimeState = daemonRuntimeState;
         ActiveMetaPrograms = activeMetaPrograms;
         MaxConcurrentMetaPrograms = maxConcurrentMetaPrograms;
@@ -224,7 +228,10 @@ public sealed class NetNodeUiState : BoundUserInterfaceState
     public readonly NetDeviceNodeKind Kind;
     public readonly int DeviceCount;
     public readonly bool HasLinkedDeck;
+    public readonly bool CanManageDefense;
+    public readonly int DefenseSlotCount;
     public readonly List<NetNodeShardInfo> AvailableShards;
+    public readonly List<NetNodeDefenseInfo> InstalledDefenses;
 
     public NetNodeUiState(
         NetEntity physicalDevice,
@@ -232,14 +239,20 @@ public sealed class NetNodeUiState : BoundUserInterfaceState
         NetDeviceNodeKind kind = NetDeviceNodeKind.Generic,
         int deviceCount = 1,
         bool hasLinkedDeck = false,
-        List<NetNodeShardInfo>? availableShards = null)
+        bool canManageDefense = false,
+        int defenseSlotCount = 1,
+        List<NetNodeShardInfo>? availableShards = null,
+        List<NetNodeDefenseInfo>? installedDefenses = null)
     {
         PhysicalDevice = physicalDevice;
         DeviceName = deviceName;
         Kind = kind;
         DeviceCount = deviceCount;
         HasLinkedDeck = hasLinkedDeck;
+        CanManageDefense = canManageDefense;
+        DefenseSlotCount = defenseSlotCount;
         AvailableShards = availableShards ?? new List<NetNodeShardInfo>();
+        InstalledDefenses = installedDefenses ?? new List<NetNodeDefenseInfo>();
     }
 }
 
@@ -249,6 +262,12 @@ public sealed record NetNodeShardInfo(
     string Name,
     int RamCost,
     MetaProgramKind Kind,
+    MetaProgramRuntimeState RuntimeState);
+
+[Serializable, NetSerializable]
+public sealed record NetNodeDefenseInfo(
+    NetEntity Uid,
+    string Name,
     MetaProgramRuntimeState RuntimeState);
 
 [Serializable, NetSerializable]
@@ -263,6 +282,13 @@ public sealed class NetNodeExecuteShardMessage : BoundUserInterfaceMessage
 {
     public readonly NetEntity Shard;
     public NetNodeExecuteShardMessage(NetEntity shard) => Shard = shard;
+}
+
+[Serializable, NetSerializable]
+public sealed class NetNodeEjectDefenseMessage : BoundUserInterfaceMessage
+{
+    public readonly NetEntity Shard;
+    public NetNodeEjectDefenseMessage(NetEntity shard) => Shard = shard;
 }
 
 /// <summary>

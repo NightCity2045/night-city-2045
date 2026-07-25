@@ -226,6 +226,12 @@ public sealed partial class CyberdeckComponent : Component
     public HashSet<EntityUid> HackedNetworks = new();
 
     /// <summary>
+    /// Local networks for which the operator explicitly opened an administrator session.
+    /// </summary>
+    [DataField, AutoNetworkedField]
+    public HashSet<EntityUid> AdminNetworks = new();
+
+    /// <summary>
     /// Maximum instruction cycles (Gas) allowed per script execution.
     /// Street deck: 1000, Corporate: 5000, Military: 25000.
     /// </summary>

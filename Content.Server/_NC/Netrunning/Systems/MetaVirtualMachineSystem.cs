@@ -13,7 +13,13 @@ public sealed class MetaVirtualMachineSystem : EntitySystem
     [Dependency] private readonly MetaApiSystem _api = default!;
     [Dependency] private readonly MetaExecutionBudgetSystem _budget = default!;
 
-    public MetaVmRunResult Execute(EntityUid deckUid, EntityUid userUid, EntityUid shardUid, MetaBytecode bytecode, int gasLimit)
+    public MetaVmRunResult Execute(
+        EntityUid deckUid,
+        EntityUid userUid,
+        EntityUid shardUid,
+        MetaBytecode bytecode,
+        int gasLimit,
+        EntityUid? defenseClearedTarget = null)
     {
         var state = new MetaContinuationState
         {
@@ -23,6 +29,7 @@ public sealed class MetaVirtualMachineSystem : EntitySystem
             GasRemaining = gasLimit,
             InitialGas = gasLimit,
             ReservedRam = bytecode.RequiredRam,
+            DefenseClearedTarget = defenseClearedTarget is { } target ? GetNetEntity(target) : default,
         };
 
         state.CallStack.Push(new MetaCallFrame(bytecode.Instructions, MetaFrameKind.Block));
@@ -86,6 +93,32 @@ public sealed class MetaVirtualMachineSystem : EntitySystem
         _api.SetUser(deckUid, null);
         _api.SetEventSource(deckUid, null);
         _api.SetIntruder(deckUid, null);
+        return FinalizeRun(state);
+    }
+
+    public MetaVmRunResult PrepareProtectedExecution(
+        EntityUid deckUid,
+        EntityUid userUid,
+        EntityUid shardUid,
+        MetaBytecode bytecode,
+        int gasLimit,
+        EntityUid target,
+        MetaIntrusionWait wait)
+    {
+        var state = new MetaContinuationState
+        {
+            DeckUid = GetNetEntity(deckUid),
+            UserUid = GetNetEntity(userUid),
+            ShardUid = GetNetEntity(shardUid),
+            GasRemaining = gasLimit,
+            InitialGas = gasLimit,
+            ReservedRam = bytecode.RequiredRam,
+            AwaitedIntrusionServer = wait.Server,
+            AwaitedIntrusionId = wait.Id,
+            DefenseClearedTarget = GetNetEntity(target),
+            SuspensionReason = MetaSuspensionReason.DefenseResponse,
+        };
+        state.CallStack.Push(new MetaCallFrame(bytecode.Instructions, MetaFrameKind.Block));
         return FinalizeRun(state);
     }
 
@@ -264,7 +297,11 @@ public sealed class MetaVirtualMachineSystem : EntitySystem
                 var target = EvalPtr(s, inj.Target);
                 var damage = EvalInt(s, inj.Damage);
                 if (!s.ShouldStop && target != null)
-                    _api.Inject(deckUid, target.Value, damage);
+                {
+                    var wait = _api.Inject(deckUid, target.Value, damage, HasDefenseClearance(s, target.Value));
+                    if (wait is { } intrusion)
+                        SuspendForIntrusion(s, intrusion);
+                }
                 break;
             }
             case MetaSysOverrideInstruction ov:
@@ -366,7 +403,11 @@ public sealed class MetaVirtualMachineSystem : EntitySystem
         {
             var target = EvalPtr(s, ss.Arguments[0]);
             if (!s.ShouldStop && target != null)
-                _api.Breach(deckUid, target.Value);
+            {
+                var wait = _api.Breach(deckUid, target.Value, HasDefenseClearance(s, target.Value));
+                if (wait is { } intrusion)
+                    SuspendForIntrusion(s, intrusion);
+            }
         }
         if (func == "DUMPSHOCK")
         {
@@ -635,6 +676,19 @@ public sealed class MetaVirtualMachineSystem : EntitySystem
         s.GasRemaining = 0;
         s.Failure = MetaExecutionFailure.GasExhausted;
         s.Error = "GAS LIMIT EXCEEDED";
+    }
+
+    private static void SuspendForIntrusion(MetaContinuationState state, MetaIntrusionWait wait)
+    {
+        state.AwaitedIntrusionServer = wait.Server;
+        state.AwaitedIntrusionId = wait.Id;
+        state.SuspensionReason = MetaSuspensionReason.DefenseResponse;
+    }
+
+    private bool HasDefenseClearance(MetaContinuationState state, EntityUid target)
+    {
+        return state.DefenseClearedTarget != default &&
+               GetEntity(state.DefenseClearedTarget) == target;
     }
 }
 

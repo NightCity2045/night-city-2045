@@ -1,8 +1,10 @@
 using Content.Server.Mind;
+using Content.Server._NC.Netrunning.Components;
 using Content.Server.Power.Components;
 using Content.Shared._NC.Power.Components;
 using Content.Shared._NC.Netrunning;
 using Content.Shared._NC.Netrunning.Components;
+using Content.Shared._NC.Netrunning.Meta;
 using Content.Shared._NC.Netrunning.Prototypes;
 using Content.Shared.Actions;
 using Content.Shared.Stunnable;
@@ -41,6 +43,7 @@ public sealed class HotSimSystem : EntitySystem
     [Dependency] private readonly NetServerSystem _netServer = default!;
     [Dependency] private readonly SharedMapSystem _mapSystem = default!;
     [Dependency] private readonly UserInterfaceSystem _ui = default!;
+    [Dependency] private readonly MetaDaemonSystem _daemon = default!;
 
     public override void Initialize()
     {
@@ -159,7 +162,7 @@ public sealed class HotSimSystem : EntitySystem
     private bool HasServerAdminAccess(CyberdeckComponent deck, EntityUid serverUid)
     {
         // Direct server-console link represents local sysadmin maintenance access.
-        return deck.ActiveTarget == serverUid || deck.HackedNetworks.Contains(serverUid);
+        return deck.AdminNetworks.Contains(serverUid) || deck.HackedNetworks.Contains(serverUid);
     }
 
     private void OnModuleShutdown(EntityUid uid, NetModuleComponent component, ComponentShutdown args)
@@ -189,10 +192,10 @@ public sealed class HotSimSystem : EntitySystem
     private void OnHotSim(EntityUid uid, CyberdeckComponent component, CyberdeckHotSimMessage args)
     {
         var user = args.Actor;
-        if (!user.Valid)
+        if (!user.Valid || HasComp<PendingHotSimComponent>(uid))
             return;
 
-        if (!_mindSystem.TryGetMind(user, out var mindId, out var mind))
+        if (!_mindSystem.TryGetMind(user, out _, out _))
             return;
 
         // 1. Resolve the local network server. A deck can enter through the
@@ -214,7 +217,49 @@ public sealed class HotSimSystem : EntitySystem
             return;
         }
 
-        var netGrid = server.DigitalGrid.Value;
+        var entryTarget = component.ActiveTarget is { } target && !Deleted(target)
+            ? target
+            : anchor;
+        if (component.ActiveTarget != entryTarget)
+        {
+            component.ActiveTarget = entryTarget;
+            Dirty(uid, component);
+        }
+        if (_daemon.TryBeginIntrusion(
+                entryTarget,
+                uid,
+                MetaIntrusionOperationKind.Immersion,
+                0,
+                out var wait,
+                user))
+        {
+            var pending = EnsureComp<PendingHotSimComponent>(uid);
+            pending.User = user;
+            pending.EntryTarget = entryTarget;
+            pending.NetworkServer = anchor;
+            pending.TransactionServer = GetEntity(wait.Server);
+            pending.TransactionId = wait.Id;
+            _popup.PopupEntity(Loc.GetString("netrunning-immersion-defense-pending"), uid, user,
+                PopupType.MediumCaution);
+            return;
+        }
+
+        BeginImmersion(uid, component, user, entryTarget, server);
+    }
+
+    private void BeginImmersion(
+        EntityUid deckUid,
+        CyberdeckComponent deck,
+        EntityUid user,
+        EntityUid entryTarget,
+        NetServerComponent server)
+    {
+        if (!_mindSystem.TryGetMind(user, out var mindId, out var mind) ||
+            server.DigitalGrid is not { } netGrid)
+        {
+            return;
+        }
+
         var mapId = Transform(netGrid).MapID;
 
         // FORCE UNPAUSE before mind transfer
@@ -233,7 +278,15 @@ public sealed class HotSimSystem : EntitySystem
         // 3. Wait for fade then transfer
         Timer.Spawn(TimeSpan.FromSeconds(1.6f), () => 
         {
-            if (Deleted(user) || Deleted(uid)) return;
+            if (Deleted(user) ||
+                Deleted(deckUid) ||
+                Deleted(entryTarget) ||
+                deck.ActiveTarget != entryTarget)
+            {
+                if (!Deleted(user))
+                    RaiseNetworkEvent(new NetrunningImmersionEvent(false), user);
+                return;
+            }
 
             // Freeze physical body without Stun
             EnsureComp<ImmersedBodyComponent>(user);
@@ -247,7 +300,7 @@ public sealed class HotSimSystem : EntitySystem
             
             var avatarComp = EnsureComp<NetAvatarComponent>(avatar);
             avatarComp.PhysicalBody = user;
-            avatarComp.Cyberdeck = uid;
+            avatarComp.Cyberdeck = deckUid;
 
             // Transfer Mind
             _mindSystem.Visit(mindId, avatar, mind);
@@ -260,8 +313,54 @@ public sealed class HotSimSystem : EntitySystem
             RaiseNetworkEvent(new NetrunningImmersionEvent(false), avatar);
 
             // Refresh UI
-            _metaProgram.UpdateUi(uid, component, user);
+            _metaProgram.UpdateUi(deckUid, deck, user);
         });
+    }
+
+    public override void Update(float frameTime)
+    {
+        base.Update(frameTime);
+
+        var query = EntityQueryEnumerator<PendingHotSimComponent, CyberdeckComponent>();
+        while (query.MoveNext(out var deckUid, out var pending, out var deck))
+        {
+            if (Deleted(pending.TransactionServer) ||
+                !_daemon.HasIntrusionTransaction(pending.TransactionServer, pending.TransactionId))
+            {
+                RemComp<PendingHotSimComponent>(deckUid);
+                continue;
+            }
+
+            if (!_daemon.TryConsumeIntrusionResult(
+                    pending.TransactionServer,
+                    pending.TransactionId,
+                    out var applied))
+            {
+                continue;
+            }
+
+            var user = pending.User;
+            var serverUid = pending.NetworkServer;
+            var entryTarget = pending.EntryTarget;
+            RemComp<PendingHotSimComponent>(deckUid);
+
+            if (!applied ||
+                Deleted(user) ||
+                Deleted(serverUid) ||
+                Deleted(entryTarget) ||
+                deck.ActiveTarget != entryTarget ||
+                !TryComp<NetServerComponent>(serverUid, out var server))
+            {
+                if (!Deleted(user))
+                {
+                    _popup.PopupEntity(Loc.GetString("netrunning-immersion-defense-denied"), deckUid, user,
+                        PopupType.LargeCaution);
+                }
+                continue;
+            }
+
+            BeginImmersion(deckUid, deck, user, entryTarget, server);
+        }
     }
 
     private void OnOpenLinkedCyberdeck(EntityUid uid, NetAvatarComponent component, OpenLinkedCyberdeckActionEvent args)
@@ -315,36 +414,35 @@ public sealed class HotSimSystem : EntitySystem
 
     private bool TryResolveAnchorServer(CyberdeckComponent deck, out EntityUid anchor, out NetServerComponent server)
     {
-        if (deck.ActiveServer is { } direct && !Deleted(direct) && TryComp<NetServerComponent>(direct, out var directServer))
-        {
-            anchor = direct;
-            server = directServer;
-            return true;
-        }
-
-        if (deck.ActiveTarget is not { } target || Deleted(target))
-        {
-            anchor = EntityUid.Invalid;
-            server = default!;
-            return false;
-        }
-
-        if (TryComp<NetServerComponent>(target, out var targetServer))
+        if (deck.ActiveTarget is { } target && !Deleted(target) &&
+            TryComp<NetServerComponent>(target, out var targetServer))
         {
             anchor = target;
             server = targetServer;
             return true;
         }
 
-        var query = EntityQueryEnumerator<NetServerComponent>();
-        while (query.MoveNext(out var serverUid, out var candidate))
+        if (deck.ActiveTarget is { } device && !Deleted(device))
         {
-            if (SharesNetwork(target, serverUid))
+            var query = EntityQueryEnumerator<NetServerComponent>();
+            while (query.MoveNext(out var serverUid, out var candidate))
             {
-                anchor = serverUid;
-                server = candidate;
-                return true;
+                if (SharesNetwork(device, serverUid))
+                {
+                    anchor = serverUid;
+                    server = candidate;
+                    return true;
+                }
             }
+        }
+
+        if (deck.ActiveServer is { } direct &&
+            !Deleted(direct) &&
+            TryComp<NetServerComponent>(direct, out var directServer))
+        {
+            anchor = direct;
+            server = directServer;
+            return true;
         }
 
         anchor = EntityUid.Invalid;

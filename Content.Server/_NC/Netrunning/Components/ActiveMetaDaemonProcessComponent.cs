@@ -18,5 +18,14 @@ public sealed partial class ActiveMetaDaemonProcessComponent : Component
     public EntityUid Shard;
 
     [ViewVariables]
+    public EntityUid Intruder;
+
+    [ViewVariables]
+    public EntityUid FeedbackTarget;
+
+    [ViewVariables]
     public double ResumeAtTime;
+
+    [ViewVariables]
+    public bool Completed;
 }
