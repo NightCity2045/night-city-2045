@@ -75,7 +75,9 @@ public sealed record NetAnchorInfo(NetEntity Uid, Direction Dir, bool Connected)
 public sealed class CyberdeckUiState : BoundUserInterfaceState
 {
     public readonly int CurrentRam;
+    public readonly int ReservedRam;
     public readonly int MaxRam;
+    public readonly float RecoverySpeed;
     public readonly int CurrentTrace;
     public readonly int StorageUsed;
     public readonly int StorageCapacity;
@@ -84,14 +86,16 @@ public sealed class CyberdeckUiState : BoundUserInterfaceState
     public readonly NetEntity? ActiveTarget;
     public readonly NetEntity? ActiveServer;
     public readonly bool HasServerAdminAccess;
-    public readonly List<(NetEntity Uid, string Name, string Source, MetaProgramKind Kind)> Shards;
+    public readonly List<(NetEntity Uid, string Name, string Source, MetaProgramKind Kind, int RamCost, MetaProgramRuntimeState RuntimeState)> Shards;
     public readonly bool HasAR;
     public readonly List<NetModuleInfo> AvailableModules;
     public readonly List<NetAnchorInfo> AvailableAnchors;
 
     public CyberdeckUiState(
         int currentRam,
+        int reservedRam,
         int maxRam,
+        float recoverySpeed,
         int currentTrace,
         int storageUsed,
         int storageCapacity,
@@ -100,13 +104,15 @@ public sealed class CyberdeckUiState : BoundUserInterfaceState
         NetEntity? activeTarget,
         NetEntity? activeServer,
         bool hasServerAdminAccess,
-        List<(NetEntity, string, string, MetaProgramKind)> shards,
+        List<(NetEntity, string, string, MetaProgramKind, int, MetaProgramRuntimeState)> shards,
         bool hasAR,
         List<NetModuleInfo> availableModules,
         List<NetAnchorInfo> availableAnchors)
     {
         CurrentRam = currentRam;
+        ReservedRam = reservedRam;
         MaxRam = maxRam;
+        RecoverySpeed = recoverySpeed;
         CurrentTrace = currentTrace;
         StorageUsed = storageUsed;
         StorageCapacity = storageCapacity;
@@ -145,10 +151,10 @@ public sealed partial class CyberdeckComponent : Component
     public int CurrentRam = 10;
 
     /// <summary>
-    /// RAM capacity currently blocked by memory leaks until reboot/cleanup.
+    /// RAM held by active and suspended META processes.
     /// </summary>
-    [DataField("leakedRam"), ViewVariables(VVAccess.ReadWrite), AutoNetworkedField]
-    public int LeakedRam;
+    [DataField("reservedRam"), ViewVariables(VVAccess.ReadOnly), AutoNetworkedField]
+    public int ReservedRam;
 
     /// <summary>
     /// RAM recovery per second.

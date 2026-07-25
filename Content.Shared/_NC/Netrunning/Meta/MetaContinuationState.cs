@@ -96,9 +96,7 @@ public sealed class MetaContinuationState
 
     // --- Execution counters ---
     public int GasRemaining;
-    public int AllocatedRam;
-    public int FreedRam;
-    public int VariablesUsed; // Number of declared variables consuming RAM
+    public int ReservedRam;
 
     // --- Flow control ---
     public bool Exited;

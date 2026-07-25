@@ -67,6 +67,9 @@ public sealed class NetServerSystem : EntitySystem
         SubscribeLocalEvent<NetServerComponent, ActivateInWorldEvent>(OnServerActivate);
         SubscribeLocalEvent<NetServerComponent, InteractHandEvent>(OnServerInteractHand);
         SubscribeLocalEvent<NetServerComponent, InteractUsingEvent>(OnServerInteractUsing);
+        SubscribeLocalEvent<NetServerComponent, EntInsertedIntoContainerMessage>(OnServerContainerModified);
+        SubscribeLocalEvent<NetServerComponent, EntRemovedFromContainerMessage>(OnServerContainerModified);
+        SubscribeLocalEvent<NetServerComponent, MetaServerRuntimeChangedEvent>(OnServerRuntimeChanged);
         SubscribeLocalEvent<NetServerComponent, NetServerScanMessage>(OnServerScanMessage);
         SubscribeLocalEvent<NetServerComponent, NetServerConstructMessage>(OnServerConstructMessage);
         SubscribeLocalEvent<NetServerComponent, NetServerAdminMessage>(OnServerAdminMessage);
@@ -74,6 +77,7 @@ public sealed class NetServerSystem : EntitySystem
         SubscribeLocalEvent<NetServerComponent, GetVerbsEvent<ActivationVerb>>(OnServerVerbs);
         SubscribeLocalEvent<NetDeviceNodeComponent, ActivateInWorldEvent>(OnNodeActivate);
         SubscribeLocalEvent<NetDeviceNodeComponent, BoundUIOpenedEvent>(OnNodeUiOpened);
+        SubscribeLocalEvent<CyberdeckComponent, MetaProgramStateChangedEvent>(OnProgramStateChanged);
         SubscribeLocalEvent<NetDeviceNodeComponent, BoundUIClosedEvent>(OnNodeUiClosed);
         SubscribeLocalEvent<NetDeviceNodeComponent, ComponentShutdown>(OnNodeShutdown);
         SubscribeLocalEvent<NetDeviceNodeComponent, NetNodeControlMessage>(OnControlMessage);
@@ -125,6 +129,22 @@ public sealed class NetServerSystem : EntitySystem
             return;
         }
 
+        if (_metaProgram.GetRuntimeState(args.Used, shard) != MetaProgramRuntimeState.Ready)
+        {
+            _popup.PopupEntity(Loc.GetString("netrunning-popup-program-busy"), uid, args.User, PopupType.MediumCaution);
+            args.Handled = true;
+            return;
+        }
+
+        if (component.UsedLoad + shard.RequiredRam > component.MaxLoad)
+        {
+            _popup.PopupEntity(Loc.GetString("netrunning-popup-server-overload",
+                ("load", component.UsedLoad + shard.RequiredRam), ("max", component.MaxLoad)),
+                uid, args.User, PopupType.MediumCaution);
+            args.Handled = true;
+            return;
+        }
+
         if (_containers.Insert(args.Used, container))
         {
             _popup.PopupEntity(Loc.GetString("netrunning-popup-daemon-installed"), uid, args.User);
@@ -154,6 +174,13 @@ public sealed class NetServerSystem : EntitySystem
             Text = Loc.GetString("netrunning-verb-eject-defensive-shard"),
             Act = () =>
             {
+                if (TryComp<DataShardComponent>(installed, out var shard) &&
+                    _metaProgram.GetRuntimeState(installed, shard) != MetaProgramRuntimeState.Ready)
+                {
+                    _popup.PopupEntity(Loc.GetString("netrunning-popup-program-busy"), uid, args.User, PopupType.MediumCaution);
+                    return;
+                }
+
                 if (_containers.Remove(installed, container))
                 {
                     _popup.PopupEntity(Loc.GetString("netrunning-popup-daemon-ejected"), uid, args.User);
@@ -256,6 +283,49 @@ public sealed class NetServerSystem : EntitySystem
         UnsubscribeNodeViewer(uid, component, args.Actor);
     }
 
+    private void OnProgramStateChanged(EntityUid deckUid, CyberdeckComponent component, MetaProgramStateChangedEvent args)
+    {
+        // Runtime transitions are rare; refresh only node windows currently viewed through this deck.
+        var query = EntityQueryEnumerator<NetDeviceNodeComponent>();
+        while (query.MoveNext(out var nodeUid, out var node))
+        {
+            foreach (var viewer in node.ActiveViewers)
+            {
+                if (TryResolveActorDeck(viewer, out var viewerDeckUid, out _) && viewerDeckUid == deckUid)
+                    UpdateNodeUi(nodeUid, node, viewer);
+            }
+        }
+    }
+
+    private void OnServerContainerModified(EntityUid uid, NetServerComponent component, ContainerModifiedMessage args)
+    {
+        SyncDaemonReservation(uid, component);
+        UpdateServerUi(uid, component);
+    }
+
+    private void OnServerRuntimeChanged(EntityUid uid, NetServerComponent component, MetaServerRuntimeChangedEvent args)
+    {
+        UpdateServerUi(uid, component);
+    }
+
+    private void SyncDaemonReservation(EntityUid uid, NetServerComponent component)
+    {
+        var desiredLoad = 0;
+        if (_containers.TryGetContainer(uid, NetServerComponent.DaemonShardContainerId, out var container) &&
+            container.ContainedEntities.Count > 0 &&
+            TryComp<DataShardComponent>(container.ContainedEntities[0], out var shard))
+        {
+            desiredLoad = Math.Max(0, shard.RequiredRam);
+        }
+
+        if (desiredLoad == component.DaemonReservedLoad)
+            return;
+
+        component.UsedLoad = Math.Max(0, component.UsedLoad - component.DaemonReservedLoad + desiredLoad);
+        component.DaemonReservedLoad = desiredLoad;
+        Dirty(uid, component);
+    }
+
     private void OnNodeShutdown(EntityUid uid, NetDeviceNodeComponent component, ComponentShutdown args)
     {
         foreach (var viewer in component.ActiveViewers.ToArray())
@@ -283,7 +353,9 @@ public sealed class NetServerSystem : EntitySystem
                     if (!TryComp<DataShardComponent>(shardUid, out var shard) || shard.ProgramKind == MetaProgramKind.DaemonDefensive)
                         continue;
 
-                    shards.Add(new NetNodeShardInfo(GetNetEntity(shardUid), Name(shardUid), shard.RequiredRam, shard.ProgramKind));
+                    var runtimeState = _metaProgram.GetRuntimeState(shardUid, shard);
+                    shards.Add(new NetNodeShardInfo(GetNetEntity(shardUid), Name(shardUid), shard.RequiredRam,
+                        shard.ProgramKind, runtimeState));
                 }
             }
         }
@@ -335,6 +407,12 @@ public sealed class NetServerSystem : EntitySystem
         var hasDaemonShard =
             _containers.TryGetContainer(uid, NetServerComponent.DaemonShardContainerId, out var daemonContainer) &&
             daemonContainer.ContainedEntities.Count > 0;
+        var daemonRuntimeState = MetaProgramRuntimeState.Ready;
+        if (hasDaemonShard &&
+            TryComp<DataShardComponent>(daemonContainer!.ContainedEntities[0], out var daemonShard))
+        {
+            daemonRuntimeState = _metaProgram.GetRuntimeState(daemonContainer.ContainedEntities[0], daemonShard);
+        }
 
         var providerLabel = Loc.GetString("netrunning-server-provider-none");
         if (TryComp<LogicPowerReceiverComponent>(uid, out var logicReceiver) && logicReceiver.Provider is { } providerUid && !Deleted(providerUid))
@@ -371,6 +449,9 @@ public sealed class NetServerSystem : EntitySystem
             component.MaxModules,
             devices.Count,
             hasDaemonShard,
+            daemonRuntimeState,
+            component.ActiveMetaPrograms,
+            component.MaxConcurrentMetaPrograms,
             hasAdminAccess,
             hasPersistentRoot,
             canRequestAdmin,
@@ -884,6 +965,7 @@ public sealed class NetServerSystem : EntitySystem
 
     private void OnMapInit(EntityUid uid, NetServerComponent component, MapInitEvent args)
     {
+        SyncDaemonReservation(uid, component);
         RefreshNetwork(uid, component);
         SpawnTowerInGlobalNet(uid, component);
     }

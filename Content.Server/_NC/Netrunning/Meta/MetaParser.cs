@@ -33,26 +33,6 @@ public sealed class MetaParser
 
     private MetaInstruction ParseInstruction()
     {
-        if (MatchKeyword("ALLOC"))
-        {
-            ConsumeKeyword("RAM");
-            Consume(MetaTokenType.LBracket, "Expected '[' after ALLOC RAM.");
-            var amount = ParseExpression();
-            Consume(MetaTokenType.RBracket, "Expected ']'.");
-            ConsumeOptionalSemicolon();
-            return new MetaAllocRamInstruction(RequireConstInt(amount, "ALLOC RAM"));
-        }
-
-        if (MatchKeyword("FREE"))
-        {
-            ConsumeKeyword("RAM");
-            Consume(MetaTokenType.LBracket, "Expected '[' after FREE RAM.");
-            var amount = ParseExpression();
-            Consume(MetaTokenType.RBracket, "Expected ']'.");
-            ConsumeOptionalSemicolon();
-            return new MetaFreeRamInstruction(RequireConstInt(amount, "FREE RAM"));
-        }
-
         if (MatchKeyword("DEF"))
             return ParseDefinition(consumeSemicolon: true);
 

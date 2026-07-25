@@ -51,7 +51,7 @@ public sealed class MetaSchedulerSystem : EntitySystem
                     {
                         active.SuspendedProcesses.RemoveAt(i);
                         proc.DoAfterIndex = null;
-                        RefundRam(uid, GetEntity(proc.ShardUid), proc);
+                        ReleaseRam(uid, proc);
                         _popup.PopupEntity("Link Terminated: Hardware Desync.", uid, user, Content.Shared.Popups.PopupType.LargeCaution);
                     }
                     continue;
@@ -63,7 +63,7 @@ public sealed class MetaSchedulerSystem : EntitySystem
                 if (!HasActiveLink(uid, deck))
                 {
                     active.SuspendedProcesses.RemoveAt(i);
-                    RefundRam(uid, GetEntity(proc.ShardUid), proc);
+                    ReleaseRam(uid, proc);
                     continue;
                 }
 
@@ -112,28 +112,18 @@ public sealed class MetaSchedulerSystem : EntitySystem
         {
             if (TryComp<CyberdeckComponent>(deckUid, out var deck))
             {
-                _program.RefundBaseRam(deckUid, deck, shardUid);
+                _program.ReleaseReservedRam(deckUid, deck, runResult.Result.ReservedRam);
+                _program.CompleteExecution(deckUid, deck, shardUid);
             }
         }
     }
 
-    private void RefundRam(EntityUid deckUid, EntityUid shardUid, MetaContinuationState proc)
+    private void ReleaseRam(EntityUid deckUid, MetaContinuationState proc)
     {
         if (!TryComp<CyberdeckComponent>(deckUid, out var deck))
             return;
 
-        var leak = Math.Max(0, proc.AllocatedRam - proc.FreedRam);
-        if (leak > 0)
-        {
-            deck.LeakedRam = Math.Min(deck.MaxRam, deck.LeakedRam + leak);
-        }
-
-        if (TryComp<DataShardComponent>(shardUid, out var shard))
-        {
-            var effectiveMax = Math.Max(0, deck.MaxRam - deck.LeakedRam);
-            deck.CurrentRam = Math.Min(effectiveMax, deck.CurrentRam + shard.RequiredRam);
-            Dirty(deckUid, deck);
-        }
+        _program.CancelExecution(deckUid, deck, proc);
     }
 
     private bool HasActiveLink(EntityUid deckUid, CyberdeckComponent deck)

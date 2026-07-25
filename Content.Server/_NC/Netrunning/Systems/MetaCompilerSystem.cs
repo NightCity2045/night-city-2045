@@ -202,9 +202,6 @@ public sealed class MetaCompilerSystem : EntitySystem
                 if (!ValidateSysArity(simple.Name, simple.Arguments.Count, out error)) return false;
                 if (!ValidateSysArgTypes(simple.Name, simple.Arguments, ctx, out error)) return false;
                 break;
-            case MetaAllocRamInstruction:
-            case MetaFreeRamInstruction:
-                break;
             default:
                 error = $"Compilation Error: Unsupported instruction {instruction.GetType().Name}.";
                 return false;
@@ -440,23 +437,127 @@ public sealed class MetaCompilerSystem : EntitySystem
 
     private static int EstimateRam(List<MetaInstruction> code)
     {
-        var ram = 0;
+        var variables = new HashSet<string>(StringComparer.Ordinal);
+        var transientRam = 0;
+        CollectRamUsage(code, variables, ref transientRam);
+
+        // Variable slots remain resident for the process lifetime. SYS workspace is
+        // temporary, so only the largest call has to be reserved alongside them.
+        return Math.Max(1, variables.Count + transientRam);
+    }
+
+    private static void CollectRamUsage(
+        IReadOnlyList<MetaInstruction> code,
+        HashSet<string> variables,
+        ref int transientRam)
+    {
         foreach (var instruction in code)
         {
             switch (instruction)
             {
-                case MetaAllocRamInstruction a:
-                    ram += Math.Max(0, a.Amount);
+                case MetaDefIntInstruction intDefinition:
+                    variables.Add(intDefinition.Name);
+                    CollectExpressionRam(intDefinition.Value, ref transientRam);
                     break;
-                case MetaDefIntInstruction:
-                case MetaDefStrInstruction:
-                case MetaDefPtrInstruction:
-                case MetaDefArrInstruction:
-                    ram += 1;
+                case MetaDefStrInstruction strDefinition:
+                    variables.Add(strDefinition.Name);
+                    CollectExpressionRam(strDefinition.Value, ref transientRam);
+                    break;
+                case MetaDefPtrInstruction ptrDefinition:
+                    variables.Add(ptrDefinition.Name);
+                    CollectExpressionRam(ptrDefinition.Value, ref transientRam);
+                    break;
+                case MetaDefArrInstruction arrDefinition:
+                    variables.Add(arrDefinition.Name);
+                    CollectExpressionRam(arrDefinition.Value, ref transientRam);
+                    break;
+                case MetaAssignInstruction variableAssignment:
+                    CollectExpressionRam(variableAssignment.Value, ref transientRam);
+                    break;
+                case MetaAssignArrayInstruction arrayAssignment:
+                    CollectExpressionRam(arrayAssignment.Index, ref transientRam);
+                    CollectExpressionRam(arrayAssignment.Value, ref transientRam);
+                    break;
+                case MetaIfInstruction conditional:
+                    CollectExpressionRam(conditional.Condition, ref transientRam);
+                    CollectRamUsage(conditional.ThenBody, variables, ref transientRam);
+                    if (conditional.ElseBody != null)
+                        CollectRamUsage(conditional.ElseBody, variables, ref transientRam);
+                    break;
+                case MetaWhileInstruction whileLoop:
+                    CollectExpressionRam(whileLoop.Condition, ref transientRam);
+                    CollectRamUsage(whileLoop.Body, variables, ref transientRam);
+                    break;
+                case MetaForInstruction forLoop:
+                    if (forLoop.Init != null)
+                        CollectRamUsage(new[] { forLoop.Init }, variables, ref transientRam);
+                    if (forLoop.Condition != null)
+                        CollectExpressionRam(forLoop.Condition, ref transientRam);
+                    if (forLoop.Step != null)
+                        CollectRamUsage(new[] { forLoop.Step }, variables, ref transientRam);
+                    CollectRamUsage(forLoop.Body, variables, ref transientRam);
+                    break;
+                case MetaOnEventInstruction eventHandler:
+                    CollectRamUsage(eventHandler.Body, variables, ref transientRam);
+                    break;
+                case MetaExitInstruction exit:
+                    CollectExpressionRam(exit.Code, ref transientRam);
+                    break;
+                case MetaSysLogInstruction log:
+                    transientRam = Math.Max(transientRam, 1);
+                    CollectExpressionRam(log.Message, ref transientRam);
+                    break;
+                case MetaSysInjectInstruction inject:
+                    transientRam = Math.Max(transientRam, 5);
+                    CollectExpressionRam(inject.Target, ref transientRam);
+                    CollectExpressionRam(inject.Damage, ref transientRam);
+                    break;
+                case MetaSysOverrideInstruction sysOverride:
+                    transientRam = Math.Max(transientRam, 2);
+                    CollectExpressionRam(sysOverride.Target, ref transientRam);
+                    CollectExpressionRam(sysOverride.Key, ref transientRam);
+                    CollectExpressionRam(sysOverride.Value, ref transientRam);
+                    break;
+                case MetaSysSimpleInstruction simpleSyscall:
+                    transientRam = Math.Max(transientRam, GetSysRamCost(simpleSyscall.Name));
+                    foreach (var argument in simpleSyscall.Arguments)
+                        CollectExpressionRam(argument, ref transientRam);
                     break;
             }
         }
-        return Math.Max(1, ram);
+    }
+
+    private static void CollectExpressionRam(MetaExpression expression, ref int transientRam)
+    {
+        switch (expression)
+        {
+            case MetaArrayIndexExpression index:
+                CollectExpressionRam(index.Index, ref transientRam);
+                break;
+            case MetaUnaryExpression unary:
+                CollectExpressionRam(unary.Operand, ref transientRam);
+                break;
+            case MetaBinaryExpression binary:
+                CollectExpressionRam(binary.Left, ref transientRam);
+                CollectExpressionRam(binary.Right, ref transientRam);
+                break;
+            case MetaSysCallExpression expressionSyscall:
+                transientRam = Math.Max(transientRam, GetSysRamCost(expressionSyscall.Name));
+                foreach (var argument in expressionSyscall.Arguments)
+                    CollectExpressionRam(argument, ref transientRam);
+                break;
+        }
+    }
+
+    private static int GetSysRamCost(string name)
+    {
+        return name.ToUpperInvariant() switch
+        {
+            "GET_CONNECTED" or "FIND_NEAREST" or "GET_FILES" or "DOWNLOAD" or "UPLOAD" or "ROOT" => 8,
+            "INJECT" or "BURN_NEUROPORT" or "DUMPSHOCK" or "SPAWN_ICE" or "SPAWN_BLACK_ICE" or "SPAWN_DEMON" => 5,
+            "GET_CLASS" or "GET_VITALS" or "CLOAK" or "OVERRIDE" or "DISCONNECT" or "BREACH" => 2,
+            _ => 1,
+        };
     }
 
     private sealed class ValidationContext

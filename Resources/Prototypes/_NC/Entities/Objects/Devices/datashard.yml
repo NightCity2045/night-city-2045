@@ -12,7 +12,6 @@
   - type: DataShard
     sourceCode: |
       // Diagnostics v1.0
-      ALLOC RAM [2];
       SYS.LOG("Initializing META runtime...");
       
       FOR (DEF INT i = 0; i < 3; i += 1) {
@@ -21,7 +20,6 @@
       }
       
       SYS.LOG("Diagnostics complete.");
-      FREE RAM [2];
       EXIT [0];
 
 - type: entity
@@ -58,7 +56,6 @@
   - type: DataShard
     sourceCode: |
       // 'Sesame' v2.1 - MagLock Bypass
-      ALLOC RAM [4];
       DEF PTR port = SYS.GET_TARGET();
 
       IF (SYS.IS_VALID(port) == 1) {
@@ -72,7 +69,6 @@
           SYS.LOG("ERROR: Link failed. No valid target.");
       }
 
-      FREE RAM [4];
       EXIT [0];
 
 - type: entity
@@ -84,7 +80,6 @@
   - type: DataShard
     sourceCode: |
       // 'Cascade' v0.9 - Network Ping Propagation
-      ALLOC RAM [10];
       DEF PTR origin = SYS.GET_TARGET();
       
       IF (SYS.IS_VALID(origin) == 1) {
@@ -102,7 +97,6 @@
           }
       }
       
-      FREE RAM [10];
       EXIT [0];
 
 - type: entity
@@ -112,10 +106,8 @@
   description: Простой боевой скрипт для открытия или закрытия выбранного шлюза.
   components:
   - type: DataShard
-    requiredRam: 5
     sourceCode: |
       // Door Toggle - базовый контроль шлюза
-      ALLOC RAM [5];
       DEF PTR door = SYS.GET_TARGET();
 
       IF (SYS.IS_VALID(door) == 1) {
@@ -125,7 +117,6 @@
           SYS.LOG("ОШИБКА: цель недоступна.");
       }
 
-      FREE RAM [5];
       EXIT [0];
 
 - type: entity
@@ -135,10 +126,8 @@
   description: Заставляет выбранный шлюз несколько раз открываться и резко закрываться.
   components:
   - type: DataShard
-    requiredRam: 8
     sourceCode: |
       // Door Crush Loop - принудительный цикл створок
-      ALLOC RAM [8];
       DEF PTR door = SYS.GET_TARGET();
 
       IF (SYS.IS_VALID(door) == 1) {
@@ -155,7 +144,6 @@
           SYS.LOG("ОШИБКА: цель недоступна.");
       }
 
-      FREE RAM [8];
       EXIT [0];
 
 - type: entity
@@ -165,10 +153,8 @@
   description: Перегружает выбранный шлюз, выбивает питание и создает тепловую дугу рядом с дверью.
   components:
   - type: DataShard
-    requiredRam: 6
     sourceCode: |
       // Short Circuit - аварийная перегрузка шлюза
-      ALLOC RAM [6];
       DEF PTR door = SYS.GET_TARGET();
 
       IF (SYS.IS_VALID(door) == 1) {
@@ -180,5 +166,4 @@
           SYS.LOG("ОШИБКА: цель недоступна.");
       }
 
-      FREE RAM [6];
       EXIT [0];

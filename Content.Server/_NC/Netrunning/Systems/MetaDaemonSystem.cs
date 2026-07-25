@@ -5,12 +5,16 @@ using Robust.Shared.GameObjects;
 
 namespace Content.Server._NC.Netrunning.Systems;
 
+public sealed class MetaServerRuntimeChangedEvent : EntityEventArgs
+{
+}
+
 public sealed class MetaDaemonSystem : EntitySystem
 {
     [Dependency] private readonly MetaVirtualMachineSystem _vm = default!;
     [Dependency] private readonly MetaApiSystem _api = default!;
     [Dependency] private readonly SharedContainerSystem _containers = default!;
-    [Dependency] private readonly MetaSchedulerSystem _scheduler = default!;
+    [Dependency] private readonly MetaProgramSystem _program = default!;
 
     public override void Initialize()
     {
@@ -84,10 +88,39 @@ public sealed class MetaDaemonSystem : EntitySystem
         if (shard.Bytecode == null || shard.ProgramKind != MetaProgramKind.DaemonDefensive)
             return;
 
-        _api.SetIntruder(hostUid, intruder);
-        var result = _vm.ExecuteEvent(hostUid, shard.Bytecode, "INTRUSION", intruder);
-        _scheduler.HandleVmResult(hostUid, daemon.Shard.Value, result);
-        _api.SetIntruder(hostUid, null);
+        var serverUid = ResolveServer(hostUid);
+        if (serverUid is not { } resolvedServer ||
+            !TryComp<NetServerComponent>(resolvedServer, out var server) ||
+            _program.GetRuntimeState(daemon.Shard.Value, shard) != MetaProgramRuntimeState.Ready ||
+            server.ActiveMetaPrograms >= Math.Max(1, server.MaxConcurrentMetaPrograms))
+            return;
+
+        shard.RuntimeState = MetaProgramRuntimeState.Running;
+        server.ActiveMetaPrograms++;
+        Dirty(daemon.Shard.Value, shard);
+        Dirty(resolvedServer, server);
+        RaiseLocalEvent(resolvedServer, new MetaServerRuntimeChangedEvent());
+
+        try
+        {
+            _api.SetIntruder(hostUid, intruder);
+            var result = _vm.ExecuteEvent(hostUid, daemon.Shard.Value, shard.Bytecode, "INTRUSION", intruder,
+                Math.Max(1, server.MetaGasLimit));
+        }
+        catch (Exception exception)
+        {
+            Logger.ErrorS("meta", $"Defensive daemon on {ToPrettyString(hostUid)} failed safely: {exception}");
+        }
+        finally
+        {
+            _api.SetIntruder(hostUid, null);
+            _api.SetEventSource(hostUid, null);
+            server.ActiveMetaPrograms = Math.Max(0, server.ActiveMetaPrograms - 1);
+            shard.RuntimeState = MetaProgramRuntimeState.Ready;
+            Dirty(daemon.Shard.Value, shard);
+            Dirty(resolvedServer, server);
+            RaiseLocalEvent(resolvedServer, new MetaServerRuntimeChangedEvent());
+        }
     }
 
     private EntityUid? ResolveServer(EntityUid uid, TransformComponent? xform = null)

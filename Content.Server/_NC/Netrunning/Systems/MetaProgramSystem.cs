@@ -20,8 +20,14 @@ using Robust.Shared.Player;
 
 namespace Content.Server._NC.Netrunning.Systems;
 
+public sealed class MetaProgramStateChangedEvent : EntityEventArgs
+{
+}
+
 public sealed class MetaProgramSystem : EntitySystem
 {
+    private const float RamRecoveryInterval = 1f;
+
     [Dependency] private readonly SharedPopupSystem _popup = default!;
     [Dependency] private readonly MetaCompilerSystem _compiler = default!;
     [Dependency] private readonly MetaVirtualMachineSystem _vm = default!;
@@ -33,6 +39,8 @@ public sealed class MetaProgramSystem : EntitySystem
     [Dependency] private readonly Content.Shared.Inventory.InventorySystem _inventory = default!;
     [Dependency] private readonly MetaDataSystem _metaData = default!;
     [Dependency] private readonly SharedDoAfterSystem _doAfter = default!;
+
+    private float _ramRecoveryTimer;
 
     public override void Initialize()
     {
@@ -66,6 +74,12 @@ public sealed class MetaProgramSystem : EntitySystem
         var user = args.Actor;
         if (!user.Valid) return;
         var shardUid = GetEntity(args.Shard);
+        if (TryComp<DataShardComponent>(shardUid, out var shard) &&
+            GetRuntimeState(shardUid, shard) != MetaProgramRuntimeState.Ready)
+        {
+            _popup.PopupEntity(Loc.GetString("netrunning-popup-program-busy"), uid, user, PopupType.MediumCaution);
+            return;
+        }
         if (!_containers.TryGetContainer(uid, CyberdeckComponent.ShardContainerId, out var container)) return;
         if (_containers.Remove(shardUid, container))
         {
@@ -95,7 +109,7 @@ public sealed class MetaProgramSystem : EntitySystem
         UpdateUi(uid, component, args.Actor);
     }
 
-    private void HandleVmResult(EntityUid deckUid, CyberdeckComponent deck, MetaVmRunResult runResult, EntityUid user)
+    private void HandleVmResult(EntityUid deckUid, CyberdeckComponent deck, EntityUid shardUid, MetaVmRunResult runResult, EntityUid user)
     {
         if (runResult.Continuation != null)
         {
@@ -124,7 +138,8 @@ public sealed class MetaProgramSystem : EntitySystem
         }
         else
         {
-            RefundBaseRam(deckUid, deck, GetEntity(runResult.Result.ShardUid_Internal));
+            ReleaseReservedRam(deckUid, deck, runResult.Result.ReservedRam);
+            CompleteExecution(deckUid, deck, shardUid);
             if (runResult.Result.FatalError != null)
                 _popup.PopupEntity(runResult.Result.FatalError, deckUid, user, PopupType.MediumCaution);
             else
@@ -132,12 +147,13 @@ public sealed class MetaProgramSystem : EntitySystem
         }
     }
 
-    public void RefundBaseRam(EntityUid deckUid, CyberdeckComponent deck, EntityUid shardUid)
+    public void ReleaseReservedRam(EntityUid deckUid, CyberdeckComponent deck, int amount)
     {
-        if (!shardUid.Valid || !TryComp<DataShardComponent>(shardUid, out var shard)) return;
-        var effectiveMax = Math.Max(0, deck.MaxRam - deck.LeakedRam);
-        deck.CurrentRam = Math.Min(effectiveMax, deck.CurrentRam + shard.RequiredRam);
+        var released = Math.Clamp(amount, 0, deck.ReservedRam);
+        deck.ReservedRam -= released;
+        // Completed work leaves RAM exhausted; the deck recovers it over time.
         Dirty(deckUid, deck);
+        UpdateUi(deckUid, deck);
     }
 
     private bool TryGetNetvisorBonus(EntityUid user, out float bonus)
@@ -181,6 +197,11 @@ public sealed class MetaProgramSystem : EntitySystem
         {
             var shardUid = GetEntity(args.TargetShard.Value);
             if (!TryComp<DataShardComponent>(shardUid, out var shard)) return;
+            if (GetRuntimeState(shardUid, shard) != MetaProgramRuntimeState.Ready)
+            {
+                _popup.PopupEntity(Loc.GetString("netrunning-popup-program-busy"), uid, user, PopupType.MediumCaution);
+                return;
+            }
             shard.SourceCode = args.Code;
             shard.Bytecode = bytecode;
             shard.RequiredRam = bytecode.RequiredRam;
@@ -209,14 +230,17 @@ public sealed class MetaProgramSystem : EntitySystem
 
     public void UpdateUi(EntityUid uid, CyberdeckComponent component, EntityUid? user = null)
     {
-        var shards = new List<(NetEntity, string, string, MetaProgramKind)>();
+        var shards = new List<(NetEntity, string, string, MetaProgramKind, int, MetaProgramRuntimeState)>();
         if (_containers.TryGetContainer(uid, CyberdeckComponent.ShardContainerId, out var container))
         {
             foreach (var ent in container.ContainedEntities)
             {
-                var source = TryComp<DataShardComponent>(ent, out var s) ? s.SourceCode ?? "" : "";
-                var kind = TryComp<DataShardComponent>(ent, out var shard) ? shard.ProgramKind : MetaProgramKind.Standard;
-                shards.Add((GetNetEntity(ent), Name(ent), source, kind));
+                if (!TryComp<DataShardComponent>(ent, out var shard))
+                    continue;
+
+                var runtimeState = GetRuntimeState(ent, shard);
+                shards.Add((GetNetEntity(ent), Name(ent), shard.SourceCode ?? "", shard.ProgramKind,
+                    shard.RequiredRam, runtimeState));
             }
         }
 
@@ -260,7 +284,9 @@ public sealed class MetaProgramSystem : EntitySystem
         var hasAR = user != null && TryGetNetvisorBonus(user.Value, out _);
         var state = new CyberdeckUiState(
             component.CurrentRam,
+            component.ReservedRam,
             component.MaxRam,
+            component.RecoverySpeed,
             component.TraceLevel,
             component.StoredFiles.Count,
             component.StorageCapacity,
@@ -349,14 +375,43 @@ public sealed class MetaProgramSystem : EntitySystem
             return new MetaExecutionResult(false, false, "Defensive daemon shards must be installed in a protected node.", 0, 0, GetNetEntity(shardUid));
         if (deck.ActiveTarget == null) return new MetaExecutionResult(false, false, "No link", 0, 0, GetNetEntity(shardUid));
         if (!TryGetDeckUser(deckUid, out var user)) return new MetaExecutionResult(false, false, "No user", 0, 0, GetNetEntity(shardUid));
-        var effectiveMaxRam = Math.Max(0, deck.MaxRam - deck.LeakedRam);
-        if (deck.CurrentRam < shard.RequiredRam || effectiveMaxRam < shard.RequiredRam)
+        var runtimeState = GetRuntimeState(shardUid, shard);
+        if (runtimeState == MetaProgramRuntimeState.Running)
+            return new MetaExecutionResult(false, false, Loc.GetString("netrunning-error-program-running"), 0, 0, GetNetEntity(shardUid));
+        if (deck.CurrentRam < shard.RequiredRam || deck.MaxRam < shard.RequiredRam)
             return new MetaExecutionResult(false, false, "Out of RAM", 0, 0, GetNetEntity(shardUid));
+
+        shard.RuntimeState = MetaProgramRuntimeState.Running;
+        Dirty(shardUid, shard);
         deck.CurrentRam -= shard.RequiredRam;
+        deck.ReservedRam += shard.RequiredRam;
         Dirty(deckUid, deck);
         var runResult = _vm.Execute(deckUid, user, shardUid, shard.Bytecode, deck.GasLimit);
-        HandleVmResult(deckUid, deck, runResult, user);
+        HandleVmResult(deckUid, deck, shardUid, runResult, user);
+        UpdateUi(deckUid, deck, user);
         return runResult.Result;
+    }
+
+    public MetaProgramRuntimeState GetRuntimeState(EntityUid shardUid, DataShardComponent shard)
+    {
+        return shard.RuntimeState;
+    }
+
+    public void CompleteExecution(EntityUid deckUid, CyberdeckComponent deck, EntityUid shardUid)
+    {
+        if (!TryComp<DataShardComponent>(shardUid, out var shard))
+            return;
+
+        shard.RuntimeState = MetaProgramRuntimeState.Ready;
+        Dirty(shardUid, shard);
+        UpdateUi(deckUid, deck);
+        RaiseLocalEvent(deckUid, new MetaProgramStateChangedEvent());
+    }
+
+    public void CancelExecution(EntityUid deckUid, CyberdeckComponent deck, MetaContinuationState process)
+    {
+        ReleaseReservedRam(deckUid, deck, process.ReservedRam);
+        CompleteExecution(deckUid, deck, GetEntity(process.ShardUid));
     }
 
     private void OnShardVerbs(EntityUid uid, DataShardComponent component, GetVerbsEvent<ActivationVerb> args)
@@ -365,6 +420,11 @@ public sealed class MetaProgramSystem : EntitySystem
         args.Verbs.Add(new ActivationVerb {
             Text = "Compile META",
             Act = () => {
+                if (GetRuntimeState(uid, component) != MetaProgramRuntimeState.Ready)
+                {
+                    _popup.PopupEntity(Loc.GetString("netrunning-popup-program-busy"), uid, args.User, PopupType.MediumCaution);
+                    return;
+                }
                 if (!TryCompile(uid, component, args.User, out var err))
                     _popup.PopupEntity("Error: " + err, uid, args.User, PopupType.MediumCaution);
                 else _popup.PopupEntity("Success", uid, args.User);
@@ -375,20 +435,36 @@ public sealed class MetaProgramSystem : EntitySystem
     public override void Update(float frameTime)
     {
         base.Update(frameTime);
-        var regenQuery = EntityQueryEnumerator<CyberdeckComponent>();
-        while (regenQuery.MoveNext(out var deckUid, out var deck))
+
+        _ramRecoveryTimer += frameTime;
+        if (_ramRecoveryTimer >= RamRecoveryInterval)
         {
-            var effectiveMax = Math.Max(0, deck.MaxRam - deck.LeakedRam);
-            if (deck.CurrentRam >= effectiveMax) continue;
-            deck.RecoveryAccumulator += frameTime * deck.RecoverySpeed;
-            if (deck.RecoveryAccumulator >= 1f)
+            var elapsedSeconds = (int) (_ramRecoveryTimer / RamRecoveryInterval);
+            _ramRecoveryTimer -= elapsedSeconds * RamRecoveryInterval;
+
+            var regenQuery = EntityQueryEnumerator<CyberdeckComponent>();
+            while (regenQuery.MoveNext(out var deckUid, out var deck))
             {
+                // Recovery is applied as a visible one-second hardware pulse.
+                var effectiveMax = Math.Max(0, deck.MaxRam - deck.ReservedRam);
+                if (deck.CurrentRam >= effectiveMax)
+                {
+                    deck.RecoveryAccumulator = 0f;
+                    continue;
+                }
+
+                deck.RecoveryAccumulator += elapsedSeconds * Math.Max(0f, deck.RecoverySpeed);
                 var recovered = (int)deck.RecoveryAccumulator;
+                if (recovered <= 0)
+                    continue;
+
                 deck.RecoveryAccumulator -= recovered;
                 deck.CurrentRam = Math.Min(effectiveMax, deck.CurrentRam + recovered);
                 Dirty(deckUid, deck);
+                UpdateUi(deckUid, deck);
             }
         }
+
         var query = EntityQueryEnumerator<CyberdeckComponent>();
         while (query.MoveNext(out var deckUid2, out var deck2))
         {

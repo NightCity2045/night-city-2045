@@ -17,4 +17,10 @@ public sealed partial class DataShardComponent : Component
 
     [DataField("programKind")]
     public MetaProgramKind ProgramKind = MetaProgramKind.Standard;
+
+    /// <summary>
+    /// Current lifecycle state of this physical program shard.
+    /// </summary>
+    [ViewVariables]
+    public MetaProgramRuntimeState RuntimeState = MetaProgramRuntimeState.Ready;
 }

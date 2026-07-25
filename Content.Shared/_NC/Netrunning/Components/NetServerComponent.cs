@@ -40,6 +40,21 @@ public sealed partial class NetServerComponent : Component
     public int UsedLoad;
 
     /// <summary>
+    /// Load permanently reserved by the installed defensive META program.
+    /// </summary>
+    [ViewVariables(VVAccess.ReadOnly)]
+    public int DaemonReservedLoad;
+
+    [DataField("metaGasLimit"), ViewVariables(VVAccess.ReadWrite)]
+    public int MetaGasLimit = 5000;
+
+    [DataField("maxConcurrentMetaPrograms"), ViewVariables(VVAccess.ReadWrite)]
+    public int MaxConcurrentMetaPrograms = 1;
+
+    [ViewVariables(VVAccess.ReadOnly)]
+    public int ActiveMetaPrograms;
+
+    /// <summary>
     ///     Reference to the MapId of the local network grid.
     /// </summary>
     [ViewVariables(VVAccess.ReadOnly)]
@@ -140,6 +155,9 @@ public sealed class NetServerUiState : BoundUserInterfaceState
     public readonly int ModuleLimit;
     public readonly int ConnectedDeviceCount;
     public readonly bool HasDaemonShard;
+    public readonly MetaProgramRuntimeState DaemonRuntimeState;
+    public readonly int ActiveMetaPrograms;
+    public readonly int MaxConcurrentMetaPrograms;
     public readonly bool HasAdminAccess;
     public readonly bool HasPersistentRoot;
     public readonly bool CanRequestAdmin;
@@ -160,6 +178,9 @@ public sealed class NetServerUiState : BoundUserInterfaceState
         int moduleLimit,
         int connectedDeviceCount,
         bool hasDaemonShard,
+        MetaProgramRuntimeState daemonRuntimeState,
+        int activeMetaPrograms,
+        int maxConcurrentMetaPrograms,
         bool hasAdminAccess,
         bool hasPersistentRoot,
         bool canRequestAdmin,
@@ -179,6 +200,9 @@ public sealed class NetServerUiState : BoundUserInterfaceState
         ModuleLimit = moduleLimit;
         ConnectedDeviceCount = connectedDeviceCount;
         HasDaemonShard = hasDaemonShard;
+        DaemonRuntimeState = daemonRuntimeState;
+        ActiveMetaPrograms = activeMetaPrograms;
+        MaxConcurrentMetaPrograms = maxConcurrentMetaPrograms;
         HasAdminAccess = hasAdminAccess;
         HasPersistentRoot = hasPersistentRoot;
         CanRequestAdmin = canRequestAdmin;
@@ -220,7 +244,12 @@ public sealed class NetNodeUiState : BoundUserInterfaceState
 }
 
 [Serializable, NetSerializable]
-public sealed record NetNodeShardInfo(NetEntity Uid, string Name, int RamCost, MetaProgramKind Kind);
+public sealed record NetNodeShardInfo(
+    NetEntity Uid,
+    string Name,
+    int RamCost,
+    MetaProgramKind Kind,
+    MetaProgramRuntimeState RuntimeState);
 
 [Serializable, NetSerializable]
 public sealed class NetNodeControlMessage : BoundUserInterfaceMessage

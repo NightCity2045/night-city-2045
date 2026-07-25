@@ -17,6 +17,9 @@
                             <Label Name="LoadLabel" Text="" StyleClasses="NetTerminalBadgeText" />
                         </PanelContainer>
                         <PanelContainer StyleClasses="NetTerminalBadge">
+                            <Label Name="RuntimeLabel" Text="" StyleClasses="NetTerminalBadgeText" />
+                        </PanelContainer>
+                        <PanelContainer StyleClasses="NetTerminalBadge">
                             <Label Name="ModuleLabel" Text="" StyleClasses="NetTerminalBadgeText" />
                         </PanelContainer>
                         <PanelContainer StyleClasses="NetTerminalBadge">

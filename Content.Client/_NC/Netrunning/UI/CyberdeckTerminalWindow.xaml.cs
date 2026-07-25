@@ -16,12 +16,9 @@ public sealed partial class CyberdeckTerminalWindow : DefaultWindow
     public event Action<NetEntity>? OnRunRequested;
     public event Action<NetEntity>? OnEjectRequested;
     public event Action? OnHotSimRequested;
-    public event Action<string, NetEntity>? OnConstructRequested;
 
     private NetEntity? _selectedShard;
-    private Dictionary<NetEntity, (string Name, string Source, MetaProgramKind Kind)> _shardData = new();
-    private List<NetModuleInfo> _availableModules = new();
-    private List<NetAnchorInfo> _availableAnchors = new();
+    private Dictionary<NetEntity, (string Name, string Source, MetaProgramKind Kind, int RamCost, MetaProgramRuntimeState RuntimeState)> _shardData = new();
     private string _logBuffer = "";
     private bool _hasAr;
 
@@ -29,31 +26,30 @@ public sealed partial class CyberdeckTerminalWindow : DefaultWindow
     {
         RobustXamlLoader.Load(this);
 
+        Title = Loc.GetString("netrunning-cyberdeck-title");
+        HeaderTitleLabel.Text = Loc.GetString("netrunning-cyberdeck-header");
+        HeaderSubtitleLabel.Text = Loc.GetString("netrunning-cyberdeck-subtitle");
+        HotSimButton.Text = Loc.GetString("netrunning-cyberdeck-immersion");
+        RamAvailableTitleLabel.Text = Loc.GetString("netrunning-cyberdeck-ram-available");
+        RamReservedTitleLabel.Text = Loc.GetString("netrunning-cyberdeck-ram-reserved");
+        RamRecoveringTitleLabel.Text = Loc.GetString("netrunning-cyberdeck-ram-recovering");
+        RamSpeedTitleLabel.Text = Loc.GetString("netrunning-cyberdeck-ram-speed");
+        Tabs.SetTabTitle(0, Loc.GetString("netrunning-cyberdeck-tab-editor"));
+        Tabs.SetTabTitle(1, Loc.GetString("netrunning-cyberdeck-tab-shards"));
+        Tabs.SetTabTitle(2, Loc.GetString("netrunning-cyberdeck-tab-logs"));
+        ProgramNameLabel.Text = Loc.GetString("netrunning-cyberdeck-program-name");
+        NameInput.PlaceHolder = Loc.GetString("netrunning-cyberdeck-program-name-placeholder");
+        DefensiveModeCheck.Text = Loc.GetString("netrunning-cyberdeck-defensive-mode");
+        SourceLabel.Text = Loc.GetString("netrunning-cyberdeck-source");
+        CompileNewButton.Text = Loc.GetString("netrunning-cyberdeck-compile-new");
+        SaveButton.Text = Loc.GetString("netrunning-cyberdeck-save");
+        InstalledShardsLabel.Text = Loc.GetString("netrunning-cyberdeck-installed-shards");
+        RunButton.Text = Loc.GetString("netrunning-cyberdeck-run");
+        EditButton.Text = Loc.GetString("netrunning-cyberdeck-edit");
+        EjectButton.Text = Loc.GetString("netrunning-cyberdeck-eject");
+        LogsTitleLabel.Text = Loc.GetString("netrunning-cyberdeck-logs");
+
         HotSimButton.OnPressed += _ => OnHotSimRequested?.Invoke();
-        ConstructButton.OnPressed += _ =>
-        {
-            var selectedModule = ModuleList.GetSelected().FirstOrDefault();
-            var selectedPort = PortList.GetSelected().FirstOrDefault();
-
-            if (selectedModule != null && selectedPort != null)
-            {
-                OnConstructRequested?.Invoke((string)selectedModule.Metadata!, (NetEntity)selectedPort.Metadata!);
-            }
-        };
-
-        ModuleList.OnItemSelected += args =>
-        {
-            var id = (string)args.ItemList[args.ItemIndex].Metadata!;
-            var module = _availableModules.FirstOrDefault(m => m.Id == id);
-            if (module != null)
-            {
-                ModuleDesc.SetMessage(Loc.GetString("netrunning-ui-module-desc",
-                    ("name", module.Name),
-                    ("load", module.RamCost),
-                    ("price", module.Price),
-                    ("desc", module.Description)));
-            }
-        };
 
         CompileNewButton.OnPressed += _ => OnCompileRequested?.Invoke(
             Rope.Collapse(CodeInput.TextRope),
@@ -104,9 +100,15 @@ public sealed partial class CyberdeckTerminalWindow : DefaultWindow
     public void UpdateState(CyberdeckUiState state)
     {
         _hasAr = state.HasAR;
-        RamLabel.Text = $"RAM: {state.CurrentRam}/{state.MaxRam}";
-        TraceLabel.Text = $"Trace: {state.CurrentTrace}";
-        StorageLabel.Text = $"Storage: {state.StorageUsed}/{state.StorageCapacity}";
+        var recoveringRam = Math.Max(0, state.MaxRam - state.CurrentRam - state.ReservedRam);
+        RamAvailableLabel.Text = Loc.GetString("netrunning-cyberdeck-ram-value",
+            ("current", state.CurrentRam), ("max", state.MaxRam));
+        RamReservedLabel.Text = state.ReservedRam.ToString();
+        RamRecoveringLabel.Text = recoveringRam.ToString();
+        RamSpeedLabel.Text = Loc.GetString("netrunning-cyberdeck-ram-speed-value", ("speed", state.RecoverySpeed));
+        TraceLabel.Text = Loc.GetString("netrunning-cyberdeck-trace", ("trace", state.CurrentTrace));
+        StorageLabel.Text = Loc.GetString("netrunning-cyberdeck-storage",
+            ("used", state.StorageUsed), ("capacity", state.StorageCapacity));
         ServerLoadLabel.Text = state.ActiveServer == null
             ? Loc.GetString("netrunning-cyberdeck-server-offline")
             : Loc.GetString("netrunning-cyberdeck-server-load", ("used", state.ServerUsedLoad), ("max", state.ServerMaxLoad));
@@ -125,39 +127,16 @@ public sealed partial class CyberdeckTerminalWindow : DefaultWindow
         }
 
         _shardData.Clear();
-        foreach (var (shard, name, source, kind) in state.Shards)
+        foreach (var (shard, name, source, kind, ramCost, runtimeState) in state.Shards)
         {
-            _shardData[shard] = (name, source, kind);
+            _shardData[shard] = (name, source, kind, ramCost, runtimeState);
         }
 
         ShardList.Clear();
         foreach (var (shard, data) in _shardData)
         {
-            var displayName = data.Kind == MetaProgramKind.DaemonDefensive ? $"[DEF] {data.Name}" : data.Name;
-            ShardList.AddItem(displayName, metadata: shard);
+            ShardList.AddItem(GetShardDisplayName(data), metadata: shard);
         }
-
-        ModuleList.Clear();
-        _availableModules = state.AvailableModules;
-        foreach (var module in _availableModules)
-        {
-            ModuleList.AddItem(module.Name, metadata: module.Id);
-        }
-
-        PortList.Clear();
-        _availableAnchors = state.AvailableAnchors;
-        foreach (var port in _availableAnchors)
-        {
-            var text = port.Connected
-                ? Loc.GetString("netrunning-ui-port-occupied", ("dir", port.Dir))
-                : Loc.GetString("netrunning-ui-port-free", ("dir", port.Dir));
-            var item = PortList.AddItem(text, metadata: port.Uid);
-            item.Disabled = port.Connected;
-        }
-
-        ConstructButton.Disabled = true;
-        ConstructButton.ToolTip = Loc.GetString("netrunning-cyberdeck-construction-moved");
-        ModuleDesc.SetMessage(Loc.GetString("netrunning-cyberdeck-construction-moved"));
 
         if (_selectedShard == null)
             DefensiveModeCheck.Pressed = false;
@@ -177,6 +156,8 @@ public sealed partial class CyberdeckTerminalWindow : DefaultWindow
         {
             RunButton.Disabled = true;
             RunButton.ToolTip = Loc.GetString("netrunning-cyberdeck-run-requires-ar");
+            EditButton.Disabled = false;
+            EjectButton.Disabled = false;
             return;
         }
 
@@ -184,6 +165,19 @@ public sealed partial class CyberdeckTerminalWindow : DefaultWindow
         {
             RunButton.Disabled = false;
             RunButton.ToolTip = null;
+            EditButton.Disabled = false;
+            EjectButton.Disabled = false;
+            return;
+        }
+
+        var runtimeState = data.RuntimeState;
+        var busy = runtimeState != MetaProgramRuntimeState.Ready;
+        EditButton.Disabled = busy;
+        EjectButton.Disabled = busy;
+        if (busy)
+        {
+            RunButton.Disabled = true;
+            RunButton.ToolTip = Loc.GetString("netrunning-program-state-running");
             return;
         }
 
@@ -196,5 +190,18 @@ public sealed partial class CyberdeckTerminalWindow : DefaultWindow
 
         RunButton.Disabled = false;
         RunButton.ToolTip = null;
+    }
+
+    private string GetShardDisplayName((string Name, string Source, MetaProgramKind Kind, int RamCost, MetaProgramRuntimeState RuntimeState) data)
+    {
+        var prefix = data.Kind == MetaProgramKind.DaemonDefensive
+            ? Loc.GetString("netrunning-cyberdeck-defensive-prefix") + " "
+            : string.Empty;
+        var stateText = data.RuntimeState switch
+        {
+            MetaProgramRuntimeState.Running => Loc.GetString("netrunning-program-state-running"),
+            _ => Loc.GetString("netrunning-program-state-ready")
+        };
+        return $"{prefix}{data.Name} [RAM:{data.RamCost}] [{stateText}]";
     }
 }

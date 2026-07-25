@@ -12,13 +12,6 @@ public sealed class MetaVirtualMachineSystem : EntitySystem
 {
     [Dependency] private readonly MetaApiSystem _api = default!;
 
-    // --- RAM Cost Constants ---
-    private const int VariableRamCost = 1;
-    private const int SysBaseCost = 1;
-    private const int SysHeavyCost = 2;
-    private const int SysCriticalCost = 5;
-    private const int SysNetworkCost = 8;
-
     public MetaVmRunResult Execute(EntityUid deckUid, EntityUid userUid, EntityUid shardUid, MetaBytecode bytecode, int gasLimit)
     {
         var state = new MetaContinuationState
@@ -28,6 +21,7 @@ public sealed class MetaVirtualMachineSystem : EntitySystem
             ShardUid = GetNetEntity(shardUid),
             GasRemaining = gasLimit,
             InitialGas = gasLimit,
+            ReservedRam = bytecode.RequiredRam,
         };
 
         state.CallStack.Push(new MetaCallFrame(bytecode.Instructions, MetaFrameKind.Block));
@@ -37,14 +31,20 @@ public sealed class MetaVirtualMachineSystem : EntitySystem
         return FinalizeRun(state);
     }
 
-    public MetaVmRunResult ExecuteEvent(EntityUid hostUid, MetaBytecode bytecode, string eventName, EntityUid source)
+    public MetaVmRunResult ExecuteEvent(
+        EntityUid hostUid,
+        EntityUid shardUid,
+        MetaBytecode bytecode,
+        string eventName,
+        EntityUid source,
+        int gasLimit)
     {
         var state = new MetaContinuationState
         {
             DeckUid = GetNetEntity(hostUid),
-            ShardUid = NetEntity.Invalid,
-            GasRemaining = 1000,
-            InitialGas = 1000,
+            ShardUid = GetNetEntity(shardUid),
+            GasRemaining = gasLimit,
+            InitialGas = gasLimit,
         };
 
         _api.SetEventSource(hostUid, source);
@@ -81,27 +81,14 @@ public sealed class MetaVirtualMachineSystem : EntitySystem
     private MetaVmRunResult FinalizeRun(MetaContinuationState state)
     {
         bool yielded = state.CallStack.Count > 0 && state.Error == null && !state.Exited;
-        int leak = 0;
-
         var deckUid = GetEntity(state.DeckUid);
-
-        if (!yielded)
-        {
-            leak = Math.Max(0, state.AllocatedRam - state.FreedRam);
-            if (leak > 0 && TryComp<CyberdeckComponent>(deckUid, out var deck))
-            {
-                deck.LeakedRam = Math.Min(deck.MaxRam, deck.LeakedRam + leak);
-                Dirty(deckUid, deck);
-            }
-            state.VariablesUsed = 0; // Reset for potential next run of the same state object
-        }
 
         var res = new MetaExecutionResult(
             !yielded && state.Error == null, 
             yielded, 
             state.Error, 
             state.InitialGas - state.GasRemaining, 
-            leak,
+            state.ReservedRam,
             state.ShardUid);
 
         if (state.Error != null)
@@ -145,7 +132,7 @@ public sealed class MetaVirtualMachineSystem : EntitySystem
             var inst = frame.Code[frame.InstructionPointer++];
             
             // Execution Debug Logging
-            // Logger.DebugS("meta", $"[{ToPrettyString(deckUid)}] EXEC: {inst.GetType().Name} (Gas: {s.GasRemaining}, RAM: {s.AllocatedRam - s.VariablesUsed})");
+            // Logger.DebugS("meta", $"[{ToPrettyString(deckUid)}] EXEC: {inst.GetType().Name} (Gas: {s.GasRemaining})");
 
             ConsumeGas(s, 1);
             if (s.ShouldStop) return;
@@ -194,59 +181,29 @@ public sealed class MetaVirtualMachineSystem : EntitySystem
         }
     }
 
-    private bool CheckRam(MetaContinuationState s, int cost)
-    {
-        if (s.AllocatedRam - s.VariablesUsed >= cost) return true;
-        s.Error = "[FATAL] META: RAM OVERFLOW. Insufficient allocated memory.";
-        return false;
-    }
-
     private void ExecuteSingleInstruction(MetaContinuationState s, MetaInstruction i)
     {
         var deckUid = GetEntity(s.DeckUid);
         switch (i)
         {
-            case MetaAllocRamInstruction a:
-            {
-                var amount = Math.Max(0, a.Amount);
-                if (TryComp<CyberdeckComponent>(deckUid, out var d) && d.CurrentRam >= amount)
-                {
-                    d.CurrentRam -= amount;
-                    s.AllocatedRam += amount;
-                    Dirty(deckUid, d);
-                }
-                else s.Error = "OUT OF MEMORY";
-                break;
-            }
-            case MetaFreeRamInstruction f:
-            {
-                var toFree = Math.Clamp(f.Amount, 0, s.AllocatedRam - s.FreedRam);
-                if (TryComp<CyberdeckComponent>(deckUid, out var fd))
-                {
-                    fd.CurrentRam = Math.Min(fd.MaxRam, fd.CurrentRam + toFree);
-                    s.FreedRam += toFree;
-                    Dirty(deckUid, fd);
-                }
-                break;
-            }
             case MetaDefIntInstruction di:
             {
-                if (CheckRam(s, VariableRamCost)) { s.IntVars[di.Name] = EvalInt(s, di.Value); s.VariablesUsed += VariableRamCost; }
+                s.IntVars[di.Name] = EvalInt(s, di.Value);
                 break;
             }
             case MetaDefStrInstruction ds:
             {
-                if (CheckRam(s, VariableRamCost)) { s.StrVars[ds.Name] = EvalString(s, ds.Value); s.VariablesUsed += VariableRamCost; }
+                s.StrVars[ds.Name] = EvalString(s, ds.Value);
                 break;
             }
             case MetaDefPtrInstruction dp:
             {
-                if (CheckRam(s, VariableRamCost)) { s.PtrVars[dp.Name] = GetNetEntity(EvalPtr(s, dp.Value)); s.VariablesUsed += VariableRamCost; }
+                s.PtrVars[dp.Name] = GetNetEntity(EvalPtr(s, dp.Value));
                 break;
             }
             case MetaDefArrInstruction darr:
             {
-                if (CheckRam(s, VariableRamCost)) { s.ArrVars[darr.Name] = EvalArray(s, darr.Value); s.VariablesUsed += VariableRamCost; }
+                s.ArrVars[darr.Name] = EvalArray(s, darr.Value);
                 break;
             }
             case MetaAssignInstruction asgn:
@@ -259,10 +216,10 @@ public sealed class MetaVirtualMachineSystem : EntitySystem
                 _api.MetaLog(deckUid, EvalString(s, l.Message));
                 break;
             case MetaSysInjectInstruction inj:
-                if (CheckRam(s, SysCriticalCost)) { var t = EvalPtr(s, inj.Target); if (t != null) _api.Inject(deckUid, t.Value, EvalInt(s, inj.Damage)); }
+                { var t = EvalPtr(s, inj.Target); if (t != null) _api.Inject(deckUid, t.Value, EvalInt(s, inj.Damage)); }
                 break;
             case MetaSysOverrideInstruction ov:
-                if (CheckRam(s, SysHeavyCost)) { var t = EvalPtr(s, ov.Target); if (t != null) _api.Override(t.Value, EvalString(s, ov.Key), EvalInt(s, ov.Value)); }
+                { var t = EvalPtr(s, ov.Target); if (t != null) _api.Override(t.Value, EvalString(s, ov.Key), EvalInt(s, ov.Value)); }
                 break;
             case MetaSysSimpleInstruction ss:
                 ExecSimple(s, ss);
@@ -329,14 +286,14 @@ public sealed class MetaVirtualMachineSystem : EntitySystem
     {
         var deckUid = GetEntity(s.DeckUid);
         var func = ss.Name.ToUpperInvariant();
-        if (func == "PING" && CheckRam(s, SysBaseCost)) { var t = EvalPtr(s, ss.Arguments[0]); if (t != null) _api.Ping(t.Value); }
-        if (func == "BURN_NEUROPORT" && CheckRam(s, SysCriticalCost)) { var t = EvalPtr(s, ss.Arguments[0]); if (t != null) _api.BurnNeuroport(t.Value, EvalInt(s, ss.Arguments[1])); }
-        if (func == "DISCONNECT" && CheckRam(s, SysHeavyCost)) { var t = EvalPtr(s, ss.Arguments[0]); if (t != null) _api.Disconnect(t.Value); }
-        if (func == "BREACH" && CheckRam(s, SysHeavyCost)) { var t = EvalPtr(s, ss.Arguments[0]); if (t != null) _api.Breach(deckUid, t.Value); }
-        if (func == "DUMPSHOCK" && CheckRam(s, SysCriticalCost)) { var t = EvalPtr(s, ss.Arguments[0]); if (t != null) _api.ApplyNeuralDamage(t.Value, EvalInt(s, ss.Arguments[1])); }
-        if (func == "CLOAK" && CheckRam(s, SysHeavyCost)) { _api.Cloak(deckUid, EvalInt(s, ss.Arguments[0])); }
-        if (func == "DOWNLOAD" && CheckRam(s, SysNetworkCost)) { var t = EvalPtr(s, ss.Arguments[0]); if (t != null) _api.Download(deckUid, t.Value, EvalString(s, ss.Arguments[1])); }
-        if (func == "UPLOAD" && CheckRam(s, SysNetworkCost)) { var t = EvalPtr(s, ss.Arguments[0]); if (t != null) _api.Upload(deckUid, t.Value, EvalString(s, ss.Arguments[1])); }
+        if (func == "PING") { var t = EvalPtr(s, ss.Arguments[0]); if (t != null) _api.Ping(t.Value); }
+        if (func == "BURN_NEUROPORT") { var t = EvalPtr(s, ss.Arguments[0]); if (t != null) _api.BurnNeuroport(t.Value, EvalInt(s, ss.Arguments[1])); }
+        if (func == "DISCONNECT") { var t = EvalPtr(s, ss.Arguments[0]); if (t != null) _api.Disconnect(t.Value); }
+        if (func == "BREACH") { var t = EvalPtr(s, ss.Arguments[0]); if (t != null) _api.Breach(deckUid, t.Value); }
+        if (func == "DUMPSHOCK") { var t = EvalPtr(s, ss.Arguments[0]); if (t != null) _api.ApplyNeuralDamage(t.Value, EvalInt(s, ss.Arguments[1])); }
+        if (func == "CLOAK") _api.Cloak(deckUid, EvalInt(s, ss.Arguments[0]));
+        if (func == "DOWNLOAD") { var t = EvalPtr(s, ss.Arguments[0]); if (t != null) _api.Download(deckUid, t.Value, EvalString(s, ss.Arguments[1])); }
+        if (func == "UPLOAD") { var t = EvalPtr(s, ss.Arguments[0]); if (t != null) _api.Upload(deckUid, t.Value, EvalString(s, ss.Arguments[1])); }
     }
 
     private int EvalInt(MetaContinuationState s, MetaExpression e)
@@ -370,12 +327,12 @@ public sealed class MetaVirtualMachineSystem : EntitySystem
         var f = sys.Name.ToUpperInvariant();
         if (f == "GET_ICE") { var t = EvalPtr(s, sys.Arguments[0]); return t != null ? _api.GetIce(t.Value) : 0; }
         if (f == "GET_TRACE") return _api.GetTrace(GetEntity(s.DeckUid));
-        if (f == "IS_VALID" && CheckRam(s, SysBaseCost)) { var t = EvalPtr(s, sys.Arguments[0]); return t != null && _api.IsValid(t.Value) ? 1 : 0; }
+        if (f == "IS_VALID") { var t = EvalPtr(s, sys.Arguments[0]); return t != null && _api.IsValid(t.Value) ? 1 : 0; }
         if (f == "ARR_LENGTH") { if (sys.Arguments[0] is MetaVariableExpression av && s.ArrVars.TryGetValue(av.Name, out var arr)) return arr.Count; }
         if (f == "GET_GAS") return s.GasRemaining;
-        if (f == "GET_RAM_AVAILABLE") return s.AllocatedRam - s.VariablesUsed;
+        if (f == "GET_RAM_AVAILABLE" && TryComp<CyberdeckComponent>(GetEntity(s.DeckUid), out var deck)) return deck.CurrentRam;
         if (f == "HAS_ROOT") { var t = EvalPtr(s, sys.Arguments[0]); return t != null && _api.HasRoot(GetEntity(s.DeckUid), t.Value) ? 1 : 0; }
-        if (f == "ROOT" && CheckRam(s, SysNetworkCost)) { var t = EvalPtr(s, sys.Arguments[0]); return t != null && _api.TryRoot(GetEntity(s.DeckUid), t.Value, EvalInt(s, sys.Arguments[1])) ? 1 : 0; }
+        if (f == "ROOT") { var t = EvalPtr(s, sys.Arguments[0]); return t != null && _api.TryRoot(GetEntity(s.DeckUid), t.Value, EvalInt(s, sys.Arguments[1])) ? 1 : 0; }
         return 0;
     }
 
@@ -395,15 +352,15 @@ public sealed class MetaVirtualMachineSystem : EntitySystem
     {
         var deckUid = GetEntity(s.DeckUid);
         var f = sys.Name.ToUpperInvariant();
-        if (f == "GET_TARGET" && CheckRam(s, SysBaseCost)) return _api.GetTarget(deckUid);
-        if (f == "GET_SERVER" && CheckRam(s, SysBaseCost)) return _api.GetServer(deckUid);
+        if (f == "GET_TARGET") return _api.GetTarget(deckUid);
+        if (f == "GET_SERVER") return _api.GetServer(deckUid);
         if (f == "GET_SELF") return _api.GetSelf(deckUid);
         if (f == "GET_INTRUDER") return _api.GetIntruder(deckUid);
         if (f == "GET_EVENT_SOURCE") return _api.GetEventSource(deckUid);
-        if (f == "FIND_NEAREST" && CheckRam(s, SysNetworkCost)) return _api.FindNearest(deckUid, EvalString(s, sys.Arguments[0]), EvalInt(s, sys.Arguments[1]));
-        if (f == "SPAWN_ICE" && CheckRam(s, SysCriticalCost)) { var t = EvalPtr(s, sys.Arguments[0]); return t != null ? _api.SpawnIce(deckUid, t.Value, EvalInt(s, sys.Arguments[1]), false) : null; }
-        if (f == "SPAWN_BLACK_ICE" && CheckRam(s, SysCriticalCost)) { var t = EvalPtr(s, sys.Arguments[0]); return t != null ? _api.SpawnIce(deckUid, t.Value, EvalInt(s, sys.Arguments[1]), true) : null; }
-        if (f == "SPAWN_DEMON" && CheckRam(s, SysCriticalCost)) { var t = EvalPtr(s, sys.Arguments[0]); return t != null ? _api.SpawnDemon(deckUid, t.Value, EvalInt(s, sys.Arguments[1])) : null; }
+        if (f == "FIND_NEAREST") return _api.FindNearest(deckUid, EvalString(s, sys.Arguments[0]), EvalInt(s, sys.Arguments[1]));
+        if (f == "SPAWN_ICE") { var t = EvalPtr(s, sys.Arguments[0]); return t != null ? _api.SpawnIce(deckUid, t.Value, EvalInt(s, sys.Arguments[1]), false) : null; }
+        if (f == "SPAWN_BLACK_ICE") { var t = EvalPtr(s, sys.Arguments[0]); return t != null ? _api.SpawnIce(deckUid, t.Value, EvalInt(s, sys.Arguments[1]), true) : null; }
+        if (f == "SPAWN_DEMON") { var t = EvalPtr(s, sys.Arguments[0]); return t != null ? _api.SpawnDemon(deckUid, t.Value, EvalInt(s, sys.Arguments[1])) : null; }
         return null;
     }
 
@@ -411,7 +368,6 @@ public sealed class MetaVirtualMachineSystem : EntitySystem
     {
         if (e is MetaSysCallExpression sys && sys.Name.ToUpperInvariant() == "GET_CONNECTED")
         {
-            if (!CheckRam(s, SysNetworkCost)) return new MetaArrayValue();
             var t = EvalPtr(s, sys.Arguments[0]);
             if (t == null) return new MetaArrayValue { ElementType = MetaValueType.Ptr };
             var ents = _api.GetConnected(t.Value);
@@ -424,7 +380,6 @@ public sealed class MetaVirtualMachineSystem : EntitySystem
 
         if (e is MetaSysCallExpression fileSys && fileSys.Name.ToUpperInvariant() == "GET_FILES")
         {
-            if (!CheckRam(s, SysNetworkCost)) return new MetaArrayValue();
             var t = EvalPtr(s, fileSys.Arguments[0]);
             return new MetaArrayValue
             {
@@ -435,7 +390,6 @@ public sealed class MetaVirtualMachineSystem : EntitySystem
 
         if (e is MetaSysCallExpression vitalsSys && vitalsSys.Name.ToUpperInvariant() == "GET_VITALS")
         {
-            if (!CheckRam(s, SysHeavyCost)) return new MetaArrayValue();
             var t = EvalPtr(s, vitalsSys.Arguments[0]);
             return new MetaArrayValue
             {
@@ -465,7 +419,7 @@ public sealed class MetaVirtualMachineSystem : EntitySystem
         if (e is MetaSysCallExpression sys)
         {
             var f = sys.Name.ToUpperInvariant();
-            if (f == "GET_CLASS" && CheckRam(s, SysHeavyCost)) { var t = EvalPtr(s, sys.Arguments[0]); return t != null ? (_api.GetClass(t.Value) ?? "") : ""; }
+            if (f == "GET_CLASS") { var t = EvalPtr(s, sys.Arguments[0]); return t != null ? (_api.GetClass(t.Value) ?? "") : ""; }
         }
         if (e is MetaBinaryExpression b && b.Op == MetaBinaryOp.Add && (IsStringExpression(s, b.Left) || IsStringExpression(s, b.Right)))
             return EvalString(s, b.Left) + EvalString(s, b.Right);

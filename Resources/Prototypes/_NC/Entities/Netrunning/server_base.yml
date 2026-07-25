@@ -16,6 +16,8 @@
     maxModules: 3
     maxLoad: 100
     rootDifficulty: 50
+    metaGasLimit: 5000
+    maxConcurrentMetaPrograms: 1
   - type: DefensiveDaemon
   - type: ItemSlots
     slots:

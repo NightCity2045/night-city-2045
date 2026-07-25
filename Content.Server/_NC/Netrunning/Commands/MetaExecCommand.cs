@@ -76,6 +76,6 @@ public sealed class MetaExecCommand : IConsoleCommand
             return;
         }
 
-        shell.WriteLine($"Execution success. Gas spent: {result.GasSpent}, leaked RAM: {result.LeakedRam}.");
+        shell.WriteLine($"Execution success. Gas spent: {result.GasSpent}, reserved RAM: {result.ReservedRam}.");
     }
 }

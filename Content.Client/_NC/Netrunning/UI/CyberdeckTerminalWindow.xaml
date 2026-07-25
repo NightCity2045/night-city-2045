@@ -1,65 +1,104 @@
 <DefaultWindow xmlns="https://spacestation14.io"
-               Title="Cyberdeck Terminal" 
-               MinWidth="600" MinHeight="450">
-    <BoxContainer Orientation="Vertical" Margin="4">
-        <BoxContainer Orientation="Horizontal" SeparationOverride="10">
-            <Label Name="TargetLabel" Text="Link: None" />
-            <Label Name="RamLabel" Text="RAM: 0/0" />
-            <Label Name="TraceLabel" Text="Trace: 0" />
-            <Label Name="StorageLabel" Text="Storage: 0/0" />
-            <Label Name="ServerLoadLabel" Text="Server: offline" />
-            <BoxContainer HorizontalExpand="True" />
-            <Button Name="HotSimButton" Text="IMMERSION" />
+               Title=""
+               MinWidth="820"
+               MinHeight="560">
+    <BoxContainer Orientation="Vertical" Margin="8" SeparationOverride="8">
+        <PanelContainer StyleClasses="NetTerminalHeader">
+            <BoxContainer Orientation="Vertical" Margin="10" SeparationOverride="6">
+                <BoxContainer Orientation="Horizontal" SeparationOverride="10">
+                    <BoxContainer Orientation="Vertical" HorizontalExpand="True" SeparationOverride="2">
+                        <Label Name="HeaderTitleLabel" Text="" StyleClasses="NetTerminalTitle" ClipText="True" />
+                        <Label Name="HeaderSubtitleLabel" Text="" StyleClasses="NetTerminalSubtitle" ClipText="True" />
+                    </BoxContainer>
+                    <Button Name="HotSimButton" Text="" MinWidth="190" StyleClasses="NetTerminalActionButton" />
+                </BoxContainer>
+
+                <PanelContainer StyleClasses="NetTerminalBadge">
+                    <Label Name="TargetLabel" Text="" StyleClasses="NetTerminalBadgeText" ClipText="True" />
+                </PanelContainer>
+            </BoxContainer>
+        </PanelContainer>
+
+        <BoxContainer Orientation="Horizontal" SeparationOverride="8">
+            <PanelContainer StyleClasses="NetTerminalPanel" HorizontalExpand="True">
+                <BoxContainer Orientation="Vertical" Margin="7" SeparationOverride="2">
+                    <Label Name="RamAvailableTitleLabel" Text="" StyleClasses="NetTerminalSectionText" />
+                    <Label Name="RamAvailableLabel" Text="" StyleClasses="NetTerminalSectionTitle" />
+                </BoxContainer>
+            </PanelContainer>
+            <PanelContainer StyleClasses="NetTerminalPanel" HorizontalExpand="True">
+                <BoxContainer Orientation="Vertical" Margin="7" SeparationOverride="2">
+                    <Label Name="RamReservedTitleLabel" Text="" StyleClasses="NetTerminalSectionText" />
+                    <Label Name="RamReservedLabel" Text="" StyleClasses="NetTerminalSectionTitle" />
+                </BoxContainer>
+            </PanelContainer>
+            <PanelContainer StyleClasses="NetTerminalPanel" HorizontalExpand="True">
+                <BoxContainer Orientation="Vertical" Margin="7" SeparationOverride="2">
+                    <Label Name="RamRecoveringTitleLabel" Text="" StyleClasses="NetTerminalSectionText" />
+                    <Label Name="RamRecoveringLabel" Text="" StyleClasses="NetTerminalSectionTitle" />
+                </BoxContainer>
+            </PanelContainer>
+            <PanelContainer StyleClasses="NetTerminalPanel" HorizontalExpand="True">
+                <BoxContainer Orientation="Vertical" Margin="7" SeparationOverride="2">
+                    <Label Name="RamSpeedTitleLabel" Text="" StyleClasses="NetTerminalSectionText" />
+                    <Label Name="RamSpeedLabel" Text="" StyleClasses="NetTerminalSectionTitle" />
+                </BoxContainer>
+            </PanelContainer>
         </BoxContainer>
 
-        <TabContainer VerticalExpand="True">
-            <BoxContainer Name="EditorTab" Orientation="Vertical" Margin="4">
-                <BoxContainer Orientation="Horizontal" SeparationOverride="4">
-                    <Label Text="Program Name:" />
-                    <LineEdit Name="NameInput" HorizontalExpand="True" PlaceHolder="CoolVirus.meta" />
-                </BoxContainer>
-                <CheckBox Name="DefensiveModeCheck" Text="Compile as Defensive Daemon" />
-                <Label Text="META Source Code Editor:" />
-                <TextEdit Name="CodeInput" VerticalExpand="True" MinHeight="250" />
-                <BoxContainer Orientation="Horizontal" HorizontalAlignment="Right" Margin="4">
-                    <Button Name="CompileNewButton" Text="Compile to New Shard" />
-                    <Button Name="SaveButton" Text="Update Selected Shard" />
-                </BoxContainer>
-            </BoxContainer>
+        <BoxContainer Orientation="Horizontal" SeparationOverride="8">
+            <PanelContainer StyleClasses="NetTerminalBadge" HorizontalExpand="True">
+                <Label Name="TraceLabel" Text="" StyleClasses="NetTerminalBadgeText" ClipText="True" />
+            </PanelContainer>
+            <PanelContainer StyleClasses="NetTerminalBadge" HorizontalExpand="True">
+                <Label Name="StorageLabel" Text="" StyleClasses="NetTerminalBadgeText" ClipText="True" />
+            </PanelContainer>
+            <PanelContainer StyleClasses="NetTerminalBadge" HorizontalExpand="True">
+                <Label Name="ServerLoadLabel" Text="" StyleClasses="NetTerminalBadgeText" ClipText="True" />
+            </PanelContainer>
+        </BoxContainer>
 
-            <BoxContainer Name="ShardsTab" Orientation="Vertical" Margin="4">
-                <Label Text="Installed DataShards:" />
-                <ItemList Name="ShardList" VerticalExpand="True" MinHeight="250" />
-                <BoxContainer Orientation="Horizontal" HorizontalAlignment="Right" Margin="4">
-                    <Button Name="RunButton" Text="Execute Selected" />
-                    <Button Name="EditButton" Text="Edit Code" />
-                    <Button Name="EjectButton" Text="Eject Selected" />
-                </BoxContainer>
-            </BoxContainer>
-
-            <BoxContainer Name="ConstructTab" Orientation="Vertical" Margin="4">
-                <Label Text="NET-CONSTRUCT: Modular Network Assembly" HorizontalAlignment="Center" />
-                <BoxContainer Orientation="Horizontal" SeparationOverride="10" VerticalExpand="True">
-                    <BoxContainer Orientation="Vertical" HorizontalExpand="True" MinWidth="180">
-                        <Label Text="1. Select Port:" />
-                        <ItemList Name="PortList" VerticalExpand="True" />
+        <TabContainer Name="Tabs" VerticalExpand="True">
+            <PanelContainer Name="EditorTab" StyleClasses="NetTerminalPanel" VerticalExpand="True">
+                <BoxContainer Orientation="Vertical" Margin="8" SeparationOverride="6">
+                    <BoxContainer Orientation="Horizontal" SeparationOverride="6">
+                        <Label Name="ProgramNameLabel" Text="" StyleClasses="NetTerminalSectionTitle" />
+                        <LineEdit Name="NameInput" HorizontalExpand="True" />
                     </BoxContainer>
-                    <BoxContainer Orientation="Vertical" HorizontalExpand="True" MinWidth="180">
-                        <Label Text="2. Select Module:" />
-                        <ItemList Name="ModuleList" VerticalExpand="True" />
-                        <Button Name="ConstructButton" Text="Purchase &amp; Construct" />
-                    </BoxContainer>
-                    <BoxContainer Orientation="Vertical" HorizontalExpand="True" MinWidth="200">
-                        <Label Text="Module Description:" />
-                        <RichTextLabel Name="ModuleDesc" VerticalExpand="True" />
+                    <CheckBox Name="DefensiveModeCheck" Text="" />
+                    <Label Name="SourceLabel" Text="" StyleClasses="NetTerminalSectionTitle" />
+                    <PanelContainer StyleClasses="NetTerminalInset" VerticalExpand="True">
+                        <TextEdit Name="CodeInput" VerticalExpand="True" MinHeight="260" Margin="4" />
+                    </PanelContainer>
+                    <BoxContainer Orientation="Horizontal" HorizontalAlignment="Right" SeparationOverride="6">
+                        <Button Name="CompileNewButton" Text="" StyleClasses="NetTerminalButton" />
+                        <Button Name="SaveButton" Text="" StyleClasses="NetTerminalActionButton" />
                     </BoxContainer>
                 </BoxContainer>
-            </BoxContainer>
+            </PanelContainer>
 
-            <BoxContainer Name="LogsTab" Orientation="Vertical" Margin="4">
-                <Label Text="System Logs:" />
-                <RichTextLabel Name="LogOutput" VerticalExpand="True" MinHeight="250" />
-            </BoxContainer>
+            <PanelContainer Name="ShardsTab" StyleClasses="NetTerminalPanel" VerticalExpand="True">
+                <BoxContainer Orientation="Vertical" Margin="8" SeparationOverride="6">
+                    <Label Name="InstalledShardsLabel" Text="" StyleClasses="NetTerminalSectionTitle" />
+                    <PanelContainer StyleClasses="NetTerminalInset" VerticalExpand="True">
+                        <ItemList Name="ShardList" VerticalExpand="True" MinHeight="280" />
+                    </PanelContainer>
+                    <BoxContainer Orientation="Horizontal" HorizontalAlignment="Right" SeparationOverride="6">
+                        <Button Name="RunButton" Text="" StyleClasses="NetTerminalActionButton" />
+                        <Button Name="EditButton" Text="" StyleClasses="NetTerminalButton" />
+                        <Button Name="EjectButton" Text="" StyleClasses="NetTerminalButton" />
+                    </BoxContainer>
+                </BoxContainer>
+            </PanelContainer>
+
+            <PanelContainer Name="LogsTab" StyleClasses="NetTerminalPanel" VerticalExpand="True">
+                <BoxContainer Orientation="Vertical" Margin="8" SeparationOverride="6">
+                    <Label Name="LogsTitleLabel" Text="" StyleClasses="NetTerminalSectionTitle" />
+                    <PanelContainer StyleClasses="NetTerminalInset" VerticalExpand="True">
+                        <RichTextLabel Name="LogOutput" Margin="6" VerticalExpand="True" MinHeight="280" />
+                    </PanelContainer>
+                </BoxContainer>
+            </PanelContainer>
         </TabContainer>
     </BoxContainer>
 </DefaultWindow>

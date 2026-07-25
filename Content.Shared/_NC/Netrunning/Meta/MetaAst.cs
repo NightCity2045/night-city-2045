@@ -58,12 +58,6 @@ public sealed record MetaSysCallExpression(string Name, List<MetaExpression> Arg
 public abstract record MetaInstruction;
 
 [Serializable, NetSerializable]
-public sealed record MetaAllocRamInstruction(int Amount) : MetaInstruction;
-
-[Serializable, NetSerializable]
-public sealed record MetaFreeRamInstruction(int Amount) : MetaInstruction;
-
-[Serializable, NetSerializable]
 public sealed record MetaDefIntInstruction(string Name, MetaExpression Value) : MetaInstruction;
 
 [Serializable, NetSerializable]
@@ -140,6 +134,13 @@ public enum MetaProgramKind : byte
 }
 
 [Serializable, NetSerializable]
+public enum MetaProgramRuntimeState : byte
+{
+    Ready,
+    Running
+}
+
+[Serializable, NetSerializable]
 public sealed record MetaBytecode(
     List<MetaInstruction> Instructions,
     int RequiredRam,
@@ -167,7 +168,7 @@ public sealed record MetaExecutionResult(
     bool Yielded,
     string? FatalError,
     int GasSpent,
-    int LeakedRam,
+    int ReservedRam,
     NetEntity ShardUid_Internal = default);
 
 public interface IMetaRuntimeApi
