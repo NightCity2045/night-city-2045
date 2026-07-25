@@ -1,7 +1,7 @@
 <DefaultWindow xmlns="https://spacestation14.io"
                Title=""
                MinWidth="820"
-               MinHeight="560">
+               MinHeight="650">
     <BoxContainer Orientation="Vertical" Margin="8" SeparationOverride="8">
         <PanelContainer StyleClasses="NetTerminalHeader">
             <BoxContainer Orientation="Vertical" Margin="10" SeparationOverride="6">
@@ -55,6 +55,27 @@
             </PanelContainer>
             <PanelContainer StyleClasses="NetTerminalBadge" HorizontalExpand="True">
                 <Label Name="ServerLoadLabel" Text="" StyleClasses="NetTerminalBadgeText" ClipText="True" />
+            </PanelContainer>
+        </BoxContainer>
+
+        <BoxContainer Orientation="Horizontal" SeparationOverride="8">
+            <PanelContainer StyleClasses="NetTerminalPanel" HorizontalExpand="True">
+                <BoxContainer Orientation="Vertical" Margin="7" SeparationOverride="2">
+                    <Label Name="GasBudgetTitleLabel" Text="" StyleClasses="NetTerminalSectionText" />
+                    <Label Name="GasBudgetLabel" Text="" StyleClasses="NetTerminalSectionTitle" />
+                </BoxContainer>
+            </PanelContainer>
+            <PanelContainer StyleClasses="NetTerminalPanel" HorizontalExpand="True">
+                <BoxContainer Orientation="Vertical" Margin="7" SeparationOverride="2">
+                    <Label Name="GasProcessTitleLabel" Text="" StyleClasses="NetTerminalSectionText" />
+                    <Label Name="GasProcessLabel" Text="" StyleClasses="NetTerminalSectionTitle" ClipText="True" />
+                </BoxContainer>
+            </PanelContainer>
+            <PanelContainer StyleClasses="NetTerminalPanel" HorizontalExpand="True">
+                <BoxContainer Orientation="Vertical" Margin="7" SeparationOverride="2">
+                    <Label Name="HeatTitleLabel" Text="" StyleClasses="NetTerminalSectionText" />
+                    <Label Name="HeatLabel" Text="" StyleClasses="NetTerminalSectionTitle" ClipText="True" />
+                </BoxContainer>
             </PanelContainer>
         </BoxContainer>
 

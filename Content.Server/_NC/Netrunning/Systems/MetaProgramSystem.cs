@@ -17,6 +17,8 @@ using Robust.Shared.Prototypes;
 using Content.Shared._NC.Netrunning.Prototypes;
 using System.Linq;
 using Robust.Shared.Player;
+using Content.Shared.Damage;
+using Content.Shared.Stunnable;
 
 namespace Content.Server._NC.Netrunning.Systems;
 
@@ -39,6 +41,8 @@ public sealed class MetaProgramSystem : EntitySystem
     [Dependency] private readonly Content.Shared.Inventory.InventorySystem _inventory = default!;
     [Dependency] private readonly MetaDataSystem _metaData = default!;
     [Dependency] private readonly SharedDoAfterSystem _doAfter = default!;
+    [Dependency] private readonly DamageableSystem _damageable = default!;
+    [Dependency] private readonly SharedStunSystem _stun = default!;
 
     private float _ramRecoveryTimer;
 
@@ -95,7 +99,7 @@ public sealed class MetaProgramSystem : EntitySystem
         var shardUid = GetEntity(args.Shard);
         if (!TryComp<DataShardComponent>(shardUid, out var shard)) return;
         var result = Execute(uid, component, shardUid, shard);
-        if (result.FatalError != null)
+        if (result.Failure == MetaExecutionFailure.Rejected && result.FatalError != null)
             _popup.PopupEntity(result.FatalError, uid, user, PopupType.MediumCaution);
     }
 
@@ -113,6 +117,16 @@ public sealed class MetaProgramSystem : EntitySystem
     {
         if (runResult.Continuation != null)
         {
+            if (!UpdateRunningExecution(deckUid, deck, shardUid, runResult.Result, user))
+                return;
+
+            if (runResult.Result.SuspensionReason == MetaSuspensionReason.SchedulerPreemption)
+            {
+                runResult.Continuation.ResumeAtTime = _timing.CurTime.TotalSeconds;
+                EnsureComp<ActiveMetaProcessComponent>(deckUid).SuspendedProcesses.Add(runResult.Continuation);
+                return;
+            }
+
             var delay = (float)runResult.Continuation.ResumeAtTime; 
             var doAfterArgs = new DoAfterArgs(EntityManager, user, delay / 1000f, new AwaitedDoAfterEvent(), deckUid, target: user)
             {
@@ -125,7 +139,7 @@ public sealed class MetaProgramSystem : EntitySystem
                 runResult.Continuation.DoAfterIndex = id.Value.Index;
                 var active = EnsureComp<ActiveMetaProcessComponent>(deckUid);
                 active.SuspendedProcesses.Add(runResult.Continuation);
-                _popup.PopupEntity("META: Processing...", deckUid, user);
+                _popup.PopupEntity(Loc.GetString("netrunning-meta-processing"), deckUid, user);
             }
             else
             {
@@ -138,13 +152,146 @@ public sealed class MetaProgramSystem : EntitySystem
         }
         else
         {
-            ReleaseReservedRam(deckUid, deck, runResult.Result.ReservedRam);
-            CompleteExecution(deckUid, deck, shardUid);
-            if (runResult.Result.FatalError != null)
-                _popup.PopupEntity(runResult.Result.FatalError, deckUid, user, PopupType.MediumCaution);
-            else
-                _popup.PopupEntity("META script executed.", deckUid, user);
+            FinishExecution(deckUid, deck, shardUid, runResult.Result, user);
         }
+    }
+
+    public void FinishExecution(
+        EntityUid deckUid,
+        CyberdeckComponent deck,
+        EntityUid shardUid,
+        MetaExecutionResult result,
+        EntityUid user,
+        bool applyHeat = true)
+    {
+        if (applyHeat)
+            AddExecutionHeat(deck, result);
+
+        if (result.Failure == MetaExecutionFailure.None && IsOverheated(deck))
+        {
+            result = result with
+            {
+                Completed = false,
+                Yielded = false,
+                Failure = MetaExecutionFailure.Overheated,
+                SuspensionReason = MetaSuspensionReason.None
+            };
+        }
+
+        ReleaseReservedRam(deckUid, deck, result.ReservedRam);
+        CompleteExecution(deckUid, deck, shardUid);
+
+        deck.LastGasSpent = result.GasSpent;
+        deck.LastExecutionRunning = false;
+        deck.LastExecutionFailure = result.Failure;
+        Dirty(deckUid, deck);
+
+        if (result.Failure == MetaExecutionFailure.GasExhausted)
+        {
+            ApplyGasFailure(deck, user);
+            var message = Loc.GetString("netrunning-meta-gas-fatal",
+                ("spent", result.GasSpent),
+                ("limit", deck.GasLimit));
+            _popup.PopupEntity(message, deckUid, user, PopupType.LargeCaution);
+            SendExecutionLog(deckUid, message);
+        }
+        else if (result.Failure == MetaExecutionFailure.RuntimeError)
+        {
+            var message = Loc.GetString("netrunning-meta-runtime-fatal",
+                ("spent", result.GasSpent),
+                ("limit", deck.GasLimit));
+            _popup.PopupEntity(message, deckUid, user, PopupType.MediumCaution);
+            SendExecutionLog(deckUid, message);
+        }
+        else if (result.Failure == MetaExecutionFailure.Overheated)
+        {
+            ApplyGasFailure(deck, user);
+            var message = Loc.GetString("netrunning-meta-overheat-fatal",
+                ("heat", MathF.Round(deck.CurrentHeat, 1)),
+                ("max", MathF.Round(deck.MaxHeat, 1)));
+            _popup.PopupEntity(message, deckUid, user, PopupType.LargeCaution);
+            SendExecutionLog(deckUid, message);
+        }
+        else
+        {
+            var message = Loc.GetString("netrunning-meta-execution-complete",
+                ("spent", result.GasSpent),
+                ("limit", deck.GasLimit));
+            _popup.PopupEntity(message, deckUid, user);
+            SendExecutionLog(deckUid, message);
+        }
+
+        UpdateUi(deckUid, deck, user);
+    }
+
+    public bool UpdateRunningExecution(
+        EntityUid deckUid,
+        CyberdeckComponent deck,
+        EntityUid shardUid,
+        MetaExecutionResult result,
+        EntityUid user)
+    {
+        AddExecutionHeat(deck, result);
+        if (IsOverheated(deck))
+        {
+            var overheatResult = result with
+            {
+                Completed = false,
+                Yielded = false,
+                Failure = MetaExecutionFailure.Overheated,
+                SuspensionReason = MetaSuspensionReason.None
+            };
+            FinishExecution(deckUid, deck, shardUid, overheatResult, user, applyHeat: false);
+            return false;
+        }
+
+        deck.LastGasSpent = result.GasSpent;
+        deck.LastExecutionRunning = true;
+        deck.LastExecutionFailure = MetaExecutionFailure.None;
+        Dirty(deckUid, deck);
+        UpdateUi(deckUid, deck, user);
+        return true;
+    }
+
+    private static void AddExecutionHeat(CyberdeckComponent deck, MetaExecutionResult result)
+    {
+        var generated = result.OperationsThisSlice * Math.Max(0f, deck.HeatPerOperation) +
+                        result.SystemCallsThisSlice * Math.Max(0f, deck.HeatPerSystemCall);
+        deck.CurrentHeat = Math.Max(0f, deck.CurrentHeat + generated);
+    }
+
+    private static bool IsOverheated(CyberdeckComponent deck)
+    {
+        return deck.MaxHeat > 0f && deck.CurrentHeat >= deck.MaxHeat;
+    }
+
+    private void ApplyGasFailure(CyberdeckComponent deck, EntityUid user)
+    {
+        var immersed = false;
+        var target = user;
+        if (TryComp<NetAvatarComponent>(user, out var avatar) &&
+            avatar != null &&
+            avatar.PhysicalBody is { } body &&
+            !Deleted(body))
+        {
+            immersed = true;
+            target = body;
+        }
+
+        var multiplier = immersed ? Math.Max(0f, deck.HotSimGasFailureMultiplier) : 1f;
+
+        if (deck.GasFailureDamage != null && multiplier > 0f)
+            _damageable.TryChangeDamage(target, deck.GasFailureDamage * multiplier,
+                ignoreResistances: false, interruptsDoAfters: true);
+
+        var stunDuration = Math.Max(0f, deck.GasFailureStunDuration * multiplier);
+        if (stunDuration > 0f)
+            _stun.TryParalyze(target, TimeSpan.FromSeconds(stunDuration), true);
+    }
+
+    private void SendExecutionLog(EntityUid deckUid, string message)
+    {
+        _ui.ServerSendUiMessage(deckUid, CyberdeckUiKey.Key, new CyberdeckLogMessage(message));
     }
 
     public void ReleaseReservedRam(EntityUid deckUid, CyberdeckComponent deck, int amount)
@@ -287,6 +434,13 @@ public sealed class MetaProgramSystem : EntitySystem
             component.ReservedRam,
             component.MaxRam,
             component.RecoverySpeed,
+            component.GasLimit,
+            component.LastGasSpent,
+            component.LastExecutionRunning,
+            component.LastExecutionFailure,
+            component.CurrentHeat,
+            component.MaxHeat,
+            component.CoolingPerSecond,
             component.TraceLevel,
             component.StoredFiles.Count,
             component.StorageCapacity,
@@ -370,16 +524,19 @@ public sealed class MetaProgramSystem : EntitySystem
 
     public MetaExecutionResult Execute(EntityUid deckUid, CyberdeckComponent deck, EntityUid shardUid, DataShardComponent shard)
     {
-        if (shard.Bytecode == null) return new MetaExecutionResult(false, false, "No bytecode", 0, 0, GetNetEntity(shardUid));
+        if (shard.Bytecode == null)
+            return RejectedExecution(shardUid, Loc.GetString("netrunning-error-no-bytecode"));
         if (shard.ProgramKind == MetaProgramKind.DaemonDefensive)
-            return new MetaExecutionResult(false, false, "Defensive daemon shards must be installed in a protected node.", 0, 0, GetNetEntity(shardUid));
-        if (deck.ActiveTarget == null) return new MetaExecutionResult(false, false, "No link", 0, 0, GetNetEntity(shardUid));
-        if (!TryGetDeckUser(deckUid, out var user)) return new MetaExecutionResult(false, false, "No user", 0, 0, GetNetEntity(shardUid));
+            return RejectedExecution(shardUid, Loc.GetString("netrunning-cyberdeck-run-defensive-install"));
+        if (deck.ActiveTarget == null)
+            return RejectedExecution(shardUid, Loc.GetString("netrunning-error-no-link"));
+        if (!TryGetDeckUser(deckUid, out var user))
+            return RejectedExecution(shardUid, Loc.GetString("netrunning-error-no-user"));
         var runtimeState = GetRuntimeState(shardUid, shard);
         if (runtimeState == MetaProgramRuntimeState.Running)
-            return new MetaExecutionResult(false, false, Loc.GetString("netrunning-error-program-running"), 0, 0, GetNetEntity(shardUid));
+            return RejectedExecution(shardUid, Loc.GetString("netrunning-error-program-running"));
         if (deck.CurrentRam < shard.RequiredRam || deck.MaxRam < shard.RequiredRam)
-            return new MetaExecutionResult(false, false, "Out of RAM", 0, 0, GetNetEntity(shardUid));
+            return RejectedExecution(shardUid, Loc.GetString("netrunning-error-out-of-ram"));
 
         shard.RuntimeState = MetaProgramRuntimeState.Running;
         Dirty(shardUid, shard);
@@ -390,6 +547,12 @@ public sealed class MetaProgramSystem : EntitySystem
         HandleVmResult(deckUid, deck, shardUid, runResult, user);
         UpdateUi(deckUid, deck, user);
         return runResult.Result;
+    }
+
+    private MetaExecutionResult RejectedExecution(EntityUid shardUid, string error)
+    {
+        return new MetaExecutionResult(false, false, error, MetaExecutionFailure.Rejected,
+            0, 0, 0, MetaSuspensionReason.None, 0, GetNetEntity(shardUid));
     }
 
     public MetaProgramRuntimeState GetRuntimeState(EntityUid shardUid, DataShardComponent shard)
@@ -410,6 +573,8 @@ public sealed class MetaProgramSystem : EntitySystem
 
     public void CancelExecution(EntityUid deckUid, CyberdeckComponent deck, MetaContinuationState process)
     {
+        deck.LastExecutionRunning = false;
+        Dirty(deckUid, deck);
         ReleaseReservedRam(deckUid, deck, process.ReservedRam);
         CompleteExecution(deckUid, deck, GetEntity(process.ShardUid));
     }
@@ -445,23 +610,38 @@ public sealed class MetaProgramSystem : EntitySystem
             var regenQuery = EntityQueryEnumerator<CyberdeckComponent>();
             while (regenQuery.MoveNext(out var deckUid, out var deck))
             {
+                var changed = false;
+                var cooledHeat = Math.Max(0f,
+                    deck.CurrentHeat - elapsedSeconds * Math.Max(0f, deck.CoolingPerSecond));
+                if (Math.Abs(cooledHeat - deck.CurrentHeat) > 0.001f)
+                {
+                    deck.CurrentHeat = cooledHeat;
+                    changed = true;
+                }
+
                 // Recovery is applied as a visible one-second hardware pulse.
                 var effectiveMax = Math.Max(0, deck.MaxRam - deck.ReservedRam);
                 if (deck.CurrentRam >= effectiveMax)
                 {
                     deck.RecoveryAccumulator = 0f;
-                    continue;
+                }
+                else
+                {
+                    deck.RecoveryAccumulator += elapsedSeconds * Math.Max(0f, deck.RecoverySpeed);
+                    var recovered = (int)deck.RecoveryAccumulator;
+                    if (recovered > 0)
+                    {
+                        deck.RecoveryAccumulator -= recovered;
+                        deck.CurrentRam = Math.Min(effectiveMax, deck.CurrentRam + recovered);
+                        changed = true;
+                    }
                 }
 
-                deck.RecoveryAccumulator += elapsedSeconds * Math.Max(0f, deck.RecoverySpeed);
-                var recovered = (int)deck.RecoveryAccumulator;
-                if (recovered <= 0)
-                    continue;
-
-                deck.RecoveryAccumulator -= recovered;
-                deck.CurrentRam = Math.Min(effectiveMax, deck.CurrentRam + recovered);
-                Dirty(deckUid, deck);
-                UpdateUi(deckUid, deck);
+                if (changed)
+                {
+                    Dirty(deckUid, deck);
+                    UpdateUi(deckUid, deck);
+                }
             }
         }
 

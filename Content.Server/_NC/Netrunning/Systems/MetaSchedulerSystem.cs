@@ -45,14 +45,15 @@ public sealed class MetaSchedulerSystem : EntitySystem
                         active.SuspendedProcesses.RemoveAt(i);
                         proc.DoAfterIndex = null;
                         var runResult = _vm.Resume(proc);
-                        HandleVmResult(uid, GetEntity(proc.ShardUid), runResult);
+                        HandleVmResult(uid, GetEntity(proc.ShardUid), runResult, user);
                     }
                     else // Cancelled or Invalid
                     {
                         active.SuspendedProcesses.RemoveAt(i);
                         proc.DoAfterIndex = null;
                         ReleaseRam(uid, proc);
-                        _popup.PopupEntity("Link Terminated: Hardware Desync.", uid, user, Content.Shared.Popups.PopupType.LargeCaution);
+                        _popup.PopupEntity(Loc.GetString("netrunning-meta-link-desync"), uid, user,
+                            Content.Shared.Popups.PopupType.LargeCaution);
                     }
                     continue;
                 }
@@ -69,17 +70,32 @@ public sealed class MetaSchedulerSystem : EntitySystem
 
                 active.SuspendedProcesses.RemoveAt(i);
                 var resumeResult = _vm.Resume(proc);
-                HandleVmResult(uid, GetEntity(proc.ShardUid), resumeResult);
+                HandleVmResult(uid, GetEntity(proc.ShardUid), resumeResult, GetEntity(proc.UserUid));
             }
         }
     }
 
-    public void HandleVmResult(EntityUid deckUid, EntityUid shardUid, MetaVmRunResult runResult)
+    public void HandleVmResult(
+        EntityUid deckUid,
+        EntityUid shardUid,
+        MetaVmRunResult runResult,
+        EntityUid user)
     {
         if (runResult.Continuation != null)
         {
-            var user = GetEntity(runResult.Continuation.UserUid);
-            
+            if (TryComp<CyberdeckComponent>(deckUid, out var runningDeck))
+            {
+                if (!_program.UpdateRunningExecution(deckUid, runningDeck, shardUid, runResult.Result, user))
+                    return;
+            }
+
+            if (runResult.Result.SuspensionReason == MetaSuspensionReason.SchedulerPreemption)
+            {
+                runResult.Continuation.ResumeAtTime = _timing.CurTime.TotalSeconds;
+                EnsureComp<ActiveMetaProcessComponent>(deckUid).SuspendedProcesses.Add(runResult.Continuation);
+                return;
+            }
+
             if (user.Valid && TryComp<CyberdeckComponent>(deckUid, out var deck))
             {
                 var delay = (float)runResult.Continuation.ResumeAtTime; 
@@ -95,7 +111,7 @@ public sealed class MetaSchedulerSystem : EntitySystem
                     runResult.Continuation.DoAfterIndex = id.Value.Index;
                     var active = EnsureComp<ActiveMetaProcessComponent>(deckUid);
                     active.SuspendedProcesses.Add(runResult.Continuation);
-                    _popup.PopupEntity("META: Processing...", deckUid, user);
+                    _popup.PopupEntity(Loc.GetString("netrunning-meta-processing"), deckUid, user);
                     return;
                 }
             }
@@ -111,10 +127,7 @@ public sealed class MetaSchedulerSystem : EntitySystem
         else
         {
             if (TryComp<CyberdeckComponent>(deckUid, out var deck))
-            {
-                _program.ReleaseReservedRam(deckUid, deck, runResult.Result.ReservedRam);
-                _program.CompleteExecution(deckUid, deck, shardUid);
-            }
+                _program.FinishExecution(deckUid, deck, shardUid, runResult.Result, user);
         }
     }
 

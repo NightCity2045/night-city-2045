@@ -1,6 +1,7 @@
 using Robust.Shared.GameStates;
 using Robust.Shared.Serialization;
 using Content.Shared._NC.Netrunning.Meta;
+using Content.Shared.Damage;
 
 namespace Content.Shared._NC.Netrunning.Components;
 
@@ -78,6 +79,13 @@ public sealed class CyberdeckUiState : BoundUserInterfaceState
     public readonly int ReservedRam;
     public readonly int MaxRam;
     public readonly float RecoverySpeed;
+    public readonly int GasLimit;
+    public readonly int LastGasSpent;
+    public readonly bool LastExecutionRunning;
+    public readonly MetaExecutionFailure LastExecutionFailure;
+    public readonly float CurrentHeat;
+    public readonly float MaxHeat;
+    public readonly float CoolingPerSecond;
     public readonly int CurrentTrace;
     public readonly int StorageUsed;
     public readonly int StorageCapacity;
@@ -96,6 +104,13 @@ public sealed class CyberdeckUiState : BoundUserInterfaceState
         int reservedRam,
         int maxRam,
         float recoverySpeed,
+        int gasLimit,
+        int lastGasSpent,
+        bool lastExecutionRunning,
+        MetaExecutionFailure lastExecutionFailure,
+        float currentHeat,
+        float maxHeat,
+        float coolingPerSecond,
         int currentTrace,
         int storageUsed,
         int storageCapacity,
@@ -113,6 +128,13 @@ public sealed class CyberdeckUiState : BoundUserInterfaceState
         ReservedRam = reservedRam;
         MaxRam = maxRam;
         RecoverySpeed = recoverySpeed;
+        GasLimit = gasLimit;
+        LastGasSpent = lastGasSpent;
+        LastExecutionRunning = lastExecutionRunning;
+        LastExecutionFailure = lastExecutionFailure;
+        CurrentHeat = currentHeat;
+        MaxHeat = maxHeat;
+        CoolingPerSecond = coolingPerSecond;
         CurrentTrace = currentTrace;
         StorageUsed = storageUsed;
         StorageCapacity = storageCapacity;
@@ -209,6 +231,57 @@ public sealed partial class CyberdeckComponent : Component
     /// </summary>
     [DataField("gasLimit"), ViewVariables(VVAccess.ReadWrite), AutoNetworkedField]
     public int GasLimit = 1000;
+
+    /// <summary>
+    /// Damage caused by exhausting the instruction budget.
+    /// </summary>
+    [DataField("gasFailureDamage"), ViewVariables(VVAccess.ReadWrite), AutoNetworkedField]
+    public DamageSpecifier? GasFailureDamage;
+
+    /// <summary>
+    /// Base paralysis duration caused by an instruction-budget failure.
+    /// </summary>
+    [DataField("gasFailureStunDuration"), ViewVariables(VVAccess.ReadWrite), AutoNetworkedField]
+    public float GasFailureStunDuration = 1f;
+
+    /// <summary>
+    /// Multiplier applied to overload consequences while the user is immersed.
+    /// </summary>
+    [DataField("hotSimGasFailureMultiplier"), ViewVariables(VVAccess.ReadWrite), AutoNetworkedField]
+    public float HotSimGasFailureMultiplier = 2f;
+
+    /// <summary>
+    /// Gas consumed by the most recently finished execution.
+    /// </summary>
+    [ViewVariables(VVAccess.ReadOnly), AutoNetworkedField]
+    public int LastGasSpent;
+
+    /// <summary>
+    /// Whether the last execution reported to telemetry is suspended and waiting to resume.
+    /// </summary>
+    [ViewVariables(VVAccess.ReadOnly), AutoNetworkedField]
+    public bool LastExecutionRunning;
+
+    /// <summary>
+    /// Failure state of the most recently finished execution.
+    /// </summary>
+    [ViewVariables(VVAccess.ReadOnly), AutoNetworkedField]
+    public MetaExecutionFailure LastExecutionFailure;
+
+    [DataField("currentHeat"), ViewVariables(VVAccess.ReadWrite), AutoNetworkedField]
+    public float CurrentHeat;
+
+    [DataField("maxHeat"), ViewVariables(VVAccess.ReadWrite), AutoNetworkedField]
+    public float MaxHeat = 100f;
+
+    [DataField("coolingPerSecond"), ViewVariables(VVAccess.ReadWrite), AutoNetworkedField]
+    public float CoolingPerSecond = 5f;
+
+    [DataField("heatPerOperation"), ViewVariables(VVAccess.ReadWrite), AutoNetworkedField]
+    public float HeatPerOperation = 0.01f;
+
+    [DataField("heatPerSystemCall"), ViewVariables(VVAccess.ReadWrite), AutoNetworkedField]
+    public float HeatPerSystemCall = 1f;
 
     /// <summary>
     /// Storage capacity in abstract "file units" for DOWNLOAD/UPLOAD commands.

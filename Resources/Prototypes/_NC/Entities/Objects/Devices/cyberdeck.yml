@@ -22,6 +22,15 @@
     scanRadius: 6
     range: 6
     gasLimit: 1000
+    gasFailureDamage:
+      types:
+        Heat: 15
+    gasFailureStunDuration: 3
+    hotSimGasFailureMultiplier: 2
+    maxHeat: 40
+    coolingPerSecond: 4
+    heatPerOperation: 0.02
+    heatPerSystemCall: 4
     beamColor: "#FF4500"
   - type: Battery
     maxCharge: 500
@@ -53,6 +62,15 @@
     scanRadius: 12
     range: 12
     gasLimit: 5000
+    gasFailureDamage:
+      types:
+        Heat: 7.5
+    gasFailureStunDuration: 1.5
+    hotSimGasFailureMultiplier: 2
+    maxHeat: 80
+    coolingPerSecond: 8
+    heatPerOperation: 0.015
+    heatPerSystemCall: 3
     beamColor: "#00BFFF"
   - type: Battery
     maxCharge: 1000
@@ -85,6 +103,15 @@
     scanRadius: 20
     range: 20
     gasLimit: 25000
+    gasFailureDamage:
+      types:
+        Heat: 3
+    gasFailureStunDuration: 0.5
+    hotSimGasFailureMultiplier: 1.5
+    maxHeat: 140
+    coolingPerSecond: 15
+    heatPerOperation: 0.01
+    heatPerSystemCall: 2
     beamColor: "#FF0000"
   - type: Battery
     maxCharge: 2500

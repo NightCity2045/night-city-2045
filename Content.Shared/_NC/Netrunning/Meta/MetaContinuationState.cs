@@ -84,6 +84,12 @@ public sealed class MetaContinuationState
     public NetEntity UserUid;
 
     /// <summary>
+    /// Source of the event that woke a defensive daemon.
+    /// Kept in the continuation so event SYS calls remain valid after YIELD.
+    /// </summary>
+    public NetEntity EventSourceUid;
+
+    /// <summary>
     /// Explicit call stack.
     /// </summary>
     public readonly Stack<MetaCallFrame> CallStack = new();
@@ -97,6 +103,9 @@ public sealed class MetaContinuationState
     // --- Execution counters ---
     public int GasRemaining;
     public int ReservedRam;
+    public int OperationsThisSlice;
+    public int SystemCallsThisSlice;
+    public bool SchedulerPreemptionRequested;
 
     // --- Flow control ---
     public bool Exited;
@@ -104,6 +113,8 @@ public sealed class MetaContinuationState
     public bool BreakRequested;
     public bool ContinueRequested;
     public string? Error;
+    public MetaExecutionFailure Failure;
+    public MetaSuspensionReason SuspensionReason;
 
     // --- YIELD timing ---
 
@@ -129,5 +140,5 @@ public sealed class MetaContinuationState
     /// </summary>
     public int InitialGas;
 
-    public bool ShouldStop => Exited || Error != null || GasRemaining <= 0;
+    public bool ShouldStop => Exited || Error != null || SuspensionReason != MetaSuspensionReason.None;
 }

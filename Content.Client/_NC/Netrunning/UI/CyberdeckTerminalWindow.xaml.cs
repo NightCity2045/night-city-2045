@@ -34,6 +34,9 @@ public sealed partial class CyberdeckTerminalWindow : DefaultWindow
         RamReservedTitleLabel.Text = Loc.GetString("netrunning-cyberdeck-ram-reserved");
         RamRecoveringTitleLabel.Text = Loc.GetString("netrunning-cyberdeck-ram-recovering");
         RamSpeedTitleLabel.Text = Loc.GetString("netrunning-cyberdeck-ram-speed");
+        GasBudgetTitleLabel.Text = Loc.GetString("netrunning-cyberdeck-gas-budget");
+        GasProcessTitleLabel.Text = Loc.GetString("netrunning-cyberdeck-gas-process");
+        HeatTitleLabel.Text = Loc.GetString("netrunning-cyberdeck-heat");
         Tabs.SetTabTitle(0, Loc.GetString("netrunning-cyberdeck-tab-editor"));
         Tabs.SetTabTitle(1, Loc.GetString("netrunning-cyberdeck-tab-shards"));
         Tabs.SetTabTitle(2, Loc.GetString("netrunning-cyberdeck-tab-logs"));
@@ -106,6 +109,26 @@ public sealed partial class CyberdeckTerminalWindow : DefaultWindow
         RamReservedLabel.Text = state.ReservedRam.ToString();
         RamRecoveringLabel.Text = recoveringRam.ToString();
         RamSpeedLabel.Text = Loc.GetString("netrunning-cyberdeck-ram-speed-value", ("speed", state.RecoverySpeed));
+        GasBudgetLabel.Text = state.GasLimit.ToString();
+        GasProcessLabel.Text = GetGasProcessText(state);
+        GasProcessLabel.FontColorOverride = state.LastExecutionFailure switch
+        {
+            MetaExecutionFailure.GasExhausted or MetaExecutionFailure.RuntimeError or
+                MetaExecutionFailure.Overheated => Color.Red,
+            _ when state.LastExecutionRunning => Color.Yellow,
+            _ => Color.LightGreen
+        };
+        HeatLabel.Text = Loc.GetString("netrunning-cyberdeck-heat-value",
+            ("current", MathF.Round(state.CurrentHeat, 1)),
+            ("max", MathF.Round(state.MaxHeat, 1)),
+            ("cooling", state.CoolingPerSecond));
+        var heatRatio = state.MaxHeat > 0f ? state.CurrentHeat / state.MaxHeat : 0f;
+        HeatLabel.FontColorOverride = heatRatio switch
+        {
+            >= 0.9f => Color.Red,
+            >= 0.65f => Color.Orange,
+            _ => Color.LightGreen
+        };
         TraceLabel.Text = Loc.GetString("netrunning-cyberdeck-trace", ("trace", state.CurrentTrace));
         StorageLabel.Text = Loc.GetString("netrunning-cyberdeck-storage",
             ("used", state.StorageUsed), ("capacity", state.StorageCapacity));
@@ -142,6 +165,33 @@ public sealed partial class CyberdeckTerminalWindow : DefaultWindow
             DefensiveModeCheck.Pressed = false;
 
         RefreshShardActionState();
+    }
+
+    private static string GetGasProcessText(CyberdeckUiState state)
+    {
+        if (state.LastExecutionRunning)
+        {
+            return Loc.GetString("netrunning-cyberdeck-gas-running",
+                ("spent", state.LastGasSpent),
+                ("limit", state.GasLimit));
+        }
+
+        return state.LastExecutionFailure switch
+        {
+            MetaExecutionFailure.GasExhausted => Loc.GetString("netrunning-cyberdeck-gas-exhausted",
+                ("spent", state.LastGasSpent),
+                ("limit", state.GasLimit)),
+            MetaExecutionFailure.RuntimeError => Loc.GetString("netrunning-cyberdeck-gas-runtime-error",
+                ("spent", state.LastGasSpent),
+                ("limit", state.GasLimit)),
+            MetaExecutionFailure.Overheated => Loc.GetString("netrunning-cyberdeck-gas-overheated",
+                ("spent", state.LastGasSpent),
+                ("limit", state.GasLimit)),
+            _ when state.LastGasSpent > 0 => Loc.GetString("netrunning-cyberdeck-gas-complete",
+                ("spent", state.LastGasSpent),
+                ("limit", state.GasLimit)),
+            _ => Loc.GetString("netrunning-cyberdeck-gas-idle")
+        };
     }
 
     public void AddLog(string text)

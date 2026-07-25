@@ -1,0 +1,4 @@
+- type: metaRuntimeSettings
+  id: default
+  globalOperationsPerTick: 50000
+  processOperationsPerTick: 500

@@ -141,6 +141,24 @@ public enum MetaProgramRuntimeState : byte
 }
 
 [Serializable, NetSerializable]
+public enum MetaExecutionFailure : byte
+{
+    None,
+    Rejected,
+    RuntimeError,
+    GasExhausted,
+    Overheated
+}
+
+[Serializable, NetSerializable]
+public enum MetaSuspensionReason : byte
+{
+    None,
+    Yield,
+    SchedulerPreemption
+}
+
+[Serializable, NetSerializable]
 public sealed record MetaBytecode(
     List<MetaInstruction> Instructions,
     int RequiredRam,
@@ -167,7 +185,11 @@ public sealed record MetaExecutionResult(
     bool Completed,
     bool Yielded,
     string? FatalError,
+    MetaExecutionFailure Failure,
     int GasSpent,
+    int OperationsThisSlice,
+    int SystemCallsThisSlice,
+    MetaSuspensionReason SuspensionReason,
     int ReservedRam,
     NetEntity ShardUid_Internal = default);
 
