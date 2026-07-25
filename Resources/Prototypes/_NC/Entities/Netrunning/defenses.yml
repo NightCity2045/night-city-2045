@@ -12,6 +12,9 @@
   - type: NetDefense
     kind: Ice
     reservedLoad: 5
+  - type: MetaHostedProgram
+    triggerRadius: 3
+    scanInterval: 0.25
   - type: IceHealth
     maxHealth: 100
     currentHealth: 100
@@ -58,6 +61,7 @@
     damage: 5
     pulseInterval: 1.5
     range: 1.5
+  - type: MetaHostedProgram
   - type: MovementSpeedModifier
     baseWalkSpeed: 4
     baseSprintSpeed: 6
@@ -72,3 +76,75 @@
         - MobMask
         layer:
         - MobLayer
+
+- type: entity
+  id: NCHostedMetaProgram
+  name: hosted META runtime
+  description: A private bytecode copy bound to a materialized NET entity.
+  components:
+  - type: DataShard
+
+- type: entity
+  parent: BaseStructure
+  id: NCNetWall
+  name: NET wall
+  description: A selective barrier materialized by a META program.
+  components:
+  - type: Sprite
+    sprite: Structures/Machines/server.rsi
+    state: server
+    color: "#f7d046"
+    drawdepth: Walls
+  - type: InteractionOutline
+  - type: NetDefense
+    kind: Wall
+    reservedLoad: 5
+  - type: NetBarrier
+  - type: Transform
+    anchored: true
+  - type: Physics
+    bodyType: Static
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape:
+          !type:PhysShapeAabb
+          bounds: "-0.5,-0.5,0.5,0.5"
+        mask:
+        - FullTileMask
+        layer:
+        - WallLayer
+        density: 1000
+
+- type: entity
+  parent: BaseStructure
+  id: NCNetTrap
+  name: NET trap
+  description: A hidden trigger hosting an ordinary META response program.
+  components:
+  - type: Sprite
+    sprite: Structures/Machines/server.rsi
+    state: server
+    color: "#ff5b36"
+  - type: InteractionOutline
+  - type: NetDefense
+    kind: Trap
+    reservedLoad: 5
+  - type: MetaHostedProgram
+    triggerRadius: 0.55
+    scanInterval: 0.1
+  - type: Transform
+    anchored: true
+  - type: Physics
+    bodyType: Static
+  - type: Fixtures
+    fixtures:
+      fix1:
+        hard: false
+        shape:
+          !type:PhysShapeCircle
+          radius: 0.4
+        mask:
+        - MobMask
+        layer:
+        - MachineLayer

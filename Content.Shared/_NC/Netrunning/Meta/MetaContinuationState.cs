@@ -106,6 +106,7 @@ public sealed class MetaContinuationState
     public int OperationsThisSlice;
     public int SystemCallsThisSlice;
     public bool SchedulerPreemptionRequested;
+    public bool RequiresTarget;
 
     // --- Flow control ---
     public bool Exited;

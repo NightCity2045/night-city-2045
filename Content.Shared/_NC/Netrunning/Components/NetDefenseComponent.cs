@@ -28,5 +28,7 @@ public enum NetDefenseKind : byte
 {
     Ice,
     BlackIce,
-    Demon
+    Demon,
+    Wall,
+    Trap
 }

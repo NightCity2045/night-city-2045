@@ -106,7 +106,7 @@ public sealed partial class NetNodeWindow : DefaultWindow
 
         foreach (var shard in _shards.OrderBy(s => s.Name))
         {
-            var kind = shard.Kind == Content.Shared._NC.Netrunning.Meta.MetaProgramKind.DaemonDefensive
+            var kind = shard.CanInstallDefense
                 ? Loc.GetString("netrunning-node-shard-kind-daemon")
                 : Loc.GetString("netrunning-node-shard-kind-script");
             ShardList.AddItem(GetShardDisplayName(shard, kind), metadata: shard.Uid);
@@ -146,7 +146,7 @@ public sealed partial class NetNodeWindow : DefaultWindow
         var selectedShard = selected?.Metadata is NetEntity uid
             ? _shards.FirstOrDefault(shard => shard.Uid == uid)
             : null;
-        var installingDefense = selectedShard?.Kind == MetaProgramKind.DaemonDefensive;
+        var installingDefense = selectedShard?.CanInstallDefense == true;
         ExecuteShardButton.Text = installingDefense
             ? Loc.GetString("netrunning-node-defense-install")
             : Loc.GetString("netrunning-node-execute");
@@ -190,7 +190,7 @@ public sealed partial class NetNodeWindow : DefaultWindow
             if (shard == null)
                 continue;
 
-            var kind = shard.Kind == MetaProgramKind.DaemonDefensive
+            var kind = shard.CanInstallDefense
                 ? Loc.GetString("netrunning-node-shard-kind-daemon")
                 : Loc.GetString("netrunning-node-shard-kind-script");
             item.Text = GetShardDisplayName(shard, kind);

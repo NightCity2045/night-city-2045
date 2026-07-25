@@ -29,6 +29,7 @@ public sealed class MetaVirtualMachineSystem : EntitySystem
             GasRemaining = gasLimit,
             InitialGas = gasLimit,
             ReservedRam = bytecode.RequiredRam,
+            RequiresTarget = bytecode.RequiresTarget,
             DefenseClearedTarget = defenseClearedTarget is { } target ? GetNetEntity(target) : default,
         };
 
@@ -113,6 +114,7 @@ public sealed class MetaVirtualMachineSystem : EntitySystem
             GasRemaining = gasLimit,
             InitialGas = gasLimit,
             ReservedRam = bytecode.RequiredRam,
+            RequiresTarget = bytecode.RequiresTarget,
             AwaitedIntrusionServer = wait.Server,
             AwaitedIntrusionId = wait.Id,
             DefenseClearedTarget = GetNetEntity(target),
@@ -416,6 +418,27 @@ public sealed class MetaVirtualMachineSystem : EntitySystem
             if (!s.ShouldStop && target != null)
                 _api.ApplyNeuralDamage(target.Value, damage);
         }
+        if (func == "STUN_AVATAR")
+        {
+            var target = EvalPtr(s, ss.Arguments[0]);
+            var milliseconds = EvalInt(s, ss.Arguments[1]);
+            if (!s.ShouldStop && target != null)
+                _api.StunAvatar(target.Value, milliseconds);
+        }
+        if (func == "WALL_ALLOW_OWNER")
+        {
+            var wall = EvalPtr(s, ss.Arguments[0]);
+            var enabled = EvalInt(s, ss.Arguments[1]);
+            if (!s.ShouldStop && wall != null)
+                _api.SetWallAllowOwner(deckUid, wall.Value, enabled != 0);
+        }
+        if (func == "WALL_ALLOW_ADMINS")
+        {
+            var wall = EvalPtr(s, ss.Arguments[0]);
+            var enabled = EvalInt(s, ss.Arguments[1]);
+            if (!s.ShouldStop && wall != null)
+                _api.SetWallAllowNetworkAdmins(deckUid, wall.Value, enabled != 0);
+        }
         if (func == "CLOAK")
         {
             var strength = EvalInt(s, ss.Arguments[0]);
@@ -492,6 +515,12 @@ public sealed class MetaVirtualMachineSystem : EntitySystem
             return !s.ShouldStop && target != null &&
                    _api.HasRoot(GetEntity(s.DeckUid), target.Value) ? 1 : 0;
         }
+        if (f == "IS_NETWORK_ADMIN")
+        {
+            var target = EvalPtr(s, sys.Arguments[0]);
+            return !s.ShouldStop && target != null &&
+                   _api.IsNetworkAdmin(GetEntity(s.DeckUid), target.Value) ? 1 : 0;
+        }
         if (f == "ROOT")
         {
             var target = EvalPtr(s, sys.Arguments[0]);
@@ -541,12 +570,26 @@ public sealed class MetaVirtualMachineSystem : EntitySystem
             if (s.ShouldStop || target == null)
                 return null;
 
+            var shardUid = GetEntity(s.ShardUid);
             return f switch
             {
-                "SPAWN_ICE" => _api.SpawnIce(deckUid, target.Value, strength, false),
-                "SPAWN_BLACK_ICE" => _api.SpawnIce(deckUid, target.Value, strength, true),
-                _ => _api.SpawnDemon(deckUid, target.Value, strength)
+                "SPAWN_ICE" => _api.SpawnIce(deckUid, shardUid, target.Value, strength, false),
+                "SPAWN_BLACK_ICE" => _api.SpawnIce(deckUid, shardUid, target.Value, strength, true),
+                _ => _api.SpawnDemon(deckUid, shardUid, target.Value, strength)
             };
+        }
+        if (f is "SPAWN_WALL" or "SPAWN_TRAP")
+        {
+            var target = EvalPtr(s, sys.Arguments[0]);
+            var offsetX = EvalInt(s, sys.Arguments[1]);
+            var offsetY = EvalInt(s, sys.Arguments[2]);
+            if (s.ShouldStop || target == null)
+                return null;
+
+            var shardUid = GetEntity(s.ShardUid);
+            return f == "SPAWN_WALL"
+                ? _api.SpawnWall(deckUid, shardUid, target.Value, offsetX, offsetY)
+                : _api.SpawnTrap(deckUid, shardUid, target.Value, offsetX, offsetY);
         }
         return null;
     }

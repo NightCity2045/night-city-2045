@@ -33,6 +33,7 @@ using Robust.Shared.Map;
 using Content.Shared.SurveillanceCamera.Components;
 using Content.Shared.VendingMachines;
 using Content.Shared._NC.Netrunning;
+using Robust.Shared.Containers;
 
 namespace Content.Server._NC.Netrunning.Systems;
 
@@ -55,6 +56,7 @@ public sealed class MetaApiSystem : EntitySystem, IMetaRuntimeApi
     [Dependency] private readonly SurveillanceCameraSystem _cameraSystem = default!;
     [Dependency] private readonly VendingMachineSystem _vending = default!;
     [Dependency] private readonly NetServerSystem _netServer = default!;
+    [Dependency] private readonly SharedContainerSystem _containers = default!;
 
     private static readonly HashSet<string> AllowedOverrideKeys = new(StringComparer.OrdinalIgnoreCase)
     {
@@ -133,6 +135,8 @@ public sealed class MetaApiSystem : EntitySystem, IMetaRuntimeApi
             {
                 NetDefenseKind.BlackIce => "BLACK_ICE",
                 NetDefenseKind.Demon => "DEMON",
+                NetDefenseKind.Wall => "WALL",
+                NetDefenseKind.Trap => "TRAP",
                 _ => "ICE",
             };
         }
@@ -434,6 +438,24 @@ public sealed class MetaApiSystem : EntitySystem, IMetaRuntimeApi
                deck.HackedNetworks.Contains(server.Value);
     }
 
+    public bool IsNetworkAdmin(EntityUid hostUid, EntityUid subjectUid)
+    {
+        var serverUid = ResolveServer(hostUid) ?? GetServer(hostUid);
+        if (serverUid == null)
+            return false;
+
+        var deckUid = subjectUid;
+        if (TryComp<NetAvatarComponent>(subjectUid, out var avatar) &&
+            avatar.Cyberdeck is { } avatarDeck)
+        {
+            deckUid = avatarDeck;
+        }
+
+        return TryComp<CyberdeckComponent>(deckUid, out var deck) &&
+               (deck.AdminNetworks.Contains(serverUid.Value) ||
+                deck.HackedNetworks.Contains(serverUid.Value));
+    }
+
     public bool TryRoot(EntityUid deckUid, EntityUid serverUid, int strength)
     {
         var server = ResolveServer(serverUid);
@@ -456,39 +478,62 @@ public sealed class MetaApiSystem : EntitySystem, IMetaRuntimeApi
         return true;
     }
 
-    public EntityUid? SpawnIce(EntityUid deckUid, EntityUid anchor, int strength, bool blackIce)
+    public EntityUid? SpawnIce(
+        EntityUid deckUid,
+        EntityUid shardUid,
+        EntityUid anchor,
+        int strength,
+        bool blackIce)
     {
-        var load = DefenseLoad(strength, blackIce ? 2 : 1);
         var serverUid = ResolveServer(anchor);
-        if (serverUid == null || !CanHostDefense(deckUid, serverUid.Value, load, out var server))
+        if (serverUid == null ||
+            !TryGetHostedProgramPlacement(deckUid, shardUid, serverUid.Value, out var server, out var source, out var coords))
             return null;
 
-        var coords = GetDefenseSpawnCoordinates(anchor, server);
         var uid = Spawn(blackIce ? "NCNetBlackIce" : "NCNetIce", coords);
         var defense = EnsureComp<NetDefenseComponent>(uid);
+        var load = defense.ReservedLoad + source.RequiredRam;
+        if (server.UsedLoad + load > server.MaxLoad ||
+            !TryAttachHostedProgram(uid, source, serverUid.Value))
+        {
+            QueueDel(uid);
+            MetaLog(deckUid, Loc.GetString("netrunning-meta-host-load-rejected"));
+            return null;
+        }
+
         defense.Server = serverUid;
         defense.OwnerDeck = deckUid;
         defense.ReservedLoad = load;
         defense.Kind = blackIce ? NetDefenseKind.BlackIce : NetDefenseKind.Ice;
-
         var ice = EnsureComp<IceHealthComponent>(uid);
         ice.MaxHealth = Math.Max(25, strength);
         ice.CurrentHealth = ice.MaxHealth;
 
         ReserveDefense(serverUid.Value, server, uid, defense.ReservedLoad);
-        MetaLog(deckUid, $"{(blackIce ? "BLACK ICE" : "ICE")} spawned: load {defense.ReservedLoad}.");
+        MetaLog(deckUid, Loc.GetString(
+            blackIce ? "netrunning-meta-black-ice-materialized" : "netrunning-meta-ice-materialized",
+            ("load", defense.ReservedLoad)));
         return uid;
     }
 
-    public EntityUid? SpawnDemon(EntityUid deckUid, EntityUid anchor, int strength)
+    public EntityUid? SpawnDemon(EntityUid deckUid, EntityUid shardUid, EntityUid anchor, int strength)
     {
-        var load = DefenseLoad(strength, 3);
         var serverUid = ResolveServer(anchor);
-        if (serverUid == null || !CanHostDefense(deckUid, serverUid.Value, load, out var server))
+        if (serverUid == null ||
+            !TryGetHostedProgramPlacement(deckUid, shardUid, serverUid.Value, out var server, out var source, out var coords))
             return null;
 
-        var uid = Spawn("NCNetDemon", GetDefenseSpawnCoordinates(anchor, server));
+        var uid = Spawn("NCNetDemon", coords);
         var defense = EnsureComp<NetDefenseComponent>(uid);
+        var load = defense.ReservedLoad + source.RequiredRam;
+        if (server.UsedLoad + load > server.MaxLoad ||
+            !TryAttachHostedProgram(uid, source, serverUid.Value))
+        {
+            QueueDel(uid);
+            MetaLog(deckUid, Loc.GetString("netrunning-meta-host-load-rejected"));
+            return null;
+        }
+
         defense.Server = serverUid;
         defense.OwnerDeck = deckUid;
         defense.ReservedLoad = load;
@@ -498,8 +543,120 @@ public sealed class MetaApiSystem : EntitySystem, IMetaRuntimeApi
         demon.Damage = Math.Max(1, strength / 10);
 
         ReserveDefense(serverUid.Value, server, uid, defense.ReservedLoad);
-        MetaLog(deckUid, $"DEMON spawned: load {defense.ReservedLoad}.");
+        MetaLog(deckUid, Loc.GetString("netrunning-meta-demon-materialized", ("load", defense.ReservedLoad)));
         return uid;
+    }
+
+    public EntityUid? SpawnWall(
+        EntityUid deckUid,
+        EntityUid shardUid,
+        EntityUid anchor,
+        int offsetX,
+        int offsetY)
+    {
+        var serverUid = ResolveServer(anchor);
+        if (serverUid == null ||
+            !TryGetHostedProgramPlacement(deckUid, shardUid, serverUid.Value, out var server, out var source, out var coords) ||
+            !TryGetConstructCoordinates(coords, offsetX, offsetY, allowOrigin: false, out var constructCoords))
+        {
+            return null;
+        }
+
+        var uid = Spawn("NCNetWall", constructCoords);
+        var defense = EnsureComp<NetDefenseComponent>(uid);
+        var load = defense.ReservedLoad + source.RequiredRam;
+        if (server.UsedLoad + load > server.MaxLoad)
+        {
+            QueueDel(uid);
+            MetaLog(deckUid, Loc.GetString("netrunning-meta-host-load-rejected"));
+            return null;
+        }
+
+        defense.Server = serverUid;
+        defense.OwnerDeck = deckUid;
+        defense.ReservedLoad = load;
+        defense.Kind = NetDefenseKind.Wall;
+
+        var barrier = EnsureComp<NetBarrierComponent>(uid);
+        barrier.Server = serverUid;
+        barrier.OwnerDeck = deckUid;
+        Dirty(uid, barrier);
+
+        ReserveDefense(serverUid.Value, server, uid, load);
+        MetaLog(deckUid, Loc.GetString("netrunning-meta-wall-materialized", ("load", load)));
+        return uid;
+    }
+
+    public EntityUid? SpawnTrap(
+        EntityUid deckUid,
+        EntityUid shardUid,
+        EntityUid anchor,
+        int offsetX,
+        int offsetY)
+    {
+        var serverUid = ResolveServer(anchor);
+        if (serverUid == null ||
+            !TryGetHostedProgramPlacement(deckUid, shardUid, serverUid.Value, out var server, out var source, out var coords) ||
+            !TryGetConstructCoordinates(coords, offsetX, offsetY, allowOrigin: true, out var constructCoords))
+        {
+            return null;
+        }
+
+        var uid = Spawn("NCNetTrap", constructCoords);
+        var defense = EnsureComp<NetDefenseComponent>(uid);
+        var load = defense.ReservedLoad + source.RequiredRam;
+        if (server.UsedLoad + load > server.MaxLoad ||
+            !TryAttachHostedProgram(uid, source, serverUid.Value))
+        {
+            QueueDel(uid);
+            MetaLog(deckUid, Loc.GetString("netrunning-meta-host-load-rejected"));
+            return null;
+        }
+
+        defense.Server = serverUid;
+        defense.OwnerDeck = deckUid;
+        defense.ReservedLoad = load;
+        defense.Kind = NetDefenseKind.Trap;
+
+        ReserveDefense(serverUid.Value, server, uid, load);
+        MetaLog(deckUid, Loc.GetString("netrunning-meta-trap-materialized", ("load", load)));
+        return uid;
+    }
+
+    public void SetWallAllowOwner(EntityUid deckUid, EntityUid wallUid, bool enabled)
+    {
+        if (!TryComp<NetBarrierComponent>(wallUid, out var barrier) ||
+            barrier.OwnerDeck != deckUid)
+        {
+            return;
+        }
+
+        barrier.AllowOwner = enabled;
+        Dirty(wallUid, barrier);
+    }
+
+    public void SetWallAllowNetworkAdmins(EntityUid deckUid, EntityUid wallUid, bool enabled)
+    {
+        if (!TryComp<NetBarrierComponent>(wallUid, out var barrier) ||
+            barrier.OwnerDeck != deckUid)
+        {
+            return;
+        }
+
+        barrier.AllowNetworkAdmins = enabled;
+        Dirty(wallUid, barrier);
+    }
+
+    public void StunAvatar(EntityUid target, int milliseconds)
+    {
+        var avatarUid = ResolveDigitalAvatar(target);
+        if (avatarUid == null)
+            return;
+
+        // The cap is a runtime safety boundary; script authors still choose the gameplay duration.
+        var duration = Math.Clamp(milliseconds, 0, 30_000);
+        if (duration > 0)
+            _stun.TryParalyze(avatarUid.Value, TimeSpan.FromMilliseconds(duration), true);
     }
 
     public void ApplyNeuralDamage(EntityUid target, int damage)
@@ -554,31 +711,115 @@ public sealed class MetaApiSystem : EntitySystem, IMetaRuntimeApi
         return _netServer.ResolveNetworkServer(uid);
     }
 
-    private bool CanHostDefense(EntityUid deckUid, EntityUid serverUid, int load, out NetServerComponent server)
+    private bool TryGetHostedProgramPlacement(
+        EntityUid deckUid,
+        EntityUid shardUid,
+        EntityUid serverUid,
+        out NetServerComponent server,
+        out DataShardComponent source,
+        out EntityCoordinates coordinates)
     {
         server = default!;
-        if (!HasRoot(deckUid, serverUid) ||
+        source = default!;
+        coordinates = default;
+        if (!TryComp<CyberdeckComponent>(deckUid, out var deck) ||
+            (!deck.AdminNetworks.Contains(serverUid) && !deck.HackedNetworks.Contains(serverUid)) ||
             !TryComp<NetServerComponent>(serverUid, out var serverComp) ||
-            serverComp.DigitalGrid == null)
+            serverComp.DigitalGrid == null ||
+            !TryComp<DataShardComponent>(shardUid, out var sourceShard) ||
+            sourceShard.Bytecode == null ||
+            !_activeUsers.TryGetValue(deckUid, out var activeUser) ||
+            activeUser is not { } avatarUid ||
+            Deleted(avatarUid) ||
+            !TryComp<NetAvatarComponent>(avatarUid, out _) ||
+            _netServer.ResolveNetworkServer(avatarUid) != serverUid)
+        {
             return false;
+        }
 
         server = serverComp;
-        return server.UsedLoad + load <= server.MaxLoad;
+        source = sourceShard;
+        coordinates = Transform(avatarUid).Coordinates;
+        return true;
     }
 
-    private int DefenseLoad(int strength, int multiplier)
+    private bool TryAttachHostedProgram(
+        EntityUid hostUid,
+        DataShardComponent source,
+        EntityUid serverUid)
     {
-        return Math.Max(1, (Math.Max(1, strength) + 24) / 25 * multiplier);
+        if (source.Bytecode == null)
+            return false;
+
+        var hostedShardUid = Spawn("NCHostedMetaProgram", Transform(hostUid).Coordinates);
+        var hostedShard = EnsureComp<DataShardComponent>(hostedShardUid);
+        hostedShard.SourceCode = null;
+        hostedShard.Bytecode = source.Bytecode;
+        hostedShard.RequiredRam = source.RequiredRam;
+        hostedShard.ProgramKind = MetaProgramKind.Standard;
+        hostedShard.RuntimeState = MetaProgramRuntimeState.Ready;
+        Dirty(hostedShardUid, hostedShard);
+
+        var daemon = EnsureComp<DefensiveDaemonComponent>(hostUid);
+        daemon.Server = serverUid;
+        daemon.Slots.Clear();
+        daemon.Slots.Add(MetaHostedProgramComponent.ProgramContainerId);
+
+        var container = _containers.EnsureContainer<Container>(
+            hostUid,
+            MetaHostedProgramComponent.ProgramContainerId);
+        if (!_containers.Insert(hostedShardUid, container))
+        {
+            QueueDel(hostedShardUid);
+            return false;
+        }
+
+        var hosted = EnsureComp<MetaHostedProgramComponent>(hostUid);
+        hosted.ProgramShard = hostedShardUid;
+        _daemon.RefreshHostedPrograms(hostUid);
+        return true;
     }
 
-    private EntityCoordinates GetDefenseSpawnCoordinates(EntityUid anchor, NetServerComponent server)
+    private static bool TryGetConstructCoordinates(
+        EntityCoordinates origin,
+        int offsetX,
+        int offsetY,
+        bool allowOrigin,
+        out EntityCoordinates coordinates)
     {
-        var anchorXform = Transform(anchor);
-        if (anchorXform.GridUid != null)
-            return anchorXform.Coordinates;
+        coordinates = default;
+        if (Math.Abs(offsetX) > 1 ||
+            Math.Abs(offsetY) > 1 ||
+            (!allowOrigin && offsetX == 0 && offsetY == 0))
+        {
+            return false;
+        }
 
-        var grid = server.DigitalGrid ?? EntityUid.Invalid;
-        return new EntityCoordinates(grid, 0, 0);
+        coordinates = origin.Offset(new Vector2(offsetX, offsetY));
+        return true;
+    }
+
+    private EntityUid? ResolveDigitalAvatar(EntityUid target)
+    {
+        if (HasComp<NetAvatarComponent>(target))
+            return target;
+
+        if (_activeUsers.TryGetValue(target, out var activeUser) &&
+            activeUser is { } user &&
+            !Deleted(user) &&
+            HasComp<NetAvatarComponent>(user))
+        {
+            return user;
+        }
+
+        var query = EntityQueryEnumerator<NetAvatarComponent>();
+        while (query.MoveNext(out var avatarUid, out var avatar))
+        {
+            if (avatar.Cyberdeck == target)
+                return avatarUid;
+        }
+
+        return null;
     }
 
     private void ReserveDefense(EntityUid serverUid, NetServerComponent server, EntityUid defenseUid, int load)

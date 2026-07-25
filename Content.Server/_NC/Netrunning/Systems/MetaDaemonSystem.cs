@@ -95,6 +95,15 @@ public sealed class MetaDaemonSystem : EntitySystem
         component.Shards.AddRange(foundShards);
     }
 
+    /// <summary>
+    ///     Synchronizes a runtime-created host immediately after its private shard is inserted.
+    /// </summary>
+    public void RefreshHostedPrograms(EntityUid hostUid)
+    {
+        if (TryComp<DefensiveDaemonComponent>(hostUid, out var daemon))
+            SyncShard(hostUid, daemon);
+    }
+
     public void NotifyIntrusion(
         EntityUid protectedNode,
         EntityUid intruder,
@@ -248,7 +257,7 @@ public sealed class MetaDaemonSystem : EntitySystem
             !daemon.Shards.Contains(shardUid) ||
             !TryComp<DataShardComponent>(shardUid, out shard) ||
             shard.Bytecode == null ||
-            shard.ProgramKind != MetaProgramKind.DaemonDefensive)
+            !HasIntrusionHandler(shard.Bytecode))
         {
             server = null;
             return DaemonStartStatus.Invalid;
@@ -652,6 +661,13 @@ public sealed class MetaDaemonSystem : EntitySystem
             return server;
 
         return null;
+    }
+
+    private static bool HasIntrusionHandler(MetaBytecode bytecode)
+    {
+        return bytecode.Instructions.Any(instruction =>
+            instruction is MetaOnEventInstruction { EventName: var eventName } &&
+            eventName.Equals("INTRUSION", StringComparison.OrdinalIgnoreCase));
     }
 
     private enum DaemonStartStatus : byte

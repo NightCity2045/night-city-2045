@@ -47,7 +47,7 @@ public sealed class MetaSchedulerSystem : EntitySystem
                     if (!_daemon.TryConsumeIntrusionResult(serverUid, proc.AwaitedIntrusionId, out _))
                         continue;
 
-                    if (!HasActiveLink(uid, deck))
+                    if (!HasExecutionContext(uid, deck, proc.RequiresTarget))
                     {
                         active.SuspendedProcesses.RemoveAt(i);
                         ReleaseRam(uid, proc);
@@ -91,7 +91,7 @@ public sealed class MetaSchedulerSystem : EntitySystem
                 if (curTime < proc.ResumeAtTime)
                     continue;
 
-                if (!HasActiveLink(uid, deck))
+                if (!HasExecutionContext(uid, deck, proc.RequiresTarget))
                 {
                     active.SuspendedProcesses.RemoveAt(i);
                     ReleaseRam(uid, proc);
@@ -175,8 +175,20 @@ public sealed class MetaSchedulerSystem : EntitySystem
         _program.CancelExecution(deckUid, deck, proc);
     }
 
-    private bool HasActiveLink(EntityUid deckUid, CyberdeckComponent deck)
+    private bool HasExecutionContext(EntityUid deckUid, CyberdeckComponent deck, bool requiresTarget)
     {
+        if (!requiresTarget)
+        {
+            var avatarQuery = EntityQueryEnumerator<NetAvatarComponent>();
+            while (avatarQuery.MoveNext(out var avatarUid, out var avatar))
+            {
+                if (avatar.Cyberdeck == deckUid && !Deleted(avatarUid))
+                    return true;
+            }
+
+            return false;
+        }
+
         if (deck.ActiveTarget == null)
             return false;
 

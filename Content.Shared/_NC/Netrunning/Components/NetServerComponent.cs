@@ -262,7 +262,8 @@ public sealed record NetNodeShardInfo(
     string Name,
     int RamCost,
     MetaProgramKind Kind,
-    MetaProgramRuntimeState RuntimeState);
+    MetaProgramRuntimeState RuntimeState,
+    bool CanInstallDefense);
 
 [Serializable, NetSerializable]
 public sealed record NetNodeDefenseInfo(

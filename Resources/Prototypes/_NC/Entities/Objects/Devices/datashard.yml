@@ -39,7 +39,7 @@
       // 'Liche' v1.0 - Defensive Daemon
       ON_EVENT("INTRUSION") {
           DEF PTR intr = SYS.GET_INTRUDER();
-          IF (SYS.IS_VALID(intr) == 1) {
+          IF (SYS.IS_VALID(intr) == 1 && SYS.IS_NETWORK_ADMIN(intr) == 0) {
               SYS.LOG("INTRUSION DETECTED. Charging Neuro-burn...");
               YIELD [1500];
               SYS.BURN_NEUROPORT(intr, 15);
@@ -180,6 +180,84 @@
           SYS.LOG("Короткое замыкание выполнено.");
       } ELSE {
           SYS.LOG("ОШИБКА: цель недоступна.");
+      }
+
+      EXIT [0];
+
+- type: entity
+  parent: NCDataShard
+  id: NCDataShardIceSentry
+  name: "META: ICE Sentry"
+  description: A standard META program that materializes static ICE in the current local-network room.
+  components:
+  - type: DataShard
+    sourceCode: |
+      // ICE Sentry remains an ordinary META program.
+      REQUIRE TARGET [0];
+
+      DEF PTR server = SYS.GET_SERVER();
+      DEF PTR ice = SYS.SPAWN_ICE(server, 75);
+
+      IF (SYS.IS_VALID(ice) == 1) {
+          SYS.LOG("ICE materialized in the current room.");
+      }
+
+      ON_EVENT("INTRUSION") {
+          DEF PTR intruder = SYS.GET_INTRUDER();
+          IF (SYS.IS_VALID(intruder) == 1 && SYS.IS_NETWORK_ADMIN(intruder) == 0) {
+              SYS.LOG("ICE acquired an intruder.");
+              YIELD [750];
+              SYS.BURN_NEUROPORT(intruder, 10);
+          }
+      }
+
+      EXIT [0];
+
+- type: entity
+  parent: NCDataShard
+  id: NCDataShardNetWall
+  name: "META: Wall"
+  description: Materializes a barrier that only its owner and local-network administrators can cross.
+  components:
+  - type: DataShard
+    sourceCode: |
+      // Materialize the wall one tile north of the current avatar.
+      REQUIRE TARGET [0];
+
+      DEF PTR server = SYS.GET_SERVER();
+      DEF PTR wall = SYS.SPAWN_WALL(server, 0, -1);
+
+      IF (SYS.IS_VALID(wall) == 1) {
+          // Passage policy is part of this META program, not the wall runtime.
+          SYS.WALL_ALLOW_OWNER(wall, 1);
+          SYS.WALL_ALLOW_ADMINS(wall, 1);
+          SYS.LOG("Selective NET wall materialized.");
+      }
+
+      EXIT [0];
+
+- type: entity
+  parent: NCDataShard
+  id: NCDataShardNetTrap
+  name: "META: Trap"
+  description: Materializes a reusable trap that stuns an intruder and burns their neural link.
+  components:
+  - type: DataShard
+    sourceCode: |
+      // The trap is placed under the current avatar and remains an ordinary META program.
+      REQUIRE TARGET [0];
+
+      DEF PTR server = SYS.GET_SERVER();
+      DEF PTR trap = SYS.SPAWN_TRAP(server, 0, 0);
+
+      ON_EVENT("INTRUSION") {
+          DEF PTR intruder = SYS.GET_INTRUDER();
+
+          IF (SYS.IS_VALID(intruder) == 1 && SYS.IS_NETWORK_ADMIN(intruder) == 0) {
+              YIELD [250];
+              SYS.STUN_AVATAR(intruder, 5000);
+              SYS.BURN_NEUROPORT(intruder, 10);
+          }
       }
 
       EXIT [0];

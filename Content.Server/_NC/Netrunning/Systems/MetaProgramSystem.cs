@@ -437,7 +437,12 @@ public sealed class MetaProgramSystem : EntitySystem
         var modules = new List<NetModuleInfo>();
         foreach (var proto in _proto.EnumeratePrototypes<NetModulePrototype>())
         {
-            modules.Add(new NetModuleInfo(proto.ID, proto.Name, proto.Description, proto.RamCost, proto.Price));
+            modules.Add(new NetModuleInfo(
+                proto.ID,
+                Loc.GetString(proto.Name),
+                Loc.GetString(proto.Description),
+                proto.RamCost,
+                proto.Price));
         }
 
         var anchors = new List<NetAnchorInfo>();
@@ -472,7 +477,9 @@ public sealed class MetaProgramSystem : EntitySystem
             }
         }
 
-        var hasAR = user != null && TryGetNetvisorBonus(user.Value, out _);
+        var hasAR = user != null &&
+                    (HasComp<NetAvatarComponent>(user.Value) ||
+                     TryGetNetvisorBonus(user.Value, out _));
         var state = new CyberdeckUiState(
             component.CurrentRam,
             component.ReservedRam,
@@ -583,10 +590,12 @@ public sealed class MetaProgramSystem : EntitySystem
             return RejectedExecution(shardUid, Loc.GetString("netrunning-error-no-bytecode"));
         if (shard.ProgramKind == MetaProgramKind.DaemonDefensive)
             return RejectedExecution(shardUid, Loc.GetString("netrunning-cyberdeck-run-defensive-install"));
-        if (deck.ActiveTarget == null)
-            return RejectedExecution(shardUid, Loc.GetString("netrunning-error-no-link"));
         if (!TryGetDeckUser(deckUid, out var user))
             return RejectedExecution(shardUid, Loc.GetString("netrunning-error-no-user"));
+        if (shard.Bytecode.RequiresTarget && deck.ActiveTarget == null)
+            return RejectedExecution(shardUid, Loc.GetString("netrunning-error-no-link"));
+        if (!shard.Bytecode.RequiresTarget && !HasComp<NetAvatarComponent>(user))
+            return RejectedExecution(shardUid, Loc.GetString("netrunning-error-requires-immersion"));
         var runtimeState = GetRuntimeState(shardUid, shard);
         if (runtimeState == MetaProgramRuntimeState.Running)
             return RejectedExecution(shardUid, Loc.GetString("netrunning-error-program-running"));
@@ -599,11 +608,12 @@ public sealed class MetaProgramSystem : EntitySystem
         deck.ReservedRam += shard.RequiredRam;
         Dirty(deckUid, deck);
 
-        var target = deck.ActiveTarget.Value;
+        var target = shard.Bytecode.RequiresTarget ? deck.ActiveTarget : null;
         MetaVmRunResult runResult;
         if (!defenseResponse &&
+            target is { } protectedTarget &&
             _daemon.TryBeginIntrusion(
-                target,
+                protectedTarget,
                 deckUid,
                 MetaIntrusionOperationKind.Program,
                 0,
@@ -616,7 +626,7 @@ public sealed class MetaProgramSystem : EntitySystem
                 shardUid,
                 shard.Bytecode,
                 deck.GasLimit,
-                target,
+                protectedTarget,
                 wait);
         }
         else

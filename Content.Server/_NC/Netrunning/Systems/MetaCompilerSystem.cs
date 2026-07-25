@@ -35,10 +35,16 @@ public sealed class MetaCompilerSystem : EntitySystem
         ["ARR_LENGTH"] = (1, 1),
         ["LOG"] = (1, 1),
         ["HAS_ROOT"] = (1, 1),
+        ["IS_NETWORK_ADMIN"] = (1, 1),
         ["ROOT"] = (2, 2),
         ["SPAWN_ICE"] = (2, 2),
         ["SPAWN_BLACK_ICE"] = (2, 2),
         ["SPAWN_DEMON"] = (2, 2),
+        ["SPAWN_WALL"] = (3, 3),
+        ["SPAWN_TRAP"] = (3, 3),
+        ["WALL_ALLOW_OWNER"] = (2, 2),
+        ["WALL_ALLOW_ADMINS"] = (2, 2),
+        ["STUN_AVATAR"] = (2, 2),
         ["DUMPSHOCK"] = (2, 2),
     };
 
@@ -53,7 +59,7 @@ public sealed class MetaCompilerSystem : EntitySystem
             return false;
 
         var parser = new MetaParser(tokens);
-        var instructions = parser.ParseProgram(out error);
+        var instructions = parser.ParseProgram(out error, out var requiresTarget);
         if (instructions == null || error != null)
             return false;
 
@@ -62,7 +68,7 @@ public sealed class MetaCompilerSystem : EntitySystem
             return false;
 
         var requiredRam = EstimateRam(instructions);
-        bytecode = new MetaBytecode(instructions, requiredRam, kind);
+        bytecode = new MetaBytecode(instructions, requiredRam, kind, requiresTarget);
         return true;
     }
 
@@ -150,11 +156,6 @@ public sealed class MetaCompilerSystem : EntitySystem
                 if (!ValidateInstructions(f.Body, loopCtx, kind, out error)) return false;
                 break;
             case MetaOnEventInstruction evt:
-                if (kind != MetaProgramKind.DaemonDefensive)
-                {
-                    error = "Compilation Error: ON_EVENT is only allowed in DAEMON_DEFENSIVE programs.";
-                    return false;
-                }
                 if (!evt.EventName.Equals("INTRUSION", StringComparison.OrdinalIgnoreCase))
                 {
                     error = $"Compilation Error: Unsupported event '{evt.EventName}'.";
@@ -314,8 +315,8 @@ public sealed class MetaCompilerSystem : EntitySystem
             "GET_CONNECTED" or "GET_FILES" or "GET_VITALS" => MetaValueType.Arr,
             "GET_CLASS" => MetaValueType.Str,
             "GET_ICE" or "GET_TRACE" or "ARR_LENGTH" or "IS_VALID" => MetaValueType.Int,
-            "HAS_ROOT" or "ROOT" => MetaValueType.Int,
-            "SPAWN_ICE" or "SPAWN_BLACK_ICE" or "SPAWN_DEMON" => MetaValueType.Ptr,
+            "HAS_ROOT" or "IS_NETWORK_ADMIN" or "ROOT" => MetaValueType.Int,
+            "SPAWN_ICE" or "SPAWN_BLACK_ICE" or "SPAWN_DEMON" or "SPAWN_WALL" or "SPAWN_TRAP" => MetaValueType.Ptr,
             _ => MetaValueType.Int
         };
     }
@@ -388,6 +389,7 @@ public sealed class MetaCompilerSystem : EntitySystem
             case "IS_VALID":
             case "GET_FILES":
             case "HAS_ROOT":
+            case "IS_NETWORK_ADMIN":
             case "GET_VITALS":
                 return args.Count > 0 && ExpectType(args[0], MetaValueType.Ptr, ctx, out error);
             case "ROOT":
@@ -395,7 +397,16 @@ public sealed class MetaCompilerSystem : EntitySystem
             case "SPAWN_BLACK_ICE":
             case "SPAWN_DEMON":
             case "DUMPSHOCK":
+            case "STUN_AVATAR":
+            case "WALL_ALLOW_OWNER":
+            case "WALL_ALLOW_ADMINS":
                 return args.Count > 1 && ExpectType(args[0], MetaValueType.Ptr, ctx, out error) && ExpectType(args[1], MetaValueType.Int, ctx, out error);
+            case "SPAWN_WALL":
+            case "SPAWN_TRAP":
+                return args.Count > 2 &&
+                       ExpectType(args[0], MetaValueType.Ptr, ctx, out error) &&
+                       ExpectType(args[1], MetaValueType.Int, ctx, out error) &&
+                       ExpectType(args[2], MetaValueType.Int, ctx, out error);
             case "INJECT":
                 return args.Count > 1 && ExpectType(args[0], MetaValueType.Ptr, ctx, out error) && ExpectType(args[1], MetaValueType.Int, ctx, out error);
             case "CLOAK":
@@ -554,7 +565,9 @@ public sealed class MetaCompilerSystem : EntitySystem
         return name.ToUpperInvariant() switch
         {
             "GET_CONNECTED" or "FIND_NEAREST" or "GET_FILES" or "DOWNLOAD" or "UPLOAD" or "ROOT" => 8,
-            "INJECT" or "BURN_NEUROPORT" or "DUMPSHOCK" or "SPAWN_ICE" or "SPAWN_BLACK_ICE" or "SPAWN_DEMON" => 5,
+            "INJECT" or "BURN_NEUROPORT" or "DUMPSHOCK" or "STUN_AVATAR" or
+                "SPAWN_ICE" or "SPAWN_BLACK_ICE" or "SPAWN_DEMON" or "SPAWN_WALL" or "SPAWN_TRAP" => 5,
+            "WALL_ALLOW_OWNER" or "WALL_ALLOW_ADMINS" => 2,
             "GET_CLASS" or "GET_VITALS" or "CLOAK" or "OVERRIDE" or "DISCONNECT" or "BREACH" => 2,
             _ => 1,
         };

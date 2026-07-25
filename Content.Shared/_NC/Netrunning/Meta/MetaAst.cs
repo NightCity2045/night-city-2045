@@ -176,7 +176,8 @@ public enum MetaIntrusionOperationKind : byte
 public sealed record MetaBytecode(
     List<MetaInstruction> Instructions,
     int RequiredRam,
-    MetaProgramKind Kind);
+    MetaProgramKind Kind,
+    bool RequiresTarget);
 
 [Serializable, NetSerializable]
 public sealed class MetaArrayValue
@@ -235,8 +236,14 @@ public interface IMetaRuntimeApi
     void SetEventSource(EntityUid hostUid, EntityUid? source);
     MetaIntrusionWait? Breach(EntityUid attacker, EntityUid target, bool bypassDefense = false);
     bool HasRoot(EntityUid deckUid, EntityUid serverUid);
+    bool IsNetworkAdmin(EntityUid hostUid, EntityUid subjectUid);
     bool TryRoot(EntityUid deckUid, EntityUid serverUid, int strength);
-    EntityUid? SpawnIce(EntityUid deckUid, EntityUid anchor, int strength, bool blackIce);
-    EntityUid? SpawnDemon(EntityUid deckUid, EntityUid anchor, int strength);
+    EntityUid? SpawnIce(EntityUid deckUid, EntityUid shardUid, EntityUid anchor, int strength, bool blackIce);
+    EntityUid? SpawnDemon(EntityUid deckUid, EntityUid shardUid, EntityUid anchor, int strength);
+    EntityUid? SpawnWall(EntityUid deckUid, EntityUid shardUid, EntityUid anchor, int offsetX, int offsetY);
+    EntityUid? SpawnTrap(EntityUid deckUid, EntityUid shardUid, EntityUid anchor, int offsetX, int offsetY);
+    void SetWallAllowOwner(EntityUid deckUid, EntityUid wallUid, bool enabled);
+    void SetWallAllowNetworkAdmins(EntityUid deckUid, EntityUid wallUid, bool enabled);
+    void StunAvatar(EntityUid target, int milliseconds);
     void ApplyNeuralDamage(EntityUid target, int damage);
 }

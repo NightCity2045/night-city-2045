@@ -12,13 +12,27 @@ public sealed class MetaParser
         _tokens = tokens;
     }
 
-    public List<MetaInstruction>? ParseProgram(out string? error)
+    public List<MetaInstruction>? ParseProgram(out string? error, out bool requiresTarget)
     {
         error = null;
+        requiresTarget = true;
         var result = new List<MetaInstruction>();
 
         try
         {
+            if (MatchKeyword("REQUIRE"))
+            {
+                ConsumeKeyword("TARGET");
+                Consume(MetaTokenType.LBracket, "Expected '[' after REQUIRE TARGET.");
+                var value = RequireConstInt(ParseExpression(), "REQUIRE TARGET");
+                Consume(MetaTokenType.RBracket, "Expected ']' after REQUIRE TARGET value.");
+                ConsumeOptionalSemicolon();
+                if (value is not 0 and not 1)
+                    throw Error(Previous(), "REQUIRE TARGET accepts only 0 or 1.");
+
+                requiresTarget = value == 1;
+            }
+
             while (!IsAtEnd())
                 result.Add(ParseInstruction());
         }

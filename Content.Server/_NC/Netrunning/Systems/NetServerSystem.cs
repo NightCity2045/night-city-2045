@@ -112,7 +112,7 @@ public sealed class NetServerSystem : EntitySystem
 
     private void OnServerInteractUsing(EntityUid uid, NetServerComponent component, InteractUsingEvent args)
     {
-        if (!TryComp<DataShardComponent>(args.Used, out var shard) || shard.ProgramKind != MetaProgramKind.DaemonDefensive)
+        if (!TryComp<DataShardComponent>(args.Used, out var shard))
             return;
 
         if (shard.Bytecode == null && !_metaProgram.TryCompile(args.Used, shard, args.User, out var compileError))
@@ -139,6 +139,9 @@ public sealed class NetServerSystem : EntitySystem
             args.Handled = true;
             return;
         }
+
+        if (!CanInstallAsDefense(shard))
+            return;
 
         if (_metaProgram.GetRuntimeState(args.Used, shard) != MetaProgramRuntimeState.Ready)
         {
@@ -490,8 +493,13 @@ public sealed class NetServerSystem : EntitySystem
                         continue;
 
                     var runtimeState = _metaProgram.GetRuntimeState(shardUid, shard);
-                    shards.Add(new NetNodeShardInfo(GetNetEntity(shardUid), Name(shardUid), shard.RequiredRam,
-                        shard.ProgramKind, runtimeState));
+                    shards.Add(new NetNodeShardInfo(
+                        GetNetEntity(shardUid),
+                        Name(shardUid),
+                        shard.RequiredRam,
+                        shard.ProgramKind,
+                        runtimeState,
+                        CanInstallAsDefense(shard)));
                 }
             }
         }
@@ -514,7 +522,12 @@ public sealed class NetServerSystem : EntitySystem
         var modules = new List<NetModuleInfo>();
         foreach (var proto in _proto.EnumeratePrototypes<NetModulePrototype>())
         {
-            modules.Add(new NetModuleInfo(proto.ID, proto.Name, proto.Description, proto.RamCost, proto.Price));
+            modules.Add(new NetModuleInfo(
+                proto.ID,
+                Loc.GetString(proto.Name),
+                Loc.GetString(proto.Description),
+                proto.RamCost,
+                proto.Price));
         }
 
         var anchors = new List<NetAnchorInfo>();
@@ -675,7 +688,7 @@ public sealed class NetServerSystem : EntitySystem
             return;
         }
 
-        if (shard.ProgramKind == MetaProgramKind.DaemonDefensive)
+        if (CanInstallAsDefense(shard))
         {
             TryInstallNodeDefense(uid, component, args.Actor, deckUid, deck, shardUid, shard);
             return;
@@ -783,7 +796,6 @@ public sealed class NetServerSystem : EntitySystem
 
         var shardUid = GetEntity(args.Shard);
         if (!TryComp<DataShardComponent>(shardUid, out var shard) ||
-            shard.ProgramKind != MetaProgramKind.DaemonDefensive ||
             shard.RuntimeState != MetaProgramRuntimeState.Ready ||
             !_containers.TryGetContainingContainer((shardUid, null, null), out var defenseContainer) ||
             defenseContainer.Owner != node.PhysicalDevice ||
@@ -807,6 +819,13 @@ public sealed class NetServerSystem : EntitySystem
         _metaProgram.UpdateUi(deckUid, deck, args.Actor);
         UpdateNodeUi(nodeUid, node, args.Actor);
         UpdateServerUi(serverUid, server);
+    }
+
+    private static bool CanInstallAsDefense(DataShardComponent shard)
+    {
+        return shard.Bytecode?.Instructions.Any(instruction =>
+            instruction is MetaOnEventInstruction { EventName: var eventName } &&
+            eventName.Equals("INTRUSION", StringComparison.OrdinalIgnoreCase)) == true;
     }
 
     private void SubscribeNodeViewer(EntityUid nodeUid, NetDeviceNodeComponent component, EntityUid viewer)
@@ -1044,8 +1063,11 @@ public sealed class NetServerSystem : EntitySystem
             return gridServer;
 
         var query = EntityQueryEnumerator<NetServerComponent>();
-        while (query.MoveNext(out var serverUid, out _))
+        while (query.MoveNext(out var serverUid, out var server))
         {
+            if (server.DigitalGrid == gridUid)
+                return serverUid;
+
             if (CollectNetworkDevices(serverUid).Contains(uid))
                 return serverUid;
         }
@@ -1209,7 +1231,10 @@ public sealed class NetServerSystem : EntitySystem
         component.SpawnedModules.Add(loadedGridUid);
         Dirty(uid, component);
 
-        _popup.PopupEntity(Loc.GetString("netrunning-popup-module-attached", ("module", module.Name)), uid, user);
+        _popup.PopupEntity(
+            Loc.GetString("netrunning-popup-module-attached", ("module", Loc.GetString(module.Name))),
+            uid,
+            user);
         return true;
     }
 
