@@ -204,7 +204,11 @@
 
       ON_EVENT("INTRUSION") {
           DEF PTR intruder = SYS.GET_INTRUDER();
-          IF (SYS.IS_VALID(intruder) == 1 && SYS.IS_NETWORK_ADMIN(intruder) == 0) {
+          IF (
+              SYS.IS_VALID(intruder) == 1 &&
+              SYS.IS_PROGRAM_OWNER(intruder) == 0 &&
+              SYS.IS_NETWORK_ADMIN(intruder) == 0
+          ) {
               SYS.LOG("ICE acquired an intruder.");
               YIELD [750];
               SYS.BURN_NEUROPORT(intruder, 10);
@@ -253,10 +257,86 @@
       ON_EVENT("INTRUSION") {
           DEF PTR intruder = SYS.GET_INTRUDER();
 
-          IF (SYS.IS_VALID(intruder) == 1 && SYS.IS_NETWORK_ADMIN(intruder) == 0) {
+          IF (
+              SYS.IS_VALID(intruder) == 1 &&
+              SYS.IS_PROGRAM_OWNER(intruder) == 0 &&
+              SYS.IS_NETWORK_ADMIN(intruder) == 0
+          ) {
               YIELD [250];
               SYS.STUN_AVATAR(intruder, 5000);
               SYS.BURN_NEUROPORT(intruder, 10);
+          }
+      }
+
+      EXIT [0];
+
+- type: entity
+  parent: NCDataShard
+  id: NCDataShardBlackIce
+  name: "META: Black ICE"
+  description: Materializes Black ICE whose lethal response is entirely defined by META.
+  components:
+  - type: DataShard
+    sourceCode: |
+      REQUIRE TARGET [0];
+
+      DEF PTR server = SYS.GET_SERVER();
+      DEF PTR ice = SYS.SPAWN_BLACK_ICE(server, 125);
+
+      ON_EVENT("INTRUSION") {
+          DEF PTR intruder = SYS.GET_INTRUDER();
+
+          IF (
+              SYS.IS_VALID(intruder) == 1 &&
+              SYS.IS_PROGRAM_OWNER(intruder) == 0 &&
+              SYS.IS_NETWORK_ADMIN(intruder) == 0
+          ) {
+              SYS.LOG("Black ICE is charging a lethal response.");
+              YIELD [500];
+              SYS.BURN_NEUROPORT(intruder, 25);
+              SYS.DISCONNECT(intruder);
+          }
+      }
+
+      EXIT [0];
+
+- type: entity
+  parent: NCDataShard
+  id: NCDataShardDemonWatcher
+  name: "META: Watcher Demon"
+  description: Materializes a demon whose detection and attack are entirely defined by META.
+  components:
+  - type: DataShard
+    sourceCode: |
+      REQUIRE TARGET [0];
+
+      DEF PTR server = SYS.GET_SERVER();
+      DEF PTR demon = SYS.SPAWN_DEMON(server, 100);
+
+      ON_EVENT("INTRUSION") {
+          DEF PTR intruder = SYS.GET_INTRUDER();
+
+          IF (
+              SYS.IS_VALID(intruder) == 1 &&
+              SYS.IS_PROGRAM_OWNER(intruder) == 0 &&
+              SYS.IS_NETWORK_ADMIN(intruder) == 0
+          ) {
+              SYS.LOG("Watcher demon acquired an unauthorized process.");
+              DEF PTR self = SYS.GET_SELF();
+              SYS.DEMON_FOLLOW(self, intruder);
+
+              WHILE (
+                  SYS.IS_VALID(intruder) == 1 &&
+                  SYS.IS_IN_RANGE(self, intruder, 1) == 0
+              ) {
+                  YIELD [250];
+              }
+
+              IF (SYS.IS_IN_RANGE(self, intruder, 1) == 1) {
+                  SYS.BURN_NEUROPORT(intruder, 15);
+              }
+
+              SYS.DEMON_STOP(self);
           }
       }
 

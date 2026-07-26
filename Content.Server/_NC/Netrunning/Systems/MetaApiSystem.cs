@@ -56,6 +56,7 @@ public sealed class MetaApiSystem : EntitySystem, IMetaRuntimeApi
     [Dependency] private readonly SurveillanceCameraSystem _cameraSystem = default!;
     [Dependency] private readonly VendingMachineSystem _vending = default!;
     [Dependency] private readonly NetServerSystem _netServer = default!;
+    [Dependency] private readonly NetDemonPursuitSystem _demonPursuit = default!;
     [Dependency] private readonly SharedContainerSystem _containers = default!;
 
     private static readonly HashSet<string> AllowedOverrideKeys = new(StringComparer.OrdinalIgnoreCase)
@@ -456,6 +457,24 @@ public sealed class MetaApiSystem : EntitySystem, IMetaRuntimeApi
                 deck.HackedNetworks.Contains(serverUid.Value));
     }
 
+    public bool IsProgramOwner(EntityUid hostUid, EntityUid subjectUid)
+    {
+        if (!TryComp<NetDefenseComponent>(hostUid, out var defense) ||
+            defense.OwnerDeck is not { } ownerDeck)
+        {
+            return false;
+        }
+
+        var subjectDeck = subjectUid;
+        if (TryComp<NetAvatarComponent>(subjectUid, out var avatar) &&
+            avatar.Cyberdeck is { } avatarDeck)
+        {
+            subjectDeck = avatarDeck;
+        }
+
+        return subjectDeck == ownerDeck;
+    }
+
     public bool TryRoot(EntityUid deckUid, EntityUid serverUid, int strength)
     {
         var server = ResolveServer(serverUid);
@@ -538,9 +557,9 @@ public sealed class MetaApiSystem : EntitySystem, IMetaRuntimeApi
         defense.OwnerDeck = deckUid;
         defense.ReservedLoad = load;
         defense.Kind = NetDefenseKind.Demon;
-
-        var demon = EnsureComp<NetDemonComponent>(uid);
-        demon.Damage = Math.Max(1, strength / 10);
+        var ice = EnsureComp<IceHealthComponent>(uid);
+        ice.MaxHealth = Math.Max(25, strength);
+        ice.CurrentHealth = ice.MaxHealth;
 
         ReserveDefense(serverUid.Value, server, uid, defense.ReservedLoad);
         MetaLog(deckUid, Loc.GetString("netrunning-meta-demon-materialized", ("load", defense.ReservedLoad)));
@@ -645,6 +664,34 @@ public sealed class MetaApiSystem : EntitySystem, IMetaRuntimeApi
 
         barrier.AllowNetworkAdmins = enabled;
         Dirty(wallUid, barrier);
+    }
+
+    public void DemonFollow(EntityUid hostUid, EntityUid demonUid, EntityUid targetUid)
+    {
+        var avatarUid = ResolveDigitalAvatar(targetUid);
+        if (avatarUid != null)
+            _demonPursuit.TryFollow(hostUid, demonUid, avatarUid.Value);
+    }
+
+    public void DemonStop(EntityUid hostUid, EntityUid demonUid)
+    {
+        _demonPursuit.TryStop(hostUid, demonUid);
+    }
+
+    public int IsInRange(EntityUid sourceUid, EntityUid targetUid, int tiles)
+    {
+        var source = ResolveDigitalAvatar(sourceUid) ?? sourceUid;
+        var target = ResolveDigitalAvatar(targetUid) ?? targetUid;
+        if (Deleted(source) ||
+            Deleted(target) ||
+            ResolveServer(source) is not { } sourceServer ||
+            ResolveServer(target) != sourceServer)
+        {
+            return -1;
+        }
+
+        var range = Math.Max(0, tiles);
+        return _transform.InRange(Transform(source).Coordinates, Transform(target).Coordinates, range) ? 1 : 0;
     }
 
     public void StunAvatar(EntityUid target, int milliseconds)

@@ -237,6 +237,7 @@ public interface IMetaRuntimeApi
     MetaIntrusionWait? Breach(EntityUid attacker, EntityUid target, bool bypassDefense = false);
     bool HasRoot(EntityUid deckUid, EntityUid serverUid);
     bool IsNetworkAdmin(EntityUid hostUid, EntityUid subjectUid);
+    bool IsProgramOwner(EntityUid hostUid, EntityUid subjectUid);
     bool TryRoot(EntityUid deckUid, EntityUid serverUid, int strength);
     EntityUid? SpawnIce(EntityUid deckUid, EntityUid shardUid, EntityUid anchor, int strength, bool blackIce);
     EntityUid? SpawnDemon(EntityUid deckUid, EntityUid shardUid, EntityUid anchor, int strength);
@@ -244,6 +245,9 @@ public interface IMetaRuntimeApi
     EntityUid? SpawnTrap(EntityUid deckUid, EntityUid shardUid, EntityUid anchor, int offsetX, int offsetY);
     void SetWallAllowOwner(EntityUid deckUid, EntityUid wallUid, bool enabled);
     void SetWallAllowNetworkAdmins(EntityUid deckUid, EntityUid wallUid, bool enabled);
+    void DemonFollow(EntityUid hostUid, EntityUid demonUid, EntityUid targetUid);
+    void DemonStop(EntityUid hostUid, EntityUid demonUid);
+    int IsInRange(EntityUid sourceUid, EntityUid targetUid, int tiles);
     void StunAvatar(EntityUid target, int milliseconds);
     void ApplyNeuralDamage(EntityUid target, int damage);
 }

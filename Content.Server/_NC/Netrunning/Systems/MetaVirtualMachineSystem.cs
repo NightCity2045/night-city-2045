@@ -439,6 +439,19 @@ public sealed class MetaVirtualMachineSystem : EntitySystem
             if (!s.ShouldStop && wall != null)
                 _api.SetWallAllowNetworkAdmins(deckUid, wall.Value, enabled != 0);
         }
+        if (func == "DEMON_FOLLOW")
+        {
+            var demon = EvalPtr(s, ss.Arguments[0]);
+            var target = EvalPtr(s, ss.Arguments[1]);
+            if (!s.ShouldStop && demon != null && target != null)
+                _api.DemonFollow(deckUid, demon.Value, target.Value);
+        }
+        if (func == "DEMON_STOP")
+        {
+            var demon = EvalPtr(s, ss.Arguments[0]);
+            if (!s.ShouldStop && demon != null)
+                _api.DemonStop(deckUid, demon.Value);
+        }
         if (func == "CLOAK")
         {
             var strength = EvalInt(s, ss.Arguments[0]);
@@ -520,6 +533,21 @@ public sealed class MetaVirtualMachineSystem : EntitySystem
             var target = EvalPtr(s, sys.Arguments[0]);
             return !s.ShouldStop && target != null &&
                    _api.IsNetworkAdmin(GetEntity(s.DeckUid), target.Value) ? 1 : 0;
+        }
+        if (f == "IS_PROGRAM_OWNER")
+        {
+            var target = EvalPtr(s, sys.Arguments[0]);
+            return !s.ShouldStop && target != null &&
+                   _api.IsProgramOwner(GetEntity(s.DeckUid), target.Value) ? 1 : 0;
+        }
+        if (f == "IS_IN_RANGE")
+        {
+            var source = EvalPtr(s, sys.Arguments[0]);
+            var target = EvalPtr(s, sys.Arguments[1]);
+            var tiles = EvalInt(s, sys.Arguments[2]);
+            return !s.ShouldStop && source != null && target != null
+                ? _api.IsInRange(source.Value, target.Value, tiles)
+                : -1;
         }
         if (f == "ROOT")
         {

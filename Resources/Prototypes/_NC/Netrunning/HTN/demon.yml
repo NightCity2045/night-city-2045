@@ -1,0 +1,23 @@
+- type: htnCompound
+  id: NCNetDemonPursuitCompound
+  branches:
+  - tasks:
+    - !type:HTNPrimitiveTask
+      preconditions:
+      - !type:CoordinatesNotInRangePrecondition
+        targetKey: FollowTarget
+        rangeKey: FollowCloseRange
+      operator: !type:MoveToOperator
+        pathfindInPlanning: true
+        targetKey: FollowTarget
+        rangeKey: FollowCloseRange
+        removeKeyOnFinish: false
+
+  - tasks:
+    - !type:HTNPrimitiveTask
+      preconditions:
+      - !type:CoordinatesInRangePrecondition
+        targetKey: FollowTarget
+        rangeKey: FollowCloseRange
+      operator: !type:WaitOperator
+        key: NetDemonWait

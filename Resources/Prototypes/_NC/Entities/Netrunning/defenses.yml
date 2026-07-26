@@ -57,11 +57,22 @@
   - type: NetDefense
     kind: Demon
     reservedLoad: 15
-  - type: NetDemon
-    damage: 5
-    pulseInterval: 1.5
-    range: 1.5
   - type: MetaHostedProgram
+    triggerRadius: 3
+    scanInterval: 0.25
+  - type: NetDemonController
+  - type: HTN
+    enabled: false
+    rootTask:
+      task: NCNetDemonPursuitCompound
+    blackboard:
+      FollowCloseRange: !type:Single
+        0.75
+      NetDemonWait: !type:Single
+        0.25
+  - type: IceHealth
+    maxHealth: 100
+    currentHealth: 100
   - type: MovementSpeedModifier
     baseWalkSpeed: 4
     baseSprintSpeed: 6

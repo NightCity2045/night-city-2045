@@ -1,19 +1,16 @@
 using Content.Shared._NC.Netrunning.Components;
-using Content.Shared.Popups;
 using System.Linq;
 
 namespace Content.Server._NC.Netrunning.Systems;
 
 /// <summary>
-///     Owns persistent NET defenses after META has spawned them.
-///     This keeps defense lifecycle and active demon pulses out of components.
+///     Owns persistent physical META programs after they are materialized.
+///     C# only detects entrants and manages server load; program effects remain in META.
 /// </summary>
 public sealed class NetDefenseSystem : EntitySystem
 {
     [Dependency] private readonly EntityLookupSystem _lookup = default!;
-    [Dependency] private readonly MetaApiSystem _metaApi = default!;
     [Dependency] private readonly MetaDaemonSystem _metaDaemon = default!;
-    [Dependency] private readonly SharedPopupSystem _popup = default!;
 
     public override void Initialize()
     {
@@ -25,28 +22,14 @@ public sealed class NetDefenseSystem : EntitySystem
     {
         base.Update(frameTime);
 
-        UpdateHostedIce(frameTime);
-
-        var query = EntityQueryEnumerator<NetDemonComponent, NetDefenseComponent>();
-        while (query.MoveNext(out var uid, out var demon, out var defense))
-        {
-            demon.Accumulator += frameTime;
-            if (demon.Accumulator < demon.PulseInterval)
-                continue;
-
-            demon.Accumulator = 0f;
-            PulseDemon(uid, demon, defense);
-        }
+        UpdateHostedPrograms(frameTime);
     }
 
-    private void UpdateHostedIce(float frameTime)
+    private void UpdateHostedPrograms(float frameTime)
     {
         var query = EntityQueryEnumerator<MetaHostedProgramComponent, NetDefenseComponent>();
         while (query.MoveNext(out var uid, out var hosted, out var defense))
         {
-            if (defense.Kind is not (NetDefenseKind.Ice or NetDefenseKind.BlackIce or NetDefenseKind.Trap))
-                continue;
-
             if (hosted.ProgramShard is not { } programShard || Deleted(programShard))
             {
                 QueueDel(uid);
@@ -58,32 +41,27 @@ public sealed class NetDefenseSystem : EntitySystem
                 continue;
 
             hosted.ScanAccumulator %= Math.Max(0.01f, hosted.ScanInterval);
-            ScanHostedIce(uid, hosted, defense);
+            ScanHostedProgram(uid, hosted);
         }
     }
 
-    private void ScanHostedIce(
+    private void ScanHostedProgram(
         EntityUid uid,
-        MetaHostedProgramComponent hosted,
-        NetDefenseComponent defense)
+        MetaHostedProgramComponent hosted)
     {
         var present = new HashSet<EntityUid>();
         foreach (var target in _lookup.GetEntitiesInRange<NetAvatarComponent>(
                      Transform(uid).Coordinates,
                      hosted.TriggerRadius))
         {
-            if (target.Comp.Cyberdeck is not { } intruderDeck ||
-                intruderDeck == defense.OwnerDeck)
-            {
+            if (target.Comp.Cyberdeck is not { } intruderDeck)
                 continue;
-            }
 
             present.Add(target.Owner);
             if (!hosted.IntrudersInRange.Add(target.Owner))
                 continue;
 
-            // The physical ICE is the protected host; the avatar is used for feedback,
-            // while its linked deck remains the META intrusion identity.
+            // Every entrant reaches META; the script decides whether owner/admin status matters.
             _metaDaemon.NotifyIntrusion(uid, intruderDeck, target.Owner);
         }
 
@@ -91,22 +69,6 @@ public sealed class NetDefenseSystem : EntitySystem
         {
             if (!present.Contains(previous))
                 hosted.IntrudersInRange.Remove(previous);
-        }
-    }
-
-    private void PulseDemon(EntityUid uid, NetDemonComponent demon, NetDefenseComponent defense)
-    {
-        foreach (var target in _lookup.GetEntitiesInRange<NetAvatarComponent>(Transform(uid).Coordinates, demon.Range))
-        {
-            if (target.Owner == uid)
-                continue;
-
-            if (defense.OwnerDeck is { } ownerDeck &&
-                target.Comp.Cyberdeck == ownerDeck)
-                continue;
-
-            _metaApi.ApplyNeuralDamage(target.Owner, demon.Damage);
-            _popup.PopupEntity("BLACK ICE bites through your neural link.", target.Owner, target.Owner, PopupType.LargeCaution);
         }
     }
 

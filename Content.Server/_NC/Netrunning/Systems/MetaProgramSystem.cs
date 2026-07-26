@@ -19,6 +19,7 @@ using System.Linq;
 using Robust.Shared.Player;
 using Content.Shared.Damage;
 using Content.Shared.Stunnable;
+using Robust.Shared.Log;
 
 namespace Content.Server._NC.Netrunning.Systems;
 
@@ -29,6 +30,7 @@ public sealed class MetaProgramStateChangedEvent : EntityEventArgs
 public sealed class MetaProgramSystem : EntitySystem
 {
     private const float RamRecoveryInterval = 1f;
+    private readonly ISawmill _sawmill = Logger.GetSawmill("meta.compiler");
 
     [Dependency] private readonly SharedPopupSystem _popup = default!;
     [Dependency] private readonly MetaCompilerSystem _compiler = default!;
@@ -67,8 +69,13 @@ public sealed class MetaProgramSystem : EntitySystem
 
     private void OnShardMapInit(EntityUid uid, DataShardComponent component, MapInitEvent args)
     {
-        if (string.IsNullOrWhiteSpace(component.SourceCode)) return;
-        TryCompile(uid, component, EntityUid.Invalid, out _);
+        if (string.IsNullOrWhiteSpace(component.SourceCode))
+            return;
+
+        // Prototype META is compiled at map initialization, so surface failures that
+        // would otherwise leave the shard looking like a valid zero-RAM program.
+        if (!TryCompile(uid, component, EntityUid.Invalid, out var error))
+            _sawmill.Error($"Failed to compile DataShard {ToPrettyString(uid)}: {error ?? "unknown error"}");
     }
 
     private void OnDeckUse(EntityUid uid, CyberdeckComponent component, UseInHandEvent args)

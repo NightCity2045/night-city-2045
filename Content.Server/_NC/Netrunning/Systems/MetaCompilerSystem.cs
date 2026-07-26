@@ -36,6 +36,7 @@ public sealed class MetaCompilerSystem : EntitySystem
         ["LOG"] = (1, 1),
         ["HAS_ROOT"] = (1, 1),
         ["IS_NETWORK_ADMIN"] = (1, 1),
+        ["IS_PROGRAM_OWNER"] = (1, 1),
         ["ROOT"] = (2, 2),
         ["SPAWN_ICE"] = (2, 2),
         ["SPAWN_BLACK_ICE"] = (2, 2),
@@ -44,6 +45,9 @@ public sealed class MetaCompilerSystem : EntitySystem
         ["SPAWN_TRAP"] = (3, 3),
         ["WALL_ALLOW_OWNER"] = (2, 2),
         ["WALL_ALLOW_ADMINS"] = (2, 2),
+        ["DEMON_FOLLOW"] = (2, 2),
+        ["DEMON_STOP"] = (1, 1),
+        ["IS_IN_RANGE"] = (3, 3),
         ["STUN_AVATAR"] = (2, 2),
         ["DUMPSHOCK"] = (2, 2),
     };
@@ -314,8 +318,8 @@ public sealed class MetaCompilerSystem : EntitySystem
             "GET_EVENT_SOURCE" or "FIND_NEAREST" => MetaValueType.Ptr,
             "GET_CONNECTED" or "GET_FILES" or "GET_VITALS" => MetaValueType.Arr,
             "GET_CLASS" => MetaValueType.Str,
-            "GET_ICE" or "GET_TRACE" or "ARR_LENGTH" or "IS_VALID" => MetaValueType.Int,
-            "HAS_ROOT" or "IS_NETWORK_ADMIN" or "ROOT" => MetaValueType.Int,
+            "GET_ICE" or "GET_TRACE" or "ARR_LENGTH" or "IS_VALID" or "IS_IN_RANGE" => MetaValueType.Int,
+            "HAS_ROOT" or "IS_NETWORK_ADMIN" or "IS_PROGRAM_OWNER" or "ROOT" => MetaValueType.Int,
             "SPAWN_ICE" or "SPAWN_BLACK_ICE" or "SPAWN_DEMON" or "SPAWN_WALL" or "SPAWN_TRAP" => MetaValueType.Ptr,
             _ => MetaValueType.Int
         };
@@ -390,7 +394,9 @@ public sealed class MetaCompilerSystem : EntitySystem
             case "GET_FILES":
             case "HAS_ROOT":
             case "IS_NETWORK_ADMIN":
+            case "IS_PROGRAM_OWNER":
             case "GET_VITALS":
+            case "DEMON_STOP":
                 return args.Count > 0 && ExpectType(args[0], MetaValueType.Ptr, ctx, out error);
             case "ROOT":
             case "SPAWN_ICE":
@@ -401,6 +407,15 @@ public sealed class MetaCompilerSystem : EntitySystem
             case "WALL_ALLOW_OWNER":
             case "WALL_ALLOW_ADMINS":
                 return args.Count > 1 && ExpectType(args[0], MetaValueType.Ptr, ctx, out error) && ExpectType(args[1], MetaValueType.Int, ctx, out error);
+            case "DEMON_FOLLOW":
+                return args.Count > 1 &&
+                       ExpectType(args[0], MetaValueType.Ptr, ctx, out error) &&
+                       ExpectType(args[1], MetaValueType.Ptr, ctx, out error);
+            case "IS_IN_RANGE":
+                return args.Count > 2 &&
+                       ExpectType(args[0], MetaValueType.Ptr, ctx, out error) &&
+                       ExpectType(args[1], MetaValueType.Ptr, ctx, out error) &&
+                       ExpectType(args[2], MetaValueType.Int, ctx, out error);
             case "SPAWN_WALL":
             case "SPAWN_TRAP":
                 return args.Count > 2 &&
@@ -431,18 +446,23 @@ public sealed class MetaCompilerSystem : EntitySystem
 
     private static bool ContainsYield(List<MetaInstruction> body)
     {
-        foreach (var i in body)
+        foreach (var instruction in body)
         {
-            if (i is MetaYieldInstruction)
-                return true;
-            if (i is MetaIfInstruction ifi)
+            switch (instruction)
             {
-                if (ContainsYield(ifi.ThenBody))
+                case MetaYieldInstruction:
                     return true;
-                if (ifi.ElseBody != null && ContainsYield(ifi.ElseBody))
+                case MetaIfInstruction conditional
+                    when ContainsYield(conditional.ThenBody) ||
+                         conditional.ElseBody != null && ContainsYield(conditional.ElseBody):
+                    return true;
+                case MetaWhileInstruction whileLoop when ContainsYield(whileLoop.Body):
+                    return true;
+                case MetaForInstruction forLoop when ContainsYield(forLoop.Body):
                     return true;
             }
         }
+
         return false;
     }
 
@@ -568,6 +588,7 @@ public sealed class MetaCompilerSystem : EntitySystem
             "INJECT" or "BURN_NEUROPORT" or "DUMPSHOCK" or "STUN_AVATAR" or
                 "SPAWN_ICE" or "SPAWN_BLACK_ICE" or "SPAWN_DEMON" or "SPAWN_WALL" or "SPAWN_TRAP" => 5,
             "WALL_ALLOW_OWNER" or "WALL_ALLOW_ADMINS" => 2,
+            "DEMON_FOLLOW" or "DEMON_STOP" or "IS_IN_RANGE" => 3,
             "GET_CLASS" or "GET_VITALS" or "CLOAK" or "OVERRIDE" or "DISCONNECT" or "BREACH" => 2,
             _ => 1,
         };
