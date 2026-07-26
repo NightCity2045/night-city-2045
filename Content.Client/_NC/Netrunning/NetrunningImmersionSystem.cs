@@ -71,7 +71,7 @@ public sealed class NetrunningImmersionSystem : EntitySystem
     {
         if (_defense != null && _defense.TransactionId == ev.TransactionId)
         {
-            _defense.RefreshCountdown(ev.ResponseMilliseconds);
+            _defense.RefreshState(ev.ResponseMilliseconds, ev.ThreatHealth, ev.ThreatMaxHealth);
             return;
         }
 
@@ -96,7 +96,7 @@ public sealed class NetrunningImmersionSystem : EntitySystem
         if (_defense == null || _defense.TransactionId != ev.TransactionId)
             return;
 
-        _defense.ShowResponseStatus(ev.Accepted);
+        _defense.ShowResponseStatus(ev);
     }
 
     private void OnDefenseResolved(NetrunningDefenseResolvedEvent ev)
@@ -255,13 +255,13 @@ public sealed class NetrunningDefenseControl : Control
     public int TransactionId { get; }
 
     private readonly Label _countdown;
+    private readonly Label _health;
     private readonly Label _status;
-    private readonly ItemList _shards;
-    private readonly Button _execute;
     private readonly ProgressBar _execution;
+    private readonly List<Button> _responseButtons = new();
     private float _totalTime;
     private float _timeLeft;
-    private NetEntity? _selectedShard;
+    private bool _responseSent;
 
     public NetrunningDefenseControl(NetrunningDefenseWindowEvent state)
     {
@@ -274,120 +274,106 @@ public sealed class NetrunningDefenseControl : Control
         VerticalExpand = true;
         LayoutContainer.SetAnchorPreset(this, LayoutContainer.LayoutPreset.Wide);
 
-        var panel = new PanelContainer
-        {
-            MouseFilter = MouseFilterMode.Stop,
-            PanelOverride = new StyleBoxFlat
-            {
-                BackgroundColor = Color.FromHex("#09090b").WithAlpha(0.97f),
-                BorderColor = Color.FromHex("#ff2438"),
-                BorderThickness = new Thickness(2),
-                ContentMarginLeftOverride = 14,
-                ContentMarginRightOverride = 14,
-                ContentMarginTopOverride = 12,
-                ContentMarginBottomOverride = 12,
-            },
-            MinSize = new Vector2(470, 330),
-        };
-
-        var root = new BoxContainer
+        var overlay = new BoxContainer
         {
             Orientation = BoxContainer.LayoutOrientation.Vertical,
-            SeparationOverride = 7,
+            SeparationOverride = 5,
+            MinSize = new Vector2(420, 0),
+            MaxSize = new Vector2(420, 460),
+            MouseFilter = MouseFilterMode.Ignore,
         };
-        root.AddChild(new Label
+
+        overlay.AddChild(CreateSignalLine(Color.FromHex("#ff2438"), 3));
+        overlay.AddChild(new Label
         {
-            Text = Loc.GetString("netrunning-defense-window-title"),
+            Text = Loc.GetString("netrunning-defense-overlay-title"),
             FontColorOverride = Color.FromHex("#ff2438"),
         });
-        root.AddChild(new Label
+        overlay.AddChild(new Label
         {
-            Text = Loc.GetString("netrunning-defense-window-program", ("program", state.DefenseName)),
+            Text = Loc.GetString("netrunning-defense-overlay-threat", ("threat", state.DefenseName)),
             FontColorOverride = Color.FromHex("#ff9b38"),
         });
+
+        _health = new Label
+        {
+            FontColorOverride = Color.FromHex("#ff5263"),
+        };
+        overlay.AddChild(_health);
 
         _countdown = new Label
         {
             FontColorOverride = Color.FromHex("#ff2438"),
         };
-        root.AddChild(_countdown);
-        root.AddChild(new Label
-        {
-            Text = Loc.GetString("netrunning-defense-window-telemetry"),
-            FontColorOverride = Color.FromHex("#77d8ff"),
-        });
+        overlay.AddChild(_countdown);
+
         _execution = new ProgressBar
         {
             MinValue = 0,
             MaxValue = 1,
             Value = 0,
-            MinHeight = 12,
+            MinHeight = 8,
             HorizontalExpand = true,
+            BackgroundStyleBoxOverride = new StyleBoxFlat
+            {
+                BackgroundColor = Color.FromHex("#25050a").WithAlpha(0.55f),
+            },
+            ForegroundStyleBoxOverride = new StyleBoxFlat
+            {
+                BackgroundColor = Color.FromHex("#ff2438"),
+            },
         };
-        root.AddChild(_execution);
+        overlay.AddChild(_execution);
 
-        root.AddChild(new Label
+        overlay.AddChild(new Label
         {
-            Text = Loc.GetString("netrunning-defense-window-consequences"),
+            Text = Loc.GetString("netrunning-defense-overlay-payload"),
             FontColorOverride = Color.FromHex("#77d8ff"),
         });
-        root.AddChild(new Label
+        overlay.AddChild(new Label
         {
-            Text = string.Join("\n", state.Consequences.Select(GetConsequenceText)),
+            Text = string.Join("  //  ", state.Consequences.Select(GetConsequenceText)),
             FontColorOverride = Color.White,
         });
-        root.AddChild(new Label
+
+        overlay.AddChild(CreateSignalLine(Color.FromHex("#77d8ff"), 1));
+        overlay.AddChild(new Label
         {
-            Text = Loc.GetString("netrunning-defense-window-scripts"),
+            Text = Loc.GetString("netrunning-defense-overlay-countermeasures"),
             FontColorOverride = Color.FromHex("#77d8ff"),
         });
 
-        _shards = new ItemList
-        {
-            VerticalExpand = true,
-            MinHeight = 110,
-        };
-        _execute = new Button
-        {
-            Text = Loc.GetString("netrunning-defense-window-execute"),
-            Disabled = true,
-            HorizontalExpand = true,
-        };
         foreach (var shard in state.Shards)
         {
-            _shards.AddItem(
-                Loc.GetString("netrunning-defense-window-shard",
+            var button = new Button
+            {
+                Text = Loc.GetString("netrunning-defense-overlay-script",
                     ("name", shard.Name),
                     ("ram", shard.RamCost)),
-                metadata: shard.Shard);
+                HorizontalExpand = true,
+                MouseFilter = MouseFilterMode.Stop,
+                StyleBoxOverride = CreateResponseStyle(),
+            };
+            var shardUid = shard.Shard;
+            button.OnPressed += _ => SubmitResponse(shardUid);
+            _responseButtons.Add(button);
+            overlay.AddChild(button);
         }
-        _shards.OnItemSelected += args =>
-        {
-            _selectedShard = (NetEntity) args.ItemList[args.ItemIndex].Metadata!;
-            _execute.Disabled = false;
-        };
-        root.AddChild(_shards);
 
         _status = new Label
         {
             Text = state.Shards.Count == 0
                 ? Loc.GetString("netrunning-defense-window-no-scripts")
-                : Loc.GetString("netrunning-defense-window-select"),
+                : Loc.GetString("netrunning-defense-overlay-select"),
             FontColorOverride = state.Shards.Count == 0 ? Color.FromHex("#ff2438") : Color.LightGray,
         };
-        root.AddChild(_status);
+        overlay.AddChild(_status);
+        overlay.AddChild(CreateSignalLine(Color.FromHex("#ff2438"), 2));
 
-        _execute.OnPressed += _ =>
-        {
-            if (_selectedShard is { } shard)
-                OnResponseSelected?.Invoke(shard);
-        };
-        root.AddChild(_execute);
-
-        panel.AddChild(root);
-        AddChild(panel);
-        LayoutContainer.SetAnchorPreset(panel, LayoutContainer.LayoutPreset.CenterRight);
-        LayoutContainer.SetMarginRight(panel, 24);
+        AddChild(overlay);
+        LayoutContainer.SetAnchorPreset(overlay, LayoutContainer.LayoutPreset.CenterRight);
+        LayoutContainer.SetMarginRight(overlay, 32);
+        UpdateHealth(state.ThreatHealth, state.ThreatMaxHealth);
         UpdateCountdown();
     }
 
@@ -399,42 +385,75 @@ public sealed class NetrunningDefenseControl : Control
 
         _timeLeft = Math.Max(0f, _timeLeft - args.DeltaSeconds);
         UpdateCountdown();
+        if (_timeLeft <= 0f && !_responseSent)
+        {
+            SetResponseButtonsDisabled(true);
+            _status.Text = Loc.GetString("netrunning-defense-overlay-expired");
+            _status.FontColorOverride = Color.FromHex("#ff2438");
+        }
     }
 
     public void MarkResponsePending()
     {
-        _execute.Disabled = true;
-        _shards.MouseFilter = MouseFilterMode.Ignore;
+        _responseSent = true;
+        SetResponseButtonsDisabled(true);
         _status.Text = Loc.GetString("netrunning-defense-window-response-pending");
         _status.FontColorOverride = Color.FromHex("#ff9b38");
     }
 
-    public void ShowResponseStatus(bool accepted)
+    public void ShowResponseStatus(NetrunningDefenseResponseStatusEvent state)
     {
-        if (accepted)
+        UpdateHealth(state.ThreatHealth, state.ThreatMaxHealth);
+        switch (state.Status)
         {
-            _status.Text = Loc.GetString("netrunning-defense-window-response-sent");
-            _status.FontColorOverride = Color.FromHex("#77d8ff");
-            return;
+            case NetrunningDefenseResponseStatus.Accepted when state.ThreatHealth <= 0 && state.DamageDealt > 0:
+                _status.Text = Loc.GetString("netrunning-defense-overlay-destroyed",
+                    ("damage", state.DamageDealt));
+                _status.FontColorOverride = Color.FromHex("#77d8ff");
+                break;
+            case NetrunningDefenseResponseStatus.Accepted when state.DamageDealt > 0:
+                _status.Text = Loc.GetString("netrunning-defense-overlay-hit",
+                    ("damage", state.DamageDealt),
+                    ("health", state.ThreatHealth));
+                _status.FontColorOverride = Color.FromHex("#77d8ff");
+                break;
+            case NetrunningDefenseResponseStatus.Accepted:
+                _status.Text = Loc.GetString("netrunning-defense-window-response-sent");
+                _status.FontColorOverride = Color.FromHex("#77d8ff");
+                break;
+            case NetrunningDefenseResponseStatus.Expired:
+                _status.Text = Loc.GetString("netrunning-defense-overlay-too-late");
+                _status.FontColorOverride = Color.FromHex("#ff2438");
+                break;
+            default:
+                _responseSent = false;
+                SetResponseButtonsDisabled(_timeLeft <= 0f);
+                _status.Text = Loc.GetString("netrunning-defense-window-response-rejected");
+                _status.FontColorOverride = Color.FromHex("#ff2438");
+                break;
         }
-
-        _shards.MouseFilter = MouseFilterMode.Stop;
-        _execute.Disabled = _selectedShard == null;
-        _status.Text = Loc.GetString("netrunning-defense-window-response-rejected");
-        _status.FontColorOverride = Color.FromHex("#ff2438");
     }
 
-    public void RefreshCountdown(int milliseconds)
+    public void RefreshState(int milliseconds, int threatHealth, int threatMaxHealth)
     {
         _timeLeft = Math.Max(0f, milliseconds / 1000f);
         _totalTime = Math.Max(0.001f, _timeLeft);
+        UpdateHealth(threatHealth, threatMaxHealth);
+        if (!_responseSent)
+        {
+            SetResponseButtonsDisabled(_timeLeft <= 0f);
+            if (_timeLeft > 0f)
+            {
+                _status.Text = Loc.GetString("netrunning-defense-overlay-select");
+                _status.FontColorOverride = Color.LightGray;
+            }
+        }
         UpdateCountdown();
     }
 
     public void ShowResolution(bool attackApplied)
     {
-        _execute.Disabled = true;
-        _shards.MouseFilter = MouseFilterMode.Ignore;
+        SetResponseButtonsDisabled(true);
         _status.Text = Loc.GetString(attackApplied
             ? "netrunning-defense-window-attack-applied"
             : "netrunning-defense-window-attack-cancelled");
@@ -446,6 +465,58 @@ public sealed class NetrunningDefenseControl : Control
         _execution.Value = 1f - _timeLeft / _totalTime;
         _countdown.Text = Loc.GetString("netrunning-defense-window-countdown",
             ("seconds", MathF.Ceiling(_timeLeft * 10f) / 10f));
+    }
+
+    private void SubmitResponse(NetEntity shard)
+    {
+        if (_responseSent || _timeLeft <= 0f)
+            return;
+
+        MarkResponsePending();
+        OnResponseSelected?.Invoke(shard);
+    }
+
+    private void SetResponseButtonsDisabled(bool disabled)
+    {
+        foreach (var button in _responseButtons)
+            button.Disabled = disabled;
+    }
+
+    private void UpdateHealth(int health, int maxHealth)
+    {
+        _health.Text = maxHealth > 0
+            ? Loc.GetString("netrunning-defense-overlay-integrity",
+                ("health", Math.Max(0, health)),
+                ("max", maxHealth))
+            : Loc.GetString("netrunning-defense-overlay-integrity-unknown");
+    }
+
+    private static PanelContainer CreateSignalLine(Color color, int height)
+    {
+        return new PanelContainer
+        {
+            MinHeight = height,
+            HorizontalExpand = true,
+            MouseFilter = MouseFilterMode.Ignore,
+            PanelOverride = new StyleBoxFlat
+            {
+                BackgroundColor = color,
+            },
+        };
+    }
+
+    private static StyleBoxFlat CreateResponseStyle()
+    {
+        return new StyleBoxFlat
+        {
+            BackgroundColor = Color.FromHex("#160308").WithAlpha(0.78f),
+            BorderColor = Color.FromHex("#ff2438"),
+            BorderThickness = new Thickness(1),
+            ContentMarginLeftOverride = 10,
+            ContentMarginRightOverride = 10,
+            ContentMarginTopOverride = 7,
+            ContentMarginBottomOverride = 7,
+        };
     }
 
     private static string GetConsequenceText(NetrunningDefenseConsequence consequence)

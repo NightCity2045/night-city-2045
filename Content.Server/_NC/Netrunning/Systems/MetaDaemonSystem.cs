@@ -498,15 +498,32 @@ public sealed class MetaDaemonSystem : EntitySystem
             Deleted(target))
         {
             RaiseNetworkEvent(
-                new NetrunningDefenseResponseStatusEvent(ev.TransactionId, false),
+                new NetrunningDefenseResponseStatusEvent(
+                    ev.TransactionId,
+                    NetrunningDefenseResponseStatus.Expired),
                 args.SenderSession);
             return;
         }
 
+        var healthBefore = TryComp<IceHealthComponent>(target, out var iceBefore)
+            ? iceBefore.CurrentHealth
+            : 0;
+        var maxHealth = iceBefore?.MaxHealth ?? 0;
         var response = new MetaDefenseResponseRequestedEvent(actor, shardUid, target);
         RaiseLocalEvent(deckUid, response);
+
+        var healthAfter = TryComp<IceHealthComponent>(target, out var iceAfter)
+            ? iceAfter.CurrentHealth
+            : 0;
         RaiseNetworkEvent(
-            new NetrunningDefenseResponseStatusEvent(ev.TransactionId, response.Accepted),
+            new NetrunningDefenseResponseStatusEvent(
+                ev.TransactionId,
+                response.Accepted
+                    ? NetrunningDefenseResponseStatus.Accepted
+                    : NetrunningDefenseResponseStatus.Rejected,
+                Math.Max(0, healthBefore - healthAfter),
+                healthAfter,
+                maxHealth),
             args.SenderSession);
     }
 
@@ -545,6 +562,10 @@ public sealed class MetaDaemonSystem : EntitySystem
         }
 
         var consequences = CollectConsequences(defenseShard.Bytecode);
+        var threatHealth = TryComp<IceHealthComponent>(hostUid, out var ice)
+            ? ice.CurrentHealth
+            : 0;
+        var threatMaxHealth = ice?.MaxHealth ?? 0;
         var feedbackTarget = Deleted(transaction.FeedbackTarget)
             ? _api.ResolveFeedbackTarget(transaction.Intruder)
             : transaction.FeedbackTarget;
@@ -552,8 +573,10 @@ public sealed class MetaDaemonSystem : EntitySystem
             GetNetEntity(transaction.Intruder),
             GetNetEntity(serverUid),
             transactionId,
-            Name(active.Shard),
+            Name(hostUid),
             responseMilliseconds,
+            threatHealth,
+            threatMaxHealth,
             consequences,
             shards), feedbackTarget);
     }

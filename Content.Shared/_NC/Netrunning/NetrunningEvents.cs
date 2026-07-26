@@ -37,6 +37,14 @@ public enum NetrunningDefenseConsequence : byte
     Override,
 }
 
+[Serializable, NetSerializable]
+public enum NetrunningDefenseResponseStatus : byte
+{
+    Accepted,
+    Expired,
+    Rejected,
+}
+
 /// <summary>
 /// Opens or refreshes the netrunner's response window for an active intrusion transaction.
 /// </summary>
@@ -48,6 +56,8 @@ public sealed class NetrunningDefenseWindowEvent : EntityEventArgs
     public readonly int TransactionId;
     public readonly string DefenseName;
     public readonly int ResponseMilliseconds;
+    public readonly int ThreatHealth;
+    public readonly int ThreatMaxHealth;
     public readonly List<NetrunningDefenseConsequence> Consequences;
     public readonly List<NetrunningResponseShardInfo> Shards;
 
@@ -57,6 +67,8 @@ public sealed class NetrunningDefenseWindowEvent : EntityEventArgs
         int transactionId,
         string defenseName,
         int responseMilliseconds,
+        int threatHealth,
+        int threatMaxHealth,
         List<NetrunningDefenseConsequence> consequences,
         List<NetrunningResponseShardInfo> shards)
     {
@@ -65,6 +77,8 @@ public sealed class NetrunningDefenseWindowEvent : EntityEventArgs
         TransactionId = transactionId;
         DefenseName = defenseName;
         ResponseMilliseconds = responseMilliseconds;
+        ThreatHealth = threatHealth;
+        ThreatMaxHealth = threatMaxHealth;
         Consequences = consequences;
         Shards = shards;
     }
@@ -94,12 +108,23 @@ public sealed class NetrunningDefenseResponseEvent : EntityEventArgs
 public sealed class NetrunningDefenseResponseStatusEvent : EntityEventArgs
 {
     public readonly int TransactionId;
-    public readonly bool Accepted;
+    public readonly NetrunningDefenseResponseStatus Status;
+    public readonly int DamageDealt;
+    public readonly int ThreatHealth;
+    public readonly int ThreatMaxHealth;
 
-    public NetrunningDefenseResponseStatusEvent(int transactionId, bool accepted)
+    public NetrunningDefenseResponseStatusEvent(
+        int transactionId,
+        NetrunningDefenseResponseStatus status,
+        int damageDealt = 0,
+        int threatHealth = 0,
+        int threatMaxHealth = 0)
     {
         TransactionId = transactionId;
-        Accepted = accepted;
+        Status = status;
+        DamageDealt = damageDealt;
+        ThreatHealth = threatHealth;
+        ThreatMaxHealth = threatMaxHealth;
     }
 }
 

@@ -343,6 +343,10 @@
               DEF PTR self = SYS.GET_SELF();
               SYS.DEMON_FOLLOW(self, intruder);
 
+              // The demon moves during this real META delay. Lower values attack
+              // faster, but increase execution pressure and thermal load.
+              YIELD [3000];
+
               WHILE (
                   SYS.IS_VALID(intruder) == 1 &&
                   SYS.IS_IN_RANGE(self, intruder, 1) == 0
@@ -351,7 +355,6 @@
               }
 
               IF (SYS.IS_IN_RANGE(self, intruder, 1) == 1) {
-                  YIELD [500];
                   SYS.BURN_NEUROPORT(intruder, 15);
               }
 

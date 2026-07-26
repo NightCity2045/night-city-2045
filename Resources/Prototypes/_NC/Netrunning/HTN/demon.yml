@@ -8,7 +8,9 @@
         targetKey: FollowTarget
         rangeKey: FollowCloseRange
       operator: !type:MoveToOperator
-        pathfindInPlanning: true
+        # Digital room grids are not guaranteed to have a path available while
+        # the HTN plan is assembled. Steering requests it after movement starts.
+        pathfindInPlanning: false
         targetKey: FollowTarget
         rangeKey: FollowCloseRange
         removeKeyOnFinish: false

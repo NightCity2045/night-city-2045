@@ -39,6 +39,16 @@ public sealed class NetDemonPursuitSystem : EntitySystem
                 _netServer.ResolveNetworkServer(target) != defense.Server)
             {
                 StopInternal(uid, controller, htn);
+                continue;
+            }
+
+            // Digital grids may not have a path ready during the first HTN plan.
+            // Keep the META-selected target and request another movement-only plan.
+            if (!htn.Enabled || htn.Plan == null)
+            {
+                _npc.WakeNPC(uid, htn);
+                _htn.SetHTNEnabled((uid, htn), true);
+                _htn.Replan(htn);
             }
         }
     }
@@ -65,8 +75,9 @@ public sealed class NetDemonPursuitSystem : EntitySystem
             NPCBlackboard.FollowTarget,
             new EntityCoordinates(targetUid, Vector2.Zero),
             htn);
-        _htn.SetHTNEnabled((demonUid, htn), true);
         _npc.WakeNPC(demonUid, htn);
+        _htn.SetHTNEnabled((demonUid, htn), true);
+        _htn.Replan(htn);
         return true;
     }
 
