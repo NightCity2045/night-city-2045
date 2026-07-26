@@ -24,7 +24,44 @@ public sealed class MetaExecutionBudgetSystem : EntitySystem
         _settings = _prototypes.Index<MetaRuntimeSettingsPrototype>(MetaRuntimeSettingsPrototype.DefaultId);
     }
 
-    public bool TryConsume()
+    public int ClampProgramHealth(int health)
+    {
+        var minimum = Math.Max(1, _settings.MinimumProgramHealth);
+        var maximum = Math.Max(minimum, _settings.MaximumProgramHealth);
+        return Math.Clamp(health, minimum, maximum);
+    }
+
+    public int ClampIceDamage(int damage)
+    {
+        return Math.Clamp(damage, 0, Math.Max(0, _settings.MaximumIceDamage));
+    }
+
+    public int ClampNeuralDamage(int damage)
+    {
+        return Math.Clamp(damage, 0, Math.Max(0, _settings.MaximumNeuralDamage));
+    }
+
+    public int GetProgramHealthLoad(int health)
+    {
+        return ScaleCost(ClampProgramHealth(health), _settings.ProgramHealthPerServerLoad);
+    }
+
+    public int GetProgramHealthGas(int health)
+    {
+        return ScaleCost(ClampProgramHealth(health), _settings.ProgramHealthPerGas);
+    }
+
+    public int GetIceDamageGas(int damage)
+    {
+        return ScaleCost(ClampIceDamage(damage), _settings.IceDamagePerGas);
+    }
+
+    public int GetNeuralDamageGas(int damage)
+    {
+        return ScaleCost(ClampNeuralDamage(damage), _settings.NeuralDamagePerGas);
+    }
+
+    public bool TryConsume(int operations = 1)
     {
         if (_budgetTick != _timing.CurTick)
         {
@@ -32,10 +69,22 @@ public sealed class MetaExecutionBudgetSystem : EntitySystem
             _remainingOperations = Math.Max(1, _settings.GlobalOperationsPerTick);
         }
 
-        if (_remainingOperations <= 0)
+        var cost = Math.Max(1, operations);
+        if (_remainingOperations < cost)
+        {
+            _remainingOperations = 0;
             return false;
+        }
 
-        _remainingOperations--;
+        _remainingOperations -= cost;
         return true;
+    }
+
+    private static int ScaleCost(int value, int unitsPerCost)
+    {
+        if (value <= 0)
+            return 0;
+
+        return (int) Math.Ceiling(value / (double) Math.Max(1, unitsPerCost));
     }
 }

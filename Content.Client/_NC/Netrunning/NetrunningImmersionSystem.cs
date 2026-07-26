@@ -25,6 +25,7 @@ public sealed class NetrunningImmersionSystem : EntitySystem
         SubscribeNetworkEvent<NetrunningImmersionEvent>(OnImmersionEvent);
         SubscribeNetworkEvent<NetrunningFeedbackEvent>(OnFeedbackEvent);
         SubscribeNetworkEvent<NetrunningDefenseWindowEvent>(OnDefenseWindow);
+        SubscribeNetworkEvent<NetrunningDefenseResponseStatusEvent>(OnDefenseResponseStatus);
         SubscribeNetworkEvent<NetrunningDefenseResolvedEvent>(OnDefenseResolved);
     }
 
@@ -68,6 +69,12 @@ public sealed class NetrunningImmersionSystem : EntitySystem
 
     private void OnDefenseWindow(NetrunningDefenseWindowEvent ev)
     {
+        if (_defense != null && _defense.TransactionId == ev.TransactionId)
+        {
+            _defense.RefreshCountdown(ev.ResponseMilliseconds);
+            return;
+        }
+
         if (_defense != null)
             _uiManager.WindowRoot.RemoveChild(_defense);
 
@@ -79,9 +86,17 @@ public sealed class NetrunningImmersionSystem : EntitySystem
                 ev.Server,
                 ev.TransactionId,
                 shard));
-            _defense?.MarkResponseSent();
+            _defense?.MarkResponsePending();
         };
         _uiManager.WindowRoot.AddChild(_defense);
+    }
+
+    private void OnDefenseResponseStatus(NetrunningDefenseResponseStatusEvent ev)
+    {
+        if (_defense == null || _defense.TransactionId != ev.TransactionId)
+            return;
+
+        _defense.ShowResponseStatus(ev.Accepted);
     }
 
     private void OnDefenseResolved(NetrunningDefenseResolvedEvent ev)
@@ -243,6 +258,8 @@ public sealed class NetrunningDefenseControl : Control
     private readonly Label _status;
     private readonly ItemList _shards;
     private readonly Button _execute;
+    private readonly ProgressBar _execution;
+    private float _totalTime;
     private float _timeLeft;
     private NetEntity? _selectedShard;
 
@@ -250,6 +267,7 @@ public sealed class NetrunningDefenseControl : Control
     {
         TransactionId = state.TransactionId;
         _timeLeft = Math.Max(0f, state.ResponseMilliseconds / 1000f);
+        _totalTime = Math.Max(0.001f, _timeLeft);
 
         MouseFilter = MouseFilterMode.Ignore;
         HorizontalExpand = true;
@@ -293,6 +311,20 @@ public sealed class NetrunningDefenseControl : Control
             FontColorOverride = Color.FromHex("#ff2438"),
         };
         root.AddChild(_countdown);
+        root.AddChild(new Label
+        {
+            Text = Loc.GetString("netrunning-defense-window-telemetry"),
+            FontColorOverride = Color.FromHex("#77d8ff"),
+        });
+        _execution = new ProgressBar
+        {
+            MinValue = 0,
+            MaxValue = 1,
+            Value = 0,
+            MinHeight = 12,
+            HorizontalExpand = true,
+        };
+        root.AddChild(_execution);
 
         root.AddChild(new Label
         {
@@ -369,12 +401,34 @@ public sealed class NetrunningDefenseControl : Control
         UpdateCountdown();
     }
 
-    public void MarkResponseSent()
+    public void MarkResponsePending()
     {
         _execute.Disabled = true;
         _shards.MouseFilter = MouseFilterMode.Ignore;
-        _status.Text = Loc.GetString("netrunning-defense-window-response-sent");
+        _status.Text = Loc.GetString("netrunning-defense-window-response-pending");
         _status.FontColorOverride = Color.FromHex("#ff9b38");
+    }
+
+    public void ShowResponseStatus(bool accepted)
+    {
+        if (accepted)
+        {
+            _status.Text = Loc.GetString("netrunning-defense-window-response-sent");
+            _status.FontColorOverride = Color.FromHex("#77d8ff");
+            return;
+        }
+
+        _shards.MouseFilter = MouseFilterMode.Stop;
+        _execute.Disabled = _selectedShard == null;
+        _status.Text = Loc.GetString("netrunning-defense-window-response-rejected");
+        _status.FontColorOverride = Color.FromHex("#ff2438");
+    }
+
+    public void RefreshCountdown(int milliseconds)
+    {
+        _timeLeft = Math.Max(0f, milliseconds / 1000f);
+        _totalTime = Math.Max(0.001f, _timeLeft);
+        UpdateCountdown();
     }
 
     public void ShowResolution(bool attackApplied)
@@ -389,6 +443,7 @@ public sealed class NetrunningDefenseControl : Control
 
     private void UpdateCountdown()
     {
+        _execution.Value = 1f - _timeLeft / _totalTime;
         _countdown.Text = Loc.GetString("netrunning-defense-window-countdown",
             ("seconds", MathF.Ceiling(_timeLeft * 10f) / 10f));
     }

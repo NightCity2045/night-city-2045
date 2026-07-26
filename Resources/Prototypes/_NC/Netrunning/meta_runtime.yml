@@ -2,3 +2,11 @@
   id: default
   globalOperationsPerTick: 50000
   processOperationsPerTick: 500
+  minimumProgramHealth: 25
+  maximumProgramHealth: 500
+  programHealthPerServerLoad: 25
+  programHealthPerGas: 25
+  maximumIceDamage: 250
+  iceDamagePerGas: 10
+  maximumNeuralDamage: 100
+  neuralDamagePerGas: 5

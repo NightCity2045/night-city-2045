@@ -169,7 +169,8 @@ public enum MetaIntrusionOperationKind : byte
     Breach,
     Program,
     Immersion,
-    Admin
+    Admin,
+    Encounter
 }
 
 [Serializable, NetSerializable]

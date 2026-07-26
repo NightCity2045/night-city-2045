@@ -91,6 +91,19 @@ public sealed class NetrunningDefenseResponseEvent : EntityEventArgs
 }
 
 [Serializable, NetSerializable]
+public sealed class NetrunningDefenseResponseStatusEvent : EntityEventArgs
+{
+    public readonly int TransactionId;
+    public readonly bool Accepted;
+
+    public NetrunningDefenseResponseStatusEvent(int transactionId, bool accepted)
+    {
+        TransactionId = transactionId;
+        Accepted = accepted;
+    }
+}
+
+[Serializable, NetSerializable]
 public sealed class NetrunningDefenseResolvedEvent : EntityEventArgs
 {
     public readonly int TransactionId;

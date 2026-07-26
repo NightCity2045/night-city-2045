@@ -18,11 +18,14 @@ public sealed class MetaDefenseResponseRequestedEvent : EntityEventArgs
 {
     public readonly EntityUid Actor;
     public readonly EntityUid Shard;
+    public readonly EntityUid Target;
+    public bool Accepted;
 
-    public MetaDefenseResponseRequestedEvent(EntityUid actor, EntityUid shard)
+    public MetaDefenseResponseRequestedEvent(EntityUid actor, EntityUid shard, EntityUid target)
     {
         Actor = actor;
         Shard = shard;
+        Target = target;
     }
 }
 
@@ -350,6 +353,8 @@ public sealed class MetaDaemonSystem : EntitySystem
                 if (result.Continuation != null)
                 {
                     StoreContinuation(hostUid, active.Server, active.Shard, result, active: active);
+                    if (TryComp<MetaDefenseQueueComponent>(active.Server, out var defenseQueue))
+                        SendDefenseWindow(active.Server, defenseQueue, defenseQueue.ActiveTransactionId);
                     continue;
                 }
             }
@@ -469,6 +474,11 @@ public sealed class MetaDaemonSystem : EntitySystem
             ? _api.ResolveFeedbackTarget(transaction.Intruder)
             : transaction.FeedbackTarget;
         RaiseNetworkEvent(new NetrunningDefenseResolvedEvent(transaction.Id, transaction.Applied), feedbackTarget);
+
+        // Encounter transactions only drive the combat response window; there is
+        // no suspended initiating process that will consume them afterwards.
+        if (transaction.Operation == MetaIntrusionOperationKind.Encounter)
+            defenseQueue.Transactions.Remove(transaction.Id);
     }
 
     private void OnDefenseResponse(NetrunningDefenseResponseEvent ev, EntitySessionEventArgs args)
@@ -482,12 +492,22 @@ public sealed class MetaDaemonSystem : EntitySystem
         if (!TryComp<MetaDefenseQueueComponent>(serverUid, out var queue) ||
             !queue.Transactions.TryGetValue(ev.TransactionId, out var transaction) ||
             transaction.Completed ||
-            transaction.Intruder != deckUid)
+            transaction.Intruder != deckUid ||
+            queue.ActiveTransactionId != ev.TransactionId ||
+            queue.ActiveHost is not { } target ||
+            Deleted(target))
         {
+            RaiseNetworkEvent(
+                new NetrunningDefenseResponseStatusEvent(ev.TransactionId, false),
+                args.SenderSession);
             return;
         }
 
-        RaiseLocalEvent(deckUid, new MetaDefenseResponseRequestedEvent(actor, shardUid));
+        var response = new MetaDefenseResponseRequestedEvent(actor, shardUid, target);
+        RaiseLocalEvent(deckUid, response);
+        RaiseNetworkEvent(
+            new NetrunningDefenseResponseStatusEvent(ev.TransactionId, response.Accepted),
+            args.SenderSession);
     }
 
     private void SendDefenseWindow(
@@ -620,11 +640,21 @@ public sealed class MetaDaemonSystem : EntitySystem
                     transaction.Cancelled = true;
             }
 
+            if (defenseQueue.ActiveHost is { } activeHost &&
+                TryComp<ActiveMetaDaemonProcessComponent>(activeHost, out var active) &&
+                active.Intruder == intruder)
+            {
+                // Do not remove a daemon component from inside its own VM call.
+                // Marking the continuation stops all instructions after disconnect.
+                active.Continuation.Exited = true;
+                active.ResumeAtTime = _timing.CurTime.TotalSeconds;
+            }
+
             // The active invocation is no longer in Pending. Once the link is cut,
             // no later defensive program should spend server load on that intruder.
             defenseQueue.Pending.RemoveAll(invocation => invocation.Intruder == intruder);
 
-            foreach (var transaction in defenseQueue.Transactions.Values)
+            foreach (var transaction in defenseQueue.Transactions.Values.ToArray())
                 TryCompleteTransaction(serverUid, defenseQueue, transaction.Id);
         }
     }

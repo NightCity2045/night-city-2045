@@ -128,7 +128,7 @@ public sealed class MetaProgramSystem : EntitySystem
         if (!IsDeckControlledBy(uid, args.Actor))
             return;
 
-        TryExecuteDefenseResponse(uid, args.Shard);
+        args.Accepted = TryExecuteDefenseResponse(uid, args.Shard, args.Target);
     }
 
     private void OnDeckContainerModified(EntityUid uid, CyberdeckComponent component, ContainerModifiedMessage args)
@@ -591,7 +591,8 @@ public sealed class MetaProgramSystem : EntitySystem
         CyberdeckComponent deck,
         EntityUid shardUid,
         DataShardComponent shard,
-        bool defenseResponse)
+        bool defenseResponse,
+        EntityUid? responseTarget = null)
     {
         if (shard.Bytecode == null)
             return RejectedExecution(shardUid, Loc.GetString("netrunning-error-no-bytecode"));
@@ -599,7 +600,10 @@ public sealed class MetaProgramSystem : EntitySystem
             return RejectedExecution(shardUid, Loc.GetString("netrunning-cyberdeck-run-defensive-install"));
         if (!TryGetDeckUser(deckUid, out var user))
             return RejectedExecution(shardUid, Loc.GetString("netrunning-error-no-user"));
-        if (shard.Bytecode.RequiresTarget && deck.ActiveTarget == null)
+        var target = shard.Bytecode.RequiresTarget
+            ? responseTarget ?? deck.ActiveTarget
+            : null;
+        if (shard.Bytecode.RequiresTarget && target == null)
             return RejectedExecution(shardUid, Loc.GetString("netrunning-error-no-link"));
         if (!shard.Bytecode.RequiresTarget && !HasComp<NetAvatarComponent>(user))
             return RejectedExecution(shardUid, Loc.GetString("netrunning-error-requires-immersion"));
@@ -615,7 +619,6 @@ public sealed class MetaProgramSystem : EntitySystem
         deck.ReservedRam += shard.RequiredRam;
         Dirty(deckUid, deck);
 
-        var target = shard.Bytecode.RequiresTarget ? deck.ActiveTarget : null;
         MetaVmRunResult runResult;
         if (!defenseResponse &&
             target is { } protectedTarget &&
@@ -657,9 +660,10 @@ public sealed class MetaProgramSystem : EntitySystem
         return TryGetDeckUser(deckUid, out var user) && user == actor;
     }
 
-    public bool TryExecuteDefenseResponse(EntityUid deckUid, EntityUid shardUid)
+    public bool TryExecuteDefenseResponse(EntityUid deckUid, EntityUid shardUid, EntityUid target)
     {
-        if (!TryComp<CyberdeckComponent>(deckUid, out var deck) ||
+        if (Deleted(target) ||
+            !TryComp<CyberdeckComponent>(deckUid, out var deck) ||
             !deck.InstalledShards.Contains(shardUid) ||
             !TryComp<DataShardComponent>(shardUid, out var shard) ||
             shard.ProgramKind != MetaProgramKind.Standard ||
@@ -668,7 +672,8 @@ public sealed class MetaProgramSystem : EntitySystem
             return false;
         }
 
-        return ExecuteInternal(deckUid, deck, shardUid, shard, true).Failure != MetaExecutionFailure.Rejected;
+        return ExecuteInternal(deckUid, deck, shardUid, shard, true, target).Failure !=
+               MetaExecutionFailure.Rejected;
     }
 
     private MetaExecutionResult RejectedExecution(EntityUid shardUid, string error)

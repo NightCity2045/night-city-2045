@@ -58,6 +58,7 @@ public sealed class MetaApiSystem : EntitySystem, IMetaRuntimeApi
     [Dependency] private readonly NetServerSystem _netServer = default!;
     [Dependency] private readonly NetDemonPursuitSystem _demonPursuit = default!;
     [Dependency] private readonly SharedContainerSystem _containers = default!;
+    [Dependency] private readonly MetaExecutionBudgetSystem _budget = default!;
 
     private static readonly HashSet<string> AllowedOverrideKeys = new(StringComparer.OrdinalIgnoreCase)
     {
@@ -172,6 +173,7 @@ public sealed class MetaApiSystem : EntitySystem, IMetaRuntimeApi
         if (!TryComp<IceHealthComponent>(target, out var ice))
             return null;
 
+        var effectiveDamage = _budget.ClampIceDamage(damage);
         if (TryComp<CyberdeckComponent>(attacker, out var deck))
         {
             deck.TraceLevel = Math.Min(100, deck.TraceLevel + 10);
@@ -182,14 +184,13 @@ public sealed class MetaApiSystem : EntitySystem, IMetaRuntimeApi
                 target,
                 attacker,
                 MetaIntrusionOperationKind.Inject,
-                damage,
+                effectiveDamage,
                 out var wait))
         {
             return wait;
         }
 
-        ice.CurrentHealth = Math.Max(0, ice.CurrentHealth - Math.Max(0, damage));
-        Dirty(target, ice);
+        ApplyIceDamage(target, ice, effectiveDamage);
         return null;
     }
 
@@ -408,8 +409,7 @@ public sealed class MetaApiSystem : EntitySystem, IMetaRuntimeApi
                 if (!TryComp<IceHealthComponent>(transaction.Target, out var ice))
                     return false;
 
-                ice.CurrentHealth = Math.Max(0, ice.CurrentHealth - Math.Max(0, transaction.Value));
-                Dirty(transaction.Target, ice);
+                ApplyIceDamage(transaction.Target, ice, transaction.Value);
                 return true;
 
             case MetaIntrusionOperationKind.Breach:
@@ -425,10 +425,23 @@ public sealed class MetaApiSystem : EntitySystem, IMetaRuntimeApi
             case MetaIntrusionOperationKind.Immersion:
             case MetaIntrusionOperationKind.Admin:
                 return true;
+            case MetaIntrusionOperationKind.Encounter:
+                return HasComp<NetDefenseComponent>(transaction.Target);
 
             default:
                 return false;
         }
+    }
+
+    private void ApplyIceDamage(EntityUid target, IceHealthComponent ice, int damage)
+    {
+        ice.CurrentHealth = Math.Max(0, ice.CurrentHealth - Math.Max(0, damage));
+        Dirty(target, ice);
+
+        // Physical META programs cease to exist when their ICE reaches zero.
+        // Component shutdown owns process cancellation and server-load release.
+        if (ice.CurrentHealth == 0 && HasComp<NetDefenseComponent>(target))
+            QueueDel(target);
     }
 
     public bool HasRoot(EntityUid deckUid, EntityUid serverUid)
@@ -509,9 +522,12 @@ public sealed class MetaApiSystem : EntitySystem, IMetaRuntimeApi
             !TryGetHostedProgramPlacement(deckUid, shardUid, serverUid.Value, out var server, out var source, out var coords))
             return null;
 
+        var effectiveStrength = _budget.ClampProgramHealth(strength);
         var uid = Spawn(blackIce ? "NCNetBlackIce" : "NCNetIce", coords);
         var defense = EnsureComp<NetDefenseComponent>(uid);
-        var load = defense.ReservedLoad + source.RequiredRam;
+        var load = defense.ReservedLoad +
+                   source.RequiredRam +
+                   _budget.GetProgramHealthLoad(effectiveStrength);
         if (server.UsedLoad + load > server.MaxLoad ||
             !TryAttachHostedProgram(uid, source, serverUid.Value))
         {
@@ -525,7 +541,7 @@ public sealed class MetaApiSystem : EntitySystem, IMetaRuntimeApi
         defense.ReservedLoad = load;
         defense.Kind = blackIce ? NetDefenseKind.BlackIce : NetDefenseKind.Ice;
         var ice = EnsureComp<IceHealthComponent>(uid);
-        ice.MaxHealth = Math.Max(25, strength);
+        ice.MaxHealth = effectiveStrength;
         ice.CurrentHealth = ice.MaxHealth;
 
         ReserveDefense(serverUid.Value, server, uid, defense.ReservedLoad);
@@ -542,9 +558,12 @@ public sealed class MetaApiSystem : EntitySystem, IMetaRuntimeApi
             !TryGetHostedProgramPlacement(deckUid, shardUid, serverUid.Value, out var server, out var source, out var coords))
             return null;
 
+        var effectiveStrength = _budget.ClampProgramHealth(strength);
         var uid = Spawn("NCNetDemon", coords);
         var defense = EnsureComp<NetDefenseComponent>(uid);
-        var load = defense.ReservedLoad + source.RequiredRam;
+        var load = defense.ReservedLoad +
+                   source.RequiredRam +
+                   _budget.GetProgramHealthLoad(effectiveStrength);
         if (server.UsedLoad + load > server.MaxLoad ||
             !TryAttachHostedProgram(uid, source, serverUid.Value))
         {
@@ -558,7 +577,7 @@ public sealed class MetaApiSystem : EntitySystem, IMetaRuntimeApi
         defense.ReservedLoad = load;
         defense.Kind = NetDefenseKind.Demon;
         var ice = EnsureComp<IceHealthComponent>(uid);
-        ice.MaxHealth = Math.Max(25, strength);
+        ice.MaxHealth = effectiveStrength;
         ice.CurrentHealth = ice.MaxHealth;
 
         ReserveDefense(serverUid.Value, server, uid, defense.ReservedLoad);
@@ -708,16 +727,30 @@ public sealed class MetaApiSystem : EntitySystem, IMetaRuntimeApi
 
     public void ApplyNeuralDamage(EntityUid target, int damage)
     {
-        var amount = Math.Max(0, damage);
+        var amount = _budget.ClampNeuralDamage(damage);
         if (amount == 0)
             return;
 
+        var digitalTarget = ResolveDigitalAvatar(target);
         var physicalTarget = ResolveFeedbackTarget(target);
-
         var spec = new DamageSpecifier();
         spec.DamageDict["Heat"] = amount;
-        _damageable.TryChangeDamage(physicalTarget, spec, ignoreResistances: false, interruptsDoAfters: true);
-        SendNetrunningFeedback(physicalTarget, "NEURAL BURN", $"Digital feedback scorches your link for {amount}.", true);
+
+        if (digitalTarget is { } avatar && !Deleted(avatar))
+            _damageable.TryChangeDamage(avatar, spec, ignoreResistances: false, interruptsDoAfters: true);
+
+        if (physicalTarget != digitalTarget)
+            _damageable.TryChangeDamage(
+                physicalTarget,
+                spec,
+                ignoreResistances: false,
+                interruptsDoAfters: true);
+
+        SendNetrunningFeedback(
+            physicalTarget,
+            Loc.GetString("netrunning-neural-burn-title"),
+            Loc.GetString("netrunning-neural-burn-message", ("damage", amount)),
+            true);
     }
 
     public EntityUid ResolveFeedbackTarget(EntityUid target)

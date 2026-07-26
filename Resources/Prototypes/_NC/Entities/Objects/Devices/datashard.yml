@@ -117,6 +117,24 @@
 
 - type: entity
   parent: NCDataShard
+  id: NCDataShardIceBreaker
+  name: "META: ICE Breaker"
+  description: A combat response that attacks the active ICE or demon process.
+  components:
+  - type: DataShard
+    sourceCode: |
+      REQUIRE TARGET [1];
+
+      DEF PTR threat = SYS.GET_TARGET();
+      IF (SYS.IS_VALID(threat) == 1 && SYS.GET_ICE(threat) > 0) {
+          SYS.LOG("Countermeasure locked. Injecting destructive payload.");
+          SYS.INJECT(threat, 100);
+      }
+
+      EXIT [0];
+
+- type: entity
+  parent: NCDataShard
   id: NCDataShardDoorToggle
   name: "META: Переключатель шлюза"
   description: Простой боевой скрипт для открытия или закрытия выбранного шлюза.
@@ -333,6 +351,7 @@
               }
 
               IF (SYS.IS_IN_RANGE(self, intruder, 1) == 1) {
+                  YIELD [500];
                   SYS.BURN_NEUROPORT(intruder, 15);
               }
 

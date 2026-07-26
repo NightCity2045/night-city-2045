@@ -297,7 +297,8 @@ public sealed class MetaVirtualMachineSystem : EntitySystem
             {
                 s.SystemCallsThisSlice++;
                 var target = EvalPtr(s, inj.Target);
-                var damage = EvalInt(s, inj.Damage);
+                var damage = _budget.ClampIceDamage(EvalInt(s, inj.Damage));
+                ConsumeGas(s, _budget.GetIceDamageGas(damage));
                 if (!s.ShouldStop && target != null)
                 {
                     var wait = _api.Inject(deckUid, target.Value, damage, HasDefenseClearance(s, target.Value));
@@ -391,7 +392,8 @@ public sealed class MetaVirtualMachineSystem : EntitySystem
         if (func == "BURN_NEUROPORT")
         {
             var target = EvalPtr(s, ss.Arguments[0]);
-            var damage = EvalInt(s, ss.Arguments[1]);
+            var damage = _budget.ClampNeuralDamage(EvalInt(s, ss.Arguments[1]));
+            ConsumeGas(s, _budget.GetNeuralDamageGas(damage));
             if (!s.ShouldStop && target != null)
                 _api.BurnNeuroport(target.Value, damage);
         }
@@ -414,7 +416,8 @@ public sealed class MetaVirtualMachineSystem : EntitySystem
         if (func == "DUMPSHOCK")
         {
             var target = EvalPtr(s, ss.Arguments[0]);
-            var damage = EvalInt(s, ss.Arguments[1]);
+            var damage = _budget.ClampNeuralDamage(EvalInt(s, ss.Arguments[1]));
+            ConsumeGas(s, _budget.GetNeuralDamageGas(damage));
             if (!s.ShouldStop && target != null)
                 _api.ApplyNeuralDamage(target.Value, damage);
         }
@@ -580,7 +583,14 @@ public sealed class MetaVirtualMachineSystem : EntitySystem
         s.SystemCallsThisSlice++;
         var deckUid = GetEntity(s.DeckUid);
         var f = sys.Name.ToUpperInvariant();
-        if (f == "GET_TARGET") return _api.GetTarget(deckUid);
+        if (f == "GET_TARGET")
+        {
+            // Keep the target stable across YIELD and use the hostile program as
+            // the target while a netrunner launches a response script.
+            return s.DefenseClearedTarget != default
+                ? GetEntity(s.DefenseClearedTarget)
+                : _api.GetTarget(deckUid);
+        }
         if (f == "GET_SERVER") return _api.GetServer(deckUid);
         if (f == "GET_SELF") return _api.GetSelf(deckUid);
         if (f == "GET_INTRUDER") return _api.GetIntruder(deckUid);
@@ -594,7 +604,8 @@ public sealed class MetaVirtualMachineSystem : EntitySystem
         if (f is "SPAWN_ICE" or "SPAWN_BLACK_ICE" or "SPAWN_DEMON")
         {
             var target = EvalPtr(s, sys.Arguments[0]);
-            var strength = EvalInt(s, sys.Arguments[1]);
+            var strength = _budget.ClampProgramHealth(EvalInt(s, sys.Arguments[1]));
+            ConsumeGas(s, _budget.GetProgramHealthGas(strength));
             if (s.ShouldStop || target == null)
                 return null;
 
@@ -732,7 +743,10 @@ public sealed class MetaVirtualMachineSystem : EntitySystem
 
     private void ConsumeGas(MetaContinuationState s, int gas)
     {
-        if (!_budget.TryConsume())
+        if (gas <= 0)
+            return;
+
+        if (!_budget.TryConsume(gas))
             s.SchedulerPreemptionRequested = true;
 
         if (gas <= s.GasRemaining)

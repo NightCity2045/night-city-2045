@@ -1,4 +1,5 @@
 using Content.Shared._NC.Netrunning.Components;
+using Content.Shared._NC.Netrunning.Meta;
 using System.Linq;
 
 namespace Content.Server._NC.Netrunning.Systems;
@@ -62,7 +63,15 @@ public sealed class NetDefenseSystem : EntitySystem
                 continue;
 
             // Every entrant reaches META; the script decides whether owner/admin status matters.
-            _metaDaemon.NotifyIntrusion(uid, intruderDeck, target.Owner);
+            // A transaction gives the intruder a response window while the hosted
+            // program is suspended on YIELD.
+            _metaDaemon.TryBeginIntrusion(
+                uid,
+                intruderDeck,
+                MetaIntrusionOperationKind.Encounter,
+                0,
+                out _,
+                target.Owner);
         }
 
         foreach (var previous in hosted.IntrudersInRange.ToArray())
