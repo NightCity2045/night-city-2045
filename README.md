@@ -88,7 +88,7 @@ Night City 2045 билд по настольной версии Киберпан
 
 Настоящее уведомление распространяется только на оригинальный код Night City 2045. Оно не изменяет и не отменяет лицензии кода, ресурсов и других материалов, полученных из Space Station 14, Einstein Engines, WWhiteDreamProject или иных сторонних источников. Такие материалы продолжают распространяться на условиях их первоначальных лицензий.
 
-**Дата вступления в силу:** коммит `commit` (`27 July 2026 20:00:00 UTC`),
+**Дата вступления в силу:** коммит `2c607ed6de475a9c9f40e972bb939760bf161672` (`27 July 2026 20:00:00 UTC`),
 
 Required Notice: Copyright © 2026 Astro/Yascherke and Night City 2045. Original source code located in directories named `_NC` is licensed under the PolyForm Noncommercial License 1.0.0 unless otherwise stated.
 
