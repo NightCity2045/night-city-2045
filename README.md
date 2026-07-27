@@ -72,7 +72,7 @@ Night City 2045 билд по настольной версии Киберпан
 Все файлы исходного кода, которые:
 
 1. расположены в каталогах с названием `_NC`; и
-2. являются оригинальной работой Astro/Yascherke и проекта Night City 2045,
+2. являются оригинальной работой Astro и проекта Night City 2045,
 
 если непосредственно в файле не указано иное, предоставляются на условиях **PolyForm Noncommercial License 1.0.0**.
 
@@ -90,11 +90,11 @@ Night City 2045 билд по настольной версии Киберпан
 
 **Дата вступления в силу:** коммит `2c607ed6de475a9c9f40e972bb939760bf161672` (`27 July 2026 20:00:00 UTC`),
 
-Required Notice: Copyright © 2026 Astro/Yascherke and Night City 2045. Original source code located in directories named `_NC` is licensed under the PolyForm Noncommercial License 1.0.0 unless otherwise stated.
+Required Notice: Copyright © 2026 Astro and Night City 2045. Original source code located in directories named `_NC` is licensed under the PolyForm Noncommercial License 1.0.0 unless otherwise stated.
 
 По вопросам получения коммерческой лицензии писать в дискорд: nre500.
 
 Большинство ресурсов лицензировано под [CC-BY-SA 3.0](https://creativecommons.org/licenses/by-sa/3.0/), если не указано иное. Лицензия и авторские права на ресурсах указаны в файле метаданных.
 [Example](./Resources/Textures/Objects/Tools/crowbar.rsi/meta.json).
 
-Обратите внимание, что активы, созданные командой WWDP, а так же NC, лицензированы под некоммерческой [CC-BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/) или аналогичной некоммерческой лицензией и должны быть удалены, если вы хотите использовать этот проект в коммерческих целях. В случае, если в файле метаданных указано иное - укажите нам об этом, прошлая лицензия будет применяться ретроактивно вместе с CC-BY-NC-SA 4.0.
+Обратите внимание, что активы, созданные командой WWDP и Night City 2045, лицензированы под некоммерческой [CC-BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/) или аналогичной некоммерческой лицензией и должны быть удалены, если вы хотите использовать этот проект в коммерческих целях. В случае, если в файле метаданных указано иное - укажите нам об этом, прошлая лицензия будет применяться ретроактивно вместе с CC-BY-NC-SA 4.0.
