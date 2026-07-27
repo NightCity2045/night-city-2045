@@ -94,6 +94,36 @@ Required Notice: Copyright © 2026 Astro and Night City 2045. Original source co
 
 По вопросам получения коммерческой лицензии писать в дискорд: nre500.
 
+## Licensing of Original Night City 2045 Code
+
+This repository contains materials distributed under various licenses.
+
+### Night City 2045 Code
+
+All source code files that:
+
+1. are located in directories named `_NC`; and
+2. are the original work of Astro and the Night City 2045 project,
+
+unless otherwise stated directly in the file, are provided under the terms of the **PolyForm Noncommercial License 1.0.0**.
+
+Official license text:
+
+`https://polyformproject.org/licenses/noncommercial/1.0.0`
+
+This code may be used, run, copied, modified, and distributed exclusively for noncommercial purposes and in compliance with the terms of the specified license.
+
+Any commercial use of the original Night City 2045 code requires the prior written permission of the copyright holder and a separate commercial license.
+
+Commercial use may include, among other things, the use of the code as part of a paid product, paid game server, commercial service, or project whose primary purpose is obtaining commercial benefit or monetary compensation.
+
+This notice applies only to the original Night City 2045 code. It does not modify or revoke the licenses applicable to code, resources, or other materials obtained from Space Station 14, Einstein Engines, WWhiteDreamProject, or any other third-party sources. Such materials remain distributed under the terms of their original licenses.
+
+**Effective date:** commit `2c607ed6de475a9c9f40e972bb939760bf161672` (`27 July 2026 20:00:00 UTC`).
+
+Required Notice: Copyright © 2026 Astro and Night City 2045. Original source code located in directories named `_NC` is licensed under the PolyForm Noncommercial License 1.0.0 unless otherwise stated.
+
+
 Большинство ресурсов лицензировано под [CC-BY-SA 3.0](https://creativecommons.org/licenses/by-sa/3.0/), если не указано иное. Лицензия и авторские права на ресурсах указаны в файле метаданных.
 [Example](./Resources/Textures/Objects/Tools/crowbar.rsi/meta.json).
 
