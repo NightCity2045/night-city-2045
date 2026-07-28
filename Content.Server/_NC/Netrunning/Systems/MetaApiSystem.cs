@@ -777,15 +777,6 @@ public sealed class MetaApiSystem : EntitySystem, IMetaRuntimeApi
         return target;
     }
 
-    public void SendDefenseWarning(EntityUid target, EntityUid defenseHost)
-    {
-        SendNetrunningFeedback(
-            target,
-            Loc.GetString("netrunning-defense-warning-title"),
-            Loc.GetString("netrunning-defense-warning-message", ("defense", Name(defenseHost))),
-            true);
-    }
-
     private EntityUid? ResolveServer(EntityUid uid)
     {
         return _netServer.ResolveNetworkServer(uid);

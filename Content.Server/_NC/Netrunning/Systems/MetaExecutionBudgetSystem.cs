@@ -1,4 +1,6 @@
 using Content.Shared._NC.Netrunning.Prototypes;
+using Content.Shared._NC.Netrunning.Components;
+using Content.Shared._NC.Netrunning.Meta;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Timing;
 
@@ -15,6 +17,7 @@ public sealed class MetaExecutionBudgetSystem : EntitySystem
     private MetaRuntimeSettingsPrototype _settings = default!;
     private GameTick _budgetTick;
     private int _remainingOperations;
+    private float _runtimeRecoveryTimer;
 
     public int ProcessQuantum => Math.Max(1, _settings.ProcessOperationsPerTick);
 
@@ -78,6 +81,58 @@ public sealed class MetaExecutionBudgetSystem : EntitySystem
 
         _remainingOperations -= cost;
         return true;
+    }
+
+    public float ApplyServerRuntimeLoad(
+        EntityUid serverUid,
+        NetServerComponent server,
+        MetaExecutionResult result)
+    {
+        var pressure = GetYieldPressure(result.YieldMilliseconds);
+        var generated =
+            (result.OperationsThisSlice * Math.Max(0f, _settings.ServerRuntimeLoadPerOperation) +
+             result.SystemCallsThisSlice * Math.Max(0f, _settings.ServerRuntimeLoadPerSystemCall)) * pressure;
+        server.RuntimeLoad = Math.Max(0f, server.RuntimeLoad + generated);
+        Dirty(serverUid, server);
+
+        var availableRuntime = Math.Max(1f, server.MaxLoad - server.UsedLoad);
+        return server.RuntimeLoad >= availableRuntime
+            ? Math.Max(1f, _settings.ServerRuntimeOverloadYieldMultiplier)
+            : 1f;
+    }
+
+    private float GetYieldPressure(int yieldMilliseconds)
+    {
+        if (yieldMilliseconds <= 0)
+            return 1f;
+
+        var minimum = Math.Max(1, _settings.YieldPressureMinimumMilliseconds);
+        var pressure = _settings.YieldPressureBaselineMilliseconds /
+                       (float) Math.Max(minimum, yieldMilliseconds);
+        return Math.Clamp(pressure, 1f, Math.Max(1f, _settings.YieldPressureMaximumMultiplier));
+    }
+
+    public override void Update(float frameTime)
+    {
+        base.Update(frameTime);
+
+        _runtimeRecoveryTimer += frameTime;
+        if (_runtimeRecoveryTimer < 1f)
+            return;
+
+        var elapsed = _runtimeRecoveryTimer;
+        _runtimeRecoveryTimer = 0f;
+        var query = EntityQueryEnumerator<NetServerComponent>();
+        while (query.MoveNext(out var uid, out var server))
+        {
+            if (server.RuntimeLoad <= 0f)
+                continue;
+
+            server.RuntimeLoad = Math.Max(
+                0f,
+                server.RuntimeLoad - Math.Max(0f, _settings.ServerRuntimeLoadRecoveryPerSecond) * elapsed);
+            Dirty(uid, server);
+        }
     }
 
     private static int ScaleCost(int value, int unitsPerCost)

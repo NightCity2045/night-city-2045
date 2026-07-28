@@ -53,6 +53,13 @@ public sealed partial class NetServerComponent : Component
     public int ActiveMetaPrograms;
 
     /// <summary>
+    /// Transient execution pressure from active hosted META slices.
+    /// Unlike UsedLoad, this recovers while the server is running.
+    /// </summary>
+    [ViewVariables(VVAccess.ReadOnly)]
+    public float RuntimeLoad;
+
+    /// <summary>
     ///     Reference to the MapId of the local network grid.
     /// </summary>
     [ViewVariables(VVAccess.ReadOnly)]

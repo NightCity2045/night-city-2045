@@ -207,6 +207,7 @@ public sealed record MetaExecutionResult(
     int SystemCallsThisSlice,
     MetaSuspensionReason SuspensionReason,
     int ReservedRam,
+    int YieldMilliseconds,
     NetEntity ShardUid_Internal = default);
 
 public interface IMetaRuntimeApi

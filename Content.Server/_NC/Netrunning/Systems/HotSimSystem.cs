@@ -54,6 +54,7 @@ public sealed class HotSimSystem : EntitySystem
         SubscribeLocalEvent<NetAvatarComponent, OpenLinkedCyberdeckActionEvent>(OnOpenLinkedCyberdeck);
         SubscribeLocalEvent<NetAvatarComponent, AccessibleOverrideEvent>(OnAvatarAccessibleOverride);
         SubscribeLocalEvent<NetModuleComponent, ComponentShutdown>(OnModuleShutdown);
+        SubscribeLocalEvent<NeuralLoadComponent, NeuralLoadOverloadEvent>(OnNeuralOverload);
     }
 
     private void OnConstruct(EntityUid uid, CyberdeckComponent component, CyberdeckConstructMessage args)
@@ -384,6 +385,27 @@ public sealed class HotSimSystem : EntitySystem
 
     private void OnJackOut(EntityUid uid, NetAvatarComponent component, JackOutActionEvent args)
     {
+        BeginJackOut(uid, component, TimeSpan.FromSeconds(0.8f));
+    }
+
+    private void OnNeuralOverload(
+        EntityUid uid,
+        NeuralLoadComponent component,
+        ref NeuralLoadOverloadEvent args)
+    {
+        var query = EntityQueryEnumerator<NetAvatarComponent>();
+        while (query.MoveNext(out var avatarUid, out var avatar))
+        {
+            if (avatar.PhysicalBody != uid)
+                continue;
+
+            BeginJackOut(avatarUid, avatar, TimeSpan.Zero);
+            return;
+        }
+    }
+
+    private void BeginJackOut(EntityUid uid, NetAvatarComponent component, TimeSpan delay)
+    {
         if (!_mindSystem.TryGetMind(uid, out var mindId, out var mind))
             return;
 
@@ -394,7 +416,7 @@ public sealed class HotSimSystem : EntitySystem
         RaiseNetworkEvent(new NetrunningImmersionEvent(true), uid);
 
         // 2. Wait for fade then return
-        Timer.Spawn(TimeSpan.FromSeconds(0.8f), () => 
+        Timer.Spawn(delay, () =>
         {
             if (Deleted(body)) return;
 

@@ -1,6 +1,7 @@
 using System.Linq;
 using Content.Shared._NC.Stats;
 using Content.Shared._NC.Stats.Components;
+using Content.Shared._NC.Stats.Events;
 using Content.Shared._NC.Stats.Systems;
 using Content.Shared.GameTicking;
 using Content.Shared.Humanoid;
@@ -57,6 +58,9 @@ public sealed class NCStatsSpawnSystem : EntitySystem
 
         // NC stats affect derived movement modifiers, so recalculate after the profile build is on the mob.
         _movementSpeed.RefreshMovementSpeedModifiers(uid);
+
+        var applied = new NCProfileStatsAppliedEvent();
+        RaiseLocalEvent(uid, ref applied);
     }
 
     private static List<NCStatEntry> CloneStats(IEnumerable<NCStatEntry> stats)

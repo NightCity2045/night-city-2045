@@ -46,6 +46,7 @@ public sealed class MetaProgramSystem : EntitySystem
     [Dependency] private readonly DamageableSystem _damageable = default!;
     [Dependency] private readonly SharedStunSystem _stun = default!;
     [Dependency] private readonly MetaDaemonSystem _daemon = default!;
+    [Dependency] private readonly NeuralLoadSystem _neuralLoad = default!;
 
     private float _ramRecoveryTimer;
 
@@ -177,7 +178,8 @@ public sealed class MetaProgramSystem : EntitySystem
                 return;
             }
 
-            var delay = (float)runResult.Continuation.ResumeAtTime; 
+            AdjustYieldDelay(user, runResult.Continuation, runResult.Result);
+            var delay = (float) runResult.Continuation.ResumeAtTime;
             var doAfterArgs = new DoAfterArgs(EntityManager, user, delay / 1000f, new AwaitedDoAfterEvent(), deckUid, target: user)
             {
                 BreakOnMove = true,
@@ -215,8 +217,9 @@ public sealed class MetaProgramSystem : EntitySystem
         bool applyHeat = true)
     {
         if (applyHeat)
-            AddExecutionHeat(deck, result);
+            ApplyExecutionPressure(deckUid, deck, user, result);
 
+        var effectiveGasLimit = _neuralLoad.GetEffectiveGasLimit(user, deck.GasLimit);
         if (result.Failure == MetaExecutionFailure.None && IsOverheated(deck))
         {
             result = result with
@@ -241,7 +244,7 @@ public sealed class MetaProgramSystem : EntitySystem
             ApplyGasFailure(deck, user);
             var message = Loc.GetString("netrunning-meta-gas-fatal",
                 ("spent", result.GasSpent),
-                ("limit", deck.GasLimit));
+                ("limit", effectiveGasLimit));
             _popup.PopupEntity(message, deckUid, user, PopupType.LargeCaution);
             SendExecutionLog(deckUid, message);
         }
@@ -249,7 +252,7 @@ public sealed class MetaProgramSystem : EntitySystem
         {
             var message = Loc.GetString("netrunning-meta-runtime-fatal",
                 ("spent", result.GasSpent),
-                ("limit", deck.GasLimit));
+                ("limit", effectiveGasLimit));
             _popup.PopupEntity(message, deckUid, user, PopupType.MediumCaution);
             SendExecutionLog(deckUid, message);
         }
@@ -266,7 +269,7 @@ public sealed class MetaProgramSystem : EntitySystem
         {
             var message = Loc.GetString("netrunning-meta-execution-complete",
                 ("spent", result.GasSpent),
-                ("limit", deck.GasLimit));
+                ("limit", effectiveGasLimit));
             _popup.PopupEntity(message, deckUid, user);
             SendExecutionLog(deckUid, message);
         }
@@ -281,7 +284,7 @@ public sealed class MetaProgramSystem : EntitySystem
         MetaExecutionResult result,
         EntityUid user)
     {
-        AddExecutionHeat(deck, result);
+        ApplyExecutionPressure(deckUid, deck, user, result);
         if (IsOverheated(deck))
         {
             var overheatResult = result with
@@ -303,11 +306,30 @@ public sealed class MetaProgramSystem : EntitySystem
         return true;
     }
 
-    private static void AddExecutionHeat(CyberdeckComponent deck, MetaExecutionResult result)
+    private void ApplyExecutionPressure(
+        EntityUid deckUid,
+        CyberdeckComponent deck,
+        EntityUid user,
+        MetaExecutionResult result)
     {
         var generated = result.OperationsThisSlice * Math.Max(0f, deck.HeatPerOperation) +
                         result.SystemCallsThisSlice * Math.Max(0f, deck.HeatPerSystemCall);
-        deck.CurrentHeat = Math.Max(0f, deck.CurrentHeat + generated);
+        deck.CurrentHeat = Math.Max(0f,
+            deck.CurrentHeat + generated * _neuralLoad.GetYieldPressure(result.YieldMilliseconds));
+        _neuralLoad.ApplyExecutionLoad(deckUid, deck, user, result);
+    }
+
+    public void AdjustYieldDelay(
+        EntityUid user,
+        MetaContinuationState continuation,
+        MetaExecutionResult result)
+    {
+        if (result.SuspensionReason != MetaSuspensionReason.Yield)
+            return;
+
+        continuation.ResumeAtTime = _neuralLoad.GetAdjustedYieldMilliseconds(
+            user,
+            result.YieldMilliseconds);
     }
 
     private static bool IsOverheated(CyberdeckComponent deck)
@@ -427,6 +449,9 @@ public sealed class MetaProgramSystem : EntitySystem
 
     public void UpdateUi(EntityUid uid, CyberdeckComponent component, EntityUid? user = null)
     {
+        if (user == null && TryGetDeckUser(uid, out var resolvedUser))
+            user = resolvedUser;
+
         var shards = new List<(NetEntity, string, string, MetaProgramKind, int, MetaProgramRuntimeState)>();
         if (_containers.TryGetContainer(uid, CyberdeckComponent.ShardContainerId, out var container))
         {
@@ -487,18 +512,36 @@ public sealed class MetaProgramSystem : EntitySystem
         var hasAR = user != null &&
                     (HasComp<NetAvatarComponent>(user.Value) ||
                      TryGetNetvisorBonus(user.Value, out _));
+        var currentNeuralLoad = 0f;
+        var maxNeuralLoad = 0f;
+        var hotSimNeuralLoadActive = false;
+        if (user is { } uiUser)
+        {
+            _neuralLoad.TryGetUiState(
+                uiUser,
+                out currentNeuralLoad,
+                out maxNeuralLoad,
+                out hotSimNeuralLoadActive);
+        }
+
+        var displayedGasLimit = user is { } gasUser
+            ? _neuralLoad.GetEffectiveGasLimit(gasUser, component.GasLimit)
+            : component.GasLimit;
         var state = new CyberdeckUiState(
             component.CurrentRam,
             component.ReservedRam,
             component.MaxRam,
             component.RecoverySpeed,
-            component.GasLimit,
+            displayedGasLimit,
             component.LastGasSpent,
             component.LastExecutionRunning,
             component.LastExecutionFailure,
             component.CurrentHeat,
             component.MaxHeat,
             component.CoolingPerSecond,
+            currentNeuralLoad,
+            maxNeuralLoad,
+            hotSimNeuralLoadActive,
             component.TraceLevel,
             component.StoredFiles.Count,
             component.StorageCapacity,
@@ -619,6 +662,7 @@ public sealed class MetaProgramSystem : EntitySystem
         deck.ReservedRam += shard.RequiredRam;
         Dirty(deckUid, deck);
 
+        var gasLimit = _neuralLoad.GetEffectiveGasLimit(user, deck.GasLimit);
         MetaVmRunResult runResult;
         if (!defenseResponse &&
             target is { } protectedTarget &&
@@ -635,7 +679,7 @@ public sealed class MetaProgramSystem : EntitySystem
                 user,
                 shardUid,
                 shard.Bytecode,
-                deck.GasLimit,
+                gasLimit,
                 protectedTarget,
                 wait);
         }
@@ -646,7 +690,7 @@ public sealed class MetaProgramSystem : EntitySystem
                 user,
                 shardUid,
                 shard.Bytecode,
-                deck.GasLimit,
+                gasLimit,
                 target);
         }
 
@@ -679,7 +723,7 @@ public sealed class MetaProgramSystem : EntitySystem
     private MetaExecutionResult RejectedExecution(EntityUid shardUid, string error)
     {
         return new MetaExecutionResult(false, false, error, MetaExecutionFailure.Rejected,
-            0, 0, 0, MetaSuspensionReason.None, 0, GetNetEntity(shardUid));
+            0, 0, 0, MetaSuspensionReason.None, 0, 0, GetNetEntity(shardUid));
     }
 
     public MetaProgramRuntimeState GetRuntimeState(EntityUid shardUid, DataShardComponent shard)
@@ -767,6 +811,11 @@ public sealed class MetaProgramSystem : EntitySystem
                 if (changed)
                 {
                     Dirty(deckUid, deck);
+                    UpdateUi(deckUid, deck);
+                }
+                else if (_ui.IsUiOpen(deckUid, CyberdeckUiKey.Key))
+                {
+                    // Neural load recovers on the operator, so refresh an open deck UI even if hardware did not change.
                     UpdateUi(deckUid, deck);
                 }
             }

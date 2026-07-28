@@ -10,3 +10,27 @@
   iceDamagePerGas: 10
   maximumNeuralDamage: 100
   neuralDamagePerGas: 5
+  neuralLoadBaseCapacity: 20
+  neuralLoadWillMultiplier: 6
+  neuralLoadIntelligenceMultiplier: 4
+  neuralLoadConcentrationMultiplier: 2
+  neuralLoadPerOperation: 0.01
+  neuralLoadPerSystemCall: 0.5
+  neuralLoadRecoveryPerSecond: 8
+  neuralLoadHotSimRecoveryPerSecond: 1
+  neuralLoadRecoveryDelaySeconds: 3
+  neuralLoadWarningRatio: 0.6
+  neuralLoadCriticalRatio: 0.8
+  neuralLoadCriticalTracePenalty: 10
+  neuralLoadCriticalYieldMultiplier: 1.5
+  neuralLoadOverloadDamage: 80
+  neuralLoadOverloadStunSeconds: 8
+  neuralLoadOverloadRecoveryLockSeconds: 15
+  hotSimGasPerNeuralCapacity: 10
+  yieldPressureBaselineMilliseconds: 3000
+  yieldPressureMinimumMilliseconds: 100
+  yieldPressureMaximumMultiplier: 30
+  serverRuntimeLoadPerOperation: 0.01
+  serverRuntimeLoadPerSystemCall: 0.5
+  serverRuntimeLoadRecoveryPerSecond: 5
+  serverRuntimeOverloadYieldMultiplier: 2

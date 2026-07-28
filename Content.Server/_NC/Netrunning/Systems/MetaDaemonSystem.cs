@@ -35,6 +35,7 @@ public sealed class MetaDaemonSystem : EntitySystem
     [Dependency] private readonly MetaApiSystem _api = default!;
     [Dependency] private readonly SharedContainerSystem _containers = default!;
     [Dependency] private readonly IGameTiming _timing = default!;
+    [Dependency] private readonly MetaExecutionBudgetSystem _budget = default!;
 
     private int _nextTransactionId = 1;
 
@@ -293,13 +294,13 @@ public sealed class MetaDaemonSystem : EntitySystem
         Dirty(shardUid, shard);
         Dirty(serverUid, server);
         RaiseLocalEvent(serverUid, new MetaServerRuntimeChangedEvent());
-        _api.SendDefenseWarning(invocation.FeedbackTarget, hostUid);
 
         try
         {
             _api.SetIntruder(hostUid, invocation.Intruder);
             var result = _vm.ExecuteEvent(hostUid, shardUid, shard.Bytecode!, "INTRUSION", invocation.Intruder,
                 Math.Max(1, server.MetaGasLimit));
+            var runtimeDelayMultiplier = _budget.ApplyServerRuntimeLoad(serverUid, server, result.Result);
             _api.SetIntruder(hostUid, null);
             _api.SetEventSource(hostUid, null);
 
@@ -311,7 +312,8 @@ public sealed class MetaDaemonSystem : EntitySystem
                     shardUid,
                     result,
                     invocation.Intruder,
-                    invocation.FeedbackTarget);
+                    invocation.FeedbackTarget,
+                    runtimeDelayMultiplier: runtimeDelayMultiplier);
                 SendDefenseWindow(serverUid, EnsureComp<MetaDefenseQueueComponent>(serverUid),
                     invocation.TransactionId);
                 return;
@@ -350,9 +352,21 @@ public sealed class MetaDaemonSystem : EntitySystem
                 _api.SetUser(active.Intruder, active.FeedbackTarget);
                 var result = _vm.Resume(active.Continuation);
                 _api.SetUser(active.Intruder, null);
+                var runtimeDelayMultiplier = 1f;
+                if (TryComp<NetServerComponent>(active.Server, out var server))
+                {
+                    runtimeDelayMultiplier =
+                        _budget.ApplyServerRuntimeLoad(active.Server, server, result.Result);
+                }
                 if (result.Continuation != null)
                 {
-                    StoreContinuation(hostUid, active.Server, active.Shard, result, active: active);
+                    StoreContinuation(
+                        hostUid,
+                        active.Server,
+                        active.Shard,
+                        result,
+                        active: active,
+                        runtimeDelayMultiplier: runtimeDelayMultiplier);
                     if (TryComp<MetaDefenseQueueComponent>(active.Server, out var defenseQueue))
                         SendDefenseWindow(active.Server, defenseQueue, defenseQueue.ActiveTransactionId);
                     continue;
@@ -382,7 +396,8 @@ public sealed class MetaDaemonSystem : EntitySystem
         MetaVmRunResult result,
         EntityUid intruder = default,
         EntityUid feedbackTarget = default,
-        ActiveMetaDaemonProcessComponent? active = null)
+        ActiveMetaDaemonProcessComponent? active = null,
+        float runtimeDelayMultiplier = 1f)
     {
         if (result.Continuation == null)
             return;
@@ -396,7 +411,8 @@ public sealed class MetaDaemonSystem : EntitySystem
         if (feedbackTarget != default)
             active.FeedbackTarget = feedbackTarget;
         active.ResumeAtTime = result.Result.SuspensionReason == MetaSuspensionReason.Yield
-            ? _timing.CurTime.TotalSeconds + result.Continuation.ResumeAtTime / 1000.0
+            ? _timing.CurTime.TotalSeconds +
+              result.Continuation.ResumeAtTime * Math.Max(1f, runtimeDelayMultiplier) / 1000.0
             : _timing.CurTime.TotalSeconds;
     }
 

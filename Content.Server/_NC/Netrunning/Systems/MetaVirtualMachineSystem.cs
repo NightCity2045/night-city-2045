@@ -142,6 +142,7 @@ public sealed class MetaVirtualMachineSystem : EntitySystem
             state.SystemCallsThisSlice,
             state.SuspensionReason,
             state.ReservedRam,
+            state.YieldDelayMs,
             state.ShardUid);
 
         if (state.Error != null)
@@ -154,6 +155,7 @@ public sealed class MetaVirtualMachineSystem : EntitySystem
     {
         state.OperationsThisSlice = 0;
         state.SystemCallsThisSlice = 0;
+        state.YieldDelayMs = 0;
         state.SchedulerPreemptionRequested = false;
         try
         {
@@ -216,6 +218,7 @@ public sealed class MetaVirtualMachineSystem : EntitySystem
             if (inst is MetaYieldInstruction y)
             {
                 s.ResumeAtTime = y.Milliseconds;
+                s.YieldDelayMs = y.Milliseconds;
                 s.SuspensionReason = MetaSuspensionReason.Yield;
                 return;
             }

@@ -37,6 +37,7 @@ public sealed partial class CyberdeckTerminalWindow : DefaultWindow
         GasBudgetTitleLabel.Text = Loc.GetString("netrunning-cyberdeck-gas-budget");
         GasProcessTitleLabel.Text = Loc.GetString("netrunning-cyberdeck-gas-process");
         HeatTitleLabel.Text = Loc.GetString("netrunning-cyberdeck-heat");
+        NeuralLoadTitleLabel.Text = Loc.GetString("netrunning-cyberdeck-neural-load");
         Tabs.SetTabTitle(0, Loc.GetString("netrunning-cyberdeck-tab-editor"));
         Tabs.SetTabTitle(1, Loc.GetString("netrunning-cyberdeck-tab-shards"));
         Tabs.SetTabTitle(2, Loc.GetString("netrunning-cyberdeck-tab-logs"));
@@ -128,6 +129,24 @@ public sealed partial class CyberdeckTerminalWindow : DefaultWindow
             >= 0.9f => Color.Red,
             >= 0.65f => Color.Orange,
             _ => Color.LightGreen
+        };
+        NeuralLoadLabel.Text = state.MaxNeuralLoad <= 0f
+            ? Loc.GetString("netrunning-cyberdeck-neural-unavailable")
+            : Loc.GetString("netrunning-cyberdeck-neural-value",
+                ("current", MathF.Round(state.CurrentNeuralLoad, 1)),
+                ("max", MathF.Round(state.MaxNeuralLoad, 1)),
+                ("mode", Loc.GetString(state.HotSimNeuralLoadActive
+                    ? "netrunning-cyberdeck-neural-hotsim"
+                    : "netrunning-cyberdeck-neural-coldsim")));
+        var neuralRatio = state.MaxNeuralLoad > 0f
+            ? state.CurrentNeuralLoad / state.MaxNeuralLoad
+            : 0f;
+        NeuralLoadLabel.FontColorOverride = neuralRatio switch
+        {
+            >= 0.8f => Color.Red,
+            >= 0.6f => Color.Orange,
+            _ when state.HotSimNeuralLoadActive => Color.LightGreen,
+            _ => Color.Gray
         };
         TraceLabel.Text = Loc.GetString("netrunning-cyberdeck-trace", ("trace", state.CurrentTrace));
         StorageLabel.Text = Loc.GetString("netrunning-cyberdeck-storage",

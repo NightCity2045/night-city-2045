@@ -86,6 +86,9 @@ public sealed class CyberdeckUiState : BoundUserInterfaceState
     public readonly float CurrentHeat;
     public readonly float MaxHeat;
     public readonly float CoolingPerSecond;
+    public readonly float CurrentNeuralLoad;
+    public readonly float MaxNeuralLoad;
+    public readonly bool HotSimNeuralLoadActive;
     public readonly int CurrentTrace;
     public readonly int StorageUsed;
     public readonly int StorageCapacity;
@@ -111,6 +114,9 @@ public sealed class CyberdeckUiState : BoundUserInterfaceState
         float currentHeat,
         float maxHeat,
         float coolingPerSecond,
+        float currentNeuralLoad,
+        float maxNeuralLoad,
+        bool hotSimNeuralLoadActive,
         int currentTrace,
         int storageUsed,
         int storageCapacity,
@@ -135,6 +141,9 @@ public sealed class CyberdeckUiState : BoundUserInterfaceState
         CurrentHeat = currentHeat;
         MaxHeat = maxHeat;
         CoolingPerSecond = coolingPerSecond;
+        CurrentNeuralLoad = currentNeuralLoad;
+        MaxNeuralLoad = maxNeuralLoad;
+        HotSimNeuralLoadActive = hotSimNeuralLoadActive;
         CurrentTrace = currentTrace;
         StorageUsed = storageUsed;
         StorageCapacity = storageCapacity;

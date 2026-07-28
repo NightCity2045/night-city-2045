@@ -77,6 +77,12 @@
                     <Label Name="HeatLabel" Text="" StyleClasses="NetTerminalSectionTitle" ClipText="True" />
                 </BoxContainer>
             </PanelContainer>
+            <PanelContainer StyleClasses="NetTerminalPanel" HorizontalExpand="True">
+                <BoxContainer Orientation="Vertical" Margin="7" SeparationOverride="2">
+                    <Label Name="NeuralLoadTitleLabel" Text="" StyleClasses="NetTerminalSectionText" />
+                    <Label Name="NeuralLoadLabel" Text="" StyleClasses="NetTerminalSectionTitle" ClipText="True" />
+                </BoxContainer>
+            </PanelContainer>
         </BoxContainer>
 
         <TabContainer Name="Tabs" VerticalExpand="True">

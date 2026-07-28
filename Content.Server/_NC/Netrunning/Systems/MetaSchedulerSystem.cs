@@ -134,7 +134,8 @@ public sealed class MetaSchedulerSystem : EntitySystem
 
             if (user.Valid && TryComp<CyberdeckComponent>(deckUid, out var deck))
             {
-                var delay = (float)runResult.Continuation.ResumeAtTime; 
+                _program.AdjustYieldDelay(user, runResult.Continuation, runResult.Result);
+                var delay = (float) runResult.Continuation.ResumeAtTime;
                 var doAfterArgs = new DoAfterArgs(EntityManager, user, delay / 1000f, new AwaitedDoAfterEvent(), deckUid, target: user)
                 {
                     BreakOnMove = true,
